@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "ambientocclusion": true,
+  "textures": {
+    "all": "reverie_dreams:block/ginkgo_fruit_leaves"
+  }
+}

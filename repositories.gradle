@@ -10,6 +10,12 @@ repositories {
 //        url = "https://crystal.app.lss233.com/repositories/minecraft"
 //    }
     maven {
+        url = "https://maven.minecraftforge.net/releases/"
+    }
+    maven {
+        url = 'https://maven.minecraftforge.net/'
+    }
+    maven {
         url = "https://maven.architectury.dev/"
     }
     maven {
@@ -122,6 +128,20 @@ repositories {
 
     mavenCentral()
     mavenLocal()
+
+    // Resolve loader-specific version IDs directly from Modrinth.
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'ModrinthVersionedReleases'
+                url = 'https://api.modrinth.com/maven'
+            }
+        }
+        filter {
+            includeModule('maven.modrinth', 'ti3tgKQn')
+            includeModule('maven.modrinth', 'jQtfvgHC')
+        }
+    }
 
     exclusiveContent {
         forRepository {

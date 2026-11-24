@@ -36,7 +36,7 @@ public class BlockDefinitionList {
     public BlockDefinitionList(List<Block> blockList) {
         for (Block block : blockList) {
             ResourceKey<Block> resourceKey = ((BlockAccessor) block).reverie_dreams$builtInRegistryHolder()
-                                                                    .key();
+                    .key();
             Identifier id = resourceKey.identifier();
             String key = id.toString();
             Definition definition = new Definition(block);

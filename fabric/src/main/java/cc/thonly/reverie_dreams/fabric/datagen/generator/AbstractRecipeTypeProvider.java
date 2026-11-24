@@ -194,21 +194,18 @@ public abstract class AbstractRecipeTypeProvider implements DataProvider {
                     Identifier identifier = registryEntry.getKey();
                     Object value = registryEntry.getValue();
                     DataResult<JsonElement> result = codec.encodeStart(JsonOps.INSTANCE, value);
-                    Optional<JsonElement> optional = result.result();
+                    JsonElement element = result.getOrThrow();
+                    Path output = generatePath.resolve(identifier.getPath() + ".json");
+                    String jsonString = this.gson.toJson(element);
+                    byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
+                    Files.createDirectories(output.getParent());
 
-                    if (optional.isPresent()) {
-                        JsonElement element = optional.get();
-                        Path output = generatePath.resolve(identifier.getPath() + ".json");
-                        String jsonString = this.gson.toJson(element);
-                        byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                        Files.createDirectories(output.getParent());
+                    cachedOutput.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
 
-                        cachedOutput.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
-                    }
                 }
             }
         } catch (Exception err) {
-            log.error("Error: ", err);
+            throw new IllegalStateException("Failed to generate AbstractRecipeTypeProvider", err);
         }
     }
 

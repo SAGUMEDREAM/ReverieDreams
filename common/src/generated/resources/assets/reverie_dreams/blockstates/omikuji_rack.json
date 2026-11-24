@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "reverie_dreams:block/omikuji_rack",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "reverie_dreams:block/omikuji_rack"
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/omikuji_rack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/omikuji_rack",
+      "y": 270
+    }
+  }
+}

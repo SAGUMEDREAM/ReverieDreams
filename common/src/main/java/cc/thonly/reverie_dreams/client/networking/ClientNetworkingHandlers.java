@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.client.networking;
 
 import cc.thonly.reverie_dreams.api.player.PlayerComponentManager;
 import cc.thonly.reverie_dreams.client.component.ClientPlayerComponentManager;
+import cc.thonly.reverie_dreams.client.scope.LunarWeaponPoseClient;
 import cc.thonly.reverie_dreams.client.util.PhotoScreenshotHelper;
 import cc.thonly.reverie_dreams.item.prop.TenguCameraItem;
 import cc.thonly.reverie_dreams.mixin.accessor.EntityAccessor;
@@ -14,7 +15,7 @@ import cc.thonly.reverie_dreams.registry.RegistryTagSet;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
-import cc.thonly.reverie_dreams.server.player.PlayerComponent;
+import cc.thonly.reverie_dreams.api.player.PlayerComponent;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.blaze3d.platform.NativeImage;
@@ -42,12 +43,15 @@ import net.minecraft.world.level.storage.ValueInput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @SuppressWarnings({"resource", "rawtypes"})
 @Slf4j
 public class ClientNetworkingHandlers {
+    private static final RecipeManagerSyncPacket.Assembler RECIPE_SYNC = new RecipeManagerSyncPacket.Assembler();
+
     public static void onReceive() {
 
     }
@@ -62,11 +66,22 @@ public class ClientNetworkingHandlers {
         Minecraft.getInstance().execute(action);
     }
 
+    public static void onReceiveLunarShotPose(LunarShotPosePacket packet) {
+        LunarWeaponPoseClient.recordShot(packet);
+    }
+
+    public static void onReceiveLunarReloadPose(LunarReloadPosePacket packet) {
+        LunarWeaponPoseClient.recordReload(packet);
+    }
+
     @SuppressWarnings("unchecked")
     public static void onReceiveRecipeManagerSyncPacket(Player player, RecipeManagerSyncPacket packet) {
         Identifier typeId = packet.typeId();
-        CompoundTag data = packet.data();
         try {
+            CompoundTag data = RECIPE_SYNC.accept(packet);
+            if (data == null) {
+                return;
+            }
             BaseRecipeType<BaseRecipe> recipeType = (BaseRecipeType<BaseRecipe>) RecipeManager.RECIPE_TYPES.get(typeId);
             if (recipeType == null)
                 return;
@@ -74,17 +89,27 @@ public class ClientNetworkingHandlers {
             if (pair == null) {
                 return;
             }
-            recipeType.clear();
             List<Pair<Identifier, BaseRecipe>> list = pair.value();
+            if (list.size() != data.getCompoundOrEmpty("data").getListOrEmpty("recipes").size()
+                    || list.stream().map(Pair::key).distinct().count() != list.size()) {
+                log.warn("Ignoring incomplete recipe snapshot for {}", typeId);
+                return;
+            }
+            recipeType.clear();
             list.forEach(recipePair -> {
                 Identifier key = recipePair.key();
                 BaseRecipe recipe = recipePair.value();
                 recipeType.add(key, recipe);
             });
-            log.info("Load recipe type {} from server", packet.typeId());
+            log.info("Load recipe type {} from server ({} recipes{})",
+                    typeId, list.size(), packet.isBatch() ? ", batched snapshot" : "");
         } catch (Exception e) {
             log.error("Can't sync server recipes {}: ", typeId, e);
         }
+    }
+
+    public static void clearRecipeSync() {
+        RECIPE_SYNC.clear();
     }
 
     public static void onReceiveCustomRegistrySyncPacket(Player player, CustomRegistrySyncPacket payload) {
@@ -175,21 +200,16 @@ public class ClientNetworkingHandlers {
         });
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T extends PlayerComponent> void onReceivePlayerComponentUpdatePacket(Player player, PlayerComponentUpdatePacket packet) {
-        CompoundTag data = packet.data();
-        PlayerComponentManager componentManager = PlayerComponentManager.clientAccess();
-        if (!(componentManager instanceof ClientPlayerComponentManager clientPlayerComponentManager)) {
+    public static void onReceivePlayerComponentUpdatePacket(PlayerComponentUpdatePacket packet) {
+        UUID playerId = packet.playerUUID();
+        Player player = ClientPlayerComponentManager.resolvePlayer(playerId);
+        if (player == null) {
+            log.warn("Received player component data for a player that is not loaded: {}", playerId);
             return;
         }
-        Tuple<String, List<PlayerComponent<T>>> tuple = clientPlayerComponentManager.decodes(data);
-        List<PlayerComponent<T>> components = tuple.getB();
-        for (PlayerComponent<T> component : components) {
-            component.setPlayer(player);
-            Class<T> aClass = (Class<T>) component.getClass();
-            componentManager.readComponent(player, aClass, component);
-            component.onLoad();
-        }
+        ClientPlayerComponentManager componentManager = ClientPlayerComponentManager.clientAccess();
+        componentManager.decodes(packet.data())
+                .forEach((id, component) -> componentManager.readComponent(player, id, component));
     }
 
 }

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "reverie_dreams:gensokyo/spruce",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.2,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/young_spruce",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

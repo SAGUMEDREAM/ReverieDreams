@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:paper",
+    "P": "#minecraft:planks",
+    "S": "minecraft:stone"
+  },
+  "pattern": [
+    "PPP",
+    "SAS",
+    "SSS"
+  ],
+  "result": {
+    "id": "reverie_dreams:hokora"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "block.reverie_dreams.cash_box": "賽銭箱",
+  "block.reverie_dreams.cupboard": "食器棚",
+  "item.action.click.cashbox.fails.coin": "§fコインアイテムが不足しています",
+  "item.action.click.cashbox.fails.full": "§cあなたの信仰値はすでに%sを超えていますよ",
+  "item.action.click.cashbox.fails.used": "§cあなたは今日すでに祝福を受けていますよ",
+  "item.action.click.cashbox.success": "§fあなたは神社の祝福を受け、信仰値+%s"
+}

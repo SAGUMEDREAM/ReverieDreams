@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "reverie_dreams:block/ice_making_machine",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "reverie_dreams:block/ice_making_machine"
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/ice_making_machine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/ice_making_machine",
+      "y": 270
+    }
+  }
+}

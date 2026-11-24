@@ -1,0 +1,18 @@
+name: ReverieDreamsSmokeProbe
+version: '1'
+main: cc.thonly.reverie_dreams.smoke.SmokeProbe
+api-version: '26.1.2'
+dependencies:
+  server:
+    CraftEngine:
+      load: BEFORE
+      required: true
+      join-classpath: true
+    ReverieDreams:
+      load: BEFORE
+      required: true
+      join-classpath: true
+    ReverieDreamsWorld:
+      load: BEFORE
+      required: false
+      join-classpath: true

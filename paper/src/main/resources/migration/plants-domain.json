@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 1,
+  "sourceItemCount": 22,
+  "sourceBlockCount": 22,
+  "helperItemCount": 0,
+  "nativeStateCount": 596,
+  "blocks": {
+    "reverie_dreams:spiritual_leaves": {
+      "kind": "leaves",
+      "states": 28,
+      "sourcePlacedPersistent": true,
+      "treePersistent": false,
+      "sapling": "reverie_dreams:spiritual_sapling"
+    },
+    "reverie_dreams:lemon_leaves": {
+      "kind": "leaves",
+      "states": 28,
+      "sourcePlacedPersistent": true,
+      "treePersistent": false,
+      "sapling": "reverie_dreams:lemon_sapling"
+    },
+    "reverie_dreams:ginkgo_leaves": {
+      "kind": "leaves",
+      "states": 28,
+      "sourcePlacedPersistent": true,
+      "treePersistent": false,
+      "sapling": "reverie_dreams:ginkgo_sapling"
+    },
+    "reverie_dreams:peach_leaves": {
+      "kind": "leaves",
+      "states": 28,
+      "sourcePlacedPersistent": true,
+      "treePersistent": false,
+      "sapling": "reverie_dreams:peach_sapling"
+    },
+    "reverie_dreams:iroha_maple_leaves": {
+      "kind": "leaves",
+      "states": 28,
+      "sourcePlacedPersistent": true,
+      "treePersistent": false,
+      "sapling": "reverie_dreams:iroha_maple_sapling"
+    },
+    "reverie_dreams:itaya_maple_leaves": {
+      "kind": "leaves",
+      "states": 28,
+      "sourcePlacedPersistent": true,
+      "treePersistent": false,
+      "sapling": "reverie_dreams:itaya_maple_sapling"
+    },
+    "reverie_dreams:hauchiwa_maple_leaves": {
+      "kind": "leaves",
+      "states": 28,
+      "sourcePlacedPersistent": true,
+      "treePersistent": false,
+      "sapling": "reverie_dreams:hauchiwa_maple_sapling"
+    },
+    "reverie_dreams:lemon_fruit_leaves": {
+      "kind": "fruit_leaves",
+      "states": 112,
+      "product": "reverie_dreams:ingredient/lemon",
+      "defaultFruitAge": 3,
+      "harvestAge": 1,
+      "harvestCount": [
+        1,
+        3
+      ],
+      "breakDrop": "reverie_dreams:lemon_sapling",
+      "naturalGrowthResetsLeafProperties": true,
+      "naturalGrowthDefaults": {
+        "distance": 7,
+        "persistent": true,
+        "waterlogged": false
+      },
+      "liquidContainerAcceptsWater": false
+    },
+    "reverie_dreams:ginkgo_fruit_leaves": {
+      "kind": "fruit_leaves",
+      "states": 112,
+      "product": "reverie_dreams:ingredient/ginkgo",
+      "defaultFruitAge": 3,
+      "harvestAge": 1,
+      "harvestCount": [
+        1,
+        3
+      ],
+      "breakDrop": "reverie_dreams:ginkgo_sapling",
+      "naturalGrowthResetsLeafProperties": true,
+      "naturalGrowthDefaults": {
+        "distance": 7,
+        "persistent": true,
+        "waterlogged": false
+      },
+      "liquidContainerAcceptsWater": false
+    },
+    "reverie_dreams:peach_fruit_leaves": {
+      "kind": "fruit_leaves",
+      "states": 112,
+      "product": "reverie_dreams:ingredient/peach",
+      "defaultFruitAge": 3,
+      "harvestAge": 1,
+      "harvestCount": [
+        1,
+        3
+      ],
+      "breakDrop": "reverie_dreams:peach_sapling",
+      "naturalGrowthResetsLeafProperties": true,
+      "naturalGrowthDefaults": {
+        "distance": 7,
+        "persistent": true,
+        "waterlogged": false
+      },
+      "liquidContainerAcceptsWater": false
+    },
+    "reverie_dreams:spiritual_sapling": {
+      "kind": "sapling",
+      "states": 2,
+      "configuredFeature": "reverie_dreams:spiritual_tree"
+    },
+    "reverie_dreams:lemon_sapling": {
+      "kind": "sapling",
+      "states": 2,
+      "configuredFeature": "reverie_dreams:lemon_tree"
+    },
+    "reverie_dreams:ginkgo_sapling": {
+      "kind": "sapling",
+      "states": 2,
+      "configuredFeature": "reverie_dreams:ginkgo_tree"
+    },
+    "reverie_dreams:peach_sapling": {
+      "kind": "sapling",
+      "states": 2,
+      "configuredFeature": "reverie_dreams:peach_tree"
+    },
+    "reverie_dreams:iroha_maple_sapling": {
+      "kind": "sapling",
+      "states": 2,
+      "configuredFeature": "reverie_dreams:iroha_maple_tree"
+    },
+    "reverie_dreams:itaya_maple_sapling": {
+      "kind": "sapling",
+      "states": 2,
+      "configuredFeature": "reverie_dreams:itaya_maple_tree"
+    },
+    "reverie_dreams:hauchiwa_maple_sapling": {
+      "kind": "sapling",
+      "states": 2,
+      "configuredFeature": "reverie_dreams:hauchiwa_maple_tree"
+    },
+    "reverie_dreams:iroha_maple_leaf_litter": {
+      "kind": "leaf_litter",
+      "states": 16,
+      "maxSegments": 4,
+      "breakCountAtAnyAmount": 1,
+      "sourceMultipartAmount3Parts": [
+        2,
+        3
+      ]
+    },
+    "reverie_dreams:itaya_maple_leaf_litter": {
+      "kind": "leaf_litter",
+      "states": 16,
+      "maxSegments": 4,
+      "breakCountAtAnyAmount": 1,
+      "sourceMultipartAmount3Parts": [
+        2,
+        3
+      ]
+    },
+    "reverie_dreams:hauchiwa_maple_leaf_litter": {
+      "kind": "leaf_litter",
+      "states": 16,
+      "maxSegments": 4,
+      "breakCountAtAnyAmount": 1,
+      "sourceMultipartAmount3Parts": [
+        2,
+        3
+      ]
+    },
+    "reverie_dreams:udumbara_flower": {
+      "kind": "flower",
+      "states": 1,
+      "boneMealDuplicate": true,
+      "sourceSuspiciousEffectHolder": {
+        "effect": "minecraft:regeneration",
+        "durationTicks": 60
+      }
+    },
+    "reverie_dreams:tremella": {
+      "kind": "flower",
+      "states": 1,
+      "boneMealDuplicate": false,
+      "sourceSuspiciousEffectHolder": {
+        "effect": "minecraft:regeneration",
+        "durationTicks": 60
+      }
+    }
+  },
+  "configuredFeatures": {
+    "reverie_dreams:spiritual_tree": {
+      "source": "data/reverie_dreams/worldgen/configured_feature/spiritual_tree.json",
+      "sourceCanonicalSha256": "7f4d72e913b897e5d9c8cad88dc42f34f289b6315e1d7669ad70347046630e1e",
+      "trunkState": {
+        "Name": "reverie_dreams:spiritual_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "reverie_dreams:lemon_tree": {
+      "source": "data/reverie_dreams/worldgen/configured_feature/lemon_tree.json",
+      "sourceCanonicalSha256": "4c07074c5526a49def2f430f9e8799f8d6fdc57b932fc9b5c20175cdf26feea7",
+      "trunkState": {
+        "Name": "reverie_dreams:lemon_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "reverie_dreams:ginkgo_tree": {
+      "source": "data/reverie_dreams/worldgen/configured_feature/ginkgo_tree.json",
+      "sourceCanonicalSha256": "1b5f594afe979d9041e2f1f5b3cde0be4b8543983192969995e3c0998f8048f8",
+      "trunkState": {
+        "Name": "reverie_dreams:lemon_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "reverie_dreams:peach_tree": {
+      "source": "data/reverie_dreams/worldgen/configured_feature/peach_tree.json",
+      "sourceCanonicalSha256": "553729c0bee4cc7711862385237cf88ae3f858b6750cb8df8005b381179ea724",
+      "trunkState": {
+        "Name": "reverie_dreams:peach_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "reverie_dreams:iroha_maple_tree": {
+      "source": "data/reverie_dreams/worldgen/configured_feature/iroha_maple_tree.json",
+      "sourceCanonicalSha256": "8284846bcca0f5e92476960f49d70afdc3ce400f74219a0f342836ad92fe4c07",
+      "trunkState": {
+        "Name": "reverie_dreams:iroha_maple_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "reverie_dreams:itaya_maple_tree": {
+      "source": "data/reverie_dreams/worldgen/configured_feature/itaya_maple_tree.json",
+      "sourceCanonicalSha256": "7738bd3dbe5cd52f0574396d3517f920620e44dd6a707515cc67637846a30389",
+      "trunkState": {
+        "Name": "reverie_dreams:itaya_maple_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "reverie_dreams:hauchiwa_maple_tree": {
+      "source": "data/reverie_dreams/worldgen/configured_feature/hauchiwa_maple_tree.json",
+      "sourceCanonicalSha256": "5861cfdb4b2d75c8ddf479c0a1a8d5ede66f3dba18bd9e729428e048a9ca560d",
+      "trunkState": {
+        "Name": "reverie_dreams:hauchiwa_maple_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

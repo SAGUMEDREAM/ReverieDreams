@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import cc.thonly.reverie_dreams.ReverieDreams;
 
 public class CookingInputRecipeManager {
     private static final CookingInputRecipeManager INSTANCE = new CookingInputRecipeManager();
@@ -26,7 +27,8 @@ public class CookingInputRecipeManager {
     }
 
     public static boolean isFuel(ItemStack itemStack) {
-        return itemStack.is(ItemTags.COALS) || itemStack.getItem() == Items.DRIED_KELP_BLOCK;
+        var server = ReverieDreams.getServer();
+        return server != null && server.overworld().fuelValues().isFuel(itemStack);
     }
 
     public void clearItems() {

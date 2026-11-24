@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
 import cc.thonly.reverie_dreams.block.entity.PlateBlockEntity;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.restaurant.RestaurantService;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -37,9 +37,9 @@ public class NPCEatPlateGoal extends MoveToBlockGoal {
     }
 
     private boolean isFoodDisplay(LevelReader world, BlockPos pos) {
-        if (world.getBlockEntity(pos) instanceof PlateBlockEntity isdBlockEntity) {
+        if (world.getBlockEntity(pos) instanceof PlateBlockEntity isdBlockEntity && !isdBlockEntity.hasRestaurantDish()) {
             IngredientStack item = isdBlockEntity.getItem();
-            return ((IItemStackExtension) (Object) item.build()).reverie_dreams$isFood();
+            return NPCFoodDataContainer.isNourishing(item.build());
         }
         return false;
     }
@@ -101,8 +101,15 @@ public class NPCEatPlateGoal extends MoveToBlockGoal {
     @Override
     public boolean canUse() {
         BaseNPCLikeEntity maid = (BaseNPCLikeEntity) this.mob;
+        if (RestaurantService.isRestaurantShift(maid))
+            return false;
         NPCFoodDataContainer foodData = maid.getFoodData();
         return ((foodData.getNutrition() < 20 && maid.getHealth() < 20) || foodData.getNutrition() < 10) && super.canUse();
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return !RestaurantService.isRestaurantShift((BaseNPCLikeEntity) this.mob) && super.canContinueToUse();
     }
 
     @Override

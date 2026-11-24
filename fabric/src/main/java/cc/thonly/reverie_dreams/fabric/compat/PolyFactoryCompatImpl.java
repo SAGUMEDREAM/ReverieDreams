@@ -33,6 +33,6 @@ public class PolyFactoryCompatImpl {
         if (!PlatformContext.hasPolyfactory() || PlatformContext.FABRIC_POLYFACTORY_HAND_CRANK == Blocks.AIR) {
             return List.of();
         }
-        return List.of(new Tuple<>(0, new NPCFindBlockGoal(npcLikeEntity, NPCWorkModes.POLYFACTORY_HAND_CRANK, PlatformContext.FABRIC_POLYFACTORY_HAND_CRANK, true, true)));
+        return List.of(new Tuple<>(6, new NPCFindBlockGoal(npcLikeEntity, NPCWorkModes.POLYFACTORY_HAND_CRANK, PlatformContext.FABRIC_POLYFACTORY_HAND_CRANK, true, true)));
     }
 }

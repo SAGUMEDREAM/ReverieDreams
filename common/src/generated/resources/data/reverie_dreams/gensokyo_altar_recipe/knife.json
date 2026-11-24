@@ -1,7 +1,7 @@
 {
   "core": {
     "id": "reverie_dreams:silver_block",
-    "count": 2
+    "count": 3
   },
   "slots": [
     {
@@ -13,18 +13,19 @@
     },
     {
       "id": "reverie_dreams:silver_ingot",
-      "count": 3
+      "count": 6
     },
     {
       "id": "reverie_dreams:silver_sword",
       "count": 1
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:diamond",
+      "count": 4
     },
     {
       "id": "minecraft:stick",
-      "count": 3
+      "count": 6
     },
     {
       "id": "minecraft:air"

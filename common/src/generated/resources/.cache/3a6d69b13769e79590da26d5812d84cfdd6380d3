@@ -2,4 +2,5 @@
 0894c4287900e0825edd78bc2f72cecca172aa1d data/minecraft/tags/damage_type/bypasses_armor.json
 bf1aa46d19c93c2e770024369571ab5fe3572ddd data/minecraft/tags/damage_type/is_projectile.json
 bf1aa46d19c93c2e770024369571ab5fe3572ddd data/minecraft/tags/damage_type/no_knockback.json
+bf1aa46d19c93c2e770024369571ab5fe3572ddd data/minecraft/tags/damage_type/panic_causes.json
 bf1aa46d19c93c2e770024369571ab5fe3572ddd data/reverie_dreams/tags/damage_type/danmaku_hit.json

@@ -13,12 +13,12 @@ public interface IAnimationHelper {
         return grounded && horizontalSpeedSq > 0.0001;
     }
 
-    static <T extends Entity & GeoEntity,D> void setSyncData(T entity, DataTicket<D> ticket, D data) {
+    static <T extends Entity & GeoEntity, D> void setSyncData(T entity, DataTicket<D> ticket, D data) {
         int id = entity.getId();
         entity.getAnimatableInstanceCache().getManagerForId(id).setAnimatableData(ticket, data);
     }
 
-    static <T extends Entity & GeoEntity,D> D getSyncData(T entity, DataTicket<D> ticket) {
+    static <T extends Entity & GeoEntity, D> D getSyncData(T entity, DataTicket<D> ticket) {
         int id = entity.getId();
         return entity.getAnimatableInstanceCache().getManagerForId(id).getAnimatableData(ticket);
     }

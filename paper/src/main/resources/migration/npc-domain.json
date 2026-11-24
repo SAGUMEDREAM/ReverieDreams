@@ -1,0 +1,5355 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "minecraft": "26.1.2",
+    "paperBuild": 74,
+    "craftEngine": "26.8.2",
+    "java": 25
+  },
+  "representation": {
+    "carrier": "minecraft:wolf",
+    "carrierVisible": false,
+    "avatar": "minecraft:mannequin",
+    "skinBinding": "ResolvableProfile.SkinPatch.body resource-pack texture key; no skin upload/network lookup",
+    "prototypeBoundary": "Humanoid appearance uses original textures; mounted pose, raised foot position, AI carrier collision, and animation differ from original custom renderer",
+    "missingOriginalSkin": [
+      "reverie_dreams:michigami_nareko"
+    ],
+    "profileDynamic": false,
+    "profileName": "ReverieNPC"
+  },
+  "roles": {
+    "reverie_dreams:reimu": {
+      "id": "reverie_dreams:reimu",
+      "sourceConstant": "REIMU",
+      "translationKey": "entity.reverie_dreams.reimu",
+      "names": {
+        "en_us": "Reimu Hakurei",
+        "zh_cn": "博丽灵梦",
+        "zh_tw": "博麗靈夢",
+        "ja_jp": "博麗霊夢"
+      },
+      "skin": {
+        "id": "reverie_dreams:reimu",
+        "textureKey": "reverie_dreams:entity/player/skin/reimu",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/reimu.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:reimu",
+          "type": "slim"
+        },
+        "profileUuid": "72cb0621e510407c9de00594f601522d"
+      }
+    },
+    "reverie_dreams:cyan_reimu": {
+      "id": "reverie_dreams:cyan_reimu",
+      "sourceConstant": "CYAN_REIMU",
+      "translationKey": "entity.reverie_dreams.cyan_reimu",
+      "names": {
+        "en_us": "Cyan Reimu",
+        "zh_cn": "青灵梦",
+        "zh_tw": "青靈夢",
+        "ja_jp": "青霊夢"
+      },
+      "skin": {
+        "id": "reverie_dreams:cyan_reimu",
+        "textureKey": "reverie_dreams:entity/player/skin/cyan_reimu",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/cyan_reimu.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:cyan_reimu",
+          "type": "slim"
+        },
+        "profileUuid": "57b3dfb5f8a649e28b544e4ffc63256f"
+      }
+    },
+    "reverie_dreams:marisa": {
+      "id": "reverie_dreams:marisa",
+      "sourceConstant": "MARISA",
+      "translationKey": "entity.reverie_dreams.marisa",
+      "names": {
+        "en_us": "Marisa Kirisame",
+        "zh_cn": "雾雨魔理沙",
+        "zh_tw": "霧雨魔理沙",
+        "ja_jp": "霧雨魔理沙"
+      },
+      "skin": {
+        "id": "reverie_dreams:marisa",
+        "textureKey": "reverie_dreams:entity/player/skin/marisa",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/marisa.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:marisa",
+          "type": "slim"
+        },
+        "profileUuid": "398bdc75eac44f33aa200b16254f08e9"
+      }
+    },
+    "reverie_dreams:rumia": {
+      "id": "reverie_dreams:rumia",
+      "sourceConstant": "RUMIA",
+      "translationKey": "entity.reverie_dreams.rumia",
+      "names": {
+        "en_us": "Rumia",
+        "zh_cn": "露米娅",
+        "zh_tw": "露米婭",
+        "ja_jp": "ルミア"
+      },
+      "skin": {
+        "id": "reverie_dreams:rumia",
+        "textureKey": "reverie_dreams:entity/player/skin/rumia",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/rumia.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:rumia",
+          "type": "slim"
+        },
+        "profileUuid": "df352703c1324260b454d7827259b5a9"
+      }
+    },
+    "reverie_dreams:cirno": {
+      "id": "reverie_dreams:cirno",
+      "sourceConstant": "CIRNO",
+      "translationKey": "entity.reverie_dreams.cirno",
+      "names": {
+        "en_us": "Cirno",
+        "zh_cn": "琪露诺",
+        "zh_tw": "琪露諾",
+        "ja_jp": "チルノ"
+      },
+      "skin": {
+        "id": "reverie_dreams:cirno",
+        "textureKey": "reverie_dreams:entity/player/skin/cirno",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/cirno.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:cirno",
+          "type": "slim"
+        },
+        "profileUuid": "4ed823371a2e4bb7a5eabfcffda84957"
+      }
+    },
+    "reverie_dreams:meirin": {
+      "id": "reverie_dreams:meirin",
+      "sourceConstant": "MEIRIN",
+      "translationKey": "entity.reverie_dreams.meirin",
+      "names": {
+        "en_us": "Hong Meiling",
+        "zh_cn": "红美铃",
+        "zh_tw": "紅美鈴",
+        "ja_jp": "紅美鈴"
+      },
+      "skin": {
+        "id": "reverie_dreams:hoan_meirin",
+        "textureKey": "reverie_dreams:entity/player/skin/hoan_meirin",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/hoan_meirin.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:hoan_meirin",
+          "type": "slim"
+        },
+        "profileUuid": "9f2bcc53e8c34968a79c74511ad66d2c"
+      }
+    },
+    "reverie_dreams:patchouli": {
+      "id": "reverie_dreams:patchouli",
+      "sourceConstant": "PATCHOULI",
+      "translationKey": "entity.reverie_dreams.patchouli",
+      "names": {
+        "en_us": "Patchouli Knowledge",
+        "zh_cn": "帕秋莉·诺蕾姬",
+        "zh_tw": "帕秋莉·諾蕾姬",
+        "ja_jp": "パチュリー・ノーレッジ"
+      },
+      "skin": {
+        "id": "reverie_dreams:patchouli",
+        "textureKey": "reverie_dreams:entity/player/skin/patchouli",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/patchouli.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:patchouli",
+          "type": "slim"
+        },
+        "profileUuid": "c5ef8d54209f497eaf3c0560726aa305"
+      }
+    },
+    "reverie_dreams:sakuya": {
+      "id": "reverie_dreams:sakuya",
+      "sourceConstant": "SAKUYA",
+      "translationKey": "entity.reverie_dreams.sakuya",
+      "names": {
+        "en_us": "Sakuya Izayoi",
+        "zh_cn": "十六夜咲夜",
+        "zh_tw": "Sakuya第16夜",
+        "ja_jp": "十六夜咲夜"
+      },
+      "skin": {
+        "id": "reverie_dreams:sakuya",
+        "textureKey": "reverie_dreams:entity/player/skin/sakuya",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/sakuya.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:sakuya",
+          "type": "slim"
+        },
+        "profileUuid": "bd3a5dfcfdf8447395bd2bfe04f4c032"
+      }
+    },
+    "reverie_dreams:remilia": {
+      "id": "reverie_dreams:remilia",
+      "sourceConstant": "REMILIA",
+      "translationKey": "entity.reverie_dreams.remilia",
+      "names": {
+        "en_us": "Remilia Scarlet",
+        "zh_cn": "蕾米莉亚·斯卡蕾特",
+        "zh_tw": "蕾米莉亞·斯卡蕾特",
+        "ja_jp": "レミリア・スカーレット"
+      },
+      "skin": {
+        "id": "reverie_dreams:remila",
+        "textureKey": "reverie_dreams:entity/player/skin/remila",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/remila.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:remila",
+          "type": "slim"
+        },
+        "profileUuid": "64f40ab71f3a44fbb847b9eaa9fc44e5"
+      }
+    },
+    "reverie_dreams:flandre": {
+      "id": "reverie_dreams:flandre",
+      "sourceConstant": "FLANDRE",
+      "translationKey": "entity.reverie_dreams.flandre",
+      "names": {
+        "en_us": "Flandre Scarlet",
+        "zh_cn": "芙兰朵露·斯卡蕾特",
+        "zh_tw": "芙蘭朵露·斯卡蕾特",
+        "ja_jp": "フランドール・スカーレット"
+      },
+      "skin": {
+        "id": "reverie_dreams:flandre",
+        "textureKey": "reverie_dreams:entity/player/skin/flandre",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/flandre.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:flandre",
+          "type": "slim"
+        },
+        "profileUuid": "b6369d43305544b39a990a8625f92a05"
+      }
+    },
+    "reverie_dreams:letty_whiterock": {
+      "id": "reverie_dreams:letty_whiterock",
+      "sourceConstant": "LETTY_WHITEROCK",
+      "translationKey": "entity.reverie_dreams.letty_whiterock",
+      "names": {
+        "en_us": "Letty Whiterock",
+        "zh_cn": "蕾蒂·霍瓦特洛克",
+        "zh_tw": "蕾蒂·霍瓦特洛克",
+        "ja_jp": "レティ・ホワイトロック"
+      },
+      "skin": {
+        "id": "reverie_dreams:letty_whiterock",
+        "textureKey": "reverie_dreams:entity/player/skin/letty_whiterock",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/letty_whiterock.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:letty_whiterock",
+          "type": "slim"
+        },
+        "profileUuid": "b9b3cdefb2fd4af58410ebefccffa0ab"
+      }
+    },
+    "reverie_dreams:chen": {
+      "id": "reverie_dreams:chen",
+      "sourceConstant": "CHEN",
+      "translationKey": "entity.reverie_dreams.chen",
+      "names": {
+        "en_us": "Chen",
+        "zh_cn": "八云橙",
+        "zh_tw": "八雲橙",
+        "ja_jp": "八雲橙"
+      },
+      "skin": {
+        "id": "reverie_dreams:chen",
+        "textureKey": "reverie_dreams:entity/player/skin/chen",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/chen.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:chen",
+          "type": "slim"
+        },
+        "profileUuid": "f104731f9ca546b499363859def97cc6"
+      }
+    },
+    "reverie_dreams:alice": {
+      "id": "reverie_dreams:alice",
+      "sourceConstant": "ALICE",
+      "translationKey": "entity.reverie_dreams.alice",
+      "names": {
+        "en_us": "Alice Margatroid",
+        "zh_cn": "爱丽丝·玛格特罗依德",
+        "zh_tw": "愛麗絲·瑪格特羅依德",
+        "ja_jp": "アリス・マーガトロイド"
+      },
+      "skin": {
+        "id": "reverie_dreams:alice",
+        "textureKey": "reverie_dreams:entity/player/skin/alice",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/alice.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:alice",
+          "type": "slim"
+        },
+        "profileUuid": "ed53dd814f9d4a3cb4eb651dcba77e66"
+      }
+    },
+    "reverie_dreams:lily_white": {
+      "id": "reverie_dreams:lily_white",
+      "sourceConstant": "LILY_WHITE",
+      "translationKey": "entity.reverie_dreams.lily_white",
+      "names": {
+        "en_us": "Lily White",
+        "zh_cn": "莉莉白",
+        "zh_tw": "莉莉白",
+        "ja_jp": "リリーホワイト"
+      },
+      "skin": {
+        "id": "reverie_dreams:lily_white",
+        "textureKey": "reverie_dreams:entity/player/skin/lily_white",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/lily_white.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:lily_white",
+          "type": "slim"
+        },
+        "profileUuid": "206e1fdb29c944f19499887005410d67"
+      }
+    },
+    "reverie_dreams:lunasa_prismriver": {
+      "id": "reverie_dreams:lunasa_prismriver",
+      "sourceConstant": "LUNASA_PRISMRIVER",
+      "translationKey": "entity.reverie_dreams.lunasa_prismriver",
+      "names": {
+        "en_us": "Lunasa Prismriver",
+        "zh_cn": "露娜萨·普莉兹姆利巴",
+        "zh_tw": "露娜薩·普莉茲姆利巴",
+        "ja_jp": "ルナサ・プリズムリバー"
+      },
+      "skin": {
+        "id": "reverie_dreams:lunasa_prismriver",
+        "textureKey": "reverie_dreams:entity/player/skin/lunasa_prismriver",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/lunasa_prismriver.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:lunasa_prismriver",
+          "type": "slim"
+        },
+        "profileUuid": "e75ce951759b42eebf8fecd8ab34b363"
+      }
+    },
+    "reverie_dreams:merlin_prismriver": {
+      "id": "reverie_dreams:merlin_prismriver",
+      "sourceConstant": "MERLIN_PRISMRIVER",
+      "translationKey": "entity.reverie_dreams.merlin_prismriver",
+      "names": {
+        "en_us": "Merlin Prismriver",
+        "zh_cn": "梅露兰·普莉兹姆利巴",
+        "zh_tw": "梅露蘭·普莉茲姆利巴",
+        "ja_jp": "メルラン・プリズムリバー"
+      },
+      "skin": {
+        "id": "reverie_dreams:merlin_prismriver",
+        "textureKey": "reverie_dreams:entity/player/skin/merlin_prismriver",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/merlin_prismriver.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:merlin_prismriver",
+          "type": "slim"
+        },
+        "profileUuid": "fd1ab7c560134c45a06afcef58ebd5d4"
+      }
+    },
+    "reverie_dreams:lyrica_prismriver": {
+      "id": "reverie_dreams:lyrica_prismriver",
+      "sourceConstant": "LYRICA_PRISMRIVER",
+      "translationKey": "entity.reverie_dreams.lyrica_prismriver",
+      "names": {
+        "en_us": "Lyrica Prismriver",
+        "zh_cn": "莉莉卡·普莉兹姆利巴",
+        "zh_tw": "莉莉卡·普莉茲姆利巴",
+        "ja_jp": "リリカ・プリズムリバー"
+      },
+      "skin": {
+        "id": "reverie_dreams:lyrica_prismriver",
+        "textureKey": "reverie_dreams:entity/player/skin/lyrica_prismriver",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/lyrica_prismriver.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:lyrica_prismriver",
+          "type": "slim"
+        },
+        "profileUuid": "17b9d0f9f1c1491984dcf9dc6c73d63c"
+      }
+    },
+    "reverie_dreams:ran": {
+      "id": "reverie_dreams:ran",
+      "sourceConstant": "RAN",
+      "translationKey": "entity.reverie_dreams.ran",
+      "names": {
+        "en_us": "Ran Yakumo",
+        "zh_cn": "八云蓝",
+        "zh_tw": "八雲藍",
+        "ja_jp": "八雲藍"
+      },
+      "skin": {
+        "id": "reverie_dreams:ran",
+        "textureKey": "reverie_dreams:entity/player/skin/ran",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/ran.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:ran",
+          "type": "slim"
+        },
+        "profileUuid": "8f1962fc187640578612b133c818bf99"
+      }
+    },
+    "reverie_dreams:youmu": {
+      "id": "reverie_dreams:youmu",
+      "sourceConstant": "YOUMU",
+      "translationKey": "entity.reverie_dreams.youmu",
+      "names": {
+        "en_us": "Youmu Konpaku",
+        "zh_cn": "魂魄妖梦",
+        "zh_tw": "魂魄妖夢",
+        "ja_jp": "魂魄妖夢"
+      },
+      "skin": {
+        "id": "reverie_dreams:youmu",
+        "textureKey": "reverie_dreams:entity/player/skin/youmu",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/youmu.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:youmu",
+          "type": "slim"
+        },
+        "profileUuid": "77fa5faa2e1f4242bbba0b0a67774bfa"
+      }
+    },
+    "reverie_dreams:yuyuko": {
+      "id": "reverie_dreams:yuyuko",
+      "sourceConstant": "YUYUKO",
+      "translationKey": "entity.reverie_dreams.yuyuko",
+      "names": {
+        "en_us": "Yuyuko Saigyouji",
+        "zh_cn": "西行寺幽幽子",
+        "zh_tw": "西行寺幽幽子",
+        "ja_jp": "西行寺 幽々子"
+      },
+      "skin": {
+        "id": "reverie_dreams:yuyuko",
+        "textureKey": "reverie_dreams:entity/player/skin/yuyuko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/yuyuko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:yuyuko",
+          "type": "slim"
+        },
+        "profileUuid": "bc4edfb5f36c48a7ac9f1a39dc23f4f8"
+      }
+    },
+    "reverie_dreams:yakumo_yukai": {
+      "id": "reverie_dreams:yakumo_yukai",
+      "sourceConstant": "YUKARI",
+      "translationKey": "entity.reverie_dreams.yakumo_yukai",
+      "names": {
+        "en_us": "Yakumo Yukari",
+        "zh_cn": "八云紫",
+        "zh_tw": "八雲紫",
+        "ja_jp": "八雲紫"
+      },
+      "skin": {
+        "id": "reverie_dreams:yakumo_yukai",
+        "textureKey": "reverie_dreams:entity/player/skin/yakumo_yukai",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/yakumo_yukai.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:yakumo_yukai",
+          "type": "slim"
+        },
+        "profileUuid": "49b385247a1f4537b0f7c0e1f15c1764"
+      }
+    },
+    "reverie_dreams:mystia_lorelei": {
+      "id": "reverie_dreams:mystia_lorelei",
+      "sourceConstant": "MYSTIA_LORELEI",
+      "translationKey": "entity.reverie_dreams.mystia_lorelei",
+      "names": {
+        "en_us": "Mystia Lorelei",
+        "zh_cn": "米斯蒂娅·萝蕾拉",
+        "zh_tw": "米斯蒂婭·蘿蕾拉",
+        "ja_jp": "ミスティア・ローレライ"
+      },
+      "skin": {
+        "id": "reverie_dreams:mystia_lorelei",
+        "textureKey": "reverie_dreams:entity/player/skin/mystia_lorelei",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/mystia_lorelei.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:mystia_lorelei",
+          "type": "slim"
+        },
+        "profileUuid": "6488cec2788d41269995c22f897f3089"
+      }
+    },
+    "reverie_dreams:wriggle_nightbug": {
+      "id": "reverie_dreams:wriggle_nightbug",
+      "sourceConstant": "WRIGGLE_NIGHTBUG",
+      "translationKey": "entity.reverie_dreams.wriggle_nightbug",
+      "names": {
+        "en_us": "Wriggle Nightbug",
+        "zh_cn": "莉格露·奈特巴格",
+        "zh_tw": "莉格露·奈特巴格",
+        "ja_jp": "リグル・ナイトバグ"
+      },
+      "skin": {
+        "id": "reverie_dreams:wriggle_nightbug",
+        "textureKey": "reverie_dreams:entity/player/skin/wriggle_nightbug",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/wriggle_nightbug.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:wriggle_nightbug",
+          "type": "slim"
+        },
+        "profileUuid": "063a176cdd15484bb5524a6420c5b7a4"
+      }
+    },
+    "reverie_dreams:kamishirasawa_keine": {
+      "id": "reverie_dreams:kamishirasawa_keine",
+      "sourceConstant": "KAMISHIRASAWA_KEINE",
+      "translationKey": "entity.reverie_dreams.kamishirasawa_keine",
+      "names": {
+        "en_us": "Kamishirasawa Keine",
+        "zh_cn": "上白泽慧音",
+        "zh_tw": "Kamishira Shirei Koen",
+        "ja_jp": "上白沢慧音"
+      },
+      "skin": {
+        "id": "reverie_dreams:kamishirasawa_keine",
+        "textureKey": "reverie_dreams:entity/player/skin/kamishirasawa_keine",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kamishirasawa_keine.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kamishirasawa_keine",
+          "type": "slim"
+        },
+        "profileUuid": "bb7cca71043444128d3089e13bdfab59"
+      }
+    },
+    "reverie_dreams:reisen": {
+      "id": "reverie_dreams:reisen",
+      "sourceConstant": "REISEN",
+      "translationKey": "entity.reverie_dreams.reisen",
+      "names": {
+        "en_us": "Reisen Udongein Inaba",
+        "zh_cn": "铃仙·优昙华院·因幡",
+        "zh_tw": "Yinba，Yue-Shuin，Inaba",
+        "ja_jp": "鈴仙・優曇華院・イナバ"
+      },
+      "skin": {
+        "id": "reverie_dreams:reisen",
+        "textureKey": "reverie_dreams:entity/player/skin/reisen",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/reisen.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:reisen",
+          "type": "slim"
+        },
+        "profileUuid": "4ed823371a2e4bb7a5eabfcffda84957"
+      }
+    },
+    "reverie_dreams:erin": {
+      "id": "reverie_dreams:erin",
+      "sourceConstant": "ERIN",
+      "translationKey": "entity.reverie_dreams.erin",
+      "names": {
+        "en_us": "Eirin Yagokoro",
+        "zh_cn": "八意永琳",
+        "zh_tw": "八意永琳",
+        "ja_jp": "八意永琳"
+      },
+      "skin": {
+        "id": "reverie_dreams:erin",
+        "textureKey": "reverie_dreams:entity/player/skin/erin",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/erin.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:erin",
+          "type": "slim"
+        },
+        "profileUuid": "c527eb5e4501454dad028f3d43fddeb6"
+      }
+    },
+    "reverie_dreams:houraisan_kaguya": {
+      "id": "reverie_dreams:houraisan_kaguya",
+      "sourceConstant": "HOURAISAN_KAGUYA",
+      "translationKey": "entity.reverie_dreams.houraisan_kaguya",
+      "names": {
+        "en_us": "Houraisan Kaguya",
+        "zh_cn": "蓬莱山辉夜",
+        "zh_tw": "蓬萊山輝夜",
+        "ja_jp": "蓬莱山輝夜"
+      },
+      "skin": {
+        "id": "reverie_dreams:houraisan_kaguya",
+        "textureKey": "reverie_dreams:entity/player/skin/houraisan_kaguya",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/houraisan_kaguya.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:houraisan_kaguya",
+          "type": "slim"
+        },
+        "profileUuid": "b66ba49eabec4bf99ea9f940c171a933"
+      }
+    },
+    "reverie_dreams:huziwara_no_mokou": {
+      "id": "reverie_dreams:huziwara_no_mokou",
+      "sourceConstant": "HUZIWARA_NO_MOKOU",
+      "translationKey": "entity.reverie_dreams.huziwara_no_mokou",
+      "names": {
+        "en_us": "Huziwara no Mokou",
+        "zh_cn": "藤原妹红",
+        "zh_tw": "藤原妹紅",
+        "ja_jp": "藤原妹紅"
+      },
+      "skin": {
+        "id": "reverie_dreams:huziwara_no_mokou",
+        "textureKey": "reverie_dreams:entity/player/skin/huziwara_no_mokou",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/huziwara_no_mokou.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:huziwara_no_mokou",
+          "type": "slim"
+        },
+        "profileUuid": "7727d35669f941518023d62c68175918"
+      }
+    },
+    "reverie_dreams:shikieiki_yamaxanadu": {
+      "id": "reverie_dreams:shikieiki_yamaxanadu",
+      "sourceConstant": "SHIKIEIKI_YAMAXANADU",
+      "translationKey": "entity.reverie_dreams.shikieiki_yamaxanadu",
+      "names": {
+        "en_us": "Shikieiki Yamaxanadu",
+        "zh_cn": "四季映姬·夜摩仙那度",
+        "zh_tw": "四季映姬·夜摩仙那度",
+        "ja_jp": "四季映姫・ヤマザナドゥ"
+      },
+      "skin": {
+        "id": "reverie_dreams:shikieiki_yamaxanadu",
+        "textureKey": "reverie_dreams:entity/player/skin/shikieiki_yamaxanadu",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/shikieiki_yamaxanadu.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:shikieiki_yamaxanadu",
+          "type": "slim"
+        },
+        "profileUuid": "6d70f348ac8041c9b68d081e015275c5"
+      }
+    },
+    "reverie_dreams:kazami_yuka": {
+      "id": "reverie_dreams:kazami_yuka",
+      "sourceConstant": "KAZAMI_YUKA",
+      "translationKey": "entity.reverie_dreams.kazami_yuka",
+      "names": {
+        "en_us": "Kazami Yuka",
+        "zh_cn": "风见幽香",
+        "zh_tw": "風見幽香",
+        "ja_jp": "風見幽香"
+      },
+      "skin": {
+        "id": "reverie_dreams:kazami_yuka",
+        "textureKey": "reverie_dreams:entity/player/skin/kazami_yuka",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kazami_yuka.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kazami_yuka",
+          "type": "slim"
+        },
+        "profileUuid": "91f04fe90f3643b58f20e3375f86d39e"
+      }
+    },
+    "reverie_dreams:kagiyama_hina": {
+      "id": "reverie_dreams:kagiyama_hina",
+      "sourceConstant": "KAGIYAMA_HINA",
+      "translationKey": "entity.reverie_dreams.kagiyama_hina",
+      "names": {
+        "en_us": "Kagiyama Hina",
+        "zh_cn": "键山雏",
+        "zh_tw": "鍵山雛",
+        "ja_jp": "鍵山 雛"
+      },
+      "skin": {
+        "id": "reverie_dreams:kagiyama_hina",
+        "textureKey": "reverie_dreams:entity/player/skin/kagiyama_hina",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kagiyama_hina.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kagiyama_hina",
+          "type": "slim"
+        },
+        "profileUuid": "ea7b2dfd6c4e4454ad6ac0d1ceccb3a1"
+      }
+    },
+    "reverie_dreams:inubashiri_momizi": {
+      "id": "reverie_dreams:inubashiri_momizi",
+      "sourceConstant": "INUBASHIRI_MOMIZI",
+      "translationKey": "entity.reverie_dreams.inubashiri_momizi",
+      "names": {
+        "en_us": "Inubashiri Momiji",
+        "zh_cn": "犬走椛",
+        "zh_tw": "犬走椛",
+        "ja_jp": "犬走椛"
+      },
+      "skin": {
+        "id": "reverie_dreams:inubashiri_momizi",
+        "textureKey": "reverie_dreams:entity/player/skin/inubashiri_momizi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/inubashiri_momizi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:inubashiri_momizi",
+          "type": "slim"
+        },
+        "profileUuid": "b330ea89a71649fca30fb9f59149f3c0"
+      }
+    },
+    "reverie_dreams:kawasiro_nitori": {
+      "id": "reverie_dreams:kawasiro_nitori",
+      "sourceConstant": "KAWASIRO_NITORI",
+      "translationKey": "entity.reverie_dreams.kawasiro_nitori",
+      "names": {
+        "en_us": "Kawashiro Nitori",
+        "zh_cn": "河城荷取",
+        "zh_tw": "河城荷取",
+        "ja_jp": "河城にとり"
+      },
+      "skin": {
+        "id": "reverie_dreams:kawasiro_nitori",
+        "textureKey": "reverie_dreams:entity/player/skin/kawasiro_nitori",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kawasiro_nitori.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kawasiro_nitori",
+          "type": "slim"
+        },
+        "profileUuid": "d80e0f26563e4727acbd3e2de491c1be"
+      }
+    },
+    "reverie_dreams:aya": {
+      "id": "reverie_dreams:aya",
+      "sourceConstant": "AYA",
+      "translationKey": "entity.reverie_dreams.aya",
+      "names": {
+        "en_us": "Aya Shameimaru",
+        "zh_cn": "射命丸文",
+        "zh_tw": "imeimarumon",
+        "ja_jp": "射命丸文"
+      },
+      "skin": {
+        "id": "reverie_dreams:aya",
+        "textureKey": "reverie_dreams:entity/player/skin/aya",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/aya.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:aya",
+          "type": "slim"
+        },
+        "profileUuid": "f3eefeea9555438a89e5d2630f5a4524"
+      }
+    },
+    "reverie_dreams:kochiuya_sanae": {
+      "id": "reverie_dreams:kochiuya_sanae",
+      "sourceConstant": "KOCHIYA_SANAE",
+      "translationKey": "entity.reverie_dreams.kochiuya_sanae",
+      "names": {
+        "en_us": "Kochiya Sanae",
+        "zh_cn": "东风谷早苗",
+        "zh_tw": "東風谷早苗",
+        "ja_jp": "東風谷早苗"
+      },
+      "skin": {
+        "id": "reverie_dreams:kochiya_sanae",
+        "textureKey": "reverie_dreams:entity/player/skin/kochiya_sanae",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kochiya_sanae.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kochiya_sanae",
+          "type": "slim"
+        },
+        "profileUuid": "77fa5faa2e1f4242bbba0b0a67774bfa"
+      }
+    },
+    "reverie_dreams:yasaka_kanako": {
+      "id": "reverie_dreams:yasaka_kanako",
+      "sourceConstant": "YASAKA_KANAKO",
+      "translationKey": "entity.reverie_dreams.yasaka_kanako",
+      "names": {
+        "en_us": "Yasaka Kanako",
+        "zh_cn": "八坂神奈子",
+        "zh_tw": "Yasaka Kannako",
+        "ja_jp": "八坂神奈子"
+      },
+      "skin": {
+        "id": "reverie_dreams:yasaka_kanako",
+        "textureKey": "reverie_dreams:entity/player/skin/yasaka_kanako",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/yasaka_kanako.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:yasaka_kanako",
+          "type": "slim"
+        },
+        "profileUuid": "a7445b397d1f4f0b93da304fccc69352"
+      }
+    },
+    "reverie_dreams:moriya_suwako": {
+      "id": "reverie_dreams:moriya_suwako",
+      "sourceConstant": "MORIYA_SUWAKO",
+      "translationKey": "entity.reverie_dreams.moriya_suwako",
+      "names": {
+        "en_us": "Moriya Suwako",
+        "zh_cn": "洩矢诹访子",
+        "zh_tw": "洩矢诹访子",
+        "ja_jp": "洩矢諏訪子"
+      },
+      "skin": {
+        "id": "reverie_dreams:moriya_suwako",
+        "textureKey": "reverie_dreams:entity/player/skin/moriya_suwako",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/moriya_suwako.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:moriya_suwako",
+          "type": "slim"
+        },
+        "profileUuid": "c50afa8abeb94e4594bf1b425a980f02"
+      }
+    },
+    "reverie_dreams:kisume": {
+      "id": "reverie_dreams:kisume",
+      "sourceConstant": "KISUME",
+      "translationKey": "entity.reverie_dreams.kisume",
+      "names": {
+        "en_us": "Kisume",
+        "zh_cn": "琪斯美",
+        "zh_tw": "琪斯美",
+        "ja_jp": "キスメ"
+      },
+      "skin": {
+        "id": "reverie_dreams:kisume",
+        "textureKey": "reverie_dreams:entity/player/skin/kisume",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kisume.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kisume",
+          "type": "slim"
+        },
+        "profileUuid": "202beeeaf85942d48274bc7603eaafae"
+      }
+    },
+    "reverie_dreams:kurodani_yamame": {
+      "id": "reverie_dreams:kurodani_yamame",
+      "sourceConstant": "KURODANI_YAMAME",
+      "translationKey": "entity.reverie_dreams.kurodani_yamame",
+      "names": {
+        "en_us": "Kurodani Yamame",
+        "zh_cn": "黑谷山女",
+        "zh_tw": "黑谷山女",
+        "ja_jp": "黒谷山女"
+      },
+      "skin": {
+        "id": "reverie_dreams:kurodani_yamame",
+        "textureKey": "reverie_dreams:entity/player/skin/kurodani_yamame",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kurodani_yamame.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kurodani_yamame",
+          "type": "slim"
+        },
+        "profileUuid": "5ed892b7e2de4f62b226ac640d04bbb9"
+      }
+    },
+    "reverie_dreams:mizuhashi_parsee": {
+      "id": "reverie_dreams:mizuhashi_parsee",
+      "sourceConstant": "MIZUHASHI_PARSEE",
+      "translationKey": "entity.reverie_dreams.mizuhashi_parsee",
+      "names": {
+        "en_us": "Mizuhashi Parsee",
+        "zh_cn": "水桥帕露西",
+        "zh_tw": "水橋帕露西",
+        "ja_jp": "水橋パルスィ"
+      },
+      "skin": {
+        "id": "reverie_dreams:mizuhashi_parsee",
+        "textureKey": "reverie_dreams:entity/player/skin/mizuhashi_parsee",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/mizuhashi_parsee.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:mizuhashi_parsee",
+          "type": "slim"
+        },
+        "profileUuid": "76c8cfeb157e40a0bce648580da06d05"
+      }
+    },
+    "reverie_dreams:hoshiguma_yugi": {
+      "id": "reverie_dreams:hoshiguma_yugi",
+      "sourceConstant": "HOSHIGUMA_YUGI",
+      "translationKey": "entity.reverie_dreams.hoshiguma_yugi",
+      "names": {
+        "en_us": "Hoshiguma Yugi",
+        "zh_cn": "星熊勇仪",
+        "zh_tw": "星熊勇儀",
+        "ja_jp": "星熊勇儀"
+      },
+      "skin": {
+        "id": "reverie_dreams:hoshiguma_yugi",
+        "textureKey": "reverie_dreams:entity/player/skin/hoshiguma_yugi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/hoshiguma_yugi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:hoshiguma_yugi",
+          "type": "slim"
+        },
+        "profileUuid": "24658265ec284568a8702d95ec7ea783"
+      }
+    },
+    "reverie_dreams:kaenbyou_rin": {
+      "id": "reverie_dreams:kaenbyou_rin",
+      "sourceConstant": "KAENBYOU_RIN",
+      "translationKey": "entity.reverie_dreams.kaenbyou_rin",
+      "names": {
+        "en_us": "Kaenbyou Rin",
+        "zh_cn": "火焰猫燐",
+        "zh_tw": "火焰貓燐",
+        "ja_jp": "火焔猫 燐"
+      },
+      "skin": {
+        "id": "reverie_dreams:kaenbyou_rin",
+        "textureKey": "reverie_dreams:entity/player/skin/kaenbyou_rin",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kaenbyou_rin.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kaenbyou_rin",
+          "type": "slim"
+        },
+        "profileUuid": "b8545c109af14ddcbf8f8ff88e567289"
+      }
+    },
+    "reverie_dreams:komeiji_satori": {
+      "id": "reverie_dreams:komeiji_satori",
+      "sourceConstant": "KOMEIJI_SATORI",
+      "translationKey": "entity.reverie_dreams.komeiji_satori",
+      "names": {
+        "en_us": "Komeiji Satori",
+        "zh_cn": "古明地觉",
+        "zh_tw": "古明地覺",
+        "ja_jp": "古明地さとり"
+      },
+      "skin": {
+        "id": "reverie_dreams:komeiji_satori",
+        "textureKey": "reverie_dreams:entity/player/skin/komeiji_satori",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/komeiji_satori.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:komeiji_satori",
+          "type": "slim"
+        },
+        "profileUuid": "bb7cca71043444128d3089e13bdfab59"
+      }
+    },
+    "reverie_dreams:reiuji_utsuh": {
+      "id": "reverie_dreams:reiuji_utsuh",
+      "sourceConstant": "REIUJI_UTSUH",
+      "translationKey": "entity.reverie_dreams.reiuji_utsuh",
+      "names": {
+        "en_us": "Reiuji Utsuho",
+        "zh_cn": "灵乌路空",
+        "zh_tw": "靈烏路空",
+        "ja_jp": "霊烏路空"
+      },
+      "skin": {
+        "id": "reverie_dreams:reiuji_utsuh",
+        "textureKey": "reverie_dreams:entity/player/skin/reiuji_utsuh",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/reiuji_utsuh.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:reiuji_utsuh",
+          "type": "slim"
+        },
+        "profileUuid": "ae8731260f364ea6b57a4db29295a058"
+      }
+    },
+    "reverie_dreams:komeiji_koishi": {
+      "id": "reverie_dreams:komeiji_koishi",
+      "sourceConstant": "KOMEIJI_KOISHI",
+      "translationKey": "entity.reverie_dreams.komeiji_koishi",
+      "names": {
+        "en_us": "Komeiji Koishi",
+        "zh_cn": "古明地恋",
+        "zh_tw": "古明地戀",
+        "ja_jp": "古明地こいし"
+      },
+      "skin": {
+        "id": "reverie_dreams:komeiji_koishi",
+        "textureKey": "reverie_dreams:entity/player/skin/komeiji_koishi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/komeiji_koishi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:komeiji_koishi",
+          "type": "slim"
+        },
+        "profileUuid": "4ed823371a2e4bb7a5eabfcffda84957"
+      }
+    },
+    "reverie_dreams:white_komeiji_koishi": {
+      "id": "reverie_dreams:white_komeiji_koishi",
+      "sourceConstant": "WHITE_KOMEIJI_KOISHI",
+      "translationKey": "entity.reverie_dreams.white_komeiji_koishi",
+      "names": {
+        "en_us": "White Komeiji Koishi",
+        "zh_cn": "白色古明地恋",
+        "zh_tw": "白色古明地戀",
+        "ja_jp": "白い古明地こいし"
+      },
+      "skin": {
+        "id": "reverie_dreams:white_komeiji_koishi",
+        "textureKey": "reverie_dreams:entity/player/skin/white_komeiji_koishi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/white_komeiji_koishi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:white_komeiji_koishi",
+          "type": "slim"
+        },
+        "profileUuid": "a57fd190ff3e4b0da132f68e3957f5b1"
+      }
+    },
+    "reverie_dreams:nazrin": {
+      "id": "reverie_dreams:nazrin",
+      "sourceConstant": "NAZRIN",
+      "translationKey": "entity.reverie_dreams.nazrin",
+      "names": {
+        "en_us": "Nazrin",
+        "zh_cn": "纳兹琳",
+        "zh_tw": "納茲琳",
+        "ja_jp": "ナズーリン"
+      },
+      "skin": {
+        "id": "reverie_dreams:nazrin",
+        "textureKey": "reverie_dreams:entity/player/skin/nazrin",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/nazrin.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:nazrin",
+          "type": "slim"
+        },
+        "profileUuid": "fd60f36f58614f12b3cd47c2d855299a"
+      }
+    },
+    "reverie_dreams:tatara_kogasa": {
+      "id": "reverie_dreams:tatara_kogasa",
+      "sourceConstant": "TATARA_KOGASA",
+      "translationKey": "entity.reverie_dreams.tatara_kogasa",
+      "names": {
+        "en_us": "Tatara Kogasa",
+        "zh_cn": "多多良小伞",
+        "zh_tw": "多多良小傘",
+        "ja_jp": "多々良 小傘"
+      },
+      "skin": {
+        "id": "reverie_dreams:tatara_kogasa",
+        "textureKey": "reverie_dreams:entity/player/skin/tatara_kogasa",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/tatara_kogasa.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:tatara_kogasa",
+          "type": "slim"
+        },
+        "profileUuid": "0486ae01b8cb49e3832d7093f1be7277"
+      }
+    },
+    "reverie_dreams:houjuu_nue": {
+      "id": "reverie_dreams:houjuu_nue",
+      "sourceConstant": "HOUJUU_NUE",
+      "translationKey": "entity.reverie_dreams.houjuu_nue",
+      "names": {
+        "en_us": "Houjuu Nue",
+        "zh_cn": "封兽鵺",
+        "zh_tw": "海豹",
+        "ja_jp": "封獣ぬえ"
+      },
+      "skin": {
+        "id": "reverie_dreams:houjuu_nue",
+        "textureKey": "reverie_dreams:entity/player/skin/houjuu_nue",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/houjuu_nue.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:houjuu_nue",
+          "type": "slim"
+        },
+        "profileUuid": "5100dffd244243b48d12ede5d281396e"
+      }
+    },
+    "reverie_dreams:kasodani_kyouko": {
+      "id": "reverie_dreams:kasodani_kyouko",
+      "sourceConstant": "KASODANI_KYOUKO",
+      "translationKey": "entity.reverie_dreams.kasodani_kyouko",
+      "names": {
+        "en_us": "Kasodani Kyouko",
+        "zh_cn": "幽谷响子",
+        "zh_tw": "Yukuyaku",
+        "ja_jp": "幽谷響子"
+      },
+      "skin": {
+        "id": "reverie_dreams:kasodani_kyouko",
+        "textureKey": "reverie_dreams:entity/player/skin/kasodani_kyouko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kasodani_kyouko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kasodani_kyouko",
+          "type": "slim"
+        },
+        "profileUuid": "b98c4ad8c62644f19e3c8ae14e8a0259"
+      }
+    },
+    "reverie_dreams:miyako_yoshika": {
+      "id": "reverie_dreams:miyako_yoshika",
+      "sourceConstant": "MIYAKO_YOSHIKA",
+      "translationKey": "entity.reverie_dreams.miyako_yoshika",
+      "names": {
+        "en_us": "Miyako Yoshika",
+        "zh_cn": "宫古芳香",
+        "zh_tw": "宮古芳香",
+        "ja_jp": "宮古芳香"
+      },
+      "skin": {
+        "id": "reverie_dreams:miyako_yoshika",
+        "textureKey": "reverie_dreams:entity/player/skin/miyako_yoshika",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/miyako_yoshika.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:miyako_yoshika",
+          "type": "slim"
+        },
+        "profileUuid": "398bdc75eac44f33aa200b16254f08e9"
+      }
+    },
+    "reverie_dreams:kaku_seiga": {
+      "id": "reverie_dreams:kaku_seiga",
+      "sourceConstant": "KAKU_SEIGA",
+      "translationKey": "entity.reverie_dreams.kaku_seiga",
+      "names": {
+        "en_us": "Kaku Seiga",
+        "zh_cn": "霍青娥",
+        "zh_tw": "霍青娥",
+        "ja_jp": "霍青娥"
+      },
+      "skin": {
+        "id": "reverie_dreams:kaku_seiga",
+        "textureKey": "reverie_dreams:entity/player/skin/kaku_seiga",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kaku_seiga.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kaku_seiga",
+          "type": "slim"
+        },
+        "profileUuid": "91fe19687c904656aa1fc05986dd3fe7"
+      }
+    },
+    "reverie_dreams:soga_no_toziko": {
+      "id": "reverie_dreams:soga_no_toziko",
+      "sourceConstant": "SOGA_NO_TOZIKO",
+      "translationKey": "entity.reverie_dreams.soga_no_toziko",
+      "names": {
+        "en_us": "Soga no Tojiko",
+        "zh_cn": "苏我屠自古",
+        "zh_tw": "蘇我屠自古",
+        "ja_jp": "蘇我屠自古"
+      },
+      "skin": {
+        "id": "reverie_dreams:soga_no_toziko",
+        "textureKey": "reverie_dreams:entity/player/skin/soga_no_toziko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/soga_no_toziko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:soga_no_toziko",
+          "type": "slim"
+        },
+        "profileUuid": "6f8eab515f5742da9f1d63365801058c"
+      }
+    },
+    "reverie_dreams:mononobe_no_futo": {
+      "id": "reverie_dreams:mononobe_no_futo",
+      "sourceConstant": "MONONOBE_NO_FUTO",
+      "translationKey": "entity.reverie_dreams.mononobe_no_futo",
+      "names": {
+        "en_us": "Mononobe no Futo",
+        "zh_cn": "物部布都",
+        "zh_tw": "Mononobe Futo",
+        "ja_jp": "物部布都"
+      },
+      "skin": {
+        "id": "reverie_dreams:mononobe_no_futo",
+        "textureKey": "reverie_dreams:entity/player/skin/mononobe_no_futo",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/mononobe_no_futo.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:mononobe_no_futo",
+          "type": "slim"
+        },
+        "profileUuid": "65b9555ad20e45c9b1d6e724065450d4"
+      }
+    },
+    "reverie_dreams:toyosatomimi_no_miko": {
+      "id": "reverie_dreams:toyosatomimi_no_miko",
+      "sourceConstant": "TOYOSATOMIMI_NO_MIKO",
+      "translationKey": "entity.reverie_dreams.toyosatomimi_no_miko",
+      "names": {
+        "en_us": "Toyosatomimi no Miko",
+        "zh_cn": "丰聪耳神子",
+        "zh_tw": "豐聰耳神子",
+        "ja_jp": "豊聡耳神子"
+      },
+      "skin": {
+        "id": "reverie_dreams:toyosatomimi_no_miko",
+        "textureKey": "reverie_dreams:entity/player/skin/toyosatomimi_no_miko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/toyosatomimi_no_miko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:toyosatomimi_no_miko",
+          "type": "slim"
+        },
+        "profileUuid": "a77d6d6bac9a4767a1a75566199ebf92"
+      }
+    },
+    "reverie_dreams:hutatsuiwa_mamizou": {
+      "id": "reverie_dreams:hutatsuiwa_mamizou",
+      "sourceConstant": "HUTATSUIWA_MAMIZOU",
+      "translationKey": "entity.reverie_dreams.hutatsuiwa_mamizou",
+      "names": {
+        "en_us": "Hutatsuiwa Mamizou",
+        "zh_cn": "二岩猯藏",
+        "zh_tw": "二岩猯藏",
+        "ja_jp": "二ッ岩 マミゾウ"
+      },
+      "skin": {
+        "id": "reverie_dreams:hutatsuiwa_mamizou",
+        "textureKey": "reverie_dreams:entity/player/skin/hutatsuiwa_mamizou",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/hutatsuiwa_mamizou.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:hutatsuiwa_mamizou",
+          "type": "slim"
+        },
+        "profileUuid": "d5dfd93608184a7ea8293e31ed682b99"
+      }
+    },
+    "reverie_dreams:wakasagihime": {
+      "id": "reverie_dreams:wakasagihime",
+      "sourceConstant": "WAKASAGIHIME",
+      "translationKey": "entity.reverie_dreams.wakasagihime",
+      "names": {
+        "en_us": "Wakasagihime",
+        "zh_cn": "若狭姬",
+        "zh_tw": "若狹姬",
+        "ja_jp": "わかさぎ姫"
+      },
+      "skin": {
+        "id": "reverie_dreams:wakasagihime",
+        "textureKey": "reverie_dreams:entity/player/skin/wakasagihime",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/wakasagihime.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:wakasagihime",
+          "type": "slim"
+        },
+        "profileUuid": "e98ae0e129084d099941887d6a94e264"
+      }
+    },
+    "reverie_dreams:sekibanki": {
+      "id": "reverie_dreams:sekibanki",
+      "sourceConstant": "SEKIBANKI",
+      "translationKey": "entity.reverie_dreams.sekibanki",
+      "names": {
+        "en_us": "Sekibanki",
+        "zh_cn": "赤蛮奇",
+        "zh_tw": "赤蠻奇",
+        "ja_jp": "赤蛮奇"
+      },
+      "skin": {
+        "id": "reverie_dreams:sekibanki",
+        "textureKey": "reverie_dreams:entity/player/skin/sekibanki",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/sekibanki.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:sekibanki",
+          "type": "slim"
+        },
+        "profileUuid": "3fc7fdf939634c4191199ba3f7cc3fed"
+      }
+    },
+    "reverie_dreams:imaizumi_kagerou": {
+      "id": "reverie_dreams:imaizumi_kagerou",
+      "sourceConstant": "IMAIZUMI_KAGEROU",
+      "translationKey": "entity.reverie_dreams.imaizumi_kagerou",
+      "names": {
+        "en_us": "Imaizumi Kagerou",
+        "zh_cn": "今泉影狼",
+        "zh_tw": "Imaizumi Kageo",
+        "ja_jp": "今泉影狼"
+      },
+      "skin": {
+        "id": "reverie_dreams:imaizumi_kagerou",
+        "textureKey": "reverie_dreams:entity/player/skin/imaizumi_kagerou",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/imaizumi_kagerou.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:imaizumi_kagerou",
+          "type": "slim"
+        },
+        "profileUuid": "dbcef32f29d74ce39539c0b0a115b6bd"
+      }
+    },
+    "reverie_dreams:kijin_seijia": {
+      "id": "reverie_dreams:kijin_seijia",
+      "sourceConstant": "KIJIN_SEIJIA",
+      "translationKey": "entity.reverie_dreams.kijin_seijia",
+      "names": {
+        "en_us": "Kijin Seijia",
+        "zh_cn": "鬼人正邪",
+        "zh_tw": "惡魔和邪惡",
+        "ja_jp": "鬼人正邪"
+      },
+      "skin": {
+        "id": "reverie_dreams:kijin_seijia",
+        "textureKey": "reverie_dreams:entity/player/skin/kijin_seijia",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kijin_seijia.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kijin_seijia",
+          "type": "slim"
+        },
+        "profileUuid": "b977850ac10a4298bdb5cab0a8046c8a"
+      }
+    },
+    "reverie_dreams:sukuna_shinmyoumaru": {
+      "id": "reverie_dreams:sukuna_shinmyoumaru",
+      "sourceConstant": "SUKUNA_SHINMYOUMARU",
+      "translationKey": "entity.reverie_dreams.sukuna_shinmyoumaru",
+      "names": {
+        "en_us": "Sukuna Shinmyoumaru",
+        "zh_cn": "少名针妙丸",
+        "zh_tw": "少名針妙丸",
+        "ja_jp": "少名 針妙丸"
+      },
+      "skin": {
+        "id": "reverie_dreams:sukuna_shinmyoumaru",
+        "textureKey": "reverie_dreams:entity/player/skin/sukuna_shinmyoumaru",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/sukuna_shinmyoumaru.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:sukuna_shinmyoumaru",
+          "type": "wide"
+        },
+        "profileUuid": "1b40c710fc1646d692195fc67c6e114d"
+      }
+    },
+    "reverie_dreams:horikawa_raiko": {
+      "id": "reverie_dreams:horikawa_raiko",
+      "sourceConstant": "HORIKAWA_RAIKO",
+      "translationKey": "entity.reverie_dreams.horikawa_raiko",
+      "names": {
+        "en_us": "Horikawa Raiko",
+        "zh_cn": "堀川雷鼓",
+        "zh_tw": "Horikawa Raiko",
+        "ja_jp": "堀川雷鼓"
+      },
+      "skin": {
+        "id": "reverie_dreams:horikawa_raiko",
+        "textureKey": "reverie_dreams:entity/player/skin/horikawa_raiko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/horikawa_raiko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:horikawa_raiko",
+          "type": "slim"
+        },
+        "profileUuid": "98d1a426de2e460db7c5a12f90ca8849"
+      }
+    },
+    "reverie_dreams:seiran": {
+      "id": "reverie_dreams:seiran",
+      "sourceConstant": "SEIRAN",
+      "translationKey": "entity.reverie_dreams.seiran",
+      "names": {
+        "en_us": "Seiran",
+        "zh_cn": "清兰",
+        "zh_tw": "清蘭",
+        "ja_jp": "清蘭"
+      },
+      "skin": {
+        "id": "reverie_dreams:seiran",
+        "textureKey": "reverie_dreams:entity/player/skin/seiran",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/seiran.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:seiran",
+          "type": "slim"
+        },
+        "profileUuid": "90d54648a35a4ba1a26b85a885588be9"
+      }
+    },
+    "reverie_dreams:ringo": {
+      "id": "reverie_dreams:ringo",
+      "sourceConstant": "RINGO",
+      "translationKey": "entity.reverie_dreams.ringo",
+      "names": {
+        "en_us": "Ringo",
+        "zh_cn": "铃瑚",
+        "zh_tw": "鈴瑚",
+        "ja_jp": "鈴瑚"
+      },
+      "skin": {
+        "id": "reverie_dreams:ringo",
+        "textureKey": "reverie_dreams:entity/player/skin/ringo",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/ringo.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:ringo",
+          "type": "slim"
+        },
+        "profileUuid": "6e22661fce1240a4aa890440451bb0b5"
+      }
+    },
+    "reverie_dreams:doremy_sweet": {
+      "id": "reverie_dreams:doremy_sweet",
+      "sourceConstant": "DOREMY_SWEET",
+      "translationKey": "entity.reverie_dreams.doremy_sweet",
+      "names": {
+        "en_us": "Doremy Sweet",
+        "zh_cn": "哆来咪·苏伊特",
+        "zh_tw": "哆來咪·蘇伊特",
+        "ja_jp": "ドレミー・スイート"
+      },
+      "skin": {
+        "id": "reverie_dreams:doremy_sweet",
+        "textureKey": "reverie_dreams:entity/player/skin/doremy_sweet",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/doremy_sweet.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:doremy_sweet",
+          "type": "slim"
+        },
+        "profileUuid": "4403dc5475bc4b15a548cfda6b0eb7d9"
+      }
+    },
+    "reverie_dreams:kisin_sagume": {
+      "id": "reverie_dreams:kisin_sagume",
+      "sourceConstant": "KISIN_SAGUME",
+      "translationKey": "entity.reverie_dreams.kisin_sagume",
+      "names": {
+        "en_us": "Kisin Sagume",
+        "zh_cn": "稀神探女",
+        "zh_tw": "稀神探女",
+        "ja_jp": "稀神探女"
+      },
+      "skin": {
+        "id": "reverie_dreams:kisin_sagume",
+        "textureKey": "reverie_dreams:entity/player/skin/kisin_sagume",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kisin_sagume.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kisin_sagume",
+          "type": "slim"
+        },
+        "profileUuid": "bc4edfb5f36c48a7ac9f1a39dc23f4f8"
+      }
+    },
+    "reverie_dreams:clownpiece": {
+      "id": "reverie_dreams:clownpiece",
+      "sourceConstant": "CLOWNPIECE",
+      "translationKey": "entity.reverie_dreams.clownpiece",
+      "names": {
+        "en_us": "Clownpiece",
+        "zh_cn": "克劳恩皮丝",
+        "zh_tw": "克勞恩皮絲",
+        "ja_jp": "クラウンピース"
+      },
+      "skin": {
+        "id": "reverie_dreams:clownpiece",
+        "textureKey": "reverie_dreams:entity/player/skin/clownpiece",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/clownpiece.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:clownpiece",
+          "type": "slim"
+        },
+        "profileUuid": "c7f6797fa8dc457ba915545b00e73e31"
+      }
+    },
+    "reverie_dreams:junko": {
+      "id": "reverie_dreams:junko",
+      "sourceConstant": "JUNKO",
+      "translationKey": "entity.reverie_dreams.junko",
+      "names": {
+        "en_us": "Junko",
+        "zh_cn": "纯狐",
+        "zh_tw": "純狐",
+        "ja_jp": "純狐"
+      },
+      "skin": {
+        "id": "reverie_dreams:junko",
+        "textureKey": "reverie_dreams:entity/player/skin/junko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/junko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:junko",
+          "type": "wide"
+        },
+        "profileUuid": "61555329669c4d09bab8be43dae0a4c3"
+      }
+    },
+    "reverie_dreams:hecatia_lapislazuli": {
+      "id": "reverie_dreams:hecatia_lapislazuli",
+      "sourceConstant": "HECATIA_LAPISLAZULI",
+      "translationKey": "entity.reverie_dreams.hecatia_lapislazuli",
+      "names": {
+        "en_us": "Hecatia Lapislazuli",
+        "zh_cn": "赫卡提亚·拉碧斯拉祖利",
+        "zh_tw": "赫卡提亞·拉碧斯拉祖利",
+        "ja_jp": "ヘカティア・ラピスラズリ"
+      },
+      "skin": {
+        "id": "reverie_dreams:hecatia_lapislazuli",
+        "textureKey": "reverie_dreams:entity/player/skin/hecatia_lapislazuli",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/hecatia_lapislazuli.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:hecatia_lapislazuli",
+          "type": "slim"
+        },
+        "profileUuid": "6d70f348ac8041c9b68d081e015275c5"
+      }
+    },
+    "reverie_dreams:eternity_larva": {
+      "id": "reverie_dreams:eternity_larva",
+      "sourceConstant": "ETERNITY_LARVA",
+      "translationKey": "entity.reverie_dreams.eternity_larva",
+      "names": {
+        "en_us": "Eternity Larva",
+        "zh_cn": "爱塔妮堤·拉尔瓦",
+        "zh_tw": "愛塔妮堤·拉爾瓦",
+        "ja_jp": "エタニティ・ラルヴァ"
+      },
+      "skin": {
+        "id": "reverie_dreams:eternity_larva",
+        "textureKey": "reverie_dreams:entity/player/skin/eternity_larva",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/eternity_larva.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:eternity_larva",
+          "type": "slim"
+        },
+        "profileUuid": "b700d36b4dba444395367845e5ebe091"
+      }
+    },
+    "reverie_dreams:sakata_nemuno": {
+      "id": "reverie_dreams:sakata_nemuno",
+      "sourceConstant": "SAKUTA_NEMUNO",
+      "translationKey": "entity.reverie_dreams.sakata_nemuno",
+      "names": {
+        "en_us": "Sakata Nemuno",
+        "zh_cn": "坂田合欢乃",
+        "zh_tw": "坂田合歡乃",
+        "ja_jp": "坂田合歓乃"
+      },
+      "skin": {
+        "id": "reverie_dreams:sakata_nemuno",
+        "textureKey": "reverie_dreams:entity/player/skin/sakata_nemuno",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/sakata_nemuno.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:sakata_nemuno",
+          "type": "wide"
+        },
+        "profileUuid": "0ed601e08ce34b4dae1fb809cfa05396"
+      }
+    },
+    "reverie_dreams:komano_aunn": {
+      "id": "reverie_dreams:komano_aunn",
+      "sourceConstant": "KOMANO_AUNN",
+      "translationKey": "entity.reverie_dreams.komano_aunn",
+      "names": {
+        "en_us": "Komano Aunn",
+        "zh_cn": "高丽野阿吽",
+        "zh_tw": "塔卡拉諾·艾恩（Takarano Aun）",
+        "ja_jp": "高麗野あうん"
+      },
+      "skin": {
+        "id": "reverie_dreams:komano_aunn",
+        "textureKey": "reverie_dreams:entity/player/skin/komano_aunn",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/komano_aunn.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:komano_aunn",
+          "type": "slim"
+        },
+        "profileUuid": "d4e051cdda454551b95edbf7d535e07e"
+      }
+    },
+    "reverie_dreams:yatadera_narumi": {
+      "id": "reverie_dreams:yatadera_narumi",
+      "sourceConstant": "YATADERA_NARUMI",
+      "translationKey": "entity.reverie_dreams.yatadera_narumi",
+      "names": {
+        "en_us": "Yatadera Narumi",
+        "zh_cn": "矢田寺成美",
+        "zh_tw": "Yadadera Narumi",
+        "ja_jp": "矢田寺成美"
+      },
+      "skin": {
+        "id": "reverie_dreams:yatadera_narumi",
+        "textureKey": "reverie_dreams:entity/player/skin/yatadera_narumi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/yatadera_narumi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:yatadera_narumi",
+          "type": "wide"
+        },
+        "profileUuid": "05d453bea47f418b9b6d538841d10660"
+      }
+    },
+    "reverie_dreams:nishida_satono": {
+      "id": "reverie_dreams:nishida_satono",
+      "sourceConstant": "NISHIDA_SATONO",
+      "translationKey": "entity.reverie_dreams.nishida_satono",
+      "names": {
+        "en_us": "Nishida Satono",
+        "zh_cn": "丁礼田舞",
+        "zh_tw": "丁禮田舞",
+        "ja_jp": "丁礼田舞"
+      },
+      "skin": {
+        "id": "reverie_dreams:nishida_satono",
+        "textureKey": "reverie_dreams:entity/player/skin/nishida_satono",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/nishida_satono.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:nishida_satono",
+          "type": "wide"
+        },
+        "profileUuid": "063a176cdd15484bb5524a6420c5b7a4"
+      }
+    },
+    "reverie_dreams:teireida_mai": {
+      "id": "reverie_dreams:teireida_mai",
+      "sourceConstant": "TEIREIDA_MAI",
+      "translationKey": "entity.reverie_dreams.teireida_mai",
+      "names": {
+        "en_us": "Teireida Mai",
+        "zh_cn": "尔子田里乃",
+        "zh_tw": "爾子田裡乃",
+        "ja_jp": "爾子田里乃"
+      },
+      "skin": {
+        "id": "reverie_dreams:teireida_mai",
+        "textureKey": "reverie_dreams:entity/player/skin/teireida_mai",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/teireida_mai.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:teireida_mai",
+          "type": "slim"
+        },
+        "profileUuid": "f7342a1831d04d09878ceb95f951a9e1"
+      }
+    },
+    "reverie_dreams:matara_okina": {
+      "id": "reverie_dreams:matara_okina",
+      "sourceConstant": "MATARA_OKINA",
+      "translationKey": "entity.reverie_dreams.matara_okina",
+      "names": {
+        "en_us": "Matara Okina",
+        "zh_cn": "摩多罗隐岐奈",
+        "zh_tw": "摩多羅隱岐奈",
+        "ja_jp": "摩多羅隠岐奈"
+      },
+      "skin": {
+        "id": "reverie_dreams:matara_okina",
+        "textureKey": "reverie_dreams:entity/player/skin/matara_okina",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/matara_okina.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:matara_okina",
+          "type": "slim"
+        },
+        "profileUuid": "8773edb86fad41738ababa5511c7070e"
+      }
+    },
+    "reverie_dreams:ebisu_eika": {
+      "id": "reverie_dreams:ebisu_eika",
+      "sourceConstant": "EBISU_EIKA",
+      "translationKey": "entity.reverie_dreams.ebisu_eika",
+      "names": {
+        "en_us": "Ebisu Eika",
+        "zh_cn": "戎璎花",
+        "zh_tw": "戎瓔花",
+        "ja_jp": "戎瓔花"
+      },
+      "skin": {
+        "id": "reverie_dreams:ebisu_eika",
+        "textureKey": "reverie_dreams:entity/player/skin/ebisu_eika",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/ebisu_eika.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:ebisu_eika",
+          "type": "slim"
+        },
+        "profileUuid": "fae9763caf0549b6b9fe342cc3a7c3e0"
+      }
+    },
+    "reverie_dreams:ushizaki_urumi": {
+      "id": "reverie_dreams:ushizaki_urumi",
+      "sourceConstant": "USHIZAKI_URUMI",
+      "translationKey": "entity.reverie_dreams.ushizaki_urumi",
+      "names": {
+        "en_us": "Ushizaki Urumi",
+        "zh_cn": "牛崎润美",
+        "zh_tw": "牛崎潤美",
+        "ja_jp": "牛崎潤美"
+      },
+      "skin": {
+        "id": "reverie_dreams:ushizaki_urumi",
+        "textureKey": "reverie_dreams:entity/player/skin/ushizaki_urumi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/ushizaki_urumi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:ushizaki_urumi",
+          "type": "slim"
+        },
+        "profileUuid": "7276e8fc5d61483cbc07b1b23627008e"
+      }
+    },
+    "reverie_dreams:niwatari_kutaka": {
+      "id": "reverie_dreams:niwatari_kutaka",
+      "sourceConstant": "NIWATARI_KUTAKA",
+      "translationKey": "entity.reverie_dreams.niwatari_kutaka",
+      "names": {
+        "en_us": "Niwatari Kutaka",
+        "zh_cn": "庭渡久侘歌",
+        "zh_tw": "庭渡久侘歌",
+        "ja_jp": "庭渡久侘歌"
+      },
+      "skin": {
+        "id": "reverie_dreams:niwatari_kutaka",
+        "textureKey": "reverie_dreams:entity/player/skin/niwatari_kutaka",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/niwatari_kutaka.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:niwatari_kutaka",
+          "type": "slim"
+        },
+        "profileUuid": "7a5dbde4945e4a18b869f50f552c69db"
+      }
+    },
+    "reverie_dreams:kitcho_yachie": {
+      "id": "reverie_dreams:kitcho_yachie",
+      "sourceConstant": "KITCHO_YACHIE",
+      "translationKey": "entity.reverie_dreams.kitcho_yachie",
+      "names": {
+        "en_us": "Kitcho Yachie",
+        "zh_cn": "吉吊八千慧",
+        "zh_tw": "吉吊八千慧",
+        "ja_jp": "吉弔八千慧"
+      },
+      "skin": {
+        "id": "reverie_dreams:kitcho_yachie",
+        "textureKey": "reverie_dreams:entity/player/skin/kitcho_yachie",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kitcho_yachie.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kitcho_yachie",
+          "type": "slim"
+        },
+        "profileUuid": "3d21e62196744cd0b3763d5571ce4bee"
+      }
+    },
+    "reverie_dreams:joutougu_mayumi": {
+      "id": "reverie_dreams:joutougu_mayumi",
+      "sourceConstant": "JOUTOUGU_MAYUMI",
+      "translationKey": "entity.reverie_dreams.joutougu_mayumi",
+      "names": {
+        "en_us": "Joutougu Mayumi",
+        "zh_cn": "杖刀偶磨弓",
+        "zh_tw": "杖刀偶磨弓",
+        "ja_jp": "杖刀偶磨弓"
+      },
+      "skin": {
+        "id": "reverie_dreams:joutougu_mayumi",
+        "textureKey": "reverie_dreams:entity/player/skin/joutougu_mayumi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/joutougu_mayumi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:joutougu_mayumi",
+          "type": "wide"
+        },
+        "profileUuid": "98d1a426de2e460db7c5a12f90ca8849"
+      }
+    },
+    "reverie_dreams:haniyasushin_keiki": {
+      "id": "reverie_dreams:haniyasushin_keiki",
+      "sourceConstant": "HANIYASUSHIN_KEIKI",
+      "translationKey": "entity.reverie_dreams.haniyasushin_keiki",
+      "names": {
+        "en_us": "Haniyasushin Keiki",
+        "zh_cn": "埴安神袿姬",
+        "zh_tw": "埴安神袿姬",
+        "ja_jp": "埴安神袿姫"
+      },
+      "skin": {
+        "id": "reverie_dreams:haniyasushin_keiki",
+        "textureKey": "reverie_dreams:entity/player/skin/haniyasushin_keiki",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/haniyasushin_keiki.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:haniyasushin_keiki",
+          "type": "wide"
+        },
+        "profileUuid": "56675b2232f04ee089179e9c9206cfe8"
+      }
+    },
+    "reverie_dreams:kurokoma_saki": {
+      "id": "reverie_dreams:kurokoma_saki",
+      "sourceConstant": "KUROKOMA_SAKI",
+      "translationKey": "entity.reverie_dreams.kurokoma_saki",
+      "names": {
+        "en_us": "Kurokoma Saki",
+        "zh_cn": "骊驹早鬼",
+        "zh_tw": "驪駒早鬼",
+        "ja_jp": "驪駒早鬼"
+      },
+      "skin": {
+        "id": "reverie_dreams:kurokoma_saki",
+        "textureKey": "reverie_dreams:entity/player/skin/kurokoma_saki",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kurokoma_saki.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kurokoma_saki",
+          "type": "slim"
+        },
+        "profileUuid": "3da6d8192916413e88e786247708b93e"
+      }
+    },
+    "reverie_dreams:goutokuzi_mike": {
+      "id": "reverie_dreams:goutokuzi_mike",
+      "sourceConstant": "GOUTOKUZI_MIKE",
+      "translationKey": "entity.reverie_dreams.goutokuzi_mike",
+      "names": {
+        "en_us": "Goutokuzi Mike",
+        "zh_cn": "豪德寺三花",
+        "zh_tw": "豪德寺三花",
+        "ja_jp": "豪徳寺ミケ"
+      },
+      "skin": {
+        "id": "reverie_dreams:goutokuzi_mike",
+        "textureKey": "reverie_dreams:entity/player/skin/goutokuzi_mike",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/goutokuzi_mike.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:goutokuzi_mike",
+          "type": "slim"
+        },
+        "profileUuid": "ac654609edf3488f934eca04f69d4b00"
+      }
+    },
+    "reverie_dreams:yamashiro_takane": {
+      "id": "reverie_dreams:yamashiro_takane",
+      "sourceConstant": "YAMASHIRO_TAKANE",
+      "translationKey": "entity.reverie_dreams.yamashiro_takane",
+      "names": {
+        "en_us": "Yamashiro Takane",
+        "zh_cn": "山城高岭",
+        "zh_tw": "山城高嶺",
+        "ja_jp": "山城高嶺"
+      },
+      "skin": {
+        "id": "reverie_dreams:yamashiro_takane",
+        "textureKey": "reverie_dreams:entity/player/skin/yamashiro_takane",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/yamashiro_takane.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:yamashiro_takane",
+          "type": "wide"
+        },
+        "profileUuid": "ea08f8ee7b984baeac77bac97eedc185"
+      }
+    },
+    "reverie_dreams:komakusa_sannyo": {
+      "id": "reverie_dreams:komakusa_sannyo",
+      "sourceConstant": "KOMAKUSA_SANNYO",
+      "translationKey": "entity.reverie_dreams.komakusa_sannyo",
+      "names": {
+        "en_us": "Komakusa Sannyo",
+        "zh_cn": "驹草山如",
+        "zh_tw": "駒草山如",
+        "ja_jp": "駒草山如"
+      },
+      "skin": {
+        "id": "reverie_dreams:komakusa_sannyo",
+        "textureKey": "reverie_dreams:entity/player/skin/komakusa_sannyo",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/komakusa_sannyo.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:komakusa_sannyo",
+          "type": "slim"
+        },
+        "profileUuid": "f797f89ded234a18b018d6ffa0460bf2"
+      }
+    },
+    "reverie_dreams:tamatsukuri_misumaru": {
+      "id": "reverie_dreams:tamatsukuri_misumaru",
+      "sourceConstant": "TAMATSUKURI_MISUMARU",
+      "translationKey": "entity.reverie_dreams.tamatsukuri_misumaru",
+      "names": {
+        "en_us": "Tamatsukuri Misumaru",
+        "zh_cn": "玉造魅须丸",
+        "zh_tw": "Tamazukuri Mikamaru",
+        "ja_jp": "玉造魅須丸"
+      },
+      "skin": {
+        "id": "reverie_dreams:tamatsukuri_misumaru",
+        "textureKey": "reverie_dreams:entity/player/skin/tamatsukuri_misumaru",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/tamatsukuri_misumaru.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:tamatsukuri_misumaru",
+          "type": "slim"
+        },
+        "profileUuid": "5611ba521f4349f09a4129e346430359"
+      }
+    },
+    "reverie_dreams:kudamaki_tsukasa": {
+      "id": "reverie_dreams:kudamaki_tsukasa",
+      "sourceConstant": "KUDAMAKI_TSUKASA",
+      "translationKey": "entity.reverie_dreams.kudamaki_tsukasa",
+      "names": {
+        "en_us": "Kudamaki Tsukasa",
+        "zh_cn": "菅牧典",
+        "zh_tw": "Suga Maki Nori",
+        "ja_jp": "菅牧典"
+      },
+      "skin": {
+        "id": "reverie_dreams:kudamaki_tsukasa",
+        "textureKey": "reverie_dreams:entity/player/skin/kudamaki_tsukasa",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/kudamaki_tsukasa.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:kudamaki_tsukasa",
+          "type": "slim"
+        },
+        "profileUuid": "cf78c1df17e24cd9a21be85d4499ea8f"
+      }
+    },
+    "reverie_dreams:iizunamaru_megumu": {
+      "id": "reverie_dreams:iizunamaru_megumu",
+      "sourceConstant": "IIZUNAMARU_MEGUMU",
+      "translationKey": "entity.reverie_dreams.iizunamaru_megumu",
+      "names": {
+        "en_us": "Iizunamaru Megumu",
+        "zh_cn": "饭纲丸龙",
+        "zh_tw": "飯綱丸龍",
+        "ja_jp": "飯綱丸 龍"
+      },
+      "skin": {
+        "id": "reverie_dreams:iizunamaru_megumu",
+        "textureKey": "reverie_dreams:entity/player/skin/iizunamaru_megumu",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/iizunamaru_megumu.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:iizunamaru_megumu",
+          "type": "slim"
+        },
+        "profileUuid": "587923e491334d33aa8f47ebde9c9772"
+      }
+    },
+    "reverie_dreams:tenkyu_chimata": {
+      "id": "reverie_dreams:tenkyu_chimata",
+      "sourceConstant": "TENKYU_CHIMATA",
+      "translationKey": "entity.reverie_dreams.tenkyu_chimata",
+      "names": {
+        "en_us": "Tenkyu Chimata",
+        "zh_cn": "天弓千亦",
+        "zh_tw": "天弓千亦",
+        "ja_jp": "天弓千亦"
+      },
+      "skin": {
+        "id": "reverie_dreams:tenkyu_chimata",
+        "textureKey": "reverie_dreams:entity/player/skin/tenkyu_chimata",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/tenkyu_chimata.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:tenkyu_chimata",
+          "type": "slim"
+        },
+        "profileUuid": "4ed823371a2e4bb7a5eabfcffda84957"
+      }
+    },
+    "reverie_dreams:himemushi_momoyo": {
+      "id": "reverie_dreams:himemushi_momoyo",
+      "sourceConstant": "HIMEMUSHI_MOMOYO",
+      "translationKey": "entity.reverie_dreams.himemushi_momoyo",
+      "names": {
+        "en_us": "Himemushi Momoyo",
+        "zh_cn": "姬虫百百世",
+        "zh_tw": "姬蟲百百世",
+        "ja_jp": "姫虫百々世"
+      },
+      "skin": {
+        "id": "reverie_dreams:himemushi_momoyo",
+        "textureKey": "reverie_dreams:entity/player/skin/himemushi_momoyo",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/himemushi_momoyo.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:himemushi_momoyo",
+          "type": "slim"
+        },
+        "profileUuid": "72cb0621e510407c9de00594f601522d"
+      }
+    },
+    "reverie_dreams:son_biten": {
+      "id": "reverie_dreams:son_biten",
+      "sourceConstant": "SON_BITEN",
+      "translationKey": "entity.reverie_dreams.son_biten",
+      "names": {
+        "en_us": "Son Biten",
+        "zh_cn": "孙美天",
+        "zh_tw": "孫美天",
+        "ja_jp": "孫美天"
+      },
+      "skin": {
+        "id": "reverie_dreams:son_biten",
+        "textureKey": "reverie_dreams:entity/player/skin/son_biten",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/son_biten.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:son_biten",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:mitsugashira_enoko": {
+      "id": "reverie_dreams:mitsugashira_enoko",
+      "sourceConstant": "MITSUGASHIRA_ENOKO",
+      "translationKey": "entity.reverie_dreams.mitsugashira_enoko",
+      "names": {
+        "en_us": "Mitsugashira Enoko",
+        "zh_cn": "三头慧乃子",
+        "zh_tw": "三頭慧乃子",
+        "ja_jp": "三頭慧ノ子"
+      },
+      "skin": {
+        "id": "reverie_dreams:mitsugashira_enoko",
+        "textureKey": "reverie_dreams:entity/player/skin/mitsugashira_enoko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/mitsugashira_enoko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:mitsugashira_enoko",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:tenkajin_chiyari": {
+      "id": "reverie_dreams:tenkajin_chiyari",
+      "sourceConstant": "TENKAJIN_CHIYARI",
+      "translationKey": "entity.reverie_dreams.tenkajin_chiyari",
+      "names": {
+        "en_us": "Tenkajin Chiyari",
+        "zh_cn": "天火人血枪",
+        "zh_tw": "天火人血槍",
+        "ja_jp": "天火人ちやり"
+      },
+      "skin": {
+        "id": "reverie_dreams:tenkajin_chiyari",
+        "textureKey": "reverie_dreams:entity/player/skin/tenkajin_chiyari",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/tenkajin_chiyari.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:tenkajin_chiyari",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:yomotsu_hisami": {
+      "id": "reverie_dreams:yomotsu_hisami",
+      "sourceConstant": "YOMOTSU_HISAMI",
+      "translationKey": "entity.reverie_dreams.yomotsu_hisami",
+      "names": {
+        "en_us": "Yomotsu Hisami",
+        "zh_cn": " 豫母都日狭美",
+        "zh_tw": "豫母都日狹美",
+        "ja_jp": "豫母都日狭美"
+      },
+      "skin": {
+        "id": "reverie_dreams:yomotsu_hisami",
+        "textureKey": "reverie_dreams:entity/player/skin/yomotsu_hisami",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/yomotsu_hisami.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:yomotsu_hisami",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:nippaku_zanmu": {
+      "id": "reverie_dreams:nippaku_zanmu",
+      "sourceConstant": "NIPPAKU_ZANMU",
+      "translationKey": "entity.reverie_dreams.nippaku_zanmu",
+      "names": {
+        "en_us": "Nippaku Zanmu",
+        "zh_cn": "日白残无",
+        "zh_tw": "日白殘無",
+        "ja_jp": "日白残無"
+      },
+      "skin": {
+        "id": "reverie_dreams:nippaku_zanmu",
+        "textureKey": "reverie_dreams:entity/player/skin/nippaku_zanmu",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/nippaku_zanmu.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:nippaku_zanmu",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:chirizuka_ubame": {
+      "id": "reverie_dreams:chirizuka_ubame",
+      "sourceConstant": "CHIRIZUKA_UBAME",
+      "translationKey": "entity.reverie_dreams.chirizuka_ubame",
+      "names": {
+        "en_us": "Chirizuka Ubame",
+        "zh_cn": "尘塚姥芽",
+        "zh_tw": "宇塚",
+        "ja_jp": "塵塚姥芽"
+      },
+      "skin": {
+        "id": "reverie_dreams:chirizuka_ubame",
+        "textureKey": "reverie_dreams:entity/player/skin/chirizuka_ubame",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/chirizuka_ubame.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:chirizuka_ubame",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:houju_chimi": {
+      "id": "reverie_dreams:houju_chimi",
+      "sourceConstant": "HOUJU_CHIMI",
+      "translationKey": "entity.reverie_dreams.houju_chimi",
+      "names": {
+        "en_us": "Houju Chimi",
+        "zh_cn": "封兽魑魅",
+        "zh_tw": "封獸魑魅",
+        "ja_jp": "封獣魑魅"
+      },
+      "skin": {
+        "id": "reverie_dreams:houju_chimi",
+        "textureKey": "reverie_dreams:entity/player/skin/houju_chimi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/houju_chimi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:houju_chimi",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:michigami_nareko": {
+      "id": "reverie_dreams:michigami_nareko",
+      "sourceConstant": "MICHIGAMI_NAREKO",
+      "translationKey": "entity.reverie_dreams.michigami_nareko",
+      "names": {
+        "en_us": "Michigami Nareko",
+        "zh_cn": "道神驯子",
+        "zh_tw": "道神馴子",
+        "ja_jp": "道神 馴子"
+      },
+      "skin": {
+        "id": "reverie_dreams:michigami_nareko",
+        "textureKey": null,
+        "texturePath": null,
+        "missingTexture": true,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:michigami_nareko",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:yuiman_asama": {
+      "id": "reverie_dreams:yuiman_asama",
+      "sourceConstant": "YUIMAN_ASAMA",
+      "translationKey": "entity.reverie_dreams.yuiman_asama",
+      "names": {
+        "en_us": "Yuiman Asama",
+        "zh_cn": "维缦·浅间",
+        "zh_tw": "維縵·淺間",
+        "ja_jp": "ヴィマン・アサマ"
+      },
+      "skin": {
+        "id": "reverie_dreams:yuiman_asama",
+        "textureKey": "reverie_dreams:entity/player/skin/yuiman_asama",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/yuiman_asama.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:yuiman_asama",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:watatsuki_toyohime": {
+      "id": "reverie_dreams:watatsuki_toyohime",
+      "sourceConstant": "WATATSUKI_TOYOHIME",
+      "translationKey": "entity.reverie_dreams.watatsuki_toyohime",
+      "names": {
+        "en_us": "Watatsuki Toyohime",
+        "zh_cn": "绵月丰姬",
+        "zh_tw": "綿月豐姬",
+        "ja_jp": "綿月豊姫"
+      },
+      "skin": {
+        "id": "reverie_dreams:watatsuki_toyohime",
+        "textureKey": "reverie_dreams:entity/player/skin/watatsuki_toyohime",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/watatsuki_toyohime.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:watatsuki_toyohime",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:iwanaga_ariya": {
+      "id": "reverie_dreams:iwanaga_ariya",
+      "sourceConstant": "IWANAGA_ARIYA",
+      "translationKey": "entity.reverie_dreams.iwanaga_ariya",
+      "names": {
+        "en_us": "Iwanaga Ariya",
+        "zh_cn": "磐永阿梨夜",
+        "zh_tw": "磐永阿梨夜",
+        "ja_jp": "磐永阿梨夜"
+      },
+      "skin": {
+        "id": "reverie_dreams:iwanaga_ariya",
+        "textureKey": "reverie_dreams:entity/player/skin/iwanaga_ariya",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/iwanaga_ariya.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:iwanaga_ariya",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:watari_nina": {
+      "id": "reverie_dreams:watari_nina",
+      "sourceConstant": "WATARI_NINA",
+      "translationKey": "entity.reverie_dreams.watari_nina",
+      "names": {
+        "en_us": "Watari Nina",
+        "zh_cn": "渡里贝子",
+        "zh_tw": "渡里貝子",
+        "ja_jp": "渡里貝子"
+      },
+      "skin": {
+        "id": "reverie_dreams:watari_nina",
+        "textureKey": "reverie_dreams:entity/player/skin/watari_nina",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/watari_nina.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:watari_nina",
+          "type": "slim"
+        },
+        "profileUuid": null
+      }
+    },
+    "reverie_dreams:star": {
+      "id": "reverie_dreams:star",
+      "sourceConstant": "STAR",
+      "translationKey": "entity.reverie_dreams.star",
+      "names": {
+        "en_us": "Star Sapphire",
+        "zh_cn": "斯塔·萨菲雅",
+        "zh_tw": "斯塔·薩菲雅",
+        "ja_jp": "スターサファイア"
+      },
+      "skin": {
+        "id": "reverie_dreams:star",
+        "textureKey": "reverie_dreams:entity/player/skin/star",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/star.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:star",
+          "type": "slim"
+        },
+        "profileUuid": "0dc9df8f9f5a45d888489262a4357ae0"
+      }
+    },
+    "reverie_dreams:lunar": {
+      "id": "reverie_dreams:lunar",
+      "sourceConstant": "LUNAR",
+      "translationKey": "entity.reverie_dreams.lunar",
+      "names": {
+        "en_us": "Luna Child",
+        "zh_cn": "露娜·切露德",
+        "zh_tw": "露娜·切露德",
+        "ja_jp": "ルナチャイルド"
+      },
+      "skin": {
+        "id": "reverie_dreams:lunar",
+        "textureKey": "reverie_dreams:entity/player/skin/lunar",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/lunar.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:lunar",
+          "type": "slim"
+        },
+        "profileUuid": "66dfc1f54e554e6f82c509f3552ba90d"
+      }
+    },
+    "reverie_dreams:sunny": {
+      "id": "reverie_dreams:sunny",
+      "sourceConstant": "SUNNY",
+      "translationKey": "entity.reverie_dreams.sunny",
+      "names": {
+        "en_us": "Sunny Milk",
+        "zh_cn": "桑尼·米尔克",
+        "zh_tw": "桑尼·米爾克",
+        "ja_jp": "サニー・ミルク"
+      },
+      "skin": {
+        "id": "reverie_dreams:sunny",
+        "textureKey": "reverie_dreams:entity/player/skin/sunny",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/sunny.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:sunny",
+          "type": "slim"
+        },
+        "profileUuid": "bfc2817edaec49f9a5f1ed57c86a0ac9"
+      }
+    },
+    "reverie_dreams:usami_renko": {
+      "id": "reverie_dreams:usami_renko",
+      "sourceConstant": "USAMI_RENKO",
+      "translationKey": "entity.reverie_dreams.usami_renko",
+      "names": {
+        "en_us": "Usami Renko",
+        "zh_cn": "宇佐见莲子",
+        "zh_tw": "宇佐見蓮子",
+        "ja_jp": "宇佐見 蓮子"
+      },
+      "skin": {
+        "id": "reverie_dreams:usami_renko",
+        "textureKey": "reverie_dreams:entity/player/skin/usami_renko",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/usami_renko.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:usami_renko",
+          "type": "slim"
+        },
+        "profileUuid": "cc56603bfbf848bf9373657ecc524b87"
+      }
+    },
+    "reverie_dreams:maribel_hearn": {
+      "id": "reverie_dreams:maribel_hearn",
+      "sourceConstant": "MARIBEL_HEARN",
+      "translationKey": "entity.reverie_dreams.maribel_hearn",
+      "names": {
+        "en_us": "Maribel Hearn",
+        "zh_cn": "玛艾露贝莉·赫恩",
+        "zh_tw": "瑪艾露貝莉·赫恩",
+        "ja_jp": "マエリベリー・ハーン"
+      },
+      "skin": {
+        "id": "reverie_dreams:maribel_hearn",
+        "textureKey": "reverie_dreams:entity/player/skin/maribel_hearn",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/maribel_hearn.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:maribel_hearn",
+          "type": "slim"
+        },
+        "profileUuid": "cf78c1df17e24cd9a21be85d4499ea8f"
+      }
+    },
+    "reverie_dreams:suika": {
+      "id": "reverie_dreams:suika",
+      "sourceConstant": "SUIKA",
+      "translationKey": "entity.reverie_dreams.suika",
+      "names": {
+        "en_us": "Suika Ibuki",
+        "zh_cn": "伊吹萃香",
+        "zh_tw": "伊吹萃香",
+        "ja_jp": "伊吹萃香"
+      },
+      "skin": {
+        "id": "reverie_dreams:suika",
+        "textureKey": "reverie_dreams:entity/player/skin/suika",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/suika.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:suika",
+          "type": "slim"
+        },
+        "profileUuid": "997cf1e2f54d4c129f6f59e5e655b6f7"
+      }
+    },
+    "reverie_dreams:tenshi": {
+      "id": "reverie_dreams:tenshi",
+      "sourceConstant": "TENSHI",
+      "translationKey": "entity.reverie_dreams.tenshi",
+      "names": {
+        "en_us": "Tenshi Hinanawi",
+        "zh_cn": "比那名居天子",
+        "zh_tw": "比那名居天子",
+        "ja_jp": "比那名居天子"
+      },
+      "skin": {
+        "id": "reverie_dreams:tenshi",
+        "textureKey": "reverie_dreams:entity/player/skin/tenshi",
+        "texturePath": "assets/reverie_dreams/textures/entity/player/skin/tenshi.png",
+        "missingTexture": false,
+        "sourceConfig": {
+          "registry_key": "reverie_dreams:tenshi",
+          "type": "slim"
+        },
+        "profileUuid": "03467a4c79de4dc9a487590f96a081f2"
+      }
+    }
+  },
+  "roleAliases": {
+    "reverie_dreams:nue": "reverie_dreams:houjuu_nue"
+  },
+  "roleCards": {
+    "reverie_dreams:protagonist_group": {
+      "sourceConstant": "PROTAGONIST_GROUP",
+      "color": 16727357,
+      "roles": [
+        "reverie_dreams:reimu",
+        "reverie_dreams:cyan_reimu",
+        "reverie_dreams:marisa"
+      ]
+    },
+    "reverie_dreams:koumakyou": {
+      "sourceConstant": "KOUMAKYOU",
+      "color": 16716820,
+      "roles": [
+        "reverie_dreams:rumia",
+        "reverie_dreams:cirno",
+        "reverie_dreams:meirin",
+        "reverie_dreams:patchouli",
+        "reverie_dreams:sakuya",
+        "reverie_dreams:remilia",
+        "reverie_dreams:flandre"
+      ]
+    },
+    "reverie_dreams:youyoumu": {
+      "sourceConstant": "YOUYOUMU",
+      "color": 16717035,
+      "roles": [
+        "reverie_dreams:letty_whiterock",
+        "reverie_dreams:chen",
+        "reverie_dreams:alice",
+        "reverie_dreams:lily_white",
+        "reverie_dreams:lunasa_prismriver",
+        "reverie_dreams:merlin_prismriver",
+        "reverie_dreams:lyrica_prismriver",
+        "reverie_dreams:ran",
+        "reverie_dreams:youmu",
+        "reverie_dreams:yuyuko",
+        "reverie_dreams:yakumo_yukai"
+      ]
+    },
+    "reverie_dreams:eiyashou": {
+      "sourceConstant": "EIYASHOU",
+      "color": 6160593,
+      "roles": [
+        "reverie_dreams:mystia_lorelei",
+        "reverie_dreams:wriggle_nightbug",
+        "reverie_dreams:kamishirasawa_keine",
+        "reverie_dreams:reisen",
+        "reverie_dreams:erin",
+        "reverie_dreams:houraisan_kaguya",
+        "reverie_dreams:huziwara_no_mokou"
+      ]
+    },
+    "reverie_dreams:kaeizuka": {
+      "sourceConstant": "KAEIZUKA",
+      "color": 53595,
+      "roles": [
+        "reverie_dreams:shikieiki_yamaxanadu",
+        "reverie_dreams:kazami_yuka"
+      ]
+    },
+    "reverie_dreams:fuujinroku": {
+      "sourceConstant": "FUUJINROKU",
+      "color": 6934784,
+      "roles": [
+        "reverie_dreams:kagiyama_hina",
+        "reverie_dreams:inubashiri_momizi",
+        "reverie_dreams:kawasiro_nitori",
+        "reverie_dreams:aya",
+        "reverie_dreams:kochiuya_sanae",
+        "reverie_dreams:yasaka_kanako",
+        "reverie_dreams:moriya_suwako"
+      ]
+    },
+    "reverie_dreams:chireiden": {
+      "sourceConstant": "CHIREIDEN",
+      "color": 41777,
+      "roles": [
+        "reverie_dreams:kisume",
+        "reverie_dreams:kurodani_yamame",
+        "reverie_dreams:mizuhashi_parsee",
+        "reverie_dreams:hoshiguma_yugi",
+        "reverie_dreams:kaenbyou_rin",
+        "reverie_dreams:komeiji_satori",
+        "reverie_dreams:reiuji_utsuh",
+        "reverie_dreams:komeiji_koishi",
+        "reverie_dreams:white_komeiji_koishi"
+      ]
+    },
+    "reverie_dreams:seirensen": {
+      "sourceConstant": "SEIRENSEN",
+      "color": 1506915,
+      "roles": [
+        "reverie_dreams:nazrin",
+        "reverie_dreams:tatara_kogasa",
+        "reverie_dreams:houjuu_nue"
+      ]
+    },
+    "reverie_dreams:shinreibyou": {
+      "sourceConstant": "SHINREIBYOU",
+      "color": 16775603,
+      "roles": [
+        "reverie_dreams:kasodani_kyouko",
+        "reverie_dreams:miyako_yoshika",
+        "reverie_dreams:kaku_seiga",
+        "reverie_dreams:soga_no_toziko",
+        "reverie_dreams:mononobe_no_futo",
+        "reverie_dreams:toyosatomimi_no_miko",
+        "reverie_dreams:houjuu_nue",
+        "reverie_dreams:hutatsuiwa_mamizou"
+      ]
+    },
+    "reverie_dreams:kishinjou": {
+      "sourceConstant": "KISHINJOU",
+      "color": 16761692,
+      "roles": [
+        "reverie_dreams:wakasagihime",
+        "reverie_dreams:sekibanki",
+        "reverie_dreams:imaizumi_kagerou",
+        "reverie_dreams:kijin_seijia",
+        "reverie_dreams:sukuna_shinmyoumaru",
+        "reverie_dreams:horikawa_raiko"
+      ]
+    },
+    "reverie_dreams:kanjuden": {
+      "sourceConstant": "KANJUDEN",
+      "color": 14024704,
+      "roles": [
+        "reverie_dreams:seiran",
+        "reverie_dreams:ringo",
+        "reverie_dreams:doremy_sweet",
+        "reverie_dreams:kisin_sagume",
+        "reverie_dreams:clownpiece",
+        "reverie_dreams:junko",
+        "reverie_dreams:hecatia_lapislazuli"
+      ]
+    },
+    "reverie_dreams:tenkuushou": {
+      "sourceConstant": "TENKUUSHOU",
+      "color": 6750023,
+      "roles": [
+        "reverie_dreams:eternity_larva",
+        "reverie_dreams:sakata_nemuno",
+        "reverie_dreams:komano_aunn",
+        "reverie_dreams:yatadera_narumi",
+        "reverie_dreams:nishida_satono",
+        "reverie_dreams:teireida_mai",
+        "reverie_dreams:matara_okina"
+      ]
+    },
+    "reverie_dreams:kikeijuu": {
+      "sourceConstant": "KIKEIJUU",
+      "color": 12386304,
+      "roles": [
+        "reverie_dreams:ebisu_eika",
+        "reverie_dreams:ushizaki_urumi",
+        "reverie_dreams:niwatari_kutaka",
+        "reverie_dreams:kitcho_yachie",
+        "reverie_dreams:joutougu_mayumi",
+        "reverie_dreams:haniyasushin_keiki",
+        "reverie_dreams:kurokoma_saki"
+      ]
+    },
+    "reverie_dreams:kouryuudou": {
+      "sourceConstant": "KOURYUUDOU",
+      "color": 15853109,
+      "roles": [
+        "reverie_dreams:goutokuzi_mike",
+        "reverie_dreams:yamashiro_takane",
+        "reverie_dreams:komakusa_sannyo",
+        "reverie_dreams:tamatsukuri_misumaru",
+        "reverie_dreams:kudamaki_tsukasa",
+        "reverie_dreams:iizunamaru_megumu",
+        "reverie_dreams:tenkyu_chimata",
+        "reverie_dreams:himemushi_momoyo"
+      ]
+    },
+    "reverie_dreams:juuouen": {
+      "sourceConstant": "JUUOUEN",
+      "color": 7252587,
+      "roles": [
+        "reverie_dreams:son_biten",
+        "reverie_dreams:mitsugashira_enoko",
+        "reverie_dreams:tenkajin_chiyari",
+        "reverie_dreams:yomotsu_hisami",
+        "reverie_dreams:nippaku_zanmu"
+      ]
+    },
+    "reverie_dreams:kinjoukyou": {
+      "sourceConstant": "KINJOUKYOU",
+      "color": 12969971,
+      "roles": [
+        "reverie_dreams:chirizuka_ubame",
+        "reverie_dreams:houju_chimi",
+        "reverie_dreams:michigami_nareko",
+        "reverie_dreams:yuiman_asama",
+        "reverie_dreams:watatsuki_toyohime",
+        "reverie_dreams:iwanaga_ariya",
+        "reverie_dreams:watari_nina"
+      ]
+    },
+    "reverie_dreams:sangetsusei": {
+      "sourceConstant": "SANGETSUSEI",
+      "color": 16770140,
+      "roles": [
+        "reverie_dreams:star",
+        "reverie_dreams:lunar",
+        "reverie_dreams:sunny"
+      ]
+    },
+    "reverie_dreams:hifuu": {
+      "sourceConstant": "HIFUU",
+      "color": 8931582,
+      "roles": [
+        "reverie_dreams:usami_renko",
+        "reverie_dreams:maribel_hearn"
+      ]
+    },
+    "reverie_dreams:tasogare_furontia": {
+      "sourceConstant": "TASOGARE_FURONTIA",
+      "color": 16683336,
+      "roles": [
+        "reverie_dreams:suika",
+        "reverie_dreams:tenshi"
+      ]
+    }
+  },
+  "customers": {
+    "reverie_dreams:alice": {
+      "role_type": "reverie_dreams:alice",
+      "rare": true,
+      "budget": {
+        "min": 500,
+        "max": 800
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:gourmet",
+        "reverie_dreams:western_style",
+        "reverie_dreams:sweet",
+        "reverie_dreams:cultural_depth"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:filling",
+        "reverie_dreams:bizarre"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:western_wine",
+        "reverie_dreams:modern"
+      ],
+      "chats": [
+        "reverie_dreams.role.alice.chat.0",
+        "reverie_dreams.role.alice.chat.1",
+        "reverie_dreams.role.alice.chat.2",
+        "reverie_dreams.role.alice.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.alice.order.0",
+        "reverie_dreams.role.alice.order.1",
+        "reverie_dreams.role.alice.order.2",
+        "reverie_dreams.role.alice.order.3",
+        "reverie_dreams.role.alice.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.alice.description.0",
+        "reverie_dreams.role.alice.description.1",
+        "reverie_dreams.role.alice.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.alice.evaluation.exbad",
+        "bad": "reverie_dreams.role.alice.evaluation.bad",
+        "norm": "reverie_dreams.role.alice.evaluation.norm",
+        "good": "reverie_dreams.role.alice.evaluation.good",
+        "exgood": "reverie_dreams.role.alice.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.alice.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.alice.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.alice.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.alice.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:aya": {
+      "role_type": "reverie_dreams:aya",
+      "rare": true,
+      "budget": {
+        "min": 500,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:signature",
+        "reverie_dreams:photogenic"
+      ],
+      "dislikes": [
+        "reverie_dreams:western_style"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:soju",
+        "reverie_dreams:refreshing"
+      ],
+      "chats": [
+        "reverie_dreams.role.aya.chat.0",
+        "reverie_dreams.role.aya.chat.1",
+        "reverie_dreams.role.aya.chat.2",
+        "reverie_dreams.role.aya.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.aya.order.0",
+        "reverie_dreams.role.aya.order.1",
+        "reverie_dreams.role.aya.order.2",
+        "reverie_dreams.role.aya.order.3",
+        "reverie_dreams.role.aya.order.4",
+        "reverie_dreams.role.aya.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.aya.description.0",
+        "reverie_dreams.role.aya.description.1",
+        "reverie_dreams.role.aya.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.aya.evaluation.exbad",
+        "bad": "reverie_dreams.role.aya.evaluation.bad",
+        "norm": "reverie_dreams.role.aya.evaluation.norm",
+        "good": "reverie_dreams.role.aya.evaluation.good",
+        "exgood": "reverie_dreams.role.aya.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.aya.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.aya.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.aya.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.aya.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:chen": {
+      "role_type": "reverie_dreams:chen",
+      "rare": true,
+      "budget": {
+        "min": 400,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:aquatic_products",
+        "reverie_dreams:greasy",
+        "reverie_dreams:sweet",
+        "reverie_dreams:grilled"
+      ],
+      "dislikes": [
+        "reverie_dreams:fiery",
+        "reverie_dreams:bizarre"
+      ],
+      "beverages": [
+        "reverie_dreams:pungent"
+      ],
+      "chats": [
+        "reverie_dreams.role.chen.chat.0",
+        "reverie_dreams.role.chen.chat.1",
+        "reverie_dreams.role.chen.chat.2",
+        "reverie_dreams.role.chen.chat.3",
+        "reverie_dreams.role.chen.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.chen.order.0",
+        "reverie_dreams.role.chen.order.1",
+        "reverie_dreams.role.chen.order.2",
+        "reverie_dreams.role.chen.order.3",
+        "reverie_dreams.role.chen.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.chen.description.0",
+        "reverie_dreams.role.chen.description.1",
+        "reverie_dreams.role.chen.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.chen.evaluation.exbad",
+        "bad": "reverie_dreams.role.chen.evaluation.bad",
+        "norm": "reverie_dreams.role.chen.evaluation.norm",
+        "good": "reverie_dreams.role.chen.evaluation.good",
+        "exgood": "reverie_dreams.role.chen.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.chen.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.chen.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.chen.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.chen.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:cirno": {
+      "role_type": "reverie_dreams:cirno",
+      "rare": true,
+      "budget": {
+        "min": 100,
+        "max": 200
+      },
+      "likes": [
+        "reverie_dreams:sweet",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:cool",
+        "reverie_dreams:bizarre"
+      ],
+      "dislikes": [
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:cultural_depth",
+        "reverie_dreams:expensive"
+      ],
+      "beverages": [
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:sweet"
+      ],
+      "chats": [
+        "reverie_dreams.role.cirno.chat.0",
+        "reverie_dreams.role.cirno.chat.1",
+        "reverie_dreams.role.cirno.chat.2",
+        "reverie_dreams.role.cirno.chat.3",
+        "reverie_dreams.role.cirno.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.cirno.order.0",
+        "reverie_dreams.role.cirno.order.1",
+        "reverie_dreams.role.cirno.order.2",
+        "reverie_dreams.role.cirno.order.3"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.cirno.description.0",
+        "reverie_dreams.role.cirno.description.1",
+        "reverie_dreams.role.cirno.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.cirno.evaluation.exbad",
+        "bad": "reverie_dreams.role.cirno.evaluation.bad",
+        "norm": "reverie_dreams.role.cirno.evaluation.norm",
+        "good": "reverie_dreams.role.cirno.evaluation.good",
+        "exgood": "reverie_dreams.role.cirno.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.cirno.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.cirno.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.cirno.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.cirno.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:erin": {
+      "role_type": "reverie_dreams:erin",
+      "rare": true,
+      "budget": {
+        "min": 2000,
+        "max": 2400
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:legendary",
+        "reverie_dreams:cultural_depth",
+        "reverie_dreams:dreamlike",
+        "reverie_dreams:local_specialty"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:raw"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:sake",
+        "reverie_dreams:direct_drinking",
+        "reverie_dreams:sweet",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.erin.chat.0",
+        "reverie_dreams.role.erin.chat.1",
+        "reverie_dreams.role.erin.chat.2",
+        "reverie_dreams.role.erin.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.erin.order.0",
+        "reverie_dreams.role.erin.order.1",
+        "reverie_dreams.role.erin.order.2",
+        "reverie_dreams.role.erin.order.3",
+        "reverie_dreams.role.erin.order.4",
+        "reverie_dreams.role.erin.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.erin.description.0",
+        "reverie_dreams.role.erin.description.1",
+        "reverie_dreams.role.erin.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.erin.evaluation.exbad",
+        "bad": "reverie_dreams.role.erin.evaluation.bad",
+        "norm": "reverie_dreams.role.erin.evaluation.norm",
+        "good": "reverie_dreams.role.erin.evaluation.good",
+        "exgood": "reverie_dreams.role.erin.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.erin.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.erin.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.erin.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.erin.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:flandre": {
+      "role_type": "reverie_dreams:flandre",
+      "rare": true,
+      "budget": {
+        "min": 2500,
+        "max": 3200
+      },
+      "likes": [
+        "reverie_dreams:raw",
+        "reverie_dreams:signature",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:fiery",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:spicy"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:pungent"
+      ],
+      "chats": [
+        "reverie_dreams.role.flandre.chat.0",
+        "reverie_dreams.role.flandre.chat.1",
+        "reverie_dreams.role.flandre.chat.2",
+        "reverie_dreams.role.flandre.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.flandre.order.0",
+        "reverie_dreams.role.flandre.order.1",
+        "reverie_dreams.role.flandre.order.2",
+        "reverie_dreams.role.flandre.order.3",
+        "reverie_dreams.role.flandre.order.4",
+        "reverie_dreams.role.flandre.order.5",
+        "reverie_dreams.role.flandre.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.flandre.description.0",
+        "reverie_dreams.role.flandre.description.1",
+        "reverie_dreams.role.flandre.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.flandre.evaluation.exbad",
+        "bad": "reverie_dreams.role.flandre.evaluation.bad",
+        "norm": "reverie_dreams.role.flandre.evaluation.norm",
+        "good": "reverie_dreams.role.flandre.evaluation.good",
+        "exgood": "reverie_dreams.role.flandre.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.flandre.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.flandre.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.flandre.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.flandre.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:hoshiguma_yugi": {
+      "role_type": "reverie_dreams:hoshiguma_yugi",
+      "rare": true,
+      "budget": {
+        "min": 600,
+        "max": 1000
+      },
+      "likes": [
+        "reverie_dreams:legendary",
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:signature",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:flaming",
+        "reverie_dreams:large_partition"
+      ],
+      "dislikes": [
+        "reverie_dreams:bizarre",
+        "reverie_dreams:petite"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:sake",
+        "reverie_dreams:beer",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.hoshiguma_yugi.chat.0",
+        "reverie_dreams.role.hoshiguma_yugi.chat.1",
+        "reverie_dreams.role.hoshiguma_yugi.chat.2",
+        "reverie_dreams.role.hoshiguma_yugi.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.hoshiguma_yugi.order.0",
+        "reverie_dreams.role.hoshiguma_yugi.order.1",
+        "reverie_dreams.role.hoshiguma_yugi.order.2",
+        "reverie_dreams.role.hoshiguma_yugi.order.3",
+        "reverie_dreams.role.hoshiguma_yugi.order.4",
+        "reverie_dreams.role.hoshiguma_yugi.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.hoshiguma_yugi.description.0",
+        "reverie_dreams.role.hoshiguma_yugi.description.1",
+        "reverie_dreams.role.hoshiguma_yugi.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.hoshiguma_yugi.evaluation.exbad",
+        "bad": "reverie_dreams.role.hoshiguma_yugi.evaluation.bad",
+        "norm": "reverie_dreams.role.hoshiguma_yugi.evaluation.norm",
+        "good": "reverie_dreams.role.hoshiguma_yugi.evaluation.good",
+        "exgood": "reverie_dreams.role.hoshiguma_yugi.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.hoshiguma_yugi.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.hoshiguma_yugi.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.hoshiguma_yugi.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.hoshiguma_yugi.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:houjuu_nue": {
+      "role_type": "reverie_dreams:houjuu_nue",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 500
+      },
+      "likes": [
+        "reverie_dreams:umami",
+        "reverie_dreams:raw",
+        "reverie_dreams:signature",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:local_specialty"
+      ],
+      "dislikes": [
+        "reverie_dreams:western_style",
+        "reverie_dreams:sour"
+      ],
+      "beverages": [
+        "reverie_dreams:can_heated",
+        "reverie_dreams:soju",
+        "reverie_dreams:direct_drinking",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.houjuu_nue.chat.0",
+        "reverie_dreams.role.houjuu_nue.chat.1",
+        "reverie_dreams.role.houjuu_nue.chat.2",
+        "reverie_dreams.role.houjuu_nue.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.houjuu_nue.order.0",
+        "reverie_dreams.role.houjuu_nue.order.1",
+        "reverie_dreams.role.houjuu_nue.order.2",
+        "reverie_dreams.role.houjuu_nue.order.3",
+        "reverie_dreams.role.houjuu_nue.order.4",
+        "reverie_dreams.role.houjuu_nue.order.5",
+        "reverie_dreams.role.houjuu_nue.order.6",
+        "reverie_dreams.role.houjuu_nue.order.7"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.houjuu_nue.description.0",
+        "reverie_dreams.role.houjuu_nue.description.1",
+        "reverie_dreams.role.houjuu_nue.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.houjuu_nue.evaluation.exbad",
+        "bad": "reverie_dreams.role.houjuu_nue.evaluation.bad",
+        "norm": "reverie_dreams.role.houjuu_nue.evaluation.norm",
+        "good": "reverie_dreams.role.houjuu_nue.evaluation.good",
+        "exgood": "reverie_dreams.role.houjuu_nue.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.houjuu_nue.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.houjuu_nue.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.houjuu_nue.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.houjuu_nue.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:houraisan_kaguya": {
+      "role_type": "reverie_dreams:houraisan_kaguya",
+      "rare": true,
+      "budget": {
+        "min": 1000,
+        "max": 1500
+      },
+      "likes": [
+        "reverie_dreams:legendary",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:cultural_depth"
+      ],
+      "dislikes": [
+        "reverie_dreams:signature",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:large_partition"
+      ],
+      "beverages": [
+        "reverie_dreams:sake",
+        "reverie_dreams:classical",
+        "reverie_dreams:modern"
+      ],
+      "chats": [
+        "reverie_dreams.role.houraisan_kaguya.chat.0",
+        "reverie_dreams.role.houraisan_kaguya.chat.1",
+        "reverie_dreams.role.houraisan_kaguya.chat.2",
+        "reverie_dreams.role.houraisan_kaguya.chat.3",
+        "reverie_dreams.role.houraisan_kaguya.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.houraisan_kaguya.order.0",
+        "reverie_dreams.role.houraisan_kaguya.order.1",
+        "reverie_dreams.role.houraisan_kaguya.order.2",
+        "reverie_dreams.role.houraisan_kaguya.order.3"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.houraisan_kaguya.description.0",
+        "reverie_dreams.role.houraisan_kaguya.description.1",
+        "reverie_dreams.role.houraisan_kaguya.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.houraisan_kaguya.evaluation.exbad",
+        "bad": "reverie_dreams.role.houraisan_kaguya.evaluation.bad",
+        "norm": "reverie_dreams.role.houraisan_kaguya.evaluation.norm",
+        "good": "reverie_dreams.role.houraisan_kaguya.evaluation.good",
+        "exgood": "reverie_dreams.role.houraisan_kaguya.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.houraisan_kaguya.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.houraisan_kaguya.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.houraisan_kaguya.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.houraisan_kaguya.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:hutatsuiwa_mamizou": {
+      "role_type": "reverie_dreams:hutatsuiwa_mamizou",
+      "rare": true,
+      "budget": {
+        "min": 1000,
+        "max": 1200
+      },
+      "likes": [
+        "reverie_dreams:aquatic_products",
+        "reverie_dreams:homestyle",
+        "reverie_dreams:legendary",
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:fruity"
+      ],
+      "dislikes": [
+        "reverie_dreams:fiery",
+        "reverie_dreams:spicy"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:soju",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.hutatsuiwa_mamizou.chat.0",
+        "reverie_dreams.role.hutatsuiwa_mamizou.chat.1",
+        "reverie_dreams.role.hutatsuiwa_mamizou.chat.2",
+        "reverie_dreams.role.hutatsuiwa_mamizou.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.hutatsuiwa_mamizou.order.0",
+        "reverie_dreams.role.hutatsuiwa_mamizou.order.1",
+        "reverie_dreams.role.hutatsuiwa_mamizou.order.2",
+        "reverie_dreams.role.hutatsuiwa_mamizou.order.3",
+        "reverie_dreams.role.hutatsuiwa_mamizou.order.4",
+        "reverie_dreams.role.hutatsuiwa_mamizou.order.5",
+        "reverie_dreams.role.hutatsuiwa_mamizou.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.hutatsuiwa_mamizou.description.0"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.exbad",
+        "bad": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.bad",
+        "norm": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.norm",
+        "good": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.good",
+        "exgood": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.hutatsuiwa_mamizou.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:huziwara_no_mokou": {
+      "role_type": "reverie_dreams:huziwara_no_mokou",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:fiery",
+        "reverie_dreams:fruity",
+        "reverie_dreams:grilled",
+        "reverie_dreams:flaming",
+        "reverie_dreams:spicy"
+      ],
+      "dislikes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:expensive"
+      ],
+      "beverages": [
+        "reverie_dreams:soju",
+        "reverie_dreams:pungent",
+        "reverie_dreams:bitter"
+      ],
+      "chats": [
+        "reverie_dreams.role.huziwara_no_mokou.chat.0",
+        "reverie_dreams.role.huziwara_no_mokou.chat.1",
+        "reverie_dreams.role.huziwara_no_mokou.chat.2",
+        "reverie_dreams.role.huziwara_no_mokou.chat.3",
+        "reverie_dreams.role.huziwara_no_mokou.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.huziwara_no_mokou.order.0",
+        "reverie_dreams.role.huziwara_no_mokou.order.1",
+        "reverie_dreams.role.huziwara_no_mokou.order.2",
+        "reverie_dreams.role.huziwara_no_mokou.order.3",
+        "reverie_dreams.role.huziwara_no_mokou.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.huziwara_no_mokou.description.0",
+        "reverie_dreams.role.huziwara_no_mokou.description.1",
+        "reverie_dreams.role.huziwara_no_mokou.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.huziwara_no_mokou.evaluation.exbad",
+        "bad": "reverie_dreams.role.huziwara_no_mokou.evaluation.bad",
+        "norm": "reverie_dreams.role.huziwara_no_mokou.evaluation.norm",
+        "good": "reverie_dreams.role.huziwara_no_mokou.evaluation.good",
+        "exgood": "reverie_dreams.role.huziwara_no_mokou.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.huziwara_no_mokou.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.huziwara_no_mokou.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.huziwara_no_mokou.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.huziwara_no_mokou.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:imaizumi_kagerou": {
+      "role_type": "reverie_dreams:imaizumi_kagerou",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:cool"
+      ],
+      "dislikes": [
+        "reverie_dreams:fiery"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:sake",
+        "reverie_dreams:direct_drinking"
+      ],
+      "chats": [
+        "reverie_dreams.role.imaizumi_kagerou.chat.0",
+        "reverie_dreams.role.imaizumi_kagerou.chat.1",
+        "reverie_dreams.role.imaizumi_kagerou.chat.2",
+        "reverie_dreams.role.imaizumi_kagerou.chat.3",
+        "reverie_dreams.role.imaizumi_kagerou.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.imaizumi_kagerou.order.0",
+        "reverie_dreams.role.imaizumi_kagerou.order.1",
+        "reverie_dreams.role.imaizumi_kagerou.order.2",
+        "reverie_dreams.role.imaizumi_kagerou.order.3",
+        "reverie_dreams.role.imaizumi_kagerou.order.4",
+        "reverie_dreams.role.imaizumi_kagerou.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.imaizumi_kagerou.description.0",
+        "reverie_dreams.role.imaizumi_kagerou.description.1",
+        "reverie_dreams.role.imaizumi_kagerou.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.imaizumi_kagerou.evaluation.exbad",
+        "bad": "reverie_dreams.role.imaizumi_kagerou.evaluation.bad",
+        "norm": "reverie_dreams.role.imaizumi_kagerou.evaluation.norm",
+        "good": "reverie_dreams.role.imaizumi_kagerou.evaluation.good",
+        "exgood": "reverie_dreams.role.imaizumi_kagerou.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.imaizumi_kagerou.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.imaizumi_kagerou.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.imaizumi_kagerou.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.imaizumi_kagerou.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:inubashiri_momizi": {
+      "role_type": "reverie_dreams:inubashiri_momizi",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 400
+      },
+      "likes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:large_partition"
+      ],
+      "dislikes": [
+        "reverie_dreams:light",
+        "reverie_dreams:bizarre"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:direct_drinking"
+      ],
+      "chats": [
+        "reverie_dreams.role.inubashiri_momizi.chat.0",
+        "reverie_dreams.role.inubashiri_momizi.chat.1",
+        "reverie_dreams.role.inubashiri_momizi.chat.2",
+        "reverie_dreams.role.inubashiri_momizi.chat.3",
+        "reverie_dreams.role.inubashiri_momizi.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.inubashiri_momizi.order.0",
+        "reverie_dreams.role.inubashiri_momizi.order.1",
+        "reverie_dreams.role.inubashiri_momizi.order.2",
+        "reverie_dreams.role.inubashiri_momizi.order.3"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.inubashiri_momizi.description.0",
+        "reverie_dreams.role.inubashiri_momizi.description.1",
+        "reverie_dreams.role.inubashiri_momizi.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.inubashiri_momizi.evaluation.exbad",
+        "bad": "reverie_dreams.role.inubashiri_momizi.evaluation.bad",
+        "norm": "reverie_dreams.role.inubashiri_momizi.evaluation.norm",
+        "good": "reverie_dreams.role.inubashiri_momizi.evaluation.good",
+        "exgood": "reverie_dreams.role.inubashiri_momizi.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.inubashiri_momizi.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.inubashiri_momizi.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.inubashiri_momizi.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.inubashiri_momizi.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:kaenbyou_rin": {
+      "role_type": "reverie_dreams:kaenbyou_rin",
+      "rare": true,
+      "budget": {
+        "min": 500,
+        "max": 700
+      },
+      "likes": [
+        "reverie_dreams:aquatic_products",
+        "reverie_dreams:ocean_flavor",
+        "reverie_dreams:umami",
+        "reverie_dreams:sweet",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:dreamlike"
+      ],
+      "dislikes": [
+        "reverie_dreams:raw",
+        "reverie_dreams:fiery"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:sake"
+      ],
+      "chats": [
+        "reverie_dreams.role.kaenbyou_rin.chat.0",
+        "reverie_dreams.role.kaenbyou_rin.chat.1",
+        "reverie_dreams.role.kaenbyou_rin.chat.2",
+        "reverie_dreams.role.kaenbyou_rin.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.kaenbyou_rin.order.0",
+        "reverie_dreams.role.kaenbyou_rin.order.1",
+        "reverie_dreams.role.kaenbyou_rin.order.2",
+        "reverie_dreams.role.kaenbyou_rin.order.3",
+        "reverie_dreams.role.kaenbyou_rin.order.4",
+        "reverie_dreams.role.kaenbyou_rin.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kaenbyou_rin.description.0",
+        "reverie_dreams.role.kaenbyou_rin.description.1",
+        "reverie_dreams.role.kaenbyou_rin.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kaenbyou_rin.evaluation.exbad",
+        "bad": "reverie_dreams.role.kaenbyou_rin.evaluation.bad",
+        "norm": "reverie_dreams.role.kaenbyou_rin.evaluation.norm",
+        "good": "reverie_dreams.role.kaenbyou_rin.evaluation.good",
+        "exgood": "reverie_dreams.role.kaenbyou_rin.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kaenbyou_rin.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kaenbyou_rin.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.kaenbyou_rin.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.kaenbyou_rin.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:kaku_seiga": {
+      "role_type": "reverie_dreams:kaku_seiga",
+      "rare": true,
+      "budget": {
+        "min": 400,
+        "max": 900
+      },
+      "likes": [
+        "reverie_dreams:legendary",
+        "reverie_dreams:sweet",
+        "reverie_dreams:petite",
+        "reverie_dreams:local_specialty"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:filling"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:sake",
+        "reverie_dreams:modern"
+      ],
+      "chats": [
+        "reverie_dreams.role.kaku_seiga.chat.0",
+        "reverie_dreams.role.kaku_seiga.chat.1",
+        "reverie_dreams.role.kaku_seiga.chat.2",
+        "reverie_dreams.role.kaku_seiga.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.kaku_seiga.order.0",
+        "reverie_dreams.role.kaku_seiga.order.1",
+        "reverie_dreams.role.kaku_seiga.order.2",
+        "reverie_dreams.role.kaku_seiga.order.3",
+        "reverie_dreams.role.kaku_seiga.order.4",
+        "reverie_dreams.role.kaku_seiga.order.5",
+        "reverie_dreams.role.kaku_seiga.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kaku_seiga.description.0",
+        "reverie_dreams.role.kaku_seiga.description.1",
+        "reverie_dreams.role.kaku_seiga.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kaku_seiga.evaluation.exbad",
+        "bad": "reverie_dreams.role.kaku_seiga.evaluation.bad",
+        "norm": "reverie_dreams.role.kaku_seiga.evaluation.norm",
+        "good": "reverie_dreams.role.kaku_seiga.evaluation.good",
+        "exgood": "reverie_dreams.role.kaku_seiga.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kaku_seiga.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kaku_seiga.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.kaku_seiga.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.kaku_seiga.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:kamishirasawa_keine": {
+      "role_type": "reverie_dreams:kamishirasawa_keine",
+      "rare": true,
+      "budget": {
+        "min": 400,
+        "max": 800
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:light",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:cultural_depth"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:salty",
+        "reverie_dreams:large_partition"
+      ],
+      "beverages": [
+        "reverie_dreams:soju",
+        "reverie_dreams:sake",
+        "reverie_dreams:liqueur"
+      ],
+      "chats": [
+        "reverie_dreams.role.kamishirasawa_keine.chat.0",
+        "reverie_dreams.role.kamishirasawa_keine.chat.1",
+        "reverie_dreams.role.kamishirasawa_keine.chat.2",
+        "reverie_dreams.role.kamishirasawa_keine.chat.3",
+        "reverie_dreams.role.kamishirasawa_keine.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.kamishirasawa_keine.order.0",
+        "reverie_dreams.role.kamishirasawa_keine.order.1",
+        "reverie_dreams.role.kamishirasawa_keine.order.2",
+        "reverie_dreams.role.kamishirasawa_keine.order.3",
+        "reverie_dreams.role.kamishirasawa_keine.order.4",
+        "reverie_dreams.role.kamishirasawa_keine.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kamishirasawa_keine.description.0",
+        "reverie_dreams.role.kamishirasawa_keine.description.1",
+        "reverie_dreams.role.kamishirasawa_keine.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kamishirasawa_keine.evaluation.exbad",
+        "bad": "reverie_dreams.role.kamishirasawa_keine.evaluation.bad",
+        "norm": "reverie_dreams.role.kamishirasawa_keine.evaluation.norm",
+        "good": "reverie_dreams.role.kamishirasawa_keine.evaluation.good",
+        "exgood": "reverie_dreams.role.kamishirasawa_keine.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kamishirasawa_keine.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kamishirasawa_keine.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.kamishirasawa_keine.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.kamishirasawa_keine.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:kawasiro_nitori": {
+      "role_type": "reverie_dreams:kawasiro_nitori",
+      "rare": true,
+      "budget": {
+        "min": 400,
+        "max": 500
+      },
+      "likes": [
+        "reverie_dreams:aquatic_products",
+        "reverie_dreams:gourmet",
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:salty",
+        "reverie_dreams:signature",
+        "reverie_dreams:bizarre"
+      ],
+      "dislikes": [
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:cultural_depth"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:sake",
+        "reverie_dreams:direct_drinking"
+      ],
+      "chats": [
+        "reverie_dreams.role.kawasiro_nitori.chat.0",
+        "reverie_dreams.role.kawasiro_nitori.chat.1",
+        "reverie_dreams.role.kawasiro_nitori.chat.2",
+        "reverie_dreams.role.kawasiro_nitori.chat.3",
+        "reverie_dreams.role.kawasiro_nitori.chat.4",
+        "reverie_dreams.role.kawasiro_nitori.chat.5"
+      ],
+      "orders": [
+        "reverie_dreams.role.kawasiro_nitori.order.0",
+        "reverie_dreams.role.kawasiro_nitori.order.1",
+        "reverie_dreams.role.kawasiro_nitori.order.2",
+        "reverie_dreams.role.kawasiro_nitori.order.3",
+        "reverie_dreams.role.kawasiro_nitori.order.4",
+        "reverie_dreams.role.kawasiro_nitori.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kawasiro_nitori.description.0",
+        "reverie_dreams.role.kawasiro_nitori.description.1",
+        "reverie_dreams.role.kawasiro_nitori.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kawasiro_nitori.evaluation.exbad",
+        "bad": "reverie_dreams.role.kawasiro_nitori.evaluation.bad",
+        "norm": "reverie_dreams.role.kawasiro_nitori.evaluation.norm",
+        "good": "reverie_dreams.role.kawasiro_nitori.evaluation.good",
+        "exgood": "reverie_dreams.role.kawasiro_nitori.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kawasiro_nitori.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kawasiro_nitori.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.kawasiro_nitori.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.kawasiro_nitori.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:kazami_yuka": {
+      "role_type": "reverie_dreams:kazami_yuka",
+      "rare": true,
+      "budget": {
+        "min": 1200,
+        "max": 1800
+      },
+      "likes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:legendary",
+        "reverie_dreams:light",
+        "reverie_dreams:western_style",
+        "reverie_dreams:dreamlike",
+        "reverie_dreams:local_specialty"
+      ],
+      "dislikes": [
+        "reverie_dreams:filling",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:salty",
+        "reverie_dreams:fiery"
+      ],
+      "beverages": [
+        "reverie_dreams:cocktail",
+        "reverie_dreams:western_wine",
+        "reverie_dreams:liqueur",
+        "reverie_dreams:modern"
+      ],
+      "chats": [
+        "reverie_dreams.role.kazami_yuka.chat.0",
+        "reverie_dreams.role.kazami_yuka.chat.1",
+        "reverie_dreams.role.kazami_yuka.chat.2",
+        "reverie_dreams.role.kazami_yuka.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.kazami_yuka.order.0",
+        "reverie_dreams.role.kazami_yuka.order.1",
+        "reverie_dreams.role.kazami_yuka.order.2",
+        "reverie_dreams.role.kazami_yuka.order.3",
+        "reverie_dreams.role.kazami_yuka.order.4",
+        "reverie_dreams.role.kazami_yuka.order.5",
+        "reverie_dreams.role.kazami_yuka.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kazami_yuka.description.0",
+        "reverie_dreams.role.kazami_yuka.description.1",
+        "reverie_dreams.role.kazami_yuka.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kazami_yuka.evaluation.exbad",
+        "bad": "reverie_dreams.role.kazami_yuka.evaluation.bad",
+        "norm": "reverie_dreams.role.kazami_yuka.evaluation.norm",
+        "good": "reverie_dreams.role.kazami_yuka.evaluation.good",
+        "exgood": "reverie_dreams.role.kazami_yuka.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kazami_yuka.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kazami_yuka.evaluation.lackmoneynormal"
+      }
+    },
+    "reverie_dreams:kijin_seijia": {
+      "role_type": "reverie_dreams:kijin_seijia",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:fiery",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:flaming"
+      ],
+      "dislikes": [
+        "reverie_dreams:gourmet"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:soju",
+        "reverie_dreams:direct_drinking",
+        "reverie_dreams:pungent"
+      ],
+      "chats": [
+        "reverie_dreams.role.kijin_seijia.chat.0",
+        "reverie_dreams.role.kijin_seijia.chat.1",
+        "reverie_dreams.role.kijin_seijia.chat.2",
+        "reverie_dreams.role.kijin_seijia.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.kijin_seijia.order.0",
+        "reverie_dreams.role.kijin_seijia.order.1",
+        "reverie_dreams.role.kijin_seijia.order.2",
+        "reverie_dreams.role.kijin_seijia.order.3",
+        "reverie_dreams.role.kijin_seijia.order.4",
+        "reverie_dreams.role.kijin_seijia.order.5",
+        "reverie_dreams.role.kijin_seijia.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kijin_seijia.description.0",
+        "reverie_dreams.role.kijin_seijia.description.1",
+        "reverie_dreams.role.kijin_seijia.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kijin_seijia.evaluation.exbad",
+        "bad": "reverie_dreams.role.kijin_seijia.evaluation.bad",
+        "norm": "reverie_dreams.role.kijin_seijia.evaluation.norm",
+        "good": "reverie_dreams.role.kijin_seijia.evaluation.good",
+        "exgood": "reverie_dreams.role.kijin_seijia.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kijin_seijia.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kijin_seijia.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.kijin_seijia.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.kijin_seijia.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:kochiuya_sanae": {
+      "role_type": "reverie_dreams:kochiuya_sanae",
+      "rare": true,
+      "budget": {
+        "min": 400,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:sweet",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:dreamlike"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:raw",
+        "reverie_dreams:fiery",
+        "reverie_dreams:bizarre"
+      ],
+      "beverages": [
+        "reverie_dreams:alcohol-free",
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:sake",
+        "reverie_dreams:direct_drinking",
+        "reverie_dreams:sweet",
+        "reverie_dreams:bitter",
+        "reverie_dreams:bubble",
+        "reverie_dreams:modern"
+      ],
+      "chats": [
+        "reverie_dreams.role.kochiya_sanae.chat.0",
+        "reverie_dreams.role.kochiya_sanae.chat.1",
+        "reverie_dreams.role.kochiya_sanae.chat.2",
+        "reverie_dreams.role.kochiya_sanae.chat.3",
+        "reverie_dreams.role.kochiya_sanae.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.kochiya_sanae.order.0",
+        "reverie_dreams.role.kochiya_sanae.order.1",
+        "reverie_dreams.role.kochiya_sanae.order.2",
+        "reverie_dreams.role.kochiya_sanae.order.3",
+        "reverie_dreams.role.kochiya_sanae.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kochiya_sanae.description.0",
+        "reverie_dreams.role.kochiya_sanae.description.1",
+        "reverie_dreams.role.kochiya_sanae.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kochiya_sanae.evaluation.exbad",
+        "bad": "reverie_dreams.role.kochiya_sanae.evaluation.bad",
+        "norm": "reverie_dreams.role.kochiya_sanae.evaluation.norm",
+        "good": "reverie_dreams.role.kochiya_sanae.evaluation.good",
+        "exgood": "reverie_dreams.role.kochiya_sanae.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kochiya_sanae.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kochiya_sanae.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.kochiya_sanae.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.kochiya_sanae.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:komeiji_koishi": {
+      "role_type": "reverie_dreams:komeiji_koishi",
+      "rare": true,
+      "budget": {
+        "min": 800,
+        "max": 1200
+      },
+      "likes": [
+        "reverie_dreams:salty",
+        "reverie_dreams:sweet",
+        "reverie_dreams:raw",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:dreamlike"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:soju",
+        "reverie_dreams:bitter",
+        "reverie_dreams:bubble"
+      ],
+      "chats": [
+        "reverie_dreams.role.komeiji_koishi.chat.0",
+        "reverie_dreams.role.komeiji_koishi.chat.1",
+        "reverie_dreams.role.komeiji_koishi.chat.2",
+        "reverie_dreams.role.komeiji_koishi.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.komeiji_koishi.order.0",
+        "reverie_dreams.role.komeiji_koishi.order.1",
+        "reverie_dreams.role.komeiji_koishi.order.2",
+        "reverie_dreams.role.komeiji_koishi.order.3",
+        "reverie_dreams.role.komeiji_koishi.order.4",
+        "reverie_dreams.role.komeiji_koishi.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.komeiji_koishi.description.0"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.komeiji_koishi.evaluation.exbad",
+        "bad": "reverie_dreams.role.komeiji_koishi.evaluation.bad",
+        "norm": "reverie_dreams.role.komeiji_koishi.evaluation.norm",
+        "good": "reverie_dreams.role.komeiji_koishi.evaluation.good",
+        "exgood": "reverie_dreams.role.komeiji_koishi.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.komeiji_koishi.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.komeiji_koishi.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.komeiji_koishi.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.komeiji_koishi.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:komeiji_satori": {
+      "role_type": "reverie_dreams:komeiji_satori",
+      "rare": true,
+      "budget": {
+        "min": 500,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:sweet",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:petite",
+        "reverie_dreams:dreamlike",
+        "reverie_dreams:local_specialty"
+      ],
+      "dislikes": [
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:fiery",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:large_partition"
+      ],
+      "beverages": [
+        "reverie_dreams:alcohol-free",
+        "reverie_dreams:bitter",
+        "reverie_dreams:bubble",
+        "reverie_dreams:refreshing"
+      ],
+      "chats": [
+        "reverie_dreams.role.komeiji_satori.chat.0",
+        "reverie_dreams.role.komeiji_satori.chat.1",
+        "reverie_dreams.role.komeiji_satori.chat.2",
+        "reverie_dreams.role.komeiji_satori.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.komeiji_satori.order.0",
+        "reverie_dreams.role.komeiji_satori.order.1",
+        "reverie_dreams.role.komeiji_satori.order.2",
+        "reverie_dreams.role.komeiji_satori.order.3",
+        "reverie_dreams.role.komeiji_satori.order.4",
+        "reverie_dreams.role.komeiji_satori.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.komeiji_satori.description.0",
+        "reverie_dreams.role.komeiji_satori.description.1",
+        "reverie_dreams.role.komeiji_satori.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.komeiji_satori.evaluation.exbad",
+        "bad": "reverie_dreams.role.komeiji_satori.evaluation.bad",
+        "norm": "reverie_dreams.role.komeiji_satori.evaluation.norm",
+        "good": "reverie_dreams.role.komeiji_satori.evaluation.good",
+        "exgood": "reverie_dreams.role.komeiji_satori.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.komeiji_satori.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.komeiji_satori.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.komeiji_satori.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.komeiji_satori.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:kurodani_yamame": {
+      "role_type": "reverie_dreams:kurodani_yamame",
+      "rare": true,
+      "budget": {
+        "min": 250,
+        "max": 400
+      },
+      "likes": [
+        "reverie_dreams:umami",
+        "reverie_dreams:sweet",
+        "reverie_dreams:raw",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:bizarre"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:salty",
+        "reverie_dreams:fiery"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:beer",
+        "reverie_dreams:sweet"
+      ],
+      "chats": [
+        "reverie_dreams.role.kurodani_yamame.chat.0",
+        "reverie_dreams.role.kurodani_yamame.chat.1",
+        "reverie_dreams.role.kurodani_yamame.chat.2",
+        "reverie_dreams.role.kurodani_yamame.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.kurodani_yamame.order.0",
+        "reverie_dreams.role.kurodani_yamame.order.1",
+        "reverie_dreams.role.kurodani_yamame.order.2",
+        "reverie_dreams.role.kurodani_yamame.order.3",
+        "reverie_dreams.role.kurodani_yamame.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.kurodani_yamame.description.0",
+        "reverie_dreams.role.kurodani_yamame.description.1",
+        "reverie_dreams.role.kurodani_yamame.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.kurodani_yamame.evaluation.exbad",
+        "bad": "reverie_dreams.role.kurodani_yamame.evaluation.bad",
+        "norm": "reverie_dreams.role.kurodani_yamame.evaluation.norm",
+        "good": "reverie_dreams.role.kurodani_yamame.evaluation.good",
+        "exgood": "reverie_dreams.role.kurodani_yamame.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.kurodani_yamame.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.kurodani_yamame.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.kurodani_yamame.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.kurodani_yamame.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:marisa": {
+      "role_type": "reverie_dreams:marisa",
+      "rare": true,
+      "budget": {
+        "min": 3000,
+        "max": 5000
+      },
+      "likes": [
+        "reverie_dreams:legendary",
+        "reverie_dreams:greasy",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:fiery",
+        "reverie_dreams:mushrooms"
+      ],
+      "dislikes": [
+        "reverie_dreams:bizarre"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:can_add_ice"
+      ],
+      "chats": [
+        "reverie_dreams.role.marisa.chat.0",
+        "reverie_dreams.role.marisa.chat.1",
+        "reverie_dreams.role.marisa.chat.2",
+        "reverie_dreams.role.marisa.chat.3",
+        "reverie_dreams.role.marisa.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.marisa.order.0",
+        "reverie_dreams.role.marisa.order.1",
+        "reverie_dreams.role.marisa.order.2",
+        "reverie_dreams.role.marisa.order.3",
+        "reverie_dreams.role.marisa.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.marisa.description.0",
+        "reverie_dreams.role.marisa.description.1",
+        "reverie_dreams.role.marisa.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.marisa.evaluation.exbad",
+        "bad": "reverie_dreams.role.marisa.evaluation.bad",
+        "norm": "reverie_dreams.role.marisa.evaluation.norm",
+        "good": "reverie_dreams.role.marisa.evaluation.good",
+        "exgood": "reverie_dreams.role.marisa.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.marisa.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.marisa.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.marisa.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.marisa.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:meirin": {
+      "role_type": "reverie_dreams:meirin",
+      "rare": true,
+      "budget": {
+        "min": 200,
+        "max": 400
+      },
+      "likes": [
+        "reverie_dreams:filling",
+        "reverie_dreams:power_surge"
+      ],
+      "dislikes": [
+        "reverie_dreams:western_style",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:fruity"
+      ],
+      "beverages": [
+        "reverie_dreams:can_heated",
+        "reverie_dreams:classical",
+        "reverie_dreams:refreshing"
+      ],
+      "chats": [
+        "reverie_dreams.role.meirin.chat.0",
+        "reverie_dreams.role.meirin.chat.1",
+        "reverie_dreams.role.meirin.chat.2",
+        "reverie_dreams.role.meirin.chat.3",
+        "reverie_dreams.role.meirin.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.meirin.order.0",
+        "reverie_dreams.role.meirin.order.1",
+        "reverie_dreams.role.meirin.order.2",
+        "reverie_dreams.role.meirin.order.3"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.meirin.description.0",
+        "reverie_dreams.role.meirin.description.1",
+        "reverie_dreams.role.meirin.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.meirin.evaluation.exbad",
+        "bad": "reverie_dreams.role.meirin.evaluation.bad",
+        "norm": "reverie_dreams.role.meirin.evaluation.norm",
+        "good": "reverie_dreams.role.meirin.evaluation.good",
+        "exgood": "reverie_dreams.role.meirin.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.meirin.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.meirin.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.meirin.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.meirin.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:mizuhashi_parsee": {
+      "role_type": "reverie_dreams:mizuhashi_parsee",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 400
+      },
+      "likes": [
+        "reverie_dreams:salty",
+        "reverie_dreams:umami",
+        "reverie_dreams:fruity",
+        "reverie_dreams:spicy",
+        "reverie_dreams:sour"
+      ],
+      "dislikes": [
+        "reverie_dreams:sweet"
+      ],
+      "beverages": [
+        "reverie_dreams:alcohol-free",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:direct_drinking",
+        "reverie_dreams:pungent",
+        "reverie_dreams:bitter"
+      ],
+      "chats": [
+        "reverie_dreams.role.mizuhashi_parsee.chat.0",
+        "reverie_dreams.role.mizuhashi_parsee.chat.1",
+        "reverie_dreams.role.mizuhashi_parsee.chat.2",
+        "reverie_dreams.role.mizuhashi_parsee.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.mizuhashi_parsee.order.0",
+        "reverie_dreams.role.mizuhashi_parsee.order.1",
+        "reverie_dreams.role.mizuhashi_parsee.order.2",
+        "reverie_dreams.role.mizuhashi_parsee.order.3",
+        "reverie_dreams.role.mizuhashi_parsee.order.4",
+        "reverie_dreams.role.mizuhashi_parsee.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.mizuhashi_parsee.description.0",
+        "reverie_dreams.role.mizuhashi_parsee.description.1",
+        "reverie_dreams.role.mizuhashi_parsee.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.mizuhashi_parsee.evaluation.exbad",
+        "bad": "reverie_dreams.role.mizuhashi_parsee.evaluation.bad",
+        "norm": "reverie_dreams.role.mizuhashi_parsee.evaluation.norm",
+        "good": "reverie_dreams.role.mizuhashi_parsee.evaluation.good",
+        "exgood": "reverie_dreams.role.mizuhashi_parsee.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.mizuhashi_parsee.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.mizuhashi_parsee.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.mizuhashi_parsee.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.mizuhashi_parsee.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:mononobe_no_futo": {
+      "role_type": "reverie_dreams:mononobe_no_futo",
+      "rare": true,
+      "budget": {
+        "min": 600,
+        "max": 900
+      },
+      "likes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:legendary",
+        "reverie_dreams:light",
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:flaming"
+      ],
+      "dislikes": [
+        "reverie_dreams:western_style",
+        "reverie_dreams:raw"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:direct_drinking",
+        "reverie_dreams:bubble"
+      ],
+      "chats": [
+        "reverie_dreams.role.mononobe_no_futo.chat.0",
+        "reverie_dreams.role.mononobe_no_futo.chat.1",
+        "reverie_dreams.role.mononobe_no_futo.chat.2",
+        "reverie_dreams.role.mononobe_no_futo.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.mononobe_no_futo.order.0",
+        "reverie_dreams.role.mononobe_no_futo.order.1",
+        "reverie_dreams.role.mononobe_no_futo.order.2",
+        "reverie_dreams.role.mononobe_no_futo.order.3",
+        "reverie_dreams.role.mononobe_no_futo.order.4",
+        "reverie_dreams.role.mononobe_no_futo.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.mononobe_no_futo.description.0",
+        "reverie_dreams.role.mononobe_no_futo.description.1",
+        "reverie_dreams.role.mononobe_no_futo.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.mononobe_no_futo.evaluation.exbad",
+        "bad": "reverie_dreams.role.mononobe_no_futo.evaluation.bad",
+        "norm": "reverie_dreams.role.mononobe_no_futo.evaluation.norm",
+        "good": "reverie_dreams.role.mononobe_no_futo.evaluation.good",
+        "exgood": "reverie_dreams.role.mononobe_no_futo.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.mononobe_no_futo.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.mononobe_no_futo.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.mononobe_no_futo.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.mononobe_no_futo.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:patchouli": {
+      "role_type": "reverie_dreams:patchouli",
+      "rare": true,
+      "budget": {
+        "min": 600,
+        "max": 1000
+      },
+      "likes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:western_style",
+        "reverie_dreams:sweet",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:dreamlike"
+      ],
+      "dislikes": [
+        "reverie_dreams:salty",
+        "reverie_dreams:raw",
+        "reverie_dreams:fiery",
+        "reverie_dreams:bizarre"
+      ],
+      "beverages": [
+        "reverie_dreams:cocktail",
+        "reverie_dreams:liqueur",
+        "reverie_dreams:bubble"
+      ],
+      "chats": [
+        "reverie_dreams.role.patchouli.chat.0",
+        "reverie_dreams.role.patchouli.chat.1",
+        "reverie_dreams.role.patchouli.chat.2",
+        "reverie_dreams.role.patchouli.chat.3",
+        "reverie_dreams.role.patchouli.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.patchouli.order.0",
+        "reverie_dreams.role.patchouli.order.1",
+        "reverie_dreams.role.patchouli.order.2",
+        "reverie_dreams.role.patchouli.order.3",
+        "reverie_dreams.role.patchouli.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.patchouli.description.0",
+        "reverie_dreams.role.patchouli.description.1",
+        "reverie_dreams.role.patchouli.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.patchouli.evaluation.exbad",
+        "bad": "reverie_dreams.role.patchouli.evaluation.bad",
+        "norm": "reverie_dreams.role.patchouli.evaluation.norm",
+        "good": "reverie_dreams.role.patchouli.evaluation.good",
+        "exgood": "reverie_dreams.role.patchouli.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.patchouli.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.patchouli.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.patchouli.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.patchouli.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:ran": {
+      "role_type": "reverie_dreams:ran",
+      "rare": true,
+      "budget": {
+        "min": 600,
+        "max": 1200
+      },
+      "likes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:legendary",
+        "reverie_dreams:greasy",
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:large_partition"
+      ],
+      "dislikes": [
+        "reverie_dreams:aquatic_products",
+        "reverie_dreams:light",
+        "reverie_dreams:fiery",
+        "reverie_dreams:petite"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:sake",
+        "reverie_dreams:pungent",
+        "reverie_dreams:bubble",
+        "reverie_dreams:refreshing"
+      ],
+      "chats": [
+        "reverie_dreams.role.ran.chat.0",
+        "reverie_dreams.role.ran.chat.1",
+        "reverie_dreams.role.ran.chat.2",
+        "reverie_dreams.role.ran.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.ran.order.0",
+        "reverie_dreams.role.ran.order.1",
+        "reverie_dreams.role.ran.order.2",
+        "reverie_dreams.role.ran.order.3",
+        "reverie_dreams.role.ran.order.4",
+        "reverie_dreams.role.ran.order.5",
+        "reverie_dreams.role.ran.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.ran.description.0",
+        "reverie_dreams.role.ran.description.1",
+        "reverie_dreams.role.ran.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.ran.evaluation.exbad",
+        "bad": "reverie_dreams.role.ran.evaluation.bad",
+        "norm": "reverie_dreams.role.ran.evaluation.norm",
+        "good": "reverie_dreams.role.ran.evaluation.good",
+        "exgood": "reverie_dreams.role.ran.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.ran.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.ran.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.ran.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.ran.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:reimu": {
+      "role_type": "reverie_dreams:reimu",
+      "rare": true,
+      "budget": {
+        "min": 150,
+        "max": 300
+      },
+      "likes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:filling",
+        "reverie_dreams:sweet",
+        "reverie_dreams:economical"
+      ],
+      "dislikes": [
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:expensive"
+      ],
+      "beverages": [
+        "reverie_dreams:alcohol-free",
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:can_heated"
+      ],
+      "chats": [
+        "reverie_dreams.role.reimu.chat.0",
+        "reverie_dreams.role.reimu.chat.1",
+        "reverie_dreams.role.reimu.chat.2",
+        "reverie_dreams.role.reimu.chat.3",
+        "reverie_dreams.role.reimu.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.reimu.order.0",
+        "reverie_dreams.role.reimu.order.1",
+        "reverie_dreams.role.reimu.order.2",
+        "reverie_dreams.role.reimu.order.3"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.reimu.description.0",
+        "reverie_dreams.role.reimu.description.1",
+        "reverie_dreams.role.reimu.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.reimu.evaluation.exbad",
+        "bad": "reverie_dreams.role.reimu.evaluation.bad",
+        "norm": "reverie_dreams.role.reimu.evaluation.norm",
+        "good": "reverie_dreams.role.reimu.evaluation.good",
+        "exgood": "reverie_dreams.role.reimu.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.reimu.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.reimu.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.reimu.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.reimu.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:reisen": {
+      "role_type": "reverie_dreams:reisen",
+      "rare": true,
+      "budget": {
+        "min": 200,
+        "max": 350
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:ocean_flavor",
+        "reverie_dreams:sweet",
+        "reverie_dreams:petite",
+        "reverie_dreams:local_specialty"
+      ],
+      "dislikes": [
+        "reverie_dreams:expensive"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:soju",
+        "reverie_dreams:beer",
+        "reverie_dreams:bitter"
+      ],
+      "chats": [
+        "reverie_dreams.role.reisen.chat.0",
+        "reverie_dreams.role.reisen.chat.1",
+        "reverie_dreams.role.reisen.chat.2",
+        "reverie_dreams.role.reisen.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.reisen.order.0",
+        "reverie_dreams.role.reisen.order.1",
+        "reverie_dreams.role.reisen.order.2",
+        "reverie_dreams.role.reisen.order.3",
+        "reverie_dreams.role.reisen.order.4",
+        "reverie_dreams.role.reisen.order.5",
+        "reverie_dreams.role.reisen.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.reisen.description.0",
+        "reverie_dreams.role.reisen.description.1",
+        "reverie_dreams.role.reisen.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.reisen.evaluation.exbad",
+        "bad": "reverie_dreams.role.reisen.evaluation.bad",
+        "norm": "reverie_dreams.role.reisen.evaluation.norm",
+        "good": "reverie_dreams.role.reisen.evaluation.good",
+        "exgood": "reverie_dreams.role.reisen.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.reisen.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.reisen.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.reisen.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.reisen.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:reiuji_utsuh": {
+      "role_type": "reverie_dreams:reiuji_utsuh",
+      "rare": true,
+      "budget": {
+        "min": 500,
+        "max": 800
+      },
+      "likes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:salty",
+        "reverie_dreams:fiery",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:spicy"
+      ],
+      "dislikes": [
+        "reverie_dreams:light",
+        "reverie_dreams:mushrooms"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:cocktail"
+      ],
+      "chats": [
+        "reverie_dreams.role.reiuji_utsuh.chat.0",
+        "reverie_dreams.role.reiuji_utsuh.chat.1",
+        "reverie_dreams.role.reiuji_utsuh.chat.2",
+        "reverie_dreams.role.reiuji_utsuh.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.reiuji_utsuh.order.0",
+        "reverie_dreams.role.reiuji_utsuh.order.1",
+        "reverie_dreams.role.reiuji_utsuh.order.2",
+        "reverie_dreams.role.reiuji_utsuh.order.3",
+        "reverie_dreams.role.reiuji_utsuh.order.4",
+        "reverie_dreams.role.reiuji_utsuh.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.reiuji_utsuh.description.0",
+        "reverie_dreams.role.reiuji_utsuh.description.1",
+        "reverie_dreams.role.reiuji_utsuh.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.reiuji_utsuh.evaluation.exbad",
+        "bad": "reverie_dreams.role.reiuji_utsuh.evaluation.bad",
+        "norm": "reverie_dreams.role.reiuji_utsuh.evaluation.norm",
+        "good": "reverie_dreams.role.reiuji_utsuh.evaluation.good",
+        "exgood": "reverie_dreams.role.reiuji_utsuh.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.reiuji_utsuh.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.reiuji_utsuh.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.reiuji_utsuh.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.reiuji_utsuh.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:remilia": {
+      "role_type": "reverie_dreams:remilia",
+      "rare": true,
+      "budget": {
+        "min": 4950,
+        "max": 5000
+      },
+      "likes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:legendary",
+        "reverie_dreams:western_style",
+        "reverie_dreams:sweet",
+        "reverie_dreams:raw"
+      ],
+      "dislikes": [
+        "reverie_dreams:salty",
+        "reverie_dreams:spicy",
+        "reverie_dreams:sour",
+        "reverie_dreams:economical"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:western_wine",
+        "reverie_dreams:sweet",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.remilia.chat.0",
+        "reverie_dreams.role.remilia.chat.1",
+        "reverie_dreams.role.remilia.chat.2",
+        "reverie_dreams.role.remilia.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.remilia.order.0",
+        "reverie_dreams.role.remilia.order.1",
+        "reverie_dreams.role.remilia.order.2",
+        "reverie_dreams.role.remilia.order.3",
+        "reverie_dreams.role.remilia.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.remilia.description.0",
+        "reverie_dreams.role.remilia.description.1"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.remilia.evaluation.exbad",
+        "bad": "reverie_dreams.role.remilia.evaluation.bad",
+        "norm": "reverie_dreams.role.remilia.evaluation.norm",
+        "good": "reverie_dreams.role.remilia.evaluation.good",
+        "exgood": "reverie_dreams.role.remilia.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.remilia.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.remilia.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.remilia.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.remilia.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:rumia": {
+      "role_type": "reverie_dreams:rumia",
+      "rare": true,
+      "budget": {
+        "min": 150,
+        "max": 350
+      },
+      "likes": [
+        "reverie_dreams:filling",
+        "reverie_dreams:raw",
+        "reverie_dreams:signature",
+        "reverie_dreams:bizarre"
+      ],
+      "dislikes": [
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:expensive"
+      ],
+      "beverages": [
+        "reverie_dreams:bitter",
+        "reverie_dreams:bubble"
+      ],
+      "chats": [
+        "reverie_dreams.role.rumia.chat.0",
+        "reverie_dreams.role.rumia.chat.1",
+        "reverie_dreams.role.rumia.chat.2",
+        "reverie_dreams.role.rumia.chat.3",
+        "reverie_dreams.role.rumia.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.rumia.order.0",
+        "reverie_dreams.role.rumia.order.1",
+        "reverie_dreams.role.rumia.order.2",
+        "reverie_dreams.role.rumia.order.3",
+        "reverie_dreams.role.rumia.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.rumia.description.0",
+        "reverie_dreams.role.rumia.description.1",
+        "reverie_dreams.role.rumia.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.rumia.evaluation.exbad",
+        "bad": "reverie_dreams.role.rumia.evaluation.bad",
+        "norm": "reverie_dreams.role.rumia.evaluation.norm",
+        "good": "reverie_dreams.role.rumia.evaluation.good",
+        "exgood": "reverie_dreams.role.rumia.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.rumia.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.rumia.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.rumia.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.rumia.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:soga_no_toziko": {
+      "role_type": "reverie_dreams:soga_no_toziko",
+      "rare": true,
+      "budget": {
+        "min": 500,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:greasy",
+        "reverie_dreams:filling",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:signature",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:grilled"
+      ],
+      "dislikes": [
+        "reverie_dreams:sweet",
+        "reverie_dreams:cool"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:soju",
+        "reverie_dreams:beer",
+        "reverie_dreams:bitter"
+      ],
+      "chats": [
+        "reverie_dreams.role.soga_no_toziko.chat.0",
+        "reverie_dreams.role.soga_no_toziko.chat.1",
+        "reverie_dreams.role.soga_no_toziko.chat.2",
+        "reverie_dreams.role.soga_no_toziko.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.soga_no_toziko.order.0",
+        "reverie_dreams.role.soga_no_toziko.order.1",
+        "reverie_dreams.role.soga_no_toziko.order.2",
+        "reverie_dreams.role.soga_no_toziko.order.3",
+        "reverie_dreams.role.soga_no_toziko.order.4",
+        "reverie_dreams.role.soga_no_toziko.order.5",
+        "reverie_dreams.role.soga_no_toziko.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.soga_no_toziko.description.0",
+        "reverie_dreams.role.soga_no_toziko.description.1",
+        "reverie_dreams.role.soga_no_toziko.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.soga_no_toziko.evaluation.exbad",
+        "bad": "reverie_dreams.role.soga_no_toziko.evaluation.bad",
+        "norm": "reverie_dreams.role.soga_no_toziko.evaluation.norm",
+        "good": "reverie_dreams.role.soga_no_toziko.evaluation.good",
+        "exgood": "reverie_dreams.role.soga_no_toziko.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.soga_no_toziko.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.soga_no_toziko.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.soga_no_toziko.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.soga_no_toziko.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:suika": {
+      "role_type": "reverie_dreams:suika",
+      "rare": true,
+      "budget": {
+        "min": 600,
+        "max": 800
+      },
+      "likes": [
+        "reverie_dreams:good_with_alcohol",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:petite"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:direct_drinking"
+      ],
+      "chats": [
+        "reverie_dreams.role.suika.chat.0",
+        "reverie_dreams.role.suika.chat.1",
+        "reverie_dreams.role.suika.chat.2",
+        "reverie_dreams.role.suika.chat.3",
+        "reverie_dreams.role.suika.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.suika.order.0",
+        "reverie_dreams.role.suika.order.1",
+        "reverie_dreams.role.suika.order.2",
+        "reverie_dreams.role.suika.order.3",
+        "reverie_dreams.role.suika.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.suika.description.0",
+        "reverie_dreams.role.suika.description.1",
+        "reverie_dreams.role.suika.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.suika.evaluation.exbad",
+        "bad": "reverie_dreams.role.suika.evaluation.bad",
+        "norm": "reverie_dreams.role.suika.evaluation.norm",
+        "good": "reverie_dreams.role.suika.evaluation.good",
+        "exgood": "reverie_dreams.role.suika.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.suika.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.suika.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.suika.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.suika.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:sukuna_shinmyoumaru": {
+      "role_type": "reverie_dreams:sukuna_shinmyoumaru",
+      "rare": true,
+      "budget": {
+        "min": 600,
+        "max": 1200
+      },
+      "likes": [
+        "reverie_dreams:legendary",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:sweet",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:cultural_depth",
+        "reverie_dreams:petite",
+        "reverie_dreams:flaming"
+      ],
+      "dislikes": [
+        "reverie_dreams:western_style",
+        "reverie_dreams:large_partition"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:can_heated",
+        "reverie_dreams:bubble",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.sukuna_shinmyoumaru.chat.0",
+        "reverie_dreams.role.sukuna_shinmyoumaru.chat.1",
+        "reverie_dreams.role.sukuna_shinmyoumaru.chat.2",
+        "reverie_dreams.role.sukuna_shinmyoumaru.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.sukuna_shinmyoumaru.order.0",
+        "reverie_dreams.role.sukuna_shinmyoumaru.order.1",
+        "reverie_dreams.role.sukuna_shinmyoumaru.order.2",
+        "reverie_dreams.role.sukuna_shinmyoumaru.order.3",
+        "reverie_dreams.role.sukuna_shinmyoumaru.order.4",
+        "reverie_dreams.role.sukuna_shinmyoumaru.order.5",
+        "reverie_dreams.role.sukuna_shinmyoumaru.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.sukuna_shinmyoumaru.description.0",
+        "reverie_dreams.role.sukuna_shinmyoumaru.description.1",
+        "reverie_dreams.role.sukuna_shinmyoumaru.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.exbad",
+        "bad": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.bad",
+        "norm": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.norm",
+        "good": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.good",
+        "exgood": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.sukuna_shinmyoumaru.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:tatara_kogasa": {
+      "role_type": "reverie_dreams:tatara_kogasa",
+      "rare": true,
+      "budget": {
+        "min": 150,
+        "max": 300
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:filling",
+        "reverie_dreams:sweet",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:power_surge",
+        "reverie_dreams:bizarre"
+      ],
+      "dislikes": [
+        "reverie_dreams:fiery",
+        "reverie_dreams:soup_and_stew",
+        "reverie_dreams:spicy"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.tatara_kogasa.chat.0",
+        "reverie_dreams.role.tatara_kogasa.chat.1",
+        "reverie_dreams.role.tatara_kogasa.chat.2",
+        "reverie_dreams.role.tatara_kogasa.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.tatara_kogasa.order.0",
+        "reverie_dreams.role.tatara_kogasa.order.1",
+        "reverie_dreams.role.tatara_kogasa.order.2",
+        "reverie_dreams.role.tatara_kogasa.order.3",
+        "reverie_dreams.role.tatara_kogasa.order.4",
+        "reverie_dreams.role.tatara_kogasa.order.5",
+        "reverie_dreams.role.tatara_kogasa.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.tatara_kogasa.description.0",
+        "reverie_dreams.role.tatara_kogasa.description.1",
+        "reverie_dreams.role.tatara_kogasa.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.tatara_kogasa.evaluation.exbad",
+        "bad": "reverie_dreams.role.tatara_kogasa.evaluation.bad",
+        "norm": "reverie_dreams.role.tatara_kogasa.evaluation.norm",
+        "good": "reverie_dreams.role.tatara_kogasa.evaluation.good",
+        "exgood": "reverie_dreams.role.tatara_kogasa.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.tatara_kogasa.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.tatara_kogasa.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.tatara_kogasa.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.tatara_kogasa.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:tenshi": {
+      "role_type": "reverie_dreams:tenshi",
+      "rare": true,
+      "budget": {
+        "min": 2000,
+        "max": 3000
+      },
+      "likes": [
+        "reverie_dreams:legendary",
+        "reverie_dreams:light",
+        "reverie_dreams:sweet",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:fruity",
+        "reverie_dreams:expensive"
+      ],
+      "dislikes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:greasy"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:cocktail"
+      ],
+      "chats": [
+        "reverie_dreams.role.tenshi.chat.0",
+        "reverie_dreams.role.tenshi.chat.1",
+        "reverie_dreams.role.tenshi.chat.2",
+        "reverie_dreams.role.tenshi.chat.3",
+        "reverie_dreams.role.tenshi.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.tenshi.order.0",
+        "reverie_dreams.role.tenshi.order.1",
+        "reverie_dreams.role.tenshi.order.2",
+        "reverie_dreams.role.tenshi.order.3",
+        "reverie_dreams.role.tenshi.order.4",
+        "reverie_dreams.role.tenshi.order.5"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.tenshi.description.0",
+        "reverie_dreams.role.tenshi.description.1",
+        "reverie_dreams.role.tenshi.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.tenshi.evaluation.exbad",
+        "bad": "reverie_dreams.role.tenshi.evaluation.bad",
+        "norm": "reverie_dreams.role.tenshi.evaluation.norm",
+        "good": "reverie_dreams.role.tenshi.evaluation.good",
+        "exgood": "reverie_dreams.role.tenshi.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.tenshi.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.tenshi.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.tenshi.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.tenshi.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:watatsuki_toyohime": {
+      "role_type": "reverie_dreams:watatsuki_toyohime",
+      "rare": true,
+      "budget": {
+        "min": 1200,
+        "max": 1500
+      },
+      "likes": [
+        "reverie_dreams:gourmet",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:sweet",
+        "reverie_dreams:cool",
+        "reverie_dreams:cultural_depth",
+        "reverie_dreams:fruity"
+      ],
+      "dislikes": [
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:salty",
+        "reverie_dreams:power_surge"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:sake",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.watatsuki_toyohime.chat.0",
+        "reverie_dreams.role.watatsuki_toyohime.chat.1",
+        "reverie_dreams.role.watatsuki_toyohime.chat.2",
+        "reverie_dreams.role.watatsuki_toyohime.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.watatsuki_toyohime.order.0",
+        "reverie_dreams.role.watatsuki_toyohime.order.1",
+        "reverie_dreams.role.watatsuki_toyohime.order.2",
+        "reverie_dreams.role.watatsuki_toyohime.order.3",
+        "reverie_dreams.role.watatsuki_toyohime.order.4",
+        "reverie_dreams.role.watatsuki_toyohime.order.5",
+        "reverie_dreams.role.watatsuki_toyohime.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.watatsuki_toyohime.description.0",
+        "reverie_dreams.role.watatsuki_toyohime.description.1",
+        "reverie_dreams.role.watatsuki_toyohime.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.watatsuki_toyohime.evaluation.exbad",
+        "bad": "reverie_dreams.role.watatsuki_toyohime.evaluation.bad",
+        "norm": "reverie_dreams.role.watatsuki_toyohime.evaluation.norm",
+        "good": "reverie_dreams.role.watatsuki_toyohime.evaluation.good",
+        "exgood": "reverie_dreams.role.watatsuki_toyohime.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.watatsuki_toyohime.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.watatsuki_toyohime.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.watatsuki_toyohime.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.watatsuki_toyohime.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:wriggle_nightbug": {
+      "role_type": "reverie_dreams:wriggle_nightbug",
+      "rare": true,
+      "budget": {
+        "min": 200,
+        "max": 400
+      },
+      "likes": [
+        "reverie_dreams:sweet",
+        "reverie_dreams:raw",
+        "reverie_dreams:bizarre"
+      ],
+      "dislikes": [
+        "reverie_dreams:light",
+        "reverie_dreams:cool"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:can_add_ice"
+      ],
+      "chats": [
+        "reverie_dreams.role.wriggle_nightbug.chat.0",
+        "reverie_dreams.role.wriggle_nightbug.chat.1",
+        "reverie_dreams.role.wriggle_nightbug.chat.2",
+        "reverie_dreams.role.wriggle_nightbug.chat.3",
+        "reverie_dreams.role.wriggle_nightbug.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.wriggle_nightbug.order.0",
+        "reverie_dreams.role.wriggle_nightbug.order.1",
+        "reverie_dreams.role.wriggle_nightbug.order.2",
+        "reverie_dreams.role.wriggle_nightbug.order.3"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.wriggle_nightbug.description.0",
+        "reverie_dreams.role.wriggle_nightbug.description.1",
+        "reverie_dreams.role.wriggle_nightbug.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.wriggle_nightbug.evaluation.exbad",
+        "bad": "reverie_dreams.role.wriggle_nightbug.evaluation.bad",
+        "norm": "reverie_dreams.role.wriggle_nightbug.evaluation.norm",
+        "good": "reverie_dreams.role.wriggle_nightbug.evaluation.good",
+        "exgood": "reverie_dreams.role.wriggle_nightbug.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.wriggle_nightbug.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.wriggle_nightbug.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.wriggle_nightbug.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.wriggle_nightbug.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:yakumo_yukai": {
+      "role_type": "reverie_dreams:yakumo_yukai",
+      "rare": true,
+      "budget": {
+        "min": 4000,
+        "max": 6000
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:gourmet",
+        "reverie_dreams:legendary",
+        "reverie_dreams:photogenic",
+        "reverie_dreams:cool",
+        "reverie_dreams:bizarre",
+        "reverie_dreams:soup_and_stew"
+      ],
+      "dislikes": [
+        "reverie_dreams:filling",
+        "reverie_dreams:mushrooms"
+      ],
+      "beverages": [
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:soju",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.yukari.chat.0",
+        "reverie_dreams.role.yukari.chat.1",
+        "reverie_dreams.role.yukari.chat.2",
+        "reverie_dreams.role.yukari.chat.3"
+      ],
+      "orders": [
+        "reverie_dreams.role.yukari.order.0",
+        "reverie_dreams.role.yukari.order.1",
+        "reverie_dreams.role.yukari.order.2",
+        "reverie_dreams.role.yukari.order.3",
+        "reverie_dreams.role.yukari.order.4",
+        "reverie_dreams.role.yukari.order.5",
+        "reverie_dreams.role.yukari.order.6"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.yukari.description.0"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.yukari.evaluation.exbad",
+        "bad": "reverie_dreams.role.yukari.evaluation.bad",
+        "norm": "reverie_dreams.role.yukari.evaluation.norm",
+        "good": "reverie_dreams.role.yukari.evaluation.good",
+        "exgood": "reverie_dreams.role.yukari.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.yukari.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.yukari.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.yukari.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.yukari.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:yatadera_narumi": {
+      "role_type": "reverie_dreams:yatadera_narumi",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 600
+      },
+      "likes": [
+        "reverie_dreams:light",
+        "reverie_dreams:mountain_delicacy",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:cultural_depth",
+        "reverie_dreams:local_specialty"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:filling"
+      ],
+      "beverages": [
+        "reverie_dreams:low_alcohol",
+        "reverie_dreams:mid_alcohol",
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:direct_drinking",
+        "reverie_dreams:classical"
+      ],
+      "chats": [
+        "reverie_dreams.role.yatadera_narumi.chat.0",
+        "reverie_dreams.role.yatadera_narumi.chat.1",
+        "reverie_dreams.role.yatadera_narumi.chat.2",
+        "reverie_dreams.role.yatadera_narumi.chat.3",
+        "reverie_dreams.role.yatadera_narumi.chat.4"
+      ],
+      "orders": [
+        "reverie_dreams.role.yatadera_narumi.order.0",
+        "reverie_dreams.role.yatadera_narumi.order.1",
+        "reverie_dreams.role.yatadera_narumi.order.2",
+        "reverie_dreams.role.yatadera_narumi.order.3",
+        "reverie_dreams.role.yatadera_narumi.order.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.yatadera_narumi.description.0",
+        "reverie_dreams.role.yatadera_narumi.description.1",
+        "reverie_dreams.role.yatadera_narumi.description.2"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.yatadera_narumi.evaluation.exbad",
+        "bad": "reverie_dreams.role.yatadera_narumi.evaluation.bad",
+        "norm": "reverie_dreams.role.yatadera_narumi.evaluation.norm",
+        "good": "reverie_dreams.role.yatadera_narumi.evaluation.good",
+        "exgood": "reverie_dreams.role.yatadera_narumi.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.yatadera_narumi.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.yatadera_narumi.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.yatadera_narumi.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.yatadera_narumi.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:youmu": {
+      "role_type": "reverie_dreams:youmu",
+      "rare": true,
+      "budget": {
+        "min": 300,
+        "max": 400
+      },
+      "likes": [
+        "reverie_dreams:homestyle",
+        "reverie_dreams:light",
+        "reverie_dreams:umami",
+        "reverie_dreams:power_surge"
+      ],
+      "dislikes": [
+        "reverie_dreams:greasy",
+        "reverie_dreams:salty",
+        "reverie_dreams:bizarre"
+      ],
+      "beverages": [
+        "reverie_dreams:alcohol-free",
+        "reverie_dreams:can_heated"
+      ],
+      "chats": [
+        "reverie_dreams.role.youmu.chat.0",
+        "reverie_dreams.role.youmu.chat.1",
+        "reverie_dreams.role.youmu.chat.2",
+        "reverie_dreams.role.youmu.chat.3",
+        "reverie_dreams.role.youmu.chat.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.youmu.description.0"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.youmu.evaluation.exbad",
+        "bad": "reverie_dreams.role.youmu.evaluation.bad",
+        "norm": "reverie_dreams.role.youmu.evaluation.norm",
+        "good": "reverie_dreams.role.youmu.evaluation.good",
+        "exgood": "reverie_dreams.role.youmu.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.youmu.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.youmu.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.youmu.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.youmu.evaluation.seenRepell"
+      }
+    },
+    "reverie_dreams:yuyuko": {
+      "role_type": "reverie_dreams:yuyuko",
+      "rare": true,
+      "budget": {
+        "min": 1500,
+        "max": 2000
+      },
+      "likes": [
+        "reverie_dreams:aquatic_products",
+        "reverie_dreams:gourmet",
+        "reverie_dreams:legendary",
+        "reverie_dreams:filling",
+        "reverie_dreams:japanese_style",
+        "reverie_dreams:large_partition"
+      ],
+      "dislikes": [
+        "reverie_dreams:light",
+        "reverie_dreams:petite"
+      ],
+      "beverages": [
+        "reverie_dreams:high_alcohol",
+        "reverie_dreams:can_add_ice",
+        "reverie_dreams:cocktail"
+      ],
+      "chats": [
+        "reverie_dreams.role.yuyuko.chat.0",
+        "reverie_dreams.role.yuyuko.chat.1",
+        "reverie_dreams.role.yuyuko.chat.2",
+        "reverie_dreams.role.yuyuko.chat.3",
+        "reverie_dreams.role.yuyuko.chat.4"
+      ],
+      "descriptions": [
+        "reverie_dreams.role.yuyuko.description.0"
+      ],
+      "evaluation": {
+        "exbad": "reverie_dreams.role.yuyuko.evaluation.exbad",
+        "bad": "reverie_dreams.role.yuyuko.evaluation.bad",
+        "norm": "reverie_dreams.role.yuyuko.evaluation.norm",
+        "good": "reverie_dreams.role.yuyuko.evaluation.good",
+        "exgood": "reverie_dreams.role.yuyuko.evaluation.exgood",
+        "lackmoneyangry": "reverie_dreams.role.yuyuko.evaluation.lackmoneyangry",
+        "lackmoneynormal": "reverie_dreams.role.yuyuko.evaluation.lackmoneynormal",
+        "repell": "reverie_dreams.role.yuyuko.evaluation.repell",
+        "seenRepell": "reverie_dreams.role.yuyuko.evaluation.seenRepell"
+      }
+    }
+  },
+  "customerAliases": {
+    "reverie_dreams:cyan_reimu": "reverie_dreams:reimu"
+  },
+  "runtimeDefaults": {
+    "maxHealth": 20,
+    "movementSpeed": 0.25,
+    "attackDamage": 1,
+    "knockbackResistance": 0.1,
+    "followRange": 32,
+    "followSpeed": 1.4,
+    "followMinDistance": 2,
+    "followRetryTicks": 10,
+    "followMaximumDistance": 32,
+    "farTeleportImplemented": false,
+    "inventorySize": 24,
+    "slots": {
+      "storage": [
+        0,
+        17
+      ],
+      "head": 18,
+      "chest": 19,
+      "legs": 20,
+      "feet": 21,
+      "mainHand": 22,
+      "offHand": 23
+    },
+    "spawnMode": "reverie_dreams:normal",
+    "recruitMode": "reverie_dreams:follow",
+    "stayMode": "reverie_dreams:no_walk",
+    "recruitFoodChance": 0.4,
+    "recruitFoodHeal": 5,
+    "keepInventory": "ARCHIVED",
+    "deathArchiveCanRespawn": false,
+    "food": {
+      "nutrition": 20,
+      "saturation": 20,
+      "exhaustionLevel": 0,
+      "implemented": false
+    },
+    "favorability": {
+      "min": 0,
+      "max": 200,
+      "default": 50,
+      "implemented": false
+    }
+  },
+  "sourcePersistence": {
+    "ownerKeys": [
+      "NPCOwner",
+      "NpcOwner",
+      "Owner"
+    ],
+    "baseEntityWrittenFields": [
+      "IsSwing",
+      "IsSit",
+      "NPCOwner",
+      "NPCStateId",
+      "NPCWorkStateId",
+      "WorkingPos",
+      "AutoPick",
+      "SeatUUID",
+      "ExperienceAmount",
+      "LockSlot",
+      "Skin",
+      "DefaultSkinType"
+    ],
+    "simpleEntityWrittenFields": [
+      "RoleType",
+      "ChatMemory"
+    ],
+    "inventory": "ContainerHelper.saveAllItems / Items; 24 slots",
+    "nativeEntityFields": [
+      "Health",
+      "attributes",
+      "UUID",
+      "Pos"
+    ],
+    "notes": [
+      "Nested food/customer/favorability/history containers use their own codecs; they are preserved below as domain-only scope, not implemented runtime state."
+    ],
+    "nestedWrittenFields": {
+      "entity/npc/container/NPCFoodDataContainer": [
+        "Food.Nutrition",
+        "Food.Saturation",
+        "Food.ExhaustionLevel"
+      ],
+      "entity/npc/container/NPCCustomerContainer": [
+        "Customer.SubmitFood",
+        "Customer.SubmitBeverage",
+        "Customer.Timeout",
+        "Customer.CooldownTickTime",
+        "Customer.OrderBudget",
+        "Customer.FixedFood",
+        "Customer.FixedRequiredFood",
+        "Customer.Likes",
+        "Customer.Dislikes",
+        "Customer.FixedBeverage",
+        "Customer.FixedRequiredBeverage",
+        "Customer.BeverageProperty",
+        "Customer.Score"
+      ],
+      "entity/npc/container/FavorabilityContainer": [
+        "Favorability"
+      ],
+      "entity/npc/container/ChatAIContainer": [
+        "ChatAIData"
+      ],
+      "openai/NPCSkillTask": [
+        "ChatSkillTask"
+      ],
+      "openai/NPCContainerAccess": []
+    }
+  },
+  "implemented": [
+    "role identity",
+    "owner UUID without overwrite",
+    "24-slot inventory persistence with native ItemStack byte serialization",
+    "original skin texture binding except known missing source PNG",
+    "health/max-health through carrier native attributes",
+    "owner-only follow/stay",
+    "bounded Paper pathfinding",
+    "chunk-unload/reload reattachment",
+    "death archive containing identity, owner, inventory and max health",
+    "40% source-food recruitment with +5HP and one-food cost",
+    "sneak-empty-hand owner inventory UI with immediate atomic cursor transactions",
+    "FOLLOW/STAY buttons",
+    "19 grouped role-card adapter items and selection/random menus with item/distance checks",
+    "visible avatar direct-death equipment-copy suppression and reconstruction"
+  ],
+  "notImplemented": [
+    "source custom Renderer, player dimensions or full animation parity",
+    "far-distance safe teleport",
+    "normal wander/sleep/work states",
+    "combat and danmaku AI",
+    "food hunger/regeneration and automatic pickup",
+    "favorability and customer ordering/seating/payment AI",
+    "chat/LLM/persona/tool execution",
+    "archive revival and recovery ingredients",
+    "cross-dimension owner travel",
+    "Folia region scheduling",
+    "making_friend and other original custom advancement triggers",
+    "soul-card capture/re-summon",
+    "owned NPC food feeding, hunger and potion callbacks"
+  ],
+  "sources": [
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/NPCRoleTypes.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/RoleCards.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/Customers.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/skin/GensokyoSkinTypes.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/entity/npc/NPCSimpleEntity.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/entity/npc/NPCCompanionEntity.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/entity/npc/BaseNPCLikeEntity.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCFollowOwnerGoal.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/inventory/NPCInventoryImpl.java"
+  ],
+  "officialApiReferences": [
+    "https://jd.papermc.io/paper/26.1.2/org/bukkit/entity/Mannequin.html",
+    "https://jd.papermc.io/paper/26.1.2/io/papermc/paper/datacomponent/item/ResolvableProfile.SkinPatchBuilder.html",
+    "https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-9"
+  ],
+  "sourceStates": [
+    "reverie_dreams:follow",
+    "reverie_dreams:normal",
+    "reverie_dreams:no_walk",
+    "reverie_dreams:sneaking",
+    "reverie_dreams:seated",
+    "reverie_dreams:working"
+  ],
+  "sourceWorkModes": [
+    "reverie_dreams:combat",
+    "reverie_dreams:farm",
+    "reverie_dreams:breed",
+    "reverie_dreams:sheep_shearing",
+    "reverie_dreams:smelt",
+    "reverie_dreams:chest_classification",
+    "reverie_dreams:playing_music",
+    "reverie_dreams:honeycomb_harvesting",
+    "reverie_dreams:fishing",
+    "reverie_dreams:customer"
+  ],
+  "interaction": {
+    "recruitFoodItems": [
+      "minecraft:cake",
+      "reverie_dreams:cuisine/ordinary_small_cake",
+      "reverie_dreams:cuisine/scarlet_devils_cake"
+    ],
+    "successChance": 0.4,
+    "healPerAttempt": 5,
+    "sourceFreeChoiceDefault": false,
+    "freeChoiceConfigPath": "npc.free-choice-of-role",
+    "roleCardItems": {
+      "reverie_dreams:protagonist_group_role_card": "reverie_dreams:protagonist_group",
+      "reverie_dreams:koumakyou_role_card": "reverie_dreams:koumakyou",
+      "reverie_dreams:youyoumu_role_card": "reverie_dreams:youyoumu",
+      "reverie_dreams:eiyashou_role_card": "reverie_dreams:eiyashou",
+      "reverie_dreams:kaeizuka_role_card": "reverie_dreams:kaeizuka",
+      "reverie_dreams:fuujinroku_role_card": "reverie_dreams:fuujinroku",
+      "reverie_dreams:chireiden_role_card": "reverie_dreams:chireiden",
+      "reverie_dreams:seirensen_role_card": "reverie_dreams:seirensen",
+      "reverie_dreams:shinreibyou_role_card": "reverie_dreams:shinreibyou",
+      "reverie_dreams:kishinjou_role_card": "reverie_dreams:kishinjou",
+      "reverie_dreams:kanjuden_role_card": "reverie_dreams:kanjuden",
+      "reverie_dreams:tenkuushou_role_card": "reverie_dreams:tenkuushou",
+      "reverie_dreams:kikeijuu_role_card": "reverie_dreams:kikeijuu",
+      "reverie_dreams:kouryuudou_role_card": "reverie_dreams:kouryuudou",
+      "reverie_dreams:juuouen_role_card": "reverie_dreams:juuouen",
+      "reverie_dreams:kinjoukyou_role_card": "reverie_dreams:kinjoukyou",
+      "reverie_dreams:sangetsusei_role_card": "reverie_dreams:sangetsusei",
+      "reverie_dreams:hifuu_role_card": "reverie_dreams:hifuu",
+      "reverie_dreams:tasogare_furontia_role_card": "reverie_dreams:tasogare_furontia"
+    },
+    "roleCardBaseItem": "reverie_dreams:role_card",
+    "archiveItem": "reverie_dreams:role_archive",
+    "soulCardItem": "reverie_dreams:soul_card",
+    "inventoryUi": {
+      "sourceSlots": 24,
+      "topSize": 27,
+      "followButton": 24,
+      "stayButton": 25,
+      "closeButton": 26,
+      "transactions": "cancel native top clicks; transfer cursor atomically with service storage; no shift/number/drag automation"
+    },
+    "advancementTrigger": "reverie_dreams:making_friend",
+    "advancementImplemented": false
+  }
+}

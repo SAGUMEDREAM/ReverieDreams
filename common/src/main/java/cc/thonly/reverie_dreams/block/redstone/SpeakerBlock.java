@@ -1,8 +1,6 @@
 package cc.thonly.reverie_dreams.block.redstone;
 
 import cc.thonly.reverie_dreams.block.entity.SpeakerBlockEntity;
-import cc.thonly.reverie_dreams.gui.block.SpeakerGui;
-import cc.thonly.reverie_dreams.server.DelayedTask;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -28,17 +26,25 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import cc.thonly.reverie_dreams.server.dialog.RedstoneConfigDialog;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+
 public class SpeakerBlock extends Block implements EntityBlock {
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 
     public SpeakerBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(OCCUPIED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OCCUPIED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(OCCUPIED);
+        builder.add(OCCUPIED, FACING);
     }
 
     @Override
@@ -50,7 +56,7 @@ public class SpeakerBlock extends Block implements EntityBlock {
                 level.setBlock(pos, state.setValue(OCCUPIED, hasSignal), 3);
 
                 SpeakerBlockEntity be = getBlockEntity(level, pos);
-                if (be != null) {
+                if (be != null && hasSignal && be.beginBroadcast(level.getGameTime())) {
                     if (hasSignal) {
                         MutableComponent texts = Component.empty();
                         List<String> ls = be.getTexts();
@@ -67,12 +73,7 @@ public class SpeakerBlock extends Block implements EntityBlock {
                                     .forEach(player -> player.sendSystemMessage(texts));
                         }
                         if (be.isBellSound()) {
-                            for (int i = 0; i <= 20 * 10 * 2; i += 2) {
-                                int delay = i;
-                                DelayedTask.create(serverLevel.getServer(), delay, () -> {
-                                    level.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.PLAYERS, 4.0f, 1.1f);
-                                });
-                            }
+                            level.playSound(null, pos, SoundEvents.BELL_BLOCK, SoundSource.BLOCKS, 2.0f, 1.1f);
                         }
                     }
                 }
@@ -82,22 +83,9 @@ public class SpeakerBlock extends Block implements EntityBlock {
 
     @Override
     public @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-        if (!level.isClientSide()) {
-            SpeakerBlockEntity be = getBlockEntity(level, blockPos);
-            if (player.isShiftKeyDown()) {
-                if (be == null) {
-                    return InteractionResult.FAIL;
-                }
-                be.setBellSound(!be.isBellSound());
-                be.setChanged();
-                ((ServerPlayer) player).sendSystemMessage(Component.literal("§aBell Sound: " + be.isBellSound()));
-                return InteractionResult.SUCCESS_SERVER;
-            }
-            SpeakerGui speakerGui = new SpeakerGui(be, (ServerPlayer) player);
-            speakerGui.open();
-            return InteractionResult.SUCCESS_SERVER;
-        }
-        return InteractionResult.SUCCESS;
+        if (player instanceof ServerPlayer serverPlayer)
+            RedstoneConfigDialog.open(serverPlayer, blockPos);
+        return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
     }
 
     @Override
@@ -109,4 +97,20 @@ public class SpeakerBlock extends Block implements EntityBlock {
         BlockEntity be = level.getBlockEntity(pos);
         return be instanceof SpeakerBlockEntity r ? r : null;
     }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
 }

@@ -1,0 +1,25 @@
+{
+  "type": "reverie_dreams:gensokyo_tree",
+  "config": {
+    "crown_radius": 2,
+    "crown_style": "tall_maple",
+    "leaves": {
+      "Name": "reverie_dreams:iroha_maple_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "reverie_dreams:iroha_maple_log",
+      "Properties": {
+        "axis": "y"
+      }
+    },
+    "max_height": 12,
+    "min_height": 8,
+    "shape": "iroha_maple",
+    "trunk_width": 1
+  }
+}

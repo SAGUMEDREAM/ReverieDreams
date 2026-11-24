@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.world.gen;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.world.moon.MoonBiomes;
 import cc.thonly.reverie_dreams.api.registry.tag.ConventionalBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -38,6 +39,8 @@ public class RDBuiltinStructures {
     public static final ResourceKey<Structure> QUARANTINE_POOL = getOrCreateRegistryKey("quarantine_pool");
     public static final ResourceKey<Structure> SIGNAL_TOWER = getOrCreateRegistryKey("signal_tower");
 
+    public static final ResourceKey<Structure> ABANDONED_SMALL_SPACESHIP = getOrCreateRegistryKey("abandoned_small_spaceship");
+
 
     public static void init() {
 
@@ -48,21 +51,25 @@ public class RDBuiltinStructures {
         HolderGetter<StructureTemplatePool> structurePoolLookup = context.lookup(Registries.TEMPLATE_POOL);
         Structure.StructureSettings.Builder forest = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_FOREST));
         forest.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-              .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
         Structure.StructureSettings.Builder plains = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_PLAINS));
         plains.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-              .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
         Structure.StructureSettings.Builder hill = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_HILL));
         hill.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-            .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
         Structure.StructureSettings.Builder taiga = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_TAIGA));
         taiga.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
-             .terrainAdapation(TerrainAdjustment.BEARD_THIN);
+                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
         Structure.StructureSettings.Builder bambooForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BAMBOO_JUNGLE)));
         Structure.StructureSettings.Builder cherryForest = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.CHERRY_GROVE)));
         Structure.StructureSettings.Builder basaltDeltas = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.BASALT_DELTAS)));
         Structure.StructureSettings.Builder netherWastes = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(Biomes.NETHER_WASTES)));
-        Structure.StructureSettings.Builder theMoon = new Structure.StructureSettings.Builder(HolderSet.direct(biomeLookup.getOrThrow(RDBuiltinBiomes.THE_MOON)));
+        Structure.StructureSettings.Builder theMoon = new Structure.StructureSettings.Builder(HolderSet.direct(
+                biomeLookup.getOrThrow(RDBuiltinBiomes.THE_MOON), biomeLookup.getOrThrow(MoonBiomes.BASALT_MARE)));
+        Structure.StructureSettings.Builder overworld = new Structure.StructureSettings.Builder(biomeLookup.getOrThrow(ConventionalBiomeTags.IS_OVERWORLD));
+        overworld.generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
+                .terrainAdapation(TerrainAdjustment.BEARD_THIN);
 
         context.register(
                 ABANDONED_ALTAR,
@@ -123,6 +130,10 @@ public class RDBuiltinStructures {
         context.register(
                 SIGNAL_TOWER,
                 new JigsawStructure(theMoon.build(), structurePoolLookup.getOrThrow(RDBuiltinTemplatePools.SIGNAL_TOWER), 1, ConstantHeight.of(VerticalAnchor.absolute(0)), false, Heightmap.Types.WORLD_SURFACE_WG)
+        );
+        context.register(
+                ABANDONED_SMALL_SPACESHIP,
+                new JigsawStructure(overworld.build(), structurePoolLookup.getOrThrow(RDBuiltinTemplatePools.ABANDONED_SMALL_SPACESHIP), 1, ConstantHeight.of(VerticalAnchor.absolute(0)), false, Heightmap.Types.WORLD_SURFACE_WG)
         );
     }
 

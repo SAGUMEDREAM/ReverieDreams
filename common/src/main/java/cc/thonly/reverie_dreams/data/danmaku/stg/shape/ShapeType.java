@@ -4,6 +4,8 @@ import net.minecraft.util.StringRepresentable;
 
 import java.util.Locale;
 
+import com.mojang.serialization.Codec;
+
 /**
  * 发射形状类型。
  *
@@ -22,7 +24,7 @@ public enum ShapeType implements StringRepresentable {
     MULTI_RING,
     MATRIX;
 
-    public static final com.mojang.serialization.Codec<ShapeType> CODEC = StringRepresentable.fromEnum(ShapeType::values);
+    public static final Codec<ShapeType> CODEC = StringRepresentable.fromEnum(ShapeType::values);
 
     @Override
     public String getSerializedName() {

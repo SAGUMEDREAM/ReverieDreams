@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.paper.item.danmaku;
 
-import net.momirealms.craftengine.core.entity.AbstractEntity;
+import net.momirealms.craftengine.core.entity.Entity;
 import net.momirealms.craftengine.core.entity.player.InteractionHand;
 import net.momirealms.craftengine.core.item.behavior.ItemBehavior;
 import net.momirealms.craftengine.core.item.behavior.ItemBehaviorFactory;
@@ -15,7 +15,7 @@ public class DanmakuItemBehaviour extends AbstractDanmakuItemBehaviour {
     public static final ItemBehaviorFactory<DanmakuItemBehaviour> FACTORY = new Factory();
 
     @Override
-    public void shoot(World serverWorld, AbstractEntity user, InteractionHand hand) {
+    public void shoot(World serverWorld, Entity user, InteractionHand hand) {
 
     }
 

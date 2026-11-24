@@ -16,6 +16,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class GensokyoAltarRecipeCategory implements DisplayCategory<GensokyoAltarRecipeDisplay> {
     @Override
@@ -32,7 +33,7 @@ public class GensokyoAltarRecipeCategory implements DisplayCategory<GensokyoAlta
         int xOffset = startX + (bounds.getWidth() - width) / 2;
         int yOffset = startY + (bounds.getHeight() - height) / 2;
 
-        List<Widget> widgets = new java.util.ArrayList<>();
+        List<Widget> widgets = new ArrayList<>();
         widgets.add(Widgets.createRecipeBase(bounds));
 
         var recipe = display.getRecipe();
@@ -55,7 +56,8 @@ public class GensokyoAltarRecipeCategory implements DisplayCategory<GensokyoAlta
                 int y = yOffset + row * slotSize;
 
                 // 空位
-                if (type.equals("X")) continue;
+                if (type.equals("X"))
+                    continue;
 
                 // ===== 普通输入 =====
                 if (type.equals("I")) {

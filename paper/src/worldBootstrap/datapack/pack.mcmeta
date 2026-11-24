@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "description": "ReverieDreams Gensokyo1536-height metadata; independent Paper map generator required",
+    "min_format": [
+      101,
+      1
+    ],
+    "max_format": [
+      101,
+      1
+    ]
+  }
+}

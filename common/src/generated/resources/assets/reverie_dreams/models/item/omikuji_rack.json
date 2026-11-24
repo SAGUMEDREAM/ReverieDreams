@@ -1,0 +1,141 @@
+{
+  "parent": "reverie_dreams:block/omikuji_rack",
+  "display": {
+    "firstperson_lefthand": {
+      "rotation": [
+        0.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        1.6971,
+        -0.6,
+        1.6971
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        -1.6971,
+        -0.6,
+        -1.6971
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "translation": [
+        0.0,
+        -0.75,
+        3.0
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "translation": [
+        0.0,
+        2.25,
+        -1.5
+      ]
+    },
+    "gui": {
+      "rotation": [
+        10.0,
+        200.0,
+        0.0
+      ],
+      "scale": [
+        0.8901,
+        0.8901,
+        0.8901
+      ],
+      "translation": [
+        1.8266,
+        -2.2128,
+        4.5605
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "translation": [
+        0.0,
+        1.875,
+        2.25
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "translation": [
+        -1.591,
+        3.7631,
+        -0.9894
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "translation": [
+        -1.591,
+        3.7631,
+        -0.9894
+      ]
+    }
+  }
+}

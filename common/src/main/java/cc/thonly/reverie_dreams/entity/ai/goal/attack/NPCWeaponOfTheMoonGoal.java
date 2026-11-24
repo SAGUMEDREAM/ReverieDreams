@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import cc.thonly.reverie_dreams.entity.RabbitUnit;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
-import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.level.ServerLevel;
@@ -27,6 +26,7 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
     private int bullet = 30;
     private int btCd = 20 * 5;
     private int atCd;
+    private WeaponOfTheMoon activeWeapon;
 
     public NPCWeaponOfTheMoonGoal(T actor, int attackInterval, float range) {
         this.actor = actor;
@@ -94,6 +94,14 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
 //            System.out.println("st2");
             return;
         }
+        if (!(this.actor.getInventory().getMainHand().getItem() instanceof WeaponOfTheMoon weapon))
+            return;
+        if (this.activeWeapon != weapon) {
+            this.activeWeapon = weapon;
+            this.bullet = weapon.capacity();
+            this.btCd = weapon.getWeaponType().reloadTicks();
+            this.atCd = Math.max(1, weapon.getWeaponType().shotInterval() * this.attackInterval / 2);
+        }
 
         double distanceSq = this.actor.distanceToSqr(target);
         if (distanceSq > this.range * this.range) {
@@ -105,8 +113,8 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
         }
 
         if (this.btCd <= 0) {
-            this.btCd = 20 * 5;
-            this.bullet = 30;
+            this.btCd = weapon.getWeaponType().reloadTicks();
+            this.bullet = weapon.capacity();
         }
         if (this.bullet <= 0) {
             this.btCd--;
@@ -117,11 +125,9 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
             if (this.atCd <= 0) {
                 this.actor.setAggressive(true);
                 this.actor.startUsingItem(InteractionHand.MAIN_HAND);
-                this.atCd = this.attackInterval;
+                this.atCd = Math.max(1, weapon.getWeaponType().shotInterval() * this.attackInterval / 2);
                 this.bullet--;
-                if (RDItems.WEAPON_OF_THE_MOON.asItem() instanceof WeaponOfTheMoon weaponOfTheMoon) {
-                    weaponOfTheMoon.tryShoot(this.actor, serverLevel, InteractionHand.MAIN_HAND, 0.2f);
-                }
+                weapon.tryShoot(this.actor, serverLevel, InteractionHand.MAIN_HAND);
             } else {
                 this.atCd--;
             }
@@ -136,7 +142,8 @@ public class NPCWeaponOfTheMoonGoal<T extends BaseNPCLikeEntity> extends Goal {
         if (len == 0) {
             return;
         }
-        if (len < 0.001) return;
+        if (len < 0.001)
+            return;
 
         dx /= len;
         dz /= len;

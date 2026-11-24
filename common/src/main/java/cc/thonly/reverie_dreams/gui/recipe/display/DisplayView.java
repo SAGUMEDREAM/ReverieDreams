@@ -20,7 +20,8 @@ public interface DisplayView {
         try {
             Constructor<?> constructor = clazz.getConstructor(ServerPlayer.class, RecipeKeyEntry.class, GuiOpeningPrevCallback.class);
             return (SimpleGui) constructor.newInstance(player, key2ValueEntry, prevGuiCallback);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
             return null;
         }
     }

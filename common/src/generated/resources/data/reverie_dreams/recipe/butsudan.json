@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "P": "#minecraft:planks",
+    "W": "minecraft:paper"
+  },
+  "pattern": [
+    "PPP",
+    "PWP",
+    "PGP"
+  ],
+  "result": {
+    "id": "reverie_dreams:butsudan"
+  }
+}

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.block.base;
 
-import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.world.item.context.BlockPlaceContext;

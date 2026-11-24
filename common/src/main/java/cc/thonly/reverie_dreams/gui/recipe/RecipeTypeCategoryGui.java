@@ -66,7 +66,7 @@ public class RecipeTypeCategoryGui extends SimpleGui {
                     this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiPlaceholderItems.NEXT.value()).setCallback(this::next));
                 }
                 if (c.equalsIgnoreCase("P")) {
-                    this.setSlot(slot,  new GuiElementBuilder().setItem(RDGuiPlaceholderItems.PREV.value()).setCallback(this::prev));
+                    this.setSlot(slot, new GuiElementBuilder().setItem(RDGuiPlaceholderItems.PREV.value()).setCallback(this::prev));
                 }
             }
         }
@@ -106,12 +106,12 @@ public class RecipeTypeCategoryGui extends SimpleGui {
         super.onTick();
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub007")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(Component.nullToEmpty("Recipes Manager" + " " + "(" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")"))
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub007")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(Component.nullToEmpty("Recipes Manager" + " " + "(" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")"))
         );
         int start = this.page * PER_PAGE_SIZE;
 

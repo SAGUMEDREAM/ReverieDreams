@@ -27,7 +27,7 @@ public enum ItemTypeGroup {
     SPEARS(),
     ARMOR(),
     ;
-    private final Set<Item> entries = new LinkedHashSet<>();
+    private final Set<Item> entries = new LinkedHashSet<>(16);
 
     ItemTypeGroup() {
     }

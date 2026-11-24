@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "reverie_dreams:block/spiritual_log_top",
+    "side": "reverie_dreams:block/spiritual_log"
+  }
+}

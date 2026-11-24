@@ -1,0 +1,83 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "reverie_dreams:block/large_bamboo/culm",
+    "1": "reverie_dreams:block/large_bamboo/pith",
+    "particle": "reverie_dreams:block/large_bamboo/culm"
+  },
+  "elements": [
+    {
+      "name": "fallen_hollow_section",
+      "from": [
+        5,
+        0,
+        0
+      ],
+      "to": [
+        11,
+        5,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            8,
+            0,
+            11,
+            2.5
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            11,
+            16
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            8,
+            0,
+            11,
+            2.5
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            10,
+            0,
+            15,
+            16
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            6,
+            16
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            6,
+            16
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ],
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false
+}

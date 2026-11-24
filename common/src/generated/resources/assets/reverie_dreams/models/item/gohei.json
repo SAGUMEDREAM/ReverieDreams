@@ -1,0 +1,141 @@
+{
+  "parent": "reverie_dreams:block/gohei",
+  "display": {
+    "firstperson_lefthand": {
+      "rotation": [
+        0.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        -0.1414,
+        0.0,
+        -0.1414
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        0.1414,
+        0.0,
+        0.1414
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "translation": [
+        0.0,
+        0.0,
+        0.25
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "translation": [
+        0.0,
+        3.0,
+        -0.125
+      ]
+    },
+    "gui": {
+      "rotation": [
+        10.0,
+        200.0,
+        0.0
+      ],
+      "scale": [
+        0.8889,
+        0.8889,
+        0.8889
+      ],
+      "translation": [
+        -0.304,
+        -0.0461,
+        0.2709
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "translation": [
+        0.0,
+        3.0,
+        0.1875
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "translation": [
+        0.1326,
+        2.438,
+        0.0
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "translation": [
+        0.1326,
+        2.438,
+        0.0
+      ]
+    }
+  }
+}

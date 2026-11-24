@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "reverie_dreams:block/white_wool_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/white_wool"
+    },
+    "type=top": {
+      "model": "reverie_dreams:block/white_wool_slab_top"
+    }
+  }
+}

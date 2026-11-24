@@ -1,0 +1,9 @@
+{
+  "block.reverie_dreams.ice_making_machine": "製氷機",
+  "block.reverie_dreams.brewing_barrel": "醸造樽",
+  "block.reverie_dreams.magic_ice": "魔法の氷",
+  "message.reverie_dreams.production.progress": "Processing: %s s",
+  "message.reverie_dreams.production.bottles": "%s servings ready; use a glass bottle",
+  "message.reverie_dreams.production.instructions": "Place ingredients in order, then sneak and use to brew",
+  "message.reverie_dreams.production.drain_first": "Wait for completion and collect all output before breaking"
+}

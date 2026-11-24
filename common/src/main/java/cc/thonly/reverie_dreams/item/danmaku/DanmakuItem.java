@@ -2,7 +2,9 @@ package cc.thonly.reverie_dreams.item.danmaku;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectoryConfig;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
+import cc.thonly.reverie_dreams.data.danmaku.trajectory.PlayerTrajectory;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.resources.Identifier;
@@ -29,6 +31,16 @@ public class DanmakuItem extends AbstractDanmakuItem {
     }
 
     @Override
+    protected void shootVolley(ServerLevel level, LivingEntity owner, InteractionHand hand,
+                               ItemStack stack, DanmakuProperties properties) {
+        if (BuiltInRegistryProviders.DANMAKU_TRAJECTORY.getValue(properties.templateId()) instanceof PlayerTrajectory trajectory) {
+            trajectory.fire(level, owner, hand, stack);
+        } else {
+            super.shootVolley(level, owner, hand, stack, properties);
+        }
+    }
+
+    @Override
     public void shoot(ServerLevel serverWorld, LivingEntity user, InteractionHand hand) {
         ItemStack stack = user.getItemInHand(hand).copy();
         DanmakuProperties properties = stack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
@@ -37,19 +49,26 @@ public class DanmakuItem extends AbstractDanmakuItem {
         }
         Identifier templateId = properties.templateId();
         DanmakuTrajectory danmakuTrajectory = BuiltInRegistryProviders.DANMAKU_TRAJECTORY.getValue(templateId);
+        DanmakuTrajectoryConfig config = stack.getOrDefault(
+                RDDataComponentTypes.DANMAKU_TRAJECTORY_CONFIG.value(), DanmakuTrajectoryConfig.EMPTY);
 
         if (danmakuTrajectory != null) {
+            if (danmakuTrajectory instanceof PlayerTrajectory trajectory) {
+                trajectory.fire(serverWorld, user, hand, user.getItemInHand(hand));
+                return;
+            }
             danmakuTrajectory.run(serverWorld,
                     user,
                     stack,
                     user.getX(),
-                    user.getY(),
+                    user.getEyeY(),
                     user.getZ(),
                     user.getXRot(),
                     user.getYRot(),
-                    properties.speed(),
-                    properties.acceleration(),
-                    this);
+                    0.05f,
+                    0.25f,
+                    this,
+                    config);
         }
 
     }

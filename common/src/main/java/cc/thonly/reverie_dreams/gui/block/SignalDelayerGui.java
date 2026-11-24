@@ -29,7 +29,7 @@ public class SignalDelayerGui extends AnvilInputGui {
         try {
             int num = Integer.parseInt(this.getInput());
             this.signalDelayerBlockEntity.setMaxDelayTick(num);
-        } catch (Exception ignored) {
+        } catch (NumberFormatException ignored) {
             this.player.sendSystemMessage(Component.literal("§cError Input Value"));
         } finally {
             this.player.level().playSound(null, this.player.getOnPos(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS);
@@ -45,7 +45,7 @@ public class SignalDelayerGui extends AnvilInputGui {
             int num = Integer.parseInt(this.getInput());
             this.signalDelayerBlockEntity.setMaxDelayTick(num);
             this.signalDelayerBlockEntity.setChanged();
-        } catch (Exception ignored) {
+        } catch (NumberFormatException ignored) {
 
         }
     }

@@ -26,9 +26,45 @@ public interface SaplingGeneratorInit {
             Optional.empty()
     );
     TreeGrower PEACH_TREE = new TreeGrower(
-            ReverieDreams.id("ginkgo_tree").toString(),
+            ReverieDreams.id("peach_tree").toString(),
             Optional.empty(),
             Optional.of(RDBuiltinConfigurationFeatures.PEACH_TREE_KEY),
+            Optional.empty()
+    );
+    TreeGrower PLUM_TREE = new TreeGrower(
+            ReverieDreams.id("plum_tree").toString(),
+            Optional.empty(),
+            Optional.of(RDBuiltinConfigurationFeatures.PLUM_TREE_KEY),
+            Optional.empty()
+    );
+    TreeGrower PINE_TREE = new TreeGrower(
+            ReverieDreams.id("pine_tree").toString(),
+            Optional.empty(),
+            Optional.of(RDBuiltinConfigurationFeatures.PINE_TREE_KEY),
+            Optional.empty()
+    );
+    TreeGrower CHESTNUT_TREE = new TreeGrower(
+            ReverieDreams.id("chestnut_tree").toString(),
+            Optional.empty(),
+            Optional.of(RDBuiltinConfigurationFeatures.CHESTNUT_TREE_KEY),
+            Optional.empty()
+    );
+    TreeGrower IROHA_MAPLE_TREE = new TreeGrower(
+            ReverieDreams.id("iroha_maple_tree").toString(),
+            Optional.empty(),
+            Optional.of(RDBuiltinConfigurationFeatures.IROHA_MAPLE_TREE_KEY),
+            Optional.empty()
+    );
+    TreeGrower ITAYA_MAPLE_TREE = new TreeGrower(
+            ReverieDreams.id("itaya_maple_tree").toString(),
+            Optional.empty(),
+            Optional.of(RDBuiltinConfigurationFeatures.ITAYA_MAPLE_TREE_KEY),
+            Optional.empty()
+    );
+    TreeGrower HAUCHIWA_MAPLE_TREE = new TreeGrower(
+            ReverieDreams.id("hauchiwa_maple_tree").toString(),
+            Optional.empty(),
+            Optional.of(RDBuiltinConfigurationFeatures.HAUCHIWA_MAPLE_TREE_KEY),
             Optional.empty()
     );
 }

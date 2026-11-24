@@ -1,0 +1,1479 @@
+{
+  "version": 1,
+  "content_version": 2,
+  "actors_version": 1,
+  "content_sha256": "5db31535124325d92a5db65806097ff9a9167d1c31afebcab441743781ac4655",
+  "source_sha256": "0e69ef09c7d92f489a73a45363bf40c6e67d0743c6d92bd1a9e74bcb6905ad6f",
+  "size": [
+    46,
+    19,
+    47
+  ],
+  "function_points": [
+    {
+      "id": "old_books_0",
+      "pos": [
+        4,
+        7,
+        5
+      ]
+    },
+    {
+      "id": "old_books_1",
+      "pos": [
+        4,
+        7,
+        6
+      ]
+    },
+    {
+      "id": "old_books_2",
+      "pos": [
+        4,
+        7,
+        7
+      ]
+    },
+    {
+      "id": "old_books_3",
+      "pos": [
+        4,
+        7,
+        9
+      ]
+    },
+    {
+      "id": "old_books_4",
+      "pos": [
+        4,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "old_books_5",
+      "pos": [
+        4,
+        7,
+        11
+      ]
+    },
+    {
+      "id": "old_books_6",
+      "pos": [
+        4,
+        7,
+        12
+      ]
+    },
+    {
+      "id": "old_books_7",
+      "pos": [
+        4,
+        7,
+        13
+      ]
+    },
+    {
+      "id": "old_books_8",
+      "pos": [
+        4,
+        7,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_9",
+      "pos": [
+        4,
+        7,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_10",
+      "pos": [
+        4,
+        7,
+        18
+      ]
+    },
+    {
+      "id": "music_collection_11",
+      "pos": [
+        4,
+        7,
+        19
+      ]
+    },
+    {
+      "id": "music_collection_12",
+      "pos": [
+        4,
+        7,
+        20
+      ]
+    },
+    {
+      "id": "music_collection_13",
+      "pos": [
+        4,
+        7,
+        21
+      ]
+    },
+    {
+      "id": "music_collection_14",
+      "pos": [
+        4,
+        7,
+        22
+      ]
+    },
+    {
+      "id": "old_books_15",
+      "pos": [
+        4,
+        8,
+        5
+      ]
+    },
+    {
+      "id": "old_books_16",
+      "pos": [
+        4,
+        8,
+        6
+      ]
+    },
+    {
+      "id": "old_books_17",
+      "pos": [
+        4,
+        8,
+        9
+      ]
+    },
+    {
+      "id": "old_books_18",
+      "pos": [
+        4,
+        8,
+        10
+      ]
+    },
+    {
+      "id": "old_books_19",
+      "pos": [
+        4,
+        8,
+        11
+      ]
+    },
+    {
+      "id": "old_books_20",
+      "pos": [
+        4,
+        8,
+        12
+      ]
+    },
+    {
+      "id": "old_books_21",
+      "pos": [
+        4,
+        8,
+        13
+      ]
+    },
+    {
+      "id": "old_books_22",
+      "pos": [
+        4,
+        8,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_23",
+      "pos": [
+        4,
+        8,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_24",
+      "pos": [
+        4,
+        8,
+        18
+      ]
+    },
+    {
+      "id": "music_collection_25",
+      "pos": [
+        4,
+        8,
+        19
+      ]
+    },
+    {
+      "id": "music_collection_26",
+      "pos": [
+        4,
+        8,
+        20
+      ]
+    },
+    {
+      "id": "music_collection_27",
+      "pos": [
+        4,
+        8,
+        21
+      ]
+    },
+    {
+      "id": "music_collection_28",
+      "pos": [
+        4,
+        8,
+        22
+      ]
+    },
+    {
+      "id": "keeper_treasury_29",
+      "pos": [
+        4,
+        9,
+        5
+      ]
+    },
+    {
+      "id": "keeper_treasury_30",
+      "pos": [
+        4,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "keeper_treasury_31",
+      "pos": [
+        4,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "old_books_32",
+      "pos": [
+        4,
+        9,
+        11
+      ]
+    },
+    {
+      "id": "old_books_33",
+      "pos": [
+        4,
+        9,
+        12
+      ]
+    },
+    {
+      "id": "old_books_34",
+      "pos": [
+        4,
+        9,
+        13
+      ]
+    },
+    {
+      "id": "old_books_35",
+      "pos": [
+        4,
+        9,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_36",
+      "pos": [
+        4,
+        9,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_37",
+      "pos": [
+        4,
+        9,
+        18
+      ]
+    },
+    {
+      "id": "music_collection_38",
+      "pos": [
+        4,
+        9,
+        19
+      ]
+    },
+    {
+      "id": "music_collection_39",
+      "pos": [
+        4,
+        9,
+        20
+      ]
+    },
+    {
+      "id": "music_collection_40",
+      "pos": [
+        4,
+        9,
+        21
+      ]
+    },
+    {
+      "id": "music_collection_41",
+      "pos": [
+        4,
+        9,
+        22
+      ]
+    },
+    {
+      "id": "old_books_42",
+      "pos": [
+        5,
+        7,
+        5
+      ]
+    },
+    {
+      "id": "old_books_43",
+      "pos": [
+        5,
+        7,
+        6
+      ]
+    },
+    {
+      "id": "old_books_44",
+      "pos": [
+        5,
+        7,
+        7
+      ]
+    },
+    {
+      "id": "old_books_45",
+      "pos": [
+        5,
+        8,
+        5
+      ]
+    },
+    {
+      "id": "old_books_46",
+      "pos": [
+        5,
+        8,
+        6
+      ]
+    },
+    {
+      "id": "old_books_47",
+      "pos": [
+        6,
+        7,
+        5
+      ]
+    },
+    {
+      "id": "old_books_48",
+      "pos": [
+        6,
+        7,
+        6
+      ]
+    },
+    {
+      "id": "old_books_49",
+      "pos": [
+        7,
+        7,
+        9
+      ]
+    },
+    {
+      "id": "old_books_50",
+      "pos": [
+        7,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "old_books_51",
+      "pos": [
+        7,
+        7,
+        11
+      ]
+    },
+    {
+      "id": "old_books_52",
+      "pos": [
+        7,
+        7,
+        12
+      ]
+    },
+    {
+      "id": "old_books_53",
+      "pos": [
+        7,
+        7,
+        13
+      ]
+    },
+    {
+      "id": "old_books_54",
+      "pos": [
+        7,
+        7,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_55",
+      "pos": [
+        7,
+        7,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_56",
+      "pos": [
+        7,
+        7,
+        18
+      ]
+    },
+    {
+      "id": "old_books_57",
+      "pos": [
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "id": "old_books_58",
+      "pos": [
+        7,
+        8,
+        10
+      ]
+    },
+    {
+      "id": "old_books_59",
+      "pos": [
+        7,
+        8,
+        11
+      ]
+    },
+    {
+      "id": "old_books_60",
+      "pos": [
+        7,
+        8,
+        12
+      ]
+    },
+    {
+      "id": "old_books_61",
+      "pos": [
+        7,
+        8,
+        13
+      ]
+    },
+    {
+      "id": "old_books_62",
+      "pos": [
+        7,
+        8,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_63",
+      "pos": [
+        7,
+        8,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_64",
+      "pos": [
+        7,
+        8,
+        18
+      ]
+    },
+    {
+      "id": "rare_curios_65",
+      "pos": [
+        7,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "rare_curios_66",
+      "pos": [
+        7,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "rare_curios_67",
+      "pos": [
+        7,
+        9,
+        11
+      ]
+    },
+    {
+      "id": "rare_curios_68",
+      "pos": [
+        7,
+        9,
+        12
+      ]
+    },
+    {
+      "id": "rare_curios_69",
+      "pos": [
+        7,
+        9,
+        13
+      ]
+    },
+    {
+      "id": "rare_curios_70",
+      "pos": [
+        7,
+        9,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_71",
+      "pos": [
+        7,
+        9,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_72",
+      "pos": [
+        7,
+        9,
+        18
+      ]
+    },
+    {
+      "id": "old_books_73",
+      "pos": [
+        9,
+        7,
+        5
+      ]
+    },
+    {
+      "id": "old_books_74",
+      "pos": [
+        10,
+        7,
+        5
+      ]
+    },
+    {
+      "id": "old_books_75",
+      "pos": [
+        10,
+        7,
+        9
+      ]
+    },
+    {
+      "id": "old_books_76",
+      "pos": [
+        10,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "old_books_77",
+      "pos": [
+        10,
+        7,
+        11
+      ]
+    },
+    {
+      "id": "old_books_78",
+      "pos": [
+        10,
+        7,
+        12
+      ]
+    },
+    {
+      "id": "old_books_79",
+      "pos": [
+        10,
+        7,
+        13
+      ]
+    },
+    {
+      "id": "old_books_80",
+      "pos": [
+        10,
+        7,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_81",
+      "pos": [
+        10,
+        7,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_82",
+      "pos": [
+        10,
+        7,
+        18
+      ]
+    },
+    {
+      "id": "music_collection_83",
+      "pos": [
+        10,
+        7,
+        22
+      ]
+    },
+    {
+      "id": "music_collection_84",
+      "pos": [
+        10,
+        7,
+        23
+      ]
+    },
+    {
+      "id": "rare_curios_85",
+      "pos": [
+        10,
+        8,
+        9
+      ]
+    },
+    {
+      "id": "rare_curios_86",
+      "pos": [
+        10,
+        8,
+        10
+      ]
+    },
+    {
+      "id": "rare_curios_87",
+      "pos": [
+        10,
+        8,
+        11
+      ]
+    },
+    {
+      "id": "rare_curios_88",
+      "pos": [
+        10,
+        8,
+        12
+      ]
+    },
+    {
+      "id": "rare_curios_89",
+      "pos": [
+        10,
+        8,
+        13
+      ]
+    },
+    {
+      "id": "rare_curios_90",
+      "pos": [
+        10,
+        8,
+        14
+      ]
+    },
+    {
+      "id": "music_collection_91",
+      "pos": [
+        10,
+        8,
+        17
+      ]
+    },
+    {
+      "id": "music_collection_92",
+      "pos": [
+        10,
+        8,
+        18
+      ]
+    },
+    {
+      "id": "rare_curios_93",
+      "pos": [
+        10,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "rare_curios_94",
+      "pos": [
+        10,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "rare_curios_95",
+      "pos": [
+        10,
+        9,
+        11
+      ]
+    },
+    {
+      "id": "rare_curios_96",
+      "pos": [
+        10,
+        9,
+        12
+      ]
+    },
+    {
+      "id": "rare_curios_97",
+      "pos": [
+        10,
+        9,
+        13
+      ]
+    },
+    {
+      "id": "rare_curios_98",
+      "pos": [
+        10,
+        9,
+        14
+      ]
+    },
+    {
+      "id": "rare_curios_99",
+      "pos": [
+        10,
+        9,
+        17
+      ]
+    },
+    {
+      "id": "rare_curios_100",
+      "pos": [
+        10,
+        9,
+        18
+      ]
+    },
+    {
+      "id": "music_collection_101",
+      "pos": [
+        11,
+        7,
+        21
+      ]
+    },
+    {
+      "id": "music_collection_102",
+      "pos": [
+        11,
+        7,
+        22
+      ]
+    },
+    {
+      "id": "music_collection_103",
+      "pos": [
+        11,
+        7,
+        23
+      ]
+    },
+    {
+      "id": "music_collection_104",
+      "pos": [
+        11,
+        8,
+        22
+      ]
+    },
+    {
+      "id": "music_collection_105",
+      "pos": [
+        11,
+        8,
+        23
+      ]
+    },
+    {
+      "id": "music_collection_106",
+      "pos": [
+        12,
+        7,
+        20
+      ]
+    },
+    {
+      "id": "music_collection_107",
+      "pos": [
+        12,
+        7,
+        21
+      ]
+    },
+    {
+      "id": "music_collection_108",
+      "pos": [
+        12,
+        7,
+        22
+      ]
+    },
+    {
+      "id": "music_collection_109",
+      "pos": [
+        12,
+        7,
+        23
+      ]
+    },
+    {
+      "id": "music_collection_110",
+      "pos": [
+        12,
+        8,
+        21
+      ]
+    },
+    {
+      "id": "music_collection_111",
+      "pos": [
+        12,
+        8,
+        22
+      ]
+    },
+    {
+      "id": "music_collection_112",
+      "pos": [
+        12,
+        8,
+        23
+      ]
+    },
+    {
+      "id": "music_collection_113",
+      "pos": [
+        12,
+        9,
+        23
+      ]
+    },
+    {
+      "id": "outside_world_114",
+      "pos": [
+        22,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "outside_world_115",
+      "pos": [
+        22,
+        2,
+        16
+      ]
+    },
+    {
+      "id": "outside_world_116",
+      "pos": [
+        22,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "outside_world_117",
+      "pos": [
+        22,
+        3,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_118",
+      "pos": [
+        22,
+        4,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_119",
+      "pos": [
+        22,
+        4,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_120",
+      "pos": [
+        22,
+        5,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_121",
+      "pos": [
+        22,
+        5,
+        16
+      ]
+    },
+    {
+      "id": "outside_world_122",
+      "pos": [
+        24,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "outside_world_123",
+      "pos": [
+        24,
+        2,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_124",
+      "pos": [
+        24,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_125",
+      "pos": [
+        24,
+        3,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_126",
+      "pos": [
+        24,
+        4,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_127",
+      "pos": [
+        24,
+        4,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_128",
+      "pos": [
+        24,
+        5,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_129",
+      "pos": [
+        24,
+        5,
+        16
+      ]
+    },
+    {
+      "id": "weapon_stock_130",
+      "pos": [
+        25,
+        2,
+        12
+      ]
+    },
+    {
+      "id": "weapon_stock_131",
+      "pos": [
+        26,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "weapon_stock_132",
+      "pos": [
+        26,
+        2,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_133",
+      "pos": [
+        26,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_134",
+      "pos": [
+        26,
+        3,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_135",
+      "pos": [
+        26,
+        4,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_136",
+      "pos": [
+        26,
+        4,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_137",
+      "pos": [
+        26,
+        5,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_138",
+      "pos": [
+        26,
+        5,
+        16
+      ]
+    },
+    {
+      "id": "weapon_stock_139",
+      "pos": [
+        28,
+        2,
+        12
+      ]
+    },
+    {
+      "id": "weapon_stock_140",
+      "pos": [
+        28,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "weapon_stock_141",
+      "pos": [
+        28,
+        2,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_142",
+      "pos": [
+        28,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_143",
+      "pos": [
+        28,
+        3,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_144",
+      "pos": [
+        28,
+        4,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_145",
+      "pos": [
+        28,
+        4,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_146",
+      "pos": [
+        28,
+        5,
+        15
+      ]
+    },
+    {
+      "id": "magic_tools_147",
+      "pos": [
+        28,
+        5,
+        16
+      ]
+    },
+    {
+      "id": "magic_tools_148",
+      "pos": [
+        29,
+        4,
+        22
+      ]
+    },
+    {
+      "id": "magic_tools_149",
+      "pos": [
+        30,
+        4,
+        22
+      ]
+    },
+    {
+      "id": "daily_goods_150",
+      "pos": [
+        39,
+        2,
+        13
+      ]
+    },
+    {
+      "id": "daily_goods_151",
+      "pos": [
+        39,
+        2,
+        14
+      ]
+    },
+    {
+      "id": "daily_goods_152",
+      "pos": [
+        39,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "daily_goods_153",
+      "pos": [
+        39,
+        2,
+        16
+      ]
+    },
+    {
+      "id": "daily_goods_154",
+      "pos": [
+        39,
+        2,
+        18
+      ]
+    },
+    {
+      "id": "daily_goods_155",
+      "pos": [
+        39,
+        2,
+        19
+      ]
+    },
+    {
+      "id": "daily_goods_156",
+      "pos": [
+        39,
+        2,
+        20
+      ]
+    },
+    {
+      "id": "daily_goods_157",
+      "pos": [
+        39,
+        2,
+        21
+      ]
+    },
+    {
+      "id": "daily_goods_158",
+      "pos": [
+        39,
+        3,
+        13
+      ]
+    },
+    {
+      "id": "daily_goods_159",
+      "pos": [
+        39,
+        3,
+        14
+      ]
+    },
+    {
+      "id": "daily_goods_160",
+      "pos": [
+        39,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "daily_goods_161",
+      "pos": [
+        39,
+        3,
+        16
+      ]
+    },
+    {
+      "id": "repair_stock_162",
+      "pos": [
+        39,
+        3,
+        18
+      ]
+    },
+    {
+      "id": "repair_stock_163",
+      "pos": [
+        39,
+        3,
+        19
+      ]
+    },
+    {
+      "id": "repair_stock_164",
+      "pos": [
+        39,
+        3,
+        20
+      ]
+    },
+    {
+      "id": "repair_stock_165",
+      "pos": [
+        39,
+        3,
+        21
+      ]
+    },
+    {
+      "id": "repair_stock_166",
+      "pos": [
+        39,
+        4,
+        13
+      ]
+    },
+    {
+      "id": "repair_stock_167",
+      "pos": [
+        39,
+        4,
+        14
+      ]
+    },
+    {
+      "id": "repair_stock_168",
+      "pos": [
+        39,
+        4,
+        15
+      ]
+    },
+    {
+      "id": "repair_stock_169",
+      "pos": [
+        39,
+        4,
+        16
+      ]
+    },
+    {
+      "id": "repair_stock_170",
+      "pos": [
+        39,
+        4,
+        18
+      ]
+    },
+    {
+      "id": "repair_stock_171",
+      "pos": [
+        39,
+        4,
+        19
+      ]
+    },
+    {
+      "id": "repair_stock_172",
+      "pos": [
+        39,
+        4,
+        20
+      ]
+    },
+    {
+      "id": "repair_stock_173",
+      "pos": [
+        39,
+        4,
+        21
+      ]
+    },
+    {
+      "id": "repair_stock_174",
+      "pos": [
+        39,
+        5,
+        13
+      ]
+    },
+    {
+      "id": "repair_stock_175",
+      "pos": [
+        39,
+        5,
+        14
+      ]
+    },
+    {
+      "id": "repair_stock_176",
+      "pos": [
+        39,
+        5,
+        15
+      ]
+    },
+    {
+      "id": "repair_stock_177",
+      "pos": [
+        39,
+        5,
+        16
+      ]
+    },
+    {
+      "id": "repair_stock_178",
+      "pos": [
+        39,
+        5,
+        18
+      ]
+    },
+    {
+      "id": "repair_stock_179",
+      "pos": [
+        39,
+        5,
+        19
+      ]
+    },
+    {
+      "id": "repair_stock_180",
+      "pos": [
+        39,
+        5,
+        20
+      ]
+    },
+    {
+      "id": "repair_stock_181",
+      "pos": [
+        39,
+        5,
+        21
+      ]
+    },
+    {
+      "id": "entrance",
+      "pos": [
+        34,
+        2,
+        23
+      ]
+    }
+  ],
+  "template_sha256": "5db31535124325d92a5db65806097ff9a9167d1c31afebcab441743781ac4655"
+}

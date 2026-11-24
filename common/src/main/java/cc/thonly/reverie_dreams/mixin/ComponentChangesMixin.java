@@ -67,7 +67,7 @@ public class ComponentChangesMixin {
 
                                 int l;
                                 DataComponentType componentType;
-                                for(l = 0; l < i; ++l) {
+                                for (l = 0; l < i; ++l) {
                                     try {
                                         componentType = DataComponentType.STREAM_CODEC.decode(registryByteBuf);
                                         System.out.println(componentType);
@@ -79,7 +79,7 @@ public class ComponentChangesMixin {
                                     }
                                 }
 
-                                for(l = 0; l < j; ++l) {
+                                for (l = 0; l < j; ++l) {
                                     componentType = DataComponentType.STREAM_CODEC.decode(registryByteBuf);
                                     reference2ObjectMap.put(componentType, Optional.empty());
                                 }
@@ -98,9 +98,9 @@ public class ComponentChangesMixin {
                                 ObjectIterator var5 = Reference2ObjectMaps.fastIterable(componentChanges.map).iterator();
 
                                 Reference2ObjectMap.Entry block;
-                                while(var5.hasNext()) {
-                                    block = (Reference2ObjectMap.Entry)var5.next();
-                                    if (((Optional)block.getValue()).isPresent()) {
+                                while (var5.hasNext()) {
+                                    block = (Reference2ObjectMap.Entry) var5.next();
+                                    if (((Optional) block.getValue()).isPresent()) {
                                         ++i;
                                     } else {
                                         ++j;
@@ -111,11 +111,11 @@ public class ComponentChangesMixin {
                                 registryByteBuf.writeVarInt(j);
                                 var5 = Reference2ObjectMaps.fastIterable(componentChanges.map).iterator();
 
-                                while(var5.hasNext()) {
-                                    block = (Reference2ObjectMap.Entry)var5.next();
-                                    Optional<?> optional = (Optional)block.getValue();
+                                while (var5.hasNext()) {
+                                    block = (Reference2ObjectMap.Entry) var5.next();
+                                    Optional<?> optional = (Optional) block.getValue();
                                     if (optional.isPresent()) {
-                                        DataComponentType<?> componentType = (DataComponentType)block.getKey();
+                                        DataComponentType<?> componentType = (DataComponentType) block.getKey();
                                         DataComponentType.STREAM_CODEC.encode(registryByteBuf, componentType);
                                         encode(registryByteBuf, componentType, optional.get());
                                     }
@@ -123,10 +123,10 @@ public class ComponentChangesMixin {
 
                                 var5 = Reference2ObjectMaps.fastIterable(componentChanges.map).iterator();
 
-                                while(var5.hasNext()) {
-                                    block = (Reference2ObjectMap.Entry)var5.next();
-                                    if (((Optional)block.getValue()).isEmpty()) {
-                                        DataComponentType<?> componentType2 = (DataComponentType)block.getKey();
+                                while (var5.hasNext()) {
+                                    block = (Reference2ObjectMap.Entry) var5.next();
+                                    if (((Optional) block.getValue()).isEmpty()) {
+                                        DataComponentType<?> componentType2 = (DataComponentType) block.getKey();
                                         DataComponentType.STREAM_CODEC.encode(registryByteBuf, componentType2);
                                     }
                                 }

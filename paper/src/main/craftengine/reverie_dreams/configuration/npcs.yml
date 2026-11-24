@@ -1,0 +1,280 @@
+# 3 original items and 19 component-variant adapters; target CraftEngine 26.8.2.
+items:
+  reverie_dreams:role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16777215
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16777215
+  reverie_dreams:role_archive:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.role_archive>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:damage_resistant:
+          types: '#minecraft:is_fire'
+    model: reverie_dreams:item/role_archive
+  reverie_dreams:soul_card:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.soul_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:damage_resistant:
+          types: '#minecraft:is_fire'
+    model: reverie_dreams:item/soul_card
+  reverie_dreams:protagonist_group_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.protagonist_group_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16727357
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16727357
+  reverie_dreams:koumakyou_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.koumakyou_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16716820
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16716820
+  reverie_dreams:youyoumu_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.youyoumu_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16717035
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16717035
+  reverie_dreams:eiyashou_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.eiyashou_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 6160593
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 6160593
+  reverie_dreams:kaeizuka_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.kaeizuka_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 53595
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 53595
+  reverie_dreams:fuujinroku_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.fuujinroku_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 6934784
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 6934784
+  reverie_dreams:chireiden_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.chireiden_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 41777
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 41777
+  reverie_dreams:seirensen_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.seirensen_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 1506915
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 1506915
+  reverie_dreams:shinreibyou_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.shinreibyou_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16775603
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16775603
+  reverie_dreams:kishinjou_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.kishinjou_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16761692
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16761692
+  reverie_dreams:kanjuden_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.kanjuden_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 14024704
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 14024704
+  reverie_dreams:tenkuushou_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.tenkuushou_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 6750023
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 6750023
+  reverie_dreams:kikeijuu_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.kikeijuu_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 12386304
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 12386304
+  reverie_dreams:kouryuudou_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.kouryuudou_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 15853109
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 15853109
+  reverie_dreams:juuouen_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.juuouen_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 7252587
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 7252587
+  reverie_dreams:kinjoukyou_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.kinjoukyou_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 12969971
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 12969971
+  reverie_dreams:sangetsusei_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.sangetsusei_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16770140
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16770140
+  reverie_dreams:hifuu_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.hifuu_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 8931582
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 8931582
+  reverie_dreams:tasogare_furontia_role_card:
+    material: paper
+    data:
+      item_name: <!i><lang:reverie_dreams.tasogare_furontia_role_card>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:dyed_color: 16683336
+    model:
+      type: minecraft:model
+      path: reverie_dreams:item/role_card
+      tints:
+      - type: minecraft:dye
+        default: 16683336

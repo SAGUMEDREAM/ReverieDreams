@@ -44,9 +44,9 @@ public abstract class VillagerEntityMixin extends AbstractVillager
 
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     public void interactMob(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-       if (ItemUtils.shouldPass(player, hand)) {
-           cir.setReturnValue(InteractionResult.PASS);
-       }
+        if (ItemUtils.shouldPass(player, hand)) {
+            cir.setReturnValue(InteractionResult.PASS);
+        }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))

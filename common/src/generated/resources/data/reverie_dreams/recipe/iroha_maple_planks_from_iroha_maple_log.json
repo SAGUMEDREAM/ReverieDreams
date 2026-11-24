@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "planks",
+  "ingredients": [
+    "reverie_dreams:iroha_maple_log"
+  ],
+  "result": {
+    "count": 4,
+    "id": "reverie_dreams:iroha_maple_planks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:red_dye",
+    "minecraft:feather"
+  ],
+  "result": {
+    "id": "reverie_dreams:ofuda",
+    "count": 1
+  }
+}

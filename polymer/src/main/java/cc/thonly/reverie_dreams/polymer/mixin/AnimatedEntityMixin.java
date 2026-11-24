@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.mixin;
 
-import cc.thonly.reverie_dreams.polymer.entity.inf.TickHolderEntity;
+import cc.thonly.reverie_dreams.polymer.entity.bridge.TickHolderEntity;
 import de.tomalbrc.bil.api.AnimatedEntity;
 import de.tomalbrc.bil.api.AnimatedEntityHolder;
 import eu.pb4.polymer.virtualentity.api.data.DisplayEntityData;

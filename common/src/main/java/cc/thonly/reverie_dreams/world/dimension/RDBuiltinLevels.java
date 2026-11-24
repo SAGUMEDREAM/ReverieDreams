@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 public class RDBuiltinLevels {
     public static final ResourceKey<Level> DREAM_WORLD = getOrCreateRegistryKey("dream_world");
     public static final ResourceKey<Level> THE_MOON = getOrCreateRegistryKey("the_moon");
+    public static final ResourceKey<Level> GENSOKYO = getOrCreateRegistryKey("gensokyo");
 
     public static void bootstrap(BootstrapContext<Level> context) {
 
@@ -33,5 +34,9 @@ public class RDBuiltinLevels {
 
     public static ResourceKey<Level> getMoon() {
         return THE_MOON;
+    }
+
+    public static ResourceKey<Level> getGensokyo() {
+        return GENSOKYO;
     }
 }

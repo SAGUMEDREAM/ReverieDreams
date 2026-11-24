@@ -1,0 +1,9 @@
+{
+  "block.reverie_dreams.gensokyo_altar": "Gensokyo Altar",
+  "item.reverie_dreams.fast_book_item": "Quick Recipe Book",
+  "message.reverie_dreams.altar.unavailable": "Altar is unavailable",
+  "message.reverie_dreams.altar.missing_structure": "The eight three-block pillars are incomplete",
+  "message.reverie_dreams.altar.unloaded_structure": "Load the nearby structure chunks first",
+  "message.reverie_dreams.altar.missing_recipe": "The ordered altar ingredients do not match a recipe",
+  "message.reverie_dreams.altar.unsupported_output": "This recipe output is not migrated; ingredients were kept"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "BLB"
+  ],
+  "key": {
+    "P": "minecraft:paper",
+    "B": "minecraft:book",
+    "L": "minecraft:leather"
+  },
+  "result": {
+    "id": "reverie_dreams:menu_book",
+    "count": 1
+  }
+}

@@ -1,6 +1,752 @@
 {
-  "parent": "minecraft:block/template_rail_raised_ne",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#rail",
+          "uv": [
+            0.0,
+            16.0,
+            16.0,
+            0.0
+          ]
+        },
+        "up": {
+          "texture": "#rail",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ]
+        }
+      },
+      "from": [
+        0.0,
+        9.0,
+        0.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        16.0,
+        9.0,
+        16.0
+      ]
+    },
+    {
+      "faces": {
+        "north": {
+          "texture": "#copper",
+          "uv": [
+            4.0,
+            14.0,
+            12.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        4.0,
+        9.0,
+        3.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        12.0,
+        10.0,
+        3.0
+      ]
+    },
+    {
+      "faces": {
+        "north": {
+          "texture": "#dark",
+          "uv": [
+            5.0,
+            14.0,
+            11.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        9.0,
+        5.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        5.0
+      ]
+    },
+    {
+      "faces": {
+        "north": {
+          "texture": "#copper",
+          "uv": [
+            5.0,
+            14.0,
+            11.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        9.0,
+        12.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        12.0
+      ]
+    },
+    {
+      "faces": {
+        "south": {
+          "texture": "#copper",
+          "uv": [
+            5.0,
+            14.0,
+            11.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        9.0,
+        4.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        4.0
+      ]
+    },
+    {
+      "faces": {
+        "south": {
+          "texture": "#dark",
+          "uv": [
+            5.0,
+            14.0,
+            11.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        9.0,
+        11.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        11.0
+      ]
+    },
+    {
+      "faces": {
+        "south": {
+          "texture": "#copper",
+          "uv": [
+            4.0,
+            14.0,
+            12.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        4.0,
+        9.0,
+        13.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        12.0,
+        10.0,
+        13.0
+      ]
+    },
+    {
+      "faces": {
+        "east": {
+          "texture": "#copper",
+          "uv": [
+            4.0,
+            14.0,
+            5.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        9.0,
+        4.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        5.0,
+        10.0,
+        5.0
+      ]
+    },
+    {
+      "faces": {
+        "east": {
+          "texture": "#copper",
+          "uv": [
+            11.0,
+            14.0,
+            12.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        9.0,
+        11.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        5.0,
+        10.0,
+        12.0
+      ]
+    },
+    {
+      "faces": {
+        "east": {
+          "texture": "#copper",
+          "uv": [
+            3.0,
+            14.0,
+            13.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        12.0,
+        9.0,
+        3.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        12.0,
+        10.0,
+        13.0
+      ]
+    },
+    {
+      "faces": {
+        "west": {
+          "texture": "#copper",
+          "uv": [
+            3.0,
+            14.0,
+            13.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        4.0,
+        9.0,
+        3.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        4.0,
+        10.0,
+        13.0
+      ]
+    },
+    {
+      "faces": {
+        "west": {
+          "texture": "#copper",
+          "uv": [
+            4.0,
+            14.0,
+            5.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        11.0,
+        9.0,
+        4.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        5.0
+      ]
+    },
+    {
+      "faces": {
+        "west": {
+          "texture": "#copper",
+          "uv": [
+            11.0,
+            14.0,
+            12.0,
+            15.0
+          ]
+        }
+      },
+      "from": [
+        11.0,
+        9.0,
+        11.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        12.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#copper",
+          "uv": [
+            4.0,
+            3.0,
+            12.0,
+            4.0
+          ]
+        }
+      },
+      "from": [
+        4.0,
+        10.0,
+        3.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        12.0,
+        10.0,
+        4.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#copper",
+          "uv": [
+            4.0,
+            4.0,
+            5.0,
+            13.0
+          ]
+        }
+      },
+      "from": [
+        4.0,
+        10.0,
+        4.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        5.0,
+        10.0,
+        13.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#copper",
+          "uv": [
+            11.0,
+            4.0,
+            12.0,
+            13.0
+          ]
+        }
+      },
+      "from": [
+        11.0,
+        10.0,
+        4.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        12.0,
+        10.0,
+        13.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#dark",
+          "uv": [
+            5.0,
+            5.0,
+            11.0,
+            6.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        10.0,
+        5.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        6.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#dark",
+          "uv": [
+            5.0,
+            6.0,
+            6.0,
+            11.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        10.0,
+        6.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        6.0,
+        10.0,
+        11.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#indicator",
+          "uv": [
+            6.0,
+            6.0,
+            10.0,
+            10.0
+          ]
+        }
+      },
+      "from": [
+        6.0,
+        10.0,
+        6.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        10.0,
+        10.0,
+        10.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#dark",
+          "uv": [
+            10.0,
+            6.0,
+            11.0,
+            11.0
+          ]
+        }
+      },
+      "from": [
+        10.0,
+        10.0,
+        6.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        11.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#dark",
+          "uv": [
+            6.0,
+            10.0,
+            10.0,
+            11.0
+          ]
+        }
+      },
+      "from": [
+        6.0,
+        10.0,
+        10.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        10.0,
+        10.0,
+        11.0
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#copper",
+          "uv": [
+            5.0,
+            12.0,
+            11.0,
+            13.0
+          ]
+        }
+      },
+      "from": [
+        5.0,
+        10.0,
+        12.0
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "x",
+        "origin": [
+          8.0,
+          9.0,
+          8.0
+        ],
+        "rescale": true
+      },
+      "to": [
+        11.0,
+        10.0,
+        13.0
+      ]
+    }
+  ],
   "textures": {
-    "rail": "reverie_dreams:block/rail_controller_block"
+    "copper": "minecraft:block/copper_block",
+    "dark": "minecraft:block/polished_blackstone",
+    "dial": "minecraft:block/quartz_block_side",
+    "frame": "minecraft:block/stripped_spruce_log",
+    "indicator": "minecraft:block/red_nether_bricks",
+    "iron": "minecraft:block/iron_block",
+    "particle": "minecraft:block/spruce_planks",
+    "rail": "reverie_dreams:block/rail_controller_block",
+    "wood": "minecraft:block/spruce_planks"
   }
 }

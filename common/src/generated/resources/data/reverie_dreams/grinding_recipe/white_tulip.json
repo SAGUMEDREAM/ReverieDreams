@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:white_tulip",
+  "output": {
+    "id": "minecraft:light_gray_dye",
+    "count": 2
+  },
+  "work": 8
+}

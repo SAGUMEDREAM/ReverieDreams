@@ -1,0 +1,141 @@
+{
+  "parent": "reverie_dreams:block/incense_burner",
+  "display": {
+    "firstperson_lefthand": {
+      "rotation": [
+        0.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        0.4267,
+        0.4267,
+        0.4267
+      ],
+      "translation": [
+        0.0,
+        0.2133,
+        0.0
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4267,
+        0.4267,
+        0.4267
+      ],
+      "translation": [
+        0.0,
+        0.2133,
+        0.0
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.5333,
+        0.5333,
+        0.5333
+      ],
+      "translation": [
+        0.0,
+        0.2667,
+        0.0
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2667,
+        0.2667,
+        0.2667
+      ],
+      "translation": [
+        0.0,
+        3.1336,
+        0.0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        0.8302,
+        0.8302,
+        0.8302
+      ],
+      "translation": [
+        0.0,
+        1.3868,
+        1.4528
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        0.0,
+        3.2,
+        0.0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        0.0,
+        2.8623,
+        0.486
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.4
+      ],
+      "translation": [
+        0.0,
+        2.8623,
+        0.4494
+      ]
+    }
+  }
+}

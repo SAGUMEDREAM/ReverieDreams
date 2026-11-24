@@ -35,6 +35,9 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
+
 @Slf4j
 @SuppressWarnings({"deprecation", "resource"})
 public final class NotaUtils {
@@ -43,6 +46,29 @@ public final class NotaUtils {
     public static final Map<String, SongPlayer> id2SongCache = new HashMap<>();
     public static final Map<Level, Map<Long, SongPlayer>> blockMusicPlayCache = new HashMap<>();
     public static int MAX_DISTANCE = 64;
+    private static List<String> fileListCache = List.of();
+    private static long fileListExpires;
+
+    private record ParsedSong(Path file, long size, long modified, NoteBlockInstrument instrument) {
+    }
+
+    private static final Map<ParsedSong, Song> parsedSongs = new LinkedHashMap<>(32, .75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<ParsedSong, Song> eldest) {
+            return size() > 32;
+        }
+    };
+
+    private static synchronized Song readSong(Path file, NoteBlockInstrument instrument) throws Exception {
+        var key = new ParsedSong(file.toAbsolutePath().normalize(), Files.size(file), Files.getLastModifiedTime(file).toMillis(), instrument);
+        var song = parsedSongs.get(key);
+        if (song == null) {
+            song = NBSDecoderPlus.parse(file.toFile(), instrument);
+            if (song != null)
+                parsedSongs.put(key, song);
+        }
+        return song;
+    }
 
     static {
         try {
@@ -55,14 +81,20 @@ public final class NotaUtils {
     }
 
     public static void playAt(Level world, BlockPos pos, String select) {
-        if (select == null) {
+        if (world.isClientSide() || select == null || select.isEmpty()) {
+            return;
+        }
+
+        MinecraftServer server = world.getServer();
+        if (server == null) {
+            return;
+        }
+        // 区块未加载时绝不能读取方块状态，否则 getBlockState 会把区块重新加载。
+        if (!world.hasChunkAt(pos)) {
             return;
         }
 
         String filename = select.intern();
-        MinecraftServer server = world.getServer();
-
-        assert server != null;
         PlayerList playerManager = server.getPlayerList();
         Song song;
         try {
@@ -70,18 +102,18 @@ public final class NotaUtils {
         } catch (FileNotFoundException e) {
             return;
         } catch (Exception e) {
-            log.error("读取音乐失败: {}", filename, e);
+            log.error("Failed to read music: {}", filename, e);
             return;
         }
 
         DelayedTask.create(server, 2, () -> {
-            if (song == null) {
+            if (song == null || !world.hasChunkAt(pos)) {
                 return;
             }
             Map<Long, SongPlayer> blockPos2SongPlayer = blockMusicPlayCache.computeIfAbsent(world, k -> new HashMap<>());
             SongPlayer songPlayer = blockPos2SongPlayer.get(pos.asLong());
             if (songPlayer != null) {
-                songPlayer.setPlaying(false);
+                songPlayer.destroy();
                 blockPos2SongPlayer.remove(pos.asLong());
             }
 
@@ -96,14 +128,20 @@ public final class NotaUtils {
             blockPos2SongPlayer.put(pos.asLong(), psp);
             AtomicInteger age = new AtomicInteger();
             DelayedTask.whenTick(server, () -> {
-                if (world.hasChunkAt(pos)) {
-                    return false;
+                // 已经停止：不要再读区块，直接结束定时任务。
+                if (!psp.isPlaying()) {
+                    return true;
+                }
+                // 区块已卸载：立即结束，绝不能调用 getBlockState，否则会重新加载区块。
+                if (!world.hasChunkAt(pos)) {
+                    return true;
                 }
                 BlockState blockState = world.getBlockState(pos);
                 return !(blockState.getBlock() instanceof MusicBlock);
             }, 4, () -> {
-                psp.setPlaying(false);
-                blockPos2SongPlayer.remove(pos.asLong());
+                // destroy() 会取消 Timer 线程，并从 NotaAPI 的玩家列表里移除自己。
+                psp.destroy();
+                blockPos2SongPlayer.remove(pos.asLong(), psp);
             }, () -> {
                 if (age.get() <= 4) {
                     age.getAndIncrement();
@@ -153,7 +191,7 @@ public final class NotaUtils {
         PlayerList playerManager = server.getPlayerList();
         Song song;
         try {
-            song = NBSDecoderPlus.parse(getFilePath(filename).toFile(), noteBlockInstrument);
+            song = readSong(getFilePath(filename), noteBlockInstrument);
         } catch (Exception e) {
             log.error("Can't read NBS: {}", playingMusic, e);
             if (user instanceof ServerPlayer player) {
@@ -170,7 +208,7 @@ public final class NotaUtils {
 
         SongPlayer prev = id2SongCache.get(playId);
         if (prev != null) {
-            prev.setPlaying(false);
+            prev.destroy();
             id2SongCache.remove(playId);
         }
 
@@ -185,18 +223,23 @@ public final class NotaUtils {
         esp.setPlaying(true);
         id2SongCache.put(playId, esp);
         DelayedTask.whenTick(server, () -> {
+            // 歌曲自然结束、玩家下线或已经没有乐器时，结束并清理定时任务。
+            boolean managedNPC = user instanceof BaseNPCLikeEntity npc
+                    && npc.getWorkMode() == NPCWorkModes.PLAYING_MUSIC
+                    && npc.getWorkController().working();
+            // Keep a finished NPC player until its work goal observes completion and advances the playlist.
+            if ((!esp.isPlaying() && !managedNPC) || user.isRemoved()) {
+                return true;
+            }
             ItemStack handStack = user.getMainHandItem();
             ItemStack offStack = user.getOffhandItem();
             ItemStack headStack = user.getItemBySlot(EquipmentSlot.HEAD);
-            if (!esp.isPlaying()) {
-                return false;
-            }
             return !(headStack.getItem() instanceof MusicalInstrumentItem)
                     && !(handStack.getItem() instanceof MusicalInstrumentItem)
                     && !(offStack.getItem() instanceof MusicalInstrumentItem);
         }, 3, () -> {
-            esp.setPlaying(false);
-            id2SongCache.remove(playId);
+            esp.destroy();
+            id2SongCache.remove(playId, esp);
         }, () -> {
             if (esp.isPlaying()) {
                 ServerLevel serverWorld = (ServerLevel) user.level();
@@ -226,9 +269,29 @@ public final class NotaUtils {
             return;
         }
         String playId = getPlayId(entity);
-        SongPlayer songPlayer = id2SongCache.get(playId);
-        songPlayer.destroy();
-        id2SongCache.remove(playId);
+        SongPlayer songPlayer = id2SongCache.remove(playId);
+        if (songPlayer != null) {
+            songPlayer.destroy();
+        }
+    }
+
+    /**
+     * 服务器停止时清空所有音乐播放器和缓存，避免 Timer 线程、Level 对象跨存档残留。
+     */
+    public static synchronized void clearCaches() {
+        parsedSongs.clear();
+        fileListCache = List.of();
+        fileListExpires = 0;
+        for (SongPlayer player : new HashSet<>(id2SongCache.values())) {
+            player.destroy();
+        }
+        id2SongCache.clear();
+        for (Map<Long, SongPlayer> players : blockMusicPlayCache.values()) {
+            for (SongPlayer player : players.values()) {
+                player.destroy();
+            }
+        }
+        blockMusicPlayCache.clear();
     }
 
     public static boolean isPlaying(LivingEntity entity) {
@@ -240,20 +303,53 @@ public final class NotaUtils {
     }
 
     public static List<String> getFileNames() {
-        try {
-            return Files.list(PATH)
-                        .filter(Files::isRegularFile)
-                        .filter(path -> path.getFileName().toString().toLowerCase().endsWith(".nbs"))
-                        .map(path -> path.getFileName().toString())
-                        .toList();
+        long now = System.nanoTime();
+        if (now < fileListExpires)
+            return fileListCache;
+        try (var stream = Files.list(PATH)) {
+            fileListCache = stream
+                    .filter(Files::isRegularFile)
+                    .filter(path -> path.getFileName().toString().toLowerCase().endsWith(".nbs"))
+                    .map(path -> path.getFileName().toString())
+                    .sorted(String.CASE_INSENSITIVE_ORDER)
+                    .toList();
+            fileListExpires = now + 2_000_000_000L;
+            return fileListCache;
         } catch (Exception e) {
-            log.warn("扫描音乐目录失败", e);
+            log.warn("Failed to scan music directory", e);
             return new ArrayList<>();
         }
     }
 
     public static Path getFilePath(String filename) {
         return PATH.resolve(filename);
+    }
+
+    public static boolean activelyPlaying(LivingEntity user) {
+        var player = id2SongCache.get(getPlayId(user));
+        return player != null && player.isPlaying();
+    }
+
+    public static int playbackTick(LivingEntity user) {
+        var player = id2SongCache.get(getPlayId(user));
+        return player == null ? -1 : player.getTick();
+    }
+
+    public static void configurePlayback(LivingEntity user, int range, int volume, int resumeTick) {
+        var player = id2SongCache.get(getPlayId(user));
+        if (player == null)
+            return;
+        player.setVolume((byte) Math.clamp(volume, 0, 100));
+        if (player instanceof EntitySongPlayer entityPlayer)
+            entityPlayer.setDistance(Math.clamp(range, 8, 128));
+        if (resumeTick >= 0)
+            player.setTick((short) Math.min(Short.MAX_VALUE, resumeTick));
+    }
+
+    public static void pause(LivingEntity user, boolean paused) {
+        var player = id2SongCache.get(getPlayId(user));
+        if (player != null)
+            player.setPlaying(!paused);
     }
 
 }

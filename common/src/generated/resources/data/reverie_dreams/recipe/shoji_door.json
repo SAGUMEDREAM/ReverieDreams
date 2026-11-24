@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": "#minecraft:planks",
+    "W": "minecraft:paper"
+  },
+  "pattern": [
+    "PP",
+    "WW",
+    "PP"
+  ],
+  "result": {
+    "count": 3,
+    "id": "reverie_dreams:shoji_door"
+  }
+}

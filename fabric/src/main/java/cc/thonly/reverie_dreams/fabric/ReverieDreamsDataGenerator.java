@@ -1,10 +1,12 @@
 package cc.thonly.reverie_dreams.fabric;
 
 import cc.thonly.reverie_dreams.fabric.datagen.*;
+import cc.thonly.reverie_dreams.fabric.datagen.SimpChineseLangProvider;
 import cc.thonly.reverie_dreams.fabric.datagen.tag.*;
 import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.painting.RDPaintingVariants;
-import cc.thonly.reverie_dreams.registry.content.varient.RDPigVariants;
+import cc.thonly.reverie_dreams.registry.content.variant.RDCowVariants;
+import cc.thonly.reverie_dreams.registry.content.variant.RDPigVariants;
 import cc.thonly.reverie_dreams.registry.content.villager.RDTradeSets;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.world.dimension.*;
@@ -12,11 +14,8 @@ import cc.thonly.reverie_dreams.world.gen.*;
 import lombok.extern.slf4j.Slf4j;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.fabricmc.fabric.impl.registry.sync.DynamicRegistriesImpl;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.dimension.LevelStem;
 import org.jspecify.annotations.NonNull;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -36,15 +35,18 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
 //        }
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+        // Other locales are maintained in common/src/main/resources/assets/reverie_dreams/lang.
         pack.addProvider(SimpChineseLangProvider::new);
         pack.addProvider(ItemTagProvider::new);
         pack.addProvider(BlockTagProvider::new);
+        pack.addProvider(BiomeTagProvider::new);
 //        pack.addProvider(TestFoodPropertyTagProvider::new);
         pack.addProvider(VillagerTradeTagProvider::new);
         pack.addProvider(PointOfInterestTypeProvider::new);
         pack.addProvider(EntityTagProvider::new);
         pack.addProvider(DamageTypeTagProvider::new);
         pack.addProvider(EnchantmentTagProvider::new);
+        pack.addProvider(SpellCardCharacterTagProvider::new);
         pack.addProvider(ModelProvider::new);
         pack.addProvider(RecipeProvider::new);
         pack.addProvider(BlockLootTableProvider::new);
@@ -67,7 +69,11 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(SkinConfigProvider::new);
         pack.addProvider(AdvancementProvider::new);
         pack.addProvider(JsonElementWriterProvider::new);
+        pack.addProvider(BlockPaletteProvider::new);
+        pack.addProvider(BiomePaletteProvider::new);
         pack.addProvider(CustomerProvider::new);
+        pack.addProvider(GensokyoLandmarkProvider::new);
+        pack.addProvider(GensokyoStructureTemplateProvider::new);
     }
 
     @Override
@@ -78,6 +84,7 @@ public class ReverieDreamsDataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.DAMAGE_TYPE, RDDamageTypes::bootstrap);
         builder.add(Registries.PAINTING_VARIANT, RDPaintingVariants::bootstrap);
         builder.add(Registries.PIG_VARIANT, RDPigVariants::bootstrap);
+        builder.add(Registries.COW_VARIANT, RDCowVariants::bootstrap);
 
         builder.add(Registries.ENCHANTMENT, RDEnchantments::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, RDBuiltinConfigurationFeatures::bootstrap);

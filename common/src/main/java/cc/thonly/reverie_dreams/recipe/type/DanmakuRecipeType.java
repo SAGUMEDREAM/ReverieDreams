@@ -5,7 +5,6 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.DanmakuRecipe;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -24,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import cc.thonly.reverie_dreams.recipe.RecipeResourceLoader;
 
 @Slf4j
 public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
@@ -39,29 +39,11 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
 
     @Override
     public void reload(ResourceManager manager) {
-        Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
-        });
-
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^danmaku_recipe/", "").replaceAll("\\.json$", ""));
-            Resource resource = entry.getValue();
-            try (InputStream stream = resource.open()) {
-                JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-
-                DataResult<DanmakuRecipe> result = this.getCodec().parse(input);
-
-                result.resultOrPartial(error -> log.error("Failed to load danmaku recipe {}, {}", id, error))
-                        .ifPresent(recipe -> {
-                            recipe.getOutput().set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
-                            this.add(registryKey, recipe);
-                        });
-            } catch (IOException e) {
-                log.error("Failed to load danmaku recipe {}, {}, {}", id, e.getMessage(), e);
-            }
-        }
+        RecipeResourceLoader.load(manager, this.getTypeId() + "_recipe",
+                id -> id.getNamespace().equals(ReverieDreams.MOD_ID), this.getCodec(), (id, recipe) -> {
+                    recipe.getOutput().set(DataComponents.USE_COOLDOWN, new UseCooldown(0.5f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))));
+                    this.add(id, recipe);
+                });
     }
 
     @Override
@@ -95,11 +77,11 @@ public class DanmakuRecipeType extends BaseRecipeType<DanmakuRecipe> {
 //            System.out.println("material compare:   " + ItemComparatorView.of(recipe.getMaterial()).greaterThan(materialSlot));
 //            System.out.println("-----------------------------");
             if (
-                    ItemComparatorView.of(recipe.getDye()).map(ItemUtils::updateItemStackTag).greaterThan(dyeSlot) &&
-                            ItemComparatorView.of(recipe.getCore()).map(ItemUtils::updateItemStackTag).greaterThan(coreSlot) &&
-                            ItemComparatorView.of(recipe.getPoint()).map(ItemUtils::updateItemStackTag).greaterThan(pointSlot) &&
-                            ItemComparatorView.of(recipe.getPower()).map(ItemUtils::updateItemStackTag).greaterThan(powerSlot) &&
-                            ItemComparatorView.of(recipe.getMaterial()).map(ItemUtils::updateItemStackTag).greaterThan(materialSlot)
+                    ItemComparatorView.of(recipe.getDye()).greaterThan(dyeSlot) &&
+                            ItemComparatorView.of(recipe.getCore()).greaterThan(coreSlot) &&
+                            ItemComparatorView.of(recipe.getPoint()).greaterThan(pointSlot) &&
+                            ItemComparatorView.of(recipe.getPower()).greaterThan(powerSlot) &&
+                            ItemComparatorView.of(recipe.getMaterial()).greaterThan(materialSlot)
             ) {
                 matches.add(recipe);
             }

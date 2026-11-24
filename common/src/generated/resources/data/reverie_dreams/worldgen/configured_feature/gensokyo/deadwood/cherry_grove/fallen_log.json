@@ -1,0 +1,34 @@
+{
+  "type": "reverie_dreams:gensokyo_deadwood",
+  "config": {
+    "accents": [],
+    "kind": "fallen_log",
+    "litter": [
+      {
+        "Name": "minecraft:pink_petals",
+        "Properties": {
+          "facing": "north",
+          "flower_amount": "1"
+        }
+      }
+    ],
+    "logs": [
+      {
+        "Name": "minecraft:cherry_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    ],
+    "splinters": [
+      {
+        "Name": "reverie_dreams:splintered_cherry_log",
+        "Properties": {
+          "facing": "north",
+          "variant": "0"
+        }
+      }
+    ],
+    "theme": "cherry_grove"
+  }
+}

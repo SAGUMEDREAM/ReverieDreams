@@ -23,6 +23,7 @@ import java.util.function.BiFunction;
 
 public class BaseFactoryBlock implements FactoryBlock, PolymerTexturedBlock, BSMMParticleBlock {
     public static final BaseFactoryBlock BARRIER = new BaseFactoryBlock(Blocks.BARRIER.defaultBlockState(), false, BlockStateModel::longRange);
+    public static final BaseFactoryBlock LOW_TABLE = new BaseFactoryBlock(PolymerBlockResourceUtils.requestEmpty(BlockModelType.SLAB_BOTTOM), false, BlockStateModel::longRange);
     public static final BaseFactoryBlock SAPLING = new BaseFactoryBlock(PolymerBlockResourceUtils.requestEmpty(BlockModelType.PLANT), false, BlockStateModel::midRange);
     public static final BaseFactoryBlock TRIPWIRE = new BaseFactoryBlock(PolymerBlockResourceUtils.requestEmpty(BlockModelType.TRIPWIRE), false, BlockStateModel::midRange);
     public static final BaseFactoryBlock TRIPWIRE_FLAT = new BaseFactoryBlock(PolymerBlockResourceUtils.requestEmpty(BlockModelType.TRIPWIRE_FLAT), false, BlockStateModel::midRange);

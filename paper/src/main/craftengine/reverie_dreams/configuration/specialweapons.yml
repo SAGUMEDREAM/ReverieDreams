@@ -1,0 +1,475 @@
+# Actual source weapons; Moon remains non-damageable, ammo is a separate component.
+items:
+  reverie_dreams:weapon_of_the_moon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.weapon_of_the_moon>
+      lore:
+      - <!i><lang:item.tooltip.magazine.loaded:0:30>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:weapon3/weapon_of_the_moon
+        minecraft:consumable:
+          consume_seconds: 3600.0
+          animation: bow
+          sound: minecraft:intentionally_empty
+          has_consume_particles: false
+          on_consume_effects: []
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/weapon_of_the_moon
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:magazine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.magazine>
+      lore:
+      - <!i><lang:item.tooltip.magazine.rounds:30:30>
+      components:
+        minecraft:max_stack_size: 16
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_1_magazine
+    behavior:
+      type: reverie_dreams:special_weapon
+  # 0.6.9 lunar numbered series; weapon_of_the_moon/magazine above remain legacy aliases of type 1.
+  reverie_dreams:lunar_type_1_rifle:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_1_rifle>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_1_rifle.description>
+      - <!i><lang:item.tooltip.magazine.loaded:0:30>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.1
+          cooldown_group: reverie_dreams:lunar/type_1
+        minecraft:consumable:
+          consume_seconds: 3600.0
+          animation: bow
+          sound: minecraft:intentionally_empty
+          has_consume_particles: false
+          on_consume_effects: []
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_1_rifle
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_2_pistol:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_2_pistol>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_2_pistol.description>
+      - <!i><lang:item.tooltip.magazine.loaded:0:12>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.35
+          cooldown_group: reverie_dreams:lunar/type_2
+        minecraft:consumable:
+          consume_seconds: 3600.0
+          animation: bow
+          sound: minecraft:intentionally_empty
+          has_consume_particles: false
+          on_consume_effects: []
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_2_pistol
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_3_shotgun:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_3_shotgun>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_3_shotgun.description>
+      - <!i><lang:item.tooltip.magazine.loaded:0:8>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.8
+          cooldown_group: reverie_dreams:lunar/type_3
+        minecraft:consumable:
+          consume_seconds: 3600.0
+          animation: bow
+          sound: minecraft:intentionally_empty
+          has_consume_particles: false
+          on_consume_effects: []
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_3_shotgun
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_4_smg:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_4_smg>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_4_smg.description>
+      - <!i><lang:item.tooltip.magazine.loaded:0:40>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:lunar/type_4
+        minecraft:consumable:
+          consume_seconds: 3600.0
+          animation: bow
+          sound: minecraft:intentionally_empty
+          has_consume_particles: false
+          on_consume_effects: []
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_4_smg
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_5_sniper:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_5_sniper>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_5_sniper.description>
+      - <!i><lang:item.tooltip.magazine.loaded:0:5>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 1.2
+          cooldown_group: reverie_dreams:lunar/type_5
+        minecraft:consumable:
+          consume_seconds: 3600.0
+          animation: bow
+          sound: minecraft:intentionally_empty
+          has_consume_particles: false
+          on_consume_effects: []
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_5_sniper
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_1_magazine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_1_magazine>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_1_magazine.description>
+      - <!i><lang:item.tooltip.magazine.rounds:30:30>
+      components:
+        minecraft:max_stack_size: 16
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_1_magazine
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_2_magazine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_2_magazine>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_2_magazine.description>
+      - <!i><lang:item.tooltip.magazine.rounds:12:12>
+      components:
+        minecraft:max_stack_size: 16
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_2_magazine
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_3_magazine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_3_magazine>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_3_magazine.description>
+      - <!i><lang:item.tooltip.magazine.rounds:8:8>
+      components:
+        minecraft:max_stack_size: 16
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_3_magazine
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_4_magazine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_4_magazine>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_4_magazine.description>
+      - <!i><lang:item.tooltip.magazine.rounds:40:40>
+      components:
+        minecraft:max_stack_size: 16
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_4_magazine
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_type_5_magazine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_type_5_magazine>
+      lore:
+      - <!i><lang:item.reverie_dreams.lunar_type_5_magazine.description>
+      - <!i><lang:item.tooltip.magazine.rounds:5:5>
+      components:
+        minecraft:max_stack_size: 16
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_type_5_magazine
+    behavior:
+      type: reverie_dreams:special_weapon
+  reverie_dreams:lunar_bullet_standard:
+    material: paper
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_bullet_standard
+  reverie_dreams:lunar_bullet_pellet:
+    material: paper
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_bullet_pellet
+  reverie_dreams:lunar_bullet_sniper:
+    material: paper
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_bullet_sniper
+  reverie_dreams:lunar_power_cell:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_power_cell>
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_power_cell
+  reverie_dreams:lunar_signal_coil:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_signal_coil>
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_signal_coil
+  reverie_dreams:lunar_signal_crystal:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.lunar_signal_crystal>
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/lunar_signal_crystal
+  reverie_dreams:trumpet_gun:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.trumpet_gun>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 150
+        minecraft:damage: 0
+        minecraft:repairable:
+          items:
+          - minecraft:gold_block
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:weapon3/trumpet_gun
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/trumpet_gun
+    behavior:
+      type: reverie_dreams:special_weapon
+    settings:
+      respect_repairable_component: true
+  reverie_dreams:sunflower:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.sunflower>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 256
+        minecraft:damage: 0
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:weapon3/sunflower
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/sunflower
+    behavior:
+      type: reverie_dreams:special_weapon
+recipes:
+  reverie_dreams:magazine:
+    type: shaped
+    pattern:
+    - III
+    - NMN
+    - III
+    ingredients:
+      I: minecraft:iron_nugget
+      M: minecraft:copper_ingot
+      N: minecraft:copper_nugget
+    result:
+      id: reverie_dreams:lunar_type_1_magazine
+      count: 1
+  reverie_dreams:lunar_type_1_rifle:
+    type: shaped
+    pattern:
+    - IQR
+    - SMI
+    - " S "
+    ingredients:
+      I: minecraft:iron_ingot
+      M: reverie_dreams:moon_stone
+      Q: minecraft:quartz
+      R: minecraft:redstone
+      S: reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:lunar_type_1_rifle
+      count: 1
+  reverie_dreams:lunar_type_2_pistol:
+    type: shaped
+    pattern:
+    - "QI "
+    - " SM"
+    - " S "
+    ingredients:
+      I: minecraft:iron_ingot
+      M: reverie_dreams:moon_stone
+      Q: minecraft:quartz
+      S: reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:lunar_type_2_pistol
+      count: 1
+  reverie_dreams:lunar_type_3_shotgun:
+    type: shaped
+    pattern:
+    - III
+    - QMR
+    - "SS "
+    ingredients:
+      I: minecraft:iron_ingot
+      M: reverie_dreams:moon_stone
+      Q: minecraft:quartz
+      R: minecraft:redstone
+      S: reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:lunar_type_3_shotgun
+      count: 1
+  reverie_dreams:lunar_type_4_smg:
+    type: shaped
+    pattern:
+    - IRQ
+    - IMS
+    - " S "
+    ingredients:
+      I: minecraft:iron_ingot
+      M: reverie_dreams:moon_stone
+      Q: minecraft:quartz
+      R: minecraft:redstone
+      S: reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:lunar_type_4_smg
+      count: 1
+  reverie_dreams:lunar_type_5_sniper:
+    type: shaped
+    pattern:
+    - AQI
+    - SMR
+    - " S "
+    ingredients:
+      A: minecraft:amethyst_shard
+      I: minecraft:iron_ingot
+      M: reverie_dreams:moon_stone
+      Q: minecraft:quartz
+      R: minecraft:redstone
+      S: reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:lunar_type_5_sniper
+      count: 1
+  reverie_dreams:lunar_type_2_magazine:
+    type: shaped
+    pattern:
+    - " I "
+    - NCN
+    - " I "
+    ingredients:
+      C: minecraft:copper_ingot
+      I: minecraft:iron_nugget
+      N: minecraft:copper_nugget
+    result:
+      id: reverie_dreams:lunar_type_2_magazine
+      count: 1
+  reverie_dreams:lunar_type_3_magazine:
+    type: shaped
+    pattern:
+    - IGI
+    - CRC
+    - IGI
+    ingredients:
+      C: minecraft:copper_ingot
+      G: minecraft:gunpowder
+      I: minecraft:iron_nugget
+      R: minecraft:redstone
+    result:
+      id: reverie_dreams:lunar_type_3_magazine
+      count: 1
+  reverie_dreams:lunar_type_4_magazine:
+    type: shaped
+    pattern:
+    - INI
+    - NCN
+    - INI
+    ingredients:
+      C: minecraft:copper_ingot
+      I: minecraft:iron_nugget
+      N: minecraft:copper_nugget
+    result:
+      id: reverie_dreams:lunar_type_4_magazine
+      count: 1
+  reverie_dreams:lunar_type_5_magazine:
+    type: shaped
+    pattern:
+    - " I "
+    - CQC
+    - " I "
+    ingredients:
+      C: minecraft:copper_ingot
+      I: minecraft:iron_nugget
+      Q: minecraft:quartz
+    result:
+      id: reverie_dreams:lunar_type_5_magazine
+      count: 1
+  reverie_dreams:lunar_power_cell:
+    type: shaped
+    pattern:
+    - IRI
+    - RQR
+    - IRI
+    ingredients:
+      I: minecraft:iron_ingot
+      Q: minecraft:quartz
+      R: minecraft:redstone
+    result:
+      id: reverie_dreams:lunar_power_cell
+      count: 1
+  reverie_dreams:lunar_signal_coil:
+    type: shaped
+    pattern:
+    - CCC
+    - CIC
+    - CCC
+    ingredients:
+      C: minecraft:copper_ingot
+      I: minecraft:iron_ingot
+    result:
+      id: reverie_dreams:lunar_signal_coil
+      count: 1
+  reverie_dreams:lunar_signal_crystal:
+    type: shaped
+    pattern:
+    - " Q "
+    - QIQ
+    - " Q "
+    ingredients:
+      I: minecraft:iron_ingot
+      Q: minecraft:quartz
+    result:
+      id: reverie_dreams:lunar_signal_crystal
+      count: 2

@@ -3,13 +3,10 @@ package cc.thonly.reverie_dreams.item.weapon;
 import cc.thonly.reverie_dreams.item.base.SwordItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import dev.architectury.event.events.common.TickEvent;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -26,13 +23,18 @@ public class YukaFlowerUmbrella extends SwordItem {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand interactionHand) {
-        super.use(level, player, interactionHand);
-        if (!level.isClientSide()) {
-            player.addEffect(new MobEffectInstance(MobEffects.SPEED, 1, 0, false, false, true));
-            return InteractionResult.PASS;
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (player.getCooldowns().isOnCooldown(stack)) {
+            return InteractionResult.FAIL;
         }
-        return InteractionResult.SUCCESS;
+        player.startUsingItem(hand);
+        if (!level.isClientSide()) {
+            player.getCooldowns().addCooldown(stack, 100);
+            level.playSound(null, player.blockPosition(), SoundEvents.SHIELD_BLOCK.value(),
+                    SoundSource.PLAYERS, 0.7f, 1.2f);
+        }
+        return InteractionResult.CONSUME;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
-import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
+import cc.thonly.reverie_dreams.restaurant.RestaurantService;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -33,8 +33,10 @@ public class NPCInventoryEatGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (RestaurantService.isRestaurantShift(maid))
+            return false;
         NPCFoodDataContainer foodData = this.maid.getFoodData();
-        if (GensokyoSkinTypes.YUYUKO.equals(this.maid.getSkinType())){
+        if (GensokyoSkinTypes.YUYUKO.equals(this.maid.getSkinType())) {
             return foodData.getNutrition() < 20;
         }
         return (foodData.getNutrition() < 20 && maid.getHealth() < this.maid.getMaxHealth()) || foodData.getNutrition() < 10;
@@ -58,7 +60,7 @@ public class NPCInventoryEatGoal extends Goal {
             return;
         }
         ItemStack stack = this.maid.getInventory().getItem(this.slot);
-        if (((IItemStackExtension) (Object) stack).reverie_dreams$isFood()) {
+        if (NPCFoodDataContainer.isNourishing(stack)) {
 
             Vec3 eyePos = this.maid.getEyePosition();
 
@@ -84,7 +86,8 @@ public class NPCInventoryEatGoal extends Goal {
                         Mth.randomBetween(world.getRandom(), 0.9F, 1.0F)
                 );
             }
-        } else findFood();
+        } else
+            findFood();
         super.tick();
     }
 
@@ -101,7 +104,7 @@ public class NPCInventoryEatGoal extends Goal {
     }
 
     private boolean findFood() {
-        Integer slot = maid.getInventory().findSlot(stack -> ((IItemStackExtension) (Object) stack).reverie_dreams$isFood());
+        Integer slot = maid.getInventory().findSlot(NPCFoodDataContainer::isNourishing);
         if (slot == null) {
             this.slot = -1;
             return false;
@@ -114,11 +117,11 @@ public class NPCInventoryEatGoal extends Goal {
 
     public void eat() {
         ServerLevel world = (ServerLevel) maid.level();
-        if (this.dealyTick > 0 || this.slot == -1) {
+        if (this.dealyTick > 0 || this.slot == -1 || RestaurantService.isRestaurantShift(maid)) {
             return;
         }
         ItemStack stack = this.maid.getInventory().getItem(this.slot);
-        if (((IItemStackExtension) (Object) stack).reverie_dreams$isFood()) {
+        if (NPCFoodDataContainer.isNourishing(stack)) {
             DataComponentMap components = stack.getComponents();
             FoodProperties foodComponent = components.get(DataComponents.FOOD);
             NPCFoodDataContainer foodData = this.maid.getFoodData();

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_soy_beans": {
+    "has_soy_milk": {
       "conditions": {
         "items": [
           {
-            "items": "reverie_dreams:soy_beans_seeds"
+            "items": "reverie_dreams:ingredient/soy_milk"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_soy_beans"
+      "has_soy_milk"
     ]
   ],
   "rewards": {

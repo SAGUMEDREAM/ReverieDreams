@@ -1,13 +1,12 @@
 package cc.thonly.reverie_dreams.api.player;
 
-import cc.thonly.reverie_dreams.client.component.ClientPlayerComponentManager;
-import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
-import cc.thonly.reverie_dreams.server.player.PlayerComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 
+import java.util.UUID;
+
 @SuppressWarnings("rawtypes")
-public interface PlayerComponentManager{
+public interface PlayerComponentManager {
     <T extends PlayerComponent> PlayerComponent<T> createComponent(Player player, Class<T> key);
 
     <T extends PlayerComponent> boolean hasComponent(Player player, Class<T> key);
@@ -18,6 +17,11 @@ public interface PlayerComponentManager{
 
     <T extends PlayerComponent> PlayerComponent<T> getOrCreatePlayerComponent(Player player, Class<T> key);
 
+    /**
+     * Marks a player as changed so the next flush only touches that player.
+     */
+    void markDirty(UUID playerId);
+
     void loadAll();
 
     void saveAll();
@@ -25,11 +29,11 @@ public interface PlayerComponentManager{
     void onLoad(MinecraftServer server);
 
     static PlayerComponentManager serverAccess() {
-        return ServerPlayerComponentManager.serverAccess();
+        return PlayerComponentManagerAccess.serverAccess();
     }
 
     static PlayerComponentManager clientAccess() {
-        return ClientPlayerComponentManager.clientAccess();
+        return PlayerComponentManagerAccess.clientAccess();
     }
 
 }

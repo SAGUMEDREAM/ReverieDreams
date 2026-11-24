@@ -15,13 +15,15 @@ import java.util.List;
 public class RangedAttackUtil {
     public static ItemStack getArrowStack(BaseNPCLikeEntity npc) {
         Integer slot = npc.getInventory().findSlot(stack -> BaseNPCLikeEntity.ARROW_ITEMS.contains(stack.getItem()));
-        if (slot == null) return null;
+        if (slot == null)
+            return null;
         return npc.getInventory().getItem(slot);
     }
 
     public static ItemStack getCrossBowAmmoStack(BaseNPCLikeEntity npc) {
         Integer slot = npc.getInventory().findSlot(stack -> stack.getItem() instanceof FireworkRocketItem || BaseNPCLikeEntity.ARROW_ITEMS.contains(stack.getItem()));
-        if (slot == null) return null;
+        if (slot == null)
+            return null;
         return npc.getInventory().getItem(slot);
     }
 

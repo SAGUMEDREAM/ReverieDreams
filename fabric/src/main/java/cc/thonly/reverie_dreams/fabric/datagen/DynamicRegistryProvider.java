@@ -1,5 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.datagen;
 
+import cc.thonly.reverie_dreams.registry.content.variant.RDCowVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
@@ -22,6 +23,7 @@ public class DynamicRegistryProvider extends FabricDynamicRegistryProvider {
         entries.addAll(registries.lookupOrThrow(Registries.DAMAGE_TYPE));
         entries.addAll(registries.lookupOrThrow(Registries.PAINTING_VARIANT));
         entries.addAll(registries.lookupOrThrow(Registries.PIG_VARIANT));
+        entries.add(registries.lookupOrThrow(Registries.COW_VARIANT).getOrThrow(RDCowVariants.WAGYU));
 
         entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
         entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_CARVER));

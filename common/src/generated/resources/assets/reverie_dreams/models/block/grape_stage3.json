@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:block/crop",
+  "parent": "minecraft:block/cross",
   "textures": {
-    "crop": "reverie_dreams:block/grape_stage3"
+    "cross": "reverie_dreams:block/grape_stage3"
   }
 }

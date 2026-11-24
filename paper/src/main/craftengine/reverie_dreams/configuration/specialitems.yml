@@ -1,0 +1,483 @@
+# Non-consumable cooldown groups require positive codec seconds; runtime use controls actual cooldown.
+items:
+  reverie_dreams:yin-yang_orb:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.yin-yang_orb>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/yin-yang_orb
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/yin-yang_orb
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:satori_eye:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.satori_eye>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/satori_eye
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/satori_eye
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:crossing_chisel:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.crossing_chisel>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 3
+          cooldown_group: reverie_dreams:special/crossing_chisel
+        minecraft:max_damage: 150
+        minecraft:damage: 0
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/crossing_chisel
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:time_stop_clock:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.time_stop_clock>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/time_stop_clock
+        minecraft:max_damage: 100
+        minecraft:damage: 0
+        minecraft:repairable:
+          items: '#minecraft:gold_tool_materials'
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/time_stop_clock
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:papilio_pattern_fan:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.papilio_pattern_fan>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 370
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 10
+        minecraft:repairable:
+          items: '#minecraft:wool'
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 2
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -1.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/papilio_pattern_fan
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:swords
+      break_power: 0
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/papilio_pattern_fan
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:maple_leaf_fan:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.maple_leaf_fan>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 250
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 5
+        minecraft:repairable:
+          items: '#minecraft:gold_tool_materials'
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 3.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:use_cooldown:
+          seconds: 0.5
+          cooldown_group: reverie_dreams:special/maple_leaf_fan
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:swords
+      break_power: 0
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/maple_leaf_fan
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:hakuroken:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.hakuroken>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 900
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 6
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/hakuroken
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:swords
+      break_power: 0
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/hakuroken
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:rokanken:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.rokanken>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 900
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 6
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/rokanken
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:swords
+      break_power: 0
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/rokanken
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:levatin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.levatin>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1200
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: '#minecraft:netherite_tool_materials'
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 5.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/levatin
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:swords
+      break_power: 0
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/levatin_staff
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:death_scythe:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.death_scythe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1200
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: '#minecraft:netherite_tool_materials'
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 6
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/death_scythe
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:swords
+      break_power: 0
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/death_scythe
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:iron_bar:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.iron_bar>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/iron_bar
+        minecraft:max_damage: 400
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 15
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 8
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -3.3
+          operation: add_value
+          slot: mainhand
+        minecraft:tool:
+          rules: []
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:repairable:
+          items:
+          - minecraft:iron_block
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:enchantable/durability
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/iron_bar
+    behavior:
+      type: reverie_dreams:special_item
+  reverie_dreams:oni_iron_bar:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.oni_iron_bar>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special/oni_iron_bar
+        minecraft:max_damage: 800
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 15
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 10
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -3.3
+          operation: add_value
+          slot: mainhand
+        minecraft:tool:
+          rules: []
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:repairable:
+          items:
+          - minecraft:iron_block
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:enchantable/durability
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/oni_iron_bar
+    behavior:
+      type: reverie_dreams:special_item
+sounds:
+  reverie_dreams:spell_card:
+    subtitle: sound.reverie_dreams.spell_card
+    sounds:
+    - reverie_dreams:spell_card

@@ -1,0 +1,17 @@
+{
+  "type": "reverie_dreams:gensokyo_rock",
+  "config": {
+    "kind": "landmark_boulder",
+    "moss": {
+      "Name": "minecraft:mossy_cobblestone"
+    },
+    "moss_chance": 0.38,
+    "stone": {
+      "Name": "minecraft:andesite"
+    },
+    "theme": "dark_forest",
+    "variation": {
+      "Name": "minecraft:stone"
+    }
+  }
+}

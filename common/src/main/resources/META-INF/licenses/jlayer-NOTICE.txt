@@ -1,0 +1,13 @@
+JavaZoom JLayer 1.0.1 (javazoom:jlayer:1.0.1)
+Copyright JavaZoom, 1999-2008, and the original JLayer contributors.
+License: GNU Lesser General Public License 2.1 or later (see source headers).
+The unmodified library is included as a separate nested JAR by Fabric/NeoForge.
+Only javazoom.jl.decoder is used; audio output uses Minecraft's own OpenAL engine.
+
+Original project: http://www.javazoom.net/javalayer/javalayer.html
+Exact version's corresponding source archive:
+https://repo.maven.apache.org/maven2/javazoom/jlayer/1.0.1/jlayer-1.0.1-sources.jar
+License text: jlayer-LGPL-2.1.txt in this directory.
+
+Reverie Dreams does not modify or shade JLayer's packages. The nested JAR can be
+replaced with a compatible modified build for debugging and library maintenance.

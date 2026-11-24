@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "minecraft": "26.1.2",
+    "paperBuild": 74,
+    "craftEngine": "26.8.2",
+    "java": 25
+  },
+  "paddy": {
+    "id": "reverie_dreams:paddy_field",
+    "minMoisture": 0,
+    "maxMoisture": 7,
+    "defaultMoisture": 7,
+    "fallDamage": false,
+    "drys": false,
+    "waterlogged": false,
+    "sourceResourceGap": "No source paddy asset/loot JSON; explicit adaptation of declared moist-farmland/dirt-drop intent"
+  },
+  "crops": {
+    "reverie_dreams:chill": {
+      "id": "reverie_dreams:chill",
+      "seed": "reverie_dreams:chill_seeds",
+      "product": "reverie_dreams:ingredient/chili",
+      "maxAge": 4,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:cucumber": {
+      "id": "reverie_dreams:cucumber",
+      "seed": "reverie_dreams:cucumber_seeds",
+      "product": "reverie_dreams:ingredient/cucumber",
+      "maxAge": 4,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:grape": {
+      "id": "reverie_dreams:grape",
+      "seed": "reverie_dreams:grape_seeds",
+      "product": "reverie_dreams:ingredient/grape",
+      "maxAge": 5,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:onion": {
+      "id": "reverie_dreams:onion",
+      "seed": "reverie_dreams:onion_seeds",
+      "product": "reverie_dreams:ingredient/onion",
+      "maxAge": 5,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:red_beans": {
+      "id": "reverie_dreams:red_beans",
+      "seed": "reverie_dreams:red_beans_seeds",
+      "product": "reverie_dreams:ingredient/red_beans",
+      "maxAge": 4,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:tomato": {
+      "id": "reverie_dreams:tomato",
+      "seed": "reverie_dreams:tomato_seeds",
+      "product": "reverie_dreams:ingredient/tomato",
+      "maxAge": 3,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:toon": {
+      "id": "reverie_dreams:toon",
+      "seed": "reverie_dreams:toon_seeds",
+      "product": "reverie_dreams:ingredient/toon",
+      "maxAge": 3,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:white_radish": {
+      "id": "reverie_dreams:white_radish",
+      "seed": "reverie_dreams:white_radish_seeds",
+      "product": "reverie_dreams:ingredient/white_radish",
+      "maxAge": 3,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:sweet_potato": {
+      "id": "reverie_dreams:sweet_potato",
+      "seed": "reverie_dreams:sweet_potato_seeds",
+      "product": "reverie_dreams:ingredient/sweet_potato",
+      "maxAge": 3,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:broccoli": {
+      "id": "reverie_dreams:broccoli",
+      "seed": "reverie_dreams:broccoli_seeds",
+      "product": "reverie_dreams:ingredient/broccoli",
+      "maxAge": 4,
+      "selfSeed": false,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.6
+    },
+    "reverie_dreams:soy_beans": {
+      "id": "reverie_dreams:soy_beans",
+      "seed": "reverie_dreams:soy_beans_seeds",
+      "product": "reverie_dreams:soy_beans_seeds",
+      "maxAge": 4,
+      "selfSeed": true,
+      "seedCompostProbability": 0.3,
+      "productCompostProbability": 0.3
+    }
+  },
+  "source": {
+    "immatureDrops": [],
+    "matureDrops": "1 seed + uniform_int(1,3) product + uniform_int(1,2) seeds; soybean product is seeds",
+    "growth": "brightness>=9; random nextInt(floor(15/moisture)+1)==0; paddy does not contribute vanilla-farmland moisture",
+    "bonemeal": "uniform_int(1,3), capped at maxAge",
+    "harvest": "mature right-click destroys with full loot and replaces age0 without consuming seed",
+    "seedCompostProbability": 0.3,
+    "productCompostProbability": 0.6
+  },
+  "seedAcquisition": {
+    "grass": {
+      "loot": "minecraft:blocks/short_grass",
+      "chance": 0.05,
+      "rolls": 1,
+      "equalWeight": 10,
+      "seeds": [
+        "tomato",
+        "red_beans",
+        "onion",
+        "cucumber",
+        "chill",
+        "broccoli",
+        "soy_beans"
+      ]
+    },
+    "chests": {
+      "chance": 0.24,
+      "rolls": {
+        "min": 1,
+        "max": 2
+      },
+      "equalWeight": 8,
+      "seeds": [
+        "sweet_potato",
+        "white_radish",
+        "toon",
+        "red_beans",
+        "grape"
+      ],
+      "tables": [
+        "minecraft:chests/village/village_weaponsmith",
+        "minecraft:chests/end_city_treasure",
+        "minecraft:chests/abandoned_mineshaft",
+        "minecraft:chests/nether_bridge",
+        "minecraft:chests/village/village_plains_house",
+        "minecraft:chests/village/village_savanna_house",
+        "minecraft:chests/pillager_outpost",
+        "minecraft:chests/simple_dungeon",
+        "minecraft:chests/shipwreck_supply",
+        "minecraft:chests/shipwreck_treasure",
+        "minecraft:chests/desert_pyramid"
+      ]
+    },
+    "vine": {
+      "requiresHoe": true,
+      "chance": 0.1,
+      "product": "reverie_dreams:ingredient/grape"
+    }
+  },
+  "translationSupplements": {
+    "zh_cn": {
+      "block.reverie_dreams.paddy_field": "水田"
+    },
+    "zh_tw": {
+      "block.reverie_dreams.paddy_field": "水田"
+    },
+    "ja_jp": {
+      "block.reverie_dreams.paddy_field": "水田"
+    }
+  },
+  "remainingGaps": [
+    "Original crop 4/8px selection shape versus tripwire visual-carrier thin outline",
+    "Source RNG stream not shared; distributions preserved",
+    "Paddy inherited canSurvive query not reproduced; placement and no-decay lifecycle preserved",
+    "Hawker seed trades and NPC farming work AI are separate systems",
+    "Other-plugin hoe carriers and hoe breaking at last durability need real drop-event edge testing"
+  ],
+  "sourceFiles": [
+    "common/src/main/java/cc/thonly/reverie_dreams/block/PaddyFieldBlock.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/block/base/AbstractCropBlock.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/block/bundle/CropBlockBundle.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/block/RDCropBlocks.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/loot/RDLootModifies.java",
+    "fabric/src/main/java/cc/thonly/reverie_dreams/fabric/datagen/BlockLootTableProvider.java"
+  ],
+  "productCompostNativeComplete": true
+}

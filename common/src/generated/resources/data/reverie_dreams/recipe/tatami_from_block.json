@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "reverie_dreams:tatami_block"
+  ],
+  "result": {
+    "count": 4,
+    "id": "reverie_dreams:tatami"
+  }
+}

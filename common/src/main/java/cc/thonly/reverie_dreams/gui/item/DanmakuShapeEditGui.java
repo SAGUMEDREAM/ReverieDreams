@@ -137,7 +137,8 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
         }
 
         List<List<List<Boolean>>> shapesByOutput = recipeType.getShapesByOutput(ingredientStack);
-        if (shapesByOutput.isEmpty()) return;
+        if (shapesByOutput.isEmpty())
+            return;
 
         List<List<Boolean>> shapeToShow = shapesByOutput.getFirst();
 
@@ -189,6 +190,7 @@ public class DanmakuShapeEditGui extends SimpleGui implements GuiCommon {
         DanmakuShapeDrawRecipe first = matches.getFirst();
         IngredientStack output = first.getOutput();
         ItemStack itemStack = output.build();
+        itemStack.setCount(this.source.getCount());
         this.player.sendSystemMessage(Component.translatable("item.action.click.shape_recipe.success"), false);
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.player.setItemInHand(this.hand, itemStack);

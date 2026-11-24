@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BSB",
+    "BCB",
+    "BBB"
+  ],
+  "key": {
+    "B": "minecraft:bamboo",
+    "S": "minecraft:string",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "reverie_dreams:ingredient_basket",
+    "count": 1
+  }
+}

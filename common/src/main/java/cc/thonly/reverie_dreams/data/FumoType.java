@@ -2,12 +2,12 @@ package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.block.base.BaseFumoBlock;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
-import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.AccessLevel;
@@ -27,7 +27,7 @@ public class FumoType implements SerializableProvider<FumoType>, RegistryEntryOw
     public static final Codec<FumoType> CODEC = UnitCodec.unit(FumoType::new);
     private Identifier id;
     private Identifier registryKey;
-    private RegistryProvider<FumoType> owner;
+    private RegistryProviderLookup<FumoType> owner;
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.PROTECTED)

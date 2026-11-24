@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.block.props;
 import cc.thonly.reverie_dreams.block.base.ModelBlock;
 import cc.thonly.reverie_dreams.entity.misc.Wheelchair;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.state.SixteenDirection;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.enchantment;
 
-import cc.thonly.reverie_dreams.CommonEventHandlers;
+import cc.thonly.reverie_dreams.event.CommonEventHandlers;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;

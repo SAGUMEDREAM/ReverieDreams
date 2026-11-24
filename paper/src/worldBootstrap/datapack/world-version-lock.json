@@ -1,0 +1,55 @@
+{
+  "minecraft": "26.1.2",
+  "paper_api": "26.1.2.build.74-stable",
+  "data_format": [
+    101,
+    1
+  ],
+  "paper_server_sha256": "bfdb3db598e2d9b066f65e7e1a3be1acc8b11b3fa38360593375e8dd1d060dac",
+  "paper_api_sha256": "66d38ebfcc4fde9241d925f5cf78b68cf39d93ecb9c99c263961ba7485a3c3bf",
+  "original_dimension_type_sha256": "c9c3274a6353c594e7248eaaaf435d43005ef2118e3ddf122031fbcd111c9d03",
+  "source_files": {
+    "biomes.bin.gz": "fbc9e914fceff685f24eccb323629c71b608e254aea9a0ae71a04e5704c03ea9",
+    "heightmap.delta.gz": "55ce9be444d47452d09b2228ae206a6d86fb8cfa2308fe5d12a17709b200be72",
+    "map.json": "b9c2e90c118f2bd96d1dbcaaf328025f835644ed7e0ac8f9db5e5aea7edd6e46",
+    "surfaces.pal4.gz": "0c19b8e65d05f95b146d4d93760081f4c805506e84dece8af2afc5119b7fc091",
+    "underground.json": "a437241a9b846d1ad2a8d2c5be5dc0da6179a9c71e2c96f781ee2baf402d9e7b"
+  },
+  "scope": "Exact authored1536-height source terrain; new active custom biome non-tree native features preserved. source-forest-trees is an optional post-native adaptation, defaultfalse; source geometry/density validated, native vegetation order/feature-seed parity not claimed.",
+  "source_sha256": "4e30749817f2faf62bb8e4d7fd3fa1f64135fc2e479cf21392a395e1203a7f65",
+  "raw_sha256": "b99684c2ebc8cc6a52240b408ae36a3194f9dc590b6130f3b76dddf50fa62935",
+  "source_geometry": {
+    "width": 12800,
+    "depth": 10240,
+    "height": 1536,
+    "sea_level": 1024,
+    "columns": 131072000,
+    "raw_bytes": 655360000,
+    "biome_palette_size": 76,
+    "surface_palette_size": 16,
+    "active_biomes": 11
+  },
+  "source_forest": {
+    "option": "features.source-forest-trees",
+    "default": false,
+    "active_custom_biomes": [
+      "reverie_dreams:gensokyo_forest",
+      "reverie_dreams:gensokyo_cherry_grove"
+    ],
+    "execution": "AFTER native decoration, BEFORE supplemental ore passes and final authored override restoration",
+    "source_geometry_sha256": {
+      "GensokyoForestBootstrap.java": "e3be30a78cce4d0add7c3874a0aa187a5b87129e0b956d4649ebc541a4e8066b",
+      "GensokyoForestType.java": "b3351f2489cf0498ed6f9d3effbccb610658cca969eaf40dcca3e6f1b8eaad8a",
+      "GensokyoTreeConfiguration.java": "6581e3cbd4ffc0a73be310f3fd30e23a30f63d1db93e979596df6f1309c017b6",
+      "GensokyoTreeFeature.java": "299b845ef53e4dc1062483569529c1cea7bce34de657c5568192213274ca4e71",
+      "GensokyoTreeProfile.java": "d5e02c3849bb3d78be7561457e8c34956794d9a073dc146c3ee296b0559bdd1b",
+      "GensokyoTreeShape.java": "ddd7270d58c86c346f3fab5b5306e66e2d4180e1580d70d1af6e577f39116d4f"
+    },
+    "biome_sha256": {
+      "gensokyo_forest.json": "48ea74f669860634b7f298a1e8d7ac4c5f3d4f42df5c2f44966eec28588c975b",
+      "gensokyo_cherry_grove.json": "a502eda0430a75c2923991c0f5505c41dabc2714ca4206513f7d8138877810a1"
+    },
+    "native_codec_validation": "UNVERIFIED: standalone registry bootstrap tool timed out; isolated-server validation required",
+    "source_biome_callback": "at(long worldSeed,int x,int y,int z)"
+  }
+}

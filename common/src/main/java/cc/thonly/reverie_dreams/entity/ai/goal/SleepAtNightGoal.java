@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.restaurant.RestaurantService;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
+
 public class SleepAtNightGoal extends Goal {
     private final BaseNPCLikeEntity entity;
     private final double speed;
@@ -26,9 +29,15 @@ public class SleepAtNightGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (entity instanceof NPCSimpleEntity npc
+                && npc.getChatMoveTarget() != null) {
+            return false;
+        }
         if (!entity.level().isDarkOutside() || entity.isSleeping()) {
             return false;
         }
+        if (hasRestaurantDuty())
+            return false;
 
         this.bedPos = findNearbyBed();
         return this.bedPos != null;
@@ -73,12 +82,23 @@ public class SleepAtNightGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
+        if (hasRestaurantDuty())
+            return false;
+        if (entity instanceof NPCSimpleEntity npc
+                && npc.getChatMoveTarget() != null) {
+            return false;
+        }
         return this.bedPos != null && !entity.isSleeping();
     }
 
     @Override
     public void stop() {
         this.bedPos = null;
+    }
+
+    private boolean hasRestaurantDuty() {
+        return RestaurantService.isVisiting(entity) || RestaurantService.isRestaurantShift(entity)
+                && RestaurantService.findForStaff(entity).isPresent();
     }
 
     private double dist(BlockPos a, BlockPos b) {

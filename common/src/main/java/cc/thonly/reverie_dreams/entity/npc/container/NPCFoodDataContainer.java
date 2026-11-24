@@ -3,13 +3,16 @@ package cc.thonly.reverie_dreams.entity.npc.container;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodConstants;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.food.FoodProperties;
 
 public class NPCFoodDataContainer {
     @Getter
@@ -33,8 +36,13 @@ public class NPCFoodDataContainer {
         this.random = random;
     }
 
-    public void eat(net.minecraft.world.food.FoodProperties properties) {
+    public void eat(FoodProperties properties) {
         this.addFoodData(properties.nutrition(), properties.saturation());
+    }
+
+    public static boolean isNourishing(ItemStack stack) {
+        FoodProperties food = stack.get(DataComponents.FOOD);
+        return food != null && (food.nutrition() > 0 || Math.round(food.saturation()) > 0);
     }
 
     public void eat(int food, float saturationModifier) {
@@ -103,14 +111,14 @@ public class NPCFoodDataContainer {
     }
 
     public void addAdditionalSaveData(ValueOutput view) {
-        view.putFloat("Food.Nutrition", this.nutrition);
-        view.putFloat("Food.Saturation", this.saturation);
+        view.putInt("Food.Nutrition", this.nutrition);
+        view.putInt("Food.Saturation", this.saturation);
         view.putFloat("Food.ExhaustionLevel", this.exhaustionLevel);
     }
 
     public void readAdditionalSaveData(ValueInput view) {
         this.nutrition = view.getIntOr("Food.Nutrition", view.getIntOr("FoodNutrition", 20));
         this.saturation = view.getIntOr("Food.Saturation", view.getIntOr("FoodSaturation", 20));
-        this.exhaustionLevel = view.getIntOr("Food.ExhaustionLevel", view.getIntOr("FoodExhaustionLevel", 0));
+        this.exhaustionLevel = view.getFloatOr("Food.ExhaustionLevel", view.getIntOr("FoodExhaustionLevel", 0));
     }
 }

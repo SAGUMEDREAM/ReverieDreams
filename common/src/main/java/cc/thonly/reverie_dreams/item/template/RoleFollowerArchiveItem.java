@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.item.template;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -33,6 +34,10 @@ public class RoleFollowerArchiveItem extends Item {
             boolean canRespawn = stack.getOrDefault(RDDataComponentTypes.ROLE_CAN_RESPAWN.value(), false);
             if (!canRespawn) {
                 return InteractionResult.PASS;
+            }
+            if (!followerArchive.isOwnedBy(player)) {
+                player.sendSystemMessage(Component.translatable("message.reverie_dreams.role_archive.not_owner"));
+                return InteractionResult.FAIL;
             }
             followerArchive.respawn(world, context.getClickedPos().above(), world.registryAccess());
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SOUND, player.getSoundSource(), 2.0f, 1.0f);

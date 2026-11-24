@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.entity.elemental;
 
 import cc.thonly.reverie_dreams.api.entity.type.ElementalMob;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.KeepInventoryTypes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import net.minecraft.core.BlockPos;
@@ -47,7 +48,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, BaseNPCLikeEntity.class, 8.0f));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, false));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
     }
@@ -79,20 +80,20 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
     @Override
     public boolean doHurtTarget(ServerLevel world, Entity target) {
         if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20 * 15, 1));
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 20 * 15));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 5 * 20));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.MINING_FATIGUE, 5 * 20));
         }
         return super.doHurtTarget(world, target);
     }
 
     public static AttributeSupplier.Builder createLivingAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0)
+                .add(Attributes.MAX_HEALTH, 30.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.22)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.25)
-                .add(Attributes.ATTACK_DAMAGE, 3.5)
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                .add(Attributes.FOLLOW_RANGE, 32.0)
+                .add(Attributes.FOLLOW_RANGE, 24.0)
                 .add(Attributes.TEMPT_RANGE, 10.0)
                 .add(Attributes.ENTITY_INTERACTION_RANGE, 2.5);
     }
@@ -102,7 +103,7 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
         super.die(damageSource);
         Level world = this.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            ItemEntity itemEntity = new ItemEntity(serverWorld, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.MAGIC_ICE_BLOCK, RandomSource.create().nextIntBetweenInclusive(0, 5)), 0, 0.1, 0);
+            ItemEntity itemEntity = new ItemEntity(serverWorld, this.getX(), this.getY(), this.getZ(), new ItemStack(RDBlocks.MAGIC_ICE_BLOCK, this.getRandom().nextIntBetweenInclusive(0, 3)), 0, 0.1, 0);
             world.addFreshEntity(itemEntity);
         }
     }
@@ -141,4 +142,9 @@ public class IceElementalEntity extends BaseNPCLikeEntity implements ElementalMo
         return isNight && light <= 7;
     }
 
+
+    @Override
+    public KeepInventoryTypes getKeepInventoryType() {
+        return KeepInventoryTypes.NOT_DROP_ANY;
+    }
 }

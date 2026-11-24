@@ -38,9 +38,7 @@ public class BaseCreativeTab implements ItemGroupContentHelper {
                     RDBlocks.REMOTE_SERVER,
                     RDBlocks.SPEAKER
             );
-            for (int i = list.size() - 1; i >= 0; i--) {
-                output.accept(list.get(i));
-            }
+            list.forEach(output::accept);
         }
     }
 }

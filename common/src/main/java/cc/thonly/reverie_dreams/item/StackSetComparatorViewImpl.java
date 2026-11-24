@@ -14,8 +14,8 @@ public class StackSetComparatorViewImpl implements ItemComparatorView {
 
     public StackSetComparatorViewImpl(IngredientStackSet set) {
         this.views = set.values().stream()
-                        .map(ItemComparatorView::of)
-                        .toList();
+                .map(ItemComparatorView::of)
+                .toList();
     }
 
     @Override

@@ -2,13 +2,12 @@ package cc.thonly.reverie_dreams.api;
 
 import cc.thonly.reverie_dreams.api.entity.callback.CompatGoalAddedCallback;
 import cc.thonly.reverie_dreams.api.entity.entry.RoleGoalEntry;
-import cc.thonly.reverie_dreams.api.item.callback.BeveragePropertyItemUseCallback;
-import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatContext;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeCompatPatchesCallback;
 import cc.thonly.reverie_dreams.api.recipe.callback.RecipeInjectCallback;
-import cc.thonly.reverie_dreams.api.registry.RegistryImplContext;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderContext;
 import cc.thonly.reverie_dreams.api.registry.callback.BeveragePropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.RegistryProviderReloadCallback;
@@ -40,16 +39,10 @@ public class ReverieDreamsPluginLoader {
         REPLACEABLE_RECIPE,
         PLAYER_COMPONENT_REGISTRY,
         REGISTRY_IMPL_REGISTER,
-        SKIN_CLASSES_REGISTER,
-        DYNAMIC_REGISTRY_IMPL_REGISTER,
-        LOOT_TABLES_LOADED,
-        LOOT_TABLE_REPLACE,
-        LOOT_TABLE_MODIFY,
-        LOOT_TABLE_DROPS_MODIFY;
+        SKIN_CLASSES_REGISTER;
     }
 
-    private static final Map<PluginHook, List<Runnable>> ACTIONS =
-            new EnumMap<>(PluginHook.class);
+    private static final Map<PluginHook, List<Runnable>> ACTIONS = new EnumMap<>(PluginHook.class);
 
     public static void registerPlugin(ReverieDreamsPlugin plugin) {
         PLUGINS.add(plugin);
@@ -57,8 +50,8 @@ public class ReverieDreamsPluginLoader {
 
     public static Optional<ReverieDreamsPlugin> getPlugin(String modId) {
         return PLUGINS.stream()
-                      .filter(p -> p.getModId().equals(modId))
-                      .findFirst();
+                .filter(p -> p.getModId().equals(modId))
+                .findFirst();
     }
 
     public static Event<ReverieDreamsExtensionEvents.EntryPoint> getEvent() {
@@ -75,7 +68,19 @@ public class ReverieDreamsPluginLoader {
             registerPluginHooks(plugin);
         }
 
-        ACTIONS.values().forEach(list -> list.forEach(Runnable::run));
+        for (Map.Entry<PluginHook, List<Runnable>> entry : ACTIONS.entrySet()) {
+            if (entry.getKey() == PluginHook.CLIENT_SETUP)
+                continue;
+            entry.getValue().forEach(Runnable::run);
+        }
+    }
+
+    public static void runClientSetup() {
+        List<Runnable> clientActions = ACTIONS.get(PluginHook.CLIENT_SETUP);
+        log.info("Loaded {} client plugin extensions", clientActions == null ? 0 : clientActions.size());
+        if (clientActions != null) {
+            clientActions.forEach(Runnable::run);
+        }
     }
 
     private static List<Runnable> actions(PluginHook hook) {
@@ -91,6 +96,11 @@ public class ReverieDreamsPluginLoader {
         register(PluginHook.COMMON_SETUP, () -> {
             plugin.onCommonSetup();
             log.info("Loaded plugin extensions {}", plugin.getModId());
+        });
+
+        register(PluginHook.CLIENT_SETUP, () -> {
+            plugin.onClientSetup();
+            log.info("Loaded client plugin extensions {}", plugin.getModId());
         });
 
         register(PluginHook.ROLE_GOAL, () -> {
@@ -126,10 +136,10 @@ public class ReverieDreamsPluginLoader {
                 () -> RecipeInjectCallback.EVENT.register(plugin::registerRecipeLoadCallback));
 
         register(PluginHook.USE_ITEM_FOOD_PROPERTY,
-                () -> FoodPropertyItemUseCallback.EVENT.register(plugin::registerUseItemFoodProperty));
+                () -> ItemEvent.FOOD_PROPERTY_USE.register(plugin::registerUseItemFoodProperty));
 
         register(PluginHook.USE_ITEM_BEVERAGE_PROPERTY,
-                () -> BeveragePropertyItemUseCallback.EVENT.register(plugin::registerUseItemDrinkProperty));
+                () -> ItemEvent.BEVERAGE_PROPERTY_USE.register(plugin::registerUseItemDrinkProperty));
 
         register(PluginHook.REPLACEABLE_RECIPE,
                 () -> RecipeCompatPatchesCallback.EVENT.register(() ->
@@ -142,7 +152,7 @@ public class ReverieDreamsPluginLoader {
                 () -> plugin.registerPlayerComponent(PlayerComponentRegistry::registerComponentType));
 
         register(PluginHook.REGISTRY_IMPL_REGISTER,
-                () -> plugin.registerPost(RegistryImplContext.getContext()));
+                () -> plugin.registerPost(RegistryProviderContext.getContext()));
 
         register(PluginHook.SKIN_CLASSES_REGISTER,
                 () -> plugin.registerSkinClasses(SkinFetcher::registerScanClasses));

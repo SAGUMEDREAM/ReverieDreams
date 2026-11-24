@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:golden_hoe",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:sunflower",
+      "count": 32
+    },
+    {
+      "id": "minecraft:rose_bush",
+      "count": 16
+    },
+    {
+      "id": "minecraft:peony",
+      "count": 16
+    },
+    {
+      "id": "reverie_dreams:fairy_dust",
+      "count": 16
+    },
+    {
+      "id": "minecraft:bone_meal",
+      "count": 16
+    },
+    {
+      "id": "minecraft:honeycomb",
+      "count": 8
+    },
+    {
+      "id": "reverie_dreams:point",
+      "count": 24
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 32
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:sunflower",
+    "count": 1
+  }
+}

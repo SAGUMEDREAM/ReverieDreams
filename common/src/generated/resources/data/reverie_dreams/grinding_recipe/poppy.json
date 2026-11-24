@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:poppy",
+  "output": {
+    "id": "minecraft:red_dye",
+    "count": 2
+  },
+  "work": 8
+}

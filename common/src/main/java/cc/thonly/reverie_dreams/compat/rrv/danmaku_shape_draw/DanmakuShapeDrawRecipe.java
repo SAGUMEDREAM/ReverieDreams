@@ -37,7 +37,7 @@ public class DanmakuShapeDrawRecipe implements ReliableClientRecipe {
                 if (y < shape.size() && x < shape.get(y).size()) {
                     state = shape.get(y).get(x);
                 }
-                context.bindSlot(idx, SlotContent.of(state? RDGuiPlaceholderItems.ENABLE.createStack() : RDGuiPlaceholderItems.DISABLE.createStack()));
+                context.bindSlot(idx, SlotContent.of(state ? RDGuiPlaceholderItems.ENABLE.createStack() : RDGuiPlaceholderItems.DISABLE.createStack()));
                 idx++;
             }
         }

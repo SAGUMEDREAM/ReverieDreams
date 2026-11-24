@@ -36,7 +36,7 @@ public class BrewingBarrelGui extends SimpleGui implements GuiCommon {
         this.state = state;
         this.blockEntity = (BrewingBarrelBlockEntity) world.getBlockEntity(pos);
         this.pos = pos;
-        this.closeCheckTickTask = DistributedTickTask.createTickTask(()->{
+        this.closeCheckTickTask = DistributedTickTask.createTickTask(() -> {
             if (this.blockEntity == null) {
                 return;
             }

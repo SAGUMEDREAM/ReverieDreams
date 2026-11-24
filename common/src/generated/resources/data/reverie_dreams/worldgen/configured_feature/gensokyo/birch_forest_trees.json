@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "reverie_dreams:gensokyo/forest_birch",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.18,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/young_birch",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.14634146,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/tall_birch",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "item.reverie_dreams.yin-yang_orb": "Yin-Yang Orb",
+  "item.reverie_dreams.satori_eye": "Eye of Satori",
+  "item.reverie_dreams.crossing_chisel": "Wall-Piercing Chisel",
+  "item.reverie_dreams.time_stop_clock": "Time Stop Clock",
+  "item.reverie_dreams.papilio_pattern_fan": "Papilio Pattern Fan",
+  "item.reverie_dreams.maple_leaf_fan": "Maple Leaf Fan",
+  "item.reverie_dreams.hakuroken": "Hakuroken",
+  "item.reverie_dreams.rokanken": "Roukanken",
+  "item.reverie_dreams.levatin": "Laevateinn",
+  "item.reverie_dreams.death_scythe": "Death Scythe",
+  "item.reverie_dreams.iron_bar": "Iron Rod",
+  "item.reverie_dreams.oni_iron_bar": "Oni Iron Bar",
+  "message.reverie_dreams.time_stop.no_permission": "§cOnly server operators can use the Time Stop Clock.",
+  "message.reverie_dreams.time_stop.already_frozen": "§cTime is already frozen.",
+  "sound.reverie_dreams.spell_card": "Spell Card Activated"
+}

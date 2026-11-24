@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "trace=0": {
+      "model": "reverie_dreams:block/footstep_moss"
+    },
+    "trace=1": {
+      "model": "reverie_dreams:block/footstep_moss_dim"
+    },
+    "trace=2": {
+      "model": "reverie_dreams:block/footstep_moss_lit"
+    }
+  }
+}

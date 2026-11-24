@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.IngredientStack;
@@ -17,7 +17,6 @@ import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -88,7 +87,7 @@ public class FoodProperties {
     public static final FoodProperty CURSE = registerForBuiltIn("curse", () -> new FoodProperty());
 
     public static void registerDefaultItemUsingProperty() {
-        FoodPropertyItemUseCallback.EVENT.register((world, user, itemStack, property) -> {
+        ItemEvent.FOOD_PROPERTY_USE.register((world, user, itemStack, property) -> {
             if (world.isClientSide()) {
                 return;
             }
@@ -196,77 +195,90 @@ public class FoodProperties {
 
     }
 
+    /**
+     * 读取物品的食物属性。这是一个纯查询：优先返回堆上的显式覆盖值（例如厨房配方产物），
+     * 否则按 Item 查数据包缓存。绝不能把缓存写回 ItemStack，否则会改变堆的组件签名，
+     * 导致熔炉等原版逻辑的 isSameItemSameComponents 判定失败。
+     */
     public static Collection<FoodProperty> get(IngredientStack stack) {
-        List<FoodProperty> existing = stack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), new ArrayList<>());
+        List<FoodProperty> existing = stack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), List.of());
         if (!existing.isEmpty()) {
             return existing;
         }
 
-        Set<FoodProperty> cached = ITEM_CACHE.get(stack.getItem());
-        if (cached == null || cached.isEmpty()) {
-            return List.of();
-        }
-
-        List<FoodProperty> result = new ArrayList<>(cached);
-        stack.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), result);
-
-        return result;
+        return getCached(stack.getItem());
     }
 
     public static Collection<FoodProperty> get(ItemStack stack) {
-        List<FoodProperty> existing = stack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), new ArrayList<>());
+        List<FoodProperty> existing = stack.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), List.of());
         if (!existing.isEmpty()) {
             return existing;
         }
 
-        Set<FoodProperty> cached = ITEM_CACHE.get(stack.getItem());
-        if (cached == null || cached.isEmpty()) {
-            return List.of();
-        }
-
-        List<FoodProperty> result = new ArrayList<>(cached);
-        stack.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), result);
-
-        return result;
+        return getCached(stack.getItem());
     }
 
     public static Collection<FoodProperty> get(ItemStackTemplate template) {
-        Holder<Item> item = template.item();
-        List<FoodProperty> existing = ItemStackTemplateHelper.getOrDefault(template, RDDataComponentTypes.FOOD_PROPERTIES.value(), new ArrayList<>());
+        List<FoodProperty> existing = ItemStackTemplateHelper.getOrDefault(template, RDDataComponentTypes.FOOD_PROPERTIES.value(), List.of());
         if (!existing.isEmpty()) {
             return existing;
         }
 
-        Set<FoodProperty> cached = ITEM_CACHE.get(item.value());
+        return getCached(template.item().value());
+    }
+
+    public static List<FoodProperty> getDefault(Item item) {
+        Set<FoodProperty> cached = ITEM_CACHE.get(item);
         if (cached == null || cached.isEmpty()) {
             return List.of();
         }
+        return List.copyOf(cached);
+    }
 
-        List<FoodProperty> result = new ArrayList<>(cached);
-        ItemStackTemplateHelper.modify(template, (template1, modifier) -> {
-            modifier.set(RDDataComponentTypes.FOOD_PROPERTIES.value(), result);
-        });
-        return result;
+    private static Collection<FoodProperty> getCached(Item item) {
+        return getDefault(item);
+    }
+
+    /**
+     * 清除旧版本自动写入的、与物品默认属性完全相同的冗余组件。
+     * 这不会影响任何查询结果，只是让旧存档里的堆重新变得可堆叠、可被原版逻辑比较。
+     */
+    public static void normalize(ItemStack stack) {
+        List<FoodProperty> explicit = stack.get(RDDataComponentTypes.FOOD_PROPERTIES.value());
+        if (explicit == null) {
+            return;
+        }
+        if (explicit.isEmpty() || explicit.equals(getDefault(stack.getItem()))) {
+            stack.remove(RDDataComponentTypes.FOOD_PROPERTIES.value());
+        }
     }
 
     public static void reload(ResourceManager manager) {
         unbound();
-        Map<Identifier, Resource> resources = manager.listResources("food_property", id ->
+        Map<Identifier, List<Resource>> resources = manager.listResourceStacks("food_property", id ->
                  id.getPath().endsWith(".json")
         );
         List<FoodProperty.Data> foodPropertyData = new ArrayList<>();
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Resource resource = entry.getValue();
-            try (InputStream stream = resource.open()) {
-                JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-                DataResult<FoodProperty.Data> result = FoodProperty.Data.CODEC.parse(input);
+        for (Map.Entry<Identifier, List<Resource>> entry : resources.entrySet()) {
+            List<FoodProperty.Data> resourceData = new ArrayList<>();
+            for (Resource resource : entry.getValue()) {
+                try (InputStream stream = resource.open()) {
+                    JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+                    Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
+                    DataResult<FoodProperty.Data> result = FoodProperty.Data.CODEC.parse(input);
 
-                result.resultOrPartial(error -> log.warn("Failed to parse tags for {}: {}", entry.getKey(), error))
-                        .ifPresent(foodPropertyData::add);
-            } catch (IOException e) {
-                log.error("Failed to load food_property {}: {}", entry.getKey(), e.getMessage(), e);
+                    result.error().ifPresent(error -> log.warn("Failed to parse {} from {}: {}", entry.getKey(), resource.sourcePackId(), error));
+                    result.result().ifPresent(data -> {
+                        if (data.replace()) {
+                            resourceData.removeIf(previous -> previous.id().equals(data.id()));
+                        }
+                        resourceData.add(data);
+                    });
+                } catch (IOException | RuntimeException e) {
+                    log.error("Failed to load food_property {} from {}: {}", entry.getKey(), resource.sourcePackId(), e.getMessage(), e);
+                }
             }
+            foodPropertyData.addAll(resourceData);
         }
         Map<FoodProperty, Set<Item>> foodPropertySetMap = new Object2ObjectLinkedOpenHashMap<>();
         for (FoodProperty.Data foodPropertyDatum : foodPropertyData) {

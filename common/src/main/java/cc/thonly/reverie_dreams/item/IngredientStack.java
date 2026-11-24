@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.item;
 
 import cc.thonly.reverie_dreams.api.item.NonPersistentAdditionalData;
-import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -32,10 +32,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Unique;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
 
@@ -54,7 +52,7 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
             ITEM_CODEC.fieldOf("id").forGetter(IngredientStack::typeHolder),
             Codec.INT.optionalFieldOf("count", 0).forGetter(IngredientStack::getCount),
             DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY)
-                                    .forGetter(IngredientStack::getComponents)
+                    .forGetter(IngredientStack::getComponents)
     ).apply(instance, IngredientStack::new));
     public static final Codec<IngredientStack> CODEC = MAP_CODEC.codec();
     public static final Codec<List<IngredientStack>> LIST_CODEC = CODEC.listOf();
@@ -478,9 +476,9 @@ public class IngredientStack implements ItemLike, DataComponentGetter, ItemInsta
         );
 
         return result.resultOrPartial(error -> {
-                         throw new RuntimeException("Failed to encode IngredientStack: " + error);
-                     }).map(tag -> (CompoundTag) tag)
-                     .orElseGet(CompoundTag::new);
+                    throw new RuntimeException("Failed to encode IngredientStack: " + error);
+                }).map(tag -> (CompoundTag) tag)
+                .orElseGet(CompoundTag::new);
     }
 
     public static IngredientStack decode(RegistryAccess access, CompoundTag tag) {

@@ -14,7 +14,7 @@ public enum EightDirection implements StringRepresentable {
     }
 
     public static EightDirection fromYaw(double yaw) {
-        int index = Math.floorMod((int)Math.round(yaw / 45.0), 8);
+        int index = Math.floorMod((int) Math.round(yaw / 45.0), 8);
         return values()[index];
     }
 

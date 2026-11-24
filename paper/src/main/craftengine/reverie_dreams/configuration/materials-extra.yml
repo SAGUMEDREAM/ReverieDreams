@@ -1,0 +1,97 @@
+items:
+  reverie_dreams:point:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.point>
+    model: reverie_dreams:item/point
+  reverie_dreams:power:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.power>
+    model: reverie_dreams:item/power
+    settings:
+      anvil_repair_item:
+      - target:
+        - '#reverie_dreams:danmaku_item'
+        percent: 0.25
+  reverie_dreams:upgraded_health_fragment:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.upgraded_health_fragment>
+    model: reverie_dreams:item/upgraded_health_fragment
+  reverie_dreams:bomb_fragment:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.bomb_fragment>
+    model: reverie_dreams:item/bomb_fragment
+  reverie_dreams:fairy_dust:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.fairy_dust>
+    model: reverie_dreams:item/fairy_dust
+  reverie_dreams:ghost_veil:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ghost_veil>
+    model: reverie_dreams:item/ghost_veil
+  reverie_dreams:oni_horn:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.oni_horn>
+    model: reverie_dreams:item/oni_horn
+    settings:
+      anvil_repair_item:
+        - target:
+            - "reverie_dreams:oni_mask"
+            - "reverie_dreams:iron_bar"
+            - "reverie_dreams:oni_iron_bar"
+          percent: 0.25
+  reverie_dreams:empty_photo:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.empty_photo>
+    model: reverie_dreams:item/empty_photo
+  reverie_dreams:copper_coin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.copper_coin>
+      max_stack_size: 96
+    model: reverie_dreams:item/copper_coin
+  reverie_dreams:silver_coin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_coin>
+      max_stack_size: 96
+    model: reverie_dreams:item/silver_coin
+  reverie_dreams:gold_coin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.gold_coin>
+      max_stack_size: 96
+    model: reverie_dreams:item/gold_coin
+  reverie_dreams:ice_scales:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ice_scales>
+    model: reverie_dreams:item/ice_scales
+    settings:
+      tags:
+      - reverie_dreams:magic_ice_tool_materials
+      anvil_repair_item:
+        - target:
+            - "reverie_dreams:magic_ice_helmet"
+            - "reverie_dreams:magic_ice_chestplate"
+            - "reverie_dreams:magic_ice_leggings"
+            - "reverie_dreams:magic_ice_boots"
+            - "reverie_dreams:magic_ice_sword"
+            - "reverie_dreams:magic_ice_axe"
+            - "reverie_dreams:magic_ice_pickaxe"
+            - "reverie_dreams:magic_ice_shovel"
+            - "reverie_dreams:magic_ice_hoe"
+            - "reverie_dreams:magic_ice_spear"
+          percent: 0.25
+  reverie_dreams:waterproof_leather:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.waterproof_leather>
+    model: reverie_dreams:item/waterproof_leather

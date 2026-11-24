@@ -8,8 +8,14 @@ public class BaguaFurnaceRenderState extends EntityRenderState {
     public ItemStackRenderState itemRenderState = new ItemStackRenderState();
     public float xRot;
     public float yRot;
-    public float xRot0;
-    public float yRot0;
-    public float partialTick;
+    public float bob;
+    public float pulse = 1.0F;
+    public float age;
+    public float beamLength;
+    public float beamStrength;
+    /**
+     * 蓄力进度 0..1，用于蓄力增亮。
+     */
+    public float chargeProgress;
     public Vec3 lookAngle;
 }

@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.fabric.datagen;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractJukeboxProvider;
 import cc.thonly.reverie_dreams.sound.JukeBoxEntry;
-import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
+import cc.thonly.reverie_dreams.registry.content.sound.RDJukeboxSongs;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 
@@ -16,7 +16,7 @@ public class JukeboxProvider extends AbstractJukeboxProvider {
 
     @Override
     public void configured(HolderLookup.Provider provider) {
-        for (JukeBoxEntry entry : JukeboxSongInit.ENTRIES) {
+        for (JukeBoxEntry entry : RDJukeboxSongs.ENTRIES) {
             this.add(ReverieDreams.id(entry.getId()), entry.getEntryByProvider());
         }
     }

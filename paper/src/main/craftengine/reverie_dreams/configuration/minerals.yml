@@ -1,0 +1,1022 @@
+# CraftEngine 26.8.2. Quantities and loot follow generated Mod data.
+items:
+  reverie_dreams:raw_silver:
+    material: raw_iron
+    data:
+      item_name: <!i><lang:item.reverie_dreams.raw_silver>
+    model: reverie_dreams:item/raw_silver
+  reverie_dreams:silver_nugget:
+    material: iron_nugget
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_nugget>
+    model: reverie_dreams:item/silver_nugget
+  reverie_dreams:red_orb:
+    material: emerald
+    data:
+      item_name: <!i><lang:item.reverie_dreams.red_orb>
+    model: reverie_dreams:item/red_orb
+  reverie_dreams:blue_orb:
+    material: emerald
+    data:
+      item_name: <!i><lang:item.reverie_dreams.blue_orb>
+    model: reverie_dreams:item/blue_orb
+  reverie_dreams:yellow_orb:
+    material: emerald
+    data:
+      item_name: <!i><lang:item.reverie_dreams.yellow_orb>
+    model: reverie_dreams:item/yellow_orb
+  reverie_dreams:green_orb:
+    material: emerald
+    data:
+      item_name: <!i><lang:item.reverie_dreams.green_orb>
+    model: reverie_dreams:item/green_orb
+  reverie_dreams:purple_orb:
+    material: emerald
+    data:
+      item_name: <!i><lang:item.reverie_dreams.purple_orb>
+    model: reverie_dreams:item/purple_orb
+  reverie_dreams:dream_crystal_fragment:
+    material: amethyst_shard
+    data:
+      item_name: <!i><lang:item.reverie_dreams.dream_crystal_fragment>
+      enchantment_glint_override: true
+    model: reverie_dreams:item/dream_crystal_fragment
+    settings:
+      tags:
+      - reverie_dreams:dream_tool_materials
+      anvil_repair_item:
+        - target:
+            - "reverie_dreams:dream_helmet"
+            - "reverie_dreams:dream_chestplate"
+            - "reverie_dreams:dream_leggings"
+            - "reverie_dreams:dream_boots"
+            - "reverie_dreams:dream_sword"
+            - "reverie_dreams:dream_axe"
+            - "reverie_dreams:dream_pickaxe"
+            - "reverie_dreams:dream_shovel"
+            - "reverie_dreams:dream_hoe"
+            - "reverie_dreams:dream_spear"
+          percent: 0.25
+  reverie_dreams:silver_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.silver_ore>
+    model: reverie_dreams:block/silver_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:silver_ore
+  reverie_dreams:deepslate_silver_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.deepslate_silver_ore>
+    model: reverie_dreams:block/deepslate_silver_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:deepslate_silver_ore
+  reverie_dreams:orb_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.orb_ore>
+    model: reverie_dreams:block/orb_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:orb_ore
+  reverie_dreams:deepslate_orb_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.deepslate_orb_ore>
+    model: reverie_dreams:block/deepslate_orb_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:deepslate_orb_ore
+  reverie_dreams:dream_crystal_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.dream_crystal_ore>
+    model: reverie_dreams:block/dream_crystal_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:dream_crystal_ore
+  reverie_dreams:moon_iron_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.moon_iron_ore>
+    model: reverie_dreams:block/moon_iron_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:moon_iron_ore
+  reverie_dreams:moon_gold_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.moon_gold_ore>
+    model: reverie_dreams:block/moon_gold_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:moon_gold_ore
+  reverie_dreams:moon_diamond_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.moon_diamond_ore>
+    model: reverie_dreams:block/moon_diamond_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:moon_diamond_ore
+  reverie_dreams:moon_quartz_ore:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.moon_quartz_ore>
+    model: reverie_dreams:block/moon_quartz_ore
+    behavior:
+      type: block_item
+      block: reverie_dreams:moon_quartz_ore
+  reverie_dreams:red_orb_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.red_orb_block>
+    model: reverie_dreams:block/red_orb_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:red_orb_block
+  reverie_dreams:blue_orb_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.blue_orb_block>
+    model: reverie_dreams:block/blue_orb_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:blue_orb_block
+  reverie_dreams:yellow_orb_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.yellow_orb_block>
+    model: reverie_dreams:block/yellow_orb_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:yellow_orb_block
+  reverie_dreams:green_orb_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.green_orb_block>
+    model: reverie_dreams:block/green_orb_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:green_orb_block
+  reverie_dreams:purple_orb_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.purple_orb_block>
+    model: reverie_dreams:block/purple_orb_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:purple_orb_block
+blocks:
+  reverie_dreams:silver_ore:
+    settings:
+      item: reverie_dreams:silver_ore
+      hardness: 3.0
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 2
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/silver_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:silver_ore
+            conditions:
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:raw_silver
+            functions:
+            - type: apply_bonus
+              enchantment: minecraft:fortune
+              formula:
+                type: ore_drops
+            - type: explosion_decay
+  reverie_dreams:deepslate_silver_ore:
+    settings:
+      item: reverie_dreams:deepslate_silver_ore
+      hardness: 4.5
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 2
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        fall: minecraft:block.deepslate.fall
+        hit: minecraft:block.deepslate.hit
+        place: minecraft:block.deepslate.place
+        step: minecraft:block.deepslate.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/deepslate_silver_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:deepslate_silver_ore
+            conditions:
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:raw_silver
+            functions:
+            - type: apply_bonus
+              enchantment: minecraft:fortune
+              formula:
+                type: ore_drops
+            - type: explosion_decay
+  reverie_dreams:orb_ore:
+    settings:
+      item: reverie_dreams:orb_ore
+      hardness: 4.5
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        fall: minecraft:block.deepslate.fall
+        hit: minecraft:block.deepslate.hit
+        place: minecraft:block.deepslate.place
+        step: minecraft:block.deepslate.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/orb_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:red_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:blue_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:yellow_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:green_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:purple_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:red_orb
+        - type: item
+          item: reverie_dreams:blue_orb
+        - type: item
+          item: reverie_dreams:yellow_orb
+        - type: item
+          item: reverie_dreams:green_orb
+        - type: item
+          item: reverie_dreams:purple_orb
+  reverie_dreams:deepslate_orb_ore:
+    settings:
+      item: reverie_dreams:deepslate_orb_ore
+      hardness: 4.5
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 1
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.deepslate.break
+        fall: minecraft:block.deepslate.fall
+        hit: minecraft:block.deepslate.hit
+        place: minecraft:block.deepslate.place
+        step: minecraft:block.deepslate.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/deepslate_orb_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:red_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:blue_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:yellow_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:green_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:purple_orb
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:red_orb
+        - type: item
+          item: reverie_dreams:blue_orb
+        - type: item
+          item: reverie_dreams:yellow_orb
+        - type: item
+          item: reverie_dreams:green_orb
+        - type: item
+          item: reverie_dreams:purple_orb
+  reverie_dreams:dream_crystal_ore:
+    settings:
+      item: reverie_dreams:dream_crystal_ore
+      hardness: 3.0
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 1
+      tags:
+      - minecraft:mineable/pickaxe
+      - c:ores
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/dream_crystal_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:dream_crystal_fragment
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:dream_crystal_fragment
+        conditions:
+        - type: random
+          value: 0.25
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:dream_crystal_fragment
+  reverie_dreams:moon_iron_ore:
+    settings:
+      item: reverie_dreams:moon_iron_ore
+      hardness: 3.0
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 1
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/moon_iron_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:moon_iron_ore
+            conditions:
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+          - type: item
+            item: minecraft:raw_iron
+            functions:
+            - type: apply_bonus
+              enchantment: minecraft:fortune
+              formula:
+                type: ore_drops
+            - type: explosion_decay
+  reverie_dreams:moon_gold_ore:
+    settings:
+      item: reverie_dreams:moon_gold_ore
+      hardness: 3.0
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/moon_gold_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:moon_gold_ore
+            conditions:
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+          - type: item
+            item: minecraft:raw_gold
+            functions:
+            - type: apply_bonus
+              enchantment: minecraft:fortune
+              formula:
+                type: ore_drops
+            - type: explosion_decay
+  reverie_dreams:moon_diamond_ore:
+    settings:
+      item: reverie_dreams:moon_diamond_ore
+      hardness: 3.0
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/moon_diamond_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:moon_diamond_ore
+            conditions:
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+          - type: item
+            item: minecraft:diamond
+            functions:
+            - type: apply_bonus
+              enchantment: minecraft:fortune
+              formula:
+                type: ore_drops
+            - type: explosion_decay
+  reverie_dreams:moon_quartz_ore:
+    settings:
+      item: reverie_dreams:moon_quartz_ore
+      hardness: 3.0
+      resistance: 3.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 1
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.nether_ore.break
+        fall: minecraft:block.nether_ore.fall
+        hit: minecraft:block.nether_ore.hit
+        place: minecraft:block.nether_ore.place
+        step: minecraft:block.nether_ore.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/moon_quartz_ore
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:moon_quartz_ore
+            conditions:
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+          - type: item
+            item: minecraft:quartz
+            functions:
+            - type: apply_bonus
+              enchantment: minecraft:fortune
+              formula:
+                type: ore_drops
+            - type: explosion_decay
+  reverie_dreams:red_orb_block:
+    settings:
+      item: reverie_dreams:red_orb_block
+      hardness: 5.0
+      resistance: 6.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/red_orb_block
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:red_orb_block
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:blue_orb_block:
+    settings:
+      item: reverie_dreams:blue_orb_block
+      hardness: 5.0
+      resistance: 6.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/blue_orb_block
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:blue_orb_block
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:yellow_orb_block:
+    settings:
+      item: reverie_dreams:yellow_orb_block
+      hardness: 5.0
+      resistance: 6.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/yellow_orb_block
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:yellow_orb_block
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:green_orb_block:
+    settings:
+      item: reverie_dreams:green_orb_block
+      hardness: 5.0
+      resistance: 6.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/green_orb_block
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:green_orb_block
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:purple_orb_block:
+    settings:
+      item: reverie_dreams:purple_orb_block
+      hardness: 5.0
+      resistance: 6.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 3
+      tags:
+      - minecraft:mineable/pickaxe
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/purple_orb_block
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:purple_orb_block
+        conditions:
+        - type: survives_explosion
+recipes:
+  reverie_dreams:blue_orb_block:
+    type: shaped
+    pattern:
+    - XXX
+    - XXX
+    - XXX
+    ingredients:
+      X: reverie_dreams:blue_orb
+    result:
+      id: reverie_dreams:blue_orb_block
+      count: 1
+  reverie_dreams:blue_orb_from_block:
+    type: shapeless
+    ingredients:
+    - reverie_dreams:blue_orb_block
+    result:
+      id: reverie_dreams:blue_orb
+      count: 9
+  reverie_dreams:diamond_from_blasting_moon_diamond_ore:
+    type: blasting
+    ingredient: reverie_dreams:moon_diamond_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: diamond
+    result:
+      id: minecraft:diamond
+      count: 1
+  reverie_dreams:diamond_from_smelting_moon_diamond_ore:
+    type: smelting
+    ingredient: reverie_dreams:moon_diamond_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: diamond
+    result:
+      id: minecraft:diamond
+      count: 1
+  reverie_dreams:dream_crystal_fragment_from_blasting_dream_crystal_ore:
+    type: blasting
+    ingredient: reverie_dreams:dream_crystal_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: dream_ingot
+    result:
+      id: reverie_dreams:dream_crystal_fragment
+      count: 1
+  reverie_dreams:dream_crystal_fragment_from_smelting_dream_crystal_ore:
+    type: smelting
+    ingredient: reverie_dreams:dream_crystal_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: dream_ingot
+    result:
+      id: reverie_dreams:dream_crystal_fragment
+      count: 1
+  reverie_dreams:gold_ingot_from_blasting_moon_gold_ore:
+    type: blasting
+    ingredient: reverie_dreams:moon_gold_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: gold_ingot
+    result:
+      id: minecraft:gold_ingot
+      count: 1
+  reverie_dreams:gold_ingot_from_smelting_moon_gold_ore:
+    type: smelting
+    ingredient: reverie_dreams:moon_gold_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: gold_ingot
+    result:
+      id: minecraft:gold_ingot
+      count: 1
+  reverie_dreams:green_orb_block:
+    type: shaped
+    pattern:
+    - XXX
+    - XXX
+    - XXX
+    ingredients:
+      X: reverie_dreams:green_orb
+    result:
+      id: reverie_dreams:green_orb_block
+      count: 1
+  reverie_dreams:green_orb_from_block:
+    type: shapeless
+    ingredients:
+    - reverie_dreams:green_orb_block
+    result:
+      id: reverie_dreams:green_orb
+      count: 9
+  reverie_dreams:iron_ingot_from_blasting_moon_iron_ore:
+    type: blasting
+    ingredient: reverie_dreams:moon_iron_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: iron_ingot
+    result:
+      id: minecraft:iron_ingot
+      count: 1
+  reverie_dreams:iron_ingot_from_smelting_moon_iron_ore:
+    type: smelting
+    ingredient: reverie_dreams:moon_iron_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: iron_ingot
+    result:
+      id: minecraft:iron_ingot
+      count: 1
+  reverie_dreams:purple_orb_block:
+    type: shaped
+    pattern:
+    - XXX
+    - XXX
+    - XXX
+    ingredients:
+      X: reverie_dreams:purple_orb
+    result:
+      id: reverie_dreams:purple_orb_block
+      count: 1
+  reverie_dreams:purple_orb_from_block:
+    type: shapeless
+    ingredients:
+    - reverie_dreams:purple_orb_block
+    result:
+      id: reverie_dreams:purple_orb
+      count: 9
+  reverie_dreams:quartz_from_blasting_moon_quartz_ore:
+    type: blasting
+    ingredient: reverie_dreams:moon_quartz_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: quartz
+    result:
+      id: minecraft:quartz
+      count: 1
+  reverie_dreams:quartz_from_smelting_moon_quartz_ore:
+    type: smelting
+    ingredient: reverie_dreams:moon_quartz_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: quartz
+    result:
+      id: minecraft:quartz
+      count: 1
+  reverie_dreams:red_orb_block:
+    type: shaped
+    pattern:
+    - XXX
+    - XXX
+    - XXX
+    ingredients:
+      X: reverie_dreams:red_orb
+    result:
+      id: reverie_dreams:red_orb_block
+      count: 1
+  reverie_dreams:red_orb_from_block:
+    type: shapeless
+    ingredients:
+    - reverie_dreams:red_orb_block
+    result:
+      id: reverie_dreams:red_orb
+      count: 9
+  reverie_dreams:silver_ingot:
+    type: shaped
+    pattern:
+    - XXX
+    - XXX
+    - XXX
+    ingredients:
+      X: reverie_dreams:silver_nugget
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 1
+  reverie_dreams:silver_ingot_from_blasting_deepslate_silver_ore:
+    type: blasting
+    ingredient: reverie_dreams:deepslate_silver_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: silver_ingot
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 1
+  reverie_dreams:silver_ingot_from_blasting_raw_silver:
+    type: blasting
+    ingredient: reverie_dreams:raw_silver
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: silver_ingot
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 1
+  reverie_dreams:silver_ingot_from_blasting_silver_ore:
+    type: blasting
+    ingredient: reverie_dreams:silver_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: silver_ingot
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 1
+  reverie_dreams:silver_ingot_from_smelting_deepslate_silver_ore:
+    type: smelting
+    ingredient: reverie_dreams:deepslate_silver_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: silver_ingot
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 1
+  reverie_dreams:silver_ingot_from_smelting_raw_silver:
+    type: smelting
+    ingredient: reverie_dreams:raw_silver
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: silver_ingot
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 1
+  reverie_dreams:silver_ingot_from_smelting_silver_ore:
+    type: smelting
+    ingredient: reverie_dreams:silver_ore
+    time: 250
+    experience: 0.7
+    category: blocks
+    group: silver_ingot
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 1
+  reverie_dreams:silver_nugget_from_block:
+    type: shapeless
+    ingredients:
+    - reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:silver_nugget
+      count: 9
+  reverie_dreams:yellow_orb_block:
+    type: shaped
+    pattern:
+    - XXX
+    - XXX
+    - XXX
+    ingredients:
+      X: reverie_dreams:yellow_orb
+    result:
+      id: reverie_dreams:yellow_orb_block
+      count: 1
+  reverie_dreams:yellow_orb_from_block:
+    type: shapeless
+    ingredients:
+    - reverie_dreams:yellow_orb_block
+    result:
+      id: reverie_dreams:yellow_orb
+      count: 9

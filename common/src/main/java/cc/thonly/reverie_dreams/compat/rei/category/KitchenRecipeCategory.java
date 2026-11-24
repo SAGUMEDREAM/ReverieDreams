@@ -71,12 +71,12 @@ public class KitchenRecipeCategory implements DisplayCategory<KitchenDisplay> {
         // ===== 输出 =====
         widgets.add(
                 Widgets.createSlot(new Rectangle(
-                               startInputX + 6 * slotSize,
-                               centerY,
-                               slotSize,
-                               slotSize))
-                       .entries(display.getOutputEntries().getFirst())
-                       .markOutput()
+                                startInputX + 6 * slotSize,
+                                centerY,
+                                slotSize,
+                                slotSize))
+                        .entries(display.getOutputEntries().getFirst())
+                        .markOutput()
         );
 
         // ===== 设备图标 =====
@@ -100,13 +100,13 @@ public class KitchenRecipeCategory implements DisplayCategory<KitchenDisplay> {
 
         widgets.add(
                 Widgets.createSlot(new Rectangle(
-                               xOffset + 2,
-                               centerY,
-                               slotSize,
-                               slotSize))
-                       .entries(REIItemUtils.getItem(iconStack))
-                       .markInput()
-                       .disableBackground()
+                                xOffset + 2,
+                                centerY,
+                                slotSize,
+                                slotSize))
+                        .entries(REIItemUtils.getItem(iconStack))
+                        .markInput()
+                        .disableBackground()
         );
 
         return widgets;

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "M": "reverie_dreams:moon_stone",
+    "Q": "minecraft:quartz",
+    "S": "reverie_dreams:silver_ingot"
+  },
+  "pattern": [
+    "QI ",
+    " SM",
+    " S "
+  ],
+  "result": {
+    "id": "reverie_dreams:lunar_type_2_pistol"
+  }
+}

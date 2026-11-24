@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "fading=false": {
+      "model": "reverie_dreams:block/mirror_bridge"
+    },
+    "fading=true": {
+      "model": "reverie_dreams:block/mirror_bridge_fading"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "textures": {
+    "atlas": "reverie_dreams:block/blue_mushroom_atlas",
+    "particle": "reverie_dreams:block/magic_mushroom_stem"
+  },
+  "elements": [
+    {
+      "name": "magic_mushroom_stem",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ],
+          "texture": "#atlas",
+          "cullface": "up"
+        }
+      }
+    }
+  ]
+}

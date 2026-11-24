@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "cc.thonly.reverie_dreams.neoforge.mixin",
   "compatibilityLevel": "JAVA_17",
-  "plugin": "cc.thonly.reverie_dreams.neoforge.mixin.RDFabricMixinPlugin",
+  "plugin": "cc.thonly.reverie_dreams.neoforge.mixin.RDNeoForgeMixinPlugin",
   "mixins": [
     "CommonHooksMixin",
     "ComposterBlockMixin",
@@ -13,15 +13,13 @@
     "RegistryHandlerMixin",
     "accessor.CreativeModeTabAccessor",
     "accessor.LootPoolAccessor",
-    "client.AnimationRouletteKeyMixin",
     "event.ServerPlayerGameModeMixin",
     "lootr.ILootrAPIMixin"
   ],
   "client": [
     "client.BaseNPCLikeEntityMixin",
     "client.BaseNPCLikeEntityRendererMixin",
-    "client.EntityRenderDispatcherMixin",
-    "client.ModernPlayerModelScreenMixin"
+    "client.EntityRenderDispatcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1

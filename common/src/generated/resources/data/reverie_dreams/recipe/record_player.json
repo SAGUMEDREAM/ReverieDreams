@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:black_dye",
+    "I": "minecraft:iron_ingot",
+    "N": "minecraft:note_block",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    " I ",
+    "BNB",
+    "PPP"
+  ],
+  "result": {
+    "id": "reverie_dreams:record_player"
+  }
+}

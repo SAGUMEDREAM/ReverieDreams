@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "WCW",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "W": "minecraft:white_wool",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "reverie_dreams:omamori_cabinet",
+    "count": 1
+  }
+}

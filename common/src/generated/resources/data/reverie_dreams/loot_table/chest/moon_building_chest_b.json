@@ -5,6 +5,34 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
+          "type": "minecraft:empty",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:lunar_power_cell"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:lunar_signal_coil",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "reverie_dreams:lunar_signal_crystal",
+          "weight": 3
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2.0,
+        "min": 1.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
           "type": "minecraft:item",
           "name": "minecraft:compass",
           "weight": 10

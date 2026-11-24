@@ -44,7 +44,7 @@ public class NPCHurtByTargetGoal extends TargetGoal {
             if (lastHurtByMob.is(EntityType.PLAYER) && getServerLevel(this.mob).getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
                 return false;
             } else {
-                for(Class<?> ignoreClass : this.toIgnoreDamage) {
+                for (Class<?> ignoreClass : this.toIgnoreDamage) {
                     if (ignoreClass.isAssignableFrom(lastHurtByMob.getClass())) {
                         return false;
                     }
@@ -81,22 +81,22 @@ public class NPCHurtByTargetGoal extends TargetGoal {
         List<? extends Mob> nearby = this.mob.level().getEntitiesOfClass(this.mob.getClass(), searchAabb, EntitySelector.NO_SPECTATORS);
         Iterator<? extends Mob> var5 = nearby.iterator();
 
-        while(true) {
+        while (true) {
             Mob other;
-            while(true) {
+            while (true) {
                 if (!var5.hasNext()) {
                     return;
                 }
 
-                other = (Mob)var5.next();
-                if (this.mob != other && other.getTarget() == null && (!(this.mob instanceof TamableAnimal) || ((TamableAnimal)this.mob).getOwner() == ((TamableAnimal)other).getOwner()) && !other.isAlliedTo(this.mob.getLastHurtByMob())) {
+                other = (Mob) var5.next();
+                if (this.mob != other && other.getTarget() == null && (!(this.mob instanceof TamableAnimal) || ((TamableAnimal) this.mob).getOwner() == ((TamableAnimal) other).getOwner()) && !other.isAlliedTo(this.mob.getLastHurtByMob())) {
                     if (this.toIgnoreAlert == null) {
                         break;
                     }
 
                     boolean ignore = false;
 
-                    for(Class<?> ignoreClass : this.toIgnoreAlert) {
+                    for (Class<?> ignoreClass : this.toIgnoreAlert) {
                         if (other.getClass() == ignoreClass) {
                             ignore = true;
                             break;

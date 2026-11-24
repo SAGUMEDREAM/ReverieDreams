@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
-import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
+import cc.thonly.reverie_dreams.entity.projectile.ThrownTouhouTrident;
 import cc.thonly.reverie_dreams.item.base.SpearItem;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
-import cc.thonly.reverie_dreams.server.InputKey;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Position;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -22,11 +22,11 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
-import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.ProjectileItem;
 import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.component.KineticWeapon;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -49,46 +49,45 @@ public class Gungnir extends SpearItem implements ProjectileItem {
         return 72000;
     }
 
-    @Override
-    public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
-        if (!(user instanceof Player player)) {
+    public static boolean isInChargeWindow(LivingEntity user) {
+        if (!user.isUsingItem()) {
             return false;
         }
-        if (!(player instanceof ServerPlayer serverPlayer)) {
+        ItemStack stack = user.getUseItem();
+        if (!(stack.getItem() instanceof Gungnir) || user.getItemInHand(user.getUsedItemHand()) != stack) {
             return false;
         }
-        PlayerInputManagerAccess inputManager = PlayerInputManagerAccess.polymerAccess();
-        if (!(inputManager.isKeyDown(serverPlayer, InputKey.SPRINT) &&
-                inputManager.isKeyDown(serverPlayer, InputKey.JUMP))
-        ) {
-            return false;
+        KineticWeapon kinetic = stack.get(DataComponents.KINETIC_WEAPON);
+        int ticks = user.getTicksUsingItem();
+        return kinetic != null && ticks >= kinetic.delayTicks() && ticks <= kinetic.computeDamageUseDuration();
+    }
+
+    public static void handleChargeThrow(ServerPlayer player) {
+        if (!player.isAlive() || player.isSpectator() || !isInChargeWindow(player)) {
+            return;
         }
-        int i = this.getUseDuration(stack, user) - remainingUseTicks;
-        if (i < 10) {
-            return false;
+        InteractionHand hand = player.getUsedItemHand();
+        ItemStack stack = player.getUseItem();
+        if (stack.nextDamageWillBreak() || player.cannotAttackWithItem(stack, 5)) {
+            return;
         }
         float f = EnchantmentHelper.getTridentSpinAttackStrength(stack, player);
         if (f > 0.0f && !player.isInWaterOrRain()) {
-            return false;
+            return;
         }
-        if (stack.nextDamageWillBreak()) {
-            return false;
-        }
+        ServerLevel world = player.level();
         Holder<SoundEvent> registryEntry = EnchantmentHelper.pickHighestLevel(stack, EnchantmentEffectComponents.TRIDENT_SOUND).orElse(SoundEvents.TRIDENT_THROW);
-        player.awardStat(Stats.ITEM_USED.get(this));
-        if (world instanceof ServerLevel serverWorld) {
-            stack.hurtWithoutBreaking(1, player);
-            if (f == 0.0f) {
-                ItemStack itemStack = stack.consumeAndReturn(1, player);
-                ThrownTrident tridentEntity = Projectile.spawnProjectileFromRotation(ThrownTrident::new, serverWorld, itemStack, player, 0.0f, 2.5f, 1.0f);
-                if (player.hasInfiniteMaterials()) {
-                    tridentEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-                }
-                world.playSound(null, tridentEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
-                return true;
+        player.stopUsingItem();
+        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+        stack.hurtWithoutBreaking(1, player);
+        if (f == 0.0f) {
+            ItemStack itemStack = stack.consumeAndReturn(1, player);
+            ThrownTouhouTrident tridentEntity = Projectile.spawnProjectileFromRotation(ThrownTouhouTrident::new, world, itemStack, player, 0.0f, 2.5f, 1.0f);
+            if (player.hasInfiniteMaterials()) {
+                tridentEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
             }
-        }
-        if (f > 0.0f) {
+            world.playSound(null, tridentEntity, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        } else {
             float g = player.getYRot();
             float h = player.getXRot();
             float j = -Mth.sin(g * ((float) Math.PI / 180)) * Mth.cos(h * ((float) Math.PI / 180));
@@ -98,13 +97,12 @@ public class Gungnir extends SpearItem implements ProjectileItem {
             player.push(j *= f / m, k *= f / m, l *= f / m);
             player.startAutoSpinAttack(20, 8.0f, stack);
             if (player.onGround()) {
-                float n = 1.1999999f;
                 player.move(MoverType.SELF, new Vec3(0.0, 1.1999999284744263, 0.0));
             }
             world.playSound(null, player, registryEntry.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
-            return true;
         }
-        return false;
+        player.onAttack();
+        player.swing(hand, true);
     }
 
     @Override
@@ -122,7 +120,7 @@ public class Gungnir extends SpearItem implements ProjectileItem {
 
     @Override
     public Projectile asProjectile(Level world, Position pos, ItemStack stack, Direction direction) {
-        ThrownTrident tridentEntity = new ThrownTrident(world, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1));
+        ThrownTouhouTrident tridentEntity = new ThrownTouhouTrident(world, pos.x(), pos.y(), pos.z(), stack.copyWithCount(1));
         tridentEntity.pickup = AbstractArrow.Pickup.ALLOWED;
         return tridentEntity;
     }

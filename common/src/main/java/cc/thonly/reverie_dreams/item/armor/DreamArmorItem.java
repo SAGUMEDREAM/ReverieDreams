@@ -2,30 +2,20 @@ package cc.thonly.reverie_dreams.item.armor;
 
 import cc.thonly.reverie_dreams.armor.DreamArmorMaterial;
 import cc.thonly.reverie_dreams.item.base.ArmorItem;
-import cc.thonly.reverie_dreams.util.entity.EquipmentSlotHelper;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
+import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorType;
-import org.jetbrains.annotations.Nullable;
 
 public class DreamArmorItem extends ArmorItem {
     public DreamArmorItem(ArmorType type, Properties settings) {
         super(DreamArmorMaterial.INSTANCE, type, settings);
     }
 
-    @Override
-    public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot slot) {
-        super.inventoryTick(itemStack, serverLevel, entity, slot);
-        if (EquipmentSlotHelper.isArmorSlot(slot) && entity instanceof LivingEntity livingEntity) {
-            if (!livingEntity.hasEffect(MobEffects.REGENERATION)) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20, 0, true, false, true));
-            }
-        }
+    public static boolean wearsFullSet(LivingEntity wearer) {
+        return wearer.getItemBySlot(EquipmentSlot.CHEST).is(RDItems.DREAM_CHESTPLATE.asItem())
+                && wearer.getItemBySlot(EquipmentSlot.HEAD).is(RDItems.DREAM_HELMET.asItem())
+                && wearer.getItemBySlot(EquipmentSlot.LEGS).is(RDItems.DREAM_LEGGINGS.asItem())
+                && wearer.getItemBySlot(EquipmentSlot.FEET).is(RDItems.DREAM_BOOTS.asItem());
     }
-
 }

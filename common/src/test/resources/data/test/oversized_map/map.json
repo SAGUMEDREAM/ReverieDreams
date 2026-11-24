@@ -1,0 +1,9 @@
+{
+  "format_version": 1,
+  "map_version": 2,
+  "width": 32768,
+  "depth": 32768,
+  "min_y": 0,
+  "world_height": 1536,
+  "sea_level": 1024
+}

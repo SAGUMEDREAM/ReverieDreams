@@ -8,6 +8,10 @@ import net.minecraft.world.level.material.PushReaction;
 public class RDPlantBlocks {
 
     public static void initialize() {
+        RDLandmarkBlocks.initialize();
+        RDBambooBlocks.initialize();
+        RDBambooForestBlocks.initialize();
+        RDMagicForestBlocks.initialize();
 
     }
 

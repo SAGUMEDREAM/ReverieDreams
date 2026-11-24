@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.entity;
 
-import cc.thonly.reverie_dreams.polymer.entity.inf.PolymerHolderEntity;
+import cc.thonly.reverie_dreams.polymer.entity.bridge.PolymerHolderEntity;
 import cc.thonly.reverie_dreams.polymer.helper.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.polymer.entity.holder.MagicBroomHolder;
 import cc.thonly.reverie_dreams.entity.misc.MagicBroom;
@@ -27,7 +27,7 @@ public record MagicBroomImpl(MagicBroom source) implements PolymerEntity, Polyme
 
     public MagicBroomImpl {
         if (!source.level().isClientSide()) {
-            PolymerEntityHelper.addEntityHolderModel(this);
+            PolymerEntityHelper.addEntityHolderModel(this, source);
         }
 
     }

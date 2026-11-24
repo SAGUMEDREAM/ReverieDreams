@@ -3,10 +3,10 @@ package cc.thonly.reverie_dreams.entity.variant;
 import cc.thonly.reverie_dreams.api.entity.type.SimpleVariant;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
-import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class YouseiVariant implements SerializableProvider<YouseiVariant>, Regis
     private Identifier id;
     private int number;
     private SkinType skinType;
-    private RegistryProvider<YouseiVariant> owner;
+    private RegistryProviderLookup<YouseiVariant> owner;
 
     private YouseiVariant() {
     }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "reverie_dreams:block/soy_beans_stage0"
+  }
+}

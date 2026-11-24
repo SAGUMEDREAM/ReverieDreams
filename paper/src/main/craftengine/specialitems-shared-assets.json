@@ -1,0 +1,37 @@
+{
+  "models": [
+    "assets/reverie_dreams/models/item/yin-yang_orb.json",
+    "assets/reverie_dreams/models/item/satori_eye.json",
+    "assets/reverie_dreams/models/item/crossing_chisel.json",
+    "assets/reverie_dreams/models/item/time_stop_clock.json",
+    "assets/reverie_dreams/models/item/papilio_pattern_fan.json",
+    "assets/reverie_dreams/models/item/maple_leaf_fan.json",
+    "assets/reverie_dreams/models/item/death_scythe.json"
+  ],
+  "source_models": [
+    "assets/reverie_dreams/models/item/hakuroken.json",
+    "assets/reverie_dreams/models/item/rokanken.json",
+    "assets/reverie_dreams/models/item/iron_bar.json",
+    "assets/reverie_dreams/models/item/oni_iron_bar.json",
+    "assets/reverie_dreams/models/item/levatin_staff.json",
+    "assets/reverie_dreams/models/item/levatin_staff_gui.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/item/crossing_chisel.png",
+    "assets/reverie_dreams/textures/item/death_scythe.png",
+    "assets/reverie_dreams/textures/item/iron_bar.png",
+    "assets/reverie_dreams/textures/item/katana.png",
+    "assets/reverie_dreams/textures/item/levatin.png",
+    "assets/reverie_dreams/textures/item/maple_leaf_fan.png",
+    "assets/reverie_dreams/textures/item/oni_iron_bar.png",
+    "assets/reverie_dreams/textures/item/papilio_pattern_fan.png",
+    "assets/reverie_dreams/textures/item/satori_eye.png",
+    "assets/reverie_dreams/textures/item/time_stop_clock.png",
+    "assets/reverie_dreams/textures/item/yin-yang_orb.png",
+    "assets/reverie_dreams/textures/item/levatin_atlas.png",
+    "assets/reverie_dreams/textures/item/levatin_staff_gui.png"
+  ],
+  "sounds": [
+    "assets/reverie_dreams/sounds/spell_card.ogg"
+  ]
+}

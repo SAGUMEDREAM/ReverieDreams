@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.entity;
 
-import cc.thonly.reverie_dreams.block.kitchen.ChairBlock;
+import cc.thonly.reverie_dreams.block.base.SeatBlock;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -44,7 +45,7 @@ public class SeatEntity extends Entity {
             this.checkTick = 5;
 
             BlockPos pos = this.blockPosition();
-            if (!(this.level().getBlockState(pos).getBlock() instanceof ChairBlock)) {
+            if (!(this.level().getBlockState(pos).getBlock() instanceof SeatBlock)) {
                 this.discard();
                 return;
             }
@@ -58,14 +59,12 @@ public class SeatEntity extends Entity {
         super.removePassenger(passenger);
 
         BlockPos pos = this.blockPosition();
+        BlockState state = this.level().getBlockState(pos);
 
-        if (this.level().getBlockState(pos).getBlock()
-                instanceof ChairBlock) {
-
+        if (state.getBlock() instanceof SeatBlock && state.hasProperty(SeatBlock.OCCUPIED)) {
             this.level().setBlock(
                     pos,
-                    this.level().getBlockState(pos)
-                        .setValue(ChairBlock.OCCUPIED, false),
+                    state.setValue(SeatBlock.OCCUPIED, false),
                     Block.UPDATE_ALL
             );
         }

@@ -1,12 +1,9 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "#": "reverie_dreams:soy_beans_seeds"
-  },
-  "pattern": [
-    "##",
-    "##"
+  "ingredients": [
+    "reverie_dreams:ingredient/soy_milk",
+    "reverie_dreams:ingredient/black_salt"
   ],
   "result": {
     "id": "reverie_dreams:ingredient/tofu"

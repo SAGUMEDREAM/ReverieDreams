@@ -1,0 +1,40 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:wool",
+      "required": false
+    },
+    "reverie_dreams:white_wool_slab",
+    "reverie_dreams:white_wool_stairs",
+    "reverie_dreams:orange_wool_slab",
+    "reverie_dreams:orange_wool_stairs",
+    "reverie_dreams:magenta_wool_slab",
+    "reverie_dreams:magenta_wool_stairs",
+    "reverie_dreams:light_blue_wool_slab",
+    "reverie_dreams:light_blue_wool_stairs",
+    "reverie_dreams:yellow_wool_slab",
+    "reverie_dreams:yellow_wool_stairs",
+    "reverie_dreams:lime_wool_slab",
+    "reverie_dreams:lime_wool_stairs",
+    "reverie_dreams:pink_wool_slab",
+    "reverie_dreams:pink_wool_stairs",
+    "reverie_dreams:gray_wool_slab",
+    "reverie_dreams:gray_wool_stairs",
+    "reverie_dreams:light_gray_wool_slab",
+    "reverie_dreams:light_gray_wool_stairs",
+    "reverie_dreams:cyan_wool_slab",
+    "reverie_dreams:cyan_wool_stairs",
+    "reverie_dreams:purple_wool_slab",
+    "reverie_dreams:purple_wool_stairs",
+    "reverie_dreams:blue_wool_slab",
+    "reverie_dreams:blue_wool_stairs",
+    "reverie_dreams:brown_wool_slab",
+    "reverie_dreams:brown_wool_stairs",
+    "reverie_dreams:green_wool_slab",
+    "reverie_dreams:green_wool_stairs",
+    "reverie_dreams:red_wool_slab",
+    "reverie_dreams:red_wool_stairs",
+    "reverie_dreams:black_wool_slab",
+    "reverie_dreams:black_wool_stairs"
+  ]
+}

@@ -1,0 +1,2632 @@
+# Minecraft26.1.2 / CraftEngine26.8.2. Native plants; see migration/full-plants.md.
+items:
+  reverie_dreams:spiritual_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.spiritual_leaves>
+    model:
+      type: minecraft:model
+      tints:
+      - type: minecraft:constant
+        value: -12012264
+      path: reverie_dreams:block/spiritual_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:spiritual_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:spiritual_sapling:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.spiritual_sapling>
+    model: reverie_dreams:item/spiritual_sapling
+    behavior:
+      type: block_item
+      block: reverie_dreams:spiritual_sapling
+    settings:
+      tags:
+      - minecraft:saplings
+      fuel_time: 100
+  reverie_dreams:lemon_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.lemon_leaves>
+    model:
+      type: minecraft:model
+      tints:
+      - type: minecraft:constant
+        value: -12012264
+      path: reverie_dreams:block/lemon_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:lemon_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:lemon_sapling:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.lemon_sapling>
+    model: reverie_dreams:item/lemon_sapling
+    behavior:
+      type: block_item
+      block: reverie_dreams:lemon_sapling
+    settings:
+      tags:
+      - minecraft:saplings
+      fuel_time: 100
+  reverie_dreams:ginkgo_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.ginkgo_leaves>
+    model:
+      type: minecraft:model
+      tints:
+      - type: minecraft:constant
+        value: -12012264
+      path: reverie_dreams:block/ginkgo_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:ginkgo_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:ginkgo_sapling:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.ginkgo_sapling>
+    model: reverie_dreams:item/ginkgo_sapling
+    behavior:
+      type: block_item
+      block: reverie_dreams:ginkgo_sapling
+    settings:
+      tags:
+      - minecraft:saplings
+      fuel_time: 100
+  reverie_dreams:peach_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.peach_leaves>
+    model:
+      type: minecraft:model
+      tints:
+      - type: minecraft:constant
+        value: -12012264
+      path: reverie_dreams:block/peach_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:peach_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:peach_sapling:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.peach_sapling>
+    model: reverie_dreams:item/peach_sapling
+    behavior:
+      type: block_item
+      block: reverie_dreams:peach_sapling
+    settings:
+      tags:
+      - minecraft:saplings
+      fuel_time: 100
+  reverie_dreams:iroha_maple_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.iroha_maple_leaves>
+    model:
+      type: minecraft:model
+      tints:
+      - type: minecraft:constant
+        value: -37820
+      path: reverie_dreams:block/iroha_maple_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:iroha_maple_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:iroha_maple_sapling:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.iroha_maple_sapling>
+    model: reverie_dreams:item/iroha_maple_sapling
+    behavior:
+      type: block_item
+      block: reverie_dreams:iroha_maple_sapling
+    settings:
+      tags:
+      - minecraft:saplings
+      fuel_time: 100
+  reverie_dreams:itaya_maple_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.itaya_maple_leaves>
+    model:
+      type: minecraft:model
+      tints:
+      - type: minecraft:constant
+        value: -8839
+      path: reverie_dreams:block/itaya_maple_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:itaya_maple_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:itaya_maple_sapling:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.itaya_maple_sapling>
+    model: reverie_dreams:item/itaya_maple_sapling
+    behavior:
+      type: block_item
+      block: reverie_dreams:itaya_maple_sapling
+    settings:
+      tags:
+      - minecraft:saplings
+      fuel_time: 100
+  reverie_dreams:hauchiwa_maple_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.hauchiwa_maple_leaves>
+    model:
+      type: minecraft:model
+      tints:
+      - type: minecraft:constant
+        value: -24220
+      path: reverie_dreams:block/hauchiwa_maple_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:hauchiwa_maple_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:hauchiwa_maple_sapling:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.hauchiwa_maple_sapling>
+    model: reverie_dreams:item/hauchiwa_maple_sapling
+    behavior:
+      type: block_item
+      block: reverie_dreams:hauchiwa_maple_sapling
+    settings:
+      tags:
+      - minecraft:saplings
+      fuel_time: 100
+  reverie_dreams:lemon_fruit_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.lemon_fruit_leaves>
+    model: reverie_dreams:block/lemon_fruit_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:lemon_fruit_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:ginkgo_fruit_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.ginkgo_fruit_leaves>
+    model: reverie_dreams:block/ginkgo_fruit_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:ginkgo_fruit_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:peach_fruit_leaves:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.peach_fruit_leaves>
+    model: reverie_dreams:block/peach_fruit_leaves
+    behavior:
+      type: block_item
+      block: reverie_dreams:peach_fruit_leaves
+    settings:
+      tags:
+      - minecraft:leaves
+  reverie_dreams:iroha_maple_leaf_litter:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.iroha_maple_leaf_litter>
+    model: reverie_dreams:item/iroha_maple_leaf_litter
+    behavior:
+      type: block_item
+      block: reverie_dreams:iroha_maple_leaf_litter
+  reverie_dreams:itaya_maple_leaf_litter:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.itaya_maple_leaf_litter>
+    model: reverie_dreams:item/itaya_maple_leaf_litter
+    behavior:
+      type: block_item
+      block: reverie_dreams:itaya_maple_leaf_litter
+  reverie_dreams:hauchiwa_maple_leaf_litter:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.hauchiwa_maple_leaf_litter>
+    model: reverie_dreams:item/hauchiwa_maple_leaf_litter
+    behavior:
+      type: block_item
+      block: reverie_dreams:hauchiwa_maple_leaf_litter
+  reverie_dreams:udumbara_flower:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.udumbara_flower>
+    model: reverie_dreams:item/udumbara_flower
+    behavior:
+      type: block_item
+      block: reverie_dreams:udumbara_flower
+  reverie_dreams:tremella:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.tremella>
+    model: reverie_dreams:item/tremella
+    behavior:
+      type: block_item
+      block: reverie_dreams:tremella
+blocks:
+  reverie_dreams:spiritual_leaves:
+    settings:
+      item: reverie_dreams:spiritual_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behavior:
+      type: leaves_block
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+      appearances:
+        dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/spiritual_leaves_world
+        wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/spiritual_leaves_world
+      variants:
+        waterlogged=false:
+          appearance: dry
+        waterlogged=true:
+          appearance: wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:spiritual_leaves
+            conditions:
+            - type: any_of
+              terms:
+              - type: match_item
+                id: minecraft:shears
+              - type: enchantment
+                predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:spiritual_sapling
+            conditions:
+            - type: survives_explosion
+            - type: table_bonus
+              enchantment: minecraft:fortune
+              chances:
+              - 0.05
+              - 0.0625
+              - 0.083333336
+              - 0.1
+      - rolls: 1
+        conditions:
+        - type: inverted
+          term:
+            type: any_of
+            terms:
+            - type: match_item
+              id: minecraft:shears
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+        entries:
+        - type: item
+          item: minecraft:stick
+          conditions:
+          - type: table_bonus
+            enchantment: minecraft:fortune
+            chances:
+            - 0.02
+            - 0.022222223
+            - 0.025
+            - 0.033333335
+            - 0.1
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+          - type: explosion_decay
+  reverie_dreams:lemon_leaves:
+    settings:
+      item: reverie_dreams:lemon_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behavior:
+      type: leaves_block
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+      appearances:
+        dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/lemon_leaves_world
+        wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/lemon_leaves_world
+      variants:
+        waterlogged=false:
+          appearance: dry
+        waterlogged=true:
+          appearance: wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:lemon_leaves
+            conditions:
+            - type: any_of
+              terms:
+              - type: match_item
+                id: minecraft:shears
+              - type: enchantment
+                predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:lemon_sapling
+            conditions:
+            - type: survives_explosion
+            - type: table_bonus
+              enchantment: minecraft:fortune
+              chances:
+              - 0.05
+              - 0.0625
+              - 0.083333336
+              - 0.1
+      - rolls: 1
+        conditions:
+        - type: inverted
+          term:
+            type: any_of
+            terms:
+            - type: match_item
+              id: minecraft:shears
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+        entries:
+        - type: item
+          item: minecraft:stick
+          conditions:
+          - type: table_bonus
+            enchantment: minecraft:fortune
+            chances:
+            - 0.02
+            - 0.022222223
+            - 0.025
+            - 0.033333335
+            - 0.1
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+          - type: explosion_decay
+  reverie_dreams:ginkgo_leaves:
+    settings:
+      item: reverie_dreams:ginkgo_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behavior:
+      type: leaves_block
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+      appearances:
+        dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/ginkgo_leaves_world
+        wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/ginkgo_leaves_world
+      variants:
+        waterlogged=false:
+          appearance: dry
+        waterlogged=true:
+          appearance: wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:ginkgo_leaves
+            conditions:
+            - type: any_of
+              terms:
+              - type: match_item
+                id: minecraft:shears
+              - type: enchantment
+                predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:ginkgo_sapling
+            conditions:
+            - type: survives_explosion
+            - type: table_bonus
+              enchantment: minecraft:fortune
+              chances:
+              - 0.05
+              - 0.0625
+              - 0.083333336
+              - 0.1
+      - rolls: 1
+        conditions:
+        - type: inverted
+          term:
+            type: any_of
+            terms:
+            - type: match_item
+              id: minecraft:shears
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+        entries:
+        - type: item
+          item: minecraft:stick
+          conditions:
+          - type: table_bonus
+            enchantment: minecraft:fortune
+            chances:
+            - 0.02
+            - 0.022222223
+            - 0.025
+            - 0.033333335
+            - 0.1
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+          - type: explosion_decay
+  reverie_dreams:peach_leaves:
+    settings:
+      item: reverie_dreams:peach_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behavior:
+      type: leaves_block
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+      appearances:
+        dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/peach_leaves_world
+        wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/peach_leaves_world
+      variants:
+        waterlogged=false:
+          appearance: dry
+        waterlogged=true:
+          appearance: wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:peach_leaves
+            conditions:
+            - type: any_of
+              terms:
+              - type: match_item
+                id: minecraft:shears
+              - type: enchantment
+                predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:peach_sapling
+            conditions:
+            - type: survives_explosion
+            - type: table_bonus
+              enchantment: minecraft:fortune
+              chances:
+              - 0.05
+              - 0.0625
+              - 0.083333336
+              - 0.1
+      - rolls: 1
+        conditions:
+        - type: inverted
+          term:
+            type: any_of
+            terms:
+            - type: match_item
+              id: minecraft:shears
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+        entries:
+        - type: item
+          item: minecraft:stick
+          conditions:
+          - type: table_bonus
+            enchantment: minecraft:fortune
+            chances:
+            - 0.02
+            - 0.022222223
+            - 0.025
+            - 0.033333335
+            - 0.1
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+          - type: explosion_decay
+  reverie_dreams:iroha_maple_leaves:
+    settings:
+      item: reverie_dreams:iroha_maple_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behavior:
+      type: leaves_block
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+      appearances:
+        dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaves_world
+        wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaves_world
+      variants:
+        waterlogged=false:
+          appearance: dry
+        waterlogged=true:
+          appearance: wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:iroha_maple_leaves
+            conditions:
+            - type: any_of
+              terms:
+              - type: match_item
+                id: minecraft:shears
+              - type: enchantment
+                predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:iroha_maple_sapling
+            conditions:
+            - type: survives_explosion
+            - type: table_bonus
+              enchantment: minecraft:fortune
+              chances:
+              - 0.05
+              - 0.0625
+              - 0.083333336
+              - 0.1
+      - rolls: 1
+        conditions:
+        - type: inverted
+          term:
+            type: any_of
+            terms:
+            - type: match_item
+              id: minecraft:shears
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+        entries:
+        - type: item
+          item: minecraft:stick
+          conditions:
+          - type: table_bonus
+            enchantment: minecraft:fortune
+            chances:
+            - 0.02
+            - 0.022222223
+            - 0.025
+            - 0.033333335
+            - 0.1
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+          - type: explosion_decay
+  reverie_dreams:itaya_maple_leaves:
+    settings:
+      item: reverie_dreams:itaya_maple_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behavior:
+      type: leaves_block
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+      appearances:
+        dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaves_world
+        wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaves_world
+      variants:
+        waterlogged=false:
+          appearance: dry
+        waterlogged=true:
+          appearance: wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:itaya_maple_leaves
+            conditions:
+            - type: any_of
+              terms:
+              - type: match_item
+                id: minecraft:shears
+              - type: enchantment
+                predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:itaya_maple_sapling
+            conditions:
+            - type: survives_explosion
+            - type: table_bonus
+              enchantment: minecraft:fortune
+              chances:
+              - 0.05
+              - 0.0625
+              - 0.083333336
+              - 0.1
+      - rolls: 1
+        conditions:
+        - type: inverted
+          term:
+            type: any_of
+            terms:
+            - type: match_item
+              id: minecraft:shears
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+        entries:
+        - type: item
+          item: minecraft:stick
+          conditions:
+          - type: table_bonus
+            enchantment: minecraft:fortune
+            chances:
+            - 0.02
+            - 0.022222223
+            - 0.025
+            - 0.033333335
+            - 0.1
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+          - type: explosion_decay
+  reverie_dreams:hauchiwa_maple_leaves:
+    settings:
+      item: reverie_dreams:hauchiwa_maple_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behavior:
+      type: leaves_block
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+      appearances:
+        dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaves_world
+        wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaves_world
+      variants:
+        waterlogged=false:
+          appearance: dry
+        waterlogged=true:
+          appearance: wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: alternatives
+          children:
+          - type: item
+            item: reverie_dreams:hauchiwa_maple_leaves
+            conditions:
+            - type: any_of
+              terms:
+              - type: match_item
+                id: minecraft:shears
+              - type: enchantment
+                predicate: minecraft:silk_touch>=1
+          - type: item
+            item: reverie_dreams:hauchiwa_maple_sapling
+            conditions:
+            - type: survives_explosion
+            - type: table_bonus
+              enchantment: minecraft:fortune
+              chances:
+              - 0.05
+              - 0.0625
+              - 0.083333336
+              - 0.1
+      - rolls: 1
+        conditions:
+        - type: inverted
+          term:
+            type: any_of
+            terms:
+            - type: match_item
+              id: minecraft:shears
+            - type: enchantment
+              predicate: minecraft:silk_touch>=1
+        entries:
+        - type: item
+          item: minecraft:stick
+          conditions:
+          - type: table_bonus
+            enchantment: minecraft:fortune
+            chances:
+            - 0.02
+            - 0.022222223
+            - 0.025
+            - 0.033333335
+            - 0.1
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+          - type: explosion_decay
+  reverie_dreams:lemon_fruit_leaves:
+    settings:
+      item: reverie_dreams:lemon_fruit_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behaviors:
+    - type: leaves_block
+    - type: reverie_dreams:fruit_leaves
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+        fruit_age:
+          type: int
+          min: 0
+          max: 3
+          default: 3
+      appearances:
+        young_dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/lemon_leaves_world
+        young_wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/lemon_leaves_world
+        mature_dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/lemon_fruit_leaves_world
+        mature_wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/lemon_fruit_leaves_world
+      variants:
+        fruit_age=0,waterlogged=false:
+          appearance: young_dry
+        fruit_age=0,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=1,waterlogged=false:
+          appearance: young_dry
+        fruit_age=1,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=2,waterlogged=false:
+          appearance: young_dry
+        fruit_age=2,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=3,waterlogged=false:
+          appearance: mature_dry
+        fruit_age=3,waterlogged=true:
+          appearance: mature_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:lemon_sapling
+  reverie_dreams:ginkgo_fruit_leaves:
+    settings:
+      item: reverie_dreams:ginkgo_fruit_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behaviors:
+    - type: leaves_block
+    - type: reverie_dreams:fruit_leaves
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+        fruit_age:
+          type: int
+          min: 0
+          max: 3
+          default: 3
+      appearances:
+        young_dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/ginkgo_leaves_world
+        young_wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/ginkgo_leaves_world
+        mature_dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/ginkgo_fruit_leaves_world
+        mature_wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/ginkgo_fruit_leaves_world
+      variants:
+        fruit_age=0,waterlogged=false:
+          appearance: young_dry
+        fruit_age=0,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=1,waterlogged=false:
+          appearance: young_dry
+        fruit_age=1,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=2,waterlogged=false:
+          appearance: young_dry
+        fruit_age=2,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=3,waterlogged=false:
+          appearance: mature_dry
+        fruit_age=3,waterlogged=true:
+          appearance: mature_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:ginkgo_sapling
+  reverie_dreams:peach_fruit_leaves:
+    settings:
+      item: reverie_dreams:peach_fruit_leaves
+      hardness: 0.2
+      resistance: 0.2
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:leaves
+      - minecraft:mineable/axe
+      - minecraft:replaceable_by_trees
+      is_randomly_ticking: true
+      burnable: true
+      burn_chance: 30
+      fire_spread_chance: 60
+      light_block: 1
+    behaviors:
+    - type: leaves_block
+    - type: reverie_dreams:fruit_leaves
+    state:
+      properties:
+        distance:
+          type: int
+          min: 1
+          max: 7
+          default: 7
+        persistent:
+          type: boolean
+          default: true
+        waterlogged:
+          type: boolean
+          default: false
+        fruit_age:
+          type: int
+          min: 0
+          max: 3
+          default: 3
+      appearances:
+        young_dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/peach_leaves_world
+        young_wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/peach_leaves_world
+        mature_dry:
+          auto_state: non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/peach_fruit_leaves_world
+        mature_wet:
+          auto_state: waterlogged_non_tintable_leaves
+          model:
+            path: reverie_dreams:block/plants/peach_fruit_leaves_world
+      variants:
+        fruit_age=0,waterlogged=false:
+          appearance: young_dry
+        fruit_age=0,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=1,waterlogged=false:
+          appearance: young_dry
+        fruit_age=1,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=2,waterlogged=false:
+          appearance: young_dry
+        fruit_age=2,waterlogged=true:
+          appearance: young_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+        fruit_age=3,waterlogged=false:
+          appearance: mature_dry
+        fruit_age=3,waterlogged=true:
+          appearance: mature_wet
+          settings:
+            fluid_state: water
+            resistance: 1200.0
+            burnable: false
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:peach_sapling
+  reverie_dreams:spiritual_sapling:
+    settings:
+      item: reverie_dreams:spiritual_sapling
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:mineable/axe
+      - minecraft:saplings
+      is_randomly_ticking: true
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: sapling_block
+      feature: reverie_dreams:spiritual_tree
+      bone_meal_success_chance: 0.45
+      grow_speed: 0.14285714285714285
+      light_requirement: 9
+      max_light_requirement: 15
+    state:
+      properties:
+        stage:
+          type: int
+          min: 0
+          max: 1
+          default: 0
+      appearances:
+        default:
+          auto_state: sapling
+          model:
+            path: reverie_dreams:block/spiritual_sapling
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:spiritual_sapling
+  reverie_dreams:lemon_sapling:
+    settings:
+      item: reverie_dreams:lemon_sapling
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:mineable/axe
+      - minecraft:saplings
+      is_randomly_ticking: true
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: sapling_block
+      feature: reverie_dreams:lemon_tree
+      bone_meal_success_chance: 0.45
+      grow_speed: 0.14285714285714285
+      light_requirement: 9
+      max_light_requirement: 15
+    state:
+      properties:
+        stage:
+          type: int
+          min: 0
+          max: 1
+          default: 0
+      appearances:
+        default:
+          auto_state: sapling
+          model:
+            path: reverie_dreams:block/lemon_sapling
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:lemon_sapling
+  reverie_dreams:ginkgo_sapling:
+    settings:
+      item: reverie_dreams:ginkgo_sapling
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:mineable/axe
+      - minecraft:saplings
+      is_randomly_ticking: true
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: sapling_block
+      feature: reverie_dreams:ginkgo_tree
+      bone_meal_success_chance: 0.45
+      grow_speed: 0.14285714285714285
+      light_requirement: 9
+      max_light_requirement: 15
+    state:
+      properties:
+        stage:
+          type: int
+          min: 0
+          max: 1
+          default: 0
+      appearances:
+        default:
+          auto_state: sapling
+          model:
+            path: reverie_dreams:block/ginkgo_sapling
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:ginkgo_sapling
+  reverie_dreams:peach_sapling:
+    settings:
+      item: reverie_dreams:peach_sapling
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:mineable/axe
+      - minecraft:saplings
+      is_randomly_ticking: true
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: sapling_block
+      feature: reverie_dreams:peach_tree
+      bone_meal_success_chance: 0.45
+      grow_speed: 0.14285714285714285
+      light_requirement: 9
+      max_light_requirement: 15
+    state:
+      properties:
+        stage:
+          type: int
+          min: 0
+          max: 1
+          default: 0
+      appearances:
+        default:
+          auto_state: sapling
+          model:
+            path: reverie_dreams:block/peach_sapling
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:peach_sapling
+  reverie_dreams:iroha_maple_sapling:
+    settings:
+      item: reverie_dreams:iroha_maple_sapling
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:mineable/axe
+      - minecraft:saplings
+      is_randomly_ticking: true
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: sapling_block
+      feature: reverie_dreams:iroha_maple_tree
+      bone_meal_success_chance: 0.45
+      grow_speed: 0.14285714285714285
+      light_requirement: 9
+      max_light_requirement: 15
+    state:
+      properties:
+        stage:
+          type: int
+          min: 0
+          max: 1
+          default: 0
+      appearances:
+        default:
+          auto_state: sapling
+          model:
+            path: reverie_dreams:block/iroha_maple_sapling
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:iroha_maple_sapling
+  reverie_dreams:itaya_maple_sapling:
+    settings:
+      item: reverie_dreams:itaya_maple_sapling
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:mineable/axe
+      - minecraft:saplings
+      is_randomly_ticking: true
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: sapling_block
+      feature: reverie_dreams:itaya_maple_tree
+      bone_meal_success_chance: 0.45
+      grow_speed: 0.14285714285714285
+      light_requirement: 9
+      max_light_requirement: 15
+    state:
+      properties:
+        stage:
+          type: int
+          min: 0
+          max: 1
+          default: 0
+      appearances:
+        default:
+          auto_state: sapling
+          model:
+            path: reverie_dreams:block/itaya_maple_sapling
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:itaya_maple_sapling
+  reverie_dreams:hauchiwa_maple_sapling:
+    settings:
+      item: reverie_dreams:hauchiwa_maple_sapling
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags:
+      - minecraft:mineable/axe
+      - minecraft:saplings
+      is_randomly_ticking: true
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: sapling_block
+      feature: reverie_dreams:hauchiwa_maple_tree
+      bone_meal_success_chance: 0.45
+      grow_speed: 0.14285714285714285
+      light_requirement: 9
+      max_light_requirement: 15
+    state:
+      properties:
+        stage:
+          type: int
+          min: 0
+          max: 1
+          default: 0
+      appearances:
+        default:
+          auto_state: sapling
+          model:
+            path: reverie_dreams:block/hauchiwa_maple_sapling
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:hauchiwa_maple_sapling
+  reverie_dreams:iroha_maple_leaf_litter:
+    settings:
+      item: reverie_dreams:iroha_maple_leaf_litter
+      hardness: 0.1
+      resistance: 0.1
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.leaf_litter.break
+        fall: minecraft:block.leaf_litter.fall
+        hit: minecraft:block.leaf_litter.hit
+        place: minecraft:block.leaf_litter.place
+        step: minecraft:block.leaf_litter.step
+      tags:
+      - minecraft:mineable/axe
+      burnable: true
+      fire_spread_chance: 100
+      burn_chance: 60
+      replaceable: false
+    behaviors:
+    - type: liquid_flowable_block
+    - type: sturdy_base_block
+      direction: down
+      support_types:
+      - full
+    - type: stackable_block
+      property: segment_amount
+      items:
+      - reverie_dreams:iroha_maple_leaf_litter
+    state:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+        segment_amount:
+          type: int
+          min: 1
+          max: 4
+          default: 1
+      appearances:
+        north_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_1
+            y: 0
+        east_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_1
+            y: 90
+        south_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_1
+            y: 180
+        west_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_1
+            y: 270
+        north_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_2
+            y: 0
+        east_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_2
+            y: 90
+        south_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_2
+            y: 180
+        west_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_2
+            y: 270
+        north_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_3
+            y: 0
+        east_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_3
+            y: 90
+        south_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_3
+            y: 180
+        west_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_3
+            y: 270
+        north_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_4
+            y: 0
+        east_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_4
+            y: 90
+        south_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_4
+            y: 180
+        west_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/iroha_maple_leaf_litter_4
+            y: 270
+      variants:
+        facing=north,segment_amount=1:
+          appearance: north_1
+        facing=east,segment_amount=1:
+          appearance: east_1
+        facing=south,segment_amount=1:
+          appearance: south_1
+        facing=west,segment_amount=1:
+          appearance: west_1
+        facing=north,segment_amount=2:
+          appearance: north_2
+        facing=east,segment_amount=2:
+          appearance: east_2
+        facing=south,segment_amount=2:
+          appearance: south_2
+        facing=west,segment_amount=2:
+          appearance: west_2
+        facing=north,segment_amount=3:
+          appearance: north_3
+        facing=east,segment_amount=3:
+          appearance: east_3
+        facing=south,segment_amount=3:
+          appearance: south_3
+        facing=west,segment_amount=3:
+          appearance: west_3
+        facing=north,segment_amount=4:
+          appearance: north_4
+        facing=east,segment_amount=4:
+          appearance: east_4
+        facing=south,segment_amount=4:
+          appearance: south_4
+        facing=west,segment_amount=4:
+          appearance: west_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:iroha_maple_leaf_litter
+  reverie_dreams:itaya_maple_leaf_litter:
+    settings:
+      item: reverie_dreams:itaya_maple_leaf_litter
+      hardness: 0.1
+      resistance: 0.1
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.leaf_litter.break
+        fall: minecraft:block.leaf_litter.fall
+        hit: minecraft:block.leaf_litter.hit
+        place: minecraft:block.leaf_litter.place
+        step: minecraft:block.leaf_litter.step
+      tags:
+      - minecraft:mineable/axe
+      burnable: true
+      fire_spread_chance: 100
+      burn_chance: 60
+      replaceable: false
+    behaviors:
+    - type: liquid_flowable_block
+    - type: sturdy_base_block
+      direction: down
+      support_types:
+      - full
+    - type: stackable_block
+      property: segment_amount
+      items:
+      - reverie_dreams:itaya_maple_leaf_litter
+    state:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+        segment_amount:
+          type: int
+          min: 1
+          max: 4
+          default: 1
+      appearances:
+        north_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_1
+            y: 0
+        east_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_1
+            y: 90
+        south_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_1
+            y: 180
+        west_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_1
+            y: 270
+        north_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_2
+            y: 0
+        east_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_2
+            y: 90
+        south_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_2
+            y: 180
+        west_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_2
+            y: 270
+        north_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_3
+            y: 0
+        east_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_3
+            y: 90
+        south_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_3
+            y: 180
+        west_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_3
+            y: 270
+        north_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_4
+            y: 0
+        east_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_4
+            y: 90
+        south_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_4
+            y: 180
+        west_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/itaya_maple_leaf_litter_4
+            y: 270
+      variants:
+        facing=north,segment_amount=1:
+          appearance: north_1
+        facing=east,segment_amount=1:
+          appearance: east_1
+        facing=south,segment_amount=1:
+          appearance: south_1
+        facing=west,segment_amount=1:
+          appearance: west_1
+        facing=north,segment_amount=2:
+          appearance: north_2
+        facing=east,segment_amount=2:
+          appearance: east_2
+        facing=south,segment_amount=2:
+          appearance: south_2
+        facing=west,segment_amount=2:
+          appearance: west_2
+        facing=north,segment_amount=3:
+          appearance: north_3
+        facing=east,segment_amount=3:
+          appearance: east_3
+        facing=south,segment_amount=3:
+          appearance: south_3
+        facing=west,segment_amount=3:
+          appearance: west_3
+        facing=north,segment_amount=4:
+          appearance: north_4
+        facing=east,segment_amount=4:
+          appearance: east_4
+        facing=south,segment_amount=4:
+          appearance: south_4
+        facing=west,segment_amount=4:
+          appearance: west_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:itaya_maple_leaf_litter
+  reverie_dreams:hauchiwa_maple_leaf_litter:
+    settings:
+      item: reverie_dreams:hauchiwa_maple_leaf_litter
+      hardness: 0.1
+      resistance: 0.1
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.leaf_litter.break
+        fall: minecraft:block.leaf_litter.fall
+        hit: minecraft:block.leaf_litter.hit
+        place: minecraft:block.leaf_litter.place
+        step: minecraft:block.leaf_litter.step
+      tags:
+      - minecraft:mineable/axe
+      burnable: true
+      fire_spread_chance: 100
+      burn_chance: 60
+      replaceable: false
+    behaviors:
+    - type: liquid_flowable_block
+    - type: sturdy_base_block
+      direction: down
+      support_types:
+      - full
+    - type: stackable_block
+      property: segment_amount
+      items:
+      - reverie_dreams:hauchiwa_maple_leaf_litter
+    state:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+        segment_amount:
+          type: int
+          min: 1
+          max: 4
+          default: 1
+      appearances:
+        north_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_1
+            y: 0
+        east_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_1
+            y: 90
+        south_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_1
+            y: 180
+        west_1:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_1
+            y: 270
+        north_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_2
+            y: 0
+        east_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_2
+            y: 90
+        south_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_2
+            y: 180
+        west_2:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_2
+            y: 270
+        north_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_3
+            y: 0
+        east_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_3
+            y: 90
+        south_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_3
+            y: 180
+        west_3:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_3
+            y: 270
+        north_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_4
+            y: 0
+        east_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_4
+            y: 90
+        south_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_4
+            y: 180
+        west_4:
+          auto_state: higher_tripwire
+          model:
+            path: reverie_dreams:block/plants/hauchiwa_maple_leaf_litter_4
+            y: 270
+      variants:
+        facing=north,segment_amount=1:
+          appearance: north_1
+        facing=east,segment_amount=1:
+          appearance: east_1
+        facing=south,segment_amount=1:
+          appearance: south_1
+        facing=west,segment_amount=1:
+          appearance: west_1
+        facing=north,segment_amount=2:
+          appearance: north_2
+        facing=east,segment_amount=2:
+          appearance: east_2
+        facing=south,segment_amount=2:
+          appearance: south_2
+        facing=west,segment_amount=2:
+          appearance: west_2
+        facing=north,segment_amount=3:
+          appearance: north_3
+        facing=east,segment_amount=3:
+          appearance: east_3
+        facing=south,segment_amount=3:
+          appearance: south_3
+        facing=west,segment_amount=3:
+          appearance: west_3
+        facing=north,segment_amount=4:
+          appearance: north_4
+        facing=east,segment_amount=4:
+          appearance: east_4
+        facing=south,segment_amount=4:
+          appearance: south_4
+        facing=west,segment_amount=4:
+          appearance: west_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:hauchiwa_maple_leaf_litter
+  reverie_dreams:udumbara_flower:
+    settings:
+      item: reverie_dreams:udumbara_flower
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    - type: reverie_dreams:fertilizable_flower
+    state:
+      auto_state: sugar_cane
+      model:
+        path: reverie_dreams:block/udumbara_flower
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:udumbara_flower
+  reverie_dreams:tremella:
+    settings:
+      item: reverie_dreams:tremella
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: destroy
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behaviors:
+    - type: liquid_flowable_block
+    - type: bush_block
+      bottom_block_tags:
+      - minecraft:supports_vegetation
+    state:
+      auto_state: sugar_cane
+      model:
+        path: reverie_dreams:block/tremella
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:tremella
+configured_features:
+  reverie_dreams:spiritual_tree:
+    type: minecraft:tree
+    config:
+      below_trunk_provider:
+        type: minecraft:rule_based_state_provider
+        rules:
+        - if_true:
+            type: minecraft:not
+            predicate:
+              type: minecraft:matching_block_tag
+              tag: minecraft:cannot_replace_below_tree_trunk
+          then:
+            type: minecraft:simple_state_provider
+            state:
+              Name: minecraft:dirt
+      decorators: []
+      foliage_placer:
+        type: minecraft:blob_foliage_placer
+        height: 2
+        offset: 2
+        radius: 4
+      foliage_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:spiritual_leaves
+          Properties:
+            distance: '7'
+            persistent: 'false'
+            waterlogged: 'false'
+      ignore_vines: false
+      minimum_size:
+        type: minecraft:two_layers_feature_size
+        limit: 1
+        lower_size: 0
+        upper_size: 2
+      trunk_placer:
+        type: minecraft:straight_trunk_placer
+        base_height: 5
+        height_rand_a: 2
+        height_rand_b: 1
+      trunk_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:spiritual_log
+          Properties:
+            axis: y
+  reverie_dreams:lemon_tree:
+    type: minecraft:tree
+    config:
+      below_trunk_provider:
+        type: minecraft:rule_based_state_provider
+        rules:
+        - if_true:
+            type: minecraft:not
+            predicate:
+              type: minecraft:matching_block_tag
+              tag: minecraft:cannot_replace_below_tree_trunk
+          then:
+            type: minecraft:simple_state_provider
+            state:
+              Name: minecraft:dirt
+      decorators: []
+      foliage_placer:
+        type: minecraft:blob_foliage_placer
+        height: 2
+        offset: 2
+        radius: 3
+      foliage_provider:
+        type: minecraft:weighted_state_provider
+        entries:
+        - data:
+            Name: reverie_dreams:lemon_leaves
+            Properties:
+              distance: '7'
+              persistent: 'false'
+              waterlogged: 'false'
+          weight: 3
+        - data:
+            Name: reverie_dreams:lemon_fruit_leaves
+            Properties:
+              distance: '7'
+              fruit_age: '3'
+              persistent: 'true'
+              waterlogged: 'false'
+          weight: 1
+      ignore_vines: false
+      minimum_size:
+        type: minecraft:two_layers_feature_size
+        limit: 1
+        lower_size: 0
+        upper_size: 2
+      trunk_placer:
+        type: minecraft:bending_trunk_placer
+        base_height: 2
+        bend_length:
+          type: minecraft:uniform
+          max_inclusive: 1
+          min_inclusive: 1
+        height_rand_a: 1
+        height_rand_b: 2
+        min_height_for_leaves: 2
+      trunk_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:lemon_log
+          Properties:
+            axis: y
+  reverie_dreams:ginkgo_tree:
+    type: minecraft:tree
+    config:
+      below_trunk_provider:
+        type: minecraft:rule_based_state_provider
+        rules:
+        - if_true:
+            type: minecraft:not
+            predicate:
+              type: minecraft:matching_block_tag
+              tag: minecraft:cannot_replace_below_tree_trunk
+          then:
+            type: minecraft:simple_state_provider
+            state:
+              Name: minecraft:dirt
+      decorators: []
+      foliage_placer:
+        type: minecraft:blob_foliage_placer
+        height: 2
+        offset: 2
+        radius: 3
+      foliage_provider:
+        type: minecraft:weighted_state_provider
+        entries:
+        - data:
+            Name: reverie_dreams:ginkgo_leaves
+            Properties:
+              distance: '7'
+              persistent: 'false'
+              waterlogged: 'false'
+          weight: 3
+        - data:
+            Name: reverie_dreams:ginkgo_fruit_leaves
+            Properties:
+              distance: '7'
+              fruit_age: '3'
+              persistent: 'true'
+              waterlogged: 'false'
+          weight: 1
+      ignore_vines: false
+      minimum_size:
+        type: minecraft:two_layers_feature_size
+        limit: 1
+        lower_size: 0
+        upper_size: 2
+      trunk_placer:
+        type: minecraft:straight_trunk_placer
+        base_height: 3
+        height_rand_a: 1
+        height_rand_b: 0
+      trunk_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:lemon_log
+          Properties:
+            axis: y
+  reverie_dreams:peach_tree:
+    type: minecraft:tree
+    config:
+      below_trunk_provider:
+        type: minecraft:rule_based_state_provider
+        rules:
+        - if_true:
+            type: minecraft:not
+            predicate:
+              type: minecraft:matching_block_tag
+              tag: minecraft:cannot_replace_below_tree_trunk
+          then:
+            type: minecraft:simple_state_provider
+            state:
+              Name: minecraft:dirt
+      decorators: []
+      foliage_placer:
+        type: minecraft:blob_foliage_placer
+        height: 2
+        offset: 2
+        radius: 3
+      foliage_provider:
+        type: minecraft:weighted_state_provider
+        entries:
+        - data:
+            Name: reverie_dreams:peach_leaves
+            Properties:
+              distance: '7'
+              persistent: 'false'
+              waterlogged: 'false'
+          weight: 3
+        - data:
+            Name: reverie_dreams:peach_fruit_leaves
+            Properties:
+              distance: '7'
+              fruit_age: '3'
+              persistent: 'true'
+              waterlogged: 'false'
+          weight: 1
+      ignore_vines: false
+      minimum_size:
+        type: minecraft:two_layers_feature_size
+        limit: 1
+        lower_size: 0
+        upper_size: 2
+      trunk_placer:
+        type: minecraft:straight_trunk_placer
+        base_height: 2
+        height_rand_a: 1
+        height_rand_b: 1
+      trunk_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:peach_log
+          Properties:
+            axis: y
+  reverie_dreams:iroha_maple_tree:
+    type: minecraft:tree
+    config:
+      below_trunk_provider:
+        type: minecraft:rule_based_state_provider
+        rules:
+        - if_true:
+            type: minecraft:not
+            predicate:
+              type: minecraft:matching_block_tag
+              tag: minecraft:cannot_replace_below_tree_trunk
+          then:
+            type: minecraft:simple_state_provider
+            state:
+              Name: minecraft:dirt
+      decorators: []
+      foliage_placer:
+        type: minecraft:blob_foliage_placer
+        height: 2
+        offset: 2
+        radius: 3
+      foliage_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:iroha_maple_leaves
+          Properties:
+            distance: '7'
+            persistent: 'false'
+            waterlogged: 'false'
+      ignore_vines: false
+      minimum_size:
+        type: minecraft:two_layers_feature_size
+        limit: 1
+        lower_size: 0
+        upper_size: 2
+      trunk_placer:
+        type: minecraft:bending_trunk_placer
+        base_height: 3
+        bend_length:
+          type: minecraft:uniform
+          max_inclusive: 2
+          min_inclusive: 1
+        height_rand_a: 1
+        height_rand_b: 1
+        min_height_for_leaves: 2
+      trunk_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:iroha_maple_log
+          Properties:
+            axis: y
+  reverie_dreams:itaya_maple_tree:
+    type: minecraft:tree
+    config:
+      below_trunk_provider:
+        type: minecraft:rule_based_state_provider
+        rules:
+        - if_true:
+            type: minecraft:not
+            predicate:
+              type: minecraft:matching_block_tag
+              tag: minecraft:cannot_replace_below_tree_trunk
+          then:
+            type: minecraft:simple_state_provider
+            state:
+              Name: minecraft:dirt
+      decorators: []
+      foliage_placer:
+        type: minecraft:blob_foliage_placer
+        height: 3
+        offset: 2
+        radius: 3
+      foliage_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:itaya_maple_leaves
+          Properties:
+            distance: '7'
+            persistent: 'false'
+            waterlogged: 'false'
+      ignore_vines: false
+      minimum_size:
+        type: minecraft:two_layers_feature_size
+        limit: 1
+        lower_size: 0
+        upper_size: 2
+      trunk_placer:
+        type: minecraft:straight_trunk_placer
+        base_height: 4
+        height_rand_a: 2
+        height_rand_b: 0
+      trunk_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:itaya_maple_log
+          Properties:
+            axis: y
+  reverie_dreams:hauchiwa_maple_tree:
+    type: minecraft:tree
+    config:
+      below_trunk_provider:
+        type: minecraft:rule_based_state_provider
+        rules:
+        - if_true:
+            type: minecraft:not
+            predicate:
+              type: minecraft:matching_block_tag
+              tag: minecraft:cannot_replace_below_tree_trunk
+          then:
+            type: minecraft:simple_state_provider
+            state:
+              Name: minecraft:dirt
+      decorators: []
+      foliage_placer:
+        type: minecraft:blob_foliage_placer
+        height: 2
+        offset: 2
+        radius: 3
+      foliage_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:hauchiwa_maple_leaves
+          Properties:
+            distance: '7'
+            persistent: 'false'
+            waterlogged: 'false'
+      ignore_vines: false
+      minimum_size:
+        type: minecraft:two_layers_feature_size
+        limit: 1
+        lower_size: 0
+        upper_size: 2
+      trunk_placer:
+        type: minecraft:straight_trunk_placer
+        base_height: 3
+        height_rand_a: 2
+        height_rand_b: 0
+      trunk_provider:
+        type: minecraft:simple_state_provider
+        state:
+          Name: reverie_dreams:hauchiwa_maple_log
+          Properties:
+            axis: y

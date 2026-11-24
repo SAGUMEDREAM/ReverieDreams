@@ -1,0 +1,10 @@
+{
+  "source_models": [
+    "assets/reverie_dreams/models/block/cash_box.json",
+    "assets/reverie_dreams/models/block/cupboard.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/block/cash_box.png",
+    "assets/reverie_dreams/textures/block/cupboard.png"
+  ]
+}

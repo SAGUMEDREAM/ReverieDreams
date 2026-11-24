@@ -1,7 +1,5 @@
 package cc.thonly.reverie_dreams.util.item;
 
-import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.FumoLicenseItem;
@@ -39,13 +37,11 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
     private static Field _FIELD_ITEM = null;
     private static Field _FIELD_COUNT = null;
     private static Field _FIELD_COMPONENTS = null;
-    public static final String FOOD_TAG_FIELD_KEY = "FoodTagRead";
-    public static final String BEVERAGE_TAG_FIELD_KEY = "BeverageTagRead";
 
     public static final Map<Holder<Item>, Integer> PRICE = new Object2ObjectOpenHashMap<>(Map.of(
-            RDItems.COPPER_COIN, 1,
-            RDItems.SILVER_COIN, 10,
-            RDItems.GOLD_COIN, 100
+            RDItems.COPPER_COIN, CoinValues.COPPER,
+            RDItems.SILVER_COIN, CoinValues.SILVER,
+            RDItems.GOLD_COIN, CoinValues.GOLD
     ));
 
     public static <T> void addComponentIfExist(
@@ -60,6 +56,7 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
             }
         }
     }
+
     public static <T> void addComponentIfExist(
             DataComponentPatch.Builder builder,
             ItemStack itemStack,
@@ -153,9 +150,9 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
 
         List<Map.Entry<Holder<Item>, Integer>> entries =
                 PRICE.entrySet()
-                     .stream()
-                     .sorted(Map.Entry.<Holder<Item>, Integer>comparingByValue().reversed())
-                     .toList();
+                        .stream()
+                        .sorted(Map.Entry.<Holder<Item>, Integer>comparingByValue().reversed())
+                        .toList();
 
         int remaining = price;
 
@@ -172,7 +169,12 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
                 continue;
             }
 
-            result.add(new ItemStack(entry.getKey(), count));
+            int limit = entry.getKey().value().getDefaultInstance().getMaxStackSize();
+            while (count > 0) {
+                int stackSize = Math.min(count, limit);
+                result.add(new ItemStack(entry.getKey().value(), stackSize));
+                count -= stackSize;
+            }
 
             remaining %= coinValue;
 
@@ -184,45 +186,9 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
         return result;
     }
 
-    public static void updateIngredientTag(IngredientStack stack) {
-        if (!ReverieDreams.config().autoUpdateItemTag) {
-            return;
-        }
-        try {
-            Byte foodTagBuild = stack.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.FOOD_TAG_FIELD_KEY, Byte.class);
-            if (foodTagBuild == null) {
-                FoodProperties.get(stack);
-                stack.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.FOOD_TAG_FIELD_KEY, 1);
-            }
-            Byte beverageTagBuild = stack.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, Byte.class);
-            if (beverageTagBuild == null) {
-                BeverageProperties.get(stack);
-                stack.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, 1);
-            }
-        } catch (Exception e) {
-            log.error("Error on update item tag", e);
-        }
-    }
-
-    public static void updateItemStackTag(ItemStack itemStack) {
-        if (!ReverieDreams.config().autoUpdateItemTag) {
-            return;
-        }
-        try {
-            IItemStackExtension mixinImpl = IItemStackExtension.getMixinImpl(itemStack);
-            Byte foodTagBuild = mixinImpl.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.FOOD_TAG_FIELD_KEY, Byte.class);
-            if (foodTagBuild == null) {
-                FoodProperties.get(itemStack);
-                mixinImpl.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.FOOD_TAG_FIELD_KEY, 1);
-            }
-            Byte drinkTagBuild = mixinImpl.reverie_dreams$getNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, Byte.class);
-            if (drinkTagBuild == null) {
-                BeverageProperties.get(itemStack);
-                mixinImpl.reverie_dreams$setNonPersistentAdditionalData(ItemUtils.BEVERAGE_TAG_FIELD_KEY, 1);
-            }
-        } catch (Exception e) {
-            log.error("Error on update item tag");
-        }
+    public static void normalizeItemStackTag(ItemStack itemStack) {
+        FoodProperties.normalize(itemStack);
+        BeverageProperties.normalize(itemStack);
     }
 
     public static IngredientStack buildFoodTags(KitchenRecipe recipe,
@@ -230,12 +196,11 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
                                                 List<IngredientStack> inputs) {
 
         ItemStack base = output.build();
-        FoodProperties.get(base);
 
         // ❗过滤掉“纯食材容器类”（你原本的逻辑保留）
         List<IngredientStack> filteredInputs = inputs.stream()
-                                                     .filter(ingredientStack -> !ingredientStack.is(RDItemTags.CUISINE))
-                                                     .toList();
+                .filter(ingredientStack -> !ingredientStack.is(RDItemTags.CUISINE))
+                .toList();
 
         List<IngredientStack> ingredients = recipe.getIngredients();
 
@@ -277,13 +242,8 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
 
         Set<FoodProperty> temp = new LinkedHashSet<>();
 
-        // base 原始 tag
-        List<FoodProperty> baseTags = new ArrayList<>(
-                base.getOrDefault(
-                        RDDataComponentTypes.FOOD_PROPERTIES.value(),
-                        List.of()
-                )
-        );
+        // base 原始 tag（显式组件优先，否则读取物品默认缓存）
+        List<FoodProperty> baseTags = new ArrayList<>(FoodProperties.get(base));
 
         temp.addAll(baseTags);
 
@@ -291,12 +251,7 @@ public class ItemUtils extends net.minecraft.world.item.ItemUtils {
         for (IngredientStack input : remainingInputs) {
             ItemStack stack = input.build();
 
-            List<FoodProperty> props = stack.getOrDefault(
-                    RDDataComponentTypes.FOOD_PROPERTIES.value(),
-                    List.of()
-            );
-
-            temp.addAll(props);
+            temp.addAll(FoodProperties.get(stack));
         }
 
         List<FoodProperty> resultTags = new ArrayList<>(temp);

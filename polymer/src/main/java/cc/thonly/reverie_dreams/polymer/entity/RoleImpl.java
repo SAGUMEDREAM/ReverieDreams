@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.entity;
 
-import cc.thonly.reverie_dreams.polymer.entity.inf.PlayerPolymerEntity;
+import cc.thonly.reverie_dreams.polymer.entity.bridge.PlayerPolymerEntity;
 import cc.thonly.reverie_dreams.polymer.helper.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.entity.npc.AbstractNPCEntity;
 import com.mojang.authlib.properties.Property;
@@ -15,7 +15,7 @@ public record RoleImpl(AbstractNPCEntity source) implements PlayerPolymerEntity 
 
     public RoleImpl {
         if (!source.level().isClientSide()) {
-            PolymerEntityHelper.addEntityHolderModel(this);
+            PolymerEntityHelper.addEntityHolderModel(this, source);
         }
     }
 

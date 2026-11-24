@@ -1,20 +1,20 @@
 {
   "core": {
     "id": "minecraft:diamond_block",
-    "count": 1
+    "count": 2
   },
   "slots": [
     {
       "id": "reverie_dreams:red_orb",
-      "count": 10
+      "count": 20
     },
     {
       "id": "reverie_dreams:blue_orb",
-      "count": 10
+      "count": 20
     },
     {
       "id": "reverie_dreams:yellow_orb",
-      "count": 10
+      "count": 20
     },
     {
       "id": "minecraft:air"
@@ -24,7 +24,7 @@
       "count": 10
     },
     {
-      "id": "minecraft:stick",
+      "id": "minecraft:blaze_rod",
       "count": 1
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "id": "reverie_dreams:purple_orb",
-      "count": 10
+      "count": 20
     }
   ],
   "output": {

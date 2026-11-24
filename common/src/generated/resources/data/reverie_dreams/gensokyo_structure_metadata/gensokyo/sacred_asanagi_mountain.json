@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "content_version": 1,
+  "actors_version": 1,
+  "content_sha256": "ad00e23c0b631356d465011d0d8aebde3c063af928400109ce55d2529fceeea8",
+  "source_sha256": "c5259743113b68b1eed81d9e5ba2875aac824c59643b12c830581128202149fe",
+  "size": [
+    213,
+    222,
+    213
+  ],
+  "function_points": [
+    {
+      "id": "pilgrim_supplies_0",
+      "pos": [
+        12,
+        122,
+        104
+      ]
+    },
+    {
+      "id": "pilgrim_supplies_1",
+      "pos": [
+        200,
+        122,
+        104
+      ]
+    },
+    {
+      "id": "ritual_supplies_2",
+      "pos": [
+        104,
+        122,
+        12
+      ]
+    },
+    {
+      "id": "ritual_supplies_3",
+      "pos": [
+        104,
+        122,
+        200
+      ]
+    },
+    {
+      "id": "four_seasons_4",
+      "pos": [
+        71,
+        15,
+        66
+      ]
+    },
+    {
+      "id": "four_seasons_5",
+      "pos": [
+        144,
+        14,
+        63
+      ]
+    },
+    {
+      "id": "labyrinth_provisions_6",
+      "pos": [
+        60,
+        14,
+        141
+      ]
+    },
+    {
+      "id": "labyrinth_provisions_7",
+      "pos": [
+        151,
+        15,
+        131
+      ]
+    },
+    {
+      "id": "purification_materials_8",
+      "pos": [
+        115,
+        15,
+        100
+      ]
+    },
+    {
+      "id": "purification_materials_9",
+      "pos": [
+        85,
+        20,
+        89
+      ]
+    },
+    {
+      "id": "lunar_maintenance_10",
+      "pos": [
+        120,
+        20,
+        129
+      ]
+    },
+    {
+      "id": "lunar_maintenance_11",
+      "pos": [
+        104,
+        26,
+        151
+      ]
+    },
+    {
+      "id": "fossil_samples_12",
+      "pos": [
+        134,
+        26,
+        100
+      ]
+    },
+    {
+      "id": "fossil_samples_13",
+      "pos": [
+        80,
+        17,
+        110
+      ]
+    },
+    {
+      "id": "buried_shrine_14",
+      "pos": [
+        141,
+        15,
+        164
+      ]
+    },
+    {
+      "id": "buried_shrine_15",
+      "pos": [
+        106,
+        15,
+        115
+      ]
+    },
+    {
+      "id": "sealed_archive_16",
+      "pos": [
+        85,
+        14,
+        81
+      ]
+    },
+    {
+      "id": "sealed_archive_17",
+      "pos": [
+        124,
+        16,
+        78
+      ]
+    }
+  ],
+  "template_sha256": "ad00e23c0b631356d465011d0d8aebde3c063af928400109ce55d2529fceeea8"
+}

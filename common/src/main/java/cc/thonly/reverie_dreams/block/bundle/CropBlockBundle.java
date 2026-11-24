@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.registry.CompostingChanceRegistry;
+import cc.thonly.reverie_dreams.api.registry.block.CompostingChanceRegistry;
 import cc.thonly.reverie_dreams.block.base.AbstractCropBlock;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
@@ -22,7 +22,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.HashSet;
@@ -99,12 +98,12 @@ public final class CropBlockBundle {
         });
 
         Entry entry = Entry.createInstance(this.identifier)
-                           .setCropBlock(blockDelegate)
-                           .setSeed(seedItem)
-                           .setProduct(this.gain)
-                           .setModelType(this.modelType)
-                           .setInWater(this.inWater)
-                           .setSelfSeed(this.selfSeed);
+                .setCropBlock(blockDelegate)
+                .setSeed(seedItem)
+                .setProduct(this.gain)
+                .setModelType(this.modelType)
+                .setInWater(this.inWater)
+                .setSelfSeed(this.selfSeed);
 
         entry.getItems().add(seedItem);
         if (this.gain != null) {

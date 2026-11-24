@@ -1,0 +1,32 @@
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven { url = 'https://repo.tabooproject.org/repository/releases/' }
+        }
+        filter { includeModule('io.izzel.taboolib', 'common-util') }
+    }
+}
+
+def embeddedLibraries = configurations.create('embeddedLibraries') {
+    canBeConsumed = false
+    transitive = false
+}
+configurations.implementation.extendsFrom(embeddedLibraries)
+
+dependencies {
+    add(embeddedLibraries.name, 'net.momirealms:sparrow-ui:beta.38')
+    add(embeddedLibraries.name, 'io.izzel.taboolib:common-util:6.3.0-8f586e4')
+}
+
+def bundledPaperJar = tasks.named('shadowJar') {
+    configurations = [embeddedLibraries]
+    archiveClassifier = ''
+    relocate('net.momirealms.sparrow.ui', 'cc.thonly.reverie_dreams.paper.library.sparrow.ui')
+    relocate('taboolib', 'cc.thonly.reverie_dreams.paper.library.taboolib')
+}
+
+// Existing consumers of :paper:jar use the same archive path.
+tasks.named('jar') {
+    enabled = false
+    dependsOn(bundledPaperJar)
+}

@@ -5,6 +5,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
@@ -14,6 +15,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.commands.CommandSourceStack;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import java.util.zip.GZIPInputStream;
 
 @Slf4j
 public class DialogFiles {
@@ -49,7 +53,7 @@ public class DialogFiles {
             try {
                 List<String> files = getFileNames(PATH);
                 for (String file : files) {
-                    builder.suggest(file);
+                    cc.thonly.reverie_dreams.util.command.FilteredSuggestions.file(builder,file);
                 }
             } catch (Exception err) {
                 log.error("Can't get file suggestions", err);
@@ -119,6 +123,9 @@ public class DialogFiles {
         private final String filename;
         private final String fileId;
         private byte[] fileBytes;
+        private byte[] decodedBytes;
+        private DialogVideoData videoData;
+        private boolean videoParsed;
 
         public Entry(String filename, String fileId) {
             this.filename = filename;
@@ -126,30 +133,62 @@ public class DialogFiles {
         }
 
         public void parse() {
+            this.bytes();
+        }
+
+        private byte[] bytes() {
+            if (this.fileBytes != null) {
+                return this.fileBytes;
+            }
             Path filePath = Paths.get(DialogFiles.STR_PATH, this.filename);
             if (!Files.exists(filePath)) {
                 throw new RuntimeException("File not found: " + filePath);
             }
             try {
                 this.fileBytes = Files.readAllBytes(filePath);
+                return this.fileBytes;
             } catch (IOException e) {
                 throw new RuntimeException("Failed to read file: " + filePath, e);
             }
         }
 
+        private byte[] decodedBytes() {
+            if (this.decodedBytes == null) {
+                byte[] bytes = this.bytes();
+                if (bytes.length >= 2 && (bytes[0] & 0xFF) == 0x1F && (bytes[1] & 0xFF) == 0x8B) {
+                    try (GZIPInputStream gzip = new GZIPInputStream(new ByteArrayInputStream(bytes));
+                         ByteArrayOutputStream out = new ByteArrayOutputStream(Math.max(8192, bytes.length * 4))) {
+                        gzip.transferTo(out);
+                        bytes = out.toByteArray();
+                    } catch (IOException e) {
+                        throw new RuntimeException("Failed to decompress file: " + this.filename, e);
+                    }
+                }
+                this.decodedBytes = bytes;
+            }
+            return this.decodedBytes;
+        }
 
         public JsonElement json() throws Exception {
-            Path filePath = Paths.get(DialogFiles.STR_PATH, this.filename);
-            if (!Files.exists(filePath)) {
-                throw new RuntimeException("File not found: " + filePath);
-            }
-
-            try (InputStream in = Files.newInputStream(filePath);
+            try (InputStream in = new ByteArrayInputStream(this.decodedBytes());
                  InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
                 return JsonParser.parseReader(reader);
             } catch (JsonParseException e) {
-                throw new RuntimeException("Failed to parse JSON: " + filePath, e);
+                throw new RuntimeException("Failed to parse JSON: " + this.filename, e);
             }
+        }
+
+        public DialogVideoData video() {
+            if (!this.videoParsed) {
+                this.videoParsed = true;
+                try (JsonReader reader = new JsonReader(
+                        new InputStreamReader(new ByteArrayInputStream(this.decodedBytes()), StandardCharsets.UTF_8))) {
+                    this.videoData = DialogVideoData.read(reader);
+                } catch (IOException | RuntimeException e) {
+                    throw new RuntimeException("Failed to parse dialog video: " + this.filename, e);
+                }
+            }
+            return this.videoData;
         }
     }
 }

@@ -3,12 +3,13 @@ package cc.thonly.reverie_dreams.test;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntConsumer;
 
 public class AsyncCountdown {
 
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
-    public void startCountdown(int seconds, java.util.function.IntConsumer onTick, Runnable onComplete) {
+    public void startCountdown(int seconds, IntConsumer onTick, Runnable onComplete) {
         final int[] counter = {seconds};
 
         scheduler.scheduleAtFixedRate(() -> {

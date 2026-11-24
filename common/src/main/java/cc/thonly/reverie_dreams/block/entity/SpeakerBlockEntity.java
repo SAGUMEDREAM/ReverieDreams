@@ -13,11 +13,21 @@ import net.minecraft.world.level.storage.ValueOutput;
 import java.util.ArrayList;
 import java.util.List;
 
+import cc.thonly.reverie_dreams.block.redstone.RedstoneSettings;
+
 @Setter
 @Getter
 public class SpeakerBlockEntity extends BlockEntity {
     private List<String> texts = new ArrayList<>();
     private boolean bellSound = false;
+    private long lastBroadcast = Long.MIN_VALUE;
+
+    public boolean beginBroadcast(long tick) {
+        if (lastBroadcast != Long.MIN_VALUE && tick - lastBroadcast < RedstoneSettings.BROADCAST_COOLDOWN)
+            return false;
+        lastBroadcast = tick;
+        return true;
+    }
 
     public SpeakerBlockEntity(BlockPos blockPos, BlockState blockState) {
         super(RDBlockEntityTypes.SPEAKER_BLOCK_ENTITY.value(), blockPos, blockState);

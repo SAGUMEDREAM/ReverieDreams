@@ -40,7 +40,7 @@ public class DanmakuCraftingTableRecipe implements ReliableClientRecipe {
             }
             SlotContent slotContent = this.inputs.get(i);
             if (slotContent.isEmpty()) {
-                context.bindOptionalSlot(i,  SlotContent.of(RDGuiPlaceholderItems.EMPTY_ITEM.asItem()), RRVPlugin.RENDERER);
+                context.bindOptionalSlot(i, SlotContent.of(RDGuiPlaceholderItems.EMPTY_ITEM.asItem()), RRVPlugin.RENDERER);
                 continue;
             }
             context.bindOptionalSlot(i, slotContent, RRVPlugin.RENDERER);

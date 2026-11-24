@@ -1,0 +1,17 @@
+{
+  "type": "reverie_dreams:gensokyo_rock",
+  "config": {
+    "kind": "low_outcrop",
+    "moss": {
+      "Name": "minecraft:mossy_cobblestone"
+    },
+    "moss_chance": 0.35,
+    "stone": {
+      "Name": "minecraft:andesite"
+    },
+    "theme": "taiga",
+    "variation": {
+      "Name": "minecraft:stone"
+    }
+  }
+}

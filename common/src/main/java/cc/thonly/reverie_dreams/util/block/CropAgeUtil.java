@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class CropAgeUtil {
     private static final Map<Integer, IntegerProperty> DEFAULT = new Object2ObjectOpenHashMap<>();
+
     static {
         DEFAULT.put(1, BlockStateProperties.AGE_1);
         DEFAULT.put(2, BlockStateProperties.AGE_2);
@@ -19,8 +20,9 @@ public class CropAgeUtil {
         DEFAULT.put(15, BlockStateProperties.AGE_15);
         DEFAULT.put(25, BlockStateProperties.AGE_25);
     }
+
     public static IntegerProperty fromInt(int age) {
-        return DEFAULT.computeIfAbsent(age, (a)-> IntegerProperty.create("age", 0, age));
+        return DEFAULT.computeIfAbsent(age, (a) -> IntegerProperty.create("age", 0, age));
     }
 
     public static int[] toArray(IntegerProperty property) {

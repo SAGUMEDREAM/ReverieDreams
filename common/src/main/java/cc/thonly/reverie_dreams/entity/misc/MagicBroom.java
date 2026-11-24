@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
 import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.item.IngredientStack;
-import cc.thonly.reverie_dreams.server.InputKey;
+import cc.thonly.reverie_dreams.api.player.InputKey;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.particles.DustColorTransitionOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -51,9 +52,15 @@ import java.util.UUID;
 public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     public static final EntityDataAccessor<IngredientStack> STACK =
             SynchedEntityData.defineId(MagicBroom.class, IngredientStack.SERIALIZER);
+
+    private static final DustColorTransitionOptions MAGIC_TRAIL =
+            new DustColorTransitionOptions(0x8A2BE2, 0x55FFFF, 1.1f);
+    private static final DustColorTransitionOptions SPRINT_TRAIL =
+            new DustColorTransitionOptions(0xFFB84D, 0x55FFFF, 1.25f);
+
     private float FCMP_THRE = 1e-4f;
     public int damageTick = 0;
-    public final int maxDamageTick = 20 * 8;
+    public final int maxDamageTick = 20 * 2;
     public int jumpingPower = 0;
     @Nullable
     public UUID owner;
@@ -119,6 +126,7 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
             this.fallDistance = 0;
             this.jumpingPower -= 1;
             this.setNoGravity(this.isVehicle());
+            spawnFlightTrail(this, world);
             if (PlatformContext.hasPolymer()) {
                 if (!this.hasEffect(MobEffects.INVISIBILITY)) {
                     this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
@@ -128,17 +136,86 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
                 this.hurtServer(world, this.damageSources().magic(), Integer.MAX_VALUE);
             }
         }
-        frozenParticles(this, this.level());
     }
 
-    private static void frozenParticles(MagicBroom entity, Level level) {
-        if (entity.tickCount % 3 != 0)
+    /**
+     * 骑乘飞行时在扫帚尾部绘制一条由紫色到青色的魔法拖尾，
+     * 并在冲刺时提高拖尾密度和速度线数量。
+     */
+    private static void spawnFlightTrail(MagicBroom entity, ServerLevel level) {
+        if (!entity.isVehicle()) {
             return;
-        float offset = 2.0f;
-        double xOffset = entity.getDeltaMovement().x * offset;
-        double yOffset = entity.getDeltaMovement().y * offset;
-        double zOffset = entity.getDeltaMovement().z * offset;
-        level.addParticle(ParticleTypes.SNOWFLAKE, entity.getX() - xOffset, entity.getY() + entity.getBbHeight() / 2 - yOffset, entity.getZ() - zOffset, 0, 0, 0);
+        }
+
+        Vec3 velocity = entity.getDeltaMovement();
+        double speedSq = velocity.lengthSqr();
+        Vec3 look = entity.getViewVector(1.0f);
+
+        Vec3 motion = speedSq > 0.0025 ? velocity : look;
+        if (motion.lengthSqr() < 1.0e-4) {
+            motion = new Vec3(0.0, 0.0, 1.0);
+        } else {
+            motion = motion.normalize();
+        }
+
+        // 轨迹允许上下飞行；螺旋的横向基准只使用水平朝向，避免垂直飞行时左右轴退化。
+        Vec3 horizontal = new Vec3(motion.x, 0.0, motion.z);
+        if (horizontal.lengthSqr() < 1.0e-4) {
+            horizontal = new Vec3(look.x, 0.0, look.z);
+        }
+        if (horizontal.lengthSqr() < 1.0e-4) {
+            horizontal = new Vec3(0.0, 0.0, 1.0);
+        }
+        Vec3 forward = horizontal.normalize();
+        Vec3 right = new Vec3(-forward.z, 0.0, forward.x);
+        Vec3 base = new Vec3(
+                entity.getX(),
+                entity.getY() + entity.getBbHeight() * 0.38,
+                entity.getZ()
+        );
+        int phase = entity.tickCount;
+        boolean sprinting = entity.getControllingPassenger() instanceof Player player && player.isSprinting();
+        DustColorTransitionOptions trail = sprinting ? SPRINT_TRAIL : MAGIC_TRAIL;
+
+        // 悬停时给一圈低密度的魔法尘，避免停在半空时显得死板。
+        if (speedSq < 0.0025) {
+            if (phase % 5 == 0) {
+                double angle = phase * 0.35;
+                double x = base.x + Math.cos(angle) * 0.45;
+                double z = base.z + Math.sin(angle) * 0.45;
+                level.sendParticles(trail, x, base.y + 0.1, z, 1, 0.02, 0.02, 0.02, 0.0);
+            }
+            return;
+        }
+
+        Vec3 tail = base.subtract(motion.scale(0.9));
+
+        if (phase % 2 == 0) {
+            // 螺旋状三层尾迹，形成有厚度的魔法尾羽。
+            for (int i = 0; i < 3; i++) {
+                Vec3 point = tail.subtract(motion.scale(i * 0.42));
+                double angle = phase * (sprinting ? 0.7 : 0.55) + i * (Math.PI * 2.0 / 3.0);
+                point = point
+                        .add(right.scale(Math.cos(angle) * (sprinting ? 0.34 : 0.27)))
+                        .add(0.0, Math.sin(angle) * 0.14, 0.0);
+                level.sendParticles(trail, point.x, point.y, point.z, 1, 0.02, 0.02, 0.02, 0.0);
+            }
+
+            if (phase % 4 == 0) {
+                level.sendParticles(ParticleTypes.END_ROD, tail.x, tail.y, tail.z, 1, 0.12, 0.1, 0.12, 0.015);
+            }
+            if (phase % 6 == 0) {
+                level.sendParticles(ParticleTypes.ELECTRIC_SPARK, tail.x, tail.y + 0.1, tail.z, 1, 0.18, 0.12, 0.18, 0.02);
+            }
+            if (phase % 8 == 0) {
+                level.sendParticles(ParticleTypes.SNOWFLAKE, tail.x, tail.y + 0.18, tail.z, 1, 0.12, 0.1, 0.12, 0.01);
+            }
+        }
+
+        if (sprinting && phase % 3 == 0) {
+            Vec3 streak = tail.subtract(motion.scale(1.35));
+            level.sendParticles(ParticleTypes.END_ROD, streak.x, streak.y, streak.z, 1, 0.05, 0.05, 0.05, 0.02);
+        }
     }
 
     @Override
@@ -163,7 +240,8 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
         Entity attacker = source.getEntity();
-        if (attacker != null && attacker.isShiftKeyDown()) {
+        if (attacker != null && attacker.isShiftKeyDown()
+                && (this.owner == null || this.owner.equals(attacker.getUUID()))) {
             if (!this.getIngredientStack().isEmpty()) {
                 ItemStack copiedStack = this.getIngredientStack().getLazyStack().copy();
                 ItemEntity itemEntity = new ItemEntity(world, this.getX(), this.getY(), this.getZ(), copiedStack);
@@ -312,6 +390,12 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!this.isVehicle() && !player.isSecondaryUseActive()) {
+            if (this.owner != null && !this.owner.equals(player.getUUID())) {
+                if (!this.level().isClientSide()) {
+                    player.sendSystemMessage(Component.translatable("message.reverie_dreams.magic_broom.not_owner"));
+                }
+                return InteractionResult.FAIL;
+            }
             if (!this.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
                 player.startRiding(this);
                 SimpleTriggerFactory.create(SimpleTriggerKeys.TOUHOU_PEOPLE_CAN_FLY).trigger(serverPlayer);
@@ -324,7 +408,7 @@ public class MagicBroom extends PathfinderMob implements PlayerRideableJumping {
 
     public static AttributeSupplier.@NonNull Builder createLivingAttributes() {
         return Animal.createAnimalAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0)
+                .add(Attributes.MAX_HEALTH, 40.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
                 .add(Attributes.FLYING_SPEED, 0.15)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 10.0);

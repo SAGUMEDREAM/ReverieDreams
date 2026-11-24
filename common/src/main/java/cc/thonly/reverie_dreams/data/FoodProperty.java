@@ -1,10 +1,13 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.callback.FoodPropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -41,7 +44,7 @@ public class FoodProperty implements SerializableProvider<FoodProperty>, Registr
     private Identifier id;
     private final Supplier<MobEffectInstance> effectInstanceFactory;
 
-    private RegistryProvider<FoodProperty> owner;
+    private RegistryProviderLookup<FoodProperty> owner;
 
     public FoodProperty() {
         this.effectInstanceFactory = () -> new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1));
@@ -58,7 +61,7 @@ public class FoodProperty implements SerializableProvider<FoodProperty>, Registr
     public final void use(ServerLevel world, LivingEntity user, ItemStack itemStack) {
         MobEffectInstance effectInstance = this.effectInstanceFactory.get();
         user.addEffect(effectInstance);
-        FoodPropertyItemUseCallback.EVENT.invoker().onUse(world, user, itemStack, this);
+        ItemEvent.FOOD_PROPERTY_USE.invoker().onUse(world, user, itemStack, this);
         this.onUse(world, user);
     }
 
@@ -114,10 +117,15 @@ public class FoodProperty implements SerializableProvider<FoodProperty>, Registr
         return BY_REGISTRY_CODEC;
     }
 
-    public record Data(Identifier id, List<Item> items) {
+    public record Data(Identifier id, List<Item> items, boolean replace) {
+        public Data(Identifier id, List<Item> items) {
+            this(id, items, false);
+        }
+
         public static final Codec<Data> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Identifier.CODEC.fieldOf("registry_key").forGetter(Data::id),
-                ITEMS_CODEC.fieldOf("properties").forGetter(Data::items)
+                ITEMS_CODEC.fieldOf("properties").forGetter(Data::items),
+                Codec.BOOL.optionalFieldOf("replace", false).forGetter(Data::replace)
         ).apply(instance, Data::new));
 
     }

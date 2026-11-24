@@ -1,0 +1,914 @@
+# CE26.8.2 native dye recipes plus source crafting/strength stations. No combat parameters changed.
+items:
+  reverie_dreams:danmaku_crafting_table:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.danmaku_crafting_table>
+    model: reverie_dreams:block/danmaku_crafting_table
+    behavior:
+      type: block_item
+      block: reverie_dreams:danmaku_crafting_table
+  reverie_dreams:strength_table:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.strength_table>
+    model: reverie_dreams:block/strength_table
+    behavior:
+      type: block_item
+      block: reverie_dreams:strength_table
+  reverie_dreams:danmaku_core:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.danmaku_core>
+      components:
+        minecraft:enchantment_glint_override: true
+    model: reverie_dreams:item/danmaku_core
+  reverie_dreams:danmaku_recipe_creator:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.danmaku_recipe_creator>
+      components:
+        minecraft:max_stack_size: 4
+    model: reverie_dreams:item/danmaku_recipe_creator
+    behavior:
+      type: reverie_dreams:danmaku_shape_creator
+  reverie_dreams:spell_card_template:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.spell_card_template>
+    model: reverie_dreams:item/spell_card_template
+  reverie_dreams:speed_feather:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.speed_feather>
+      components:
+        minecraft:enchantment_glint_override: true
+    model: reverie_dreams:item/speed_feather
+blocks:
+  reverie_dreams:danmaku_crafting_table:
+    settings:
+      item: reverie_dreams:danmaku_crafting_table
+      hardness: 2.5
+      resistance: 2.5
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: reverie_dreams:danmaku_table
+      kind: CRAFTING
+    state:
+      state: minecraft:crafting_table
+      entity_renderer:
+        item: reverie_dreams:danmaku_crafting_table
+        display_transform: NONE
+        scale: 1.005
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:danmaku_crafting_table
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:strength_table:
+    settings:
+      item: reverie_dreams:strength_table
+      hardness: 2.5
+      resistance: 2.5
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: reverie_dreams:danmaku_table
+      kind: STRENGTH
+    state:
+      state: minecraft:smithing_table
+      entity_renderer:
+        item: reverie_dreams:strength_table
+        display_transform: NONE
+        scale: 1.005
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:strength_table
+        conditions:
+        - type: survives_explosion
+recipes:
+  reverie_dreams:danmaku_crafting_table:
+    type: shaped
+    pattern:
+    - XXX
+    - X#X
+    - XXX
+    ingredients:
+      '#': minecraft:crafting_table
+      X: minecraft:redstone
+    result:
+      id: reverie_dreams:danmaku_crafting_table
+      count: 1
+  reverie_dreams:strength_table:
+    type: shaped
+    pattern:
+    - XXX
+    - X#X
+    - XXX
+    ingredients:
+      '#': minecraft:enchanting_table
+      X: reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:strength_table
+      count: 1
+  reverie_dreams:danmaku_core:
+    type: shaped
+    pattern:
+    - XXX
+    - X#X
+    - XXX
+    ingredients:
+      '#': minecraft:firework_star
+      X: minecraft:iron_nugget
+    result:
+      id: reverie_dreams:danmaku_core
+      count: 1
+  reverie_dreams:danmaku_recipe_creator:
+    type: shaped
+    pattern:
+    - RRR
+    - R#R
+    - RRR
+    ingredients:
+      '#': minecraft:writable_book
+      R: reverie_dreams:power
+    result:
+      id: reverie_dreams:danmaku_recipe_creator
+      count: 1
+  reverie_dreams:speed_feather:
+    type: shaped
+    pattern:
+    - XXX
+    - X#X
+    - XXX
+    ingredients:
+      '#': minecraft:diamond
+      X: minecraft:feather
+    result:
+      id: reverie_dreams:speed_feather
+      count: 1
+  reverie_dreams:danmaku_dye/amulet:
+    type: dye
+    target: reverie_dreams:danmaku/amulet
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/white:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/orange:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/lime:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/pink:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/gray:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/purple:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/blue:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/brown:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/green:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/red:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/amulet/black:
+    type: dye
+    target: reverie_dreams:danmaku/amulet/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/white:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/orange:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/lime:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/pink:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/gray:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/purple:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/blue:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/brown:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/green:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/red:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/arrowhead/black:
+    type: dye
+    target: reverie_dreams:danmaku/arrowhead/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball:
+    type: dye
+    target: reverie_dreams:danmaku/ball
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/white:
+    type: dye
+    target: reverie_dreams:danmaku/ball/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/orange:
+    type: dye
+    target: reverie_dreams:danmaku/ball/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/ball/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/ball/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/ball/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/lime:
+    type: dye
+    target: reverie_dreams:danmaku/ball/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/pink:
+    type: dye
+    target: reverie_dreams:danmaku/ball/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/gray:
+    type: dye
+    target: reverie_dreams:danmaku/ball/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/ball/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/ball/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/purple:
+    type: dye
+    target: reverie_dreams:danmaku/ball/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/blue:
+    type: dye
+    target: reverie_dreams:danmaku/ball/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/brown:
+    type: dye
+    target: reverie_dreams:danmaku/ball/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/green:
+    type: dye
+    target: reverie_dreams:danmaku/ball/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/red:
+    type: dye
+    target: reverie_dreams:danmaku/ball/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/ball/black:
+    type: dye
+    target: reverie_dreams:danmaku/ball/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble:
+    type: dye
+    target: reverie_dreams:danmaku/bubble
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/white:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/orange:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/lime:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/pink:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/gray:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/purple:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/blue:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/brown:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/green:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/red:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bubble/black:
+    type: dye
+    target: reverie_dreams:danmaku/bubble/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet:
+    type: dye
+    target: reverie_dreams:danmaku/bullet
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/white:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/orange:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/lime:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/pink:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/gray:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/purple:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/blue:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/brown:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/green:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/red:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/bullet/black:
+    type: dye
+    target: reverie_dreams:danmaku/bullet/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball:
+    type: dye
+    target: reverie_dreams:danmaku/fireball
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/white:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/orange:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/lime:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/pink:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/gray:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/purple:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/blue:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/brown:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/green:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/red:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball/black:
+    type: dye
+    target: reverie_dreams:danmaku/fireball/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/white:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/orange:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/lime:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/pink:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/gray:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/purple:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/blue:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/brown:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/green:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/red:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/fireball_glowy/black:
+    type: dye
+    target: reverie_dreams:danmaku/fireball_glowy/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai:
+    type: dye
+    target: reverie_dreams:danmaku/kunai
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/white:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/orange:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/lime:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/pink:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/gray:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/purple:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/blue:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/brown:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/green:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/red:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/kunai/black:
+    type: dye
+    target: reverie_dreams:danmaku/kunai/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice:
+    type: dye
+    target: reverie_dreams:danmaku/rice
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/white:
+    type: dye
+    target: reverie_dreams:danmaku/rice/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/orange:
+    type: dye
+    target: reverie_dreams:danmaku/rice/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/rice/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/rice/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/rice/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/lime:
+    type: dye
+    target: reverie_dreams:danmaku/rice/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/pink:
+    type: dye
+    target: reverie_dreams:danmaku/rice/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/gray:
+    type: dye
+    target: reverie_dreams:danmaku/rice/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/rice/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/rice/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/purple:
+    type: dye
+    target: reverie_dreams:danmaku/rice/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/blue:
+    type: dye
+    target: reverie_dreams:danmaku/rice/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/brown:
+    type: dye
+    target: reverie_dreams:danmaku/rice/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/green:
+    type: dye
+    target: reverie_dreams:danmaku/rice/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/red:
+    type: dye
+    target: reverie_dreams:danmaku/rice/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/rice/black:
+    type: dye
+    target: reverie_dreams:danmaku/rice/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star:
+    type: dye
+    target: reverie_dreams:danmaku/star
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/white:
+    type: dye
+    target: reverie_dreams:danmaku/star/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/orange:
+    type: dye
+    target: reverie_dreams:danmaku/star/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/star/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/star/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/star/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/lime:
+    type: dye
+    target: reverie_dreams:danmaku/star/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/pink:
+    type: dye
+    target: reverie_dreams:danmaku/star/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/gray:
+    type: dye
+    target: reverie_dreams:danmaku/star/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/star/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/star/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/purple:
+    type: dye
+    target: reverie_dreams:danmaku/star/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/blue:
+    type: dye
+    target: reverie_dreams:danmaku/star/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/brown:
+    type: dye
+    target: reverie_dreams:danmaku/star/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/green:
+    type: dye
+    target: reverie_dreams:danmaku/star/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/red:
+    type: dye
+    target: reverie_dreams:danmaku/star/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/star/black:
+    type: dye
+    target: reverie_dreams:danmaku/star/black
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note:
+    type: dye
+    target: reverie_dreams:danmaku/note
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/white:
+    type: dye
+    target: reverie_dreams:danmaku/note/white
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/orange:
+    type: dye
+    target: reverie_dreams:danmaku/note/orange
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/magenta:
+    type: dye
+    target: reverie_dreams:danmaku/note/magenta
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/light_blue:
+    type: dye
+    target: reverie_dreams:danmaku/note/light_blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/yellow:
+    type: dye
+    target: reverie_dreams:danmaku/note/yellow
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/lime:
+    type: dye
+    target: reverie_dreams:danmaku/note/lime
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/pink:
+    type: dye
+    target: reverie_dreams:danmaku/note/pink
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/gray:
+    type: dye
+    target: reverie_dreams:danmaku/note/gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/light_gray:
+    type: dye
+    target: reverie_dreams:danmaku/note/light_gray
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/cyan:
+    type: dye
+    target: reverie_dreams:danmaku/note/cyan
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/purple:
+    type: dye
+    target: reverie_dreams:danmaku/note/purple
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/blue:
+    type: dye
+    target: reverie_dreams:danmaku/note/blue
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/brown:
+    type: dye
+    target: reverie_dreams:danmaku/note/brown
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/green:
+    type: dye
+    target: reverie_dreams:danmaku/note/green
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/red:
+    type: dye
+    target: reverie_dreams:danmaku/note/red
+    dye: '#minecraft:dyes'
+  reverie_dreams:danmaku_dye/note/black:
+    type: dye
+    target: reverie_dreams:danmaku/note/black
+    dye: '#minecraft:dyes'

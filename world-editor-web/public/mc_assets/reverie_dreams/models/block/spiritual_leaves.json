@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "reverie_dreams:block/spiritual_leaves"
+  }
+}

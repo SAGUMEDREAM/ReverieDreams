@@ -1,0 +1,26 @@
+{
+  "additional_wants": {
+    "count": 48.0,
+    "id": "reverie_dreams:copper_coin"
+  },
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "enchantments": {
+        "minecraft:smite": 5.0,
+        "minecraft:unbreaking": 3.0
+      },
+      "function": "minecraft:set_enchantments"
+    }
+  ],
+  "gives": {
+    "id": "reverie_dreams:silver_sword"
+  },
+  "max_uses": 3.0,
+  "reputation_discount": 0.1,
+  "wants": {
+    "count": 48.0,
+    "id": "reverie_dreams:point"
+  },
+  "xp": 20.0
+}

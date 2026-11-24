@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "reverie_dreams:block/moon_stone_slab"
+    },
+    "type=double": {
+      "model": "reverie_dreams:block/moon_stone"
+    },
+    "type=top": {
+      "model": "reverie_dreams:block/moon_stone_slab_top"
+    }
+  }
+}

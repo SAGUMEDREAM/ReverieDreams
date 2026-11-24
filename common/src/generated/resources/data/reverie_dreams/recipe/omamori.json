@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:string",
+    "#minecraft:wool"
+  ],
+  "result": {
+    "id": "reverie_dreams:omamori",
+    "count": 1
+  }
+}

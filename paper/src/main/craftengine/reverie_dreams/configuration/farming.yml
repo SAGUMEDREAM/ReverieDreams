@@ -1,0 +1,1279 @@
+# CE26.8.2; all source crop stages and seed tags.
+items:
+  reverie_dreams:paddy_field:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.paddy_field>
+    model: minecraft:block/farmland_moist
+    behavior:
+      type: block_item
+      block: reverie_dreams:paddy_field
+  reverie_dreams:chill_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.chill_seeds>
+    model: reverie_dreams:item/chill_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:chill
+  reverie_dreams:cucumber_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cucumber_seeds>
+    model: reverie_dreams:item/cucumber_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:cucumber
+  reverie_dreams:grape_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.grape_seeds>
+    model: reverie_dreams:item/grape_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:grape
+  reverie_dreams:onion_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.onion_seeds>
+    model: reverie_dreams:item/onion_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:onion
+  reverie_dreams:red_beans_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.red_beans_seeds>
+    model: reverie_dreams:item/red_beans_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:red_beans
+  reverie_dreams:tomato_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.tomato_seeds>
+    model: reverie_dreams:item/tomato_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:tomato
+  reverie_dreams:toon_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.toon_seeds>
+    model: reverie_dreams:item/toon_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:toon
+  reverie_dreams:white_radish_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.white_radish_seeds>
+    model: reverie_dreams:item/white_radish_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:white_radish
+  reverie_dreams:sweet_potato_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.sweet_potato_seeds>
+    model: reverie_dreams:item/sweet_potato_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:sweet_potato
+  reverie_dreams:broccoli_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.broccoli_seeds>
+    model: reverie_dreams:item/broccoli_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:broccoli
+  reverie_dreams:soy_beans_seeds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.soy_beans_seeds>
+    model: reverie_dreams:item/soy_beans_seeds
+    settings:
+      compost_probability: 0.3
+      tags:
+      - minecraft:villager_plantable_seeds
+      - c:seeds
+    behavior:
+      type: block_item
+      block: reverie_dreams:soy_beans
+blocks:
+  reverie_dreams:paddy_field:
+    settings:
+      item: reverie_dreams:paddy_field
+      hardness: 0.6
+      resistance: 0.6
+      is_suffocating: true
+      is_view_blocking: true
+      is_redstone_conductor: false
+      use_shape_for_light_occlusion: true
+      is_randomly_ticking: true
+      can_occlude: true
+      sounds:
+        break: minecraft:block.gravel.break
+        fall: minecraft:block.gravel.fall
+        hit: minecraft:block.gravel.hit
+        place: minecraft:block.gravel.place
+        step: minecraft:block.gravel.step
+    behavior:
+      type: reverie_dreams:paddy_field
+    state:
+      properties:
+        moisture:
+          type: int
+          min: 0
+          max: 7
+          default: 7
+      appearances:
+        moist:
+          state: minecraft:farmland[moisture=7]
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: minecraft:dirt
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:chill:
+    settings:
+      item: reverie_dreams:chill_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 4
+      seed: reverie_dreams:chill_seeds
+      product: reverie_dreams:ingredient/chili
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 4
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/chill_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/chill_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/chill_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/chill_stage3
+        age_4:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/chill_stage4
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+        age=4:
+          appearance: age_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:chill_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/chili
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:chill_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:cucumber:
+    settings:
+      item: reverie_dreams:cucumber_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 4
+      seed: reverie_dreams:cucumber_seeds
+      product: reverie_dreams:ingredient/cucumber
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 4
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/cucumber_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/cucumber_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/cucumber_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/cucumber_stage3
+        age_4:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/cucumber_stage4
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+        age=4:
+          appearance: age_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:cucumber_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/cucumber
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:cucumber_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:grape:
+    settings:
+      item: reverie_dreams:grape_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 5
+      seed: reverie_dreams:grape_seeds
+      product: reverie_dreams:ingredient/grape
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 5
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/grape_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/grape_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/grape_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/grape_stage3
+        age_4:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/grape_stage4
+        age_5:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/grape_stage5
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+        age=4:
+          appearance: age_4
+        age=5:
+          appearance: age_5
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '5'
+        entries:
+        - type: item
+          item: reverie_dreams:grape_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '5'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/grape
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '5'
+        entries:
+        - type: item
+          item: reverie_dreams:grape_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:onion:
+    settings:
+      item: reverie_dreams:onion_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 5
+      seed: reverie_dreams:onion_seeds
+      product: reverie_dreams:ingredient/onion
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 5
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/onion_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/onion_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/onion_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/onion_stage3
+        age_4:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/onion_stage4
+        age_5:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/onion_stage5
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+        age=4:
+          appearance: age_4
+        age=5:
+          appearance: age_5
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '5'
+        entries:
+        - type: item
+          item: reverie_dreams:onion_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '5'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/onion
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '5'
+        entries:
+        - type: item
+          item: reverie_dreams:onion_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:red_beans:
+    settings:
+      item: reverie_dreams:red_beans_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 4
+      seed: reverie_dreams:red_beans_seeds
+      product: reverie_dreams:ingredient/red_beans
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 4
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/red_beans_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/red_beans_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/red_beans_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/red_beans_stage3
+        age_4:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/red_beans_stage4
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+        age=4:
+          appearance: age_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:red_beans_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/red_beans
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:red_beans_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:tomato:
+    settings:
+      item: reverie_dreams:tomato_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 3
+      seed: reverie_dreams:tomato_seeds
+      product: reverie_dreams:ingredient/tomato
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 3
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/tomato_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/tomato_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/tomato_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/tomato_stage3
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:tomato_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/tomato
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:tomato_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:toon:
+    settings:
+      item: reverie_dreams:toon_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 3
+      seed: reverie_dreams:toon_seeds
+      product: reverie_dreams:ingredient/toon
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 3
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/toon_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/toon_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/toon_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/toon_stage3
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:toon_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/toon
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:toon_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:white_radish:
+    settings:
+      item: reverie_dreams:white_radish_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 3
+      seed: reverie_dreams:white_radish_seeds
+      product: reverie_dreams:ingredient/white_radish
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 3
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/white_radish_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/white_radish_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/white_radish_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/white_radish_stage3
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:white_radish_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/white_radish
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:white_radish_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:sweet_potato:
+    settings:
+      item: reverie_dreams:sweet_potato_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 3
+      seed: reverie_dreams:sweet_potato_seeds
+      product: reverie_dreams:ingredient/sweet_potato
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 3
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/sweet_potato_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/sweet_potato_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/sweet_potato_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/sweet_potato_stage3
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:sweet_potato_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/sweet_potato
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '3'
+        entries:
+        - type: item
+          item: reverie_dreams:sweet_potato_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:broccoli:
+    settings:
+      item: reverie_dreams:broccoli_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 4
+      seed: reverie_dreams:broccoli_seeds
+      product: reverie_dreams:ingredient/broccoli
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 4
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/broccoli_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/broccoli_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/broccoli_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/broccoli_stage3
+        age_4:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/broccoli_stage4
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+        age=4:
+          appearance: age_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:broccoli_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:ingredient/broccoli
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:broccoli_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2
+  reverie_dreams:soy_beans:
+    settings:
+      item: reverie_dreams:soy_beans_seeds
+      hardness: 0
+      resistance: 0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      is_randomly_ticking: true
+      sounds:
+        break: minecraft:block.crop.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+    behavior:
+      type: reverie_dreams:crop
+      max_age: 4
+      seed: reverie_dreams:soy_beans_seeds
+      product: reverie_dreams:soy_beans_seeds
+    state:
+      properties:
+        age:
+          type: int
+          min: 0
+          max: 4
+          default: 0
+      appearances:
+        age_0:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/soy_beans_stage0
+        age_1:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/soy_beans_stage1
+        age_2:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/soy_beans_stage2
+        age_3:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/soy_beans_stage3
+        age_4:
+          auto_state: tripwire
+          model:
+            path: reverie_dreams:block/soy_beans_stage4
+      variants:
+        age=0:
+          appearance: age_0
+        age=1:
+          appearance: age_1
+        age=2:
+          appearance: age_2
+        age=3:
+          appearance: age_3
+        age=4:
+          appearance: age_4
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:soy_beans_seeds
+          functions:
+          - type: set_count
+            count: 1
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:soy_beans_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 3
+      - rolls: 1
+        conditions:
+        - type: match_block_property
+          properties:
+            age: '4'
+        entries:
+        - type: item
+          item: reverie_dreams:soy_beans_seeds
+          functions:
+          - type: set_count
+            count:
+              type: uniform
+              min: 1
+              max: 2

@@ -1,62 +1,89 @@
 package cc.thonly.reverie_dreams.item.prop;
 
-import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
+import cc.thonly.reverie_dreams.entity.misc.CursedDecoyEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.decoration.ArmorStand;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
 public class CursedDecoyDollItem extends Item {
+    public static final int COOLDOWN_TICKS = 20 * 20;
+    private static final int OWNER_RANGE = 64;
+
     public CursedDecoyDollItem(Properties settings) {
         super(settings);
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        Player player = context.getPlayer();
-        InteractionHand hand = context.getHand();
-        Level world = context.getLevel();
-        BlockPos blockPos = context.getClickedPos().above();
-        if (!world.isClientSide() && world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayer) {
-            ItemStack stackInHand = serverPlayer.getItemInHand(hand);
-            ArmorStand armorStandEntity = new ArmorStand(serverWorld, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5);
-            armorStandEntity.setYRot(player.getYRot());
-            armorStandEntity.setXRot(player.getXRot());
-            serverWorld.addFreshEntity(armorStandEntity);
-            List<LivingEntity> list = world.getEntitiesOfClass(LivingEntity.class, new AABB(blockPos).inflate(24), livingEntity -> true);
-            for (LivingEntity livingEntity : list) {
-                if (livingEntity instanceof Player) continue;
-                if (livingEntity instanceof NPCSimpleEntity role) {
-                    LivingEntity attacker = role.getLastHurtByMob();
-                    LivingEntity target = role.getTarget();
-                    if (attacker == player || target == player) {
-                        continue;
-                    }
-                }
-                if (livingEntity instanceof Mob mob) {
-                    if (mob.getTarget() != null) {
-                        mob.setTarget(armorStandEntity);
-                    }
-                }
-                if (livingEntity.getLastHurtByMob() != null) {
-                    livingEntity.setLastHurtByMob(armorStandEntity);
-                }
-            }
-            stackInHand.consume(1, serverPlayer);
-            return InteractionResult.SUCCESS_SERVER;
+        if (context.getLevel().isClientSide()) {
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResult.SUCCESS;
+        if (!(context.getLevel() instanceof ServerLevel serverWorld)
+                || !(context.getPlayer() instanceof ServerPlayer serverPlayer)) {
+            return InteractionResult.PASS;
+        }
+
+        InteractionHand hand = context.getHand();
+        ItemStack stack = serverPlayer.getItemInHand(hand);
+        if (serverPlayer.getCooldowns().isOnCooldown(stack)) {
+            return InteractionResult.FAIL;
+        }
+
+        List<CursedDecoyEntity> existing = serverWorld.getEntitiesOfClass(
+                CursedDecoyEntity.class,
+                serverPlayer.getBoundingBox().inflate(OWNER_RANGE),
+                decoy -> decoy.isOwnedBy(serverPlayer)
+        );
+        if (!existing.isEmpty()) {
+            return InteractionResult.FAIL;
+        }
+
+        BlockPos pos = context.getClickedPos().above();
+        if (!serverWorld.getBlockState(pos).canBeReplaced()
+                || !serverWorld.getBlockState(pos.above()).canBeReplaced()) {
+            serverPlayer.sendSystemMessage(
+                    Component.translatable("message.reverie_dreams.cursed_decoy.no_space"), false);
+            return InteractionResult.FAIL;
+        }
+
+        CursedDecoyEntity decoy = new CursedDecoyEntity(serverWorld, serverPlayer);
+        decoy.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+        decoy.setYRot(serverPlayer.getYRot());
+        decoy.setXRot(0.0F);
+        serverWorld.addFreshEntity(decoy);
+
+        // 短暂脱离仇恨：隐身先结束，速度稍长一点，方便重新选位。
+        serverPlayer.addEffect(new MobEffectInstance(
+                MobEffects.INVISIBILITY, 8 * 20, 0, false, false, true));
+        serverPlayer.addEffect(new MobEffectInstance(
+                MobEffects.SPEED, 10 * 20, 0, false, true, true));
+
+        serverPlayer.getCooldowns().addCooldown(stack, COOLDOWN_TICKS);
+        stack.consume(1, serverPlayer);
+        serverPlayer.swing(hand);
+
+        serverWorld.sendParticles(
+                ParticleTypes.SOUL,
+                pos.getX() + 0.5D, pos.getY() + 0.9D, pos.getZ() + 0.5D,
+                16, 0.4D, 0.5D, 0.4D, 0.02D
+        );
+        serverWorld.playSound(
+                null, pos, SoundEvents.SOUL_ESCAPE.value(),
+                SoundSource.PLAYERS, 0.8F, 0.9F
+        );
+        return InteractionResult.SUCCESS_SERVER;
     }
 }

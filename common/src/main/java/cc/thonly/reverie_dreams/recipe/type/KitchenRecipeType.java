@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import cc.thonly.reverie_dreams.recipe.RecipeResourceLoader;
 
 @Slf4j
 public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
@@ -44,27 +45,8 @@ public class KitchenRecipeType extends BaseRecipeType<KitchenRecipe> {
     @Override
     public void reload(ResourceManager manager) {
         this.kitchenRegistries.clear();
-        Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
-        });
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^kitchen_recipe/", "").replaceAll("\\.json$", ""));
-            Resource resource = entry.getValue();
-            try (InputStream stream = resource.open()) {
-                JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-
-                DataResult<KitchenRecipe> result = this.getCodec().parse(input);
-
-                result.resultOrPartial(error -> log.error("Failed to load kitchen recipe {}, {}", id, error))
-                        .ifPresent(recipe -> {
-                            this.add(registryKey, recipe);
-                        });
-            } catch (IOException e) {
-                log.error("Failed to load kitchen recipe {}, {}, {}", id, e.getMessage(), e);
-            }
-        }
+        RecipeResourceLoader.load(manager, this.getTypeId() + "_recipe",
+                id -> id.getNamespace().equals(ReverieDreams.MOD_ID), this.getCodec(), this::add);
     }
 
     @Override

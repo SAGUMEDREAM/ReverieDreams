@@ -1,12 +1,19 @@
 package cc.thonly.reverie_dreams.proxy;
 
+import cc.thonly.reverie_dreams.api.proxy.MergeRegistryProviderFactory;
 import cc.thonly.reverie_dreams.api.proxy.PlatformProxy;
+import cc.thonly.reverie_dreams.api.proxy.RegistryProviderFactory;
+import cc.thonly.reverie_dreams.api.proxy.RegistryProviderShadowerFactory;
 
 import java.util.Optional;
 import java.util.function.Function;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class PlatformProxies {
+    static {
+        PlatformProxy.setFactory(PlatformProxyImpl::create);
+    }
+
     public static final Optional<RegistryProviderFactory> REGISTRY_PROVIDER_FACTORY =
             PlatformProxy.<RegistryProviderFactory>builder()
                     .withFabric("cc.thonly.reverie_dreams.fabric.impl.FabricRegistryProviderFactory")

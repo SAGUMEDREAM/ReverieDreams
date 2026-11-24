@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "reverie_dreams:ingredient/white_radish"
+  ],
+  "result": {
+    "count": 2,
+    "id": "reverie_dreams:white_radish_seeds"
+  }
+}

@@ -29,11 +29,11 @@ public class GensokyoAltarRecipeDisplay extends BasicDisplay {
 
     public GensokyoAltarRecipeDisplay(GensokyoAltarRecipe recipe) {
         super(recipe.getSlots()
-                .stream()
-                .map(IngredientStack::build)
-                .filter(itemStack -> !itemStack.isEmpty())
-                .map(REIItemUtils::getItem)
-                .toList(),
+                        .stream()
+                        .map(IngredientStack::build)
+                        .filter(itemStack -> !itemStack.isEmpty())
+                        .map(REIItemUtils::getItem)
+                        .toList(),
                 List.of(REIItemUtils.getItem(recipe.getOutput()))
         );
         this.recipe = recipe;

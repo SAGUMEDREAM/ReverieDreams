@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/danmaku/ball",
+    "layer1": "reverie_dreams:item/danmaku/ball_overlay"
+  }
+}

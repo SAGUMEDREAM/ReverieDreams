@@ -130,7 +130,7 @@ public class NeoRegistryProvider<T> extends RegistryProvider<T> {
 
     @Override
     public int getId(Identifier name) {
-        T value = this.getValue(name);
+        T value = this.getValueOrDefault(name);
         return value == null ? -1 : this.getId(value);
     }
 

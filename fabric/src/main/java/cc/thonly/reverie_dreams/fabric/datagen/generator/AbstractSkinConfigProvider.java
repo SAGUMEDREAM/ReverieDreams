@@ -79,7 +79,7 @@ public abstract class AbstractSkinConfigProvider implements DataProvider {
                 writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
             }
         } catch (Exception err) {
-            log.error("Error: ", err);
+            throw new IllegalStateException("Failed to generate AbstractSkinConfigProvider", err);
         }
     }
 

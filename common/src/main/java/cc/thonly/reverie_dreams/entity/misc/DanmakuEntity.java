@@ -10,10 +10,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("resource")
 public class DanmakuEntity extends BaseDanmakuEntity {
+    @Nullable
+    private DanmakuVisualPosition visualPosition;
 
     public DanmakuEntity(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
         super(entityType, level);
@@ -34,6 +38,25 @@ public class DanmakuEntity extends BaseDanmakuEntity {
     public DanmakuEntity(@NotNull LivingEntity owner, double x, double y, double z, Level level, ItemStack item) {
         super(RDEntityTypes.DANMAKU.value(), x, y, z, level, item);
         this.setOwner(owner);
+    }
+
+    @Override
+    public void tick() {
+        if (!this.level().isClientSide()) {
+            super.tick();
+            return;
+        }
+        Vec3 start = this.position();
+        super.tick();
+        if (this.visualPosition == null) {
+            this.visualPosition = new DanmakuVisualPosition(start);
+        }
+        this.visualPosition.sample(start, this.position());
+    }
+
+    @Nullable
+    public DanmakuVisualPosition getVisualPosition() {
+        return this.visualPosition;
     }
 
     public static DanmakuEntity create(LivingEntity owner, ItemStack itemStack, float inaccuracy) {

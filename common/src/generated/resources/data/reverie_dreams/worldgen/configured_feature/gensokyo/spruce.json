@@ -1,0 +1,24 @@
+{
+  "config": {
+    "log": {
+      "Properties": {
+        "axis": "y"
+      },
+      "Name": "minecraft:spruce_log"
+    },
+    "leaves": {
+      "Properties": {
+        "waterlogged": "false",
+        "persistent": "false",
+        "distance": "7"
+      },
+      "Name": "minecraft:spruce_leaves"
+    },
+    "shape": "spruce",
+    "min_height": 18,
+    "max_height": 30,
+    "trunk_width": 1,
+    "crown_radius": 5
+  },
+  "type": "reverie_dreams:gensokyo_tree"
+}

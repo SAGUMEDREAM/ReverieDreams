@@ -23,7 +23,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -62,21 +61,18 @@ public abstract class AbstractJukeboxProvider implements DataProvider {
                 Path generatePath = DataGeneratorUtil.getData(path, namespace, Registries.JUKEBOX_SONG, null);
 
                 DataResult<JsonElement> result = JukeboxSong.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, ref);
-                Optional<JsonElement> optional = result.result();
+                JsonElement element = result.getOrThrow();
+                Path output = generatePath.resolve(key + ".json");
+                String jsonString = this.gson.toJson(element);
+                byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
+                Files.createDirectories(output.getParent());
 
-                if (optional.isPresent()) {
-                    JsonElement element = optional.get();
-                    Path output = generatePath.resolve(key + ".json");
-                    String jsonString = this.gson.toJson(element);
-                    byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                    Files.createDirectories(output.getParent());
+                writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
 
-                    writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
-                }
 
             }
         } catch (Exception err) {
-            log.error("Error: ",err);
+            throw new IllegalStateException("Failed to generate AbstractJukeboxProvider", err);
         }
     }
 

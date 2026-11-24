@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "reverie_dreams:block/hibachi"
+    },
+    "lit=true": {
+      "model": "reverie_dreams:block/hibachi_lit"
+    }
+  }
+}

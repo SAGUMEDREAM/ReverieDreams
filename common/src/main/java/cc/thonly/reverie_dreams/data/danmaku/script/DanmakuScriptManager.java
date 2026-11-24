@@ -7,12 +7,12 @@ public class DanmakuScriptManager {
     private static MinecraftServer SERVER;
 
     public static DanmakuScriptManager getInstance() {
-        if (INSTANCE==null) {
+        if (INSTANCE == null) {
             INSTANCE = new DanmakuScriptManager();
         }
         return INSTANCE;
     }
-    
+
     public static void onTick(MinecraftServer server) {
         SERVER = server;
     }

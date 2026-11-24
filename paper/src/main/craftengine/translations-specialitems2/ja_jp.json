@@ -1,0 +1,16 @@
+{
+  "item.reverie_dreams.upgraded_health": "残機",
+  "item.reverie_dreams.bomb": "爆弾",
+  "item.reverie_dreams.cheque": "小切手",
+  "item.reverie_dreams.treasure_hunting_rod": "トレジャーロッド",
+  "item.action.click.upgraded_health.max_full": "§cあなたの最大体力はすでに%s§cを超えています",
+  "item.tooltip.cheque.owner": "§f署名：%s",
+  "item.tooltip.cheque.amount": "§f金額：%s",
+  "sound.reverie_dreams.up": "アップグレード",
+  "message.reverie_dreams.treasure_hunting_rod.find": "目標まであと%sブロック、オフセット：X=%s, Y=%s, Z=%s、対象：",
+  "message.reverie_dreams.treasure_hunting_rod.not_found": "近くに鉱物が見つかりませんでした。",
+  "message.reverie_dreams.treasure_hunting_rod.summary": "最近：%s、%s ブロック、鉱脈 %s 個、周囲 %s 個",
+  "message.reverie_dreams.treasure_hunting_rod.distribution": "鉱物分布：%s",
+  "message.reverie_dreams.treasure_hunting_rod.distribution.entry": "%s ×%s",
+  "message.reverie_dreams.treasure_hunting_rod.separator": "、"
+}

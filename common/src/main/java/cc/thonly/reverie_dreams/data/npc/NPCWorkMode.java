@@ -2,9 +2,12 @@ package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +39,7 @@ public class NPCWorkMode implements SerializableProvider<NPCWorkMode>, RegistryE
     private static final BiConsumer<BaseNPCLikeEntity, NPCWorkMode> DEFAULT_ACTION = (npc, mode) -> {};
     private final String typeName;
     private final Holder<Item> itemDisplay;
-    private RegistryProvider<NPCWorkMode> owner;
+    private RegistryProviderLookup<NPCWorkMode> owner;
     private BiConsumer<BaseNPCLikeEntity, NPCWorkMode> onStarted = DEFAULT_ACTION;
     private BiConsumer<BaseNPCLikeEntity, NPCWorkMode> onStop = DEFAULT_ACTION;
 
@@ -55,7 +58,7 @@ public class NPCWorkMode implements SerializableProvider<NPCWorkMode>, RegistryE
         this.itemDisplay = itemDisplay;
     }
 
-    public NPCWorkMode withStarted(BiConsumer<BaseNPCLikeEntity, NPCWorkMode>function) {
+    public NPCWorkMode withStarted(BiConsumer<BaseNPCLikeEntity, NPCWorkMode> function) {
         this.onStarted = function;
         return this;
     }

@@ -1,0 +1,24 @@
+{
+  "type": "reverie_dreams:gensokyo_tree",
+  "config": {
+    "crown_radius": 3,
+    "leaves": {
+      "Name": "reverie_dreams:itaya_maple_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "reverie_dreams:itaya_maple_log",
+      "Properties": {
+        "axis": "y"
+      }
+    },
+    "max_height": 12,
+    "min_height": 8,
+    "shape": "itaya_maple",
+    "trunk_width": 1
+  }
+}

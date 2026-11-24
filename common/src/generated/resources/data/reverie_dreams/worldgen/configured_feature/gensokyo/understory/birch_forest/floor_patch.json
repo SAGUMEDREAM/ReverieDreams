@@ -1,0 +1,56 @@
+{
+  "type": "reverie_dreams:gensokyo_understory",
+  "config": {
+    "accents": [
+      {
+        "Name": "minecraft:short_grass"
+      },
+      {
+        "Name": "minecraft:short_grass"
+      },
+      {
+        "Name": "minecraft:fern"
+      }
+    ],
+    "flowers": [
+      {
+        "Name": "minecraft:azure_bluet"
+      },
+      {
+        "Name": "minecraft:oxeye_daisy"
+      },
+      {
+        "Name": "minecraft:lily_of_the_valley"
+      }
+    ],
+    "kind": "floor_patch",
+    "leaves": [
+      {
+        "Name": "minecraft:birch_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    ],
+    "litter": [
+      {
+        "Name": "minecraft:leaf_litter",
+        "Properties": {
+          "facing": "north",
+          "segment_amount": "1"
+        }
+      }
+    ],
+    "logs": [
+      {
+        "Name": "minecraft:birch_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    ],
+    "theme": "birch_forest"
+  }
+}

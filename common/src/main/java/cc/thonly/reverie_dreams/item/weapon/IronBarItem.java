@@ -14,25 +14,31 @@ import java.util.List;
 
 public class IronBarItem extends Item {
     public static final List<SoundEvent> SOUND_EVENTS = new ArrayList<>(List.of(SoundEvents.MACE_SMASH_GROUND_HEAVY, SoundEvents.MACE_SMASH_GROUND, SoundEvents.MACE_SMASH_AIR));
+    public static final double DEFAULT_KNOCKBACK_STRENGTH = 0.8D;
+
+    private final double knockbackStrength;
 
     public IronBarItem(Properties properties) {
+        this(properties, DEFAULT_KNOCKBACK_STRENGTH);
+    }
+
+    public IronBarItem(Properties properties, double knockbackStrength) {
         super(properties);
+        this.knockbackStrength = knockbackStrength;
+    }
+
+    public double getKnockbackStrength() {
+        return this.knockbackStrength;
     }
 
     @Override
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         super.hurtEnemy(stack, target, attacker);
-        double strength = 1.8D;
 
         double dx = attacker.getX() - target.getX();
         double dz = attacker.getZ() - target.getZ();
 
-        target.knockback(strength, dx, dz);
-        target.setDeltaMovement(
-                target.getDeltaMovement().x,
-                0.3D,
-                target.getDeltaMovement().z
-        );
+        target.knockback(this.knockbackStrength, dx, dz);
         SoundEventPlayUtils.playSound(target.level(), target, this.getAttackSound(), SoundSource.NEUTRAL);
     }
 

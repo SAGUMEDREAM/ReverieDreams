@@ -1,0 +1,24 @@
+{
+  "config": {
+    "log": {
+      "Properties": {
+        "axis": "y"
+      },
+      "Name": "minecraft:oak_log"
+    },
+    "leaves": {
+      "Properties": {
+        "waterlogged": "false",
+        "persistent": "false",
+        "distance": "7"
+      },
+      "Name": "minecraft:oak_leaves"
+    },
+    "shape": "oak",
+    "min_height": 18,
+    "max_height": 26,
+    "trunk_width": 2,
+    "crown_radius": 4
+  },
+  "type": "reverie_dreams:gensokyo_tree"
+}

@@ -2,6 +2,7 @@
   "values": [
     "reverie_dreams:earphone",
     "reverie_dreams:koishi_hat",
+    "reverie_dreams:oni_mask",
     "reverie_dreams:low_gravity_boot",
     "reverie_dreams:crown_of_the_underworld",
     "reverie_dreams:silver_helmet",
@@ -23,6 +24,10 @@
     "reverie_dreams:waterproof_hat",
     "reverie_dreams:waterproof_clothing",
     "reverie_dreams:waterproof_leggings",
-    "reverie_dreams:waterproof_boots"
+    "reverie_dreams:waterproof_boots",
+    "reverie_dreams:ancient_iron_helmet",
+    "reverie_dreams:ancient_iron_chestplate",
+    "reverie_dreams:ancient_iron_leggings",
+    "reverie_dreams:ancient_iron_boots"
   ]
 }

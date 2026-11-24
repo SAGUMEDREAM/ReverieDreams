@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:dirt",
+    "minecraft:dirt",
+    "minecraft:clay"
+  ],
+  "result": {
+    "id": "reverie_dreams:paddy_field"
+  }
+}

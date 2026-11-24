@@ -2,28 +2,27 @@ package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class NPCSimpleRoleType implements SerializableProvider<NPCRoleType>, RoleType {
+/**
+ * A role definition without its own spawn entity.
+ */
+public class NPCSimpleRoleType implements SerializableProvider<NPCSimpleRoleType>, RoleType {
     public static final LazySupplier<NPCSimpleRoleType> UNIT_ROLE = LazySupplier.of(NPCSimpleRoleType::new);
     public static final Codec<NPCSimpleRoleType> BY_REGISTRY_CODEC = Codec.lazyInitialized(() -> {
         return Identifier.CODEC.xmap(id -> {
-                    NPCSimpleRoleType value = BuiltInRegistryProviders.NPC_SIMPLE_ROLE_TYPE.getValue(id);
-                    return Objects.requireNonNullElse(value, empty());
+                    return BuiltInRegistryProviders.NPC_SIMPLE_ROLE_TYPE.findValue(id).orElseGet(NPCSimpleRoleType::empty);
                 },
-                object -> {
-                    if (!(object instanceof NPCSimpleRoleType role)) {
-                        return ReverieDreams.id("undefined");
-                    }
+                role -> {
                     Identifier key = BuiltInRegistryProviders.NPC_SIMPLE_ROLE_TYPE.getKey(role);
                     if (key == null) {
                         key = ReverieDreams.id("undefined");
@@ -33,28 +32,26 @@ public class NPCSimpleRoleType implements SerializableProvider<NPCRoleType>, Rol
         );
     });
 
-    private Identifier id;
-    private SkinType skinType;
-    private boolean unit = false;
+    private final Identifier id;
+    private final SkinType skinType;
 
     private NPCSimpleRoleType() {
-
+        this.id = null;
+        this.skinType = null;
     }
 
     public NPCSimpleRoleType(Identifier id, SkinType skinType) {
-        this.id = id;
-        this.skinType = skinType;
+        this.id = Objects.requireNonNull(id);
+        this.skinType = Objects.requireNonNull(skinType);
     }
 
     public static NPCSimpleRoleType empty() {
-        NPCSimpleRoleType type = UNIT_ROLE.get();
-        type.unit = true;
-        return type;
+        return UNIT_ROLE.get();
     }
 
     @Override
     public boolean isVirtual() {
-        return false;
+        return this.isUnit();
     }
 
     @Override
@@ -64,41 +61,46 @@ public class NPCSimpleRoleType implements SerializableProvider<NPCRoleType>, Rol
 
     @Override
     public boolean isPresent() {
-        return false;
+        return !this.isUnit();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.isUnit();
     }
 
     @Override
-    public Holder<EntityType<? extends BaseNPCLikeEntity>> get() {
+    public @Nullable Holder<? extends EntityType<?>> get() {
         return null;
     }
 
     @Override
     public Identifier identify() {
-        return null;
+        return this.id;
     }
 
     @Override
     public boolean isIdentify(RoleType other) {
-        return false;
+        return this.id != null && other != null && this.id.equals(other.identify());
     }
 
     @Override
     public SkinType getSkinType() {
-        return null;
+        return this.skinType;
     }
 
     @Override
-    public Codec<NPCRoleType> getCodec() {
-        return null;
+    public Codec<NPCSimpleRoleType> getCodec() {
+        return BY_REGISTRY_CODEC;
     }
 
     @Override
     public boolean isUnit() {
-        return this.unit;
+        return this.id == null;
+    }
+
+    @Override
+    public String translateKey() {
+        return this.id == null ? RoleType.super.translateKey() : this.id.toLanguageKey("npc_simple_role");
     }
 }

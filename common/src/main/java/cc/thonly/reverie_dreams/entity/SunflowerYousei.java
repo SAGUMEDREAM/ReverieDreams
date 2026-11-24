@@ -6,8 +6,18 @@ import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.DifferentRevengeGoal;
+import cc.thonly.reverie_dreams.entity.ai.goal.SmartFlyGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.npc.BaseYousei;
 import cc.thonly.reverie_dreams.entity.npc.KeepInventoryTypes;
+import cc.thonly.reverie_dreams.entity.variant.GensokyoFairyActions;
+import cc.thonly.reverie_dreams.entity.variant.GensokyoFairyAnimation;
+import cc.thonly.reverie_dreams.util.entity.IAnimationHelper;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.util.GeckoLibUtil;
 import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
@@ -31,15 +41,32 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import cc.thonly.reverie_dreams.entity.variant.GensokyoFairyEntity;
 
 @Getter
-public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, YouseiType {
+public class SunflowerYousei extends BaseYousei implements Leashable, FriendlyFaction, YouseiType, GensokyoFairyEntity {
+    private final GensokyoFairyActions fairyActions = new GensokyoFairyActions();
+
+    @Override public GensokyoFairyActions fairyActions() { return this.fairyActions; }
+
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public SunflowerYousei(EntityType<? extends TamableAnimal> entityType, Level world, SkinType skinType) {
         super(entityType, world, skinType);
         this.xpReward = 5;
         NPCInventoryImpl inventory = this.getInventory();
-        inventory.setHead(Items.SUNFLOWER.getDefaultInstance());
+
         inventory.setMainHand(RDItems.SUNFLOWER.asItem().getDefaultInstance());
+        this.enableFairyFlight();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        GensokyoFairyActions.registerControllers(this, controllers);
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geoCache;
     }
 
     @Override
@@ -48,9 +75,6 @@ public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, Fri
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-//        this.goalSelector.add(2, new SmartFlyGoal(this, 1.5));
-
-//        this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
 
         this.goalSelector.addGoal(3, new DanmakuGoal(this, (self, target, world) -> {
             ItemStack stack = DanmakuTypes.random(DanmakuTypes.BUBBLE).create();
@@ -65,6 +89,7 @@ public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, Fri
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 10.0f));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 10.0f));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(8, new SmartFlyGoal(this, 1.5));
 
         this.targetSelector.addGoal(1, new DifferentRevengeGoal(this).setGroupRevenge());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -87,7 +112,7 @@ public class SunflowerYousei extends BaseNPCLikeEntity implements Leashable, Fri
 
     @Override
     public KeepInventoryTypes getKeepInventoryType() {
-        return KeepInventoryTypes.ONLY_ARMOR;
+        return KeepInventoryTypes.NOT_DROP_ANY;
     }
 
     @Override

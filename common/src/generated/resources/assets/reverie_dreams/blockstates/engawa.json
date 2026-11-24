@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "east=false,north=false,south=false,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_0"
+    },
+    "east=false,north=false,south=false,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_8"
+    },
+    "east=false,north=false,south=true,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_4"
+    },
+    "east=false,north=false,south=true,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_12"
+    },
+    "east=false,north=true,south=false,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_1"
+    },
+    "east=false,north=true,south=false,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_9"
+    },
+    "east=false,north=true,south=true,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_5"
+    },
+    "east=false,north=true,south=true,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_13"
+    },
+    "east=true,north=false,south=false,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_2"
+    },
+    "east=true,north=false,south=false,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_10"
+    },
+    "east=true,north=false,south=true,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_6"
+    },
+    "east=true,north=false,south=true,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_14"
+    },
+    "east=true,north=true,south=false,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_3"
+    },
+    "east=true,north=true,south=false,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_11"
+    },
+    "east=true,north=true,south=true,west=false": {
+      "model": "reverie_dreams:block/engawa_conn_7"
+    },
+    "east=true,north=true,south=true,west=true": {
+      "model": "reverie_dreams:block/engawa_conn_15"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "reverie_dreams:block/chochin",
+    "all": "reverie_dreams:block/chochin_atlas"
+  },
+  "elements": [
+    {
+      "from": [3, 0, 3],
+      "to": [13, 14, 13],
+      "faces": {
+        "up": { "uv": [6.0, 0.0, 11.0, 5.0], "texture": "#all" },
+        "down": { "uv": [6.0, 0.0, 11.0, 5.0], "texture": "#all" },
+        "north": { "uv": [0.0, 0.0, 5.0, 7.0], "texture": "#all" },
+        "south": { "uv": [0.0, 0.0, 5.0, 7.0], "texture": "#all" },
+        "east": { "uv": [0.0, 0.0, 5.0, 7.0], "texture": "#all" },
+        "west": { "uv": [0.0, 0.0, 5.0, 7.0], "texture": "#all" }
+      }
+    },
+    {
+      "from": [4, 14, 4],
+      "to": [12, 15, 12],
+      "faces": {
+        "up": { "uv": [6.0, 0.0, 10.0, 4.0], "texture": "#all" },
+        "down": { "uv": [6.0, 0.0, 10.0, 4.0], "texture": "#all" },
+        "north": { "uv": [6.0, 5.5, 10.0, 6.0], "texture": "#all" },
+        "south": { "uv": [6.0, 5.5, 10.0, 6.0], "texture": "#all" },
+        "east": { "uv": [6.0, 5.5, 10.0, 6.0], "texture": "#all" },
+        "west": { "uv": [6.0, 5.5, 10.0, 6.0], "texture": "#all" }
+      }
+    },
+    {
+      "from": [7, 15, 7],
+      "to": [9, 16, 9],
+      "faces": {
+        "up": { "uv": [12.0, 0.0, 13.0, 1.0], "texture": "#all" },
+        "down": { "uv": [12.0, 0.0, 13.0, 1.0], "texture": "#all" },
+        "north": { "uv": [12.0, 0.0, 13.0, 0.5], "texture": "#all" },
+        "south": { "uv": [12.0, 0.0, 13.0, 0.5], "texture": "#all" },
+        "east": { "uv": [12.0, 0.0, 13.0, 0.5], "texture": "#all" },
+        "west": { "uv": [12.0, 0.0, 13.0, 0.5], "texture": "#all" }
+      }
+    }
+  ]
+}

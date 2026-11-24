@@ -12,18 +12,18 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 import java.util.Map;
 
 public interface KoishiHatArmorMaterial {
-    int BASE_DURABILITY = 250;
+    int BASE_DURABILITY = 15;
     ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, ReverieDreams.id("koishi_hat"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
-                    ArmorType.HELMET, 3,
-                    ArmorType.CHESTPLATE, 8,
-                    ArmorType.LEGGINGS, 6,
-                    ArmorType.BOOTS, 3
+                    ArmorType.HELMET, 2,
+                    ArmorType.CHESTPLATE, 6,
+                    ArmorType.LEGGINGS, 5,
+                    ArmorType.BOOTS, 2
             ),
-            5,
+            12,
             SoundEvents.ARMOR_EQUIP_IRON,
             0.0F,
             0.0F,

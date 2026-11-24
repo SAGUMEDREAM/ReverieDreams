@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "S S",
+    "PPP"
+  ],
+  "key": {
+    "S": "minecraft:stone",
+    "P": "#minecraft:planks"
+  },
+  "result": {
+    "id": "reverie_dreams:stone_mill",
+    "count": 1
+  }
+}

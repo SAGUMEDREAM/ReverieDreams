@@ -1,67 +1,79 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
-import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.entity.ai.TargetReachability;
 import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import lombok.Getter;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.phys.AABB;
 
+import java.util.Comparator;
 import java.util.EnumSet;
-import java.util.List;
 
-@Getter
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+
+/**
+ * A bounded guard target, independent of an online owner.
+ */
 public class NPCCleanMonsterGoal extends TargetGoal {
+    private final BaseNPCLikeEntity npc;
+    private final TargetReachability reachability;
+    private final TargetingConditions conditions = TargetingConditions.forCombat();
+    private LivingEntity candidate;
+    private long nextSearch;
 
-    public NPCCleanMonsterGoal(BaseNPCLikeEntity maid) {
-        super(maid, false);
-        this.maid = maid;
-        this.setFlags(EnumSet.of(Flag.TARGET));
+    public NPCCleanMonsterGoal(BaseNPCLikeEntity npc) {
+        super(npc, false);
+        this.npc = npc;
+        reachability = new TargetReachability(npc);
+        setFlags(EnumSet.of(Flag.TARGET));
     }
 
+    private boolean valid(LivingEntity target) {
+        return npc.getWorkController().working(NPCWorkModes.COMBAT) && target != null
+                && !target.hasCustomName() && EntityTargetUtil.canAttack(target, npc)
+                && conditions.test(getServerLevel(npc), npc, target);
+    }
 
-    private final BaseNPCLikeEntity maid;
-
-
-    TargetingConditions targetPredicate = TargetingConditions.forCombat().range(16).selector((e,w)->{return  !e.hasCustomName();});
-    LivingEntity targetEntity;
+    private int priority(LivingEntity target) {
+        String policy = ReverieDreams.config().npcCombatTargetPriority;
+        if (policy.equals("nearest"))
+            return 1;
+        LivingEntity threat = policy.equals("npc_threat") ? npc : npc.getOwner();
+        return threat != null && (target instanceof Mob mob && mob.getTarget() == threat || threat.getLastHurtByMob() == target) ? 0 : 1;
+    }
 
     @Override
     public boolean canUse() {
-//        System.out.println("invoke");
-        if (!this.maid.isTame() || this.maid.isOrderedToSit()) {
-//            System.out.println("ret1"+this.maid.isTamed());
+        if (!npc.getWorkController().working(NPCWorkModes.COMBAT) || npc.level().getGameTime() < nextSearch)
             return false;
-        }
-        NPCState state = maid.getNpcState();
-        LivingEntity owner = this.maid.getOwner();
-//        boolean isMaidHasWeapon = this.maid.getMainHandStack().isIn(ItemTags.SWORDS);
-        if (owner == null||state!= NPCStates.WORKING|| maid.getWorkMode()!= NPCWorkModes.COMBAT) {
-//            System.out.println("ret2"+" own"+owner);
-            return false;
-        }
-        BlockPos workPos = maid.getWorkingPos();
-        ServerLevel serverWorld = getServerLevel(maid);
-
-        //serverWorld.getClosestEntity(HostileEntity.class,)
-        List<Monster> targets = this.mob.level().getEntitiesOfClass(Monster.class, new AABB(workPos).inflate(16, 8, 16), (e)->{
-            return e.isAlive()&& EntityTargetUtil.canAttack(e,maid);
-        });
-//        System.out.println(targets.size());
-        //处于工作原点水平方向拓展16格内的所有怪物
-        targetEntity = serverWorld.getNearestEntity(targets, targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
-        //挑选离女仆最近的怪物
-        return targetEntity!=null;
+        nextSearch = npc.level().getGameTime() + 20;
+        candidate = npc.level().getEntitiesOfClass(Monster.class, npc.getWorkController().area().box(), this::valid).stream()
+                .sorted(Comparator.<Monster>comparingInt(this::priority).thenComparingDouble(npc::distanceToSqr))
+                .filter(reachability::canEngage).findFirst().orElse(null);
+        return candidate != null;
     }
+
     @Override
     public void start() {
-        this.maid.setTarget(targetEntity);
+        targetMob = candidate;
+        npc.setTarget(candidate);
+        super.start();
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return valid(candidate) && npc.getTarget() == candidate && reachability.canEngage(candidate);
+    }
+
+    @Override
+    public void stop() {
+        if (npc.getTarget() == candidate)
+            npc.setTarget(null);
+        candidate = null;
+        targetMob = null;
     }
 }

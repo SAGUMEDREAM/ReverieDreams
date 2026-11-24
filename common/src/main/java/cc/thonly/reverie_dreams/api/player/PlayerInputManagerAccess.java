@@ -1,6 +1,5 @@
 package cc.thonly.reverie_dreams.api.player;
 
-import cc.thonly.reverie_dreams.server.InputKey;
 import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import net.minecraft.server.level.ServerPlayer;

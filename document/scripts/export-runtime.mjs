@@ -1,0 +1,21 @@
+import { spawn } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import fs from 'node:fs';
+import { sourceSnapshot } from './lib/snapshot.mjs';
+const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const before = sourceSnapshot(repo);
+const windows = process.platform === 'win32';
+const args = ['--console=plain', '-I', 'document/scripts/export-runtime.init.gradle', ':fabric:runServer', ...process.argv.slice(2)];
+const child = spawn(windows ? 'cmd.exe' : './gradlew', windows ? ['/d', '/s', '/c', 'gradlew.bat', ...args] : args, { cwd: repo, stdio: ['inherit','pipe','inherit'] });
+let success = false;
+let tail = '';
+child.stdout.on('data', data => { process.stdout.write(data); tail=(tail+data.toString()).slice(-256); if (tail.includes('WIKI_EXPORT_PASS')) success = true; });
+child.on('error', error => { console.error(error); process.exitCode = 1; });
+child.on('close', code => {
+  const after = sourceSnapshot(repo);
+  const stable = before.sha256 === after.sha256;
+  if (!stable) console.warn('Mod sources changed during export. Registry data was exported successfully; rerun sync:runtime on stable sources before release.');
+  if (!code && success) fs.writeFileSync(path.join(repo,'document/data/runtime-source.json'), JSON.stringify({...after, stable, sourceBefore:before.sha256, exportedAt:new Date().toISOString()},null,2)+'\n');
+  process.exitCode = code || (success ? 0 : 1);
+});

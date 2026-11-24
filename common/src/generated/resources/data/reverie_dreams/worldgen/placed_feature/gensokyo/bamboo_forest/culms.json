@@ -1,0 +1,11 @@
+{
+  "feature": "reverie_dreams:gensokyo/bamboo_forest/culms",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

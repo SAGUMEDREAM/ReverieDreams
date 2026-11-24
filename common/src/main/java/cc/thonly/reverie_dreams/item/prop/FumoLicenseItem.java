@@ -23,7 +23,8 @@ public class FumoLicenseItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
         Level world = user.level();
-        if (world.isClientSide()) return InteractionResult.SUCCESS;
+        if (world.isClientSide())
+            return InteractionResult.SUCCESS;
 
         if (entity instanceof Villager villager) {
             BlockPos blockPos = entity.blockPosition();

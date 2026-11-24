@@ -34,6 +34,6 @@ public class CreateFlyCompatImpl {
             return List.of();
         }
 //        System.out.println(NPCWorkModes.CREATE_FLY_HAND_CRANK);
-        return List.of(new Tuple<>(0, new NPCFindBlockGoal(npcLikeEntity, NPCWorkModes.CREATE_FLY_HAND_CRANK, PlatformContext.FABRIC_CREATE_FLY_HAND_CRANK, true, true)));
+        return List.of(new Tuple<>(6, new NPCFindBlockGoal(npcLikeEntity, NPCWorkModes.CREATE_FLY_HAND_CRANK, PlatformContext.FABRIC_CREATE_FLY_HAND_CRANK, true, true)));
     }
 }

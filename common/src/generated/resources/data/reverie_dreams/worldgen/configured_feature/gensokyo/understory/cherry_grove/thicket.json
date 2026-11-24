@@ -1,0 +1,106 @@
+{
+  "type": "reverie_dreams:gensokyo_understory",
+  "config": {
+    "accents": [
+      {
+        "Name": "minecraft:short_grass"
+      },
+      {
+        "Name": "minecraft:short_grass"
+      },
+      {
+        "Name": "minecraft:fern"
+      }
+    ],
+    "flowers": [
+      {
+        "Name": "minecraft:pink_petals",
+        "Properties": {
+          "facing": "north",
+          "flower_amount": "1"
+        }
+      },
+      {
+        "Name": "minecraft:pink_petals",
+        "Properties": {
+          "facing": "north",
+          "flower_amount": "1"
+        }
+      },
+      {
+        "Name": "minecraft:pink_tulip"
+      }
+    ],
+    "kind": "thicket",
+    "leaves": [
+      {
+        "Name": "minecraft:oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "minecraft:oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "minecraft:oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "minecraft:cherry_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    ],
+    "litter": [
+      {
+        "Name": "minecraft:pink_petals",
+        "Properties": {
+          "facing": "north",
+          "flower_amount": "1"
+        }
+      }
+    ],
+    "logs": [
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:cherry_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    ],
+    "theme": "cherry_grove"
+  }
+}

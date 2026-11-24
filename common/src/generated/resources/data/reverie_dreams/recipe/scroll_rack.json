@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "BCB",
+    "PSP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "B": "minecraft:paper",
+    "C": "minecraft:chest",
+    "S": "minecraft:string"
+  },
+  "result": {
+    "id": "reverie_dreams:scroll_rack",
+    "count": 1
+  }
+}

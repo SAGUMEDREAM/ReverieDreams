@@ -1,0 +1,39 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/short_sunflower",
+        "y": 270
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/short_sunflower"
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/short_sunflower",
+        "y": 90
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/short_sunflower",
+        "y": 180
+      },
+      "when": {
+        "facing": "west"
+      }
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 import org.jspecify.annotations.Nullable;
+import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 
 public class NPCWorkModes {
     public static final NPCWorkMode COMBAT = register(ReverieDreams.id("combat"),
@@ -28,7 +29,7 @@ public class NPCWorkModes {
             new NPCWorkMode("chest_classification", Items.CHEST)
     );
     public static final NPCWorkMode PLAYING_MUSIC = register(ReverieDreams.id("playing_music"),
-            new NPCWorkMode("playing_music", Items.NOTE_BLOCK)
+            new NPCWorkMode("playing_music", Items.NOTE_BLOCK).withStop((npc, mode) -> NotaUtils.stop(npc))
     );
     public static final NPCWorkMode HONEYCOMB_HARVESTING = register(ReverieDreams.id("honeycomb_harvesting"),
             new NPCWorkMode("honeycomb_harvesting", Items.HONEYCOMB)
@@ -41,6 +42,12 @@ public class NPCWorkModes {
                     .withStop((npc, mode) -> {
                         npc.stopRiding();
                     })
+    );
+    public static final NPCWorkMode COOKING = register(ReverieDreams.id("cooking"),
+            new NPCWorkMode("cooking", Items.CAMPFIRE)
+    );
+    public static final NPCWorkMode SERVING = register(ReverieDreams.id("serving"),
+            new NPCWorkMode("serving", Items.CAKE)
     );
     @Nullable
     public static NPCWorkMode CREATE_FLY_HAND_CRANK;
@@ -57,6 +64,10 @@ public class NPCWorkModes {
 
     public static NPCWorkMode get(Identifier id) {
         return BuiltInRegistryProviders.NPC_WORK_MODE.getValue(id);
+    }
+
+    public static boolean canAssign(NPCWorkMode mode) {
+        return mode != CUSTOMER || ReverieDreams.config().enableManualCustomerMode;
     }
 
     public static void bootstrap(RegistryProvider<NPCWorkMode> registry) {

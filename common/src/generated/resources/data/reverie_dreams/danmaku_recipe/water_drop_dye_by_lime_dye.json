@@ -1,0 +1,43 @@
+{
+  "dye": {
+    "id": "minecraft:lime_dye",
+    "count": 4
+  },
+  "core": {
+    "id": "reverie_dreams:danmaku_core",
+    "count": 4
+  },
+  "power": {
+    "id": "reverie_dreams:power",
+    "count": 35
+  },
+  "point": {
+    "id": "reverie_dreams:point",
+    "count": 35
+  },
+  "material": {
+    "id": "reverie_dreams:danmaku_shape_blueprint",
+    "count": 1,
+    "components": {
+      "reverie_dreams:shape": {
+        "id": "reverie_dreams:danmaku/water_drop",
+        "count": 1
+      }
+    }
+  },
+  "output": {
+    "id": "reverie_dreams:danmaku/water_drop",
+    "count": 1,
+    "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.water_drop",
+        "color": "#FFFF2F"
+      },
+      "minecraft:dyed_color": 14352166,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:56edcaca-e2f6-3d89-95fb-90fa49d6bbc2"
+      }
+    }
+  }
+}

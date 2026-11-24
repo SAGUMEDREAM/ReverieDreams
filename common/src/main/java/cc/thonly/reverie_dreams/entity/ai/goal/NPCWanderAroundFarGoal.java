@@ -29,7 +29,7 @@ public class NPCWanderAroundFarGoal extends RandomStrollGoal {
         if (this.npcRole.getWorkMode() == NPCWorkModes.PLAYING_MUSIC) {
             return;
         }
-        if (this.npcRole.getNpcState() == NPCStates.WORKING) {
+        if (this.npcRole.getNPCState() == NPCStates.WORKING) {
             return;
         }
         super.start();

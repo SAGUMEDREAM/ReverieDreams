@@ -147,7 +147,8 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
     @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         int age = this.getAge(state);
-        if (age >= this.getMaxAge()) return;
+        if (age >= this.getMaxAge())
+            return;
 
         if (world.getRawBrightness(pos, 0) >= 9) {
             float moisture = getAvailableMoisture(this, world, pos);
@@ -199,7 +200,7 @@ public abstract class AbstractCropBlock extends VegetationBlock implements Bonem
             for (int j = -1; j <= 1; ++j) {
                 float g = 0.0f;
                 BlockState blockState = world.getBlockState(blockPos.offset(i, 0, j));
-                if (blockState.is(Blocks.FARMLAND)) {
+                if (blockState.getBlock() instanceof FarmlandBlock) {
                     g = 1.0f;
                     if (blockState.getValue(FarmlandBlock.MOISTURE) > 0) {
                         g = 3.0f;

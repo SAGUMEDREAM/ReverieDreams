@@ -31,6 +31,9 @@ public class SimpleJsonResourceReloadListenerMixin {
     )
     private static <T> void injectTestObjectFileRead(ResourceManager manager, FileToIdConverter lister, DynamicOps<JsonElement> ops, Codec<T> codec, Map<Identifier, T> result, CallbackInfo ci) {
         ReverieDreamsConfiguration config = ReverieDreams.config();
+        if (!config.debugMode || !config.reportResourceReloadError) {
+            return;
+        }
         for (Map.Entry<Identifier, Resource> entry : lister.listMatchingResources(manager).entrySet()) {
             Identifier location = entry.getKey();
             Identifier id = lister.fileToId(location);

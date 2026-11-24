@@ -12,23 +12,22 @@ import org.joml.Vector3f;
 
 import java.util.function.DoubleUnaryOperator;
 
+import net.minecraft.core.Direction;
+
 public class CookingPot extends AbstractKitchenwareBlock {
     public CookingPot(DoubleUnaryOperator bonusOperator, Double failureProbability, Properties settings) {
-        super(bonusOperator, failureProbability, new Vector3f(2.0f), new Vec3(0, 0, 0), settings);
+        super(bonusOperator, failureProbability, new Vector3f(1.0f), new Vec3(0, 0, 0), settings);
     }
 
-    public static final VoxelShape SHAPE = Block.box(
-            2, 0, 2,
-            14, 8, 14
-    );
+    public static final VoxelShape SHAPE = KitchenwareShapes.outline("cooking_pot", Direction.NORTH);
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return KitchenwareShapes.outline(state, "cooking_pot");
     }
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return !PlatformContext.hasPolymer() ? SHAPE : NONE;
+        return !PlatformContext.hasPolymer() ? getShape(state, level, pos, context) : NONE;
     }
 }

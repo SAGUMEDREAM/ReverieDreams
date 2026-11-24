@@ -43,8 +43,8 @@ public class NPCCompanionEntity extends NPCSimpleEntity {
     }
 
     @Override
-    public void setNpcOwner(String npcOwner) {
-        super.setNpcOwner(npcOwner);
+    public void setNPCOwner(String npcOwner) {
+        super.setNPCOwner(npcOwner);
         this.npcState = NPCStates.FOLLOW;
     }
 

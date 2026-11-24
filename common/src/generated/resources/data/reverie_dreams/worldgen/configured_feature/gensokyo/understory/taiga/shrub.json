@@ -1,0 +1,65 @@
+{
+  "type": "reverie_dreams:gensokyo_understory",
+  "config": {
+    "accents": [
+      {
+        "Name": "minecraft:fern"
+      },
+      {
+        "Name": "minecraft:fern"
+      },
+      {
+        "Name": "minecraft:moss_carpet"
+      },
+      {
+        "Name": "minecraft:moss_carpet"
+      },
+      {
+        "Name": "minecraft:mossy_cobblestone"
+      }
+    ],
+    "flowers": [
+      {
+        "Name": "minecraft:fern"
+      },
+      {
+        "Name": "minecraft:fern"
+      },
+      {
+        "Name": "minecraft:brown_mushroom"
+      }
+    ],
+    "kind": "shrub",
+    "leaves": [
+      {
+        "Name": "minecraft:spruce_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    ],
+    "litter": [
+      {
+        "Name": "minecraft:moss_carpet"
+      },
+      {
+        "Name": "minecraft:leaf_litter",
+        "Properties": {
+          "facing": "north",
+          "segment_amount": "1"
+        }
+      }
+    ],
+    "logs": [
+      {
+        "Name": "minecraft:spruce_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    ],
+    "theme": "taiga"
+  }
+}

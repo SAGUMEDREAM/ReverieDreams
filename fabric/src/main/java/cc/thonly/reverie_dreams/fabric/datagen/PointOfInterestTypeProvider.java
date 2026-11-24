@@ -12,7 +12,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class PointOfInterestTypeProvider extends cc.thonly.reverie_dreams.fabric.datagen.generator.PointOfInterestTypeProvider {
 
-
     public PointOfInterestTypeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }

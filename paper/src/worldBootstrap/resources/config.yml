@@ -1,0 +1,28 @@
+# Keep disabled on ordinary servers. Installing the separate datapack and
+# selecting this generator in bukkit.yml are additional deliberate steps.
+enabled: false
+acknowledge-terrain-only-gaps: false
+
+# For level-name=migration_world, Paper74 names the custom datapack dimension:
+world-name: migration_world_reverie_dreams_gensokyo
+
+# Relative paths resolve inside plugins/ReverieDreamsWorld/.
+# Unzip the separate map-data artifact here, then run /rdworld prepare.
+source-directory: map
+cache-directory: map-cache
+
+# No state alias/substitution switch is provided. Unresolved paddy_field blocks
+# their entire chunk before its first terrain write and blocks /rdworld enter.
+
+# New-world generation stages are deliberately opt-in. They never retrofit old chunks.
+# The native stage uses Paper26.1.2's actual biome features; the supplemental
+# stage uses all20 source depth/altitude bands and real verified custom ore states.
+features:
+  native-biome-decoration: false
+  terrain-relative-ores: false
+  # Original Mod-injected silver9/chunk, uniform above_bottom10..below_top10;
+  # orb7/chunk, triangular above_bottom(-80)..above_bottom80. Separate from20bands.
+  source-ore-placements: false
+  # Explicit source shapes/density AFTER native vegetation with a separate deterministic
+  # feature seed. This differs from the original tree step order; see full-forests.md.
+  source-forest-trees: false

@@ -1,14 +1,24 @@
 package cc.thonly.reverie_dreams;
 
+import cc.thonly.reverie_dreams.event.CommonEventHandlers;
+import cc.thonly.reverie_dreams.event.block.RecordPlayerEventHandlers;
+
 import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
-import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
+import cc.thonly.reverie_dreams.api.player.PlayerComponentManagerAccess;
+import cc.thonly.reverie_dreams.api.registry.BookPageManager;
+import cc.thonly.reverie_dreams.api.registry.entity.EntityDataSerializerProviders;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderContext;
 import cc.thonly.reverie_dreams.api.server.ServerEvents;
 import cc.thonly.reverie_dreams.client.networking.ClientNetworkingHandlers;
-import cc.thonly.reverie_dreams.command.CommandInit;
+import cc.thonly.reverie_dreams.compat.ysm.NPCModelSelection;
+import cc.thonly.reverie_dreams.command.CommandRegistry;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
 import cc.thonly.reverie_dreams.creative_tab.RDCreativeTabs;
-import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
+import cc.thonly.reverie_dreams.event.block.FumoBlockEventHandlers;
+import cc.thonly.reverie_dreams.event.block.PlateBlockEventHandlers;
+import cc.thonly.reverie_dreams.event.block.RakedGravelEventHandlers;
+import cc.thonly.reverie_dreams.data.danmaku.spellcard.LegacySpellcardRuntime;
 import cc.thonly.reverie_dreams.data.danmaku.script.DanmakuScriptManager;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.KeyframeFunctions;
 import cc.thonly.reverie_dreams.data.danmaku.stg.motion.DanmakuMotion;
@@ -16,10 +26,14 @@ import cc.thonly.reverie_dreams.data.danmaku.stg.runtime.DanmakuDirector;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
+import cc.thonly.reverie_dreams.server.dialog.NPCSpeech;
 import cc.thonly.reverie_dreams.server.dialog.video.DialogFiles;
 import cc.thonly.reverie_dreams.server.dialog.video.DialogPlayerManager;
 import cc.thonly.reverie_dreams.gui.RecipeTypeCategoryManager;
 import cc.thonly.reverie_dreams.item.IngredientStack;
+import cc.thonly.reverie_dreams.item.debug.BattleStickItem;
+import cc.thonly.reverie_dreams.item.weapon.Gungnir;
+import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
 import cc.thonly.reverie_dreams.loot.RDLootModifies;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
 import cc.thonly.reverie_dreams.networking.payload.*;
@@ -30,6 +44,7 @@ import cc.thonly.reverie_dreams.registry.BuiltInBiRegistryProviders;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.ResourceReloadManager;
+import cc.thonly.reverie_dreams.registry.impl.RegistryProviderContextImpl;
 import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.armor.RDArmorMaterials;
@@ -43,22 +58,23 @@ import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.*;
 import cc.thonly.reverie_dreams.registry.content.villager.RDPointOfInterestTypes;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerProfessions;
-import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
+import cc.thonly.reverie_dreams.server.BookPageManagerImpl;
 import cc.thonly.reverie_dreams.server.DelayedTask;
+import cc.thonly.reverie_dreams.server.GensokyoCompassNavigation;
 import cc.thonly.reverie_dreams.server.ParticleTickerManager;
 import cc.thonly.reverie_dreams.server.ServerEventHandlers;
 import cc.thonly.reverie_dreams.server.component.ServerPlayerComponentManager;
 import cc.thonly.reverie_dreams.server.input.ServerPlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.server.nota.Nota;
-import cc.thonly.reverie_dreams.sound.JukeboxSongInit;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
-import cc.thonly.reverie_dreams.state.RDBlockStateTemplates;
+import cc.thonly.reverie_dreams.registry.content.sound.RDJukeboxSongs;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.block.RDBlockStateTemplates;
 import cc.thonly.reverie_dreams.util.CardboardWarning;
 import cc.thonly.reverie_dreams.util.ImageToTextScanner;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.item.ItemStackCheckUtils;
+import cc.thonly.reverie_dreams.util.item.ItemTagMigration;
 import cc.thonly.reverie_dreams.util.network.ModrinthAPI;
 import cc.thonly.reverie_dreams.util.network.NetUtil;
 import cc.thonly.reverie_dreams.world.BiomeModificationInit;
@@ -70,9 +86,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
@@ -83,34 +97,34 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.concurrent.ThreadLocalRandom;
 
-@SuppressWarnings("rawtypes")
+import cc.thonly.reverie_dreams.board.BoardGames;
+import cc.thonly.reverie_dreams.event.block.WorkshopRackEventHandlers;
+import cc.thonly.reverie_dreams.item.weapon.YoumuSwordCombat;
+import cc.thonly.reverie_dreams.world.moon.signal.MoonSignalTowers;
+
 @Setter
 @Getter
 public class ReverieDreams {
     public static final String MOD_NAME = "Gensokyo: Reverie of Lost Dreams";
     public static final String MOD_ID = "reverie_dreams";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-    public static final Random RD = new Random();
+    public static final Random RD = ThreadLocalRandom.current();
     public static final List<Runnable> COMMON_LATE_INIT = new ArrayList<>();
     public static final List<Runnable> BUS_LATE_INIT = new ArrayList<>();
     public static final List<Runnable> LATE_INIT_CLIENT = new ArrayList<>();
     public static final List<Block> SERVER_SIDE_BLOCKS = List.of(Blocks.NOTE_BLOCK, Blocks.TRIPWIRE);
-    public static Function<ResourceKey<? extends Registry<?>>, RegistryProvider<?>> REGISTRY_GETTER = key -> null;
-    public static BiFunction<ResourceKey<? extends Registry<?>>, List<Registry>, MergeRegistry<?>> MERGE_REGISTRY_GETTER = (key, list) -> null;
-    public static BiFunction<ResourceKey<? extends Registry<?>>, RegistryProvider<?>, RegistryProvider<?>> REGISTRY_SHADOWER = null;
     private static MinecraftServer server;
 
     public static ReverieDreamsConfiguration config() {
-        return AutoConfig
-                .getConfigHolder(ReverieDreamsConfiguration.class)
+        return AutoConfig.getConfigHolder(ReverieDreamsConfiguration.class)
                 .getConfig();
     }
 
-    public static void initialize(Runnable lateInit) {
+    public static void initialize(Runnable platformInitAct) {
         AutoConfig.register(ReverieDreamsConfiguration.class, GsonConfigSerializer::new);
+        cc.thonly.reverie_dreams.world.gensokyo.update.StructureUpdateTickets.initialize();
         CardboardWarning.checkAndAnnounce();
         if (PlatformContext.isDevMode()) {
             LOGGER.warn("=====================================================");
@@ -128,7 +142,7 @@ public class ReverieDreams {
 
         // 初始化静态注册表
         Nota.initialize();
-        JukeboxSongInit.initialize();
+        RDJukeboxSongs.initialize();
         RDArmorMaterials.initialize();
         RDBlockStateTemplates.initialize();
         RDEnchantments.registerEnchantments();
@@ -141,12 +155,15 @@ public class ReverieDreams {
         RDBeverageItems.initialize();
         RDEntityHolderItems.initialize();
         RDBlocks.initialize();
+        RDCuisineBlocks.initialize();
         RDWoodBlocks.initialize();
+        RDWoolBlocks.initialize();
         RDCropBlocks.initialize();
         RDPlantBlocks.initialize();
         RDKitchenBlocks.initialize();
         RDBlockEntityTypes.initialize();
         RDEntityTypes.initialize();
+        RDAquaticItems.initialize();
         RDStatusEffects.initialize();
         RDPotions.initialize();
         RDPointOfInterestTypes.initialize();
@@ -160,6 +177,7 @@ public class ReverieDreams {
 
         // 初始化其他注册内容
         PlatformProxies.initialize();
+        RegistryProviderContext.setContext(new RegistryProviderContextImpl());
         RecipeManager.bootstrap();
         RecipeWorkbenchRegistry.bootstrap();
         ResourceReloadManager.initialize();
@@ -171,20 +189,25 @@ public class ReverieDreams {
         RecipeTypeCategoryManager.registerCategories();
         DanmakuTemplates.initialize();
         CustomClickActionRegistry.initialize();
+        BookPageManager.setInstance(BookPageManagerImpl.getInstance());
         DefaultBookPages.initialize();
         KeyframeFunctions.bootstrap();
         InitTooltips.bootstrap();
 
         ImageToTextScanner.bootstrap();
+        PlayerComponentManagerAccess.registerServer(ServerPlayerComponentManager::serverAccess);
         PlayerComponentRegistry.registerDefaultComponents();
+
+        // 注册内容全部就绪后，才允许在 ItemStack 反序列化时清理旧版本标签
+        COMMON_LATE_INIT.add(ItemTagMigration::setReady);
 
         loadCompletableEvent();
         registerNetworkingEvent();
         registerServerEvents();
-        registerContentEvent();
+        registerGameplayEvents();
         registerEntityDataSerializers();
 
-        lateInit.run();
+        platformInitAct.run();
     }
 
     private static void registerEntityDataSerializers() {
@@ -198,38 +221,59 @@ public class ReverieDreams {
         providers.add(id("danmaku_motion"), DanmakuMotion.SERIALIZER);
     }
 
-    private static void registerContentEvent() {
+    private static void registerGameplayEvents() {
+        MoonSignalTowers.initialize();
         EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByDanmaku);
-//        EntityEvent.LIVING_DEATH.register(CommonEventHandlers::onLivingEntityDeathByElixirOfLife);
         EntityEvent.LIVING_HURT.register(CommonEventHandlers::onModifyingLivingEntityDamageByUndeadSilverDamage);
-        ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostHitBySilverWeapon);
         ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostByFrozenEnchantment);
         ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostByChargeEnchantment);
-        ItemEvent.ITEM_ATTACK_HIT.register(CommonEventHandlers::onPostHitByInstantKillGhost);
         ItemEvent.ITEM_HIT_BLOCK.register(CommonEventHandlers::onAttackingBlockChangeCameraFov);
         ItemEvent.ITEM_HIT_BLOCK.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
         PlayerEvent.ATTACK_ENTITY.register(CommonEventHandlers::onChangingMusicalInstrumentMusic);
+        PlayerEvent.ATTACK_ENTITY.register(YoumuSwordCombat::captureAttack);
+        TickEvent.PLAYER_POST.register(YoumuSwordCombat::tick);
         TickEvent.PLAYER_POST.register(CommonEventHandlers::onUseYukaFlowerUmbrella);
+        TickEvent.PLAYER_POST.register(GensokyoCompassNavigation::tick);
+
+        InteractionEvent.RIGHT_CLICK_BLOCK.register(RakedGravelEventHandlers::onRightClickBlock);
+        InteractionEvent.RIGHT_CLICK_BLOCK.register(FumoBlockEventHandlers::onRightClickBlock);
+        InteractionEvent.RIGHT_CLICK_BLOCK.register(PlateBlockEventHandlers::onRightClickBlock);
+        InteractionEvent.RIGHT_CLICK_BLOCK.register(WorkshopRackEventHandlers::onRightClickBlock);
+        InteractionEvent.RIGHT_CLICK_BLOCK.register(RecordPlayerEventHandlers::onRightClickBlock);
+        InteractionEvent.INTERACT_ENTITY.register(BattleStickItem::onInteractEntity);
+        ChunkEvent.LOAD.register(FumoBlockEventHandlers::onChunkLoad);
     }
 
     private static void registerNetworkingEvent() {
         registerClientboundPackets();
         registerServerboundPackets();
+        NPCModelSelection.registerPackets();
     }
 
     public static void registerClientboundPackets() {
         NetworkManager.registerReceiver(
                 NetworkManager.Side.S2C,
-                RecipeManagerSyncPacket.PACKET_ID,
-                RecipeManagerSyncPacket.CODEC,
-                (packet, context) ->
-                        ClientNetworkingHandlers.safeHandleClient(
-                                () -> ClientNetworkingHandlers.onReceiveRecipeManagerSyncPacket(
-                                        context.getPlayer(),
-                                        packet
-                                )
-                        )
+                LunarReloadPosePacket.PACKET_ID,
+                LunarReloadPosePacket.CODEC,
+                (packet, context) -> ClientNetworkingHandlers.safeHandleClient(
+                        () -> ClientNetworkingHandlers.onReceiveLunarReloadPose(packet))
         );
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.S2C,
+                LunarShotPosePacket.PACKET_ID,
+                LunarShotPosePacket.CODEC,
+                (packet, context) -> ClientNetworkingHandlers.safeHandleClient(
+                        () -> ClientNetworkingHandlers.onReceiveLunarShotPose(packet))
+        );
+        for (var type : List.of(RecipeManagerSyncPacket.PACKET_ID, RecipeManagerSyncPacket.BATCH_PACKET_ID)) {
+            NetworkManager.registerReceiver(
+                    NetworkManager.Side.S2C,
+                    type,
+                    RecipeManagerSyncPacket.CODEC,
+                    (packet, context) -> ClientNetworkingHandlers.safeHandleClient(
+                            () -> ClientNetworkingHandlers.onReceiveRecipeManagerSyncPacket(context.getPlayer(), packet))
+            );
+        }
         NetworkManager.registerReceiver(
                 NetworkManager.Side.S2C,
                 CustomRegistrySyncPacket.PACKET_ID,
@@ -266,15 +310,24 @@ public class ReverieDreams {
                 PlayerComponentUpdatePacket.CODEC,
                 (packet, context) ->
                         ClientNetworkingHandlers.safeHandleClient(
-                                () -> ClientNetworkingHandlers.onReceivePlayerComponentUpdatePacket(
-                                        context.getPlayer(),
-                                        packet
-                                )
+                                () -> ClientNetworkingHandlers.onReceivePlayerComponentUpdatePacket(packet)
                         )
         );
     }
 
     public static void registerServerboundPackets() {
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.C2S,
+                GungnirThrowPacket.PACKET_ID,
+                GungnirThrowPacket.CODEC,
+                (packet, context) -> context.queue(() -> Gungnir.handleChargeThrow((ServerPlayer) context.getPlayer()))
+        );
+        NetworkManager.registerReceiver(
+                NetworkManager.Side.C2S,
+                LunarAimFirePacket.PACKET_ID,
+                LunarAimFirePacket.CODEC,
+                (packet, context) -> context.queue(() -> WeaponOfTheMoon.handleAimInput((ServerPlayer) context.getPlayer(), packet.fire()))
+        );
         NetworkManager.registerReceiver(
                 NetworkManager.Side.C2S,
                 HelloPacket.PACKET_ID,
@@ -302,25 +355,35 @@ public class ReverieDreams {
     }
 
     private static void registerServerEvents() {
-        CommandRegistrationEvent.EVENT.register(CommandInit::registerCommand);
+        CommandRegistrationEvent.EVENT.register(CommandRegistry::registerCommand);
         PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinByModUpdateCheck);
         PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinByCreateComponent);
         PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinBySync);
+        PlayerEvent.PLAYER_JOIN.register(ServerEventHandlers::onPlayerJoinByInstallGensokyo);
+        PlayerEvent.CHANGE_DIMENSION.register(ServerEventHandlers::onPlayerChangeDimension);
         PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionBySavingComponent);
         PlayerEvent.PLAYER_QUIT.register(ServerEventHandlers::onPlayerDisconnectionByRemoveModClient);
         LifecycleEvent.SERVER_STARTED.register(ServerEventHandlers::onServerStarted);
         LifecycleEvent.SERVER_STOPPING.register(ServerEventHandlers::onServerStopping);
+        LifecycleEvent.SERVER_STOPPING.register(YoumuSwordCombat::clear);
+        LifecycleEvent.SERVER_STOPPING.register(BoardGames::clear);
+        LifecycleEvent.SERVER_STOPPING.register(NPCSpeech::clear);
+        LifecycleEvent.SERVER_STOPPING.register(GensokyoCompassNavigation::clear);
+        LifecycleEvent.SERVER_STOPPED.register(cc.thonly.reverie_dreams.world.gensokyo.update.StructureUpdateService::stopped);
+        PlayerEvent.PLAYER_QUIT.register(GensokyoCompassNavigation::remove);
         ServerEvents.SAVING_AFTER.register(ServerEventHandlers::onServerSavingAfter);
         ServerEvents.RELOADING.register(ServerEventHandlers::onServerReloading);
         ServerEvents.RELOADED.register(ServerEventHandlers::onServerReloaded);
 
+        TickEvent.SERVER_POST.register(ServerEventHandlers::onServerTickInstallGensokyo);
         TickEvent.SERVER_POST.register(DelayedTask::tick);
         TickEvent.SERVER_POST.register(ServerPlayerComponentManager::tickByServer);
         TickEvent.SERVER_POST.register(ParticleTickerManager::tick);
         TickEvent.SERVER_POST.register(ServerPlayerInputManagerAccess::tick);
         TickEvent.SERVER_POST.register(DanmakuScriptManager::onTick);
         TickEvent.SERVER_POST.register(DialogPlayerManager::tick);
-        TickEvent.SERVER_POST.register(SpellcardRenderer::tick);
+        TickEvent.SERVER_POST.register(NPCSpeech::tick);
+        TickEvent.SERVER_POST.register(LegacySpellcardRuntime::tick);
         TickEvent.SERVER_POST.register(DanmakuDirector::tick);
     }
 

@@ -48,16 +48,15 @@ public class PolymerTHGuideBookItem extends Item {
         return super.getName(stack);
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+    public static void appendPageDescription(ItemStack stack, TooltipContext context, TooltipDisplay tooltipDisplay,
+                                             Player player, Consumer<Component> tooltipAdder, TooltipFlag flag) {
+        if (!(stack.getItem() instanceof PolymerTHGuideBookItem)) return;
         var ctx = LocalizationTarget.forPacket();
 
         var page = BookletImplUtil.getPage(GUIDE_PAGE_ID, ctx != null && ctx.getLanguageCode() != null ? ctx.getLanguageCode() : "en_us");
         if (page != null && page.info().description().isPresent()) {
             tooltipAdder.accept(Component.empty().append(page.info().description().orElseThrow()).withStyle(ChatFormatting.GRAY));
         }
-        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, flag);
     }
 
 }

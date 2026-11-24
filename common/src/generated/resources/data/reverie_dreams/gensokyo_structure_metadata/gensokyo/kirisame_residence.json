@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "content_version": 1,
+  "actors_version": 1,
+  "content_sha256": "e4cc88181fd4a509cd30a73a47f9e65905a182f22d01b1f181ca9c6fbf252337",
+  "source_sha256": "7dd17ea0c8ed643e5e79e1354bcba39af6d345d20e1981daa41b0dcef6c9c502",
+  "size": [
+    34,
+    28,
+    48
+  ],
+  "function_points": [
+    {
+      "id": "field_samples",
+      "pos": [
+        9,
+        2,
+        20
+      ]
+    },
+    {
+      "id": "brew_stock",
+      "pos": [
+        14,
+        2,
+        20
+      ]
+    },
+    {
+      "id": "experiment_notes",
+      "pos": [
+        22,
+        8,
+        22
+      ]
+    },
+    {
+      "id": "star_experiments",
+      "pos": [
+        24,
+        8,
+        18
+      ]
+    },
+    {
+      "id": "optical_parts",
+      "pos": [
+        24,
+        8,
+        27
+      ]
+    }
+  ],
+  "template_sha256": "e664a686bf7082c1140d3d399a1cdbe2a3ac8665357a6a1f05bee203c3907fda"
+}

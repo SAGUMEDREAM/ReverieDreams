@@ -1,0 +1,17 @@
+{
+  "type": "reverie_dreams:gensokyo_rock",
+  "config": {
+    "kind": "rock_cluster",
+    "moss": {
+      "Name": "minecraft:mossy_cobblestone"
+    },
+    "moss_chance": 0.14,
+    "stone": {
+      "Name": "minecraft:stone"
+    },
+    "theme": "maple_forest",
+    "variation": {
+      "Name": "minecraft:andesite"
+    }
+  }
+}

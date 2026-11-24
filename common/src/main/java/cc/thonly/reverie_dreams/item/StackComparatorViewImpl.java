@@ -27,8 +27,10 @@ public final class StackComparatorViewImpl implements ItemComparatorView {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof ItemComparatorView other)) return false;
+        if (this == obj)
+            return true;
+        if (!(obj instanceof ItemComparatorView other))
+            return false;
         return ItemStack.matches(this.stack(), other.stack());
     }
 

@@ -9,10 +9,13 @@ import net.minecraft.world.item.Item;
 @SuppressWarnings("DeprecatedIsStillUsed")
 public class RDItemTags {
     public static final TagKey<Item> EMPTY = of("empty");
+    public static final TagKey<Item> YOUKAI_MEAT = of("youkai_meat");
     public static final TagKey<Item> FUMO = of("fumo");
+    public static final TagKey<Item> ZABUTONS = of("zabutons");
     public static final TagKey<Item> ORB_BLOCK = of("orb");
     public static final TagKey<Item> ARMOR = of("armor");
     public static final TagKey<Item> IRON_BAR_MATERIALS = of("iron_bar_materials");
+    public static final TagKey<Item> ONI_MASK_MATERIALS = of("oni_mask_materials");
     public static final TagKey<Item> COMMON_SILVER_ORE = of_c("ores/silver");
     public static final TagKey<Item> SILVER_ITEM = of("silver_item");
     public static final TagKey<Item> SILVER_ARMOR = of("silver_armor");

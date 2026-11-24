@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.inventory;
 
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;

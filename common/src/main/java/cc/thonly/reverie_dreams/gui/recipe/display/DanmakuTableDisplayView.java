@@ -51,12 +51,12 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
     public void init() {
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub001")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName())
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub001")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName())
         );
         List<IngredientStack> inputs = new LinkedList<>();
         inputs.add(this.value.getDye());
@@ -82,7 +82,7 @@ public class DanmakuTableDisplayView extends SimpleGui implements DisplayView {
                     this.setSlot(slot, new GuiElementBuilder(Items.WHITE_STAINED_GLASS_PANE));
                 }
                 if (c.equalsIgnoreCase("I")) {
-                    if(slotIterator.hasNext()) {
+                    if (slotIterator.hasNext()) {
                         IngredientStack next = slotIterator.next();
                         this.setSlot(slot, this.getGuiElementBuilder(next));
                     }

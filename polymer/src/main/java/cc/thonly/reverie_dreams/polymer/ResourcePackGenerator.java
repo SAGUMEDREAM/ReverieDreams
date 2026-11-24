@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.polymer;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
 import eu.pb4.factorytools.api.resourcepack.ModelModifiers;
 import eu.pb4.polymer.resourcepack.api.AssetPaths;
@@ -40,6 +42,7 @@ public class ResourcePackGenerator {
 
     public static void registerEvent() {
         PolymerResourcePackUtils.RESOURCE_PACK_AFTER_INITIAL_CREATION_EVENT.register(builder -> {
+            builder.addResourceConverter(ResourcePackGenerator::convertSpellcardItemDefinition);
             buildVanillaLike(builder);
             buildCustomHolder(builder);
             try (InputStream inputStream = ReverieDreams.class.getResourceAsStream("assets/minecraft/font/default.json")) {
@@ -55,6 +58,27 @@ public class ResourcePackGenerator {
         });
     }
 
+    private static PackResource convertSpellcardItemDefinition(String path, PackResource resource) {
+        if (!path.equals("assets/" + ReverieDreams.MOD_ID + "/items/spellcard.json")) {
+            return resource;
+        }
+        String json = resource.asString();
+        if (json == null) {
+            return resource;
+        }
+        var definition = JsonParser.parseString(json).getAsJsonObject();
+        if (!(definition.get("model") instanceof JsonObject selector)
+                || !selector.has("component")
+                || !selector.get("component").getAsString().equals(ReverieDreams.MOD_ID + ":danmaku_pattern")
+                || !selector.has("fallback")) {
+            return resource;
+        }
+        // The original client has no modded component registry entry. The generated
+        // vanilla-compatible fallback is the same generic model it used before.
+        definition.add("model", selector.get("fallback"));
+        return PackResource.of(definition.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
     private static void buildVanillaLike(ResourcePackBuilder builder) {
         long start = System.nanoTime();
         var atlas = AtlasAsset.builder();
@@ -64,12 +88,13 @@ public class ResourcePackGenerator {
             for (var expandable : EXPANDABLE) {
                 for (var namespace : NAMESPACES) {
                     var polymerify_namespace = namespace + "_polymerify";
-                    if (string.contains(expandable) && string.startsWith("assets/%s/models/block/".formatted(namespace))) {
+                    if (string.contains(expandable) && string.startsWith("assets/%s/models/block/".formatted(namespace))
+                                && !string.startsWith("assets/%s/models/block/cuisine/".formatted(namespace))) {
                         var asset = ModelAsset.fromJson(new String(bytes, StandardCharsets.UTF_8));
                         final var expansion = new Vec3(0.08, 0.08, 0.08);
                         if (asset.parent().isPresent()) {
                             var parentId = asset.parent().get();
-                            var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
+                            var parentAsset = parentAssetOrReference(builder, parentId);
 
                             builder.addData(AssetPaths.model(polymerify_namespace, parentId.getPath()) + ".json", new ModelAsset(parentAsset.parent(), parentAsset.elements().map(x -> x.stream()
                                                                                                                                                                                         .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
@@ -99,11 +124,16 @@ public class ResourcePackGenerator {
                 for (var v : entry.getValue()) {
                     var suffix = "_uvlock_" + v.x() + "_" + v.y();
                     var modelId = v.model().withSuffix(suffix);
-                    var asset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getData(AssetPaths.model(v.model()) + ".json")), StandardCharsets.UTF_8));
+                    var modelBytes = builder.getDataOrSource(AssetPaths.model(v.model()) + ".json");
+                    if (modelBytes == null) {
+                        log.warn("Missing source model {} for UV-locked variant {}", v.model(), modelId);
+                        continue;
+                    }
+                    var asset = ModelAsset.fromJson(new String(modelBytes, StandardCharsets.UTF_8));
 
                     if (asset.parent().isPresent()) {
                         var parentId = asset.parent().get();
-                        var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
+                        var parentAsset = parentAssetOrReference(builder, parentId);
                         ModelAsset modelAssetExpanded = ModelModifiers.expandModelAndRotateUVLocked(parentAsset, expand, v.x(), v.y());
                         ModelAsset finalModelAsset = null;
                         boolean modelWithinBounds = isModelWithinBounds(modelAssetExpanded);
@@ -131,7 +161,8 @@ public class ResourcePackGenerator {
             builder.addResourceConverter(((string, bytes) -> {
                 if (!string.contains("_uvlock_")) {
                     for (var expandable : EXPANDABLE) {
-                        if (string.contains(expandable) && string.startsWith("assets/%s/models/block/".formatted(namespace))) {
+                        if (string.contains(expandable) && string.startsWith("assets/%s/models/block/".formatted(namespace))
+                                && !string.startsWith("assets/%s/models/block/cuisine/".formatted(namespace))) {
                             String modelJsonStr = bytes.asString();
                             if (modelJsonStr == null) {
                                 return bytes;
@@ -175,7 +206,7 @@ public class ResourcePackGenerator {
                     var asset = ModelAsset.fromJson(modelJsonStr);
                     if (asset.parent().isPresent()) {
                         var parentId = asset.parent().get();
-                        var parentAsset = ModelAsset.fromJson(new String(Objects.requireNonNull(builder.getDataOrSource(AssetPaths.model(parentId) + ".json")), StandardCharsets.UTF_8));
+                        var parentAsset = parentAssetOrReference(builder, parentId);
 
                         builder.addData(AssetPaths.model(polymerify_namespace, parentId.getPath()) + ".json", new ModelAsset(parentAsset.parent(), parentAsset.elements().map(x -> x.stream()
                                                                                                                                                                                     .map(element -> new ModelElement(element.from().subtract(expansion), element.to().add(expansion),
@@ -277,6 +308,19 @@ public class ResourcePackGenerator {
                 return bytes;
             }));
         }
+    }
+
+    private static ModelAsset parentAssetOrReference(ResourcePackBuilder builder, Identifier parentId) {
+        byte[] data = builder.getDataOrSource(AssetPaths.model(parentId) + ".json");
+        if (data != null) {
+            return ModelAsset.fromJson(new String(data, StandardCharsets.UTF_8));
+        }
+        // Vanilla/builtin parents need not be bundled: the client already provides them.
+        // Keep the reference in the generated alias instead of aborting the whole pack.
+        if (!parentId.getNamespace().equals("minecraft")) {
+            log.warn("Parent model {} is not bundled; retaining its external reference", parentId);
+        }
+        return ModelAsset.fromJson("{\"parent\":\"" + parentId + "\"}");
     }
 
     private static boolean isModelWithinBounds(ModelAsset asset) {

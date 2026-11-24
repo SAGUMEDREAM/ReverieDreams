@@ -22,10 +22,12 @@ public class ItemDescriptionConsts {
     public static final String ENERGY_STRING_DESCRIPTION_0 = "reverie_dreams.item.energy_string.description.0";
     public static final String ENERGY_STRING_DESCRIPTION_1 = "reverie_dreams.item.energy_string.description.1";
     public static final String ENERGY_STRING_DESCRIPTION_2 = "reverie_dreams.item.energy_string.description.2";
+    public static final String ENERGY_STRING_DESCRIPTION_3 = "reverie_dreams.item.energy_string.description.3";
     public static final String TWO_HEAVENS_ONE_STYLE_DESCRIPTION_0 = "reverie_dreams.item.two_heavens_one_style.description.0";
     public static final String TWO_HEAVENS_ONE_STYLE_DESCRIPTION_1 = "reverie_dreams.item.two_heavens_one_style.description.1";
     public static final String TWO_HEAVENS_ONE_STYLE_DESCRIPTION_2 = "reverie_dreams.item.two_heavens_one_style.description.2";
     public static final String TWO_HEAVENS_ONE_STYLE_DESCRIPTION_3 = "reverie_dreams.item.two_heavens_one_style.description.3";
+    public static final String TWO_HEAVENS_ONE_STYLE_DESCRIPTION_4 = "reverie_dreams.item.two_heavens_one_style.description.4";
     public static final String RICE_BALL_DESCRIPTION_0 = "reverie_dreams.item.rice_ball.description.0";
     public static final String RICE_BALL_DESCRIPTION_1 = "reverie_dreams.item.rice_ball.description.1";
     public static final String RICE_BALL_DESCRIPTION_2 = "reverie_dreams.item.rice_ball.description.2";
@@ -67,6 +69,7 @@ public class ItemDescriptionConsts {
     public static final String FRIED_HAGFISH_DESCRIPTION_1 = "reverie_dreams.item.fried_hagfish.description.1";
     public static final String FRIED_HAGFISH_DESCRIPTION_2 = "reverie_dreams.item.fried_hagfish.description.2";
     public static final String FRIED_HAGFISH_DESCRIPTION_3 = "reverie_dreams.item.fried_hagfish.description.3";
+    public static final String FRIED_HAGFISH_DESCRIPTION_4 = "reverie_dreams.item.fried_hagfish.description.4";
     public static final String VEGETABLE_SPECIAL_DESCRIPTION_0 = "reverie_dreams.item.vegetable_special.description.0";
     public static final String VEGETABLE_SPECIAL_DESCRIPTION_1 = "reverie_dreams.item.vegetable_special.description.1";
     public static final String VEGETABLE_SPECIAL_DESCRIPTION_2 = "reverie_dreams.item.vegetable_special.description.2";
@@ -129,12 +132,14 @@ public class ItemDescriptionConsts {
     public static final String PEACH_BLOSSOM_SOUP_DESCRIPTION_4 = "reverie_dreams.item.peach_blossom_soup.description.4";
     public static final String ARCTIC_SWEET_SHRIMP_AND_PEACH_SALAD_DESCRIPTION_0 = "reverie_dreams.item.arctic_sweet_shrimp_and_peach_salad.description.0";
     public static final String ARCTIC_SWEET_SHRIMP_AND_PEACH_SALAD_DESCRIPTION_1 = "reverie_dreams.item.arctic_sweet_shrimp_and_peach_salad.description.1";
+    public static final String ARCTIC_SWEET_SHRIMP_AND_PEACH_SALAD_DESCRIPTION_2 = "reverie_dreams.item.arctic_sweet_shrimp_and_peach_salad.description.2";
     public static final String FRIED_TOFU_DESCRIPTION_0 = "reverie_dreams.item.fried_tofu.description.0";
     public static final String FRIED_TOFU_DESCRIPTION_1 = "reverie_dreams.item.fried_tofu.description.1";
     public static final String POETRY_AND_GINKGO_DESCRIPTION_0 = "reverie_dreams.item.poetry_and_ginkgo.description.0";
     public static final String POETRY_AND_GINKGO_DESCRIPTION_1 = "reverie_dreams.item.poetry_and_ginkgo.description.1";
     public static final String POETRY_AND_GINKGO_DESCRIPTION_2 = "reverie_dreams.item.poetry_and_ginkgo.description.2";
     public static final String POETRY_AND_GINKGO_DESCRIPTION_3 = "reverie_dreams.item.poetry_and_ginkgo.description.3";
+    public static final String POETRY_AND_GINKGO_DESCRIPTION_4 = "reverie_dreams.item.poetry_and_ginkgo.description.4";
     public static final String REAL_SEAFOOD_MISO_SOUP_DESCRIPTION_0 = "reverie_dreams.item.real_seafood_miso_soup.description.0";
     public static final String REAL_SEAFOOD_MISO_SOUP_DESCRIPTION_1 = "reverie_dreams.item.real_seafood_miso_soup.description.1";
     public static final String REAL_SEAFOOD_MISO_SOUP_DESCRIPTION_2 = "reverie_dreams.item.real_seafood_miso_soup.description.2";
@@ -160,6 +165,8 @@ public class ItemDescriptionConsts {
     public static final String BEEF_WELLINGTON_DESCRIPTION_1 = "reverie_dreams.item.beef_wellington.description.1";
     public static final String BEEF_WELLINGTON_DESCRIPTION_2 = "reverie_dreams.item.beef_wellington.description.2";
     public static final String BEEF_WELLINGTON_DESCRIPTION_3 = "reverie_dreams.item.beef_wellington.description.3";
+    public static final String BEEF_WELLINGTON_DESCRIPTION_4 = "reverie_dreams.item.beef_wellington.description.4";
+    public static final String BEEF_WELLINGTON_DESCRIPTION_5 = "reverie_dreams.item.beef_wellington.description.5";
     public static final String EGGS_BENEDICT_DESCRIPTION_0 = "reverie_dreams.item.eggs_benedict.description.0";
     public static final String EGGS_BENEDICT_DESCRIPTION_1 = "reverie_dreams.item.eggs_benedict.description.1";
     public static final String HOT_WAFFLES_DESCRIPTION_0 = "reverie_dreams.item.hot_waffles.description.0";
@@ -171,6 +178,7 @@ public class ItemDescriptionConsts {
     public static final String PAN_FRIED_SALMON_DESCRIPTION_0 = "reverie_dreams.item.pan_fried_salmon.description.0";
     public static final String PAN_FRIED_SALMON_DESCRIPTION_1 = "reverie_dreams.item.pan_fried_salmon.description.1";
     public static final String PAN_FRIED_SALMON_DESCRIPTION_2 = "reverie_dreams.item.pan_fried_salmon.description.2";
+    public static final String PAN_FRIED_SALMON_DESCRIPTION_3 = "reverie_dreams.item.pan_fried_salmon.description.3";
     public static final String CREAM_STEW_DESCRIPTION_0 = "reverie_dreams.item.cream_stew.description.0";
     public static final String CREAM_STEW_DESCRIPTION_1 = "reverie_dreams.item.cream_stew.description.1";
     public static final String CREAM_STEW_DESCRIPTION_2 = "reverie_dreams.item.cream_stew.description.2";
@@ -217,8 +225,11 @@ public class ItemDescriptionConsts {
     public static final String HORAI_DAMA_NO_EDA_DESCRIPTION_3 = "reverie_dreams.item.horai_dama_no_eda.description.3";
     public static final String STINKY_TOFU_DESCRIPTION_0 = "reverie_dreams.item.stinky_tofu.description.0";
     public static final String STINKY_TOFU_DESCRIPTION_1 = "reverie_dreams.item.stinky_tofu.description.1";
+    public static final String STINKY_TOFU_DESCRIPTION_2 = "reverie_dreams.item.stinky_tofu.description.2";
+    public static final String STINKY_TOFU_DESCRIPTION_3 = "reverie_dreams.item.stinky_tofu.description.3";
     public static final String COLORFUL_JADE_FRIED_BUNS_DESCRIPTION_0 = "reverie_dreams.item.colorful_jade_fried_buns.description.0";
     public static final String COLORFUL_JADE_FRIED_BUNS_DESCRIPTION_1 = "reverie_dreams.item.colorful_jade_fried_buns.description.1";
+    public static final String COLORFUL_JADE_FRIED_BUNS_DESCRIPTION_2 = "reverie_dreams.item.colorful_jade_fried_buns.description.2";
     public static final String MAPO_TOFU_DESCRIPTION_0 = "reverie_dreams.item.mapo_tofu.description.0";
     public static final String MAPO_TOFU_DESCRIPTION_1 = "reverie_dreams.item.mapo_tofu.description.1";
     public static final String MAPO_TOFU_DESCRIPTION_2 = "reverie_dreams.item.mapo_tofu.description.2";
@@ -338,6 +349,7 @@ public class ItemDescriptionConsts {
     public static final String DEPRESSED_CHEESE_STICKS_DESCRIPTION_3 = "reverie_dreams.item.depressed_cheese_sticks.description.3";
     public static final String GLOOMY_FRUIT_PIE_DESCRIPTION_0 = "reverie_dreams.item.gloomy_fruit_pie.description.0";
     public static final String GLOOMY_FRUIT_PIE_DESCRIPTION_1 = "reverie_dreams.item.gloomy_fruit_pie.description.1";
+    public static final String GLOOMY_FRUIT_PIE_DESCRIPTION_2 = "reverie_dreams.item.gloomy_fruit_pie.description.2";
     public static final String SCREAMING_ODEN_DESCRIPTION_0 = "reverie_dreams.item.screaming_oden.description.0";
     public static final String SCREAMING_ODEN_DESCRIPTION_1 = "reverie_dreams.item.screaming_oden.description.1";
     public static final String SCREAMING_ODEN_DESCRIPTION_2 = "reverie_dreams.item.screaming_oden.description.2";
@@ -352,10 +364,13 @@ public class ItemDescriptionConsts {
     public static final String LOOKING_UP_AT_THE_CEILING_FRUIT_PIE_DESCRIPTION_2 = "reverie_dreams.item.looking_up_at_the_ceiling_fruit_pie.description.2";
     public static final String BEETLE_STEAMED_CAKE_DESCRIPTION_0 = "reverie_dreams.item.beetle_steamed_cake.description.0";
     public static final String BEETLE_STEAMED_CAKE_DESCRIPTION_1 = "reverie_dreams.item.beetle_steamed_cake.description.1";
+    public static final String BEETLE_STEAMED_CAKE_DESCRIPTION_2 = "reverie_dreams.item.beetle_steamed_cake.description.2";
     public static final String LION_HEAD_DESCRIPTION_0 = "reverie_dreams.item.lion_head.description.0";
     public static final String LION_HEAD_DESCRIPTION_1 = "reverie_dreams.item.lion_head.description.1";
+    public static final String LION_HEAD_DESCRIPTION_2 = "reverie_dreams.item.lion_head.description.2";
     public static final String GIANT_TAMAGOYAKI_DESCRIPTION_0 = "reverie_dreams.item.giant_tamagoyaki.description.0";
     public static final String GIANT_TAMAGOYAKI_DESCRIPTION_1 = "reverie_dreams.item.giant_tamagoyaki.description.1";
+    public static final String GIANT_TAMAGOYAKI_DESCRIPTION_2 = "reverie_dreams.item.giant_tamagoyaki.description.2";
     public static final String OEDO_BOAT_FESTIVAL_DESCRIPTION_0 = "reverie_dreams.item.oedo_boat_festival.description.0";
     public static final String OEDO_BOAT_FESTIVAL_DESCRIPTION_1 = "reverie_dreams.item.oedo_boat_festival.description.1";
     public static final String OEDO_BOAT_FESTIVAL_DESCRIPTION_2 = "reverie_dreams.item.oedo_boat_festival.description.2";
@@ -363,6 +378,7 @@ public class ItemDescriptionConsts {
     public static final String SAKURA_PUDDING_DESCRIPTION_0 = "reverie_dreams.item.sakura_pudding.description.0";
     public static final String SAKURA_PUDDING_DESCRIPTION_1 = "reverie_dreams.item.sakura_pudding.description.1";
     public static final String SAKURA_PUDDING_DESCRIPTION_2 = "reverie_dreams.item.sakura_pudding.description.2";
+    public static final String SAKURA_PUDDING_DESCRIPTION_3 = "reverie_dreams.item.sakura_pudding.description.3";
     public static final String REFRESHING_PUDDING_DESCRIPTION_0 = "reverie_dreams.item.refreshing_pudding.description.0";
     public static final String REFRESHING_PUDDING_DESCRIPTION_1 = "reverie_dreams.item.refreshing_pudding.description.1";
     public static final String REFRESHING_PUDDING_DESCRIPTION_2 = "reverie_dreams.item.refreshing_pudding.description.2";
@@ -372,6 +388,8 @@ public class ItemDescriptionConsts {
     public static final String BURNT_PUDDING_DESCRIPTION_0 = "reverie_dreams.item.burnt_pudding.description.0";
     public static final String BURNT_PUDDING_DESCRIPTION_1 = "reverie_dreams.item.burnt_pudding.description.1";
     public static final String BURNT_PUDDING_DESCRIPTION_2 = "reverie_dreams.item.burnt_pudding.description.2";
+    public static final String BURNT_PUDDING_DESCRIPTION_3 = "reverie_dreams.item.burnt_pudding.description.3";
+    public static final String BURNT_PUDDING_DESCRIPTION_4 = "reverie_dreams.item.burnt_pudding.description.4";
     public static final String CAT_FOOD_DESCRIPTION_0 = "reverie_dreams.item.cat_food.description.0";
     public static final String CAT_FOOD_DESCRIPTION_1 = "reverie_dreams.item.cat_food.description.1";
     public static final String CAT_FOOD_DESCRIPTION_2 = "reverie_dreams.item.cat_food.description.2";
@@ -392,6 +410,8 @@ public class ItemDescriptionConsts {
     public static final String ONE_HIT_KILL_DESCRIPTION_2 = "reverie_dreams.item.one_hit_kill.description.2";
     public static final String ONE_HIT_KILL_DESCRIPTION_3 = "reverie_dreams.item.one_hit_kill.description.3";
     public static final String HELL_THRILL_WARNING_DESCRIPTION_0 = "reverie_dreams.item.hell_thrill_warning.description.0";
+    public static final String HELL_THRILL_WARNING_DESCRIPTION_1 = "reverie_dreams.item.hell_thrill_warning.description.1";
+    public static final String HELL_THRILL_WARNING_DESCRIPTION_2 = "reverie_dreams.item.hell_thrill_warning.description.2";
     public static final String BAKED_SWEET_POTATOES_DESCRIPTION_0 = "reverie_dreams.item.baked_sweet_potatoes.description.0";
     public static final String BAKED_SWEET_POTATOES_DESCRIPTION_1 = "reverie_dreams.item.baked_sweet_potatoes.description.1";
     public static final String BAKED_SWEET_POTATOES_DESCRIPTION_2 = "reverie_dreams.item.baked_sweet_potatoes.description.2";
@@ -409,10 +429,12 @@ public class ItemDescriptionConsts {
     public static final String FRIGHT_ADVENTURE_DESCRIPTION_2 = "reverie_dreams.item.fright_adventure.description.2";
     public static final String FRIGHT_ADVENTURE_DESCRIPTION_3 = "reverie_dreams.item.fright_adventure.description.3";
     public static final String FRIGHT_ADVENTURE_DESCRIPTION_4 = "reverie_dreams.item.fright_adventure.description.4";
+    public static final String FRIGHT_ADVENTURE_DESCRIPTION_5 = "reverie_dreams.item.fright_adventure.description.5";
     public static final String BISCAY_BISCUITS_DESCRIPTION_0 = "reverie_dreams.item.biscay_biscuits.description.0";
     public static final String BISCAY_BISCUITS_DESCRIPTION_1 = "reverie_dreams.item.biscay_biscuits.description.1";
     public static final String BISCAY_BISCUITS_DESCRIPTION_2 = "reverie_dreams.item.biscay_biscuits.description.2";
     public static final String BISCAY_BISCUITS_DESCRIPTION_3 = "reverie_dreams.item.biscay_biscuits.description.3";
+    public static final String BISCAY_BISCUITS_DESCRIPTION_4 = "reverie_dreams.item.biscay_biscuits.description.4";
     public static final String PIRATE_BACON_DESCRIPTION_0 = "reverie_dreams.item.pirate_bacon.description.0";
     public static final String PIRATE_BACON_DESCRIPTION_1 = "reverie_dreams.item.pirate_bacon.description.1";
     public static final String PIRATE_BACON_DESCRIPTION_2 = "reverie_dreams.item.pirate_bacon.description.2";
@@ -457,6 +479,7 @@ public class ItemDescriptionConsts {
     public static final String TAICHI_BAGUA_FISH_MAW_DESCRIPTION_2 = "reverie_dreams.item.taichi_bagua_fish_maw.description.2";
     public static final String TAICHI_BAGUA_FISH_MAW_DESCRIPTION_3 = "reverie_dreams.item.taichi_bagua_fish_maw.description.3";
     public static final String TAICHI_BAGUA_FISH_MAW_DESCRIPTION_4 = "reverie_dreams.item.taichi_bagua_fish_maw.description.4";
+    public static final String TAICHI_BAGUA_FISH_MAW_DESCRIPTION_5 = "reverie_dreams.item.taichi_bagua_fish_maw.description.5";
     public static final String CANDIED_CHESTNUTS_DESCRIPTION_0 = "reverie_dreams.item.candied_chestnuts.description.0";
     public static final String CANDIED_CHESTNUTS_DESCRIPTION_1 = "reverie_dreams.item.candied_chestnuts.description.1";
     public static final String CANDIED_CHESTNUTS_DESCRIPTION_2 = "reverie_dreams.item.candied_chestnuts.description.2";
@@ -465,6 +488,8 @@ public class ItemDescriptionConsts {
     public static final String TIANSHI_BRAISED_CHESTNUT_MUSHROOMS_DESCRIPTION_2 = "reverie_dreams.item.tianshi_braised_chestnut_mushrooms.description.2";
     public static final String TIANSHI_BRAISED_CHESTNUT_MUSHROOMS_DESCRIPTION_3 = "reverie_dreams.item.tianshi_braised_chestnut_mushrooms.description.3";
     public static final String TIANSHI_BRAISED_CHESTNUT_MUSHROOMS_DESCRIPTION_4 = "reverie_dreams.item.tianshi_braised_chestnut_mushrooms.description.4";
+    public static final String TIANSHI_BRAISED_CHESTNUT_MUSHROOMS_DESCRIPTION_5 = "reverie_dreams.item.tianshi_braised_chestnut_mushrooms.description.5";
+    public static final String TIANSHI_BRAISED_CHESTNUT_MUSHROOMS_DESCRIPTION_6 = "reverie_dreams.item.tianshi_braised_chestnut_mushrooms.description.6";
     public static final String LOTUS_FISH_RICE_BOWL_DESCRIPTION_0 = "reverie_dreams.item.lotus_fish_rice_bowl.description.0";
     public static final String LOTUS_FISH_RICE_BOWL_DESCRIPTION_1 = "reverie_dreams.item.lotus_fish_rice_bowl.description.1";
     public static final String LOTUS_FISH_RICE_BOWL_DESCRIPTION_2 = "reverie_dreams.item.lotus_fish_rice_bowl.description.2";
@@ -486,6 +511,8 @@ public class ItemDescriptionConsts {
     public static final String ASSORTED_TEMPURA_DESCRIPTION_1 = "reverie_dreams.item.assorted_tempura.description.1";
     public static final String ASSORTED_TEMPURA_DESCRIPTION_2 = "reverie_dreams.item.assorted_tempura.description.2";
     public static final String ASSORTED_TEMPURA_DESCRIPTION_3 = "reverie_dreams.item.assorted_tempura.description.3";
+    public static final String ASSORTED_TEMPURA_DESCRIPTION_4 = "reverie_dreams.item.assorted_tempura.description.4";
+    public static final String ASSORTED_TEMPURA_DESCRIPTION_5 = "reverie_dreams.item.assorted_tempura.description.5";
     public static final String FRIED_TOMATO_STRIPS_DESCRIPTION_0 = "reverie_dreams.item.fried_tomato_strips.description.0";
     public static final String FRIED_TOMATO_STRIPS_DESCRIPTION_1 = "reverie_dreams.item.fried_tomato_strips.description.1";
     public static final String FRIED_TOMATO_STRIPS_DESCRIPTION_2 = "reverie_dreams.item.fried_tomato_strips.description.2";
@@ -500,6 +527,7 @@ public class ItemDescriptionConsts {
     public static final String REVERSING_THE_WORLD_DESCRIPTION_3 = "reverie_dreams.item.reversing_the_world.description.3";
     public static final String REVERSING_THE_WORLD_DESCRIPTION_4 = "reverie_dreams.item.reversing_the_world.description.4";
     public static final String REVERSING_THE_WORLD_DESCRIPTION_5 = "reverie_dreams.item.reversing_the_world.description.5";
+    public static final String REVERSING_THE_WORLD_DESCRIPTION_6 = "reverie_dreams.item.reversing_the_world.description.6";
     public static final String RED_BEAN_DAIFUKU_DESCRIPTION_0 = "reverie_dreams.item.red_bean_daifuku.description.0";
     public static final String RED_BEAN_DAIFUKU_DESCRIPTION_1 = "reverie_dreams.item.red_bean_daifuku.description.1";
     public static final String RED_BEAN_DAIFUKU_DESCRIPTION_2 = "reverie_dreams.item.red_bean_daifuku.description.2";
@@ -533,10 +561,13 @@ public class ItemDescriptionConsts {
     public static final String GREEN_BAMBOO_WELCOMES_SPRING_DESCRIPTION_4 = "reverie_dreams.item.green_bamboo_welcomes_spring.description.4";
     public static final String PLUM_TEA_RICE_DESCRIPTION_0 = "reverie_dreams.item.plum_tea_rice.description.0";
     public static final String PLUM_TEA_RICE_DESCRIPTION_1 = "reverie_dreams.item.plum_tea_rice.description.1";
+    public static final String PLUM_TEA_RICE_DESCRIPTION_2 = "reverie_dreams.item.plum_tea_rice.description.2";
+    public static final String PLUM_TEA_RICE_DESCRIPTION_3 = "reverie_dreams.item.plum_tea_rice.description.3";
     public static final String STEAMED_EGG_WITH_SEA_URCHIN_DESCRIPTION_0 = "reverie_dreams.item.steamed_egg_with_sea_urchin.description.0";
     public static final String STEAMED_EGG_WITH_SEA_URCHIN_DESCRIPTION_1 = "reverie_dreams.item.steamed_egg_with_sea_urchin.description.1";
     public static final String STEAMED_EGG_WITH_SEA_URCHIN_DESCRIPTION_2 = "reverie_dreams.item.steamed_egg_with_sea_urchin.description.2";
     public static final String STEAMED_EGG_WITH_SEA_URCHIN_DESCRIPTION_3 = "reverie_dreams.item.steamed_egg_with_sea_urchin.description.3";
+    public static final String STEAMED_EGG_WITH_SEA_URCHIN_DESCRIPTION_4 = "reverie_dreams.item.steamed_egg_with_sea_urchin.description.4";
     public static final String FANTASY_IS_ALL_THE_RAGE_DESCRIPTION_0 = "reverie_dreams.item.fantasy_is_all_the_rage.description.0";
     public static final String FANTASY_IS_ALL_THE_RAGE_DESCRIPTION_1 = "reverie_dreams.item.fantasy_is_all_the_rage.description.1";
     public static final String FANTASY_IS_ALL_THE_RAGE_DESCRIPTION_2 = "reverie_dreams.item.fantasy_is_all_the_rage.description.2";
@@ -561,6 +592,7 @@ public class ItemDescriptionConsts {
     public static final String TOON_PANCAKES_DESCRIPTION_1 = "reverie_dreams.item.toon_pancakes.description.1";
     public static final String TOON_PANCAKES_DESCRIPTION_2 = "reverie_dreams.item.toon_pancakes.description.2";
     public static final String TOON_PANCAKES_DESCRIPTION_3 = "reverie_dreams.item.toon_pancakes.description.3";
+    public static final String TOON_PANCAKES_DESCRIPTION_4 = "reverie_dreams.item.toon_pancakes.description.4";
     public static final String POISONOUS_GARDEN_DESCRIPTION_0 = "reverie_dreams.item.poisonous_garden.description.0";
     public static final String POISONOUS_GARDEN_DESCRIPTION_1 = "reverie_dreams.item.poisonous_garden.description.1";
     public static final String POISONOUS_GARDEN_DESCRIPTION_2 = "reverie_dreams.item.poisonous_garden.description.2";
@@ -570,6 +602,7 @@ public class ItemDescriptionConsts {
     public static final String A_LITTLE_SWEET_POISON_DESCRIPTION_2 = "reverie_dreams.item.a_little_sweet_poison.description.2";
     public static final String A_LITTLE_SWEET_POISON_DESCRIPTION_3 = "reverie_dreams.item.a_little_sweet_poison.description.3";
     public static final String A_LITTLE_SWEET_POISON_DESCRIPTION_4 = "reverie_dreams.item.a_little_sweet_poison.description.4";
+    public static final String A_LITTLE_SWEET_POISON_DESCRIPTION_5 = "reverie_dreams.item.a_little_sweet_poison.description.5";
     public static final String BAMBOO_TUBE_ROASTED_DRUNKEN_SHRIMP_DESCRIPTION_0 = "reverie_dreams.item.bamboo_tube_roasted_drunken_shrimp.description.0";
     public static final String BAMBOO_TUBE_ROASTED_DRUNKEN_SHRIMP_DESCRIPTION_1 = "reverie_dreams.item.bamboo_tube_roasted_drunken_shrimp.description.1";
     public static final String BAMBOO_TUBE_ROASTED_DRUNKEN_SHRIMP_DESCRIPTION_2 = "reverie_dreams.item.bamboo_tube_roasted_drunken_shrimp.description.2";
@@ -585,10 +618,12 @@ public class ItemDescriptionConsts {
     public static final String CAT_KULULI_DESCRIPTION_0 = "reverie_dreams.item.cat_kululi.description.0";
     public static final String CAT_KULULI_DESCRIPTION_1 = "reverie_dreams.item.cat_kululi.description.1";
     public static final String CAT_KULULI_DESCRIPTION_2 = "reverie_dreams.item.cat_kululi.description.2";
+    public static final String CAT_KULULI_DESCRIPTION_3 = "reverie_dreams.item.cat_kululi.description.3";
     public static final String CAT_PIZZA_DESCRIPTION_0 = "reverie_dreams.item.cat_pizza.description.0";
     public static final String CAT_PIZZA_DESCRIPTION_1 = "reverie_dreams.item.cat_pizza.description.1";
     public static final String CAT_PIZZA_DESCRIPTION_2 = "reverie_dreams.item.cat_pizza.description.2";
     public static final String CAT_PIZZA_DESCRIPTION_3 = "reverie_dreams.item.cat_pizza.description.3";
+    public static final String CAT_PIZZA_DESCRIPTION_4 = "reverie_dreams.item.cat_pizza.description.4";
     public static final String CATS_PLAYING_IN_WATER_DESCRIPTION_0 = "reverie_dreams.item.cats_playing_in_water.description.0";
     public static final String CATS_PLAYING_IN_WATER_DESCRIPTION_1 = "reverie_dreams.item.cats_playing_in_water.description.1";
     public static final String CATS_PLAYING_IN_WATER_DESCRIPTION_2 = "reverie_dreams.item.cats_playing_in_water.description.2";
@@ -624,6 +659,8 @@ public class ItemDescriptionConsts {
     public static final String MOONLIGHT_OVER_LOTUS_POND_DESCRIPTION_2 = "reverie_dreams.item.moonlight_over_lotus_pond.description.2";
     public static final String MOONLIGHT_OVER_LOTUS_POND_DESCRIPTION_3 = "reverie_dreams.item.moonlight_over_lotus_pond.description.3";
     public static final String MOONLIGHT_OVER_LOTUS_POND_DESCRIPTION_4 = "reverie_dreams.item.moonlight_over_lotus_pond.description.4";
+    public static final String MOONLIGHT_OVER_LOTUS_POND_DESCRIPTION_5 = "reverie_dreams.item.moonlight_over_lotus_pond.description.5";
+    public static final String MOONLIGHT_OVER_LOTUS_POND_DESCRIPTION_6 = "reverie_dreams.item.moonlight_over_lotus_pond.description.6";
     public static final String LONGYIN_PEACH_DESCRIPTION_0 = "reverie_dreams.item.longyin_peach.description.0";
     public static final String LONGYIN_PEACH_DESCRIPTION_1 = "reverie_dreams.item.longyin_peach.description.1";
     public static final String LONGYIN_PEACH_DESCRIPTION_2 = "reverie_dreams.item.longyin_peach.description.2";
@@ -639,6 +676,7 @@ public class ItemDescriptionConsts {
     public static final String THE_SOURCE_OF_LIFE_DESCRIPTION_2 = "reverie_dreams.item.the_source_of_life.description.2";
     public static final String THE_SOURCE_OF_LIFE_DESCRIPTION_3 = "reverie_dreams.item.the_source_of_life.description.3";
     public static final String THE_SOURCE_OF_LIFE_DESCRIPTION_4 = "reverie_dreams.item.the_source_of_life.description.4";
+    public static final String THE_SOURCE_OF_LIFE_DESCRIPTION_5 = "reverie_dreams.item.the_source_of_life.description.5";
     public static final String THE_MARS_DESCRIPTION_0 = "reverie_dreams.item.the_mars.description.0";
     public static final String THE_MARS_DESCRIPTION_1 = "reverie_dreams.item.the_mars.description.1";
     public static final String THE_MARS_DESCRIPTION_2 = "reverie_dreams.item.the_mars.description.2";
@@ -646,6 +684,7 @@ public class ItemDescriptionConsts {
     public static final String THE_MARS_DESCRIPTION_4 = "reverie_dreams.item.the_mars.description.4";
     public static final String THE_MARS_DESCRIPTION_5 = "reverie_dreams.item.the_mars.description.5";
     public static final String THE_MARS_DESCRIPTION_6 = "reverie_dreams.item.the_mars.description.6";
+    public static final String THE_MARS_DESCRIPTION_7 = "reverie_dreams.item.the_mars.description.7";
     public static final String HEART_PORRIDGE_GRUEL_DESCRIPTION_0 = "reverie_dreams.item.heart_porridge_gruel.description.0";
     public static final String HEART_PORRIDGE_GRUEL_DESCRIPTION_1 = "reverie_dreams.item.heart_porridge_gruel.description.1";
     public static final String HEART_PORRIDGE_GRUEL_DESCRIPTION_2 = "reverie_dreams.item.heart_porridge_gruel.description.2";
@@ -762,6 +801,7 @@ public class ItemDescriptionConsts {
     public static final String CREAM_DESCRIPTION_1 = "reverie_dreams.item.cream.description.1";
     public static final String CRAB_DESCRIPTION_0 = "reverie_dreams.item.crab.description.0";
     public static final String CRAB_DESCRIPTION_1 = "reverie_dreams.item.crab.description.1";
+    public static final String CRAB_DESCRIPTION_2 = "reverie_dreams.item.crab.description.2";
     public static final String TWIN_LOTUS_DESCRIPTION_0 = "reverie_dreams.item.twin_lotus.description.0";
     public static final String TWIN_LOTUS_DESCRIPTION_1 = "reverie_dreams.item.twin_lotus.description.1";
     public static final String TWIN_LOTUS_DESCRIPTION_2 = "reverie_dreams.item.twin_lotus.description.2";
@@ -851,6 +891,7 @@ public class ItemDescriptionConsts {
     public static final String QI_DESCRIPTION_1 = "reverie_dreams.item.qi.description.1";
     public static final String QI_DESCRIPTION_2 = "reverie_dreams.item.qi.description.2";
     public static final String QI_DESCRIPTION_3 = "reverie_dreams.item.qi.description.3";
+    public static final String QI_DESCRIPTION_4 = "reverie_dreams.item.qi.description.4";
     public static final String BEER_DESCRIPTION_0 = "reverie_dreams.item.beer.description.0";
     public static final String BEER_DESCRIPTION_1 = "reverie_dreams.item.beer.description.1";
     public static final String BEER_DESCRIPTION_2 = "reverie_dreams.item.beer.description.2";
@@ -872,6 +913,7 @@ public class ItemDescriptionConsts {
     public static final String SCARLET_DEVIL_DESCRIPTION_2 = "reverie_dreams.item.scarlet_devil.description.2";
     public static final String SCARLET_DEVIL_DESCRIPTION_3 = "reverie_dreams.item.scarlet_devil.description.3";
     public static final String GODS_WHEAT_DESCRIPTION_0 = "reverie_dreams.item.gods_wheat.description.0";
+    public static final String GODS_WHEAT_DESCRIPTION_1 = "reverie_dreams.item.gods_wheat.description.1";
     public static final String OTTER_FESTIVAL_DESCRIPTION_0 = "reverie_dreams.item.otter_festival.description.0";
     public static final String OTTER_FESTIVAL_DESCRIPTION_1 = "reverie_dreams.item.otter_festival.description.1";
     public static final String OTTER_FESTIVAL_DESCRIPTION_2 = "reverie_dreams.item.otter_festival.description.2";
@@ -887,6 +929,8 @@ public class ItemDescriptionConsts {
     public static final String SCARLET_DEVIL_MANSION_BLACK_TEA_DESCRIPTION_0 = "reverie_dreams.item.scarlet_devil_mansion_black_tea.description.0";
     public static final String SCARLET_DEVIL_MANSION_BLACK_TEA_DESCRIPTION_1 = "reverie_dreams.item.scarlet_devil_mansion_black_tea.description.1";
     public static final String SCARLET_DEVIL_MANSION_BLACK_TEA_DESCRIPTION_2 = "reverie_dreams.item.scarlet_devil_mansion_black_tea.description.2";
+    public static final String SCARLET_DEVIL_MANSION_BLACK_TEA_DESCRIPTION_3 = "reverie_dreams.item.scarlet_devil_mansion_black_tea.description.3";
+    public static final String SCARLET_DEVIL_MANSION_BLACK_TEA_DESCRIPTION_4 = "reverie_dreams.item.scarlet_devil_mansion_black_tea.description.4";
     public static final String AFFGADO_DESCRIPTION_0 = "reverie_dreams.item.affgado.description.0";
     public static final String AFFGADO_DESCRIPTION_1 = "reverie_dreams.item.affgado.description.1";
     public static final String RED_MIST_DESCRIPTION_0 = "reverie_dreams.item.red_mist.description.0";
@@ -967,11 +1011,17 @@ public class ItemDescriptionConsts {
     public static final String ORDINARY_FITNESS_TEA_DESCRIPTION_2 = "reverie_dreams.item.ordinary_fitness_tea.description.2";
     public static final String ORDINARY_FITNESS_TEA_DESCRIPTION_3 = "reverie_dreams.item.ordinary_fitness_tea.description.3";
     public static final String DEMON_SLAYER_DESCRIPTION_0 = "reverie_dreams.item.demon_slayer.description.0";
+    public static final String DEMON_SLAYER_DESCRIPTION_1 = "reverie_dreams.item.demon_slayer.description.1";
+    public static final String DEMON_SLAYER_DESCRIPTION_2 = "reverie_dreams.item.demon_slayer.description.2";
+    public static final String DEMON_SLAYER_DESCRIPTION_3 = "reverie_dreams.item.demon_slayer.description.3";
     public static final String QI_HEALTH_DESCRIPTION_0 = "reverie_dreams.item.qi_health.description.0";
     public static final String QI_HEALTH_DESCRIPTION_1 = "reverie_dreams.item.qi_health.description.1";
     public static final String QI_HEALTH_DESCRIPTION_2 = "reverie_dreams.item.qi_health.description.2";
+    public static final String QI_HEALTH_DESCRIPTION_3 = "reverie_dreams.item.qi_health.description.3";
+    public static final String QI_HEALTH_DESCRIPTION_4 = "reverie_dreams.item.qi_health.description.4";
     public static final String KOMEIJI_ICE_CREAM_DESCRIPTION_0 = "reverie_dreams.item.komeiji_ice_cream.description.0";
     public static final String KOMEIJI_ICE_CREAM_DESCRIPTION_1 = "reverie_dreams.item.komeiji_ice_cream.description.1";
+    public static final String KOMEIJI_ICE_CREAM_DESCRIPTION_2 = "reverie_dreams.item.komeiji_ice_cream.description.2";
     public static final String MANGO_POMELO_SAGO_DESCRIPTION_0 = "reverie_dreams.item.mango_pomelo_sago.description.0";
     public static final String MANGO_POMELO_SAGO_DESCRIPTION_1 = "reverie_dreams.item.mango_pomelo_sago.description.1";
     public static final String MANGO_POMELO_SAGO_DESCRIPTION_2 = "reverie_dreams.item.mango_pomelo_sago.description.2";
@@ -985,6 +1035,7 @@ public class ItemDescriptionConsts {
     public static final String HEAVEN_AND_EARTH_ARE_USELESS_DESCRIPTION_1 = "reverie_dreams.item.heaven_and_earth_are_useless.description.1";
     public static final String HEAVEN_AND_EARTH_ARE_USELESS_DESCRIPTION_2 = "reverie_dreams.item.heaven_and_earth_are_useless.description.2";
     public static final String HEAVEN_AND_EARTH_ARE_USELESS_DESCRIPTION_3 = "reverie_dreams.item.heaven_and_earth_are_useless.description.3";
+    public static final String HEAVEN_AND_EARTH_ARE_USELESS_DESCRIPTION_4 = "reverie_dreams.item.heaven_and_earth_are_useless.description.4";
     public static final String DRUNK_ACTOR_DESCRIPTION_0 = "reverie_dreams.item.drunk_actor.description.0";
     public static final String DRUNK_ACTOR_DESCRIPTION_1 = "reverie_dreams.item.drunk_actor.description.1";
     public static final String DRUNK_ACTOR_DESCRIPTION_2 = "reverie_dreams.item.drunk_actor.description.2";
@@ -1005,14 +1056,15 @@ public class ItemDescriptionConsts {
     public static final String MOJITO_BURST_BALL_DESCRIPTION_3 = "reverie_dreams.item.mojito_burst_ball.description.3";
     public static final String MOJITO_BURST_BALL_DESCRIPTION_4 = "reverie_dreams.item.mojito_burst_ball.description.4";
     public static final String MOJITO_BURST_BALL_DESCRIPTION_5 = "reverie_dreams.item.mojito_burst_ball.description.5";
+    public static final String MOJITO_BURST_BALL_DESCRIPTION_6 = "reverie_dreams.item.mojito_burst_ball.description.6";
     public static final String SPACE_BEER_DESCRIPTION_0 = "reverie_dreams.item.space_beer.description.0";
     public static final String SPACE_BEER_DESCRIPTION_1 = "reverie_dreams.item.space_beer.description.1";
     public static final String SPACE_BEER_DESCRIPTION_2 = "reverie_dreams.item.space_beer.description.2";
     public static final String SPACE_BEER_DESCRIPTION_3 = "reverie_dreams.item.space_beer.description.3";
+    public static final String SPACE_BEER_DESCRIPTION_4 = "reverie_dreams.item.space_beer.description.4";
     public static final String SATELLITE_ICED_COFFEE_DESCRIPTION_0 = "reverie_dreams.item.satellite_iced_coffee.description.0";
     public static final String SATELLITE_ICED_COFFEE_DESCRIPTION_1 = "reverie_dreams.item.satellite_iced_coffee.description.1";
     public static final String SATELLITE_ICED_COFFEE_DESCRIPTION_2 = "reverie_dreams.item.satellite_iced_coffee.description.2";
     public static final String SATELLITE_ICED_COFFEE_DESCRIPTION_3 = "reverie_dreams.item.satellite_iced_coffee.description.3";
-
-
+    public static final String SATELLITE_ICED_COFFEE_DESCRIPTION_4 = "reverie_dreams.item.satellite_iced_coffee.description.4";
 }

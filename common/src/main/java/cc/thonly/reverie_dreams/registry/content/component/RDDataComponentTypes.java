@@ -5,10 +5,11 @@ import cc.thonly.reverie_dreams.api.registry.AliasManager;
 import cc.thonly.reverie_dreams.component.BattleStickRecorder;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.component.GapRecorder;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectoryConfig;
 import cc.thonly.reverie_dreams.component.RoleFollowerArchive;
 import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.data.danmaku.SpellcardRenderer;
+import cc.thonly.reverie_dreams.data.danmaku.spellcard.LegacySpellcardDefinition;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.prop.MusicalInstrumentItem;
@@ -41,11 +42,14 @@ public class RDDataComponentTypes {
     public static final RegistrySupplier<DataComponentType<DanmakuProperties>> DANMAKU_PROPERTIES =
             registerDataComponentType("danmaku_properties", DanmakuProperties.CODEC);
 
+    public static final RegistrySupplier<DataComponentType<DanmakuTrajectoryConfig>> DANMAKU_TRAJECTORY_CONFIG =
+            registerDataComponentType("danmaku_trajectory_config", DanmakuTrajectoryConfig.CODEC);
+
     public static final RegistrySupplier<DataComponentType<SpellCardFrameConfig>> SPELLCARD_FRAME_CONFIG =
             registerDataComponentType("spellcard_frame", SpellCardFrameConfig.COMPONENT_CODEC);
 
-    public static final RegistrySupplier<DataComponentType<SpellcardRenderer>> SPELL_CARD_COMPONENT =
-            registerDataComponentType("spell_card_component", SpellcardRenderer.CODEC);
+    public static final RegistrySupplier<DataComponentType<LegacySpellcardDefinition>> SPELL_CARD_COMPONENT =
+            registerDataComponentType("spell_card_component", LegacySpellcardDefinition.CODEC);
 
     public static final RegistrySupplier<DataComponentType<Identifier>> DANMAKU_PATTERN =
             registerDataComponentType("danmaku_pattern", Identifier.CODEC);
@@ -67,6 +71,12 @@ public class RDDataComponentTypes {
 
     public static final RegistrySupplier<DataComponentType<List<GapRecorder>>> GAP_RECORDER =
             registerDataComponentType("gap_recorder", GapRecorder.LIST_CODEC);
+
+    public static final RegistrySupplier<DataComponentType<Integer>> GAP_TARGET_INDEX =
+            registerDataComponentType("gap_target_index", Codec.INT);
+
+    public static final RegistrySupplier<DataComponentType<Identifier>> GENSOKYO_COMPASS_TARGET =
+            registerDataComponentType("gensokyo_compass_target", Identifier.CODEC);
 
     public static final RegistrySupplier<DataComponentType<BattleStickRecorder>> BATTLE_STICK_RECORDER =
             registerDataComponentType("battle_stick_recorder", BattleStickRecorder.CODEC);
@@ -122,6 +132,16 @@ public class RDDataComponentTypes {
     public static final RegistrySupplier<DataComponentType<Integer>> CHEQUE_AMOUNT =
             registerDataComponentType("cheque_amount", Codec.INT);
 
+    /**
+     * Rounds currently stored in a magazine item or loaded into a weapon.
+     */
+    public static final RegistrySupplier<DataComponentType<Integer>> MAGAZINE_ROUNDS =
+            registerDataComponentType("magazine_rounds", Codec.INT);
+
+    /** Per-use trigger mode; synchronized for prediction, never saved in item NBT. */
+    public static final RegistrySupplier<DataComponentType<Unit>> LUNAR_TRIGGER_HELD =
+            registerTransientDataComponentType("lunar_trigger_held", Unit.CODEC);
+
     @Deprecated
     public static final RegistrySupplier<DataComponentType<List<BeverageProperty>>> DRINK_PROPERTIES = BEVERAGE_PROPERTIES;
 
@@ -134,6 +154,14 @@ public class RDDataComponentTypes {
 
     public static void initialize() {
 
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static <T> RegistrySupplier<DataComponentType<T>> registerTransientDataComponentType(String path, Codec<T> codec) {
+        RegistrySupplier<DataComponentType<T>> component = MCBuiltInRegistries.DATA_COMPONENT_TYPE.register(path,
+                () -> DataComponentType.<T>builder().networkSynchronized(ByteBufCodecs.fromCodec(codec)).build());
+        COMPONENTS.add((Holder) component);
+        return component;
     }
 
     @SuppressWarnings({"rawtypes", "UnnecessaryLocalVariable"})

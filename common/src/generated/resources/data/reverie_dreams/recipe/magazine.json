@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:iron_nugget",
+    "M": "minecraft:copper_ingot",
+    "N": "minecraft:copper_nugget"
+  },
+  "pattern": [
+    "III",
+    "NMN",
+    "III"
+  ],
+  "result": {
+    "components": {
+      "reverie_dreams:magazine_rounds": 0
+    },
+    "id": "reverie_dreams:lunar_type_1_magazine"
+  }
+}

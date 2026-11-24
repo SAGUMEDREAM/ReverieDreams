@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.data;
 
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -54,7 +54,7 @@ public class CraftingConflict implements SerializableProvider<CraftingConflict>,
     private final Set<FoodProperty> foodProperties = new ObjectOpenHashSet<>();
     @Setter
     @Getter
-    private RegistryProvider<CraftingConflict> owner;
+    private RegistryProviderLookup<CraftingConflict> owner;
 
     private CraftingConflict() {
         this.item = Items.AIR;
@@ -134,13 +134,13 @@ public class CraftingConflict implements SerializableProvider<CraftingConflict>,
                 } else {
                     log.error("Failed to parse crafting_conflict {}: {}", id, result.error().map(Object::toString).orElse("Unknown error"));
                 }
-            } catch (IOException e) {
+            } catch (IOException | RuntimeException e) {
                 log.error("Failed to load crafting_conflict {}: {}", id, e.getMessage(), e);
             }
         }
     }
 
-    public static void bootstrap(RegistryProvider<CraftingConflict> registry) {
+    public static void bootstrap(RegistryProviderLookup<CraftingConflict> registry) {
 
     }
 }

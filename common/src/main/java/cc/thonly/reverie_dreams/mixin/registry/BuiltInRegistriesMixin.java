@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BuiltInRegistries.class)
 public class BuiltInRegistriesMixin {
     @Inject(method = "bindBootstrappedTagsToEmpty", at = @At("HEAD"), cancellable = true)
-    private static void reverie_dreams$ensureClassType(Registry<?> registry, CallbackInfo ci){
+    private static void reverie_dreams$ensureClassType(Registry<?> registry, CallbackInfo ci) {
         if (registry instanceof RegistryProvider<?> provider) {
             ci.cancel();
         }

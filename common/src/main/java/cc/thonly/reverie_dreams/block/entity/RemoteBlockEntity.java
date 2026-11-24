@@ -16,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.UUID;
 
+import cc.thonly.reverie_dreams.block.redstone.RemoteServerBlock;
+
 public class RemoteBlockEntity extends BlockEntity {
     @NotNull
     private RemoteType remoteType;
@@ -24,12 +26,12 @@ public class RemoteBlockEntity extends BlockEntity {
     @NotNull
     private String signalToken = "";
     @NotNull
-    private String uid = "";
+    private String uid = UUID.randomUUID().toString();
     private int tK = 0;
     private boolean first = true;
 
     public RemoteBlockEntity(BlockPos blockPos, BlockState blockState) {
-        this(RemoteType.CLIENT, blockPos, blockState);
+        this(blockState.getBlock() instanceof RemoteServerBlock ? RemoteType.SERVER : RemoteType.CLIENT, blockPos, blockState);
     }
 
     public RemoteBlockEntity(@NotNull RemoteType remoteType, BlockPos blockPos, BlockState blockState) {
@@ -54,9 +56,9 @@ public class RemoteBlockEntity extends BlockEntity {
         if (this.first) {
             this.first = false;
             boolean hasSignal = level.hasNeighborSignal(pos);
-            if (hasSignal) {
-                RemoteSignalManager.access().setValue(this, true);
-            }
+            if (state.getValue(RemoteServerBlock.OCCUPIED) != hasSignal)
+                level.setBlock(pos, state.setValue(RemoteServerBlock.OCCUPIED, hasSignal), 3);
+            RemoteSignalManager.access().setValue(this, hasSignal);
         }
     }
 
@@ -66,20 +68,36 @@ public class RemoteBlockEntity extends BlockEntity {
         }
         if (this.first) {
             this.first = false;
-            boolean occupied = RemoteSignalManager.access().isOccupied(this);
-            if (occupied) {
-                level.setBlock(pos, state.setValue(RemoteClientBlock.POWERED, true), 3);
-            }
+            RemoteSignalManager.access().watch(this);
         }
-        if (this.tK < 2) {
-            this.tK++;
+    }
+
+    public void receive(boolean powered) {
+        if (level == null || level.isClientSide() || isRemoved())
             return;
+        BlockState state = getBlockState();
+        if (state.getBlock() instanceof RemoteClientBlock && state.getValue(RemoteClientBlock.POWERED) != powered)
+            level.setBlock(worldPosition, state.setValue(RemoteClientBlock.POWERED, powered), 3);
+    }
+
+    public void configure(String name, String token) {
+        RemoteSignalManager.access().remove(this);
+        this.signalName = name.strip();
+        this.signalToken = token.strip();
+        this.first = true;
+        setChanged();
+        if (level != null && !level.isClientSide()) {
+            if (remoteType == RemoteType.SERVER)
+                serverTick(level, worldPosition, getBlockState());
+            else
+                clientTick(level, worldPosition, getBlockState());
         }
-        this.tK = 0;
-        boolean occupied = RemoteSignalManager.access().isOccupied(this);
-        if (state.getValue(RemoteClientBlock.POWERED) != occupied) {
-            level.setBlock(pos, state.setValue(RemoteClientBlock.POWERED, occupied), 3);
-        }
+    }
+
+    @Override
+    public void clearRemoved() {
+        super.clearRemoved();
+        this.first = true;
     }
 
     @Override
@@ -95,7 +113,7 @@ public class RemoteBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
-        view.read("RemoteType", RemoteType.CODEC).ifPresent(value -> this.remoteType = value);
+        this.remoteType = getBlockState().getBlock() instanceof RemoteServerBlock ? RemoteType.SERVER : RemoteType.CLIENT;
         this.signalName = view.getStringOr("SignalName", "");
         this.signalToken = view.getStringOr("SignalToken", "");
         this.uid = view.getStringOr("UID", "");
@@ -103,12 +121,14 @@ public class RemoteBlockEntity extends BlockEntity {
             this.uid = UUID.randomUUID().toString();
         }
         this.tK = view.getIntOr("Ticker", 0);
+        this.first = true;
     }
 
     @Override
     public void setRemoved() {
         super.setRemoved();
-        RemoteSignalManager.access().remove(this);
+        if (level != null && !level.isClientSide())
+            RemoteSignalManager.access().remove(this);
     }
 
     public @NotNull String getUid() {
@@ -116,7 +136,7 @@ public class RemoteBlockEntity extends BlockEntity {
     }
 
     public void setSignalName(@NotNull String signalName) {
-        this.signalName = signalName;
+        configure(signalName, signalToken);
     }
 
     public @NotNull String getSignalName() {
@@ -124,7 +144,7 @@ public class RemoteBlockEntity extends BlockEntity {
     }
 
     public void setSignalToken(@NotNull String signalToken) {
-        this.signalToken = signalToken;
+        configure(signalName, signalToken);
     }
 
     public @NotNull String getSignalToken() {

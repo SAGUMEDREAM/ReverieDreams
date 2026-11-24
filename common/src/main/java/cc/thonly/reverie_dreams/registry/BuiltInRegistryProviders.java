@@ -8,6 +8,7 @@ import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfigs;
 import cc.thonly.reverie_dreams.data.danmaku.stg.DanmakuPattern;
+import cc.thonly.reverie_dreams.data.gensokyo.*;
 import cc.thonly.reverie_dreams.data.npc.*;
 import cc.thonly.reverie_dreams.data.skin.CustomType;
 import cc.thonly.reverie_dreams.data.skin.SkinConfig;
@@ -20,9 +21,9 @@ import cc.thonly.reverie_dreams.entity.skill.Skills;
 import cc.thonly.reverie_dreams.entity.variant.*;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.networking.payload.CustomRegistrySyncPacket;
-import cc.thonly.reverie_dreams.proxy.MergeRegistryProviderFactory;
+import cc.thonly.reverie_dreams.api.proxy.MergeRegistryProviderFactory;
+import cc.thonly.reverie_dreams.api.proxy.RegistryProviderFactory;
 import cc.thonly.reverie_dreams.proxy.PlatformProxies;
-import cc.thonly.reverie_dreams.proxy.RegistryProviderFactory;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.registry.content.*;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuShapes;
@@ -32,9 +33,13 @@ import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuPatterns;
 import cc.thonly.reverie_dreams.registry.content.skin.GensokyoSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
 import cc.thonly.reverie_dreams.registry.content.skin.SkinConfigs;
+import cc.thonly.reverie_dreams.registry.content.variant.OniVariants;
+import cc.thonly.reverie_dreams.registry.content.variant.RabbitUnitVariants;
+import cc.thonly.reverie_dreams.registry.content.variant.YouseiVariants;
 import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import cc.thonly.reverie_dreams.registry.impl.RegistrySyncer;
+import cc.thonly.reverie_dreams.util.FinalReference;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import dev.architectury.networking.NetworkManager;
@@ -63,7 +68,7 @@ import java.util.stream.Stream;
 public class BuiltInRegistryProviders {
     public static final Map<ResourceKey<? extends Registry<?>>, RegistryProvider<?>> ROOT = new Object2ObjectLinkedOpenHashMap<>();
     public static final RegistryProvider<BaseRecipeType<?>> RECIPE_TYPE = BuiltInRegistryProviders.<BaseRecipeType<?>>ofEntry(ReverieDreams.id("recipe_type"));
-    public static boolean LOOKUP = false;
+    public static FinalReference<Boolean> LOOKUP = FinalReference.withDefault(false);
     private static RegistryState RECIPE_STATE = RegistryState.LOADING;
 
     public static final RegistryProvider<DanmakuType> DANMAKU_TYPE =
@@ -209,6 +214,21 @@ public class BuiltInRegistryProviders {
                     .builder(Customers::bootstrap)
                     .syncToClient(RegistrySyncers.CUSTOMER_DATA);
 
+    public static final RegistryProvider<GensokyoLandmark> GENSOKYO_LANDMARK =
+            BuiltInRegistryProviders.<GensokyoLandmark>ofEntry(BuiltInRegistryProviderKeys.GENSOKYO_LANDMARK)
+                    .codec(GensokyoLandmark.CODEC)
+                    .reloadBuilder(GensokyoLandmarks::reload);
+
+    public static final RegistryProvider<GensokyoStructureMetadata> GENSOKYO_STRUCTURE_METADATA =
+            BuiltInRegistryProviders.<GensokyoStructureMetadata>ofEntry(BuiltInRegistryProviderKeys.GENSOKYO_STRUCTURE_METADATA)
+                    .codec(GensokyoStructureMetadata.CODEC)
+                    .reloadBuilder(GensokyoStructureMetadataRegistry::reload);
+
+    public static final RegistryProvider<GensokyoAdventure> GENSOKYO_ADVENTURE =
+            BuiltInRegistryProviders.<GensokyoAdventure>ofEntry(BuiltInRegistryProviderKeys.GENSOKYO_ADVENTURE)
+                    .codec(GensokyoAdventure.CODEC)
+                    .reloadBuilder(GensokyoAdventureRegistry::reload);
+
     public static final WritableRegistry<SkinType> SKIN_TYPE_MERGED =
             BuiltInRegistryProviders.ofEntries(BuiltInRegistryProviderKeys.SKIN_TYPE_MERGED, BuiltInRegistryProviders.SKIN_TYPE, BuiltInRegistryProviders.CUSTOM_SKIN_TYPE);
 
@@ -221,7 +241,7 @@ public class BuiltInRegistryProviders {
             RegistryProvider<?> registry = entry.getValue();
             registry.build();
         }
-        LOOKUP = true;
+        LOOKUP.set(true, false);
     }
 
     public static void startSyncRegistry(List<ServerPlayer> players) {
@@ -328,7 +348,7 @@ public class BuiltInRegistryProviders {
             Optional<RegistryProviderFactory> registryProviderFactoryOptional = PlatformProxies.REGISTRY_PROVIDER_FACTORY;
             if (registryProviderFactoryOptional.isPresent()) {
                 RegistryProviderFactory registryProviderFactory = registryProviderFactoryOptional.get();
-                RegistryProvider<?> provider = registryProviderFactory.apply(key);
+                RegistryProvider<?> provider = (RegistryProvider<?>) registryProviderFactory.apply(key);
                 MCBuiltInRegistries.REGISTRY_BUILDER.ifPresent(builder -> {
                     builder.addBuilder(key.identifier(), () -> provider);
                 });
@@ -362,7 +382,7 @@ public class BuiltInRegistryProviders {
                 .argument("registry_key", IdentifierArgument.id())
                 .suggests((context, builder) -> {
                     for (ResourceKey<? extends Registry<?>> registryKey : BuiltInRegistryProviders.ROOT.keySet()) {
-                        builder.suggest(registryKey.identifier().toString());
+                        cc.thonly.reverie_dreams.util.command.FilteredSuggestions.resource(builder,registryKey.identifier());
                     }
                     return builder.buildFuture();
                 })
@@ -378,7 +398,7 @@ public class BuiltInRegistryProviders {
 
                             RegistryProvider<?> registry = BuiltInRegistryProviders.ROOT.get(registryKey);
                             for (Identifier key : registry.keys()) {
-                                builder.suggest(key.toString());
+                                cc.thonly.reverie_dreams.util.command.FilteredSuggestions.resource(builder,key);
                             }
 
                             return builder.buildFuture();
@@ -394,7 +414,7 @@ public class BuiltInRegistryProviders {
                 .argument("registry_key", IdentifierArgument.id())
                 .suggests((context, builder) -> {
                     for (ResourceKey<? extends Registry<?>> registryKey : BuiltInRegistryProviders.ROOT.keySet()) {
-                        builder.suggest(registryKey.identifier().toString());
+                        cc.thonly.reverie_dreams.util.command.FilteredSuggestions.resource(builder,registryKey.identifier());
                     }
                     return builder.buildFuture();
                 })
@@ -412,7 +432,7 @@ public class BuiltInRegistryProviders {
                             Stream<? extends HolderSet.Named<?>> namedStream = registry.listTags();
                             namedStream.forEach((Consumer<HolderSet.Named<?>>) holders -> {
                                 TagKey<?> key = holders.key();
-                                builder.suggest(key.location().toString());
+                                cc.thonly.reverie_dreams.util.command.FilteredSuggestions.resource(builder,key.location());
                             });
 
                             return builder.buildFuture();
@@ -433,7 +453,7 @@ public class BuiltInRegistryProviders {
                         return builder.buildFuture();
                     }
                     for (Identifier key : registry.keys()) {
-                        builder.suggest(key.toString());
+                        cc.thonly.reverie_dreams.util.command.FilteredSuggestions.resource(builder,key);
                     }
                     return builder.buildFuture();
                 })

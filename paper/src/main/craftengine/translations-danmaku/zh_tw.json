@@ -1,0 +1,18 @@
+{
+  "item.reverie_dreams.danmaku.amulet": "札彈",
+  "item.reverie_dreams.danmaku.arrowhead": "鱗彈",
+  "item.reverie_dreams.danmaku.ball": "小玉",
+  "item.reverie_dreams.danmaku.bubble": "大球",
+  "item.reverie_dreams.danmaku.bullet": "銃彈",
+  "item.reverie_dreams.danmaku.fireball": "火光彈",
+  "item.reverie_dreams.danmaku.fireball_glowy": "水光彈",
+  "item.reverie_dreams.danmaku.kunai": "鏈彈",
+  "item.reverie_dreams.danmaku.rice": "米彈",
+  "item.reverie_dreams.danmaku.star": "星彈",
+  "item.reverie_dreams.danmaku.note": "音符",
+  "death.attack.danmaku": "%1$s 滿身瘡痍",
+  "death.attack.danmaku.item": "%1$s 被 %2$s 在對戰的過程中使用 %3$s 被打的滿身瘡痍",
+  "death.attack.danmaku.player": "%1$s 與 %2$s 對戰的過程中滿身瘡痍",
+  "sound.reverie_dreams.fire": "彈幕發射",
+  "sound.reverie_dreams.graze": "擦彈"
+}

@@ -1,203 +1,116 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
 import cc.thonly.reverie_dreams.block.kitchen.ChairBlock;
-import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.entity.SeatEntity;
+import cc.thonly.reverie_dreams.entity.ai.work.*;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.List;
 
-@Slf4j
-public class NPCCustomerGoal extends Goal {
-    public static final Map<ServerLevel, Map<Long, BaseNPCLikeEntity>> EXCLUSIONS = new HashMap<>(8);
-    private final BaseNPCLikeEntity npc;
-    @Nullable
-    private BlockPos currentTarget = null;
-    private final Block targetBlock;
-    private final boolean useAction;
-    private final boolean exclusive;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
+import cc.thonly.reverie_dreams.restaurant.RestaurantService;
 
-    public NPCCustomerGoal(BaseNPCLikeEntity npc) {
-        this.npc = npc;
-        this.targetBlock = RDBlocks.CHAIR.asBlock();
-        this.useAction = true;
-        this.exclusive = true;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.TARGET));
+public class NPCCustomerGoal extends ScheduledWorkGoal {
+    private BlockPos chair;
+    private long sitAt;
+    private RestaurantService.Shop restaurant;
+    private final NPCSimpleEntity guest;
+
+    public NPCCustomerGoal(NPCSimpleEntity npc) {
+        super(npc, NPCWorkModes.CUSTOMER);
+        this.guest = npc;
     }
-
-    private List<BlockPos> findBlockPosList() {
-        List<BlockPos> list = new LinkedList<>();
-        Level world = this.npc.level();
-        BlockPos center = this.npc.getWorkingPos();
-        int r = 8;
-        BoundingBox box = new BoundingBox(center.getX() - r, center.getY() - r, center.getZ() - r,
-                center.getX() + r, center.getY() + r, center.getZ() + r);
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-
-        for (int x = box.minX(); x <= box.maxX(); x++) {
-            for (int y = box.minY(); y <= box.maxY(); y++) {
-                for (int z = box.minZ(); z <= box.maxZ(); z++) {
-                    pos.set(x, y, z);
-                    if (world.getBlockState(pos).getBlock() == this.targetBlock) {
-                        list.add(pos.immutable());
-                    }
-                }
-            }
-        }
-
-        // 按照距离工作点排序，最近的排在前面
-        list.sort((a, b) -> Double.compare(
-                a.distSqr(center),
-                b.distSqr(center)
-        ));
-
-//        System.out.println("[NPCFindBlockGoal] Found chests (sorted): " + list.size());
-        if (!list.isEmpty()) {
-//            System.out.println("[NPCFindBlockGoal] Nearest chest at: " + list.get(0));
-        }
-        return list;
-    }
-
 
     @Override
-    public boolean canUse() {
-        if (!EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.CUSTOMER)) {
+    protected boolean canSchedule() {
+        return guest.getCustomerContainer().hasVisit() && guest.getCustomerContainer().isCustomerMode();
+    }
+
+    @Override
+    protected boolean sameSite() {
+        return !guest.getCustomerContainer().isManualCustomer() || super.sameSite();
+    }
+
+    private boolean ownSeat(BlockPos pos) {
+        return npc.getVehicle() instanceof SeatEntity seat && seat.blockPosition().equals(pos);
+    }
+
+    private boolean available(ServerLevel level, BlockPos pos) {
+        if (restaurant == null || !restaurant.bell().area().contains(pos) || !level.hasChunkAt(pos) || !site.contains(pos) || !work().available(pos, level.getGameTime()))
+            return false;
+        var state = level.getBlockState(pos);
+        return state.is(RDBlocks.CHAIR.asBlock()) && (ownSeat(pos) || !state.getValue(ChairBlock.OCCUPIED) || ChairBlock.unlockIfFree(state, level, pos));
+    }
+
+    @Override
+    protected boolean findTask(ServerLevel level) {
+        var queue = CustomerQueue.of(level);
+        long now = level.getGameTime();
+        var customer = guest.getCustomerContainer();
+        restaurant = customer.findRestaurant().orElse(null);
+        if (restaurant == null) {
+            queue.leave(npc.getUUID());
+            work().status("restaurant_closed");
             return false;
         }
+        if (!customer.isManualCustomer())
+            site = restaurant.bell().area();
+        if (npc.getVehicle() instanceof SeatEntity seat && available(level, seat.blockPosition())) {
+            chair = seat.blockPosition().immutable();
+            queue.leave(npc.getUUID());
+            return true;
+        }
+        queue.join(npc.getUUID(), site, now, restaurant.bell().id());
+        chair = search.find(site, now, level::hasChunkAt, p -> available(level, p) && queue.turn(npc.getUUID(), p, now));
+        if (chair == null) {
+            work().status("customer_queue");
+            return false;
+        }
+        queue.leave(npc.getUUID());
+        sitAt = 0;
         return true;
     }
 
     @Override
-    public boolean canContinueToUse() {
-        boolean cont = EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.CUSTOMER);
-        // 少量日志，别太频繁打印（可按需打开）
-//         System.out.println("[shouldContinue] " + cont);
-        return cont;
+    protected boolean validTask(ServerLevel level) {
+        return restaurant != null && level.hasChunkAt(restaurant.bell().getBlockPos()) && level.getBlockEntity(restaurant.bell().getBlockPos()) == restaurant.bell()
+                && restaurant.bell().linked() == restaurant.book() && (restaurant.bell().open()
+                || guest.getCustomerContainer().hasOpenOrder() || guest.getCustomerContainer().getCooldownTickTime() >= 0)
+                && chair != null && available(level, chair);
     }
 
     @Override
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
-    private BlockPos findNextTarget() {
-        List<BlockPos> blockPoses = findBlockPosList();
-        ServerLevel serverLevel = getServerLevel(this.npc);
-        for (BlockPos blockPos : blockPoses) {
-            BlockState blockState = serverLevel.getBlockState(blockPos);
-            if (!blockState.getBlock().equals(this.targetBlock)) {
-//                System.out.println("不是方块");
-                continue;
-            }
-//            return blockPos;
-            Map<Long, BaseNPCLikeEntity> map = EXCLUSIONS.computeIfAbsent(serverLevel, x -> new HashMap<>());
-            if (this.exclusive && map.containsKey(blockPos.asLong())) {
-                BaseNPCLikeEntity baseNPCLikeEntity = map.get(blockPos.asLong());
-                if (baseNPCLikeEntity != this.npc) {
-//                    System.out.println("已被别的实体占有");
-                    continue;
-                } else {
-//                    System.out.println("找到找有的");
-                    return blockPos;
-                }
-            } else {
-//                System.out.println("创建占有");
-                map.put(blockPos.asLong(), this.npc);
-                return blockPos;
-            }
-        }
-
-//        System.out.println("[findNextTarget] no suitable target found");
-        return null;
+    protected List<?> resources() {
+        return chair == null ? List.of() : List.of(chair);
     }
 
     @Override
-    public void tick() {
-//        System.out.println("=== Tick start ===");
-        ServerLevel serverLevel = getServerLevel(this.npc);
-        if (!EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.CUSTOMER)) {
-            Map<Long, BaseNPCLikeEntity> map = EXCLUSIONS.computeIfAbsent(serverLevel, x -> new HashMap<>(16));
-            if (this.currentTarget != null) {
-                map.remove(this.currentTarget.asLong());
-            }
+    protected void runTask(ServerLevel level) {
+        if (ownSeat(chair)) {
+            if (guest.getCustomerContainer().hasOpenOrder())
+                work().status("customer_seated");
             return;
         }
-
-        var x = this.findNextTarget();
-        if (x != null && this.currentTarget != null && this.currentTarget.asLong() != x.asLong()) {
-            Map<Long, BaseNPCLikeEntity> map = EXCLUSIONS.computeIfAbsent(serverLevel, e -> new HashMap<>(16));
-            if (this.currentTarget != null) {
-                map.remove(this.currentTarget.asLong());
-            }
-        }
-        this.currentTarget = x;
-//        System.out.println(this.roleEntity.toString() + this.currentTarget);
-        if (this.currentTarget == null) {
+        if (!reachInteraction(chair, 2.5))
+            return;
+        if (sitAt == 0)
+            sitAt = level.getGameTime();
+        if (level.getGameTime() - sitAt > 40) {
+            search.reject(chair, level.getGameTime());
+            work().reject(chair, level.getGameTime());
+            finish("unreachable", 20);
             return;
         }
-
-        // 移动到目标椅子
-        if (!isReached(this.currentTarget)) {
-//            System.out.println("[tick] Moving to block at " + this.currentTarget);
-            this.npc.getNavigation().moveTo(
-                    this.currentTarget.getX() + 0.5,
-                    this.currentTarget.getY() + 0.5,
-                    this.currentTarget.getZ() + 0.5,
-                    1.0D
-            );
-//            System.out.println("=== Tick end ===");
-            return;
-        } else {
-            BlockState blockState = serverLevel.getBlockState(this.currentTarget);
-            if (!this.npc.isPassenger() && this.useAction && this.targetBlock != null && !blockState.isAir() && blockState.is(this.targetBlock)) {
-                BlockPos pos = this.currentTarget;
-                try {
-                    ChairBlock.sit(blockState, serverLevel, pos, this.npc);
-                } catch (Exception e) {
-                    log.debug("Error:", e);
-                }
-                this.npc.getLookControl().setLookAt(
-                        pos.getX(),
-                        pos.getY(),
-                        pos.getZ()
-                );
-                float headYaw = this.npc.getYHeadRot();
-                this.npc.yBodyRot = approachAngle(
-                        this.npc.yHeadRot,
-                        headYaw,
-                        10.0F // 每 tick 最大旋转角度
-                );
-            }
-            if (!this.npc.isPassenger()) {
-                this.npc.swing(InteractionHand.MAIN_HAND);
-            }
-        }
-
-//        System.out.println("=== Tick end ===");
+        if (level.getGameTime() % 10 == 0)
+            ChairBlock.sit(level.getBlockState(chair), level, chair, npc);
     }
 
-    private static float approachAngle(float current, float target, float maxChange) {
-        float delta = Mth.wrapDegrees(target - current);
-        if (delta > maxChange) delta = maxChange;
-        if (delta < -maxChange) delta = -maxChange;
-        return current + delta;
+    @Override
+    protected void clearTask() {
+        chair = null;
+        restaurant = null;
     }
-
-
-    private boolean isReached(BlockPos pos) {
-        return pos.distToCenterSqr(this.npc.position()) <= 9;
-    }
-
 }

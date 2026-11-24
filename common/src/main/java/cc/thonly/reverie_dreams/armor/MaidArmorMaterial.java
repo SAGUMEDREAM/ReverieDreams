@@ -12,18 +12,18 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 import java.util.Map;
 
 public interface MaidArmorMaterial {
-    int BASE_DURABILITY = 20;
+    int BASE_DURABILITY = 18;
     ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, ReverieDreams.id("maid"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
-                    ArmorType.HELMET, 3,
+                    ArmorType.HELMET, 2,
                     ArmorType.CHESTPLATE, 6,
                     ArmorType.LEGGINGS, 5,
                     ArmorType.BOOTS, 2
             ),
-            5,
+            12,
             SoundEvents.ARMOR_EQUIP_LEATHER,
             0.0F,
             0.0F,

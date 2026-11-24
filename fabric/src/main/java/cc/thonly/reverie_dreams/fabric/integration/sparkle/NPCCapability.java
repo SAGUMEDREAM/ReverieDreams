@@ -1,15 +1,10 @@
 package cc.thonly.reverie_dreams.fabric.integration.sparkle;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import com.micaftic.morpher.capability.VehicleModelCapability;
 import com.micaftic.morpher.client.model.ModelAssembly;
 import com.micaftic.morpher.geckolib3.resource.GeckoLibCache;
 import com.micaftic.morpher.molang.parser.ParseException;
-import com.micaftic.morpher.molang.runtime.Int2FloatOpenHashMapStruct;
 import com.micaftic.morpher.molang.runtime.Struct;
-import it.unimi.dsi.fastutil.ints.Int2FloatOpenHashMap;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.Nullable;
@@ -18,17 +13,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 @Slf4j
 public class NPCCapability extends NPCAnimatable {
     private static final Map<UUID, NPCCapability> CACHE = new ConcurrentHashMap<>();
     private @Nullable Struct serverVars;
-    @Getter
-    private String rouletteAnimation = "";
-    @Getter
-    @Setter
-    static Consumer<NPCCapability> capabilityConsumer = null;
 
     public NPCCapability(BaseNPCLikeEntity entity) {
         super(entity);
@@ -53,10 +42,7 @@ public class NPCCapability extends NPCAnimatable {
             return;
         }
 
-        NPCPlayerAnimationController.register(this);
-        if (capabilityConsumer instanceof Consumer consumer) {
-            consumer.accept(this);
-        }
+        NPCPlayerAnimationController.register(this, assembly);
     }
 
 
@@ -68,22 +54,10 @@ public class NPCCapability extends NPCAnimatable {
         return Optional.empty();
     }
 
-    public void applySyncedState(VehicleModelCapability state, Int2FloatOpenHashMap values) {
-        if (!state.isInitialized()) {
-            this.rouletteAnimation = "";
-            this.serverVars = null;
-            this.resetModel();
-        } else {
-            this.serverVars = new Int2FloatOpenHashMapStruct(values);
-            this.rouletteAnimation = state.getRouletteAnimation();
-            this.initModelWithTexture(state.getOwnerModelId(), state.getOwnerTexture());
-        }
-    }
-
     public void executeMolang(String expression) {
         if (this.isModelReady() && expression != null && !expression.isBlank()) {
             try {
-                this.executeExpression(GeckoLibCache.parseSimpleExpression(expression), true, false, (Consumer) null);
+                this.executeExpression(GeckoLibCache.parseSimpleExpression(expression), true, false, null);
             } catch (ParseException e) {
                 log.error("Failed to execute maid molang {}", expression, e);
             }

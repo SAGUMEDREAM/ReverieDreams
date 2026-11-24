@@ -27,7 +27,7 @@ public class GensokyoAltarRecipeCategory implements IRecipeCategory<GensokyoAlta
     public GensokyoAltarRecipeCategory(IGuiHelper helper) {
         this.title = RDBlocks.GENSOKYO_ALTAR.asBlock().getName();
         this.helper = helper;
-        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK,RDBlocks.GENSOKYO_ALTAR.createStack());
+        this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, RDBlocks.GENSOKYO_ALTAR.createStack());
         this.arrow = helper.createDrawableIngredient(
                 VanillaTypes.ITEM_STACK,
                 RDGuiPlaceholderItems.PROGRESS_TO_RESULT.asItem().getDefaultInstance()

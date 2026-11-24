@@ -1,0 +1,15 @@
+name: ReverieDreamsWorld
+version: '${version}'
+main: cc.thonly.reverie_dreams.paper.world.GensokyoWorldPlugin
+description: Explicit Gensokyo terrain migration probe for Paper26.1.2
+api-version: '26.1.2'
+load: STARTUP
+authors: [KIISN_REIMU]
+commands:
+  rdworld:
+    description: Prepare, audit or explicitly enter the Gensokyo terrain test world
+    usage: /rdworld <prepare|audit|enter>
+    permission: reveriedreams.world.admin
+permissions:
+  reveriedreams.world.admin:
+    default: op

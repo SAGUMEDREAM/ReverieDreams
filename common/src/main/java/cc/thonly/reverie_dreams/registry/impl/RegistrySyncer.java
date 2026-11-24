@@ -11,6 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -41,8 +42,6 @@ public abstract class RegistrySyncer<T, D> {
 
     public static <T> CompoundTag writeNamedToTag(Collection<HolderSet.Named<T>> namedTags) {
         CompoundTag tag = new CompoundTag();
-        int size = namedTags.size();
-        tag.putInt("size", size);
         ListTag entries = new ListTag();
         for (HolderSet.Named<T> namedTag : namedTags) {
             if (!namedTag.isBound()) {
@@ -53,14 +52,13 @@ public abstract class RegistrySyncer<T, D> {
             ListTag values = new ListTag();
             for (Holder<T> tHolder : namedTag) {
                 tHolder.unwrapKey().ifPresent(key -> {
-                    CompoundTag entryKey = new CompoundTag();
-                    entryKey.putString("name", key.identifier().toString());
-                    values.add(entryKey);
+                    values.add(StringTag.valueOf(key.identifier().toString()));
                 });
             }
             entry.put("values", values);
             entries.add(entry);
         }
+        tag.putInt("size", entries.size());
         tag.put("tags", entries);
         return tag;
     }

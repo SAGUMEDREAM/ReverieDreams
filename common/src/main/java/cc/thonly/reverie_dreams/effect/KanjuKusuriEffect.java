@@ -20,7 +20,7 @@ public class KanjuKusuriEffect extends MobEffect {
     @Override
     public void onEffectStarted(LivingEntity entity, int amplifier) {
         super.onEffectStarted(entity, amplifier);
-        LivingEntityDataModifier iLivingEntity  = (LivingEntityDataModifier) entity;
+        LivingEntityDataModifier iLivingEntity = (LivingEntityDataModifier) entity;
         if (entity.level() instanceof ServerLevel) {
             iLivingEntity.reverie_dreams$setKanju((ServerLevel) entity.level(), entity.blockPosition());
         }

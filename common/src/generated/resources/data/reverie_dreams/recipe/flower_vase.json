@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "CFC",
+    " C "
+  ],
+  "key": {
+    "C": "minecraft:clay_ball",
+    "F": "minecraft:pink_petals"
+  },
+  "result": {
+    "id": "reverie_dreams:flower_vase",
+    "count": 1
+  }
+}

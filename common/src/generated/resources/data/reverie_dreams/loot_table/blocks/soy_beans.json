@@ -52,7 +52,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "reverie_dreams:soy_beans_seeds"
+          "name": "reverie_dreams:ingredient/soybean"
         }
       ],
       "rolls": 1.0

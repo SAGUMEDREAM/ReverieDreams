@@ -1,0 +1,44 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/set2/vermilion_railing_post"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "reverie_dreams:block/set2/vermilion_railing_side"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "reverie_dreams:block/set2/vermilion_railing_side",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "reverie_dreams:block/set2/vermilion_railing_side",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "reverie_dreams:block/set2/vermilion_railing_side",
+        "y": 270
+      }
+    }
+  ]
+}

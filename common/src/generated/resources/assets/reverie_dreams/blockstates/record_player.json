@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,playing=false": {
+      "model": "reverie_dreams:block/record_player",
+      "y": 90
+    },
+    "facing=east,playing=true": {
+      "model": "reverie_dreams:block/record_player_on",
+      "y": 90
+    },
+    "facing=north,playing=false": {
+      "model": "reverie_dreams:block/record_player"
+    },
+    "facing=north,playing=true": {
+      "model": "reverie_dreams:block/record_player_on"
+    },
+    "facing=south,playing=false": {
+      "model": "reverie_dreams:block/record_player",
+      "y": 180
+    },
+    "facing=south,playing=true": {
+      "model": "reverie_dreams:block/record_player_on",
+      "y": 180
+    },
+    "facing=west,playing=false": {
+      "model": "reverie_dreams:block/record_player",
+      "y": 270
+    },
+    "facing=west,playing=true": {
+      "model": "reverie_dreams:block/record_player_on",
+      "y": 270
+    }
+  }
+}

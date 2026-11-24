@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "WWW",
+    " B ",
+    "WWW"
+  ],
+  "key": {
+    "W": "#minecraft:planks",
+    "B": "minecraft:bell"
+  },
+  "result": {
+    "id": "reverie_dreams:mystia_bell",
+    "count": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "block.reverie_dreams.gensokyo_altar": "幻想鄉祭壇",
+  "item.reverie_dreams.fast_book_item": "item.reverie_dreams.fast_book_item",
+  "message.reverie_dreams.altar.unavailable": "祭壇暫時不可用",
+  "message.reverie_dreams.altar.missing_structure": "八根三層柱的結構不完整",
+  "message.reverie_dreams.altar.unloaded_structure": "請先載入祭壇周圍的區塊",
+  "message.reverie_dreams.altar.missing_recipe": "祭壇材料的位置或數量不符合配方",
+  "message.reverie_dreams.altar.unsupported_output": "該配方產物尚未移植，材料已保留"
+}

@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
+import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import eu.pb4.sgui.api.gui.SlotBasedGui;
@@ -47,26 +48,32 @@ public class StrengthTableDisplayView extends SimpleGui implements DisplayView {
     public void init() {
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub004")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName())
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ue009")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName().copy().withStyle(ChatFormatting.WHITE))
         );
         this.setSlot(2, new GuiElementBuilder(this.getValue().getMainItem().build()));
         this.setSlot(3, new GuiElementBuilder(this.getValue().getOffItem().build()));
         this.setSlot(6, new GuiElementBuilder(this.getValue().getOutput().build()));
-        this.setSlot(8, new GuiElementBuilder(RDGuiPlaceholderItems.CLOSE.asItem()).setCallback(() -> {
-            SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-            this.prevGuiCallback.apply().open();
-        }));
+        this.setSlot(8, new GuiElementBuilder(RDGuiPlaceholderItems.CLOSE.asItem()).setCallback(this::back));
     }
 
     @Override
     public void onPlayerClose(boolean success) {
         super.onPlayerClose(success);
         this.back(0, null, null, null);
+    }
+
+    @Override
+    public boolean onClick(int index, ClickType type, ContainerInput action, GuiElement element) {
+        if (action == ContainerInput.PICKUP && element != null && !element.getItemStack().isEmpty()
+                && element.getGuiCallback() == GuiElement.EMPTY_CALLBACK) {
+            SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
+        }
+        return super.onClick(index, type, action, element);
     }
 
     public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {

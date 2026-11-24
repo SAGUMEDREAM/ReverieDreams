@@ -10,6 +10,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import java.util.Comparator;
+
 public class RoleCardCreativeTab implements ItemGroupContentHelper {
     public static final ResourceKey<CreativeModeTab> ITEM_GROUP_KEY = ResourceKey.create(Registries.CREATIVE_MODE_TAB, ReverieDreams.id("05_item_group_role_card"));
 
@@ -18,12 +20,14 @@ public class RoleCardCreativeTab implements ItemGroupContentHelper {
                 .icon(() -> new ItemStack(RDItems.ROLE_CARD.asItem()))
                 .title(Component.translatable("item_group.touhou.role_card"))
                 .displayItems((parameters, output) -> {
-                    output.accept(Items.CAKE);
                     output.accept(RDItems.OWNER_STICK);
-                    output.accept(RDItems.ROLE_CARD);
                     output.accept(RDItems.CUSTOM_SKIN_SELECTOR);
                     output.accept(RDItems.SOUL_CARD);
-                    BuiltInRegistryProviders.ROLE_CARD.values().forEach(instance -> output.accept(instance.getTemplate().create()));
+                    output.accept(RDItems.ROLE_CARD);
+                    BuiltInRegistryProviders.ROLE_CARD.values().stream()
+                            .sorted(Comparator.comparingInt(card -> TouhouCreativeOrder.roleCard(card.getId())))
+                            .forEach(card -> output.accept(card.getTemplate().create()));
+                    output.accept(Items.CAKE);
                 }));
     }
 }

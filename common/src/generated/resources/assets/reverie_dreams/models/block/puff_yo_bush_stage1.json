@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "reverie_dreams:block/puff_yo_bush_stage1"
+  }
+}

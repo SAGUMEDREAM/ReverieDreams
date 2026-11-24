@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.paper.item.danmaku;
 
-import net.momirealms.craftengine.core.entity.AbstractEntity;
+import net.momirealms.craftengine.core.entity.Entity;
 import net.momirealms.craftengine.core.entity.player.InteractionHand;
 import net.momirealms.craftengine.core.entity.player.InteractionResult;
 import net.momirealms.craftengine.core.entity.player.Player;
@@ -24,5 +24,5 @@ public abstract class AbstractDanmakuItemBehaviour extends ItemBehavior {
         return InteractionResult.SUCCESS;
     }
 
-    public abstract void shoot(World serverWorld, AbstractEntity user, InteractionHand hand);
+    public abstract void shoot(World serverWorld, Entity user, InteractionHand hand);
 }

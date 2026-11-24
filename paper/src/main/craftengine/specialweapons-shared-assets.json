@@ -1,0 +1,33 @@
+{
+  "models": [],
+  "source_models": [
+    "assets/reverie_dreams/models/item/weapon_of_the_moon.json",
+    "assets/reverie_dreams/models/item/trumpet_gun.json",
+    "assets/reverie_dreams/models/item/sunflower.json",
+    "assets/reverie_dreams/models/item/lunar_type_1_rifle.json",
+    "assets/reverie_dreams/models/item/lunar_type_2_pistol.json",
+    "assets/reverie_dreams/models/item/lunar_type_3_shotgun.json",
+    "assets/reverie_dreams/models/item/lunar_type_4_smg.json",
+    "assets/reverie_dreams/models/item/lunar_type_5_sniper.json",
+    "assets/reverie_dreams/models/item/lunar_type_1_magazine.json",
+    "assets/reverie_dreams/models/item/lunar_type_2_magazine.json",
+    "assets/reverie_dreams/models/item/lunar_type_3_magazine.json",
+    "assets/reverie_dreams/models/item/lunar_type_4_magazine.json",
+    "assets/reverie_dreams/models/item/lunar_type_5_magazine.json",
+    "assets/reverie_dreams/models/item/lunar_bullet_standard.json",
+    "assets/reverie_dreams/models/item/lunar_bullet_pellet.json",
+    "assets/reverie_dreams/models/item/lunar_bullet_sniper.json",
+    "assets/reverie_dreams/models/item/lunar_power_cell.json",
+    "assets/reverie_dreams/models/item/lunar_signal_coil.json",
+    "assets/reverie_dreams/models/item/lunar_signal_crystal.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/block/sunflower_bottom.png",
+    "assets/reverie_dreams/textures/block/sunflower_front.png",
+    "assets/reverie_dreams/textures/block/sunflower_top.png",
+    "assets/reverie_dreams/textures/item/magazine.png",
+    "assets/reverie_dreams/textures/item/trumpet_gun.png",
+    "assets/reverie_dreams/textures/item/weapon_of_the_moon.png",
+    "assets/reverie_dreams/textures/item/lunar_arsenal.png"
+  ]
+}

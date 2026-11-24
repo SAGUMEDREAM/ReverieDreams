@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:cobblestone",
+    "S": "minecraft:stone"
+  },
+  "pattern": [
+    " S ",
+    "CCC"
+  ],
+  "result": {
+    "count": 4,
+    "id": "reverie_dreams:stone_lantern"
+  }
+}

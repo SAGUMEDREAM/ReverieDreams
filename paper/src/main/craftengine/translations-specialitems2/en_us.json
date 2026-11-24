@@ -1,0 +1,16 @@
+{
+  "item.reverie_dreams.upgraded_health": "Extra Life",
+  "item.reverie_dreams.bomb": "Bomb",
+  "item.reverie_dreams.cheque": "Cheque",
+  "item.reverie_dreams.treasure_hunting_rod": "Treasure Hunting Rod",
+  "item.action.click.upgraded_health.max_full": "§c Your maximum health has exceeded %s§c Oh",
+  "item.tooltip.cheque.owner": "§fSignature: %s",
+  "item.tooltip.cheque.amount": "§fAmount: %s",
+  "sound.reverie_dreams.up": "Level Up",
+  "message.reverie_dreams.treasure_hunting_rod.find": "%s blocks from the target, offset: X=%s, Y=%s, Z=%s, target:",
+  "message.reverie_dreams.treasure_hunting_rod.not_found": "No minerals found nearby.",
+  "message.reverie_dreams.treasure_hunting_rod.summary": "Nearest: %s, %s blocks away, vein %s, %s ores nearby",
+  "message.reverie_dreams.treasure_hunting_rod.distribution": "Ore distribution: %s",
+  "message.reverie_dreams.treasure_hunting_rod.distribution.entry": "%s ×%s",
+  "message.reverie_dreams.treasure_hunting_rod.separator": ", "
+}

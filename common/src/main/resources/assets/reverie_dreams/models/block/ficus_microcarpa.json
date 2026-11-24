@@ -1,0 +1,17 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "reverie_dreams:block/ficus_microcarpa",
+    "ficus": "reverie_dreams:block/ficus_microcarpa"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0.1],
+      "to": [16, 16, 0.1],
+      "faces": {
+        "north": { "uv": [16, 0, 0, 16], "texture": "#ficus" },
+        "south": { "uv": [0, 0, 16, 16], "texture": "#ficus" }
+      }
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.polymer;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
+import cc.thonly.reverie_dreams.component.tooltip.InitTooltips;
+import cc.thonly.reverie_dreams.data.danmaku.stg.motion.DanmakuMotion;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
@@ -27,8 +29,7 @@ import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import com.geckolib.GeckoLibConstants;
 import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
@@ -61,8 +62,8 @@ import org.jspecify.annotations.NonNull;
 import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.Iterator;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
+import net.minecraft.world.entity.EntityType;
 
 @SuppressWarnings({"unused", "unchecked"})
 @Slf4j
@@ -75,6 +76,7 @@ public class PolymerInitializer {
 
     public static void replaceGuidebook() {
         GuidebookFactory.EVENT.register(PolymerTHGuideBookItem::new);
+        InitTooltips.registerTooltip(PolymerTHGuideBookItem::appendPageDescription);
     }
 
     @SuppressWarnings("rawtypes")
@@ -116,7 +118,8 @@ public class PolymerInitializer {
             });
         }
         for (var entityType : RDEntityTypes.ENTITY_TYPES) {
-            PolymerEntityUtils.registerType(entityType.value());
+            // A non-null adapter also lets Polymer filter metadata for the marker fallback.
+            PolymerEntityUtils.registerType(entityType.value(), (type, context) -> EntityType.MARKER);
         }
         for (Holder<CriterionTrigger<?>> holder : RDCriteriaTriggers.LIST) {
             RegistrySyncUtils.setServerEntry(BuiltInRegistries.TRIGGER_TYPES, holder.value());
@@ -136,6 +139,7 @@ public class PolymerInitializer {
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), RoleType.SERIALIZER);
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), IngredientStack.SERIALIZER);
         RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), IngredientStack.LIST_SERIALIZER);
+        RegistrySyncUtils.setServerEntry(FabricEntityDataRegistryImplAccessor.getHandlerRegistry(), DanmakuMotion.SERIALIZER);
 
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.RECIPE_SERIALIZER, RecipeManager.DANMAKU_DYE_RECIPE.value());
         RegistrySyncUtils.setServerEntry(BuiltInRegistries.POINT_OF_INTEREST_TYPE, BuiltInRegistries.POINT_OF_INTEREST_TYPE.getValue(RDPointOfInterestTypes.HAWKERS_KEY));

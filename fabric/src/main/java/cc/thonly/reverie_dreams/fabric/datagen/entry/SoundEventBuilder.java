@@ -10,6 +10,7 @@ import net.minecraft.resources.Identifier;
 
 import java.util.*;
 
+@SuppressWarnings("UnusedReturnValue")
 @Accessors(chain = true)
 @Setter
 @Getter

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "reverie_dreams:block/spiritual_door_bottom",
+    "top": "reverie_dreams:block/spiritual_door_top"
+  }
+}

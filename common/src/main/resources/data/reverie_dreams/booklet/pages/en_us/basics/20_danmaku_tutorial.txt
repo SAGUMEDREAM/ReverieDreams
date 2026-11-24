@@ -17,19 +17,19 @@ To craft danmaku, players must use the <yellow><item 'reverie_dreams:danmaku_cra
 - <item 'reverie_dreams:danmaku_core'> - ×4
 - <item 'reverie_dreams:power'> - ×35
 - <item 'reverie_dreams:point'> - ×35
-- <item 'reverie_dreams:danmaku_recipe_creator'> - ×1
+- <item 'reverie_dreams:danmaku_shape_blueprint'> - ×1
 
 ### Align: Center
 <u><blue><polydex 'reverie_dreams:danmaku_crafting_table'>View the <item 'reverie_dreams:danmaku_crafting_table'> recipe</></><nl>
 <u><blue><polydex 'reverie_dreams:recipe/danmaku_table' 'category'>View the type of <item 'reverie_dreams:danmaku_crafting_table'> recipe list</>
 
 ### Align: Left
-<yellow><item 'reverie_dreams:danmaku_recipe_creator'></> is a key tool used to define the shape of danmaku, and is essential for crafting them.
+<yellow><item 'reverie_dreams:danmaku_shape_blueprint'></> is a key tool used to define the shape of danmaku, and is essential for crafting them.
 Players can right-click the template to construct danmaku patterns in a grid-based (pixel-like) manner.
 
 ### Align: Center
-<u><blue><polydex 'reverie_dreams:danmaku_recipe_creator'>View the <item 'reverie_dreams:danmaku_recipe_creator'> recipe</><nl>
-<u><blue><click run_command '/touhou recipe'>View the type of <item 'reverie_dreams:danmaku_recipe_creator'> recipe list</>
+<u><blue><polydex 'reverie_dreams:danmaku_shape_blueprint'>View the <item 'reverie_dreams:danmaku_shape_blueprint'> recipe</><nl>
+<u><blue><click run_command '/touhou recipe'>View the type of <item 'reverie_dreams:danmaku_shape_blueprint'> recipe list</>
 
 ### Align: Left
 Different typeInstance of danmaku have their own unique properties, but all can be upgraded using the <yellow><item 'reverie_dreams:strength_table'></>.
@@ -39,7 +39,7 @@ The following upgrade materials and their effects are currently defined:
 - <item 'minecraft:iron_sword'> - Increases danmaku damage
 - <item 'minecraft:slime_block'> - Increases the number of projectiles per shot
 - <item 'reverie_dreams:speed_feather'> - Increases firing speed
-- <item 'reverie_dreams:spell_card_template'> - Defines projectile trajectory
+- <item 'reverie_dreams:danmaku_trajectory_template'> - Defines projectile trajectory
 
 ### Align: Center
 <u><blue><polydex 'reverie_dreams:strength_table'>View the <item 'reverie_dreams:strength_table'> recipe</><nl>

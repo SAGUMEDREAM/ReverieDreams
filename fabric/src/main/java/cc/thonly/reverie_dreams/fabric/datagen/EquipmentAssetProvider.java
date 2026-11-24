@@ -20,8 +20,10 @@ public class EquipmentAssetProvider extends AbstractEquipmentAssetProvider {
 
     @Override
     protected void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer) {
+        consumer.accept(cc.thonly.reverie_dreams.item.AncientIronEquipment.ASSET, createHumanoidOnlyModel(ReverieDreams.id("ancient_iron")));
         consumer.accept(EarphoneArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("earphone")));
         consumer.accept(KoishiHatArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("koishi_hat")));
+        consumer.accept(OniMaskArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("oni_mask")));
         consumer.accept(LowGravityBootArmorMaterial.REGISTRY_KEY,createHumanoidAndHorseModel(ReverieDreams.id("low_gravity_boot")));
         consumer.accept(CrownOfTheUnderworldArmorMaterial.REGISTRY_KEY,createHumanoidAndHorseModel(ReverieDreams.id("crown_of_the_underworld")));
         consumer.accept(SilverArmorMaterial.REGISTRY_KEY, createHumanoidAndHorseModel(ReverieDreams.id("silver")));

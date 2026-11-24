@@ -177,13 +177,13 @@ public class CraftEngineProvider {
 
     /**
      * 将 Items 自动拆成多个 YAML 文件。
-     *
+     * <p>
      * 例如：
-     *
+     * <p>
      * items-000.yml
      * items-001.yml
      * items-002.yml
-     *
+     * <p>
      * 每个文件都会自动控制在安全大小以内。
      */
     @SneakyThrows
@@ -237,7 +237,7 @@ public class CraftEngineProvider {
 
     /**
      * 递归拆分。
-     *
+     * <p>
      * 如果当前 chunk 序列化后没有超限，就直接写文件。
      * 如果超限，则从中间拆成两半继续处理。
      */

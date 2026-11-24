@@ -147,9 +147,9 @@ public class MCThreadHelper {
                                 "Dispatching task to client thread."
                         );
                         Minecraft.getInstance()
-                                 .execute(
-                                         wrapTask(task, "client")
-                                 );
+                                .execute(
+                                        wrapTask(task, "client")
+                                );
                     }
             );
         } catch (Exception exception) {

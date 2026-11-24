@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.proxy;
 
 import cc.thonly.reverie_dreams.api.proxy.PlatformProxy;
+import cc.thonly.reverie_dreams.api.proxy.TenguCameraItemUse;
 
 import java.util.Optional;
 
@@ -8,18 +9,18 @@ import java.util.Optional;
 public class ByModsPlatformProxy {
     public static final Optional<PlateBlockEntityTicker> PLATE_BLOCK_ENTITY_TICKER =
             PlatformProxy.<PlateBlockEntityTicker>builder()
-                         .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.PlateBlockEntityTickerImpl")
-                         .buildOrNull();
+                    .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.PlateBlockEntityTickerImpl")
+                    .buildOrNull();
     public static final Optional<PlateBlockEntityUpdater> PLATE_BLOCK_ENTITY_UPDATER =
             PlatformProxy.<PlateBlockEntityUpdater>builder()
-                         .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.PlateBlockEntityUpdaterImpl")
-                         .buildOrNull();
+                    .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.PlateBlockEntityUpdaterImpl")
+                    .buildOrNull();
     public static final Optional<TenguCameraItemUse> TENGU_CAMERA_ITEM_USE =
             PlatformProxy.<TenguCameraItemUse>builder()
-                         .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.TenguCameraItemUseImpl")
-                         .buildOrNull();
+                    .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.TenguCameraItemUseImpl")
+                    .buildOrNull();
     public static final Optional<GensokyoAltarBlockEntityTicker> GENSOKYO_ALTAR_BLOCK_ENTITY_TICKER =
             PlatformProxy.<GensokyoAltarBlockEntityTicker>builder()
-                         .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.GensokyoAltarBlockEntityTickerImpl")
-                         .buildOrNull();
+                    .withPolymer("cc.thonly.reverie_dreams.polymer.proxy.GensokyoAltarBlockEntityTickerImpl")
+                    .buildOrNull();
 }

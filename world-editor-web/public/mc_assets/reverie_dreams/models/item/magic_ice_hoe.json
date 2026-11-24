@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "reverie_dreams:item/magic_ice_hoe"
+  }
+}

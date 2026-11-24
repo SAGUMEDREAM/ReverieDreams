@@ -1,0 +1,78 @@
+import groovy.json.JsonSlurper
+import java.security.MessageDigest
+
+// Entity rendering API only. No gameplay hooks or model replacement are installed here.
+def lockFile = file('dependencies/bettermodel.lock.json')
+def betterModelLock = new JsonSlurper().parse(lockFile)
+
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'BetterModelCentral'
+                url = 'https://repo.maven.apache.org/maven2/'
+            }
+        }
+        filter {
+            includeModule('io.github.toxicity188', 'bettermodel-bukkit-api')
+            includeModule('io.github.toxicity188', 'bettermodel-api')
+            includeModule('io.github.toxicity188', 'dynamicuv')
+            includeModule('io.github.toxicity188', 'java-mesh')
+            // BetterModel 3.6.0 needs this version; the inherited Forge mirror
+            // advertises it but may fail while downloading the actual JAR.
+            includeModule('org.jetbrains.kotlin', 'kotlin-stdlib')
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'BetterModelModrinthRelease'
+                url = 'https://api.modrinth.com/maven/'
+            }
+        }
+        filter { includeModule('maven.modrinth', 'bettermodel') }
+    }
+}
+
+def betterModelRuntime = configurations.create('betterModelRuntime') {
+    canBeConsumed = false
+    canBeResolved = true
+    transitive = false
+}
+
+dependencies {
+    compileOnly(betterModelLock.api) {
+        version { strictly(betterModelLock.version) }
+    }
+    constraints {
+        compileOnly("io.github.toxicity188:bettermodel-api:${betterModelLock.version}") {
+            version { strictly(betterModelLock.version) }
+        }
+    }
+    add(betterModelRuntime.name, "maven.modrinth:bettermodel:${betterModelLock.modrinth_version_id}@jar")
+}
+
+def runtimeFilename = betterModelLock.runtime_filename.toString()
+def runtimeSha512 = betterModelLock.runtime_sha512.toString()
+def runtimeOutput = layout.buildDirectory.file("dependencies/${runtimeFilename}")
+
+tasks.register('prepareBetterModel') {
+    group = 'build setup'
+    description = 'Fetch and verify the pinned BetterModel Paper plugin without installing or starting a server'
+    inputs.file(lockFile)
+    inputs.files(betterModelRuntime)
+    outputs.file(runtimeOutput)
+    doLast {
+        def artifacts = inputs.files.files.findAll { it.name.endsWith('.jar') }
+        if (artifacts.size() != 1) throw new GradleException('Expected exactly one BetterModel runtime JAR')
+        def artifact = artifacts.first()
+        def actual = MessageDigest.getInstance('SHA-512').digest(artifact.bytes).encodeHex().toString()
+        if (actual != runtimeSha512) {
+            throw new GradleException('BetterModel runtime checksum differs from dependencies/bettermodel.lock.json')
+        }
+        def target = runtimeOutput.get().asFile
+        target.parentFile.mkdirs()
+        java.nio.file.Files.copy(artifact.toPath(), target.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+        logger.lifecycle("Verified BetterModel runtime: ${target}")
+    }
+}

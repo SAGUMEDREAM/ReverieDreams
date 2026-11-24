@@ -18,6 +18,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LeavesBlock;
 
 import java.util.concurrent.CompletableFuture;
@@ -34,10 +35,17 @@ public class JsonElementWriterProvider extends AbstractJsonElementWriterProvider
             Block block = fumoType.block();
             this.addSixteenDirectionBlockState(block);
         }
+        JapaneseLivingData.write(this);
+        JapaneseSet2Data.write(this);
+        WorkshopInteractionData.write(this);
+        DecorationItemDisplays.writeCustomItems(this);
         this.addSixteenDirectionBlockState(RDBlocks.MARISA_HAT_BLOCK.asBlock());
         this.addFruityLeavesBlockState(RDWoodBlocks.LEMON_FRUIT_LEAVES.asBlock(), RDWoodBlocks.LEMON_BUNDLE.leaves().asBlock());
         this.addFruityLeavesBlockState(RDWoodBlocks.GINKGO_FRUIT_LEAVES.asBlock(), RDWoodBlocks.GINKGO_BUNDLE.leaves().asBlock());
         this.addFruityLeavesBlockState(RDWoodBlocks.PEACH_FRUIT_LEAVES.asBlock(), RDWoodBlocks.PEACH_BUNDLE.leaves().asBlock());
+        this.addFruityLeavesBlockState(RDWoodBlocks.PLUM_FRUIT_LEAVES.asBlock(), Blocks.CHERRY_LEAVES);
+        this.addFruityLeavesBlockState(RDWoodBlocks.PINE_FRUIT_LEAVES.asBlock(), Blocks.SPRUCE_LEAVES);
+        this.addFruityLeavesBlockState(RDWoodBlocks.CHESTNUT_FRUIT_LEAVES.asBlock(), Blocks.DARK_OAK_LEAVES);
 
         this.addElement(Type.ASSETS, RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asBlock().builtInRegistryHolder().key().identifier(), "blockstates", strToJson(
                 "{\n" +

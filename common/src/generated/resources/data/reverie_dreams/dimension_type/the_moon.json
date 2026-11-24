@@ -29,9 +29,9 @@
     "minecraft:gameplay/piglins_zombify": false,
     "minecraft:gameplay/respawn_anchor_works": true,
     "minecraft:gameplay/sky_light_level": 15.0,
-    "minecraft:visual/fog_color": "#181318",
+    "minecraft:visual/fog_color": "#181818",
     "minecraft:visual/sky_color": "#000000",
-    "minecraft:visual/sky_light_color": "#b874ff",
+    "minecraft:visual/sky_light_color": "#ffffff",
     "minecraft:visual/sky_light_factor": 0.5,
     "minecraft:visual/water_fog_color": "#66bfe8"
   },
@@ -41,15 +41,19 @@
   "has_ender_dragon_fight": false,
   "has_fixed_time": true,
   "has_skylight": true,
-  "height": 256,
+  "height": 352,
   "infiniburn": "#minecraft:infiniburn_overworld",
-  "logical_height": 256,
-  "min_y": -32,
+  "logical_height": 352,
+  "min_y": -128,
   "monster_spawn_block_light_limit": 0,
   "monster_spawn_light_level": {
     "type": "minecraft:uniform",
     "max_inclusive": 10,
     "min_inclusive": 0
   },
-  "timelines": "#minecraft:in_overworld"
+  "timelines": [
+    "minecraft:moon",
+    "minecraft:villager_schedule",
+    "minecraft:early_game"
+  ]
 }

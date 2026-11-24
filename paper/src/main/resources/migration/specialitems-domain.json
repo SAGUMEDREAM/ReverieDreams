@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "paper": "26.1.2 build74",
+    "java": 25,
+    "craftEngine": "26.8.2"
+  },
+  "implemented": {
+    "reverie_dreams:yin-yang_orb": {
+      "className": "YinYangOrbItem",
+      "cooldown": 800,
+      "effect": "resistance200ticks_amp3"
+    },
+    "reverie_dreams:satori_eye": {
+      "className": "SatoriEye",
+      "cooldown": 0,
+      "effect": "inspect_hp_armor_target_first3effects"
+    },
+    "reverie_dreams:crossing_chisel": {
+      "className": "CrossingChisel",
+      "durability": 150,
+      "cooldown": 60,
+      "sourceUseCooldownSeconds": 3,
+      "effect": "first_air_opposite_face_source_y_rule",
+      "maxDistance": 16
+    },
+    "reverie_dreams:time_stop_clock": {
+      "className": "TimeStopClock",
+      "durability": 100,
+      "cooldown": 600,
+      "effect": "native_global_freeze100ticks_owner_release",
+      "repair": "minecraft:gold_tool_materials"
+    },
+    "reverie_dreams:papilio_pattern_fan": {
+      "className": "PapilioPatternFan",
+      "durability": 370,
+      "cooldown": 35,
+      "attackDamageModifier": 2,
+      "attackSpeedModifier": -1.4000000953674316,
+      "enchantability": 10,
+      "repair": "minecraft:wool",
+      "sword": true,
+      "effect": "push_xz1.4_y.35_no_use_durability"
+    },
+    "reverie_dreams:maple_leaf_fan": {
+      "className": "MapleLeafFan",
+      "durability": 250,
+      "cooldown": 10,
+      "sourceUseCooldownSeconds": 0.5,
+      "attackDamageModifier": 3.5,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 5,
+      "repair": "minecraft:gold_tool_materials",
+      "sword": true,
+      "effect": "native_wind_charge_speed1.5_div1_breakable_use_cost1"
+    },
+    "reverie_dreams:hakuroken": {
+      "className": "Hakuroken",
+      "durability": 900,
+      "cooldown": 0,
+      "attackDamageModifier": 6,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 12,
+      "repair": "reverie_dreams:silver_block",
+      "sword": true,
+      "effect": "undead_glow300_cube16_nonbreak_cost1_only_when_found"
+    },
+    "reverie_dreams:rokanken": {
+      "className": "Rokanken",
+      "durability": 900,
+      "cooldown": 100,
+      "attackDamageModifier": 6,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 12,
+      "repair": "reverie_dreams:silver_block",
+      "sword": true,
+      "effect": "hakuroken_plus_native_windcharge_and_posthit_saturation1_dash"
+    },
+    "reverie_dreams:levatin": {
+      "className": "Levatin",
+      "durability": 1200,
+      "cooldown": 0,
+      "attackDamageModifier": 5.5,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 12,
+      "repair": "minecraft:netherite_tool_materials",
+      "sword": true,
+      "effect": "15percent_random8_equipment_slots_damage_quarter_skip_players_npc"
+    },
+    "reverie_dreams:death_scythe": {
+      "className": "DeathScytheItem",
+      "durability": 1200,
+      "cooldown": 0,
+      "attackDamageModifier": 6,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 12,
+      "repair": "minecraft:netherite_tool_materials",
+      "sword": true,
+      "effect": "19percent_heal_attacker1.5_capped"
+    },
+    "reverie_dreams:iron_bar": {
+      "className": "IronBarItem",
+      "durability": 400,
+      "cooldown": 0,
+      "attackDamageModifier": 8,
+      "attackSpeedModifier": -3.3,
+      "enchantability": 15,
+      "repair": "reverie_dreams:iron_bar_materials",
+      "knockback": 0.8,
+      "effect": "native_knockback_and_source_two_sound_choices"
+    },
+    "reverie_dreams:oni_iron_bar": {
+      "className": "IronBarItem",
+      "durability": 800,
+      "cooldown": 0,
+      "attackDamageModifier": 10,
+      "attackSpeedModifier": -3.3,
+      "enchantability": 15,
+      "repair": "reverie_dreams:iron_bar_materials",
+      "knockback": 1.4,
+      "effect": "native_knockback_and_source_two_sound_choices"
+    }
+  },
+  "registryAudit": [
+    {
+      "id": "reverie_dreams:yin-yang_orb",
+      "class": "YinYangOrbItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/YinYangOrbItem.java",
+      "sourceSha256": "1798956dc4d19bfd13b98402561a884c66bb0d950c4a308bd96a95b93b7645d6",
+      "methods": [
+        "use"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:speed_feather",
+      "class": "SpeedFeatherItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/SpeedFeatherItem.java",
+      "sourceSha256": "3308bf2c5ae96fa0a6edad1591c1b3891f81f224ecc01be202f32ae7ce3c3d3d",
+      "methods": [
+        "inventoryTick"
+      ],
+      "status": "existing_danmakucrafting"
+    },
+    {
+      "id": "reverie_dreams:upgraded_health",
+      "class": "UpgradedHealthItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/UpgradedHealthItem.java",
+      "sourceSha256": "a6eccd86780aba922d3653d50b4e408b253cc18d2b2376501b06d6278c6d14fa",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:bomb",
+      "class": "BombItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/BombItem.java",
+      "sourceSha256": "77c7e4ccc23fec33135a36947c1452d4a16a17be2f7869875fcf8b9647ece4d3",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:crossing_chisel",
+      "class": "CrossingChisel",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/CrossingChisel.java",
+      "sourceSha256": "824237746692e65c009d1a4c52d99cc5c51335c44094ef219d8ba61e4f1eae78",
+      "methods": [
+        "useOn"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:gap_ball",
+      "class": "GapBall",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/GapBall.java",
+      "sourceSha256": "9f6ce01e4e246a0d7f3e4a78fab95a58d05f485f9918615e23f508ce981aadb3",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:boundary_ofuda",
+      "class": "BoundaryOfuda",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/BoundaryOfuda.java",
+      "sourceSha256": "5345c9abf55646458b88be1bd5adf958b41ac04288d8b5ae94a5ccac7fc56e85",
+      "methods": [
+        "useOn"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:time_stop_clock",
+      "class": "TimeStopClock",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/TimeStopClock.java",
+      "sourceSha256": "7a5125c327edaa6b109cada32c71047211167198defa71dfc577cb60004506c1",
+      "methods": [
+        "use",
+        "release",
+        "reset",
+        "releaseIfOwner"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:fumo_license",
+      "class": "FumoLicenseItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/FumoLicenseItem.java",
+      "sourceSha256": "7c853f80ceb5a74b0785f7532a17c9e37109380ed9dcbfbcf03d3061d077208a",
+      "methods": [
+        "interactLivingEntity",
+        "appendTooltip"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:cursed_decoy_doll",
+      "class": "CursedDecoyDollItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/CursedDecoyDollItem.java",
+      "sourceSha256": "5ef5a928102d1f5a6ae7e0dee2150eb6d7027ca22c0222a846c228986f8d3ef1",
+      "methods": [
+        "useOn"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:vaisravanas_pagoda",
+      "class": "VaisravanasPagodaItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/VaisravanasPagodaItem.java",
+      "sourceSha256": "89adbf3f78516ea64e43565ab31cac1ea7efa2e054c91b30edb51d40861026e4",
+      "methods": [
+        "use",
+        "useOn"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:dream_pillow",
+      "class": "DreamPillowItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/DreamPillowItem.java",
+      "sourceSha256": "770e56c1fc07a25f5007f718fface33dc7b93efffd40cf7fdc8ad75fa105f5b0",
+      "methods": [
+        "useOn"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:tengu_shield",
+      "class": "TenguShieldItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/TenguShieldItem.java",
+      "sourceSha256": "c4f116415b06b625c82d3d7e8bd5bae45ec588e611c34de402cf62f599bc9630",
+      "methods": [
+        "getUseAnimation",
+        "getUseDuration"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:tengu_camera",
+      "class": "TenguCameraItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/TenguCameraItem.java",
+      "sourceSha256": "e48c029c72da4505c01c2e6e705889367046f3e892eb7d1d9755d55578802a48",
+      "methods": [
+        "use",
+        "useByPolymer"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:himekaidou_hatates_phone",
+      "class": "HimekaidouHatatesPhone",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/HimekaidouHatatesPhone.java",
+      "sourceSha256": "a02ab4726fbf48045b44a632f8146bdd9141f3efc09fec2a071fc2e0264a0b3e",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:bad_apple",
+      "class": "BadAppleItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/BadAppleItem.java",
+      "sourceSha256": "969f38e5d2dd343732d8d7610a570ff199cb0317b8cfd81cd5042a4e187c3c87",
+      "methods": [
+        "finishUsingItem"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:scarecrow",
+      "class": "ScarecrowItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/ScarecrowItem.java",
+      "sourceSha256": "7f6d74ae7262af9182732a532d9c7ea2a3d8e483169a4ec9508199148c3eb446",
+      "methods": [
+        "useOn"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:exorcism_paper",
+      "class": "ExorcismPaperItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/ExorcismPaperItem.java",
+      "sourceSha256": "21194e2983b4c6ed8f02da814206e777a775521ed5dc9dd8b358aea5f472f834",
+      "methods": [
+        "use",
+        "useOn",
+        "interactLivingEntity",
+        "applyExorcism",
+        "purifyArea",
+        "purifyArea",
+        "isValidTarget",
+        "isBoss"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:satori_eye",
+      "class": "SatoriEye",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/SatoriEye.java",
+      "sourceSha256": "633c1615c20b98b3464a9427bc5c2e6658f26c455e6bc13d4ddc81c036e02a97",
+      "methods": [
+        "interactLivingEntity"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:weapon_of_the_moon",
+      "class": "WeaponOfTheMoon",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/WeaponOfTheMoon.java",
+      "sourceSha256": "1ac189f21e2d294c15f41972c0d867b3532f5929f433562dc0a6b9b6b5788a1e",
+      "methods": [
+        "getRounds",
+        "setRounds",
+        "getUseAnimation",
+        "getUseDuration",
+        "isBarVisible",
+        "getBarWidth",
+        "getBarColor",
+        "tryShoot",
+        "tryShoot",
+        "use",
+        "interactLivingEntity"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:magazine",
+      "class": "MagazineItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/MagazineItem.java",
+      "sourceSha256": "81f41ee9671b789398411081207a97e75b67edba008e739498678ddbb90df42f",
+      "methods": [
+        "getRounds",
+        "setRounds"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:fast_book_item",
+      "class": "FastRecipeBook",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/FastRecipeBook.java",
+      "sourceSha256": "701f02bda376c0c2f96ff98eb7bb809f6aba318b1e801028099ac246243042f0",
+      "methods": [
+        "use",
+        "useOn",
+        "useOnKitchenBlock"
+      ],
+      "status": "existing_altar"
+    },
+    {
+      "id": "reverie_dreams:sunflower",
+      "class": "Sunflower",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/Sunflower.java",
+      "sourceSha256": "15367106b64d6953bbb074c723a96ba6d0bb33ffccf2a7d8aa6ca69b727205a6",
+      "methods": [
+        "interactLivingEntity",
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:cheque",
+      "class": "Cheque",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/Cheque.java",
+      "sourceSha256": "8d8232c5ad2101636b936144f9d233db9bf72c667edaed40647c171f37779337",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:hakurei_cane",
+      "class": "HakureiCane",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/HakureiCane.java",
+      "sourceSha256": "edb9d49fefed5781a4899daa8449e11b245c6e03cc8877105660dcf107bee4b2",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:bagua_furnace",
+      "class": "BaguaFurnace",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/BaguaFurnace.java",
+      "sourceSha256": "7218f6e0f00ab32b0f9340ef289a04d41a4d337da8f4ad110799498e8331c5fb",
+      "methods": [
+        "finishUsingItem",
+        "useOn",
+        "getUseDuration",
+        "getUseAnimation",
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:wind_blessing_cane",
+      "class": "WindBlessingCane",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/WindBlessingCane.java",
+      "sourceSha256": "423c27f1b80c285a58a699860eecef658b43ca47bc5d7f85a1e704d319041659",
+      "methods": [
+        "hurtEnemy",
+        "use",
+        "finishUsingItem",
+        "getUseDuration",
+        "getUseAnimation",
+        "onUseTick"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:magic_broom",
+      "class": "MagicBroom",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/MagicBroom.java",
+      "sourceSha256": "dc91770b2ab68c6a3acfc915f5cea44020a1a579e4df4b66fefdb1d9b392c0c1",
+      "methods": [
+        "getAttackDamageBonus",
+        "postHurtEnemy",
+        "useOn"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:gungnir",
+      "class": "Gungnir",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Gungnir.java",
+      "sourceSha256": "1bcdf106b825e85995b78197c1ee1995929676a40ed28f8b0a0bb336bdcfd641",
+      "methods": [
+        "getUseAnimation",
+        "getUseDuration",
+        "releaseUsing",
+        "use",
+        "asProjectile"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:levatin",
+      "class": "Levatin",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Levatin.java",
+      "sourceSha256": "ca2913c01c1a5e652eab560c2a4678a8fcab2485505b28f4159319d241b06fd0",
+      "methods": [
+        "hurtEnemy"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:rokanken",
+      "class": "Rokanken",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Rokanken.java",
+      "sourceSha256": "ad379404a3ed9914af77f77a42b738356b03f4a8e0969dccd533ba6ae6eecb0c",
+      "methods": [
+        "postHurtEnemy",
+        "use"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:hakuroken",
+      "class": "Hakuroken",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Hakuroken.java",
+      "sourceSha256": "da6f6c05d4a72a06849b12c5f20854e50217cd96dbfddfe1e1110caa087ffbc3",
+      "methods": [
+        "use"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:papilio_pattern_fan",
+      "class": "PapilioPatternFan",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/PapilioPatternFan.java",
+      "sourceSha256": "e931aea2aa4c8d3e4f67caefd34f1b595d7cc182a8acc1f12235b0d4b0b83a7c",
+      "methods": [
+        "use"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:horai-dama_no_eda",
+      "class": "HoraiDamaNoEdaItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/HoraiDamaNoEdaItem.java",
+      "sourceSha256": "24a8c5d2d53361d536bb9b6f93c7e365b26fcfdedeb42ea76df32f08a09ae793",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:yuka_flower_umbrella",
+      "class": "YukaFlowerUmbrella",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/YukaFlowerUmbrella.java",
+      "sourceSha256": "4df013839ecabda56b24154cb1a02c356c28995a4b7508dd1103efe5075b2151",
+      "methods": [
+        "use",
+        "getUseDuration",
+        "getUseAnimation"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:maple_leaf_fan",
+      "class": "MapleLeafFan",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/MapleLeafFan.java",
+      "sourceSha256": "b24563c13fb9adfde23dfc3c46335ecd6188dffd7112031c8d3b36fb2d1e8825",
+      "methods": [
+        "use",
+        "createEntity"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:ibukiho",
+      "class": "Ibukiho",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Ibukiho.java",
+      "sourceSha256": "668426428921686cdef4510a0b107e7fd79accb2c583d8f08acbaf5b03e8c8ca",
+      "methods": [
+        "finishUsingItem"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:sword_of_hisou",
+      "class": "SwordOfHisou",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/SwordOfHisou.java",
+      "sourceSha256": "41cc9ad86b5700bcfab71467f56d910431397162517648b39aa96ea9c5948387",
+      "methods": [
+        "hurtEnemy"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:manpozuchi",
+      "class": "ManpozuchiItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/ManpozuchiItem.java",
+      "sourceSha256": "4415a1c8a890a0823ab826953b49f7d275ed299124117959b20c7bc48f01e0f5",
+      "methods": [
+        "canDestroyBlock",
+        "interactLivingEntity",
+        "use",
+        "hurtEnemy",
+        "postHurtEnemy",
+        "getAttackDamageBonus",
+        "shouldDealAdditionalDamage",
+        "getItemDamageSource"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:nue_trident",
+      "class": "NueTrident",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/NueTrident.java",
+      "sourceSha256": "f0a99adcd4dc36583b5f95c19ed9f89945b89d2eef838aa866fdb8a02fd473c3",
+      "methods": [
+        "inventoryTick",
+        "getAttackDamageBonus",
+        "canDestroyBlock",
+        "createAttributeModifiers",
+        "createToolComponent",
+        "getUseAnimation",
+        "getUseDuration",
+        "releaseUsing",
+        "use",
+        "asProjectile"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:trumpet_gun",
+      "class": "TrumpetGun",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/TrumpetGun.java",
+      "sourceSha256": "1dbf21dca64335a4e6098db3c3d2a42212c0e1f0840ea843bae4aaaa7b1ff3e0",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:treasure_hunting_rod",
+      "class": "TreasureHuntingRod",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/TreasureHuntingRod.java",
+      "sourceSha256": "f4180dc6a025b390e0646bd85ceadd97508c1eb08fac56cdeab4f5a7cffbe3e5",
+      "methods": [
+        "use",
+        "isOre"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:death_scythe",
+      "class": "DeathScytheItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/DeathScytheItem.java",
+      "sourceSha256": "0300ec7bc224ce5e6e2b25ed8eec6ca502fb33c7d678d826a7867a32a29b4cb0",
+      "methods": [
+        "hurtEnemy"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:violin",
+      "class": "MusicalInstrumentItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/MusicalInstrumentItem.java",
+      "sourceSha256": "c00e7089574489bac677644335b6c404aafc3c30901488c1e4aa8fd7891a4737",
+      "methods": [
+        "useByEntity",
+        "playForMaidEntity",
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:keyboard",
+      "class": "MusicalInstrumentItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/MusicalInstrumentItem.java",
+      "sourceSha256": "c00e7089574489bac677644335b6c404aafc3c30901488c1e4aa8fd7891a4737",
+      "methods": [
+        "useByEntity",
+        "playForMaidEntity",
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:trumpet",
+      "class": "MusicalInstrumentItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/MusicalInstrumentItem.java",
+      "sourceSha256": "c00e7089574489bac677644335b6c404aafc3c30901488c1e4aa8fd7891a4737",
+      "methods": [
+        "useByEntity",
+        "playForMaidEntity",
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:iron_bar",
+      "class": "IronBarItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/IronBarItem.java",
+      "sourceSha256": "7d06400894df42702666ddc27f1d35a784732c9134cfcbaae82e637c4b1f553a",
+      "methods": [
+        "getKnockbackStrength",
+        "hurtEnemy",
+        "getAttackSound"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:oni_iron_bar",
+      "class": "IronBarItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/IronBarItem.java",
+      "sourceSha256": "7d06400894df42702666ddc27f1d35a784732c9134cfcbaae82e637c4b1f553a",
+      "methods": [
+        "getKnockbackStrength",
+        "hurtEnemy",
+        "getAttackSound"
+      ],
+      "status": "implemented_in_this_batch"
+    },
+    {
+      "id": "reverie_dreams:knife",
+      "class": "Knife",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/Knife.java",
+      "sourceSha256": "ef8999e67d6e046a0bc91bfd5f011944742a4a85a1633f414cb2c29c4c94121b",
+      "methods": [
+        "use",
+        "shoot",
+        "spawn"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:soul_card",
+      "class": "SoulCardItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/SoulCardItem.java",
+      "sourceSha256": "0ffdc91eddf740fb7401cb14ae9be2ab551fc4fd0b3c8a0f8fed03a1d4e5d139",
+      "methods": [
+        "useOn",
+        "isFoil"
+      ],
+      "status": "existing_npc"
+    }
+  ],
+  "sourceIdentity": {
+    "auditedPropAndWeaponRegistrations": 50,
+    "previouslyMigrated": 3,
+    "implementedHere": 12,
+    "remainingInThisAudit": 35,
+    "helperOrAdapterItems": 0
+  },
+  "timeStop": {
+    "durationTicks": 100,
+    "cooldownTicks": 600,
+    "sourceDefaultEnableTimeStoppingMultiplayer": true,
+    "nativeAPI": "Server.getServerTickManager()",
+    "cleanup": "owner_use_or_quit_and_module_disable",
+    "sourceConfig": "common/src/main/java/cc/thonly/reverie_dreams/ReverieDreamsConfiguration.java"
+  },
+  "knownDifferences": [
+    "Bukkit damage event timing approximates the source hurtEnemy/postHurtEnemy hook; native cancelled/zero damage is excluded",
+    "custom source criteria/stats not implemented",
+    "CrossingChisel does not force-load new chunks",
+    "No invented reach attributes: actual ToolMaterial.applySwordProperties overwrites the earlier constructor range modifiers",
+    "Custom enchantment durability effect processing beyond Unbreaking for nonbreaking right-use remains unported"
+  ]
+}

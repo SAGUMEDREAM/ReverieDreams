@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#minecraft:wooden_slabs",
+    "minecraft:paper",
+    "minecraft:string"
+  ],
+  "result": {
+    "id": "reverie_dreams:ema",
+    "count": 1
+  }
+}

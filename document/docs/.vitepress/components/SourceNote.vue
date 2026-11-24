@@ -1,0 +1,2 @@
+<template><details class="wiki-source-note"><summary>{{en?'Source checks for this guide':'本页核对依据'}}</summary><p>{{en?'Checked against this repository’s mod source and generated resources. Server datapacks may override defaults.':'依据当前仓库模组源码及生成资源核对。服务器数据包可以覆盖默认内容。'}}</p><ul><li v-for="f in files" :key="f"><code>{{f}}</code></li></ul></details></template>
+<script setup lang="ts">import{computed}from'vue';import{useData}from'vitepress';defineProps<{files:string[]}>();const{lang}=useData(),en=computed(()=>lang.value.startsWith('en'));</script>

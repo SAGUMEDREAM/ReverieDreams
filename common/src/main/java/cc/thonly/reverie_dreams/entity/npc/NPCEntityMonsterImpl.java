@@ -55,4 +55,9 @@ public class NPCEntityMonsterImpl extends BaseNPCLikeEntity {
 
     }
 
+
+    @Override
+    public KeepInventoryTypes getKeepInventoryType() {
+        return KeepInventoryTypes.NOT_DROP_ANY;
+    }
 }

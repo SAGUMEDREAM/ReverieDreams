@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.mixin.block;
 
 import cc.thonly.reverie_dreams.api.block.DispenserBlockItemBehaviors;
+import cc.thonly.reverie_dreams.world.gensokyo.GensokyoBoundary;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -20,6 +21,12 @@ public class DispenserBlockMixin {
     private void reverie_dreams$dispenseFrom(
             ServerLevel level, BlockState state, BlockPos pos, CallbackInfo ci
     ) {
+        // A dispenser pressed against the map edge would otherwise shoot buckets,
+        // fire, bone meal or powder snow into the protected ring outside the map.
+        if (GensokyoBoundary.isOutsideMap(level, pos.relative(state.getValue(DispenserBlock.FACING)))) {
+            ci.cancel();
+            return;
+        }
         DispenserBlockItemBehaviors.TriggerResult result = DispenserBlockItemBehaviors.get()
                 .onTrigger(
                         level,

@@ -1,0 +1,6 @@
+{
+  "parent": "reverie_dreams:item/custom_slot",
+  "textures": {
+    "layer0": "reverie_dreams:item/sgui/elements/empty_slot"
+  }
+}

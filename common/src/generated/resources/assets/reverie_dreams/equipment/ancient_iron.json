@@ -1,0 +1,19 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "reverie_dreams:ancient_iron"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "reverie_dreams:ancient_iron"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "reverie_dreams:ancient_iron"
+      }
+    ]
+  }
+}

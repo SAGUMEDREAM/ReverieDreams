@@ -12,20 +12,20 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 import java.util.Map;
 
 public interface MagicIceArmorMaterial {
-    int BASE_DURABILITY = 14;
+    int BASE_DURABILITY = 18;
     ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, ReverieDreams.id("magic_ice"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
                     ArmorType.HELMET, 2,
-                    ArmorType.CHESTPLATE, 6,
+                    ArmorType.CHESTPLATE, 7,
                     ArmorType.LEGGINGS, 5,
                     ArmorType.BOOTS, 2
             ),
-            5,
+            12,
             SoundEvents.ARMOR_EQUIP_IRON,
-            0.0F,
+            0.5F,
             0.0F,
             RDItemTags.MAGIC_ICE_TOOL_MATERIALS,
             REGISTRY_KEY

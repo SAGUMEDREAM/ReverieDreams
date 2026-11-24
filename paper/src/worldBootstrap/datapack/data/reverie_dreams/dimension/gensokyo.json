@@ -1,0 +1,11 @@
+{
+  "type": "reverie_dreams:gensokyo",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "reverie_dreams:gensokyo_delegate",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "minecraft:plains"
+    }
+  }
+}

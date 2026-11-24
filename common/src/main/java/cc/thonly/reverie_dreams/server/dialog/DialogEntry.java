@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.server.dialog;
 
-import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;

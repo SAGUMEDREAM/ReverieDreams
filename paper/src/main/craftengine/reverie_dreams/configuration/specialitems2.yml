@@ -1,0 +1,140 @@
+# Four source behaviors, actual positive cooldown codecs; never mutate first-batch definitions.
+items:
+  reverie_dreams:upgraded_health:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.upgraded_health>
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/upgraded_health
+    behavior:
+      type: reverie_dreams:special_item_expansion
+  reverie_dreams:bomb:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.bomb>
+      components:
+        minecraft:use_cooldown:
+          seconds: 2
+          cooldown_group: reverie_dreams:special2/bomb
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/bomb
+    behavior:
+      type: reverie_dreams:special_item_expansion
+  reverie_dreams:cheque:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cheque>
+      lore:
+      - <!i><lang:item.tooltip.cheque.amount:0>
+      components:
+        minecraft:max_stack_size: 1
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/cheque
+    behavior:
+      type: reverie_dreams:special_item_expansion
+  reverie_dreams:treasure_hunting_rod:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.treasure_hunting_rod>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 300
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 5
+        minecraft:repairable:
+          items: '#minecraft:diamond_tool_materials'
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 6.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.799999952316284
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+        minecraft:use_cooldown:
+          seconds: 0.05
+          cooldown_group: reverie_dreams:special2/treasure_hunting_rod
+    model:
+      type: minecraft:model
+      model: reverie_dreams:item/treasure_hunting_rod
+    behavior:
+      type: reverie_dreams:special_item_expansion
+    settings:
+      respect_repairable_component: true
+      enchantable: true
+      tags:
+      - minecraft:swords
+recipes:
+  reverie_dreams:upgraded_health:
+    type: shaped
+    pattern:
+    - XX
+    - XX
+    ingredients:
+      X: reverie_dreams:upgraded_health_fragment
+    result:
+      id: reverie_dreams:upgraded_health
+      count: 1
+  reverie_dreams:bomb:
+    type: shaped
+    pattern:
+    - XX
+    - XX
+    ingredients:
+      X: reverie_dreams:bomb_fragment
+    result:
+      id: reverie_dreams:bomb
+      count: 1
+  reverie_dreams:cheque:
+    type: shaped
+    pattern:
+    - '  G'
+    - '## '
+    - '## '
+    ingredients:
+      '#': minecraft:paper
+      G: reverie_dreams:gold_coin
+    result:
+      id: reverie_dreams:cheque
+      count: 1
+  reverie_dreams:upgraded_health_fragment:
+    type: shaped
+    pattern:
+    - X
+    ingredients:
+      X: reverie_dreams:upgraded_health
+    result:
+      id: reverie_dreams:upgraded_health_fragment
+      count: 4
+  reverie_dreams:bomb_fragment:
+    type: shaped
+    pattern:
+    - X
+    ingredients:
+      X: reverie_dreams:bomb
+    result:
+      id: reverie_dreams:bomb_fragment
+      count: 4

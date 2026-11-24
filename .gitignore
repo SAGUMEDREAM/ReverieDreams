@@ -40,3 +40,69 @@ replay_*.log
 *.jfr
 
 /fabric/runs/
+/map_source/gensokyo/backups/
+/map_source/gensokyo-snapshots/
+/map_source/gensokyo/.editor-revision.json
+/map_source/gensokyo/.save-staging/
+
+# logs (all modules)
+logs/
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# temp and editor backups
+*~
+*.bak
+*.tmp
+*.swp
+
+# local agent collaboration & AI tools
+.agent/
+.agents/
+.agent-bus/
+.workbuddy-ai/
+.qoder/
+.trae/
+.screenshots/
+.cursor/
+.cursorrules
+.windsurf/
+.claude/
+.cline/
+.roo/
+.gemini/
+
+# 贴图/美术草稿（评审通过后再移入 assets）
+artwork/
+.artwork/
+bullet/
+effect/
+
+# 明文皮肤归档（仅供本地重加密/参考，不进入发布与仓库）
+/common/src/main/plaintext-skins/
+
+# PAK core 公开；native、CLI 和其余作者资料仅本地保留
+/pak/*
+!/pak/core/
+
+# 私有作者工具与本地 Agent 规则
+/tools/pak/
+/.github/workflows/pak-native.yml
+/AGENTS.md
+/AI_WORLD_INTERACTION.md
+/document/
+
+# 本地数据与备份（不进入仓库）
+/migration/
+/map_source/
+/gensokyo-backup/
+/net/
+/skins/
+/data/
+/tools/
+/docs/
+/models/
+/scripts/

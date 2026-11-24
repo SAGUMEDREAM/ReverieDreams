@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:blue_orchid",
+  "output": {
+    "id": "minecraft:light_blue_dye",
+    "count": 2
+  },
+  "work": 8
+}

@@ -4,12 +4,15 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
 import cc.thonly.reverie_dreams.entity.misc.BaseDanmakuEntity;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.ItemColor;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
@@ -50,7 +53,10 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
                     Codec.FLOAT.fieldOf("speed").forGetter(DanmakuType::getSpeed),
                     Codec.BOOL.fieldOf("tile").forGetter(DanmakuType::isTile),
                     Codec.BOOL.fieldOf("infinite").forGetter(DanmakuType::isInfinite),
-                    Codec.INT.optionalFieldOf("speed_version", 0).forGetter(DanmakuType::getSpeedVersion)
+                    Codec.INT.optionalFieldOf("speed_version", 0).forGetter(DanmakuType::getSpeedVersion),
+                    Codec.INT.optionalFieldOf("durability", 120).forGetter(DanmakuType::getDurability),
+                    Codec.INT.optionalFieldOf("cooldown_ticks", 10).forGetter(DanmakuType::getCooldownTicks),
+                    Codec.FLOAT.optionalFieldOf("hitbox_scale", -1.0f).forGetter(DanmakuType::getHitboxScale)
             ).apply(instance, DanmakuType::getOrCreate)
     ));
 
@@ -65,13 +71,31 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
      * 0 = 旧数据（实际速度 = speed / 2），1 = 新数据（speed 即实际速度）。
      */
     private final int speedVersion;
+    /**
+     * Number of shots before the item breaks; also a per-type power budget.
+     */
+    private final int durability;
+    /**
+     * Per-use cooldown; independent from the item's legacy display component.
+     */
+    private final int cooldownTicks;
+    /**
+     * Explicit collision scale; {@code <= 0} derives it from {@link #scale}.
+     */
+    private final float hitboxScale;
     private ItemDelegate itemHolder;
     private BaseDanmakuEntity.HitCallback hitFactory;
-    private RegistryProvider<DanmakuType> owner;
+    private RegistryProviderLookup<DanmakuType> owner;
     private boolean deleteFromList = false;
 
     public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed,
                        boolean tile, boolean infinite, int speedVersion) {
+        this(id, damageType, damage, scale, speed, tile, infinite, speedVersion, 120, 10, -1.0f);
+    }
+
+    public DanmakuType(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale, float speed,
+                       boolean tile, boolean infinite, int speedVersion, int durability, int cooldownTicks,
+                       float hitboxScale) {
         this.id = id;
         this.damageType = damageType;
         this.damage = damage;
@@ -80,16 +104,32 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
         this.tile = tile;
         this.infinite = infinite;
         this.speedVersion = speedVersion;
+        this.durability = Math.max(1, durability);
+        this.cooldownTicks = Math.max(0, cooldownTicks);
+        this.hitboxScale = hitboxScale;
         this.createItemEntry();
     }
 
     public static DanmakuType getOrCreate(Identifier id, ResourceKey<DamageType> damageType, float damage, float scale,
-                                          float speed, boolean tile, boolean infinite, int speedVersion) {
+                                          float speed, boolean tile, boolean infinite, int speedVersion,
+                                          int durability, int cooldownTicks, float hitboxScale) {
         DanmakuType type = BuiltInRegistryProviders.DANMAKU_TYPE.getValue(id);
         if (type == null) {
-            return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite, speedVersion);
+            return new DanmakuType(id, damageType, damage, scale, speed, tile, infinite, speedVersion,
+                    durability, cooldownTicks, hitboxScale);
         }
         return type;
+    }
+
+    /**
+     * Collision scale actually used by the entity, including the legacy scale fallback.
+     */
+    public float effectiveHitboxScale() {
+        return this.hitboxScale > 0.0f ? this.hitboxScale : this.scale;
+    }
+
+    public float cooldownSeconds() {
+        return this.cooldownTicks / 20.0f;
     }
 
     /**
@@ -119,13 +159,12 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
                     DanmakuItem item = new DanmakuItem(new Item.Properties()
                             .setId(RDItems.keyOf(this.getItemId().getPath()))
                             .component(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), this.createDanmakuProperties())
-                            .component(DataComponents.USE_COOLDOWN, new UseCooldown(0.2f, Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
-                            .durability(120)
+                            .component(DataComponents.USE_COOLDOWN, new UseCooldown(this.cooldownSeconds(), Optional.of(Identifier.parse(UUID.randomUUID().toString()))))
+                            .durability(this.durability)
                             .repairable(RDItemTags.POWER_BLOCK)
                             .component(DataComponents.DYED_COLOR, new DyedItemColor(14606046))
                             .component(DataComponents.TOOLTIP_DISPLAY, new TooltipDisplay(false, new ReferenceLinkedOpenHashSet<>(List.of(DataComponents.DYED_COLOR))))
-                            .repairable(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM)
-                            .durability(120));
+                            .repairable(RDItemTags.DANMAKU_REPAIR_ACCEPTABLE_ITEM));
                     item.type(this);
                     return item;
                 }
@@ -188,7 +227,8 @@ public class DanmakuType implements SerializableProvider<DanmakuType>, RegistryE
                 0,
                 this.tile,
                 this.infinite,
-                DanmakuProperties.CURRENT_SPEED_VERSION
+                DanmakuProperties.CURRENT_SPEED_VERSION,
+                this.effectiveHitboxScale()
         );
     }
 

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "reverie_dreams:block/light_gray_zabuton",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "reverie_dreams:block/light_gray_zabuton"
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/light_gray_zabuton",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/light_gray_zabuton",
+      "y": 270
+    }
+  }
+}

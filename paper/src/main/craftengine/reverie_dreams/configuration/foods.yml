@@ -1,0 +1,5853 @@
+# Native food layer for Minecraft/Paper 26.1.2 and CraftEngine 26.8.2.
+# Property effects and bonuses are supplied by FoodConsumptionModule using migration/food-domain.json.
+# saturation is the actual component value, not the Mod FoodProperties.Builder modifier.
+items:
+  reverie_dreams:ingredient/venison:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.venison>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/venison
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/wild_boar_meat:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.wild_boar_meat>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/wild_boar_meat
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/tofu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.tofu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/tofu
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/onion:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.onion>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/onion
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/white_radish:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.white_radish>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/white_radish
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/trout:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.trout>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/trout
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/hagfish:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.hagfish>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/hagfish
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/salmon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.salmon>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/salmon
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/tuna:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.tuna>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/tuna
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/black_pork:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.black_pork>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/black_pork
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/wagyu_beef:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.wagyu_beef>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/wagyu_beef
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/truffle:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.truffle>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/truffle
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/supreme_tuna:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.supreme_tuna>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/supreme_tuna
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/peach:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.peach>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/peach
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:peach
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/ginkgo:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.ginkgo>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/ginkgo
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/shrimp:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.shrimp>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/shrimp
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/cicada_shell:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.cicada_shell>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/cicada_shell
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/udumbara:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.udumbara>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/udumbara
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/dew:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.dew>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/dew
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/bamboo_shoots:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.bamboo_shoots>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/bamboo_shoots
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/butter:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.butter>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:bowl
+        count: 1
+    model: reverie_dreams:item/ingredient/butter
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/flour:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.flour>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/flour
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/sticky_rice:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.sticky_rice>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/sticky_rice
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/moonflower:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.moonflower>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/moonflower
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/chili:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.chili>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/chili
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/grape:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.grape>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/grape
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:ingredient/cucumber:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.cucumber>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/cucumber
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:ingredient/octopus:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.octopus>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/octopus
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:ingredient/sea_urchin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.sea_urchin>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/sea_urchin
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:ingredient/black_salt:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.black_salt>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/black_salt
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:ingredient/cream:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.cream>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/cream
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:ingredient/crab:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.crab>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/crab
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:ingredient/twin_lotus:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.twin_lotus>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/twin_lotus
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:ingredient/lemon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.lemon>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/lemon
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:ingredient/cheese:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.cheese>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/cheese
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:ingredient/lotus_nuts:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.lotus_nuts>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/lotus_nuts
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:ingredient/sweet_potato:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.sweet_potato>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/sweet_potato
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:ingredient/pine_nut:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.pine_nut>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/pine_nut
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:ingredient/chestnut:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.chestnut>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/chestnut
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:ingredient/plum:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.plum>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/plum
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:ingredient/red_beans:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.red_beans>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/red_beans
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:ingredient/flowers:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.flowers>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/flowers
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:ingredient/toon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.toon>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/toon
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:ingredient/tomato:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.tomato>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/tomato
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:ingredient/broccoli:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.broccoli>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/broccoli
+    settings:
+      compost_probability: 0.6
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:ingredient/puff_yo_fruit:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.puff_yo_fruit>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/puff_yo_fruit
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:ingredient/ficus_microcarpa:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.ficus_microcarpa>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/ficus_microcarpa
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:ingredient/tremella:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.tremella>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/tremella
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:ingredient/capsaicin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.ingredient.capsaicin>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/ingredient/capsaicin
+    settings:
+      tags:
+        - reverie_dreams:ingredient
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/seafood_miso_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.seafood_miso_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/seafood_miso_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/tofu_miso:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.tofu_miso>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/tofu_miso
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/strength_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.strength_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/strength_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/pork_and_trout_smoked:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pork_and_trout_smoked>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pork_and_trout_smoked
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/grilled_hagfish:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.grilled_hagfish>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/grilled_hagfish
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/energy_string:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.energy_string>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/energy_string
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/two_heavens_one_style:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.two_heavens_one_style>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/two_heavens_one_style
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/rice_ball:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.rice_ball>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/rice_ball
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/grilled_pork_rice_balls:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.grilled_pork_rice_balls>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/grilled_pork_rice_balls
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/warm_rice_ball:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.warm_rice_ball>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/warm_rice_ball
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/failing_sakura_snow:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.failing_sakura_snow>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/failing_sakura_snow
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/fried_pork_shreds:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fried_pork_shreds>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fried_pork_shreds
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/cold_tofu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cold_tofu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cold_tofu
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/braised_eel:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.braised_eel>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/braised_eel
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/potato_croquettes:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.potato_croquettes>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/potato_croquettes
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/game_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.game_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/game_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/pork_rice:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pork_rice>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pork_rice
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/beef_rice:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.beef_rice>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/beef_rice
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/fried_hagfish:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fried_hagfish>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fried_hagfish
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/vegetable_special:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.vegetable_special>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/vegetable_special
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/snow_white:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.snow_white>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/snow_white
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/tofu_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.tofu_pot>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/tofu_pot
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/zhaji:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.zhaji>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/zhaji
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/sashimi_platter:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.sashimi_platter>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/sashimi_platter
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/grand_banquet:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.grand_banquet>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/grand_banquet
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/tonkotsu_ramen:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.tonkotsu_ramen>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/tonkotsu_ramen
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/magma:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.magma>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/magma
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/deep_fried_cicada_shells:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.deep_fried_cicada_shells>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/deep_fried_cicada_shells
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/dew_boiled_eggs:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.dew_boiled_eggs>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/dew_boiled_eggs
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/udumbara_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.udumbara_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/udumbara_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/bear_paw:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.bear_paw>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/bear_paw
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/secret_dried_fish:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.secret_dried_fish>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/secret_dried_fish
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/cold_dish_carving:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cold_dish_carving>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cold_dish_carving
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/peach_blossom_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.peach_blossom_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/peach_blossom_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/arctic_sweet_shrimp_and_peach_salad:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.arctic_sweet_shrimp_and_peach_salad>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/arctic_sweet_shrimp_and_peach_salad
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/fried_tofu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fried_tofu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fried_tofu
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/poetry_and_ginkgo:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.poetry_and_ginkgo>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/poetry_and_ginkgo
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/real_seafood_miso_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.real_seafood_miso_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/real_seafood_miso_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/roasted_mushrooms:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.roasted_mushrooms>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/roasted_mushrooms
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/cooking_tofu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cooking_tofu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cooking_tofu
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/fried_pork_cutlet:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fried_pork_cutlet>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fried_pork_cutlet
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/butter_steak:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.butter_steak>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/butter_steak
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/risotto:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.risotto>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/risotto
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/beef_wellington:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.beef_wellington>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/beef_wellington
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/eggs_benedict:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.eggs_benedict>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/eggs_benedict
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/hot_waffles:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.hot_waffles>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/hot_waffles
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/scones:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.scones>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/scones
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/pan_fried_salmon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pan_fried_salmon>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pan_fried_salmon
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/cream_stew:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cream_stew>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cream_stew
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/honey_bbq_pork:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.honey_bbq_pork>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/honey_bbq_pork
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/ginkgo_and_radish_pork_rib_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.ginkgo_and_radish_pork_rib_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/ginkgo_and_radish_pork_rib_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/taketorihime:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.taketorihime>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/taketorihime
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/phoenix:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.phoenix>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/phoenix
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/moonlight_dumplings:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.moonlight_dumplings>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/moonlight_dumplings
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/mochi:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.mochi>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/mochi
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/white_peach_eight_bridge:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.white_peach_eight_bridge>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/white_peach_eight_bridge
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/moon_lovers:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.moon_lovers>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/moon_lovers
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/pig_deer_butterfly:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pig_deer_butterfly>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pig_deer_butterfly
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/flowing_water_noodles:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.flowing_water_noodles>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/flowing_water_noodles
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/bamboo_shoots_fried_meat:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.bamboo_shoots_fried_meat>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/bamboo_shoots_fried_meat
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/bamboo_steamed_egg:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.bamboo_steamed_egg>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/bamboo_steamed_egg
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/horai-dama_no_eda:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.horai-dama_no_eda>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/horai-dama_no_eda
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/stinky_tofu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.stinky_tofu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/stinky_tofu
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/colorful_jade_fried_buns:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.colorful_jade_fried_buns>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/colorful_jade_fried_buns
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/mapo_tofu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.mapo_tofu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/mapo_tofu
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/boiled_fish:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.boiled_fish>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/boiled_fish
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/moon_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.moon_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/moon_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/maoyu_tricolor_ice_cream:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.maoyu_tricolor_ice_cream>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/maoyu_tricolor_ice_cream
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/maoyu_lava_tofu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.maoyu_lava_tofu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/maoyu_lava_tofu
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/scarlet_devils_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.scarlet_devils_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/scarlet_devils_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:role_tame_food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/unconscious_monster_mousse:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.unconscious_monster_mousse>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/unconscious_monster_mousse
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/dumpling:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.dumpling>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/dumpling
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/glutinous_rice_balls:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.glutinous_rice_balls>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/glutinous_rice_balls
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+  reverie_dreams:cuisine/fried_shrimp_tempura:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fried_shrimp_tempura>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fried_shrimp_tempura
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/golden_crispy_fish_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.golden_crispy_fish_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/golden_crispy_fish_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/all_meat_feast:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.all_meat_feast>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/all_meat_feast
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/pickled_cucumbers:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pickled_cucumbers>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pickled_cucumbers
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/baked_crab_with_cream:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.baked_crab_with_cream>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/baked_crab_with_cream
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/pseudo_jiritama:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pseudo_jiritama>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pseudo_jiritama
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/okonomiyaki:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.okonomiyaki>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/okonomiyaki
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/takoyaki:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.takoyaki>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/takoyaki
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/sea_urchin_sashimi:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.sea_urchin_sashimi>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/sea_urchin_sashimi
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/mushroom_meat_slices:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.mushroom_meat_slices>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/mushroom_meat_slices
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/secret_mushroom_casserole:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.secret_mushroom_casserole>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/secret_mushroom_casserole
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/mushroom_girls_dance_stew:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.mushroom_girls_dance_stew>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/mushroom_girls_dance_stew
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/milky_mushroom_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.milky_mushroom_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/milky_mushroom_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/ordinary_small_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.ordinary_small_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/ordinary_small_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:role_tame_food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/seven_colored_yokan:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.seven_colored_yokan>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/seven_colored_yokan
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/nigiri_sushi:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.nigiri_sushi>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/nigiri_sushi
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/pumpkin_shrimp_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pumpkin_shrimp_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pumpkin_shrimp_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/gensokyo_buddha_jumps_over_the_wall:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.gensokyo_buddha_jumps_over_the_wall>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/gensokyo_buddha_jumps_over_the_wall
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+  reverie_dreams:cuisine/depressed_cheese_sticks:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.depressed_cheese_sticks>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/depressed_cheese_sticks
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/gloomy_fruit_pie:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.gloomy_fruit_pie>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/gloomy_fruit_pie
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/screaming_oden:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.screaming_oden>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/screaming_oden
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/crisp_cyclone:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.crisp_cyclone>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/crisp_cyclone
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/looking_up_at_the_ceiling_fruit_pie:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.looking_up_at_the_ceiling_fruit_pie>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/looking_up_at_the_ceiling_fruit_pie
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/beetle_steamed_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.beetle_steamed_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/beetle_steamed_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/lion_head:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.lion_head>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/lion_head
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/giant_tamagoyaki:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.giant_tamagoyaki>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/giant_tamagoyaki
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/oedo_boat_festival:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.oedo_boat_festival>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/oedo_boat_festival
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/sakura_pudding:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.sakura_pudding>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/sakura_pudding
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/refreshing_pudding:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.refreshing_pudding>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/refreshing_pudding
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/burnt_pudding:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.burnt_pudding>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/burnt_pudding
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/cat_food:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cat_food>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cat_food
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/salmon_tempura:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.salmon_tempura>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/salmon_tempura
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/fish_leaps_over_dragon_gate:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fish_leaps_over_dragon_gate>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fish_leaps_over_dragon_gate
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/cheese_egg:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cheese_egg>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cheese_egg
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/one_hit_kill:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.one_hit_kill>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/one_hit_kill
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/hell_thrill_warning:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.hell_thrill_warning>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/hell_thrill_warning
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+  reverie_dreams:cuisine/baked_sweet_potatoes:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.baked_sweet_potatoes>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/baked_sweet_potatoes
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/skinny_horse_dumpling:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.skinny_horse_dumpling>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/skinny_horse_dumpling
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/fright_adventure:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fright_adventure>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fright_adventure
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/biscay_biscuits:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.biscay_biscuits>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/biscay_biscuits
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/pirate_bacon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pirate_bacon>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pirate_bacon
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/luohan_vegetarian:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.luohan_vegetarian>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/luohan_vegetarian
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/yunshan_cotton_candy:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.yunshan_cotton_candy>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/yunshan_cotton_candy
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/holy_white_lotus_seed_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.holy_white_lotus_seed_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/holy_white_lotus_seed_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/gensokyo_star_lotus_ship:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.gensokyo_star_lotus_ship>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/gensokyo_star_lotus_ship
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/pine_nut_cake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pine_nut_cake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pine_nut_cake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/shiraga_sadamatsu:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.shiraga_sadamatsu>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/shiraga_sadamatsu
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/taichi_bagua_fish_maw:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.taichi_bagua_fish_maw>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/taichi_bagua_fish_maw
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/candied_chestnuts:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.candied_chestnuts>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/candied_chestnuts
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/tianshi_braised_chestnut_mushrooms:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.tianshi_braised_chestnut_mushrooms>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/tianshi_braised_chestnut_mushrooms
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/lotus_fish_rice_bowl:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.lotus_fish_rice_bowl>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/lotus_fish_rice_bowl
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/candied_sweet_potato:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.candied_sweet_potato>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/candied_sweet_potato
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/pan_fried_mushroom_meat_roll:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.pan_fried_mushroom_meat_roll>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/pan_fried_mushroom_meat_roll
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/assorted_tempura:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.assorted_tempura>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/assorted_tempura
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+  reverie_dreams:cuisine/fried_tomato_strips:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fried_tomato_strips>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fried_tomato_strips
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/braised_pork_with_peach:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.braised_pork_with_peach>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/braised_pork_with_peach
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/reversing_the_world:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.reversing_the_world>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/reversing_the_world
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/red_bean_daifuku:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.red_bean_daifuku>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/red_bean_daifuku
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/dorayaki:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.dorayaki>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/dorayaki
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/the_beauty_of_han_palace:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.the_beauty_of_han_palace>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/the_beauty_of_han_palace
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/bamboo_shoots_stewed_in_stone_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.bamboo_shoots_stewed_in_stone_pot>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/bamboo_shoots_stewed_in_stone_pot
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/bamboo_tube_steamed_pork:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.bamboo_tube_steamed_pork>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/bamboo_tube_steamed_pork
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/green_bamboo_welcomes_spring:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.green_bamboo_welcomes_spring>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/green_bamboo_welcomes_spring
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/plum_tea_rice:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.plum_tea_rice>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/plum_tea_rice
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/steamed_egg_with_sea_urchin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.steamed_egg_with_sea_urchin>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/steamed_egg_with_sea_urchin
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/fantasy_is_all_the_rage:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.fantasy_is_all_the_rage>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/fantasy_is_all_the_rage
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/green_fairy_mushroom:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.green_fairy_mushroom>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/green_fairy_mushroom
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/flowers_birds_wind_and_moon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.flowers_birds_wind_and_moon>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/flowers_birds_wind_and_moon
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/the_dream:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.the_dream>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/the_dream
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/toon_pancakes:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.toon_pancakes>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/toon_pancakes
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/poisonous_garden:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.poisonous_garden>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/poisonous_garden
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/a_little_sweet_poison:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.a_little_sweet_poison>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/a_little_sweet_poison
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+  reverie_dreams:cuisine/eel_egg_donburi:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.eel_egg_donburi>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/eel_egg_donburi
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/bamboo_tube_roasted_drunken_shrimp:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.bamboo_tube_roasted_drunken_shrimp>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/bamboo_tube_roasted_drunken_shrimp
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/beef_hot_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.beef_hot_pot>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/beef_hot_pot
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/cat_kululi:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cat_kululi>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cat_kululi
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/cat_pizza:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cat_pizza>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cat_pizza
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/cats_playing_in_water:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.cats_playing_in_water>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/cats_playing_in_water
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/rapunzel:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.rapunzel>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/rapunzel
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/sea_urchin_shingen_pancake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.sea_urchin_shingen_pancake>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/sea_urchin_shingen_pancake
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/mad_hatter_tea_party:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.mad_hatter_tea_party>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/mad_hatter_tea_party
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/peach_blossom_glaze_roll:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.peach_blossom_glaze_roll>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/peach_blossom_glaze_roll
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/moonlight_over_lotus_pond:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.moonlight_over_lotus_pond>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/moonlight_over_lotus_pond
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/longyin_peach:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.longyin_peach>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/longyin_peach
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/molecular_egg:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.molecular_egg>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/molecular_egg
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/the_source_of_life:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.the_source_of_life>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/the_source_of_life
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/the_mars:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.the_mars>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/the_mars
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/heart_porridge_gruel:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.heart_porridge_gruel>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/heart_porridge_gruel
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/hula_soup:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.hula_soup>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/hula_soup
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/superme_seafood_noodles:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.superme_seafood_noodles>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/superme_seafood_noodles
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+  reverie_dreams:cuisine/dark_cuisine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.cuisine.dark_cuisine>
+      food:
+        nutrition: 2
+        saturation: 8.0
+        can_always_eat: false
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: eat
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: true
+          on_consume_effects: []
+    model: reverie_dreams:item/cuisine/dark_cuisine
+    settings:
+      tags:
+        - reverie_dreams:cuisine
+        - reverie_dreams:food
+  reverie_dreams:beverage/green_tea:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.green_tea>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/green_tea
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/fruity_high_ball:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.fruity_high_ball>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/fruity_high_ball
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/fruity_sour:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.fruity_sour>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/fruity_sour
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/qi:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.qi>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/qi
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/beer:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.beer>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/beer
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/sun_moon_star:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.sun_moon_star>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/sun_moon_star
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/plum_wine:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.plum_wine>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/plum_wine
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/tengu_dance:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.tengu_dance>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/tengu_dance
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/scarlet_devil:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.scarlet_devil>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/scarlet_devil
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/gods_wheat:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.gods_wheat>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/gods_wheat
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/otter_festival:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.otter_festival>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/otter_festival
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/dawn:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.dawn>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/dawn
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/sparrow_sake:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.sparrow_sake>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/sparrow_sake
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/scarlet_devil_mansion_black_tea:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.scarlet_devil_mansion_black_tea>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/scarlet_devil_mansion_black_tea
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/affgado:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.affgado>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/affgado
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/red_mist:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.red_mist>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/red_mist
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/negroni:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.negroni>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/negroni
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/godfather:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.godfather>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/godfather
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/blessing_wind:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.blessing_wind>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/blessing_wind
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/winter_brew:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.winter_brew>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/winter_brew
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/fourteenth_night:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.fourteenth_night>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/fourteenth_night
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/fire_rat_fur:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.fire_rat_fur>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/fire_rat_fur
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/gyokuro_tea:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.gyokuro_tea>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/gyokuro_tea
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/moon_rocket:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.moon_rocket>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/moon_rocket
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/milk:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.milk>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: false
+          on_consume_effects:
+            - type: minecraft:clear_all_effects
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/milk
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/red_grapefruit_juice:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.red_grapefruit_juice>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/red_grapefruit_juice
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/soda:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.soda>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/soda
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/iceberg_maple_frozen_lemon:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.iceberg_maple_frozen_lemon>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/iceberg_maple_frozen_lemon
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/big_popsicle:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.big_popsicle>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.eat
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/big_popsicle
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_0
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/daiginjo:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.daiginjo>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/daiginjo
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/coffee:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.coffee>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/coffee
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/fairy_rain:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.fairy_rain>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/fairy_rain
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/paleo_creamy_smoothie:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.paleo_creamy_smoothie>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/paleo_creamy_smoothie
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/ordinary_fitness_tea:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.ordinary_fitness_tea>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/ordinary_fitness_tea
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_1
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/demon_slayer:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.demon_slayer>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/demon_slayer
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/qi_health:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.qi_health>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/qi_health
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/komeiji_ice_cream:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.komeiji_ice_cream>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/komeiji_ice_cream
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_2
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/mango_pomelo_sago:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.mango_pomelo_sago>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/mango_pomelo_sago
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/qilin:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.qilin>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/qilin
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_3
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/heaven_and_earth_are_useless:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.heaven_and_earth_are_useless>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/heaven_and_earth_are_useless
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/drunk_actor:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.drunk_actor>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/drunk_actor
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_4
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/daughter_of_the_sea:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.daughter_of_the_sea>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/daughter_of_the_sea
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/demonic_coffee:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.demonic_coffee>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/demonic_coffee
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/mojito_burst_ball:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.mojito_burst_ball>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/mojito_burst_ball
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/space_beer:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.space_beer>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/space_beer
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+      craft_remainder: minecraft:glass_bottle
+  reverie_dreams:beverage/satellite_iced_coffee:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.beverage.satellite_iced_coffee>
+      food:
+        nutrition: 0
+        saturation: 3.0
+        can_always_eat: true
+      components:
+        minecraft:max_stack_size: 64
+        minecraft:consumable:
+          consume_seconds: 1.6
+          animation: drink
+          sound: minecraft:entity.generic.drink
+          has_consume_particles: false
+          on_consume_effects: []
+      use_remainder:
+        id: minecraft:glass_bottle
+        count: 1
+    model: reverie_dreams:item/beverage/satellite_iced_coffee
+    settings:
+      tags:
+        - reverie_dreams:beverage
+        - reverie_dreams:drink_item
+        - reverie_dreams:touhou-mystia-izakaya_dlc_5
+      craft_remainder: minecraft:glass_bottle

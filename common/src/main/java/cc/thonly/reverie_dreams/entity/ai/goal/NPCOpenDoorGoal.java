@@ -35,13 +35,15 @@ public class NPCOpenDoorGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        if (this.doorPos == null || !this.hasOpened) return false;
+        if (this.doorPos == null || !this.hasOpened)
+            return false;
         return npc.distanceToSqr(this.doorPos.getX() + 0.5, this.doorPos.getY(), this.doorPos.getZ() + 0.5) <= 4.0;
     }
 
     @Override
     public void start() {
-        if (this.doorPos == null) return;
+        if (this.doorPos == null)
+            return;
 
         BlockState state = this.npc.level().getBlockState(this.doorPos);
         if (state.getBlock() instanceof DoorBlock doorBlock && !state.getValue(DoorBlock.OPEN)) {
@@ -58,7 +60,8 @@ public class NPCOpenDoorGoal extends Goal {
 
     @Override
     public void tick() {
-        if (this.doorPos == null || !this.hasOpened) return;
+        if (this.doorPos == null || !this.hasOpened)
+            return;
 
         if (this.npc.distanceToSqr(this.doorPos.getX() + 0.5, this.doorPos.getY(), this.doorPos.getZ() + 0.5) > 4.0) {
             BlockState state = this.npc.level().getBlockState(this.doorPos);

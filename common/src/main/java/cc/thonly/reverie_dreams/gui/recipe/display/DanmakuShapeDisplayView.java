@@ -50,12 +50,12 @@ public class DanmakuShapeDisplayView extends SimpleGui implements DisplayView {
     public void init() {
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub005")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName())
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub005")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName())
         );
         int counter = 0;
         int counter2 = 0;

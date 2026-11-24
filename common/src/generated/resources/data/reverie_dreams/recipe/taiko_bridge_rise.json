@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " PR",
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "R": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "reverie_dreams:taiko_bridge_rise",
+    "count": 4
+  }
+}

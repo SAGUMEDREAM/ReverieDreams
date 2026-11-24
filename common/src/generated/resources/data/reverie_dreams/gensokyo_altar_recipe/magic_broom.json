@@ -33,7 +33,8 @@
       "count": 1
     },
     {
-      "id": "minecraft:air"
+      "id": "minecraft:ender_pearl",
+      "count": 2
     }
   ],
   "output": {

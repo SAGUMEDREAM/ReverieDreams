@@ -1,0 +1,17 @@
+{
+  "item.reverie_dreams.yin-yang_orb": "陰陽玉",
+  "item.reverie_dreams.satori_eye": "覺之眼",
+  "item.reverie_dreams.crossing_chisel": "穿牆之鑿",
+  "item.reverie_dreams.time_stop_clock": "時停鐘",
+  "item.reverie_dreams.papilio_pattern_fan": "鳳蝶紋扇",
+  "item.reverie_dreams.maple_leaf_fan": "楓葉團扇",
+  "item.reverie_dreams.hakuroken": "白樓劍",
+  "item.reverie_dreams.rokanken": "樓觀劍",
+  "item.reverie_dreams.levatin": "萊瓦汀",
+  "item.reverie_dreams.death_scythe": "死神鐮刀",
+  "item.reverie_dreams.iron_bar": "item.reverie_dreams.iron_bar",
+  "item.reverie_dreams.oni_iron_bar": "鬼金棒",
+  "message.reverie_dreams.time_stop.no_permission": "§c只有伺服器管理員可以使用時停鐘。",
+  "message.reverie_dreams.time_stop.already_frozen": "§c時間已經被凍結。",
+  "sound.reverie_dreams.spell_card": "符卡釋放"
+}

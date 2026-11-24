@@ -1,9 +1,5 @@
 package cc.thonly.reverie_dreams.api.client.midi;
 
-import cc.thonly.reverie_dreams.api.client.midi.impl.MidiListenerAPIImpl;
-import cc.thonly.reverie_dreams.client.util.MidiListener;
-import org.jspecify.annotations.Nullable;
-
 public interface MidiListenerAPI {
 
     void register(MidiListenerContext context);
@@ -14,11 +10,19 @@ public interface MidiListenerAPI {
 
     void onNoteOff(int key);
 
-    default @Nullable MidiListener getListener() {
-        return MidiListener.getOrEmpty();
+    static MidiListenerAPI get() {
+        MidiListenerAPI implementation = Holder.implementation;
+        if (implementation == null) {
+            throw new IllegalStateException("MIDI listener API implementation is not registered");
+        }
+        return implementation;
     }
 
-    static MidiListenerAPI get() {
-        return MidiListenerAPIImpl.instance();
+    static void setImplementation(MidiListenerAPI implementation) {
+        Holder.implementation = implementation;
+    }
+
+    final class Holder {
+        private static volatile MidiListenerAPI implementation;
     }
 }

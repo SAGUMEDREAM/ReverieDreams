@@ -34,7 +34,7 @@ public class CrossingChisel extends Item {
         if (player != null) {
             BlockPos targetPos = getTravelPos(world, origin, direction, maxDistance);
             if (targetPos != null && isSafePos(world, targetPos.above())) {
-                if(!world.isClientSide()) {
+                if (!world.isClientSide()) {
 
                     world.levelEvent(2001, origin, 0);
                     world.playSound(null, targetPos, SoundEvents.CHORUS_FRUIT_TELEPORT, player.getSoundSource(), 1.0f, 1.0f);
@@ -65,7 +65,7 @@ public class CrossingChisel extends Item {
     private static BlockPos getTravelPos(Level world, BlockPos origin, Direction direction, Integer maxDistance) {
         Direction travelDir = direction.getOpposite();
 
-        for (int i = 0; i < maxDistance+1; i++) {
+        for (int i = 0; i < maxDistance + 1; i++) {
             BlockPos current = origin.relative(travelDir, i);
             BlockState state = world.getBlockState(current);
             Block block = state.getBlock();

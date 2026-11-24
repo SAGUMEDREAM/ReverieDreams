@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.neoforge.impl;
 
-import cc.thonly.reverie_dreams.registry.RegistryBuilderFactory;
+import cc.thonly.reverie_dreams.api.registry.RegistryBuilderFactory;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;

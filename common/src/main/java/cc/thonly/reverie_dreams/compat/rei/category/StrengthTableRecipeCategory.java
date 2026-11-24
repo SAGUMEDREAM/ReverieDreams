@@ -14,6 +14,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class StrengthTableRecipeCategory implements DisplayCategory<StrengthTableDisplay> {
 
@@ -30,7 +31,7 @@ public class StrengthTableRecipeCategory implements DisplayCategory<StrengthTabl
         int xOffset = startX + (bounds.getWidth() - width) / 2;
         int yOffset = startY + (bounds.getHeight() - height) / 2;
 
-        List<Widget> widgets = new java.util.ArrayList<>();
+        List<Widget> widgets = new ArrayList<>();
 
         widgets.add(Widgets.createRecipeBase(bounds));
 

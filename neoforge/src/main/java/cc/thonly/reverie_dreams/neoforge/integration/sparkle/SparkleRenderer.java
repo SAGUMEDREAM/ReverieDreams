@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.LivingEntity;
 
 public class SparkleRenderer extends GeoReplacedEntityRenderer<BaseNPCLikeEntity, NPCAnimatable> {
 
@@ -41,7 +42,7 @@ public class SparkleRenderer extends GeoReplacedEntityRenderer<BaseNPCLikeEntity
     }
 
     @Override
-    public boolean shouldShowName(BaseNPCLikeEntity entity) {
+    public boolean shouldShowName(LivingEntity entity, double distanceToCameraSq) {
         return entity.hasCustomName() && entity == Minecraft.getInstance().crosshairPickEntity;
     }
 

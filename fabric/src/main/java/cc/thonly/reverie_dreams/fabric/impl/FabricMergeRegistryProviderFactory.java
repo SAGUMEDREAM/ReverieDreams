@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.impl;
 
-import cc.thonly.reverie_dreams.proxy.MergeRegistryProviderFactory;
+import cc.thonly.reverie_dreams.api.proxy.MergeRegistryProviderFactory;
 import cc.thonly.reverie_dreams.registry.impl.MergeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;

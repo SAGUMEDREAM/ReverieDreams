@@ -5,4 +5,9 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
 public class OreEsRenderState extends EntityRenderState {
     public final BlockModelRenderState blockModel = new BlockModelRenderState();
+
+    /**
+     * 兜底描边颜色（0xAARRGGBB），当实体没有发光描边色时使用。
+     */
+    public int markerColor;
 }

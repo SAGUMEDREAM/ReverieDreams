@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.engine;
 
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class JavaScriptElement implements SerializableProvider<JavaScriptElement
     public static final Codec<JavaScriptElement> CODEC = UnitCodec.unit(JavaScriptElement::new);
     private Identifier id;
     private final String src;
-    private RegistryProvider<JavaScriptElement> owner;
+    private RegistryProviderLookup<JavaScriptElement> owner;
 
     private JavaScriptElement() {
         this("");
@@ -32,7 +32,7 @@ public class JavaScriptElement implements SerializableProvider<JavaScriptElement
     }
 
     @Override
-    public RegistryProvider<JavaScriptElement> getOwner() {
+    public RegistryProviderLookup<JavaScriptElement> getOwner() {
         return BuiltInRegistryProviders.JAVASCRIPT_ELEMENT;
     }
 

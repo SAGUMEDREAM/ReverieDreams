@@ -1,13 +1,13 @@
 package cc.thonly.reverie_dreams.block.redstone;
 
 import cc.thonly.reverie_dreams.block.entity.SignalDelayerBlockEntity;
-import cc.thonly.reverie_dreams.gui.block.SignalDelayerGui;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import com.mojang.serialization.MapCodec;
-import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -29,6 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import cc.thonly.reverie_dreams.server.dialog.RedstoneConfigDialog;
 
 public class SignalDelayerBlock extends Block implements EntityBlock {
     public static final MapCodec<SignalDelayerBlock> CODEC = simpleCodec(SignalDelayerBlock::new);
@@ -49,31 +50,57 @@ public class SignalDelayerBlock extends Block implements EntityBlock {
                                    @NonNull Block block, @Nullable Orientation orientation, boolean moved) {
         super.neighborChanged(state, level, pos, block, orientation, moved);
 
-        if (level.isClientSide()) return;
+        if (level.isClientSide())
+            return;
 
-        boolean hasSignal = level.hasNeighborSignal(pos);
-        boolean occupied = state.getValue(OCCUPIED);
+        refreshInput(level, pos, state);
+    }
 
-        if (hasSignal != occupied) {
-            SignalDelayerBlockEntity be = getBlockEntity(level, pos);
+    private boolean hasInput(Level level, BlockPos pos, BlockState state) {
+        for (Direction side : Direction.values()) {
+            if (side != state.getValue(FACING) && level.getSignal(pos.relative(side), side) > 0)
+                return true;
+        }
+        return false;
+    }
 
-            BlockState newState = state.setValue(OCCUPIED, hasSignal);
+    public void refreshInput(Level level, BlockPos pos, BlockState state) {
+        if (hasInput(level, pos, state) != state.getValue(OCCUPIED))
+            restart(level, pos, state);
+    }
 
-            if (hasSignal) {
-                if (be != null) {
-                    be.setNowTick(0);
-                }
-                newState = newState.setValue(POWERED, false);
-            } else {
-                if (be != null) {
-                    be.setNowTick(0);
-                }
-                newState = newState.setValue(POWERED, false);
-            }
-
-            level.setBlock(pos, newState, 3);
+    public void restart(Level level, BlockPos pos, BlockState state) {
+        SignalDelayerBlockEntity be = getBlockEntity(level, pos);
+        if (be == null)
+            return;
+        boolean input = hasInput(level, pos, state);
+        int delay = be.getMaxDelayTick();
+        be.setNowTick(0);
+        be.setActivationTick(input ? level.getGameTime() + delay : -1);
+        be.setChanged();
+        BlockState next = state.setValue(OCCUPIED, input).setValue(POWERED, input && delay == 0);
+        if (state != next) {
+            level.setBlock(pos, next, 3);
             level.updateNeighbourForOutputSignal(pos, this);
         }
+        if (input && delay > 0)
+            level.scheduleTick(pos, this, delay);
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        refreshInput(level, pos, state);
+        state = level.getBlockState(pos);
+        var be = getBlockEntity(level, pos);
+        if (be == null || !state.getValue(OCCUPIED) || state.getValue(POWERED))
+            return;
+        long remaining = be.getActivationTick() - level.getGameTime();
+        if (remaining > 0) {
+            level.scheduleTick(pos, this, (int) Math.min(remaining, RedstoneSettings.MAX_DELAY));
+            return;
+        }
+        level.setBlock(pos, state.setValue(POWERED, true), 3);
+        level.updateNeighbourForOutputSignal(pos, this);
     }
 
 
@@ -89,7 +116,8 @@ public class SignalDelayerBlock extends Block implements EntityBlock {
 
     @Override
     protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        if (!state.getValue(POWERED)) return 0;
+        if (!state.getValue(POWERED))
+            return 0;
         Direction facing = state.getValue(FACING);
         return direction == facing.getOpposite() ? 15 : 0;
     }
@@ -106,21 +134,14 @@ public class SignalDelayerBlock extends Block implements EntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
-        return createTickerHelper(type, RDBlockEntityTypes.SIGNAL_DELAYER_BLOCK_ENTITY.value(), SignalDelayerBlockEntity::onBlockEntityTick);
+        return level.isClientSide() ? null : createTickerHelper(type, RDBlockEntityTypes.SIGNAL_DELAYER_BLOCK_ENTITY.value(), SignalDelayerBlockEntity::onBlockEntityTick);
     }
 
     @Override
     public @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult blockHitResult) {
-        if (!level.isClientSide()) {
-            SignalDelayerBlockEntity blockEntity = this.getBlockEntity(level, blockPos);
-            if (blockEntity == null) {
-                return InteractionResult.FAIL;
-            }
-            SimpleGui inputGui = new SignalDelayerGui((ServerPlayer) player, blockEntity);
-            inputGui.open();
-            return InteractionResult.SUCCESS_SERVER;
-        }
-        return InteractionResult.SUCCESS;
+        if (player instanceof ServerPlayer serverPlayer)
+            RedstoneConfigDialog.open(serverPlayer, blockPos);
+        return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
     }
 
     @Override

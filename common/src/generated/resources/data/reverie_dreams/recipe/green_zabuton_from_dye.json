@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "reverie_dreams:zabuton_dyeing",
+  "ingredients": [
+    "#reverie_dreams:zabutons",
+    "minecraft:green_dye"
+  ],
+  "result": {
+    "id": "reverie_dreams:green_zabuton"
+  }
+}

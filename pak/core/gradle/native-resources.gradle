@@ -1,0 +1,131 @@
+import java.nio.file.Files
+import java.nio.file.LinkOption
+import java.security.MessageDigest
+
+// Applied only by the two physical-client loaders. No encryption or native compilation hook.
+def nativePlatforms = [
+        'windows-x86_64': 'pak_native.dll', 'windows-arm64': 'pak_native.dll',
+        'linux-x86_64': 'libpak_native.so', 'linux-arm64': 'libpak_native.so',
+        'macos-x86_64': 'libpak_native.dylib', 'macos-arm64': 'libpak_native.dylib',
+        'android-arm64': 'libpak_native.so', 'android-x86_64': 'libpak_native.so']
+def nativePrefix = 'META-INF/native/'
+def catalogPath = 'META-INF/runtime/catalog.pak'
+def packedPrefix = 'META-INF/runtime/'
+def catalogSlot = 'reverie_dreams:catalog-v2'
+def maxPackedBytes = 44L + 4L * 1024 * 1024 + 16
+def bundleOption = providers.gradleProperty('pakNativeResources')
+def nativeOutput = layout.buildDirectory.dir('generated/pak-native-resources')
+def catalogs = [rootProject.file('common/src/main/resources/' + catalogPath), file('src/main/resources/' + catalogPath)]
+def inTreeNative = rootProject.file('common/src/main/resources/' + nativePrefix)
+
+def readSlots = { File slotsFile, String target ->
+    Set<String> slots = [] as Set
+    Files.readAllLines(slotsFile.toPath(), java.nio.charset.StandardCharsets.US_ASCII).each { raw ->
+        def line = raw.trim()
+        if (!line.isEmpty() && !line.startsWith('#')) {
+            if (!(line ==~ /[a-z0-9_.-]{1,64}:[a-zA-Z0-9_.-]{1,64}/) || !slots.add(line) || slots.size() > 512) {
+                throw new GradleException('Invalid native PAK key-slot list: ' + target)
+            }
+        }
+    }
+    return slots
+}
+
+def verifyNativeResources = tasks.register('verifyPakNativeResources') {
+    group = 'verification'
+    description = 'Validate eight ABI 3 native resource targets only when supplied or PAK is activated.'
+    inputs.files(catalogs)
+    inputs.files(inTreeNative)
+    inputs.property('bundle', bundleOption.getOrElse(''))
+    doLast {
+        def activeCatalogs = catalogs.findAll { it.isFile() }
+        def bundle
+        if (bundleOption.present) {
+            bundle = rootProject.file(bundleOption.get()).canonicalFile.toPath()
+            if (!Files.isDirectory(bundle)) throw new GradleException('PAK native resource directory is missing')
+        } else {
+            if (activeCatalogs.isEmpty()) return
+            if (!Files.isDirectory(inTreeNative.toPath())) throw new GradleException('Activated PAK requires eight provisioned native targets in common/src/main/resources or -PpakNativeResources')
+            bundle = rootProject.file('common/src/main/resources').canonicalFile.toPath()
+        }
+        Set<String> referenceSlots = null
+        nativePlatforms.each { target, library ->
+            def directory = bundle.resolve(nativePrefix + target)
+            def descriptor = directory.resolve('library.properties')
+            def binary = directory.resolve(library)
+            def slotsFile = directory.resolve('key-slots.list')
+            [descriptor, binary, slotsFile].each { path ->
+                if (!Files.isRegularFile(path, LinkOption.NOFOLLOW_LINKS) || !path.toRealPath().startsWith(bundle)) {
+                    throw new GradleException('Missing or escaped PAK native resource for ' + target)
+                }
+            }
+            if (Files.size(descriptor) > 4096 || Files.size(binary) < 1 || Files.size(binary) > 33554432 || Files.size(slotsFile) > 65536) {
+                throw new GradleException('Oversized PAK native resource for ' + target)
+            }
+            def fields = [:]
+            Files.readAllLines(descriptor, java.nio.charset.StandardCharsets.US_ASCII).each { raw ->
+                def line = raw.trim()
+                if (!line.isEmpty() && !line.startsWith('#')) {
+                    int separator = line.indexOf('=')
+                    if (separator < 1 || fields.containsKey(line.substring(0, separator))) throw new GradleException('Malformed PAK native descriptor')
+                    fields[line.substring(0, separator)] = line.substring(separator + 1)
+                }
+            }
+            if (fields.keySet() != (['abi', 'file', 'sha256', 'fixture'] as Set) || fields.abi != '3'
+                    || fields.file != library || fields.fixture != 'false' || !(fields.sha256 ==~ /[0-9a-f]{64}/)) {
+                throw new GradleException('PAK release resources must use ABI 3 and a production native build: ' + target)
+            }
+            def hash = MessageDigest.getInstance('SHA-256')
+            binary.toFile().withInputStream { input ->
+                byte[] buffer = new byte[32768]
+                for (int read; (read = input.read(buffer)) != -1;) hash.update(buffer, 0, read)
+            }
+            if (HexFormat.of().formatHex(hash.digest()) != fields.sha256) throw new GradleException('PAK native digest mismatch: ' + target)
+            Set<String> slots = readSlots(slotsFile.toFile(), target)
+            if (!slots.contains(catalogSlot)) throw new GradleException('Native PAK key slots are missing the catalog slot: ' + target)
+            if (referenceSlots == null) referenceSlots = slots
+            else if (slots != referenceSlots) throw new GradleException('PAK native key slots differ between targets: ' + target)
+        }
+        def catalog = bundle.resolve(catalogPath)
+        if (Files.isRegularFile(catalog, LinkOption.NOFOLLOW_LINKS)) {
+            if (Files.size(catalog) < 60 || Files.size(catalog) > maxPackedBytes) {
+                throw new GradleException('Invalid PAK catalog size')
+            }
+            def runtimeDirectory = bundle.resolve(packedPrefix)
+            if (!Files.isDirectory(runtimeDirectory, LinkOption.NOFOLLOW_LINKS)) throw new GradleException('Encrypted PAK runtime directory is missing')
+            def runtimeFiles = Files.list(runtimeDirectory).withCloseable { stream ->
+                stream.filter { Files.isRegularFile(it, LinkOption.NOFOLLOW_LINKS) }.toList()
+            }
+            def packedFiles = runtimeFiles.findAll { it.fileName.toString() != 'catalog.pak' }
+            if (runtimeFiles.size() != packedFiles.size() + 1) throw new GradleException('Unexpected file in the PAK runtime directory')
+            if (packedFiles.isEmpty() || packedFiles.size() > 4096) throw new GradleException('Invalid encrypted PAK asset count')
+            packedFiles.each { path ->
+                if (!(path.fileName.toString() ==~ /[0-9a-f]{32}\.pak/) || Files.size(path) < 60 || Files.size(path) > maxPackedBytes) {
+                    throw new GradleException('Invalid encrypted PAK asset file: ' + path.fileName)
+                }
+            }
+            if (referenceSlots.size() != packedFiles.size() + 1) {
+                throw new GradleException('Native PAK key slots do not match the encrypted asset count')
+            }
+        }
+    }
+}
+
+def prepareNativeResources = tasks.register('preparePakNativeResources', Sync) {
+    dependsOn verifyNativeResources
+    into nativeOutput
+    if (bundleOption.present) {
+        from(rootProject.file(bundleOption.get())) {
+            nativePlatforms.each { target, library ->
+                include nativePrefix + target + '/' + library
+                include nativePrefix + target + '/library.properties'
+                include nativePrefix + target + '/key-slots.list'
+            }
+        }
+    }
+}
+
+tasks.named('processResources') {
+    dependsOn verifyNativeResources, prepareNativeResources
+    if (bundleOption.present) from(nativeOutput)
+}

@@ -1,0 +1,54 @@
+{
+  "core": {
+    "id": "minecraft:paper",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:air"
+    },
+    {
+      "id": "minecraft:rabbit_foot",
+      "count": 1
+    },
+    {
+      "id": "minecraft:air"
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 2
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 2
+    },
+    {
+      "id": "minecraft:air"
+    },
+    {
+      "id": "minecraft:slime_ball",
+      "count": 1
+    },
+    {
+      "id": "minecraft:air"
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:danmaku_trajectory_template",
+    "count": 1,
+    "components": {
+      "reverie_dreams:danmaku_properties": {
+        "templateId": "reverie_dreams:ground_skimmer",
+        "count": 1,
+        "damage": 2.0,
+        "scale": 1.0,
+        "speed": 0.5,
+        "acceleration": 0.0,
+        "tile": false,
+        "infinite": false,
+        "speed_version": 1
+      },
+      "reverie_dreams:danmaku_trajectory_config": {}
+    }
+  }
+}

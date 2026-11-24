@@ -1,0 +1,4092 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "id": "reverie_dreams:a_little_sweet_poison",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/udumbara",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/a_little_sweet_poison",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:all_meat_feast",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/wild_boar_meat",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/all_meat_feast",
+        "count": 1
+      },
+      "cost_time": 14.0
+    },
+    {
+      "id": "reverie_dreams:arctic_sweet_shrimp_and_peach_salad",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:magic_ice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/shrimp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/arctic_sweet_shrimp_and_peach_salad",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:assorted_tempura",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/assorted_tempura",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:baked_crab_with_cream",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/crab",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/baked_crab_with_cream",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:baked_sweet_potatoes",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sweet_potato",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/baked_sweet_potatoes",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:bamboo_shoots_fried_meat",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/bamboo_shoots_fried_meat",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:bamboo_shoots_stewed_in_stone_pot",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/bamboo_shoots_stewed_in_stone_pot",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:bamboo_steamed_egg",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/bamboo_steamed_egg",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:bamboo_tube_roasted_drunken_shrimp",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/shrimp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/broccoli",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/bamboo_tube_roasted_drunken_shrimp",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:bamboo_tube_steamed_pork",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/bamboo_tube_steamed_pork",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:bear_paw",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pufferfish",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/bear_paw",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:beef_hot_pot",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        },
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/beef_hot_pot",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:beef_rice",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/beef_rice",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:beef_wellington",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/beef_wellington",
+        "count": 1
+      },
+      "cost_time": 14.0
+    },
+    {
+      "id": "reverie_dreams:beetle_steamed_cake",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cicada_shell",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/beetle_steamed_cake",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:biscay_biscuits",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cheese",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/biscay_biscuits",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:boiled_fish",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/boiled_fish",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:braised_eel",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/braised_eel",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:braised_pork_with_peach",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/braised_pork_with_peach",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:burnt_pudding",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/burnt_pudding",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:butter_steak",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/butter_steak",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:candied_chestnuts",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chestnut",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/candied_chestnuts",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:candied_sweet_potato",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sweet_potato",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/candied_sweet_potato",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:cat_food",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cat_food",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:cat_kululi",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cat_kululi",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:cat_pizza",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/broccoli",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wild_boar_meat",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cat_pizza",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:cats_playing_in_water",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ficus_microcarpa",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cats_playing_in_water",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:cheese_egg",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cheese",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cheese_egg",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:cold_dish_carving",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cold_dish_carving",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:cold_tofu",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cold_tofu",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:colorful_jade_fried_buns",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/colorful_jade_fried_buns",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:cooking_tofu",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cooking_tofu",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:cream_stew",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/cream_stew",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:crisp_cyclone",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cicada_shell",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/crisp_cyclone",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:deep_fried_cicada_shells",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cicada_shell",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/deep_fried_cicada_shells",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:depressed_cheese_sticks",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/cheese",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/depressed_cheese_sticks",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:dew_boiled_eggs",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/dew_boiled_eggs",
+        "count": 1
+      },
+      "cost_time": 3.0
+    },
+    {
+      "id": "reverie_dreams:dorayaki",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/red_beans",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/dorayaki",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:dumpling",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/dumpling",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:eel_egg_donburi",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/eel_egg_donburi",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:eggs_benedict",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/eggs_benedict",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:energy_string",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/energy_string",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:failing_sakura_snow",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/supreme_tuna",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/failing_sakura_snow",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:fantasy_is_all_the_rage",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wild_boar_meat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tomato",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fantasy_is_all_the_rage",
+        "count": 1
+      },
+      "cost_time": 18.0
+    },
+    {
+      "id": "reverie_dreams:fish_leaps_over_dragon_gate",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/supreme_tuna",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fish_leaps_over_dragon_gate",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:flowers_birds_wind_and_moon",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flowers",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/flowers_birds_wind_and_moon",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:flowing_water_noodles",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/flowing_water_noodles",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:fried_hagfish",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fried_hagfish",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:fried_pork_cutlet",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fried_pork_cutlet",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:fried_pork_shreds",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fried_pork_shreds",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:fried_shrimp_tempura",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/shrimp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fried_shrimp_tempura",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:fried_tofu",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fried_tofu",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:fried_tomato_strips",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tomato",
+          "count": 1
+        },
+        {
+          "id": "minecraft:potato",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fried_tomato_strips",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:fright_adventure",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/udumbara",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/fright_adventure",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:game_soup",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:potato",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/game_soup",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:gensokyo_buddha_jumps_over_the_wall",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/supreme_tuna",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pufferfish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/gensokyo_buddha_jumps_over_the_wall",
+        "count": 1
+      },
+      "cost_time": 18.0
+    },
+    {
+      "id": "reverie_dreams:gensokyo_star_lotus_ship",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lotus_nuts",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tuna",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/twin_lotus",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/gensokyo_star_lotus_ship",
+        "count": 1
+      },
+      "cost_time": 13.0
+    },
+    {
+      "id": "reverie_dreams:giant_tamagoyaki",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/giant_tamagoyaki",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:ginko_and_radish_pork_rib_soup",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/ginkgo_and_radish_pork_rib_soup",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:gloomy_fruit_pie",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cheese",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/gloomy_fruit_pie",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:glutinous_rice_balls",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/glutinous_rice_balls",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:golden_crispy_fish_cake",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/golden_crispy_fish_cake",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:grand_banquet",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/puff_yo_fruit",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/grand_banquet",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:green_bamboo_welcomes_spring",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/cucumber",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/green_bamboo_welcomes_spring",
+        "count": 1
+      },
+      "cost_time": 14.0
+    },
+    {
+      "id": "reverie_dreams:green_fairy_mushroom",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/toon",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/green_fairy_mushroom",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:grilled_hagfish",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/grilled_hagfish",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:grilled_pork_rice_balls",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/grilled_pork_rice_balls",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:heart_porridge_gruel",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tremella",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lotus_nuts",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/heart_porridge_gruel",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:hell_thrill_warning",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cheese",
+          "count": 1
+        },
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/hell_thrill_warning",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:holy_white_lotus_seed_cake",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lotus_nuts",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/holy_white_lotus_seed_cake",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:honey_bbq_pork",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/honey_bbq_pork",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:horai_dama_no_rda",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/salmon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/horai-dama_no_eda",
+        "count": 1
+      },
+      "cost_time": 13.0
+    },
+    {
+      "id": "reverie_dreams:hot_waffles",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/hot_waffles",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:hula_soup",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/hula_soup",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:lion_head",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/lion_head",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:longyin_peach",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/longyin_peach",
+        "count": 1
+      },
+      "cost_time": 18.0
+    },
+    {
+      "id": "reverie_dreams:looking_up_at_the_ceiling_fruit_pie",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/looking_up_at_the_ceiling_fruit_pie",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:lotus_fish_rice_bowl",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/supreme_tuna",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/twin_lotus",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lotus_nuts",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/lotus_fish_rice_bowl",
+        "count": 1
+      },
+      "cost_time": 11.0
+    },
+    {
+      "id": "reverie_dreams:luohan_vegetarian",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/udumbara",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/pine_nut",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lotus_nuts",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/luohan_vegetarian",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:mad_hatter_tea_party",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom_block",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/broccoli",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/mad_hatter_tea_party",
+        "count": 1
+      },
+      "cost_time": 15.0
+    },
+    {
+      "id": "reverie_dreams:magma",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wagyu_beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/puff_yo_fruit",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/magma",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:maoyu_lava_tofu",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/maoyu_lava_tofu",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:maoyu_tricolor_ice_cream",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/maoyu_tricolor_ice_cream",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:mapo_tofu",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/mapo_tofu",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:milky_mushroom_soup",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "minecraft:potato",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/milky_mushroom_soup",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:mochi",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/mochi",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:molecular_egg",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/molecular_egg",
+        "count": 1
+      },
+      "cost_time": 18.0
+    },
+    {
+      "id": "reverie_dreams:moon_cake",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/moon_cake",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:moon_lover",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/moon_lovers",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:moonlight_dumplings",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/moonlight_dumplings",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:moonlight_over_lotus_pond",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ficus_microcarpa",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tremella",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/moonlight_over_lotus_pond",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:mushroom_girls_dance_stew",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/shrimp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/octopus",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/mushroom_girls_dance_stew",
+        "count": 1
+      },
+      "cost_time": 14.0
+    },
+    {
+      "id": "reverie_dreams:mushroom_meat_slices",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/mushroom_meat_slices",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:nigiri_sushi",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/salmon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tuna",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/nigiri_sushi",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:oedo_boat_festival",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/salmon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tuna",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/supreme_tuna",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:magic_ice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/oedo_boat_festival",
+        "count": 1
+      },
+      "cost_time": 24.0
+    },
+    {
+      "id": "reverie_dreams:okonomiyaki",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/okonomiyaki",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:one_hit_kill",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/wild_boar_meat",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/one_hit_kill",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:ordinary_small_cake",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/ordinary_small_cake",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:pan_fried_mushroom_meat_roll",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pan_fried_mushroom_meat_roll",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:pan_fried_salmon",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/salmon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pan_fried_salmon",
+        "count": 1
+      },
+      "cost_time": 10.0
+    },
+    {
+      "id": "reverie_dreams:peach_blossom_glaze_roll",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/red_beans",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ficus_microcarpa",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/peach_blossom_glaze_roll",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:peach_blossom_soup",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:magic_ice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/peach_blossom_soup",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:phoenix",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "minecraft:potato",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/phoenix",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:pickled_cucumbers",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/cucumber",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_salt",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pickled_cucumbers",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:pig_deer_butterfly",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/wild_boar_meat",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pig_deer_butterfly",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:pine_nut_cake",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/pine_nut",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pine_nut_cake",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:pirate_bacon",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_salt",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pirate_bacon",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:plum_tea_rice",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/plum",
+          "count": 1
+        },
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/plum_tea_rice",
+        "count": 1
+      },
+      "cost_time": 4.0
+    },
+    {
+      "id": "reverie_dreams:poetry_and_ginkgo",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/poetry_and_ginkgo",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:poisonous_garden",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:pufferfish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/plum",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/poisonous_garden",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:pork_and_trout_smoked",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pork_and_trout_smoked",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:pork_rice",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pork_rice",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:potato_croquettes",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:potato",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/potato_croquettes",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:pseudo_jiritama",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cicada_shell",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pseudo_jiritama",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:pumpkin_shrimp_cake",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/shrimp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/pumpkin_shrimp_cake",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:rapunzel",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/shrimp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/rapunzel",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:real_seafood_miso_soup",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/salmon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/real_seafood_miso_soup",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:red_bean_daifuku",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/red_beans",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/red_bean_daifuku",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:refreshing_pudding",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/refreshing_pudding",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:reversing_the_world",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flowers",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/plum",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/reversing_the_world",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:rice_ball",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/rice_ball",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:risotto",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/risotto",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:roasted_mushrooms",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/roasted_mushrooms",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:sakura_pudding",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/sakura_pudding",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:salmon_tempura",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/salmon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/salmon_tempura",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:sashimi_platter",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/salmon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tuna",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/sashimi_platter",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:scarlet_devils_cake",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        },
+        {
+          "id": "minecraft:potato",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/scarlet_devils_cake",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:scones",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/scones",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:screaming_oden",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        },
+        {
+          "id": "minecraft:beef",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/screaming_oden",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:sea_urchin_sashimi",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sea_urchin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/sea_urchin_sashimi",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:sea_urchin_shingen_pancake",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sea_urchin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tuna",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tremella",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/sea_urchin_shingen_pancake",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:seafood_miso_soup",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/seafood_miso_soup",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:secret_dried_fish",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/secret_dried_fish",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:secret_mushroom_casserole",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/secret_mushroom_casserole",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:seven_colored_yokan",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/udumbara",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/seven_colored_yokan",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:shiraga_sadamatsu",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/venison",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/pine_nut",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/shiraga_sadamatsu",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:skinny_horse_dumpling",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/skinny_horse_dumpling",
+        "count": 1
+      },
+      "cost_time": 9.0
+    },
+    {
+      "id": "reverie_dreams:snow_white",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:pufferfish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        },
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/snow_white",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:steamed_egg_with_sea_urchin",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sea_urchin",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/steamed_egg_with_sea_urchin",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:stinky_tofu",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/stinky_tofu",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:strength_soup",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/wild_boar_meat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/strength_soup",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:superme_seafood_noodles",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/supreme_tuna",
+          "count": 1
+        },
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/octopus",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/crab",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/shrimp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/superme_seafood_noodles",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:taichi_bagua_fish_maw",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/supreme_tuna",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/white_radish",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/taichi_bagua_fish_maw",
+        "count": 1
+      },
+      "cost_time": 14.0
+    },
+    {
+      "id": "reverie_dreams:taketorihime",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/bamboo_shoots",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/taketorihime",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:takoyaki",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flour",
+          "count": 1
+        },
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/octopus",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/takoyaki",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:the_beauty_of_han_palace",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/hagfish",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/crab",
+          "count": 1
+        },
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/the_beauty_of_han_palace",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:the_dream",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/flowers",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/udumbara",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/the_dream",
+        "count": 1
+      },
+      "cost_time": 12.0
+    },
+    {
+      "id": "reverie_dreams:the_mars",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/ficus_microcarpa",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/crab",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/the_mars",
+        "count": 1
+      },
+      "cost_time": 24.0
+    },
+    {
+      "id": "reverie_dreams:the_source_of_life",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tremella",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/the_source_of_life",
+        "count": 1
+      },
+      "cost_time": 13.0
+    },
+    {
+      "id": "reverie_dreams:tianshi_braised_chestnut_mushrooms",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/chestnut",
+          "count": 1
+        },
+        {
+          "id": "minecraft:brown_mushroom",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/truffle",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/tianshi_braised_chestnut_mushrooms",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:tofu_miso",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/tofu_miso",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:tofu_pot",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/tofu_pot",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:tonkotsu_ramen",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:porkchop",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        },
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/tonkotsu_ramen",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:toon_pancakes",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/twin_lotus",
+          "count": 1
+        },
+        {
+          "id": "minecraft:egg",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/toon_pancakes",
+        "count": 1
+      },
+      "cost_time": 6.0
+    },
+    {
+      "id": "reverie_dreams:two_heavens_one_style",
+      "recipe_type": "reverie_dreams:grill",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/black_pork",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/wild_boar_meat",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/two_heavens_one_style",
+        "count": 1
+      },
+      "cost_time": 18.0
+    },
+    {
+      "id": "reverie_dreams:udumbara_cake",
+      "recipe_type": "reverie_dreams:steamer",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/udumbara",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/udumbara_cake",
+        "count": 1
+      },
+      "cost_time": 7.0
+    },
+    {
+      "id": "reverie_dreams:unconscious_monster_mousse",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/unconscious_monster_mousse",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:vegetable_special",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "minecraft:potato",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "minecraft:pumpkin",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/vegetable_special",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:warm_rice_ball",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/onion",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/warm_rice_ball",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:white_peach_eight_bridge",
+      "recipe_type": "reverie_dreams:cutting_board",
+      "ingredients": [
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/white_peach_eight_bridge",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:yunshan_cotton_candy",
+      "recipe_type": "reverie_dreams:frying_pan",
+      "ingredients": [
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/yunshan_cotton_candy",
+        "count": 1
+      },
+      "cost_time": 8.0
+    },
+    {
+      "id": "reverie_dreams:zhaji",
+      "recipe_type": "reverie_dreams:cooking_pot",
+      "ingredients": [
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tofu",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/trout",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cuisine/zhaji",
+        "count": 1
+      }
+    }
+  ],
+  "conflicts": {
+    "reverie_dreams:cuisine/a_little_sweet_poison": [
+      "reverie_dreams:meat"
+    ],
+    "reverie_dreams:cuisine/arctic_sweet_shrimp_and_peach_salad": [
+      "reverie_dreams:meat",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/bamboo_tube_roasted_drunken_shrimp": [
+      "reverie_dreams:filling"
+    ],
+    "reverie_dreams:cuisine/bamboo_tube_steamed_pork": [
+      "reverie_dreams:raw"
+    ],
+    "reverie_dreams:cuisine/beef_hot_pot": [
+      "reverie_dreams:dreamlike",
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/beef_wellington": [
+      "reverie_dreams:sweet",
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/biscay_biscuits": [
+      "reverie_dreams:sour"
+    ],
+    "reverie_dreams:cuisine/boiled_fish": [
+      "reverie_dreams:meat",
+      "reverie_dreams:sweet",
+      "reverie_dreams:cool",
+      "reverie_dreams:fruity"
+    ],
+    "reverie_dreams:cuisine/burnt_pudding": [
+      "reverie_dreams:greasy",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/butter_steak": [
+      "reverie_dreams:sweet",
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/candied_sweet_potato": [
+      "reverie_dreams:raw"
+    ],
+    "reverie_dreams:cuisine/cat_food": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/cat_kululi": [
+      "reverie_dreams:bizarre",
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/cat_pizza": [
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/cats_playing_in_water": [
+      "reverie_dreams:good_with_alcohol",
+      "reverie_dreams:fiery"
+    ],
+    "reverie_dreams:cuisine/cheese_egg": [
+      "reverie_dreams:meat"
+    ],
+    "reverie_dreams:cuisine/cold_dish_carving": [
+      "reverie_dreams:meat",
+      "reverie_dreams:fiery"
+    ],
+    "reverie_dreams:cuisine/crisp_cyclone": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/dew_boiled_eggs": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/dorayaki": [
+      "reverie_dreams:meat"
+    ],
+    "reverie_dreams:cuisine/eggs_benedict": [
+      "reverie_dreams:fruity",
+      "reverie_dreams:sweet"
+    ],
+    "reverie_dreams:cuisine/failing_sakura_snow": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/fantasy_is_all_the_rage": [
+      "reverie_dreams:light",
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/flowers_birds_wind_and_moon": [
+      "reverie_dreams:fiery",
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/flowing_water_noodles": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/fried_hagfish": [
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/fried_shrimp_tempura": [
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/fried_tomato_strips": [
+      "reverie_dreams:aquatic_products"
+    ],
+    "reverie_dreams:cuisine/fright_adventure": [
+      "reverie_dreams:homestyle"
+    ],
+    "reverie_dreams:cuisine/gensokyo_star_lotus_ship": [
+      "reverie_dreams:bizarre"
+    ],
+    "reverie_dreams:cuisine/giant_tamagoyaki": [
+      "reverie_dreams:good_with_alcohol"
+    ],
+    "reverie_dreams:cuisine/grand_banquet": [
+      "reverie_dreams:homestyle"
+    ],
+    "reverie_dreams:cuisine/green_bamboo_welcomes_spring": [
+      "reverie_dreams:bizarre",
+      "reverie_dreams:mushrooms"
+    ],
+    "reverie_dreams:cuisine/grilled_hagfish": [
+      "reverie_dreams:meat",
+      "reverie_dreams:vegetarian"
+    ],
+    "reverie_dreams:cuisine/hell_thrill_warning": [
+      "reverie_dreams:light",
+      "reverie_dreams:vegetarian"
+    ],
+    "reverie_dreams:cuisine/holy_white_lotus_seed_cake": [
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/lion_head": [
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:filling"
+    ],
+    "reverie_dreams:cuisine/longyin_peach": [
+      "reverie_dreams:meat",
+      "reverie_dreams:bizarre",
+      "reverie_dreams:raw",
+      "reverie_dreams:ocean_flavor"
+    ],
+    "reverie_dreams:cuisine/looking_up_at_the_ceiling_fruit_pie": [
+      "reverie_dreams:meat"
+    ],
+    "reverie_dreams:cuisine/luohan_vegetarian": [
+      "reverie_dreams:meat",
+      "reverie_dreams:spicy"
+    ],
+    "reverie_dreams:cuisine/mad_hatter_tea_party": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/magma": [
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/mochi": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:umami",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/molecular_egg": [
+      "reverie_dreams:mountain_delicacy"
+    ],
+    "reverie_dreams:cuisine/moon_lovers": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:vegetarian"
+    ],
+    "reverie_dreams:cuisine/moonlight_dumplings": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:umami",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/moonlight_over_lotus_pond": [
+      "reverie_dreams:meat",
+      "reverie_dreams:good_with_alcohol",
+      "reverie_dreams:fiery",
+      "reverie_dreams:bizarre"
+    ],
+    "reverie_dreams:cuisine/pan_fried_mushroom_meat_roll": [
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/peach_blossom_glaze_roll": [
+      "reverie_dreams:meat",
+      "reverie_dreams:filling",
+      "reverie_dreams:bizarre",
+      "reverie_dreams:mushrooms"
+    ],
+    "reverie_dreams:cuisine/pirate_bacon": [
+      "reverie_dreams:sour"
+    ],
+    "reverie_dreams:cuisine/poetry_and_ginkgo": [
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/potato_croquettes": [
+      "reverie_dreams:cool"
+    ],
+    "reverie_dreams:cuisine/rapunzel": [
+      "reverie_dreams:bizarre"
+    ],
+    "reverie_dreams:cuisine/refreshing_pudding": [
+      "reverie_dreams:greasy",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/risotto": [
+      "reverie_dreams:sweet"
+    ],
+    "reverie_dreams:cuisine/sakura_pudding": [
+      "reverie_dreams:greasy",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/sashimi_platter": [
+      "reverie_dreams:fiery"
+    ],
+    "reverie_dreams:cuisine/sea_urchin_shingen_pancake": [
+      "reverie_dreams:filling"
+    ],
+    "reverie_dreams:cuisine/seafood_miso_soup": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/shiraga_sadamatsu": [
+      "reverie_dreams:sour"
+    ],
+    "reverie_dreams:cuisine/skinny_horse_dumpling": [
+      "reverie_dreams:meat"
+    ],
+    "reverie_dreams:cuisine/steamed_egg_with_sea_urchin": [
+      "reverie_dreams:mountain_delicacy"
+    ],
+    "reverie_dreams:cuisine/stinky_tofu": [
+      "reverie_dreams:fruity",
+      "reverie_dreams:sweet"
+    ],
+    "reverie_dreams:cuisine/strength_soup": [
+      "reverie_dreams:cool",
+      "reverie_dreams:petite"
+    ],
+    "reverie_dreams:cuisine/the_beauty_of_han_palace": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/the_dream": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:good_with_alcohol"
+    ],
+    "reverie_dreams:cuisine/the_mars": [
+      "reverie_dreams:mountain_delicacy"
+    ],
+    "reverie_dreams:cuisine/the_source_of_life": [
+      "reverie_dreams:mountain_delicacy"
+    ],
+    "reverie_dreams:cuisine/tofu_miso": [
+      "reverie_dreams:greasy"
+    ],
+    "reverie_dreams:cuisine/two_heavens_one_style": [
+      "reverie_dreams:homestyle"
+    ],
+    "reverie_dreams:cuisine/udumbara_cake": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products"
+    ],
+    "reverie_dreams:cuisine/vegetable_special": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:fiery"
+    ],
+    "reverie_dreams:cuisine/white_peach_eight_bridge": [
+      "reverie_dreams:meat",
+      "reverie_dreams:aquatic_products",
+      "reverie_dreams:umami",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:cuisine/yunshan_cotton_candy": [
+      "reverie_dreams:meat",
+      "reverie_dreams:salty"
+    ],
+    "reverie_dreams:ingredient/sweet_potato": [
+      "reverie_dreams:good_with_alcohol",
+      "reverie_dreams:light"
+    ]
+  },
+  "cuisine_items": [
+    "reverie_dreams:cuisine/seafood_miso_soup",
+    "reverie_dreams:cuisine/tofu_miso",
+    "reverie_dreams:cuisine/strength_soup",
+    "reverie_dreams:cuisine/pork_and_trout_smoked",
+    "reverie_dreams:cuisine/grilled_hagfish",
+    "reverie_dreams:cuisine/energy_string",
+    "reverie_dreams:cuisine/two_heavens_one_style",
+    "reverie_dreams:cuisine/rice_ball",
+    "reverie_dreams:cuisine/grilled_pork_rice_balls",
+    "reverie_dreams:cuisine/warm_rice_ball",
+    "reverie_dreams:cuisine/failing_sakura_snow",
+    "reverie_dreams:cuisine/fried_pork_shreds",
+    "reverie_dreams:cuisine/cold_tofu",
+    "reverie_dreams:cuisine/braised_eel",
+    "reverie_dreams:cuisine/potato_croquettes",
+    "reverie_dreams:cuisine/game_soup",
+    "reverie_dreams:cuisine/pork_rice",
+    "reverie_dreams:cuisine/beef_rice",
+    "reverie_dreams:cuisine/fried_hagfish",
+    "reverie_dreams:cuisine/vegetable_special",
+    "reverie_dreams:cuisine/snow_white",
+    "reverie_dreams:cuisine/tofu_pot",
+    "reverie_dreams:cuisine/zhaji",
+    "reverie_dreams:cuisine/sashimi_platter",
+    "reverie_dreams:cuisine/grand_banquet",
+    "reverie_dreams:cuisine/tonkotsu_ramen",
+    "reverie_dreams:cuisine/magma",
+    "reverie_dreams:cuisine/deep_fried_cicada_shells",
+    "reverie_dreams:cuisine/dew_boiled_eggs",
+    "reverie_dreams:cuisine/udumbara_cake",
+    "reverie_dreams:cuisine/bear_paw",
+    "reverie_dreams:cuisine/secret_dried_fish",
+    "reverie_dreams:cuisine/cold_dish_carving",
+    "reverie_dreams:cuisine/peach_blossom_soup",
+    "reverie_dreams:cuisine/arctic_sweet_shrimp_and_peach_salad",
+    "reverie_dreams:cuisine/fried_tofu",
+    "reverie_dreams:cuisine/poetry_and_ginkgo",
+    "reverie_dreams:cuisine/real_seafood_miso_soup",
+    "reverie_dreams:cuisine/roasted_mushrooms",
+    "reverie_dreams:cuisine/cooking_tofu",
+    "reverie_dreams:cuisine/fried_pork_cutlet",
+    "reverie_dreams:cuisine/butter_steak",
+    "reverie_dreams:cuisine/risotto",
+    "reverie_dreams:cuisine/beef_wellington",
+    "reverie_dreams:cuisine/eggs_benedict",
+    "reverie_dreams:cuisine/hot_waffles",
+    "reverie_dreams:cuisine/scones",
+    "reverie_dreams:cuisine/pan_fried_salmon",
+    "reverie_dreams:cuisine/cream_stew",
+    "reverie_dreams:cuisine/honey_bbq_pork",
+    "reverie_dreams:cuisine/ginkgo_and_radish_pork_rib_soup",
+    "reverie_dreams:cuisine/taketorihime",
+    "reverie_dreams:cuisine/phoenix",
+    "reverie_dreams:cuisine/moonlight_dumplings",
+    "reverie_dreams:cuisine/mochi",
+    "reverie_dreams:cuisine/white_peach_eight_bridge",
+    "reverie_dreams:cuisine/moon_lovers",
+    "reverie_dreams:cuisine/pig_deer_butterfly",
+    "reverie_dreams:cuisine/flowing_water_noodles",
+    "reverie_dreams:cuisine/bamboo_shoots_fried_meat",
+    "reverie_dreams:cuisine/bamboo_steamed_egg",
+    "reverie_dreams:cuisine/horai-dama_no_eda",
+    "reverie_dreams:cuisine/stinky_tofu",
+    "reverie_dreams:cuisine/colorful_jade_fried_buns",
+    "reverie_dreams:cuisine/mapo_tofu",
+    "reverie_dreams:cuisine/boiled_fish",
+    "reverie_dreams:cuisine/moon_cake",
+    "reverie_dreams:cuisine/maoyu_tricolor_ice_cream",
+    "reverie_dreams:cuisine/maoyu_lava_tofu",
+    "reverie_dreams:cuisine/scarlet_devils_cake",
+    "reverie_dreams:cuisine/unconscious_monster_mousse",
+    "reverie_dreams:cuisine/dumpling",
+    "reverie_dreams:cuisine/glutinous_rice_balls",
+    "reverie_dreams:cuisine/fried_shrimp_tempura",
+    "reverie_dreams:cuisine/golden_crispy_fish_cake",
+    "reverie_dreams:cuisine/all_meat_feast",
+    "reverie_dreams:cuisine/pickled_cucumbers",
+    "reverie_dreams:cuisine/baked_crab_with_cream",
+    "reverie_dreams:cuisine/pseudo_jiritama",
+    "reverie_dreams:cuisine/okonomiyaki",
+    "reverie_dreams:cuisine/takoyaki",
+    "reverie_dreams:cuisine/sea_urchin_sashimi",
+    "reverie_dreams:cuisine/mushroom_meat_slices",
+    "reverie_dreams:cuisine/secret_mushroom_casserole",
+    "reverie_dreams:cuisine/mushroom_girls_dance_stew",
+    "reverie_dreams:cuisine/milky_mushroom_soup",
+    "reverie_dreams:cuisine/ordinary_small_cake",
+    "reverie_dreams:cuisine/seven_colored_yokan",
+    "reverie_dreams:cuisine/nigiri_sushi",
+    "reverie_dreams:cuisine/pumpkin_shrimp_cake",
+    "reverie_dreams:cuisine/gensokyo_buddha_jumps_over_the_wall",
+    "reverie_dreams:cuisine/depressed_cheese_sticks",
+    "reverie_dreams:cuisine/gloomy_fruit_pie",
+    "reverie_dreams:cuisine/screaming_oden",
+    "reverie_dreams:cuisine/crisp_cyclone",
+    "reverie_dreams:cuisine/looking_up_at_the_ceiling_fruit_pie",
+    "reverie_dreams:cuisine/beetle_steamed_cake",
+    "reverie_dreams:cuisine/lion_head",
+    "reverie_dreams:cuisine/giant_tamagoyaki",
+    "reverie_dreams:cuisine/oedo_boat_festival",
+    "reverie_dreams:cuisine/sakura_pudding",
+    "reverie_dreams:cuisine/refreshing_pudding",
+    "reverie_dreams:cuisine/burnt_pudding",
+    "reverie_dreams:cuisine/cat_food",
+    "reverie_dreams:cuisine/salmon_tempura",
+    "reverie_dreams:cuisine/fish_leaps_over_dragon_gate",
+    "reverie_dreams:cuisine/cheese_egg",
+    "reverie_dreams:cuisine/one_hit_kill",
+    "reverie_dreams:cuisine/hell_thrill_warning",
+    "reverie_dreams:cuisine/baked_sweet_potatoes",
+    "reverie_dreams:cuisine/skinny_horse_dumpling",
+    "reverie_dreams:cuisine/fright_adventure",
+    "reverie_dreams:cuisine/biscay_biscuits",
+    "reverie_dreams:cuisine/pirate_bacon",
+    "reverie_dreams:cuisine/luohan_vegetarian",
+    "reverie_dreams:cuisine/yunshan_cotton_candy",
+    "reverie_dreams:cuisine/holy_white_lotus_seed_cake",
+    "reverie_dreams:cuisine/gensokyo_star_lotus_ship",
+    "reverie_dreams:cuisine/pine_nut_cake",
+    "reverie_dreams:cuisine/shiraga_sadamatsu",
+    "reverie_dreams:cuisine/taichi_bagua_fish_maw",
+    "reverie_dreams:cuisine/candied_chestnuts",
+    "reverie_dreams:cuisine/tianshi_braised_chestnut_mushrooms",
+    "reverie_dreams:cuisine/lotus_fish_rice_bowl",
+    "reverie_dreams:cuisine/candied_sweet_potato",
+    "reverie_dreams:cuisine/pan_fried_mushroom_meat_roll",
+    "reverie_dreams:cuisine/assorted_tempura",
+    "reverie_dreams:cuisine/fried_tomato_strips",
+    "reverie_dreams:cuisine/braised_pork_with_peach",
+    "reverie_dreams:cuisine/reversing_the_world",
+    "reverie_dreams:cuisine/red_bean_daifuku",
+    "reverie_dreams:cuisine/dorayaki",
+    "reverie_dreams:cuisine/the_beauty_of_han_palace",
+    "reverie_dreams:cuisine/bamboo_shoots_stewed_in_stone_pot",
+    "reverie_dreams:cuisine/bamboo_tube_steamed_pork",
+    "reverie_dreams:cuisine/green_bamboo_welcomes_spring",
+    "reverie_dreams:cuisine/plum_tea_rice",
+    "reverie_dreams:cuisine/steamed_egg_with_sea_urchin",
+    "reverie_dreams:cuisine/fantasy_is_all_the_rage",
+    "reverie_dreams:cuisine/green_fairy_mushroom",
+    "reverie_dreams:cuisine/flowers_birds_wind_and_moon",
+    "reverie_dreams:cuisine/the_dream",
+    "reverie_dreams:cuisine/toon_pancakes",
+    "reverie_dreams:cuisine/poisonous_garden",
+    "reverie_dreams:cuisine/a_little_sweet_poison",
+    "reverie_dreams:cuisine/eel_egg_donburi",
+    "reverie_dreams:cuisine/bamboo_tube_roasted_drunken_shrimp",
+    "reverie_dreams:cuisine/beef_hot_pot",
+    "reverie_dreams:cuisine/cat_kululi",
+    "reverie_dreams:cuisine/cat_pizza",
+    "reverie_dreams:cuisine/cats_playing_in_water",
+    "reverie_dreams:cuisine/rapunzel",
+    "reverie_dreams:cuisine/sea_urchin_shingen_pancake",
+    "reverie_dreams:cuisine/mad_hatter_tea_party",
+    "reverie_dreams:cuisine/peach_blossom_glaze_roll",
+    "reverie_dreams:cuisine/moonlight_over_lotus_pond",
+    "reverie_dreams:cuisine/longyin_peach",
+    "reverie_dreams:cuisine/molecular_egg",
+    "reverie_dreams:cuisine/the_source_of_life",
+    "reverie_dreams:cuisine/the_mars",
+    "reverie_dreams:cuisine/heart_porridge_gruel",
+    "reverie_dreams:cuisine/hula_soup",
+    "reverie_dreams:cuisine/superme_seafood_noodles",
+    "reverie_dreams:cuisine/dark_cuisine"
+  ]
+}

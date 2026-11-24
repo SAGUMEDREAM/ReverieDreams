@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.registry.content.effect;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import dev.architectury.registry.registries.RegistrySupplier;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -27,8 +28,9 @@ public class RDPotions {
 
     public static ItemStackTemplate createStackTemplate(RegistrySupplier<Potion> potion) {
         ItemStackTemplate template = ItemStackTemplateHelper.create(Items.POTION);
+        Holder<Potion> potionHolder = potion.getRegistrar().getHolder(potion.getId());
         ItemStackTemplateHelper.modify(template, (old, modifier) -> {
-            modifier.set(DataComponents.POTION_CONTENTS, new PotionContents(potion));
+            modifier.set(DataComponents.POTION_CONTENTS, new PotionContents(potionHolder));
         });
         return template;
     }

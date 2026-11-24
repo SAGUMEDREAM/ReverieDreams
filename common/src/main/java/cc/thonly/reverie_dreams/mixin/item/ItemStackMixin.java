@@ -1,9 +1,10 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
+import cc.thonly.reverie_dreams.api.item.ItemStackExtension;
 import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.entity.villager.TavernVillager;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.util.item.ItemTagMigration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentHolder;
@@ -41,7 +42,7 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("unchecked")
 @Mixin(ItemStack.class)
-public abstract class ItemStackMixin<T> implements IItemStackExtension,
+public abstract class ItemStackMixin<T> implements ItemStackExtension,
         DataComponentHolder {
     @Shadow
     public abstract Item getItem();
@@ -155,6 +156,20 @@ public abstract class ItemStackMixin<T> implements IItemStackExtension,
         this.reverie_dreams$values[idx] = data;
     }
 
+    /**
+     * 所有带组件补丁的 ItemStack 反序列化都会走这个构造器（NBT、网络、配方、容器组件等）。
+     * 在这里做一次旧数据迁移，覆盖箱子、无限仓库、潜影盒、物品实体等所有存储形式。
+     */
+    @Inject(
+            method = {
+                    "<init>(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/PatchedDataComponentMap;)V",
+            },
+            at = @At("TAIL")
+    )
+    private void reverie_dreams$migrateLegacyTags(Holder<Item> item, int count, PatchedDataComponentMap components, CallbackInfo ci) {
+        ItemTagMigration.normalize((ItemStack) (Object) this);
+    }
+
     @Inject(
             method = {"addDetailsToTooltip"},
             at = {@At(
@@ -166,7 +181,7 @@ public abstract class ItemStackMixin<T> implements IItemStackExtension,
     public void reverie_dreams$appendTooltipCallback(
             Item.TooltipContext context, TooltipDisplay displayComponent, Player player, TooltipFlag type, Consumer<Component> textConsumer, CallbackInfo ci
     ) {
-        ItemStack itemStack = (ItemStack)(Object)this;
+        ItemStack itemStack = (ItemStack) (Object) this;
         ItemEvent.ITEM_TOOLTIP.invoker().appendTooltip(itemStack, context, displayComponent, player, textConsumer, type);
     }
 

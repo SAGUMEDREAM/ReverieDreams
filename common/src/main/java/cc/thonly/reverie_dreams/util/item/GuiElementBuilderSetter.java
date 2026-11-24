@@ -25,6 +25,7 @@ public class GuiElementBuilderSetter {
             builder.setComponent(type, value);
         }
     }
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static void setter(GuiElementBuilder builder, ItemStackTemplate template) {
         builder.setItem(template.item().value());

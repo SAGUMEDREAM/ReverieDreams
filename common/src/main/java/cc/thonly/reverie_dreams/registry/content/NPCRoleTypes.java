@@ -37,6 +37,7 @@ public class NPCRoleTypes {
     public static final NPCRoleType YUKARI = registerRole(new NPCRoleType(ReverieDreams.id("yakumo_yukai"), GensokyoSkinTypes.YAKUMO_YUKAI));
 
     // 永夜抄
+    public static final NPCRoleType INABA_TEWI = registerRole(new NPCRoleType(ReverieDreams.id("inaba_tewi"), GensokyoSkinTypes.INABA_TEWI));
     public static final NPCRoleType MYSTIA_LORELEI = registerRole(new NPCRoleType(ReverieDreams.id("mystia_lorelei"), GensokyoSkinTypes.MYSTIA_LORELEI));
     public static final NPCRoleType WRIGGLE_NIGHTBUG = registerRole(new NPCRoleType(ReverieDreams.id("wriggle_nightbug"), GensokyoSkinTypes.WRIGGLE_NIGHTBUG));
     public static final NPCRoleType KAMISHIRASAWA_KEINE = registerRole(new NPCRoleType(ReverieDreams.id("kamishirasawa_keine"), GensokyoSkinTypes.KAMISHIRASAWA_KEINE));
@@ -48,6 +49,8 @@ public class NPCRoleTypes {
     // 花映塚
     public static final NPCRoleType SHIKIEIKI_YAMAXANADU = registerRole(new NPCRoleType(ReverieDreams.id("shikieiki_yamaxanadu"), GensokyoSkinTypes.SHIKIEIKI_YAMAXANADU));
     public static final NPCRoleType KAZAMI_YUKA = registerRole(new NPCRoleType(ReverieDreams.id("kazami_yuka"), GensokyoSkinTypes.KAZAMI_YUKA));
+    public static final NPCRoleType MEDICINE_MELANCHOLY = registerRole(new NPCRoleType(ReverieDreams.id("medicine_melancholy"), GensokyoSkinTypes.MEDICINE_MELANCHOLY));
+    public static final NPCRoleType ONOZUKA_KOMACHI = registerRole(new NPCRoleType(ReverieDreams.id("onozuka_komachi"), GensokyoSkinTypes.ONOZUKA_KOMACHI));
 
     // 风神录
     public static final NPCRoleType KAGIYAMA_HINA = registerRole(new NPCRoleType(ReverieDreams.id("kagiyama_hina"), GensokyoSkinTypes.KAGIYAMA_HINA));
@@ -70,6 +73,10 @@ public class NPCRoleTypes {
     public static final NPCRoleType WHITE_KOMEIJI_KOISHI = registerRole(new NPCRoleType(ReverieDreams.id("white_komeiji_koishi"), GensokyoSkinTypes.WHITE_KOMEIJI_KOISHI));
 
     // 星莲船
+    public static final NPCRoleType HIJIRI_BYAKUREN = registerRole(new NPCRoleType(ReverieDreams.id("hijiri_byakuren"), GensokyoSkinTypes.HIJIRI_BYAKUREN));
+    public static final NPCRoleType ICHIRIN_UNZAN = registerRole(new NPCRoleType(ReverieDreams.id("ichirin_unzan"), GensokyoSkinTypes.ICHIRIN_UNZAN));
+    public static final NPCRoleType MIZUHASHI_MURASA = registerRole(new NPCRoleType(ReverieDreams.id("mizuhashi_murasa"), GensokyoSkinTypes.MIZUHASHI_MURASA));
+    public static final NPCRoleType TORAMARU_SHOU = registerRole(new NPCRoleType(ReverieDreams.id("toramaru_shou"), GensokyoSkinTypes.TORAMARU_SHOU));
     public static final NPCRoleType NAZRIN = registerRole(new NPCRoleType(ReverieDreams.id("nazrin"), GensokyoSkinTypes.NAZRIN));
     public static final NPCRoleType TATARA_KOGASA = registerRole(new NPCRoleType(ReverieDreams.id("tatara_kogasa"), GensokyoSkinTypes.TATARA_KOGASA));
     public static final NPCRoleType HOUJUU_NUE = registerRole(new NPCRoleType(ReverieDreams.id("houjuu_nue"), GensokyoSkinTypes.HOUJUU_NUE));
@@ -88,6 +95,8 @@ public class NPCRoleTypes {
     public static final NPCRoleType SEKIBANKI = registerRole(new NPCRoleType(ReverieDreams.id("sekibanki"), GensokyoSkinTypes.SEKIBANKI));
     public static final NPCRoleType IMAIZUMI_KAGEROU = registerRole(new NPCRoleType(ReverieDreams.id("imaizumi_kagerou"), GensokyoSkinTypes.IMAIZUMI_KAGEROU));
     public static final NPCRoleType KIJIN_SEIJIA = registerRole(new NPCRoleType(ReverieDreams.id("kijin_seijia"), GensokyoSkinTypes.KIJIN_SEIJIA));
+    public static final NPCRoleType TSUKUMO_BENBEN = registerRole(new NPCRoleType(ReverieDreams.id("tsukumo_benben"), GensokyoSkinTypes.TSUKUMO_BENBEN));
+    public static final NPCRoleType TSUKUMO_YATSUHASHI = registerRole(new NPCRoleType(ReverieDreams.id("tsukumo_yatsuhashi"), GensokyoSkinTypes.TSUKUMO_YATSUHASHI));
     public static final NPCRoleType SUKUNA_SHINMYOUMARU = registerRole(new NPCRoleType(ReverieDreams.id("sukuna_shinmyoumaru"), GensokyoSkinTypes.SUKUNA_SHINMYOUMARU));
     public static final NPCRoleType HORIKAWA_RAIKO = registerRole(new NPCRoleType(ReverieDreams.id("horikawa_raiko"), GensokyoSkinTypes.HORIKAWA_RAIKO));
 
@@ -172,6 +181,9 @@ public class NPCRoleTypes {
     }
 
     public static NPCRoleType registerRole(Identifier id, NPCRoleType role) {
+        if (role.isUnit()) {
+            throw new IllegalArgumentException("Cannot register the empty NPC role as " + id);
+        }
         NPCRoleType entry = BuiltInRegistryProviders.register(BuiltInRegistryProviders.NPC_ROLE_TYPE, id, role);
         return entry.build();
     }

@@ -1,0 +1,84 @@
+{
+  "type": "reverie_dreams:gensokyo_understory",
+  "config": {
+    "accents": [
+      {
+        "Name": "minecraft:short_grass"
+      },
+      {
+        "Name": "minecraft:short_grass"
+      },
+      {
+        "Name": "minecraft:fern"
+      }
+    ],
+    "flowers": [
+      {
+        "Name": "minecraft:dandelion"
+      },
+      {
+        "Name": "minecraft:poppy"
+      },
+      {
+        "Name": "minecraft:oxeye_daisy"
+      }
+    ],
+    "kind": "thicket",
+    "leaves": [
+      {
+        "Name": "minecraft:oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "minecraft:oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "minecraft:birch_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    ],
+    "litter": [
+      {
+        "Name": "minecraft:leaf_litter",
+        "Properties": {
+          "facing": "north",
+          "segment_amount": "1"
+        }
+      }
+    ],
+    "logs": [
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:birch_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    ],
+    "theme": "forest"
+  }
+}

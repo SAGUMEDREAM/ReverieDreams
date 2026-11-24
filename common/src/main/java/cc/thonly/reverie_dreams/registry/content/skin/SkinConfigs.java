@@ -54,7 +54,7 @@ public class SkinConfigs {
                             skinConfig.setSkin(skin);
                             BuiltInRegistryProviders.register(BuiltInRegistryProviders.SKIN_CONFIG, key, skinConfig);
                         });
-            } catch (IOException e) {
+            } catch (IOException | RuntimeException e) {
                 log.error("Failed to load Skin Config {}: {}", key, e.getMessage(), e);
             }
         }

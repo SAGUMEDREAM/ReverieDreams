@@ -30,7 +30,8 @@ public class ModrinthAPI {
         String suffix2 = split2.length > 1 ? split2[1] : "";
 
         int cmp = compareNumericVersion(main1, main2);
-        if (cmp != 0) return cmp;
+        if (cmp != 0)
+            return cmp;
 
         String[] mc1 = suffix1.split("-", 2);
         String[] mc2 = suffix2.split("-", 2);
@@ -39,7 +40,8 @@ public class ModrinthAPI {
         String mcVer2 = mc2.length > 0 ? mc2[0] : "";
 
         cmp = compareNumericVersion(mcVer1, mcVer2);
-        if (cmp != 0) return cmp;
+        if (cmp != 0)
+            return cmp;
 
         String tag1 = mc1.length > 1 ? mc1[1] : "";
         String tag2 = mc2.length > 1 ? mc2[1] : "";
@@ -48,9 +50,12 @@ public class ModrinthAPI {
     }
 
     private static int compareNumericVersion(String v1, String v2) {
-        if (v1.isEmpty() && v2.isEmpty()) return 0;
-        if (v1.isEmpty()) return -1;
-        if (v2.isEmpty()) return 1;
+        if (v1.isEmpty() && v2.isEmpty())
+            return 0;
+        if (v1.isEmpty())
+            return -1;
+        if (v2.isEmpty())
+            return 1;
 
         String[] parts1 = v1.split("\\.");
         String[] parts2 = v2.split("\\.");
@@ -59,7 +64,8 @@ public class ModrinthAPI {
         for (int i = 0; i < len; i++) {
             int num1 = i < parts1.length ? parseSafe(parts1[i]) : 0;
             int num2 = i < parts2.length ? parseSafe(parts2[i]) : 0;
-            if (num1 != num2) return Integer.compare(num1, num2);
+            if (num1 != num2)
+                return Integer.compare(num1, num2);
         }
         return 0;
     }

@@ -6,17 +6,18 @@ import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleRedirectEntity;
 import cc.thonly.reverie_dreams.item.base.ColoredSpawnEggItem;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.NPCRoleTypes;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
-import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
 import com.mojang.serialization.Codec;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.RegistrySupplier;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -36,12 +37,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings("LombokGetterMayBeUsed")
-@Slf4j
 @Getter
 public class NPCRoleType implements SerializableProvider<NPCRoleType>,
         RegistryEntryOwnerBindable<NPCRoleType>,
         BuiltinObject,
         RoleType {
+    private static final String REDIRECTING_PREFIX = "redirecting/";
     private static final LazySupplier<NPCRoleType> UNIT_ROLE = LazySupplier.of(NPCRoleType::new);
     public static final Codec<NPCRoleType> BY_REGISTRY_CODEC = Codec.lazyInitialized(() -> {
         return Identifier.CODEC.xmap(id -> {
@@ -71,7 +72,7 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
     private ItemDelegate spawnEgg;
     private boolean initialized = false;
 
-    private RegistryProvider<NPCRoleType> owner;
+    private RegistryProviderLookup<NPCRoleType> owner;
 
     private boolean unit = false;
 
@@ -108,10 +109,9 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
         return this.entityType == null;
     }
 
-    @SuppressWarnings({"unchecked"})
     @Override
-    public Holder<EntityType<? extends BaseNPCLikeEntity>> get() {
-        return (Holder<EntityType<? extends BaseNPCLikeEntity>>) (Object) this.entityType;
+    public Holder<EntityType<NPCSimpleRedirectEntity>> get() {
+        return this.entityType;
     }
 
     public ItemDelegate getEgg() {
@@ -120,7 +120,8 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
 
     @Override
     public String translateKey() {
-        return this.entityType.value().getDescriptionId();
+        var type = this.entityType;
+        return type == null ? ReverieDreams.id("base_character").toLanguageKey("entity") : type.value().getDescriptionId();
     }
 
     @Override
@@ -130,14 +131,16 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
 
     @Override
     public boolean isIdentify(RoleType other) {
-        return Objects.equals(other.identify(), this.id);
+        return this.id != null && other != null && this.id.equals(other.identify());
     }
 
     @Override
     public Customer getCustomer() {
-        Customer customer = BuiltInRegistryProviders.CUSTOMER.getValue(this.identify());
-//        System.out.println(customer);
-        return customer == null ? RoleType.super.getCustomer() : customer;
+        // Exact/alias lookup only: a registry-wide default is not this role's dedicated profile.
+        if (this.identify() == null)
+            return RoleType.super.getCustomer();
+        return BuiltInRegistryProviders.CUSTOMER.get(this.identify()).map(Holder::value)
+                .orElseGet(() -> RoleType.super.getCustomer());
     }
 
     @Override
@@ -149,19 +152,24 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
         if (this.initialized) {
             return this;
         }
+        if (this.id == null) {
+            throw new IllegalStateException("Cannot register the empty NPC role");
+        }
         try {
-            Supplier<EntityType.Builder<NPCSimpleRedirectEntity>> builderSupplier = this.isCustom() ? this.builder : () -> EntityType.Builder.of(
+            boolean custom = this.isCustom();
+            String entityPath = (custom ? "" : REDIRECTING_PREFIX) + this.id.getPath();
+            Supplier<EntityType.Builder<NPCSimpleRedirectEntity>> builderSupplier = custom ? this.builder : () -> EntityType.Builder.of(
                     (type, world) -> new NPCSimpleRedirectEntity(type, world, this),
                     MobCategory.MISC);
-            RegistrySupplier<EntityType<NPCSimpleRedirectEntity>> registrySupplier = registerEntity(this.id.getPath(), builderSupplier);
+            RegistrySupplier<EntityType<NPCSimpleRedirectEntity>> registrySupplier = registerEntity(entityPath, builderSupplier);
             EntityAttributeRegistry.register(registrySupplier, BaseNPCLikeEntity::createLivingAttributes);
-            String spawnEggId = this.id.getPath() + "_spawn_egg";
-            ItemDelegate spawnEgg = registerNPCSpawnEggItem(spawnEggId, (id) -> new ColoredSpawnEggItem(spawnEggId, registrySupplier.value(), new Item.Properties()));
+            String spawnEggId = entityPath + "_spawn_egg";
+            ItemDelegate spawnEgg = registerNPCSpawnEggItem(spawnEggId, properties -> new ColoredSpawnEggItem(spawnEggId, registrySupplier.value(), properties));
             this.entityType = registrySupplier;
             this.spawnEgg = spawnEgg;
             this.initialized = true;
-        } catch (Exception e) {
-            log.error("Can't register role entity type {}", this.id.toString());
+        } catch (RuntimeException e) {
+            throw new IllegalStateException("Failed to register the entity and spawn egg for NPC role " + this.id, e);
         }
         return this;
     }
@@ -172,7 +180,7 @@ public class NPCRoleType implements SerializableProvider<NPCRoleType>,
     }
 
     @Override
-    public void setOwner(RegistryProvider<NPCRoleType> owner) {
+    public void setOwner(RegistryProviderLookup<NPCRoleType> owner) {
         this.owner = owner;
     }
 

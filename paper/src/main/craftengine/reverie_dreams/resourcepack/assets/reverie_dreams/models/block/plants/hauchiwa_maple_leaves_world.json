@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "ambientocclusion": false,
+  "textures": {
+    "all": "reverie_dreams:block/hauchiwa_maple_leaves"
+  }
+}

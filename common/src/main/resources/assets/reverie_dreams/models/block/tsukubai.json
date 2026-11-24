@@ -1,0 +1,384 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "reverie_dreams:block/tsukubai_side",
+    "stone": "reverie_dreams:block/tsukubai_side",
+    "top": "reverie_dreams:block/tsukubai_top",
+    "water": "reverie_dreams:block/tsukubai_water"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0,
+        2
+      ],
+      "to": [
+        14,
+        2,
+        14
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "north": {
+          "uv": [
+            2,
+            14,
+            14,
+            16
+          ],
+          "texture": "#stone"
+        },
+        "south": {
+          "uv": [
+            2,
+            14,
+            14,
+            16
+          ],
+          "texture": "#stone"
+        },
+        "west": {
+          "uv": [
+            2,
+            14,
+            14,
+            16
+          ],
+          "texture": "#stone"
+        },
+        "east": {
+          "uv": [
+            2,
+            14,
+            14,
+            16
+          ],
+          "texture": "#stone"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        2,
+        2
+      ],
+      "to": [
+        14,
+        9,
+        4
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            4
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            12,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "north": {
+          "uv": [
+            2,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "south": {
+          "uv": [
+            2,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "west": {
+          "uv": [
+            2,
+            7,
+            4,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "east": {
+          "uv": [
+            12,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        2,
+        12
+      ],
+      "to": [
+        14,
+        9,
+        14
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            2,
+            12,
+            14,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            4
+          ],
+          "texture": "#stone"
+        },
+        "north": {
+          "uv": [
+            2,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "south": {
+          "uv": [
+            2,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "west": {
+          "uv": [
+            12,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "east": {
+          "uv": [
+            2,
+            7,
+            4,
+            14
+          ],
+          "texture": "#stone"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        2,
+        4
+      ],
+      "to": [
+        4,
+        9,
+        12
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            2,
+            4,
+            4,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            4,
+            4,
+            12
+          ],
+          "texture": "#stone"
+        },
+        "north": {
+          "uv": [
+            12,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "south": {
+          "uv": [
+            2,
+            7,
+            4,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "west": {
+          "uv": [
+            4,
+            7,
+            12,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "east": {
+          "uv": [
+            4,
+            7,
+            12,
+            14
+          ],
+          "texture": "#stone"
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        2,
+        4
+      ],
+      "to": [
+        14,
+        9,
+        12
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            12,
+            4,
+            14,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            12,
+            4,
+            14,
+            12
+          ],
+          "texture": "#stone"
+        },
+        "north": {
+          "uv": [
+            2,
+            7,
+            4,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "south": {
+          "uv": [
+            12,
+            7,
+            14,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "west": {
+          "uv": [
+            4,
+            7,
+            12,
+            14
+          ],
+          "texture": "#stone"
+        },
+        "east": {
+          "uv": [
+            4,
+            7,
+            12,
+            14
+          ],
+          "texture": "#stone"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        7,
+        4
+      ],
+      "to": [
+        12,
+        8,
+        12
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#water"
+        },
+        "down": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#water"
+        }
+      }
+    }
+  ]
+}

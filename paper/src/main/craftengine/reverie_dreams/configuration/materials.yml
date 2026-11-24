@@ -1,0 +1,89 @@
+items:
+  reverie_dreams:silver_ingot:
+    material: iron_ingot
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_ingot>
+    model: reverie_dreams:item/silver_ingot
+    settings:
+      tags:
+      - reverie_dreams:silver_tool_materials
+      anvil_repair_item:
+        - target:
+            - "reverie_dreams:silver_helmet"
+            - "reverie_dreams:silver_chestplate"
+            - "reverie_dreams:silver_leggings"
+            - "reverie_dreams:silver_boots"
+            - "reverie_dreams:maid_hairband"
+            - "reverie_dreams:maid_upper_skirt"
+            - "reverie_dreams:maid_lowerband"
+            - "reverie_dreams:maid_shoe"
+            - "reverie_dreams:low_gravity_boot"
+            - "reverie_dreams:silver_sword"
+            - "reverie_dreams:silver_axe"
+            - "reverie_dreams:silver_pickaxe"
+            - "reverie_dreams:silver_shovel"
+            - "reverie_dreams:silver_hoe"
+            - "reverie_dreams:silver_spear"
+          percent: 0.25
+
+  reverie_dreams:silver_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.silver_block>
+    model: reverie_dreams:block/silver_block
+    settings:
+      anvil_repair_item:
+        - target: ["reverie_dreams:hakuroken", "reverie_dreams:rokanken"]
+          percent: 0.25
+    behavior:
+      type: block_item
+      block: reverie_dreams:silver_block
+
+blocks:
+  reverie_dreams:silver_block:
+    settings:
+      item: reverie_dreams:silver_block
+      hardness: 5.0
+      resistance: 6.0
+      is_suffocating: true
+      is_redstone_conductor: true
+      correct_tools: ["#minecraft:pickaxes"]
+      required_break_power: 2
+      tags: ["minecraft:mineable/pickaxe"]
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/silver_block
+    loot:
+      pools:
+        - rolls: 1
+          entries:
+            - type: item
+              item: reverie_dreams:silver_block
+
+recipes:
+  reverie_dreams:silver_block:
+    type: shaped
+    pattern:
+      - XXX
+      - XXX
+      - XXX
+    ingredients:
+      X: reverie_dreams:silver_ingot
+    result:
+      id: reverie_dreams:silver_block
+      count: 1
+
+  reverie_dreams:silver_ingot_from_block:
+    type: shapeless
+    ingredients:
+      - reverie_dreams:silver_block
+    result:
+      id: reverie_dreams:silver_ingot
+      count: 9

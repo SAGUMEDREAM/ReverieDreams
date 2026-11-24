@@ -6,9 +6,10 @@ import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
 import cc.thonly.reverie_dreams.api.creative_tab.ICreativeModeTabOutputExtension;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.api.registry.AliasManager;
-import cc.thonly.reverie_dreams.api.registry.CompostingChanceRegistry;
-import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
-import cc.thonly.reverie_dreams.api.registry.FlammableBlockRegistry;
+import cc.thonly.reverie_dreams.registry.content.block.VanillaBlockAliases;
+import cc.thonly.reverie_dreams.api.registry.block.CompostingChanceRegistry;
+import cc.thonly.reverie_dreams.api.registry.entity.EntityDataSerializerProviders;
+import cc.thonly.reverie_dreams.api.registry.block.FlammableBlockRegistry;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.fabric.api.ReverieDreamsPolymerBridge;
 import cc.thonly.reverie_dreams.fabric.compat.ReverieDreamsFabricCompats;
@@ -21,6 +22,10 @@ import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
 import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import terrablender.api.TerraBlenderApi;
+import cc.thonly.reverie_dreams.world.gen.biome.MapleForestRegion;
+import cc.thonly.reverie_dreams.world.gen.biome.MagicForestRegion;
+import terrablender.api.Regions;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -34,8 +39,14 @@ import java.util.*;
 import java.util.List;
 
 @Slf4j
-public class ReverieDreamsFabric implements ModInitializer {
+public class ReverieDreamsFabric implements ModInitializer, TerraBlenderApi {
     public static final List<Runnable> FABRIC_LATE_INIT = new ArrayList<>();
+
+    @Override
+    public void onTerraBlenderInitialized() {
+        Regions.register(new MapleForestRegion());
+        Regions.register(new MagicForestRegion());
+    }
 
     @Override
     public void onInitialize() {
@@ -44,71 +55,79 @@ public class ReverieDreamsFabric implements ModInitializer {
         if (PlatformContext.hasPolymer()) {
             ReverieDreamsPolymerBridge.tryPreloadPolymer();
         }
-        ReverieDreams.initialize(() -> {
-            EntityDataSerializerProviders.get().forEach(FabricEntityDataRegistry::register);
-            ReverieDreamsFabricCompats.initialize();
-            ReverieDreams.COMMON_LATE_INIT.forEach(Runnable::run);
-            ReverieDreams.COMMON_LATE_INIT.clear();
-            ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
-            ReverieDreams.BUS_LATE_INIT.clear();
-            ReverieDreamsPolymerBridge.tryPolymerify();
-            ReverieDreamsPluginLoader.run();
-            CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register((tab, output) -> {
-                BaseCreativeTab.busInvoker(tab, new ICreativeModeTabOutputExtension() {
-                    @Override
-                    public void insertAfter(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
-                        output.insertAfter(existingEntry, newEntry);
-                    }
+        ReverieDreams.initialize(this::onCommonSetup);
+    }
 
-                    @Override
-                    public void insertBefore(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
-                        output.insertBefore(existingEntry, newEntry);
-                    }
+    private void onCommonSetup() {
+        this.initializeCommonHook();
+        EntityDataSerializerProviders.get().forEach(FabricEntityDataRegistry::register);
+        ReverieDreamsFabricCompats.initialize();
+        ReverieDreams.COMMON_LATE_INIT.forEach(Runnable::run);
+        ReverieDreams.COMMON_LATE_INIT.clear();
+        ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);
+        ReverieDreams.BUS_LATE_INIT.clear();
+        ReverieDreamsPolymerBridge.tryPolymerify();
+        ReverieDreamsPluginLoader.run();
+    }
 
-                    @Override
-                    public void accept(ItemStack stack, CreativeModeTab.TabVisibility tabVisibility) {
-                        output.accept(stack);
-                    }
-                });
+    private void initializeCommonHook() {
+        CreativeModeTabEvents.MODIFY_OUTPUT_ALL.register((tab, output) -> {
+            BaseCreativeTab.busInvoker(tab, new ICreativeModeTabOutputExtension() {
+                @Override
+                public void insertAfter(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
+                    output.insertAfter(existingEntry, newEntry);
+                }
+
+                @Override
+                public void insertBefore(ItemStack existingEntry, ItemStack newEntry, CreativeModeTab.TabVisibility visibility) {
+                    output.insertBefore(existingEntry, newEntry);
+                }
+
+                @Override
+                public void accept(ItemStack stack, CreativeModeTab.TabVisibility tabVisibility) {
+                    output.accept(stack);
+                }
             });
-            for (CompostingChanceRegistry.Entry entry : CompostingChanceRegistry.ENTRIES) {
-                CompostableRegistry fabricCompostingChanceRegistry = CompostableRegistry.INSTANCE;
-                Holder<Item> item = entry.item();
-                Holder<Block> block = entry.block();
-                TagKey<Item> itemTagKey = entry.tagKey();
-                Float value = entry.value();
-                if (item != null) {
-                    fabricCompostingChanceRegistry.add(item.value(), value);
-                }
-
-                if (block != null) {
-                    fabricCompostingChanceRegistry.add(block.value(), value);
-                }
-
-                if (itemTagKey != null) {
-                    fabricCompostingChanceRegistry.add(itemTagKey, value);
-                }
-            }
-            for (FlammableBlockRegistry.Entry entry : FlammableBlockRegistry.ENTRIES) {
-                net.fabricmc.fabric.api.registry.FlammableBlockRegistry fabricFlammableBlockRegistry = net.fabricmc.fabric.api.registry.FlammableBlockRegistry.getDefaultInstance();
-                Holder<Block> blockHolder = entry.blockHolder();
-                TagKey<Block> blockTagKey = entry.tagKey();
-                int igniteOdds = entry.igniteOdds();
-                int burnOdds = entry.burnOdds();
-                if (blockHolder != null) {
-                    fabricFlammableBlockRegistry.add(blockHolder.value(), igniteOdds, burnOdds);
-                }
-
-                if (blockTagKey != null) {
-                    fabricFlammableBlockRegistry.add(blockTagKey, igniteOdds, burnOdds);
-                }
-            }
-            AliasManager.execute(Registries.ITEM, map -> map.forEach(BuiltInRegistries.ITEM::addAlias));
-            AliasManager.execute(Registries.BLOCK, map -> map.forEach(BuiltInRegistries.BLOCK::addAlias));
-            AliasManager.execute(Registries.ENTITY_TYPE, map -> map.forEach(BuiltInRegistries.ENTITY_TYPE::addAlias));
-            AliasManager.execute(Registries.DATA_COMPONENT_TYPE, map -> map.forEach(BuiltInRegistries.DATA_COMPONENT_TYPE::addAlias));
-            Placeholders.registerCommon(ReverieDreams.id("version"), (ctx, args) -> PlaceholderResult.value(PlatformContext.VERSION.get()));
         });
+        for (CompostingChanceRegistry.Entry entry : CompostingChanceRegistry.ENTRIES) {
+            CompostableRegistry fabricCompostingChanceRegistry = CompostableRegistry.INSTANCE;
+            Holder<Item> item = entry.item();
+            Holder<Block> block = entry.block();
+            TagKey<Item> itemTagKey = entry.tagKey();
+            Float value = entry.value();
+            if (item != null) {
+                fabricCompostingChanceRegistry.add(item.value(), value);
+            }
+
+            if (block != null) {
+                fabricCompostingChanceRegistry.add(block.value(), value);
+            }
+
+            if (itemTagKey != null) {
+                fabricCompostingChanceRegistry.add(itemTagKey, value);
+            }
+        }
+        for (FlammableBlockRegistry.Entry entry : FlammableBlockRegistry.ENTRIES) {
+            net.fabricmc.fabric.api.registry.FlammableBlockRegistry fabricFlammableBlockRegistry = net.fabricmc.fabric.api.registry.FlammableBlockRegistry.getDefaultInstance();
+            Holder<Block> blockHolder = entry.blockHolder();
+            TagKey<Block> blockTagKey = entry.tagKey();
+            int igniteOdds = entry.igniteOdds();
+            int burnOdds = entry.burnOdds();
+            if (blockHolder != null) {
+                fabricFlammableBlockRegistry.add(blockHolder.value(), igniteOdds, burnOdds);
+            }
+
+            if (blockTagKey != null) {
+                fabricFlammableBlockRegistry.add(blockTagKey, igniteOdds, burnOdds);
+            }
+        }
+        AliasManager.execute(Registries.ITEM, map -> map.forEach(BuiltInRegistries.ITEM::addAlias));
+        AliasManager.execute(Registries.BLOCK, map -> map.forEach(BuiltInRegistries.BLOCK::addAlias));
+        AliasManager.execute(Registries.ENTITY_TYPE, map -> map.forEach(BuiltInRegistries.ENTITY_TYPE::addAlias));
+        AliasManager.execute(Registries.DATA_COMPONENT_TYPE, map -> map.forEach(BuiltInRegistries.DATA_COMPONENT_TYPE::addAlias));
+        VanillaBlockAliases.apply(BuiltInRegistries.BLOCK, BuiltInRegistries.BLOCK::addAlias);
+        VanillaBlockAliases.apply(BuiltInRegistries.ITEM, BuiltInRegistries.ITEM::addAlias);
+        Placeholders.registerCommon(ReverieDreams.id("version"), (ctx, args) -> PlaceholderResult.value(PlatformContext.VERSION.get()));
     }
 
     public void checkApiLoaded() {
@@ -117,7 +136,7 @@ public class ReverieDreamsFabric implements ModInitializer {
 
     public List<ReverieDreamsPlugin> loadPlugins() {
         return FabricLoader.getInstance()
-                .getEntrypoints("reverie_dreams:extension", ReverieDreamsPlugin.class);
+                .getEntrypoints(ReverieDreams.MOD_ID + ":extension", ReverieDreamsPlugin.class);
     }
 
     private void setupEarly() {

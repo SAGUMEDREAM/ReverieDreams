@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:azure_bluet",
+  "output": {
+    "id": "minecraft:light_gray_dye",
+    "count": 2
+  },
+  "work": 8
+}

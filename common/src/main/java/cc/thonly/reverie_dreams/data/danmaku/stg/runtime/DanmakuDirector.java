@@ -1,26 +1,19 @@
 package cc.thonly.reverie_dreams.data.danmaku.stg.runtime;
 
+import cc.thonly.reverie_dreams.data.danmaku.trajectory.PlayerTrajectoryCast;
 import net.minecraft.server.MinecraftServer;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * STG 弹幕总调度器：统一驱动所有运行中的 {@link DanmakuPatternRuntime}。
  *
  * <p>由服务器 tick 事件调用（见 {@code ReverieDreams#registerServerEvents}）。
- * 同时提供全局每 tick 生成预算，防止多个图案叠加时瞬间生成过多子弹实体。
+ * 同帧齐射按各自时间线执行，其他施法不会占用其发射机会。
  */
 public final class DanmakuDirector {
-    /**
-     * 每 tick 允许通过新引擎生成的子弹上限（所有图案共享）。
-     * 旧版 SpellcardRenderer 有自己的 64/tick 上限；新引擎没有帧级上限，所以在这里兜底。
-     */
-    public static final int MAX_SPAWNS_PER_TICK = 128;
-
     private static final List<DanmakuPatternRuntime> ACTIVE_PATTERNS = new ArrayList<>();
-    private static int spawnedThisTick = 0;
 
     private DanmakuDirector() {
     }
@@ -30,41 +23,24 @@ public final class DanmakuDirector {
     }
 
     public static void tick(MinecraftServer server) {
-        spawnedThisTick = 0;
+        PlayerTrajectoryCast.tick(server);
         if (ACTIVE_PATTERNS.isEmpty()) {
             return;
         }
-        Iterator<DanmakuPatternRuntime> iterator = ACTIVE_PATTERNS.iterator();
-        while (iterator.hasNext()) {
-            DanmakuPatternRuntime runtime = iterator.next();
-            runtime.tick();
-            if (runtime.isDone()) {
-                iterator.remove();
-            }
+        // A familiar can append a child runtime while its parent is ticking.
+        int scheduled = ACTIVE_PATTERNS.size();
+        for (int i = 0; i < scheduled; i++) {
+            ACTIVE_PATTERNS.get(i).tick();
         }
-    }
-
-    /**
-     * 为一次子弹生成申请预算；返回 false 时调用方应放弃本次生成。
-     */
-    public static boolean consumeSpawnBudget() {
-        if (spawnedThisTick >= MAX_SPAWNS_PER_TICK) {
-            return false;
-        }
-        spawnedThisTick++;
-        return true;
-    }
-
-    public static int spawnedThisTick() {
-        return spawnedThisTick;
+        ACTIVE_PATTERNS.removeIf(DanmakuPatternRuntime::isDone);
     }
 
     public static void cancelAll() {
+        PlayerTrajectoryCast.clear();
         for (DanmakuPatternRuntime runtime : ACTIVE_PATTERNS) {
-            runtime.cancel();
+            runtime.stopAndClear();
         }
         ACTIVE_PATTERNS.clear();
-        spawnedThisTick = 0;
     }
 
     public static int activeCount() {

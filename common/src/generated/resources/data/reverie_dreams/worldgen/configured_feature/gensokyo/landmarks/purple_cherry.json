@@ -1,0 +1,24 @@
+{
+  "type": "reverie_dreams:gensokyo_landmark_tree",
+  "config": {
+    "crown_radius": 4,
+    "leaves": {
+      "Name": "reverie_dreams:purple_cherry_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "minecraft:cherry_log",
+      "Properties": {
+        "axis": "y"
+      }
+    },
+    "max_height": 17,
+    "min_height": 10,
+    "shape": "cherry",
+    "trunk_width": 1
+  }
+}

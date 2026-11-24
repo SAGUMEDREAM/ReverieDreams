@@ -1,0 +1,18 @@
+{
+  "item.reverie_dreams.danmaku.amulet": "Amulet Shot",
+  "item.reverie_dreams.danmaku.arrowhead": "Scale Shot",
+  "item.reverie_dreams.danmaku.ball": "Small Orb",
+  "item.reverie_dreams.danmaku.bubble": "Large Orb",
+  "item.reverie_dreams.danmaku.bullet": "Bullet",
+  "item.reverie_dreams.danmaku.fireball": "Fireball",
+  "item.reverie_dreams.danmaku.fireball_glowy": "Waterball",
+  "item.reverie_dreams.danmaku.kunai": "Kunai",
+  "item.reverie_dreams.danmaku.rice": "Rice Shot",
+  "item.reverie_dreams.danmaku.star": "Star Shot",
+  "item.reverie_dreams.danmaku.note": "Note",
+  "death.attack.danmaku": "%1$s was riddled with danmaku",
+  "death.attack.danmaku.item": "%1$s was overwhelmed by %2$s using %3$s during a danmaku duel",
+  "death.attack.danmaku.player": "%1$s was overwhelmed by %2$s in a danmaku duel",
+  "sound.reverie_dreams.fire": "Danmaku Fired",
+  "sound.reverie_dreams.graze": "Graze"
+}

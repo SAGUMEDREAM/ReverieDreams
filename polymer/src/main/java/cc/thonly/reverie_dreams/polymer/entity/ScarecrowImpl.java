@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.polymer.entity;
 
-import cc.thonly.reverie_dreams.polymer.entity.inf.PolymerHolderEntity;
-import cc.thonly.reverie_dreams.polymer.entity.inf.TickHolderEntity;
+import cc.thonly.reverie_dreams.polymer.entity.bridge.PolymerHolderEntity;
+import cc.thonly.reverie_dreams.polymer.entity.bridge.TickHolderEntity;
 import cc.thonly.reverie_dreams.polymer.helper.PolymerEntityHelper;
-import cc.thonly.reverie_dreams.polymer.entity.bil.OverlayEntityHolder;
-import cc.thonly.reverie_dreams.polymer.entity.bil.OverlayLivingEntityHolder;
+import cc.thonly.reverie_dreams.polymer.entity.holder.OverlayEntityHolder;
+import cc.thonly.reverie_dreams.polymer.entity.holder.OverlayLivingEntityHolder;
 import cc.thonly.reverie_dreams.entity.Scarecrow;
 import cc.thonly.reverie_dreams.fabric.util.AnimationHelper;
 import de.tomalbrc.bil.api.AnimatedEntity;
@@ -20,7 +20,7 @@ public class ScarecrowImpl implements AnimatedEntity, PolymerHolderEntity, TickH
 
     public ScarecrowImpl(Scarecrow entity) {
         this.entity = entity;
-        PolymerEntityHelper.addEntityHolderModel(this);
+        PolymerEntityHelper.addEntityHolderModel(this, entity);
     }
 
     @Override

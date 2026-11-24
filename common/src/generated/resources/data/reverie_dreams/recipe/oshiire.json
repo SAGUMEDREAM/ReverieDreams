@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "DCD",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "D": "minecraft:paper",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "reverie_dreams:oshiire",
+    "count": 1
+  }
+}

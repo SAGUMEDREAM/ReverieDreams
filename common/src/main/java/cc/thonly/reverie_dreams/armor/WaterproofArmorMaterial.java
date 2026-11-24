@@ -12,19 +12,19 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 import java.util.Map;
 
 public interface WaterproofArmorMaterial {
-    int BASE_DURABILITY = 15;
+    int BASE_DURABILITY = 12;
     ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, ReverieDreams.id("waterproof"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
-                    ArmorType.HELMET, 2,
-                    ArmorType.CHESTPLATE, 5,
-                    ArmorType.LEGGINGS, 4,
+                    ArmorType.HELMET, 1,
+                    ArmorType.CHESTPLATE, 4,
+                    ArmorType.LEGGINGS, 3,
                     ArmorType.BOOTS, 1,
                     ArmorType.BODY, 4
             ),
-            5,
+            12,
             SoundEvents.ARMOR_EQUIP_LEATHER,
             0.0F,
             0.0F,

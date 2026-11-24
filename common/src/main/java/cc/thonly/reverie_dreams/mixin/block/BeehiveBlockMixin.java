@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.mixin.block;
 
 import cc.thonly.reverie_dreams.block.BeehiveBlockProxy;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+import cc.thonly.reverie_dreams.entity.npc.work.NPCProduction;
 
 @Mixin(BeehiveBlock.class)
 public abstract class BeehiveBlockMixin extends Block implements BeehiveBlockProxy {
@@ -35,6 +35,14 @@ public abstract class BeehiveBlockMixin extends Block implements BeehiveBlockPro
             BlockState blockState,
             @Nullable BlockPos currentTarget
     ) {
+        InteractionHand hand = roleEntity.getMainHandItem().is(Items.SHEARS) || roleEntity.getMainHandItem().is(Items.GLASS_BOTTLE)
+                ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        this.reverie_dreams$onInteractUse(roleEntity, serverLevel, blockState, currentTarget, hand);
+    }
+
+    @Override
+    public void reverie_dreams$onInteractUse(BaseNPCLikeEntity roleEntity, ServerLevel serverLevel,
+                                             BlockState blockState, @Nullable BlockPos currentTarget, InteractionHand hand) {
         if (currentTarget == null) {
             return;
         }
@@ -51,29 +59,15 @@ public abstract class BeehiveBlockMixin extends Block implements BeehiveBlockPro
             return;
         }
 
-        ItemStack mainHand = roleEntity.getMainHandItem();
-        ItemStack offHand = roleEntity.getOffhandItem();
-
-        ItemStack tool = ItemStack.EMPTY;
-        InteractionHand hand = InteractionHand.MAIN_HAND;
-
-        if (mainHand.is(Items.SHEARS)) {
-            tool = mainHand;
-            hand = InteractionHand.MAIN_HAND;
-        } else if (offHand.is(Items.SHEARS)) {
-            tool = offHand;
-            hand = InteractionHand.OFF_HAND;
-        } else if (mainHand.is(Items.GLASS_BOTTLE)) {
-            tool = mainHand;
-            hand = InteractionHand.MAIN_HAND;
-        } else if (offHand.is(Items.GLASS_BOTTLE)) {
-            tool = offHand;
-            hand = InteractionHand.OFF_HAND;
-        }
-
-        if (tool.isEmpty()) {
+        ItemStack tool = roleEntity.getItemInHand(hand);
+        if (tool.isEmpty() || !tool.is(Items.SHEARS) && !tool.is(Items.GLASS_BOTTLE)) {
             return;
         }
+
+        // Grant loot and consume the tool only after the hive update is accepted.
+        if (serverLevel.getBlockState(currentTarget) != blockState
+                || !serverLevel.setBlockAndUpdate(currentTarget, blockState.setValue(BeehiveBlock.HONEY_LEVEL, 0)))
+            return;
 
         boolean hiveEmptied = false;
 
@@ -102,6 +96,7 @@ public abstract class BeehiveBlockMixin extends Block implements BeehiveBlockPro
             tool.shrink(1);
 
             ItemStack honeyBottle = new ItemStack(Items.HONEY_BOTTLE);
+            NPCProduction.item(roleEntity, "harvest_honey", honeyBottle);
 
             // 原手中的玻璃瓶已经全部消耗
             if (tool.isEmpty()) {
@@ -147,18 +142,10 @@ public abstract class BeehiveBlockMixin extends Block implements BeehiveBlockPro
         if (!smokey) {
             beehiveBlockEntity.emptyAllLivingFromHive(
                     null,
-                    blockState,
+                    blockState.setValue(BeehiveBlock.HONEY_LEVEL, 0),
                     BeehiveBlockEntity.BeeReleaseStatus.EMERGENCY
             );
         }
-
-        BeehiveBlock beehive = (BeehiveBlock) (Object) this;
-
-        beehive.resetHoneyLevel(
-                serverLevel,
-                blockState,
-                currentTarget
-        );
 
         serverLevel.gameEvent(
                 roleEntity,
@@ -178,7 +165,6 @@ public abstract class BeehiveBlockMixin extends Block implements BeehiveBlockPro
         if (stack.isEmpty()) {
             return ItemStack.EMPTY;
         }
-        ItemUtils.updateItemStackTag(stack);
 
         var inventory = entity.getInventory();
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {

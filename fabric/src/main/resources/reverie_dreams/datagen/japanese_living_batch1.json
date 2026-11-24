@@ -1,0 +1,1259 @@
+{
+  "assets/reverie_dreams/blockstates/shrine_bell.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/shrine_bell"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/shrine_bell",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/shrine_bell",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/shrine_bell",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/shrine_bell.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/shrine_bell"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/shrine_bell.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:shrine_bell"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/bell_rope.json": {
+    "variants": {
+      "facing=north,end=true": {
+        "model": "reverie_dreams:block/bell_rope"
+      },
+      "facing=north,end=false": {
+        "model": "reverie_dreams:block/bell_rope_middle"
+      },
+      "facing=east,end=true": {
+        "model": "reverie_dreams:block/bell_rope",
+        "y": 90
+      },
+      "facing=east,end=false": {
+        "model": "reverie_dreams:block/bell_rope_middle",
+        "y": 90
+      },
+      "facing=south,end=true": {
+        "model": "reverie_dreams:block/bell_rope",
+        "y": 180
+      },
+      "facing=south,end=false": {
+        "model": "reverie_dreams:block/bell_rope_middle",
+        "y": 180
+      },
+      "facing=west,end=true": {
+        "model": "reverie_dreams:block/bell_rope",
+        "y": 270
+      },
+      "facing=west,end=false": {
+        "model": "reverie_dreams:block/bell_rope_middle",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/bell_rope.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/bell_rope"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/bell_rope.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:bell_rope"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/wind_chime.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/wind_chime"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/wind_chime",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/wind_chime",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/wind_chime",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/wind_chime.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/wind_chime"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/wind_chime.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:wind_chime"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/oshiire.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/oshiire"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/oshiire_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/oshiire",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/oshiire_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/oshiire",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/oshiire_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/oshiire",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/oshiire_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/oshiire.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/oshiire"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/oshiire.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:oshiire"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/tansu.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/tansu"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/tansu_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/tansu",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/tansu_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/tansu",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/tansu_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/tansu",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/tansu_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/tansu.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/tansu"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/tansu.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:tansu"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/futon.json": {
+    "variants": {
+      "facing=north,part=head": {
+        "model": "reverie_dreams:block/futon_head"
+      },
+      "facing=north,part=foot": {
+        "model": "reverie_dreams:block/futon_foot"
+      },
+      "facing=east,part=head": {
+        "model": "reverie_dreams:block/futon_head",
+        "y": 90
+      },
+      "facing=east,part=foot": {
+        "model": "reverie_dreams:block/futon_foot",
+        "y": 90
+      },
+      "facing=south,part=head": {
+        "model": "reverie_dreams:block/futon_head",
+        "y": 180
+      },
+      "facing=south,part=foot": {
+        "model": "reverie_dreams:block/futon_foot",
+        "y": 180
+      },
+      "facing=west,part=head": {
+        "model": "reverie_dreams:block/futon_head",
+        "y": 270
+      },
+      "facing=west,part=foot": {
+        "model": "reverie_dreams:block/futon_foot",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/futon.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/futon"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/futon.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:futon"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          },
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "reverie_dreams:futon",
+            "properties": {
+              "part": "head"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/folded_futon.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/folded_futon"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/folded_futon",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/folded_futon",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/folded_futon",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/folded_futon.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/folded_futon"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/folded_futon.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:folded_futon"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/irori.json": {
+    "variants": {
+      "lit=false": {
+        "model": "reverie_dreams:block/irori"
+      },
+      "lit=true": {
+        "model": "reverie_dreams:block/irori_lit"
+      }
+    }
+  },
+  "assets/reverie_dreams/items/irori.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/irori"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/irori.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:irori"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/jizaikagi.json": {
+    "variants": {
+      "facing=north,end=true": {
+        "model": "reverie_dreams:block/jizaikagi"
+      },
+      "facing=north,end=false": {
+        "model": "reverie_dreams:block/jizaikagi_middle"
+      },
+      "facing=east,end=true": {
+        "model": "reverie_dreams:block/jizaikagi",
+        "y": 90
+      },
+      "facing=east,end=false": {
+        "model": "reverie_dreams:block/jizaikagi_middle",
+        "y": 90
+      },
+      "facing=south,end=true": {
+        "model": "reverie_dreams:block/jizaikagi",
+        "y": 180
+      },
+      "facing=south,end=false": {
+        "model": "reverie_dreams:block/jizaikagi_middle",
+        "y": 180
+      },
+      "facing=west,end=true": {
+        "model": "reverie_dreams:block/jizaikagi",
+        "y": 270
+      },
+      "facing=west,end=false": {
+        "model": "reverie_dreams:block/jizaikagi_middle",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/jizaikagi.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/jizaikagi"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/jizaikagi.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:jizaikagi"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/timber_white_wall.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/timber_white_wall"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/timber_white_wall",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/timber_white_wall",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/timber_white_wall",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/timber_white_wall.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/timber_white_wall"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/timber_white_wall.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:timber_white_wall"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/timber_white_wall_horizontal.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/timber_white_wall_horizontal"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/timber_white_wall_horizontal",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/timber_white_wall_horizontal",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/timber_white_wall_horizontal",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/timber_white_wall_horizontal.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/timber_white_wall_horizontal"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/timber_white_wall_horizontal.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:timber_white_wall_horizontal"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/timber_white_wall_cross.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/timber_white_wall_cross"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/timber_white_wall_cross",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/timber_white_wall_cross",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/timber_white_wall_cross",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/timber_white_wall_cross.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/timber_white_wall_cross"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/timber_white_wall_cross.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:timber_white_wall_cross"
+          }
+        ],
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ]
+      }
+    ]
+  },
+  "data/reverie_dreams/recipe/shrine_bell.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " G ",
+      "GIG",
+      " G "
+    ],
+    "key": {
+      "G": "minecraft:gold_ingot",
+      "I": "minecraft:iron_nugget"
+    },
+    "result": {
+      "id": "reverie_dreams:shrine_bell",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/shrine_bell.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:gold_ingot"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:shrine_bell"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:shrine_bell"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/bell_rope.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "S",
+      "S",
+      "W"
+    ],
+    "key": {
+      "S": "minecraft:string",
+      "W": "minecraft:white_wool"
+    },
+    "result": {
+      "id": "reverie_dreams:bell_rope",
+      "count": 4
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/bell_rope.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:string"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:bell_rope"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:bell_rope"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/wind_chime.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " I ",
+      "GAG",
+      " P "
+    ],
+    "key": {
+      "I": "minecraft:iron_nugget",
+      "G": "minecraft:glass",
+      "A": "minecraft:amethyst_shard",
+      "P": "minecraft:paper"
+    },
+    "result": {
+      "id": "reverie_dreams:wind_chime",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/wind_chime.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:iron_nugget"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:wind_chime"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:wind_chime"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/oshiire.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "DCD",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "D": "minecraft:paper",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:oshiire",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/oshiire.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:oshiire"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:oshiire"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/tansu.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "ICI",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "I": "minecraft:iron_nugget",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:tansu",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/tansu.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:tansu"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:tansu"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/futon.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "WWW",
+      "BBB",
+      "SSS"
+    ],
+    "key": {
+      "W": "minecraft:white_wool",
+      "B": "minecraft:blue_wool",
+      "S": "minecraft:string"
+    },
+    "result": {
+      "id": "reverie_dreams:futon",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/futon.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:white_wool"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:futon"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:futon"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/folded_futon.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "WWW",
+      "BBB"
+    ],
+    "key": {
+      "W": "minecraft:white_wool",
+      "B": "minecraft:blue_wool"
+    },
+    "result": {
+      "id": "reverie_dreams:folded_futon",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/folded_futon.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:white_wool"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:folded_futon"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:folded_futon"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/irori.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "PCP",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "C": "minecraft:campfire"
+    },
+    "result": {
+      "id": "reverie_dreams:irori",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/irori.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:irori"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:irori"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/jizaikagi.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " I ",
+      " S ",
+      " C "
+    ],
+    "key": {
+      "I": "minecraft:iron_chain",
+      "S": "minecraft:stick",
+      "C": "minecraft:cauldron"
+    },
+    "result": {
+      "id": "reverie_dreams:jizaikagi",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/jizaikagi.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:iron_chain"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:jizaikagi"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:jizaikagi"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/timber_white_wall.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "SPS",
+      "SPS",
+      "SPS"
+    ],
+    "key": {
+      "S": "minecraft:stick",
+      "P": "reverie_dreams:shikkui_block"
+    },
+    "result": {
+      "id": "reverie_dreams:timber_white_wall",
+      "count": 6
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/timber_white_wall.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stick"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:timber_white_wall"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:timber_white_wall"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/timber_white_wall_horizontal.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "SSS",
+      "PPP",
+      "SSS"
+    ],
+    "key": {
+      "S": "minecraft:stick",
+      "P": "reverie_dreams:shikkui_block"
+    },
+    "result": {
+      "id": "reverie_dreams:timber_white_wall_horizontal",
+      "count": 6
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/timber_white_wall_horizontal.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stick"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:timber_white_wall_horizontal"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:timber_white_wall_horizontal"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/timber_white_wall_cross.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "SPS",
+      "SSS",
+      "SPS"
+    ],
+    "key": {
+      "S": "minecraft:stick",
+      "P": "reverie_dreams:shikkui_block"
+    },
+    "result": {
+      "id": "reverie_dreams:timber_white_wall_cross",
+      "count": 6
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/timber_white_wall_cross.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stick"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:timber_white_wall_cross"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:timber_white_wall_cross"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/timber_white_wall_horizontal_from_timber_white_wall.json": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      "reverie_dreams:timber_white_wall"
+    ],
+    "result": {
+      "id": "reverie_dreams:timber_white_wall_horizontal",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/recipe/timber_white_wall_cross_from_timber_white_wall_horizontal.json": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      "reverie_dreams:timber_white_wall_horizontal"
+    ],
+    "result": {
+      "id": "reverie_dreams:timber_white_wall_cross",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/recipe/timber_white_wall_from_timber_white_wall_cross.json": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      "reverie_dreams:timber_white_wall_cross"
+    ],
+    "result": {
+      "id": "reverie_dreams:timber_white_wall",
+      "count": 1
+    }
+  }
+}

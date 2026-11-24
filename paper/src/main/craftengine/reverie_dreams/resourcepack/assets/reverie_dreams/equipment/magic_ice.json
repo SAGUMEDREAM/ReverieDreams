@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "reverie_dreams:magic_ice"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "reverie_dreams:magic_ice"
+      }
+    ]
+  }
+}

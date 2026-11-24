@@ -1,0 +1,32 @@
+{
+  "models": [
+    "assets/reverie_dreams/models/item/point.json",
+    "assets/reverie_dreams/models/item/power.json",
+    "assets/reverie_dreams/models/item/upgraded_health_fragment.json",
+    "assets/reverie_dreams/models/item/bomb_fragment.json",
+    "assets/reverie_dreams/models/item/fairy_dust.json",
+    "assets/reverie_dreams/models/item/ghost_veil.json",
+    "assets/reverie_dreams/models/item/oni_horn.json",
+    "assets/reverie_dreams/models/item/empty_photo.json",
+    "assets/reverie_dreams/models/item/copper_coin.json",
+    "assets/reverie_dreams/models/item/silver_coin.json",
+    "assets/reverie_dreams/models/item/gold_coin.json",
+    "assets/reverie_dreams/models/item/ice_scales.json",
+    "assets/reverie_dreams/models/item/waterproof_leather.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/item/point.png",
+    "assets/reverie_dreams/textures/item/power.png",
+    "assets/reverie_dreams/textures/item/upgraded_health_fragment.png",
+    "assets/reverie_dreams/textures/item/bomb_fragment.png",
+    "assets/reverie_dreams/textures/item/fairy_dust.png",
+    "assets/reverie_dreams/textures/item/ghost_veil.png",
+    "assets/reverie_dreams/textures/item/oni_horn.png",
+    "assets/reverie_dreams/textures/item/empty_photo.png",
+    "assets/reverie_dreams/textures/item/copper_coin.png",
+    "assets/reverie_dreams/textures/item/silver_coin.png",
+    "assets/reverie_dreams/textures/item/gold_coin.png",
+    "assets/reverie_dreams/textures/item/ice_scales.png",
+    "assets/reverie_dreams/textures/item/waterproof_leather.png"
+  ]
+}

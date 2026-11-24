@@ -1,7 +1,9 @@
 package cc.thonly.reverie_dreams.mixin.entity;
 
+import cc.thonly.reverie_dreams.api.registry.tag.ConventionalEntityTypeTags;
 import cc.thonly.reverie_dreams.item.armor.CrownOfTheUnderworldItem;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +19,11 @@ public class MobMixin {
         if (target == null) {
             return;
         }
-        if (CrownOfTheUnderworldItem.hasEquipment(target) && mob.is(EntityTypeTags.UNDEAD)) {
+        // 冥界之冠不应让凋灵等 Boss 变成木桩。
+        if (CrownOfTheUnderworldItem.hasEquipment(target)
+                && mob.is(EntityTypeTags.UNDEAD)
+                && mob.getType() != EntityType.WITHER
+                && !mob.getType().builtInRegistryHolder().is(ConventionalEntityTypeTags.BOSSES)) {
             ci.cancel();
         }
     }

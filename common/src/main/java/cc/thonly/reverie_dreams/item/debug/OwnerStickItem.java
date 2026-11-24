@@ -19,7 +19,8 @@ public class OwnerStickItem extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {
         Level world = user.level();
-        if (world.isClientSide()) return InteractionResult.SUCCESS;
+        if (world.isClientSide())
+            return InteractionResult.SUCCESS;
         if (entity instanceof TamableAnimal target) {
             target.setOwner(user);
             ((ServerLevel) world).sendParticles(ParticleTypes.HEART, target.getX(), target.getY() + 1.0, target.getZ(), 5, 0.5, 0.5, 0.5, 0.1);

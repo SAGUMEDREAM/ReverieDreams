@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "  R",
+    " PP",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "R": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "reverie_dreams:taiko_bridge_approach",
+    "count": 4
+  }
+}

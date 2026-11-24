@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "reverie_dreams:block/itaya_maple_slab"
+    },
+    "type=double": {
+      "model": "reverie_dreams:block/itaya_maple_planks"
+    },
+    "type=top": {
+      "model": "reverie_dreams:block/itaya_maple_slab_top"
+    }
+  }
+}

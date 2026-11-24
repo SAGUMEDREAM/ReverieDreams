@@ -13,6 +13,7 @@ import eu.pb4.polymer.virtualentity.api.elements.ItemDisplayElement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,15 +29,19 @@ public class AbstractKitchenwareImpl implements FactoryBlock, PolymerTexturedBlo
     }
 
     public class Model extends BlockModel {
-        private ItemDisplayElement main;
+        private final ItemDisplayElement main;
 
         public Model(ServerLevel world, BlockPos pos, BlockState state) {
-            init(state);
+            this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
+            this.main.setItemDisplayContext(ItemDisplayContext.NONE);
+            this.main.setOffset(AbstractKitchenwareImpl.this.block.getOffset());
+            this.main.setScale(AbstractKitchenwareImpl.this.block.getScale());
+            updateFacing(state);
+            addElement(this.main);
         }
 
         @SuppressWarnings("deprecation")
-        public void init(BlockState state) {
-            this.main = ItemDisplayElementUtil.createSimple(state.getBlock().asItem());
+        private void updateFacing(BlockState state) {
             Direction facing = state.getValue(AbstractKitchenwareBlock.FACING);
             float yaw = switch (facing) {
                 case NORTH -> 180f;
@@ -45,21 +50,15 @@ public class AbstractKitchenwareImpl implements FactoryBlock, PolymerTexturedBlo
                 case WEST -> 90f;
                 default -> 0f;
             };
-            main.setOffset(AbstractKitchenwareImpl.this.block.getOffset());
-            main.setScale(AbstractKitchenwareImpl.this.block.getScale());
+            // Item displays render their model with an additional 180-degree Y rotation.
             this.main.setYaw(yaw);
-            addElement(this.main);
-        }
-
-        private void updateItem(BlockState state) {
-            this.removeElement(this.main);
-            init(state);
         }
 
         @Override
         public void notifyUpdate(HolderAttachment.UpdateType updateType) {
             if (updateType == BlockBoundAttachment.BLOCK_STATE_UPDATE) {
-                updateItem(this.blockState());
+                updateFacing(this.blockState());
+                tick();
             }
             super.notifyUpdate(updateType);
         }

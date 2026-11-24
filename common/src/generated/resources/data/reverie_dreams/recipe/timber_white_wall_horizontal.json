@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "PPP",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:stick",
+    "P": "reverie_dreams:shikkui_block"
+  },
+  "result": {
+    "id": "reverie_dreams:timber_white_wall_horizontal",
+    "count": 6
+  }
+}

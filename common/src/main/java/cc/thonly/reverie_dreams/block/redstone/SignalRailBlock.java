@@ -37,6 +37,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
+import cc.thonly.reverie_dreams.server.dialog.RedstoneConfigDialog;
+import net.minecraft.server.level.ServerPlayer;
+
 public class SignalRailBlock extends BaseRailBlock implements EntityBlock {
     public static final MapCodec<SignalRailBlock> CODEC = simpleCodec(SignalRailBlock::new);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -63,15 +66,20 @@ public class SignalRailBlock extends BaseRailBlock implements EntityBlock {
     public @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult blockHitResult) {
         if (!level.isClientSide()) {
             if (itemStack.getItem() instanceof NameTagItem) {
+                if (!player.mayBuild() || player.isSpectator())
+                    return InteractionResult.FAIL;
                 Component custom = itemStack.getCustomName();
                 if (custom == null) {
                     return InteractionResult.FAIL;
                 }
                 String name = custom.getString();
+                if (name.length() > 30)
+                    return InteractionResult.FAIL;
                 SignalRailBlockEntity blockEntity = getBlockEntity(level, blockPos);
                 if (blockEntity != null) {
                     blockEntity.setSignName(name);
                     blockEntity.setChanged();
+                    checkPressed(level, blockPos, blockState);
                     player.swing(hand);
                     return InteractionResult.SUCCESS_SERVER;
                 }
@@ -112,7 +120,7 @@ public class SignalRailBlock extends BaseRailBlock implements EntityBlock {
         }
     }
 
-    private void checkPressed(Level level, BlockPos blockPos, BlockState blockState) {
+    public void checkPressed(Level level, BlockPos blockPos, BlockState blockState) {
         if (this.canSurvive(blockState, level, blockPos)) {
             boolean bl = blockState.getValue(POWERED);
             boolean bl2 = false;
@@ -140,7 +148,7 @@ public class SignalRailBlock extends BaseRailBlock implements EntityBlock {
                 level.setBlocksDirty(blockPos, blockState, blockState2);
             }
 
-            if (!bl2 && bl) {
+            if (bl && !signalEquals) {
                 BlockState blockState2 = blockState.setValue(POWERED, false);
                 level.setBlock(blockPos, blockState2, 3);
                 this.updatePowerToConnected(level, blockPos, blockState2, false);
@@ -150,7 +158,7 @@ public class SignalRailBlock extends BaseRailBlock implements EntityBlock {
             }
 
             if (bl2) {
-                level.scheduleTick(blockPos, this, 20);
+                level.scheduleTick(blockPos, this, 4);
             }
 
             level.updateNeighbourForOutputSignal(blockPos, this);
@@ -223,4 +231,13 @@ public class SignalRailBlock extends BaseRailBlock implements EntityBlock {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         return blockEntity instanceof SignalRailBlockEntity ? (SignalRailBlockEntity) blockEntity : null;
     }
+
+    @Override
+    public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos,
+                                            Player player, BlockHitResult hit) {
+        if (player instanceof ServerPlayer serverPlayer)
+            RedstoneConfigDialog.open(serverPlayer, blockPos);
+        return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+    }
+
 }

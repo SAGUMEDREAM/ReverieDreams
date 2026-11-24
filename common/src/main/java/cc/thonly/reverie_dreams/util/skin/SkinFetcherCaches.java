@@ -1,39 +1,29 @@
 package cc.thonly.reverie_dreams.util.skin;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.mojang.authlib.properties.Property;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
-import lombok.extern.slf4j.Slf4j;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Slf4j
 public class SkinFetcherCaches {
-    private static final Path PATH = Paths.get("config", "reverie_dreams", "skin-cached.json");
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final SkinCacheStore STORE = SkinCacheStore.defaultStore();
     public static final Codec<Map<String, Entry>> CODEC_MAP = Codec.unboundedMap(Codec.STRING, Entry.CODEC);
-    public static final Map<String, Entry> MD5_CACHED = new Object2ObjectLinkedOpenHashMap<>();
+    public static final Map<String, Entry> MD5_CACHED = Collections.synchronizedMap(new Object2ObjectLinkedOpenHashMap<>());
+    private static boolean loaded;
 
     public static Property from(InputStream in) {
         if (MD5_CACHED.isEmpty()) {
             load();
         }
         String md5 = getMD5FromInputStream(in);
-//        System.out.println(md5);
         if (md5 == null) {
             return null;
         }
@@ -44,48 +34,22 @@ public class SkinFetcherCaches {
         return entry.property();
     }
 
-    public static void load() {
-        try {
-            if (!Files.exists(PATH.getParent())) {
-                Files.createDirectories(PATH.getParent());
-                Files.createFile(PATH);
-                save();
-            }
-        } catch (IOException e) {
-            log.error("创建目录或文件失败: {}", PATH, e);
-        }
-
-        if (!Files.exists(PATH)) {
-            log.warn("缓存文件不存在，正在创建: {}", PATH);
-            save();
+    public static synchronized void load() {
+        if (loaded) {
             return;
         }
-
-        File file = PATH.toFile();
-        try (InputStream in = new FileInputStream(file)) {
-            JsonElement element = JsonParser.parseReader(new InputStreamReader(in));
-            DataResult<Map<String, Entry>> parse = CODEC_MAP.parse(JsonOps.INSTANCE, element);
-            parse.result().ifPresent(map -> {
-                MD5_CACHED.clear();
-                MD5_CACHED.putAll(map);
-            });
-        } catch (Exception err) {
-            log.error("加载缓存文件失败", err);
-        }
+        loaded = true;
+        MD5_CACHED.clear();
+        MD5_CACHED.putAll(STORE.load());
     }
 
-    // 保存缓存到文件
-    public static void save() {
-        DataResult<JsonElement> dataResult = CODEC_MAP.encodeStart(JsonOps.INSTANCE, MD5_CACHED);
-        dataResult.result().ifPresent(element -> {
-            String json = GSON.toJson(element);
-//            System.out.println(json);
-            try (Writer writer = new OutputStreamWriter(new FileOutputStream(PATH.toFile()), StandardCharsets.UTF_8)) {
-                writer.write(json);
-            } catch (IOException e) {
-                log.error("写入文件失败", e);
-            }
-        });
+    public static synchronized void save() {
+        loaded = true;
+        Map<String, Entry> snapshot;
+        synchronized (MD5_CACHED) {
+            snapshot = new LinkedHashMap<>(MD5_CACHED);
+        }
+        STORE.save(snapshot);
     }
 
     // 从输入流计算MD5

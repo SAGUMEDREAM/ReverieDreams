@@ -1,0 +1,43 @@
+items:
+  reverie_dreams:chair:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.chair>
+    model: reverie_dreams:block/chair
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: four
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:chair
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wood.break
+            place: minecraft:block.wood.place
+            hit: minecraft:block.wood.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+              - item: reverie_dreams:chair
+                display_transform: NONE
+                translation: 0,0.5,0
+            hitboxes:
+              - position: 0,0,0
+                type: interaction
+                blocks_building: true
+                invisible: true
+                width: 0.7
+                height: 1.0
+                interactive: true
+                seats:
+                  - 0,0,-0.1 0
+        loot:
+          pools:
+            - rolls: 1
+              entries:
+                - type: furniture_item
+                  item: reverie_dreams:chair

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.neoforge.impl;
 
-import cc.thonly.reverie_dreams.api.loot.ILootTableModificationContextExtension;
+import cc.thonly.reverie_dreams.api.loot.LootTableModificationContextExtension;
 import cc.thonly.reverie_dreams.neoforge.mixin.accessor.LootPoolAccessor;
 import dev.architectury.event.events.common.LootEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import java.util.function.Consumer;
  * 读出原池的字段，把新增条目拼接进去后，通过私有构造器重建一个池并替换回列表。
  */
 @Slf4j
-public class NeoTableModifier implements ILootTableModificationContextExtension.TableModifier {
+public class NeoTableModifier implements LootTableModificationContextExtension.TableModifier {
     private static final LootPoolConstructor LOOT_POOL_CONSTRUCTOR = new LootPoolConstructor();
 
     private static final class FieldsCache {
@@ -70,7 +70,7 @@ public class NeoTableModifier implements ILootTableModificationContextExtension.
 
     @SuppressWarnings("unchecked")
     @Override
-    public void modifyPool(ILootTableModificationContextExtension extension, Consumer<LootPool.Builder> modifier) {
+    public void modifyPool(LootTableModificationContextExtension extension, Consumer<LootPool.Builder> modifier) {
         LootEvent.LootTableModificationContext context = extension.getAccessor().get();
         FieldsCache cache = FieldsCache.resolve(context.getClass());
         try {

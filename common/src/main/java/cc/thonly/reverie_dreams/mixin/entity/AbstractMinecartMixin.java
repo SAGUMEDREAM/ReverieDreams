@@ -71,7 +71,16 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Loc
     @Override
     public void reverie_dreams$releaseCart() {
         this.reverie_dreams$lockedCart = false;
-        this.setDeltaMovement(this.reverie_dreams$lockedSpeed);
+        Vec3 speed = this.reverie_dreams$lockedSpeed == null ? Vec3.ZERO : this.reverie_dreams$lockedSpeed;
+        BlockState rail = level().getBlockState(blockPosition());
+        if (speed.horizontalDistanceSqr() < 0.0001 && rail.getBlock() instanceof RailControllerBlock) {
+            RailShape shape = rail.getValue(RailControllerBlock.RAIL_SHAPE);
+            speed = switch (shape) {
+                case EAST_WEST, ASCENDING_EAST, ASCENDING_WEST -> new Vec3(.2, 0, 0);
+                default -> new Vec3(0, 0, .2);
+            };
+        }
+        this.setDeltaMovement(speed);
         this.reverie_dreams$lockedSpeed = null;
     }
 
@@ -106,6 +115,12 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Loc
             return;
         }
         AbstractMinecart cart = (AbstractMinecart) (Object) this;
+
+        if (reverie_dreams$lockedCart) {
+            BlockState rail = level.getBlockState(cart.getCurrentBlockPosOrRailBelow());
+            if (!(rail.getBlock() instanceof RailControllerBlock) || rail.getValue(RailControllerBlock.OCCUPIED))
+                reverie_dreams$releaseCart();
+        }
 
         this.reverie_dreams$oldChunkPos = this.reverie_dreams$chunkPos;
         this.reverie_dreams$chunkPos = cart.chunkPosition();
@@ -164,7 +179,8 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Loc
             Level level, double d, double e, double f, EntityType<T> entityType, EntitySpawnReason entitySpawnReason, ItemStack itemStack, @Nullable Player player, CallbackInfoReturnable<T> cir
     ) {
         T cart = cir.getReturnValue();
-        if (cart == null) return;
+        if (cart == null)
+            return;
         if (level.isClientSide()) {
             return;
         }

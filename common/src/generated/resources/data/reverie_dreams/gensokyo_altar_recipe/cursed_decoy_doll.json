@@ -6,35 +6,35 @@
   "slots": [
     {
       "id": "minecraft:soul_sand",
-      "count": 6
+      "count": 16
     },
     {
-      "id": "minecraft:soul_sand",
-      "count": 6
+      "id": "minecraft:red_wool",
+      "count": 1
     },
     {
-      "id": "minecraft:soul_sand",
-      "count": 6
+      "id": "minecraft:string",
+      "count": 2
     },
     {
-      "id": "minecraft:soul_sand",
-      "count": 6
+      "id": "minecraft:paper",
+      "count": 4
     },
     {
-      "id": "minecraft:soul_sand",
-      "count": 6
+      "id": "minecraft:gunpowder",
+      "count": 2
     },
     {
-      "id": "minecraft:soul_sand",
-      "count": 6
+      "id": "minecraft:glowstone_dust",
+      "count": 2
     },
     {
-      "id": "minecraft:soul_sand",
-      "count": 6
+      "id": "minecraft:gold_ingot",
+      "count": 1
     },
     {
-      "id": "minecraft:soul_sand",
-      "count": 6
+      "id": "minecraft:ink_sac",
+      "count": 1
     }
   ],
   "output": {

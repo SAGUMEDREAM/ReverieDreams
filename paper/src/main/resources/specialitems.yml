@@ -1,0 +1,2 @@
+# Same default as ReverieDreamsConfiguration; false restricts use to gamemaster permission.
+enable-time-stopping-multiplayer: true

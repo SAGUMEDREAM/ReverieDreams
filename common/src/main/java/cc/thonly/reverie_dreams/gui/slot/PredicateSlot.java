@@ -17,12 +17,14 @@ public class PredicateSlot extends Slot {
 
     @Override
     public boolean allowModification(Player player) {
-        return super.allowModification(player) && this.predicate.apply(ItemStack.EMPTY);
+        // 用当前槽内物品判定：谓词是「这个槽该装什么」，用 ItemStack.EMPTY 判定会恒为 false，
+        // 导致放进去的物品永远拿不出来（参考 NPCGui 的谓词忽略 stack，之前恰好没暴露该问题）。
+        return super.allowModification(player) && this.predicate.apply(this.getItem());
     }
 
     @Override
     public boolean mayPickup(Player player) {
-        return super.mayPickup(player) && this.predicate.apply(ItemStack.EMPTY);
+        return super.mayPickup(player) && this.predicate.apply(this.getItem());
     }
 
     @Override

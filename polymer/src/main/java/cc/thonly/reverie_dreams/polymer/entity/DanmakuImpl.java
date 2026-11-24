@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.polymer.entity;
 
 import cc.thonly.reverie_dreams.entity.misc.DanmakuEntity;
+import cc.thonly.reverie_dreams.item.weapon.LunarBulletVisuals;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import eu.pb4.polymer.virtualentity.api.data.DisplayEntityData;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -37,7 +38,24 @@ public record DanmakuImpl(DanmakuEntity danmakuEntity) implements PolymerEntity 
     }
 
     public void setTileProjectileData(List<SynchedEntityData.DataValue<?>> data, boolean initial) {
+        if (LunarBulletVisuals.isBullet(this.danmakuEntity.getItemStack())) {
+            // This projectile's changing float roll is not ItemDisplay rotation metadata.
+            data.removeIf(value -> value.id() == DanmakuEntity.ROLL.id()
+                    && value.serializer() == DanmakuEntity.ROLL.serializer());
+        }
         if (initial && !this.danmakuEntity.level().isClientSide()) {
+            if (LunarBulletVisuals.isBullet(this.danmakuEntity.getItemStack())) {
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.BRIGHTNESS, BRIGHTNESS.pack()));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.Item.ITEM, this.danmakuEntity.getItemStack()));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.Item.ITEM_DISPLAY, ItemDisplayContext.NONE.getId()));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.BILLBOARD, (byte) Display.BillboardConstraints.FIXED.ordinal()));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.SCALE, new Vector3f(this.danmakuEntity.getDanmakuProperties().scale() * .85f)));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.LEFT_ROTATION, new Quaternionf().rotateY(Mth.PI)));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.TRANSLATION, new Vector3f()));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.TELEPORTATION_DURATION, 1));
+                data.add(SynchedEntityData.DataValue.create(DisplayEntityData.INTERPOLATION_DURATION, 0));
+                return;
+            }
             var sendBase = true;
             SynchedEntityData.DataValue<?> rRoll = null;
             for (int i = 0; i < data.size(); i++) {

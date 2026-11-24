@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:cornflower",
+  "output": {
+    "id": "minecraft:blue_dye",
+    "count": 2
+  },
+  "work": 8
+}

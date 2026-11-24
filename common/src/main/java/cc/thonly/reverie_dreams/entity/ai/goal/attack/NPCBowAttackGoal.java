@@ -89,7 +89,7 @@ public class NPCBowAttackGoal<T extends TamableAnimal> extends Goal {
             this.targetSeeingTicker = 0;
         }
         this.targetSeeingTicker = bl ? ++this.targetSeeingTicker : --this.targetSeeingTicker;
-        if (d > (double)this.squaredRange || this.targetSeeingTicker < 20) {
+        if (d > (double) this.squaredRange || this.targetSeeingTicker < 20) {
             this.actor.getNavigation().moveTo(livingEntity, this.speed);
             this.combatTicks = -1;
         } else {
@@ -97,24 +97,24 @@ public class NPCBowAttackGoal<T extends TamableAnimal> extends Goal {
             ++this.combatTicks;
         }
         if (this.combatTicks >= 20) {
-            if ((double)(this.actor).getRandom().nextFloat() < 0.3) {
+            if ((double) (this.actor).getRandom().nextFloat() < 0.3) {
                 boolean bl4 = this.movingToLeft = !this.movingToLeft;
             }
-            if ((double)(this.actor).getRandom().nextFloat() < 0.3) {
+            if ((double) (this.actor).getRandom().nextFloat() < 0.3) {
                 this.backward = !this.backward;
             }
             this.combatTicks = 0;
         }
         if (this.combatTicks > -1) {
-            if (d > (double)(this.squaredRange * 0.75f)) {
+            if (d > (double) (this.squaredRange * 0.75f)) {
                 this.backward = false;
-            } else if (d < (double)(this.squaredRange * 0.25f)) {
+            } else if (d < (double) (this.squaredRange * 0.25f)) {
                 this.backward = true;
             }
             (this.actor).getMoveControl().strafe(this.backward ? -0.5f : 0.5f, this.movingToLeft ? 0.5f : -0.5f);
             Entity entity = (this.actor).getControlledVehicle();
             if (entity instanceof Mob) {
-                Mob mobEntity = (Mob)entity;
+                Mob mobEntity = (Mob) entity;
                 mobEntity.lookAt(livingEntity, 30.0f, 30.0f);
             }
             (this.actor).lookAt(livingEntity, 30.0f, 30.0f);
@@ -128,7 +128,7 @@ public class NPCBowAttackGoal<T extends TamableAnimal> extends Goal {
             } else if (bl && (i = (this.actor).getTicksUsingItem()) >= 20) {
                 NPCInventoryImpl inventory = ((BaseNPCLikeEntity) this.actor).getInventory();
                 ItemStack arrowStack = RangedAttackUtil.getArrowStack(((BaseNPCLikeEntity) this.actor));
-                if (arrowStack==null){
+                if (arrowStack == null) {
                     return;
                 }
 
@@ -145,7 +145,7 @@ public class NPCBowAttackGoal<T extends TamableAnimal> extends Goal {
 //                }
 //                if(!canNext) return;
                 (this.actor).stopUsingItem();
-                ((RangedAttackMob)this.actor).performRangedAttack(livingEntity, BowItem.getPowerForTime(i));
+                ((RangedAttackMob) this.actor).performRangedAttack(livingEntity, BowItem.getPowerForTime(i));
                 this.cooldown = this.attackInterval;
             }
         } else if (--this.cooldown <= 0 && this.targetSeeingTicker >= -60) {

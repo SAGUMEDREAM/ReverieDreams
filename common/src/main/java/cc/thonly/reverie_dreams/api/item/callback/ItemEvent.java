@@ -47,6 +47,20 @@ public interface ItemEvent {
                 }
             }
     );
+    Event<FoodPropertyItemUseCallback> FOOD_PROPERTY_USE = EventFactory.of(
+            listeners -> (world, user, stack, property) -> {
+                for (FoodPropertyItemUseCallback listener : listeners) {
+                    listener.onUse(world, user, stack, property);
+                }
+            }
+    );
+    Event<BeveragePropertyItemUseCallback> BEVERAGE_PROPERTY_USE = EventFactory.of(
+            listeners -> (world, user, stack, property, effects, negativeEffects) -> {
+                for (BeveragePropertyItemUseCallback listener : listeners) {
+                    listener.onUse(world, user, stack, property, effects, negativeEffects);
+                }
+            }
+    );
 
     @FunctionalInterface
     interface ItemAttackHit {

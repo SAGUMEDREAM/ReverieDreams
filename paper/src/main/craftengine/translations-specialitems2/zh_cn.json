@@ -1,0 +1,16 @@
+{
+  "item.reverie_dreams.upgraded_health": "残机",
+  "item.reverie_dreams.bomb": "Bomb",
+  "item.reverie_dreams.cheque": "支票",
+  "item.reverie_dreams.treasure_hunting_rod": "探宝棒",
+  "item.action.click.upgraded_health.max_full": "§c你的最大生命值已超过了%s§c哦",
+  "item.tooltip.cheque.owner": "§f签名：%s",
+  "item.tooltip.cheque.amount": "§f金额：%s",
+  "sound.reverie_dreams.up": "升级",
+  "message.reverie_dreams.treasure_hunting_rod.find": "离目标还有 %s 格，偏移：X=%s, Y=%s, Z=%s，目标：",
+  "message.reverie_dreams.treasure_hunting_rod.not_found": "未在附近找到矿物。",
+  "message.reverie_dreams.treasure_hunting_rod.summary": "最近：%s，距离 %s 格，矿脉 %s 块，周围共 %s 处",
+  "message.reverie_dreams.treasure_hunting_rod.distribution": "矿物分布：%s",
+  "message.reverie_dreams.treasure_hunting_rod.distribution.entry": "%s ×%s",
+  "message.reverie_dreams.treasure_hunting_rod.separator": "，"
+}

@@ -16,35 +16,10 @@ public class MoonSeaBiomeCreator {
             HolderGetter<PlacedFeature> placedFeatureLookup,
             HolderGetter<ConfiguredWorldCarver<?>> configuredCarverLookup
     ) {
-        MobSpawnSettings.Builder mobs = new MobSpawnSettings.Builder();
         BiomeGenerationSettings.Builder generation = new BiomeGenerationSettings.Builder(
                 placedFeatureLookup,
                 configuredCarverLookup
         );
-        return new Biome.BiomeBuilder()
-                .hasPrecipitation(false)
-
-                // 雾颜色
-                .temperature(0.5F)
-                .downfall(0F)
-
-                .specialEffects(
-                        new BiomeSpecialEffects.Builder()
-                                .waterColor(0x303080)
-                                .build()
-                )
-                .setAttribute(EnvironmentAttributes.FOG_COLOR, 0x151020)
-                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, 0x101040)
-                .setAttribute(EnvironmentAttributes.SKY_COLOR, 0x000000)
-                .setAttribute(EnvironmentAttributes.AMBIENT_SOUNDS, AmbientSounds.LEGACY_CAVE_SETTINGS)
-                .mobSpawnSettings(
-                        mobs.build()
-                )
-
-                .generationSettings(
-                        generation.build()
-                )
-
-                .build();
+        return TheMoonBiomeCreator.createMoonBiome(generation, false, false, true);
     }
 }

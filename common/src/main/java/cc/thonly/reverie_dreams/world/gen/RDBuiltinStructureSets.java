@@ -27,6 +27,8 @@ public class RDBuiltinStructureSets {
 
     public static final ResourceKey<StructureSet> MOON_STRUCTURES = getOrCreateRegistryKey("moon_structures");
 
+    public static final ResourceKey<StructureSet> ABANDONED_SMALL_SPACESHIP = getOrCreateRegistryKey("abandoned_small_spaceship");
+
     public static void init() {
 
     }
@@ -48,6 +50,7 @@ public class RDBuiltinStructureSets {
         Holder.Reference<Structure> patio = structureLookup.getOrThrow(RDBuiltinStructures.PATIO);
         Holder.Reference<Structure> quarantine_pool = structureLookup.getOrThrow(RDBuiltinStructures.QUARANTINE_POOL);
         Holder.Reference<Structure> signal_tower = structureLookup.getOrThrow(RDBuiltinStructures.SIGNAL_TOWER);
+        Holder.Reference<Structure> abandonedSmallSpaceship = structureLookup.getOrThrow(RDBuiltinStructures.ABANDONED_SMALL_SPACESHIP);
 
         context.register(ABANDONED_ALTAR,
                 new StructureSet(abandonedAltarStructure,
@@ -90,6 +93,9 @@ public class RDBuiltinStructureSets {
                         new RandomSpreadStructurePlacement(50, 40, RandomSpreadType.LINEAR, 123456789)
                 )
         );
+        context.register(ABANDONED_SMALL_SPACESHIP,
+                new StructureSet(abandonedSmallSpaceship,
+                        new RandomSpreadStructurePlacement(80, 20, RandomSpreadType.LINEAR, 20261109)));
     }
 
     public static Holder.Reference<StructureSet> register(BootstrapContext<StructureSet> registry, ResourceKey<StructureSet> registryKey, StructureSet structureSet) {

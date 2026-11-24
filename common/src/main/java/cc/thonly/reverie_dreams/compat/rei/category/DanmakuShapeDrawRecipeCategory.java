@@ -15,6 +15,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class DanmakuShapeDrawRecipeCategory implements DisplayCategory<DanmakuShapeDrawDisplay> {
     @Override
@@ -33,7 +34,7 @@ public class DanmakuShapeDrawRecipeCategory implements DisplayCategory<DanmakuSh
         int xOffset = startX + (bounds.getWidth() - width) / 2;
         int yOffset = startY + (bounds.getHeight() - height) / 2;
 
-        List<Widget> widgets = new java.util.ArrayList<>();
+        List<Widget> widgets = new ArrayList<>();
 
         widgets.add(Widgets.createRecipeBase(bounds));
 

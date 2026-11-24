@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SRS",
+    "SRS"
+  ],
+  "key": {
+    "S": "minecraft:stick",
+    "R": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "reverie_dreams:vermilion_railing",
+    "count": 4
+  }
+}

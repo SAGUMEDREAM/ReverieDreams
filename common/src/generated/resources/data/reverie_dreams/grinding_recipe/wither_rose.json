@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:wither_rose",
+  "output": {
+    "id": "minecraft:black_dye",
+    "count": 2
+  },
+  "work": 8
+}

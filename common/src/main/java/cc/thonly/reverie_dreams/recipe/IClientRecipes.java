@@ -2,8 +2,6 @@ package cc.thonly.reverie_dreams.recipe;
 
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
-import cc.thonly.reverie_dreams.util.LazyList;
-import cc.thonly.reverie_dreams.util.network.MCThreadHelper;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

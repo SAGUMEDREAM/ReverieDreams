@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 @Slf4j
 public class ItemStackCheckUtils {
     private static final Gson GSON = new Gson();
+
     public static void test() {
         if (!PlatformContext.isFabric()) {
             return;

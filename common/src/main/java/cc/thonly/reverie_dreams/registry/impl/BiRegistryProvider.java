@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 @SuppressWarnings("unchecked")
-public class BiRegistryProvider<K, V> implements Serializable {
+public class BiRegistryProvider<K, V> implements Serializable, cc.thonly.reverie_dreams.api.registry.BiRegistryProvider<K, V> {
     @Getter
     private final Identifier key;
     @Setter

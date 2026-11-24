@@ -1,0 +1,28 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/large_bamboo/shoot_0"
+      },
+      "when": {
+        "age": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/large_bamboo/shoot_1"
+      },
+      "when": {
+        "age": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/large_bamboo/shoot_2"
+      },
+      "when": {
+        "age": "2"
+      }
+    }
+  ]
+}

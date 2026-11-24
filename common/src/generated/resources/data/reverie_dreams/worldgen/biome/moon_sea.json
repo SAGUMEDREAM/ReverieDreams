@@ -8,14 +8,26 @@
         "tick_delay": 6000
       }
     },
-    "minecraft:visual/fog_color": "#151020",
+    "minecraft:visual/ambient_particles": [
+      {
+        "particle": {
+          "type": "minecraft:white_ash"
+        },
+        "probability": 0.001
+      }
+    ],
+    "minecraft:visual/fog_color": "#303030",
     "minecraft:visual/sky_color": "#000000",
-    "minecraft:visual/water_fog_color": "#101040"
+    "minecraft:visual/sky_light_factor": 0.5,
+    "minecraft:visual/water_fog_color": "#153148"
   },
   "carvers": [],
-  "downfall": 0.0,
+  "creature_spawn_probability": 0.07,
+  "downfall": 0.5,
   "effects": {
-    "water_color": "#303080"
+    "foliage_color": "#ffffff",
+    "grass_color": "#696969",
+    "water_color": "#405a88"
   },
   "features": [],
   "has_precipitation": false,

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right",
+  "textures": {
+    "bottom": "reverie_dreams:block/ginkgo_door_bottom",
+    "top": "reverie_dreams:block/ginkgo_door_top"
+  }
+}

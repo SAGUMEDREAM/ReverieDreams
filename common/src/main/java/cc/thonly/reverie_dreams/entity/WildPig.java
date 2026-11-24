@@ -9,6 +9,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.pig.Pig;
@@ -16,11 +18,16 @@ import net.minecraft.world.entity.animal.pig.PigVariant;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
 
 public class WildPig extends Pig {
+    private static final String NATURAL_SPAWN = "NaturalWildPigSpawn";
     public static final ResourceKey<PigVariant> VARIANT = ResourceKey.create(Registries.PIG_VARIANT, ReverieDreams.id("wild_pig"));
+    private boolean naturalSpawn;
     public WildPig(EntityType<? extends Pig> entityType, Level world) {
         super(entityType, world);
     }
@@ -47,6 +54,31 @@ public class WildPig extends Pig {
     @Nullable
     public WildPig getBreedOffspring(@NonNull ServerLevel serverWorld, @NonNull AgeableMob passiveEntity) {
         return RDEntityTypes.WILD_PIG.value().create(serverWorld, EntitySpawnReason.BREEDING);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason,
+                                        @Nullable SpawnGroupData groupData) {
+        this.naturalSpawn = reason == EntitySpawnReason.NATURAL || reason == EntitySpawnReason.CHUNK_GENERATION;
+        return super.finalizeSpawn(level, difficulty, reason, groupData);
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distanceSquared) {
+        return this.naturalSpawn && !this.hasCustomName() && !this.isLeashed()
+                && !this.isPersistenceRequired() && !this.isPassenger() && !this.isVehicle();
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.naturalSpawn = input.getBooleanOr(NATURAL_SPAWN, true);
+    }
+
+    @Override
+    public void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putBoolean(NATURAL_SPAWN, this.naturalSpawn);
     }
 
 

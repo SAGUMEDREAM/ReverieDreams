@@ -1,0 +1,141 @@
+{
+  "parent": "reverie_dreams:block/go_board",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        4.7896,
+        2.7652
+      ],
+      "scale": [
+        0.7374,
+        0.7374,
+        0.7374
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        3.4191,
+        0
+      ],
+      "scale": [
+        0.4571,
+        0.4571,
+        0.4571
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        3.4191,
+        0
+      ],
+      "scale": [
+        0.4571,
+        0.4571,
+        0.4571
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        3.332,
+        3.105
+      ],
+      "scale": [
+        0.4286,
+        0.4286,
+        0.4286
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        3.332,
+        3.105
+      ],
+      "scale": [
+        0.4286,
+        0.4286,
+        0.4286
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3.2856,
+        0
+      ],
+      "scale": [
+        0.2857,
+        0.2857,
+        0.2857
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        4.2741,
+        0
+      ],
+      "scale": [
+        0.5714,
+        0.5714,
+        0.5714
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        3.4288,
+        0
+      ],
+      "scale": [
+        0.4286,
+        0.4286,
+        0.4286
+      ]
+    }
+  }
+}

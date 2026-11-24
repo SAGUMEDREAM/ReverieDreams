@@ -12,20 +12,20 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 import java.util.Map;
 
 public interface DreamArmorMaterial {
-    int BASE_DURABILITY = 18;
+    int BASE_DURABILITY = 33;
     ResourceKey<EquipmentAsset> REGISTRY_KEY = ResourceKey.create(EquipmentAssets.ROOT_ID, ReverieDreams.id("dream"));
 
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
                     ArmorType.HELMET, 3,
-                    ArmorType.CHESTPLATE, 6,
-                    ArmorType.LEGGINGS, 5,
+                    ArmorType.CHESTPLATE, 8,
+                    ArmorType.LEGGINGS, 6,
                     ArmorType.BOOTS, 3
             ),
-            5,
+            16,
             SoundEvents.ARMOR_EQUIP_IRON,
-            0.0F,
+            3.0F,
             0.0F,
             RDItemTags.DREAM_TOOL_MATERIALS,
             REGISTRY_KEY

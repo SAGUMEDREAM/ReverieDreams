@@ -1,6 +1,9 @@
 package cc.thonly.reverie_dreams.client.renderer.entity;
 
+import cc.thonly.reverie_dreams.entity.HumanEntity;
+
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.client.renderer.entity.layer.NPCItemInHandLayer;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
@@ -53,7 +56,7 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
                         context.getEquipmentRenderer()
                 )
         );
-        this.addLayer(new PlayerItemInHandLayer<>(this));
+        this.addLayer(new NPCItemInHandLayer(this));
         this.addLayer(new ArrowLayer<>(this, context));
         this.addLayer(new Deadmau5EarsLayer(this, context.getModelSet()));
         this.addLayer(new CapeLayer(this, context.getModelSet(), context.getEquipmentAssets()));
@@ -207,7 +210,9 @@ public class BaseNPCLikeEntityRenderer<NPCEntity extends BaseNPCLikeEntity> exte
         if (skinType == null) {
             skinType = MobSkinTypes.DEFAULT;
         }
-        Identifier skinTypeTexture = skinType.getTexture();
+        Identifier skinTypeTexture = entity instanceof HumanEntity && skinType == MobSkinTypes.DEFAULT
+                ? Identifier.withDefaultNamespace("entity/player/wide/steve")
+                : skinType.getTexture();
         if (skinTypeTexture == null) {
             skinTypeTexture = ReverieDreams.id("entity/player/skin/default.png");
         }

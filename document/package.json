@@ -1,0 +1,20 @@
+{
+  "name": "document",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-wiki.mjs",
+    "sync:altar": "node scripts/sync-altar.mjs",
+    "sync:runtime": "node scripts/export-runtime.mjs",
+    "docs:dev": "node scripts/sync-wiki.mjs && vitepress dev docs --host 127.0.0.1",
+    "docs:build": "node scripts/sync-wiki.mjs && vitepress build docs",
+    "docs:preview": "vitepress preview docs --host 127.0.0.1",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.5.0",
+    "vue": "^3.5.0"
+  }
+}

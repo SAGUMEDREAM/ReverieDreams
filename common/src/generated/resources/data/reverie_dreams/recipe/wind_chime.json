@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " I ",
+    "GAG",
+    " P "
+  ],
+  "key": {
+    "I": "minecraft:iron_nugget",
+    "G": "minecraft:glass",
+    "A": "minecraft:amethyst_shard",
+    "P": "minecraft:paper"
+  },
+  "result": {
+    "id": "reverie_dreams:wind_chime",
+    "count": 1
+  }
+}

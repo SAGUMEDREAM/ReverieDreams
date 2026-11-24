@@ -10,6 +10,7 @@ import java.util.Set;
 
 public class RDFabricMixinPlugin implements IMixinConfigPlugin {
     private static final String MORPHER = "sparkle_morpher";
+    private static final String FOX = "foxmodelloader";
     public static final List<String> YSM_TARGET = List.of(
             "cc.thonly.reverie_dreams.fabric.mixin.client.BaseNPCLikeEntityRendererMixin",
             "cc.thonly.reverie_dreams.fabric.mixin.client.BaseNPCLikeEntityMixin");
@@ -28,8 +29,14 @@ public class RDFabricMixinPlugin implements IMixinConfigPlugin {
             String targetClassName,
             String mixinClassName
     ) {
+        if (mixinClassName.endsWith(".DhInternalServerTicketMixin")) {
+            var loader = FabricLoader.getInstance();
+            return loader.isModLoaded("c2me") && loader.getModContainer("distanthorizons")
+                    .filter(mod -> mod.getMetadata().getVersion().getFriendlyString().equals("3.3.3"))
+                    .isPresent();
+        }
         if (YSM_TARGET.stream().anyMatch(mixinClassName::equals)) {
-            return FabricLoader.getInstance().isModLoaded(MORPHER);
+            return FabricLoader.getInstance().isModLoaded(MORPHER) != FabricLoader.getInstance().isModLoaded(FOX);
         }
 
         return true;

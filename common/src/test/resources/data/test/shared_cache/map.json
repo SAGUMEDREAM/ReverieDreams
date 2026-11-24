@@ -1,0 +1,17 @@
+{
+  "format_version": 1,
+  "map_version": 1,
+  "id": "test:shared_cache",
+  "width": 2,
+  "depth": 2,
+  "origin": [0, 0],
+  "min_y": 0,
+  "world_height": 1536,
+  "sea_level": 4,
+  "dirt_depth": 0,
+  "spawn": {"pos": [0, 5, 0]},
+  "biome_palette": ["minecraft:plains"],
+  "surface_palette": ["minecraft:stone"],
+  "anchors": [],
+  "layers": {"heightmap": "heightmap.bin", "biomes": "biomes.bin", "surfaces": "surfaces.bin"}
+}

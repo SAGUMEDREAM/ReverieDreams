@@ -28,7 +28,7 @@ public class RDCropBlocks {
             .setFactory(GrapeCropBlock::new)
             .setMaxAge(5)
             .setGain(RDIngredientItems.GRAPE)
-            .setModelType(CropBlockBundle.ModelType.CROP)
+            .setModelType(CropBlockBundle.ModelType.CROSS)
             .build();
     public static CropBlockBundle.Entry ONION = CropBlockBundle
             .create(ReverieDreams.id("onion"))
@@ -83,11 +83,20 @@ public class RDCropBlocks {
             .create(ReverieDreams.id("soy_beans"))
             .setFactory(RedBeansCropBlock::new)
             .setMaxAge(4)
-            .self()
+            .setGain(RDIngredientItems.SOYBEAN)
             .setModelType(CropBlockBundle.ModelType.CROSS)
+            .build();
+    public static CropBlockBundle.Entry RICE = CropBlockBundle
+            .create(ReverieDreams.id("rice"))
+            .setFactory(RiceCropBlock::new)
+            .setMaxAge(4)
+            .setGain(RDIngredientItems.RICE)
+            .setModelType(CropBlockBundle.ModelType.CROP)
             .build();
     public static final List<CropBlockBundle.Entry> CHEST_DROPS = new ArrayList<>();
     public static final List<CropBlockBundle.Entry> GRASS_DROPS = new ArrayList<>();
+    // 稀有自然种子：无常规草丛掉落的作物，走低概率独立池兜底
+    public static final List<CropBlockBundle.Entry> RARE_GRASS_DROPS = new ArrayList<>();
 
     public static void initialize() {
         CHEST_DROPS.clear();
@@ -97,7 +106,12 @@ public class RDCropBlocks {
 
         GRASS_DROPS.clear();
         GRASS_DROPS.addAll(List.of(
-                TOMATO, RED_BEANS, ONION, CUCUMBER, CHILL, BROCCOLI, SOY_BEANS
+                TOMATO, RED_BEANS, ONION, CUCUMBER, CHILL, BROCCOLI, SOY_BEANS, RICE
+        ));
+
+        RARE_GRASS_DROPS.clear();
+        RARE_GRASS_DROPS.addAll(List.of(
+                SWEET_POTATO, WHITE_RADISH, TOON, GRAPE
         ));
     }
 }

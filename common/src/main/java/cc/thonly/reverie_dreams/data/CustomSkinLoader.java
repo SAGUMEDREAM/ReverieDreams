@@ -36,17 +36,17 @@ public class CustomSkinLoader {
                 Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
                 DataResult<CustomSkinConfig> result = CustomSkinConfig.CODEC.parse(input);
                 result.resultOrPartial(error -> ReverieDreams.LOGGER.warn("Failed to parse tags for {}: {}", resourceId, error))
-                      .ifPresent(config -> {
-                          SkinType value = config.value();
-                          RegistryProvider<CustomType> registry = BuiltInRegistryProviders.CUSTOM_SKIN_TYPE;
-                          ResourceKey<CustomType> key = registry.createKey(value.getId());
-                          if (registry.containsKey(key)) {
-                              registry.unregister(key);
-                          }
-                          if (value instanceof CustomType customType) {
-                              registry.register(key, customType, RegistrationInfo.BUILT_IN);
-                          }
-                      });
+                        .ifPresent(config -> {
+                            SkinType value = config.value();
+                            RegistryProvider<CustomType> registry = BuiltInRegistryProviders.CUSTOM_SKIN_TYPE;
+                            ResourceKey<CustomType> key = registry.createKey(value.getId());
+                            if (registry.containsKey(key)) {
+                                registry.unregister(key);
+                            }
+                            if (value instanceof CustomType customType) {
+                                registry.register(key, customType, RegistrationInfo.BUILT_IN);
+                            }
+                        });
             } catch (Exception e) {
                 ReverieDreams.LOGGER.error("Failed to load custom_skin_config {}: {}", resourceId, e.getMessage(), e);
             }

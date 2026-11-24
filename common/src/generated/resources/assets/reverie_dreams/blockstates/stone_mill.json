@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "reverie_dreams:block/set2/stone_mill"
+    },
+    "facing=east": {
+      "model": "reverie_dreams:block/set2/stone_mill",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/set2/stone_mill",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/set2/stone_mill",
+      "y": 270
+    }
+  }
+}

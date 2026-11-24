@@ -1,0 +1,174 @@
+# Simple source Block classes: black salt is intentionally not FallingBlock.
+items:
+  reverie_dreams:black_salt_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.black_salt_block>
+    model: reverie_dreams:block/black_salt_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:black_salt_block
+  reverie_dreams:point_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.point_block>
+    model: reverie_dreams:block/point_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:point_block
+  reverie_dreams:power_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.power_block>
+    model: reverie_dreams:block/power_block
+    settings:
+      anvil_repair_item:
+      - target: [reverie_dreams:sunflower]
+        percent: 0.25
+    behavior:
+      type: block_item
+      block: reverie_dreams:power_block
+  reverie_dreams:dream_world_red_line_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.dream_world_red_line_block>
+    model: reverie_dreams:block/dream_world_red_line_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:dream_world_red_line_block
+  reverie_dreams:dream_world_blue_line_block:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.dream_world_blue_line_block>
+    model: reverie_dreams:block/dream_world_blue_line_block
+    behavior:
+      type: block_item
+      block: reverie_dreams:dream_world_blue_line_block
+blocks:
+  reverie_dreams:black_salt_block:
+    settings:
+      item: reverie_dreams:black_salt_block
+      hardness: 0.5
+      resistance: 0.5
+      sounds:
+        break: minecraft:block.sand.break
+        fall: minecraft:block.sand.fall
+        hit: minecraft:block.sand.hit
+        place: minecraft:block.sand.place
+        step: minecraft:block.sand.step
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/black_salt_block
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:black_salt_block
+  reverie_dreams:point_block:
+    settings:
+      item: reverie_dreams:point_block
+      hardness: 1.5
+      resistance: 6
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+      tags:
+      - minecraft:mineable/hoe
+      correct_tools:
+      - '#minecraft:hoes'
+      required_break_power: 0
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/point_block
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:point_block
+  reverie_dreams:power_block:
+    settings:
+      item: reverie_dreams:power_block
+      hardness: 1.5
+      resistance: 6
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+      tags:
+      - minecraft:mineable/hoe
+      correct_tools:
+      - '#minecraft:hoes'
+      required_break_power: 0
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/power_block
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:power_block
+  reverie_dreams:dream_world_red_line_block:
+    settings:
+      item: reverie_dreams:dream_world_red_line_block
+      hardness: -1
+      resistance: 3600000
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+      push_reaction: block
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/dream_world_red_line_block
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:dream_world_red_line_block
+  reverie_dreams:dream_world_blue_line_block:
+    settings:
+      item: reverie_dreams:dream_world_blue_line_block
+      hardness: -1
+      resistance: 3600000
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+      push_reaction: block
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/dream_world_blue_line_block
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:dream_world_blue_line_block

@@ -9,7 +9,7 @@ import net.minecraft.network.codec.StreamCodec;
 
 import java.util.Random;
 
-public record CustomerBudget(int min, int max)  {
+public record CustomerBudget(int min, int max) {
     private static final Random rand = new Random();
     public static final Codec<CustomerBudget> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(

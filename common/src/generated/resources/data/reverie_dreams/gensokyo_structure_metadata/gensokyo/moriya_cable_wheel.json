@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "content_version": 1,
+  "actors_version": 1,
+  "content_sha256": "53f7470b2660966161f61d2a822e4783579937483f95a307d8f901559c665644",
+  "source_sha256": "7e1621709c3d35bc6284fbd121ba09633775b306799492035eda6caabe9a3557",
+  "size": [
+    9,
+    9,
+    9
+  ],
+  "template_sha256": "ddf68b2529dd86604a2fb26ad5847f71de37612a4550a04c4e6ca32a0761102c"
+}

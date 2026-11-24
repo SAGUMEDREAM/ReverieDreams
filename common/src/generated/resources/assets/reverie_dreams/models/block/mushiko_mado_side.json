@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_bars_side",
+  "textures": {
+    "bars": "reverie_dreams:block/mushiko_mado",
+    "edge": "reverie_dreams:block/mushiko_mado"
+  }
+}

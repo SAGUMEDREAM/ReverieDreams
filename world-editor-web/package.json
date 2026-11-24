@@ -1,0 +1,11 @@
+{
+  "name": "world-editor-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only web editor for the fixed Gensokyo map JSON",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  }
+}

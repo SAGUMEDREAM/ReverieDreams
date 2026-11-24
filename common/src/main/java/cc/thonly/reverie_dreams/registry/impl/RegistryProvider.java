@@ -1,9 +1,12 @@
 package cc.thonly.reverie_dreams.registry.impl;
 
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryExtension;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.mixin.accessor.HolderReferenceAccessor;
 import cc.thonly.reverie_dreams.mixin.accessor.NamedAccessor;
 import cc.thonly.reverie_dreams.proxy.PlatformProxies;
-import cc.thonly.reverie_dreams.proxy.RegistryProviderShadowerFactory;
+import cc.thonly.reverie_dreams.api.proxy.RegistryProviderShadowerFactory;
 import cc.thonly.reverie_dreams.registry.*;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
@@ -31,7 +34,7 @@ import java.util.stream.Stream;
 
 @Slf4j
 @SuppressWarnings({"deprecation", "NullableProblems", "unchecked"})
-public abstract class RegistryProvider<T> implements WritableRegistry<T>, RegistryExtension<T>, HolderLookup.RegistryLookup<T> {
+public abstract class RegistryProvider<T> implements WritableRegistry<T>, RegistryExtension<T>, HolderLookup.RegistryLookup<T>, RegistryProviderLookup<T> {
     private final ResourceKey<? extends Registry<T>> key;
     private final Map<Identifier, Holder.Reference<T>> idToEntry;
     private final Map<ResourceKey<T>, Holder.Reference<T>> keyToEntry;
@@ -436,6 +439,7 @@ public abstract class RegistryProvider<T> implements WritableRegistry<T>, Regist
         return entry.value();
     }
 
+    /** Vanilla-compatible lookup; a miss can resolve to the registry's configured default. */
     @Override
     public @Nullable T getValue(@Nullable Identifier id) {
         if (id == null) {
@@ -448,6 +452,10 @@ public abstract class RegistryProvider<T> implements WritableRegistry<T>, Regist
         return this.getAny().map(Holder::value).orElse(null);
     }
 
+    /** Returns the requested value or the configured default, if either is registered. */
+    public @Nullable T getValueOrDefault(@Nullable Identifier id) {
+        return this.getValue(id);
+    }
 
     @Override
     public Optional<RegistrationInfo> registrationInfo(ResourceKey<T> key) {
@@ -536,7 +544,7 @@ public abstract class RegistryProvider<T> implements WritableRegistry<T>, Regist
 
     @Override
     public Stream<HolderSet.Named<T>> getTags() {
-        return Stream.empty();
+        return this.tags.values().stream();
     }
 
     @Override

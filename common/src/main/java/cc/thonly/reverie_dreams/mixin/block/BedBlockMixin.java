@@ -29,12 +29,12 @@ public abstract class BedBlockMixin extends HorizontalDirectionalBlock implement
     @Inject(method = "useWithoutItem", at = @At("HEAD"))
     public void onUse(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
         if (state.getValue(BedBlock.OCCUPIED)) {
-            this.wakeNpc(world, pos);
+            this.wakeNPC(world, pos);
         }
     }
 
     @Unique
-    public boolean wakeNpc(Level world, BlockPos pos) {
+    public boolean wakeNPC(Level world, BlockPos pos) {
         List<BaseNPCLikeEntity> list = world.getEntitiesOfClass(BaseNPCLikeEntity.class, new AABB(pos), LivingEntity::isSleeping);
         if (list.isEmpty()) {
             return false;

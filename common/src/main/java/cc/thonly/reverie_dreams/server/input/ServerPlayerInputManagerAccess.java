@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.server.input;
 
 
 import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
-import cc.thonly.reverie_dreams.server.InputKey;
+import cc.thonly.reverie_dreams.api.player.InputKey;
 import cc.thonly.reverie_dreams.util.SimplePair;
 import lombok.Getter;
 import net.minecraft.network.protocol.Packet;

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "reverie_dreams:block/chochin"
+    },
+    "hanging=true": {
+      "model": "reverie_dreams:block/chochin_hanging"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "feature": "reverie_dreams:dream_archipelago",
+  "placement": [
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

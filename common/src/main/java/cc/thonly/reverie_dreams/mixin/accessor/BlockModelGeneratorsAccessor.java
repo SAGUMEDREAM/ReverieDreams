@@ -3,8 +3,10 @@ package cc.thonly.reverie_dreams.mixin.accessor;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.renderer.block.dispatch.VariantMutator;
+import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(BlockModelGenerators.class)
 public interface BlockModelGeneratorsAccessor {
@@ -33,4 +35,7 @@ public interface BlockModelGeneratorsAccessor {
     static PropertyDispatch<VariantMutator> getRotationHorizontalFacing() {
         throw new AssertionError();
     }
+
+    @Invoker("createLeafLitter")
+    void callCreateLeafLitter(Block block);
 }

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.item;
 
 import cc.thonly.reverie_dreams.mixin.accessor.HolderSetDirectAccessor;
 import cc.thonly.reverie_dreams.util.CodecMerger;
-import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"ALL","deprecation"})
+@SuppressWarnings({"ALL", "deprecation"})
 public class IngredientStackSet implements Collection<IngredientStack>,
         Predicate<IngredientStack>,
         RandomAccess {

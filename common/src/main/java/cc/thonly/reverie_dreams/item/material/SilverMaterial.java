@@ -5,6 +5,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ToolMaterial;
 
 public interface SilverMaterial {
-    ToolMaterial INSTANCE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0f, 2.0f, 14, RDItemTags.SILVER_TOOL_MATERIALS);
+    ToolMaterial INSTANCE = new ToolMaterial(BlockTags.INCORRECT_FOR_IRON_TOOL, 240, 6.0f, 1.5f, 18, RDItemTags.SILVER_TOOL_MATERIALS);
 
 }

@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 @SuppressWarnings("unchecked")
 @ToString
@@ -172,7 +174,7 @@ public class VariableObject<T> {
         return predicate.test(value);
     }
 
-    public <R> R map(java.util.function.Function<T, R> mapper) {
+    public <R> R map(Function<T, R> mapper) {
         return mapper.apply(value);
     }
 
@@ -186,7 +188,7 @@ public class VariableObject<T> {
         }
     }
 
-    public void apply(java.util.function.Consumer<T> consumer) {
+    public void apply(Consumer<T> consumer) {
         consumer.accept(value);
     }
 

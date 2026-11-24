@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,8 +36,8 @@ public class DialogPlayerManager {
             return;
         }
         String uid = uidOptional.get();
-        for (Map.Entry<String, DialogPlayer> entry : DialogPlayerManager.PLAYER_INSTANCES.entrySet()) {
-            DialogPlayer dialogPlayer = entry.getValue();
+        // remove() 会修改 PLAYER_INSTANCES，必须先复制一份再遍历。
+        for (DialogPlayer dialogPlayer : new ArrayList<>(DialogPlayerManager.PLAYER_INSTANCES.values())) {
             ServerPlayer serverPlayer = dialogPlayer.getPlayer();
             if (!player.equals(serverPlayer)) {
                 continue;
@@ -81,8 +82,8 @@ public class DialogPlayerManager {
     public static synchronized void tick(MinecraftServer server) {
         ServerTickRateManager tickManager = server.tickRateManager();
         if (!tickManager.isFrozen()) {
-            for (Map.Entry<String, DialogPlayer> entry : PLAYER_INSTANCES.entrySet()) {
-                entry.getValue().tick();
+            for (DialogPlayer dialogPlayer : new ArrayList<>(PLAYER_INSTANCES.values())) {
+                dialogPlayer.tick();
             }
         }
     }

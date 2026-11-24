@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:moss_carpet",
+    "reverie_dreams:dream_crystal_fragment"
+  ],
+  "result": {
+    "count": 4,
+    "id": "reverie_dreams:footstep_moss"
+  }
+}

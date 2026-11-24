@@ -1,12 +1,14 @@
 {
   "values": [
-    "reverie_dreams:spiritual_fence",
+    "reverie_dreams:peach_fence",
+    "reverie_dreams:bamboo_fence",
+    "reverie_dreams:itaya_maple_fence",
+    "reverie_dreams:yotsume_gaki",
+    "reverie_dreams:vermilion_railing",
     "reverie_dreams:lemon_fence",
     "reverie_dreams:ginkgo_fence",
-    "reverie_dreams:peach_fence",
     "reverie_dreams:spiritual_fence",
-    "reverie_dreams:peach_fence",
-    "reverie_dreams:ginkgo_fence",
-    "reverie_dreams:lemon_fence"
+    "reverie_dreams:hauchiwa_maple_fence",
+    "reverie_dreams:iroha_maple_fence"
   ]
 }

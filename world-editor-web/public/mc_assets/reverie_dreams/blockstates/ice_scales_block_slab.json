@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "reverie_dreams:block/ice_scales_block_slab"
+    },
+    "type=double": {
+      "model": "reverie_dreams:block/ice_scales_block"
+    },
+    "type=top": {
+      "model": "reverie_dreams:block/ice_scales_block_slab_top"
+    }
+  }
+}

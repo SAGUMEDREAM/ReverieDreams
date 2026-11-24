@@ -217,7 +217,7 @@ public class NPCGui extends SimpleGui implements GuiCommon {
                                         ReverieDreams.id("reverie_dreams")
                                 ))))
                 .append(Component.translatable("space.-168"))
-                .append(this.getRoleName()));
+                .append(this.getRoleName().copy().withStyle(ChatFormatting.WHITE)));
     }
 
     private void updateMenus() {
@@ -381,14 +381,14 @@ public class NPCGui extends SimpleGui implements GuiCommon {
     }
 
     @Override
-    public void onOpen() {
-        super.onOpen();
+    public void afterOpen() {
+        super.afterOpen();
         this.npc.setPaused(true);
     }
 
     @Override
-    public void onPlayerClose(boolean success) {
-        super.onPlayerClose(success);
+    public void onRemoved() {
+        super.onRemoved();
         this.npc.setPaused(false);
     }
 

@@ -58,7 +58,7 @@ public class FruitLeavesImpl implements PolymerBlock, PolymerTexturedBlock, Fact
         public Model(ServerLevel world, BlockPos blockPos, BlockState state) {
             this.world = world;
             this.blockPos = blockPos;
-            this.empty = FruitLeavesImpl.this.full.getEmptyLeavesBlock().asBlock();
+            this.empty = FruitLeavesImpl.this.full.getEmptyLeavesBlock();
             this.state = state;
             Identifier identifier = BuiltInRegistries.BLOCK.getKey(FruitLeavesImpl.this.full);
             Identifier emptyId = BuiltInRegistries.BLOCK.getKey(this.empty);

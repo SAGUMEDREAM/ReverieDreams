@@ -38,19 +38,22 @@ public class ColoredSpawnEggItem extends SpawnEggItem {
     private long color = -1;
 
     public ColoredSpawnEggItem(String name, EntityType<? extends Mob> type, Properties settings) {
-        super(settings.component(DataComponents.ENTITY_DATA, TypedEntityData.of(type, new CompoundTag()))
-                .setId(ResourceKey.create(Registries.ITEM, ReverieDreams.id(name)))
-                .component(DataComponents.DYED_COLOR, DEFAULT_COLOR)
-        );
-        this.itemId = ReverieDreams.id(name);
-        this.itemKey = ResourceKey.create(Registries.ITEM, this.itemId);
-        SPAWN_EGGS.add(this);
+        this(ReverieDreams.id(name), type, settings);
+    }
+
+    public ColoredSpawnEggItem(String name, EntityType<? extends Mob> type, Properties settings, int rgb) {
+        this(ReverieDreams.id(name), type, settings, new DyedItemColor(rgb));
+        this.color = rgb == DEFAULT_COLOR.rgb() ? -1 : rgb;
     }
 
     public ColoredSpawnEggItem(Identifier identifier, EntityType<? extends Mob> type, Properties settings) {
+        this(identifier, type, settings, DEFAULT_COLOR);
+    }
+
+    private ColoredSpawnEggItem(Identifier identifier, EntityType<? extends Mob> type, Properties settings, DyedItemColor defaultColor) {
         super(settings.component(DataComponents.ENTITY_DATA, TypedEntityData.of(type, new CompoundTag()))
                 .setId(ResourceKey.create(Registries.ITEM, identifier))
-                .component(DataComponents.DYED_COLOR, DEFAULT_COLOR)
+                .component(DataComponents.DYED_COLOR, defaultColor)
         );
         this.itemId = identifier;
         this.itemKey = ResourceKey.create(Registries.ITEM, this.itemId);

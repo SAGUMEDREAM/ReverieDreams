@@ -11,7 +11,8 @@ import java.util.*;
  * Requires only the Java standard library (javax.sound.midi).
  */
 public final class Midi2Nbs {
-    private Midi2Nbs() {}
+    private Midi2Nbs() {
+    }
 
     public static final int NOTE_POS_MULTIPLIER = 18;
     public static final int TRAILING_NOTE_STEREO_PAN = 50;
@@ -33,7 +34,8 @@ public final class Midi2Nbs {
         public boolean importPanning = true;
         public boolean importPitches = true;
 
-        public Options() {}
+        public Options() {
+        }
     }
 
     public static final class NbsSong {
@@ -149,6 +151,7 @@ public final class Midi2Nbs {
         Layer(String name, boolean lock, int volume) {
             this(name, lock, volume, 0);
         }
+
         Layer(String name, boolean lock, int volume, int pan) {
             this.name = name == null ? "" : name;
             this.lock = lock;
@@ -176,27 +179,43 @@ public final class Midi2Nbs {
             this.pitch = pitch;
         }
 
-        boolean isPerc() { return PERC_INSTS.contains(inst); }
+        boolean isPerc() {
+            return PERC_INSTS.contains(inst);
+        }
     }
 
     private static final class MidiNoteKey {
         final int note;
         final int channel;
-        MidiNoteKey(int note, int channel) { this.note = note; this.channel = channel; }
-        @Override public boolean equals(Object o) {
-            if (!(o instanceof MidiNoteKey)) return false;
-            MidiNoteKey k = (MidiNoteKey)o;
+
+        MidiNoteKey(int note, int channel) {
+            this.note = note;
+            this.channel = channel;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (!(o instanceof MidiNoteKey))
+                return false;
+            MidiNoteKey k = (MidiNoteKey) o;
             return note == k.note && channel == k.channel;
         }
-        @Override public int hashCode() { return note * 31 + channel; }
+
+        @Override
+        public int hashCode() {
+            return note * 31 + channel;
+        }
     }
 
     private static final class Change {
         final long tick;
         Integer pan;
         Integer pitch;
+
         Change(long tick, Integer pan, Integer pitch) {
-            this.tick = tick; this.pan = pan; this.pitch = pitch;
+            this.tick = tick;
+            this.pan = pan;
+            this.pitch = pitch;
         }
     }
 
@@ -204,34 +223,54 @@ public final class Midi2Nbs {
         final Note note;
         int duration = 1;
         final List<Change> changes = new ArrayList<>();
-        PlayingNote(Note note) { this.note = note; }
+
+        PlayingNote(Note note) {
+            this.note = note;
+        }
     }
 
     private static final class MidiInstrument {
-        final String name; final int nbsInstrument; final int octaveShift; final String shortName;
+        final String name;
+        final int nbsInstrument;
+        final int octaveShift;
+        final String shortName;
+
         MidiInstrument(String name, int nbsInstrument, int octaveShift, String shortName) {
-            this.name=name; this.nbsInstrument=nbsInstrument; this.octaveShift=octaveShift; this.shortName=shortName;
+            this.name = name;
+            this.nbsInstrument = nbsInstrument;
+            this.octaveShift = octaveShift;
+            this.shortName = shortName;
         }
     }
 
     private static final class MidiDrum {
-        final int pitch; final int nbsInstrument; final int nbsPitch;
+        final int pitch;
+        final int nbsInstrument;
+        final int nbsPitch;
+
         MidiDrum(int pitch, int nbsInstrument, int nbsPitch) {
-            this.pitch=pitch; this.nbsInstrument=nbsInstrument; this.nbsPitch=nbsPitch;
+            this.pitch = pitch;
+            this.nbsInstrument = nbsInstrument;
+            this.nbsPitch = nbsPitch;
         }
     }
 
-    /** Converts a MIDI file to NBS. Output parent directories are created automatically. */
+    /**
+     * Converts a MIDI file to NBS. Output parent directories are created automatically.
+     */
     public static NbsSong midi2nbs(Path midiFile, Path nbsFile, Options options) throws Exception {
         Objects.requireNonNull(midiFile, "midiFile");
         Objects.requireNonNull(nbsFile, "nbsFile");
         Objects.requireNonNull(options, "options");
-        if (options.durationSpacing <= 0) throw new IllegalArgumentException("durationSpacing must be > 0");
-        if (options.expandMultiplier < 0) throw new IllegalArgumentException("expandMultiplier must be >= 0");
+        if (options.durationSpacing <= 0)
+            throw new IllegalArgumentException("durationSpacing must be > 0");
+        if (options.expandMultiplier < 0)
+            throw new IllegalArgumentException("expandMultiplier must be >= 0");
 
         Sequence sequence = MidiSystem.getSequence(midiFile.toFile());
         int tpb = sequence.getResolution();
-        if (tpb <= 0) throw new IllegalArgumentException("Invalid MIDI ticks-per-beat: " + tpb);
+        if (tpb <= 0)
+            throw new IllegalArgumentException("Invalid MIDI ticks-per-beat: " + tpb);
 
         final int timeSign = 4;
         double tempo = -1;
@@ -240,7 +279,8 @@ public final class Midi2Nbs {
         List<MidiMessageWithTick> merged = mergeTracks(sequence);
         for (MidiMessageWithTick e : merged) {
             MidiMessage msg = e.message;
-            if (!(msg instanceof MetaMessage)) continue;
+            if (!(msg instanceof MetaMessage))
+                continue;
             MetaMessage meta = (MetaMessage) msg;
             if (meta.getType() == 0x58 && meta.getData().length >= 1) {
                 detectedTimeSign = meta.getData()[0] & 0xFF;
@@ -251,7 +291,8 @@ public final class Midi2Nbs {
                 tempo = 60_000_000.0 / mpqn;
             }
         }
-        if (tempo < 0) tempo = 120.0;
+        if (tempo < 0)
+            tempo = 120.0;
 
         boolean autoExpand = options.expandMultiplier == 0;
         double expandMultiplier = autoExpand ? 1.0 : options.expandMultiplier;
@@ -259,16 +300,19 @@ public final class Midi2Nbs {
             long notePosGcd = -1;
             for (MidiMessageWithTick e : merged) {
                 ShortMessage sm = asShort(e.message);
-                if (sm == null) continue;
+                if (sm == null)
+                    continue;
                 int command = sm.getCommand();
                 if (command == ShortMessage.NOTE_ON && sm.getData2() > 0) {
                     int notePos = pyRound(e.tick * (double) timeSign * NOTE_POS_MULTIPLIER / tpb);
-                    if ((notePos & 1) != 0) notePos++;
+                    if ((notePos & 1) != 0)
+                        notePos++;
                     notePosGcd = notePosGcd == -1 ? notePos : gcd(notePosGcd, notePos);
                 }
             }
             expandMultiplier = notePosGcd > 0 ? (NOTE_POS_MULTIPLIER / (int) notePosGcd) : 1;
-            if (expandMultiplier <= 0) expandMultiplier = 1.0;
+            if (expandMultiplier <= 0)
+                expandMultiplier = 1.0;
         }
 
         NbsSong nbs = new NbsSong();
@@ -286,7 +330,8 @@ public final class Midi2Nbs {
                 ShortMessage sm = asShort(track.get(j).getMessage());
                 if (sm != null && sm.getCommand() == ShortMessage.NOTE_ON) {
                     hasNoteOn = true;
-                    if (sm.getChannel() != 9) percOnly = false;
+                    if (sm.getChannel() != 9)
+                        percOnly = false;
                 }
             }
             emptyTracks[i] = !hasNoteOn;
@@ -296,7 +341,8 @@ public final class Midi2Nbs {
         int baseLayer = -1;
         int ceilingLayer = -1;
         for (int i = 0; i < sequence.getTracks().length; i++) {
-            if (emptyTracks[i]) continue;
+            if (emptyTracks[i])
+                continue;
             Track track = sequence.getTracks()[i];
             long absTime = 0;
             int trackInst = 0;
@@ -304,7 +350,8 @@ public final class Midi2Nbs {
             int trackVel = 100;
             boolean isPerc = percussionTracks[i];
             String trackName = isPerc ? "Percussion" : "";
-            if (isPerc) nbs.layers.add(new Layer(trackName, false, trackVel));
+            if (isPerc)
+                nbs.layers.add(new Layer(trackName, false, trackVel));
 
             int pan = 0;
             int pitch = 0;
@@ -332,7 +379,8 @@ public final class Midi2Nbs {
                 }
 
                 ShortMessage sm = asShort(msg);
-                if (sm == null) continue;
+                if (sm == null)
+                    continue;
 
                 int command = sm.getCommand();
                 int channel = sm.getChannel();
@@ -341,8 +389,9 @@ public final class Midi2Nbs {
 
                 if (command == ShortMessage.NOTE_ON) {
                     KeyInst ki = extractKeyAndInst(data1, channel, trackInst, keyShift);
-                    if (ki == null) continue;
-                    int velocity = options.importVelocities ? (int)(data2 * 100L / 127L) : 100;
+                    if (ki == null)
+                        continue;
+                    int velocity = options.importVelocities ? (int) (data2 * 100L / 127L) : 100;
                     if (data2 > 0 && velocity > 0) {
                         boolean enoughSpace;
                         if (options.importDurations && !PERC_INSTS.contains(ki.inst)) {
@@ -382,7 +431,8 @@ public final class Midi2Nbs {
                 } else if (command == ShortMessage.PROGRAM_CHANGE && !isPerc) {
                     MidiInstrument mi = MIDI_INSTRUMENTS[Math.min(127, data1)];
                     trackInst = mi.nbsInstrument;
-                    if (trackInst == -1) trackInst = 0;
+                    if (trackInst == -1)
+                        trackInst = 0;
                     keyShift = mi.octaveShift * 12;
                     if (trackName.isEmpty()) {
                         trackName = !mi.shortName.isEmpty() ? mi.shortName : mi.name;
@@ -392,18 +442,22 @@ public final class Midi2Nbs {
                     if (options.importPanning && data1 == 10) {
                         pan = (int) interp(data2, 0, 127, -100, 100);
                         for (PlayingNote playing : playingNotes.values()) {
-                            if (playing.note.tick == tick) playing.note.pan = pan;
-                            else playing.changes.add(new Change(tick, pan, null));
+                            if (playing.note.tick == tick)
+                                playing.note.pan = pan;
+                            else
+                                playing.changes.add(new Change(tick, pan, null));
                         }
                     } else if (options.importVelocities && data1 == 7) {
                         trackVel = data2 * 100 / 127;
                     }
                 } else if (options.importPitches && msg instanceof ShortMessage && command == 0xE0) {
                     int bend = (data1 | (data2 << 7)) - 8192;
-                    pitch = (int)(bend / NBS_PITCH_IN_MIDI_PITCHBEND);
+                    pitch = (int) (bend / NBS_PITCH_IN_MIDI_PITCHBEND);
                     for (PlayingNote playing : playingNotes.values()) {
-                        if (playing.note.tick == tick) playing.note.pitch = pitch;
-                        else playing.changes.add(new Change(tick, null, pitch));
+                        if (playing.note.tick == tick)
+                            playing.note.pitch = pitch;
+                        else
+                            playing.changes.add(new Change(tick, null, pitch));
                     }
                 }
 
@@ -443,10 +497,11 @@ public final class Midi2Nbs {
         int pitch = base.pitch;
         for (int index = 1; index < duration; index++) {
             int newTick = endTick - duration + index;
-            if (index % o.durationSpacing != 0) continue;
+            if (index % o.durationSpacing != 0)
+                continue;
             int vel = base.vel;
             if (o.fadeOutTrailingNotes) {
-                vel = (int)(vel * (duration - index) / (double)duration);
+                vel = (int) (vel * (duration - index) / (double) duration);
             } else if (o.percentTrailingVelocities) {
                 vel = base.vel * o.trailingVelocities / 100;
             } else {
@@ -457,25 +512,32 @@ public final class Midi2Nbs {
             Change change = findMidNoteChange(playing.changes, newTick);
             if (o.applyStereo) {
                 pan = base.pan;
-                if (odd) pan = (int)(pan - TRAILING_NOTE_STEREO_PAN * (100 - Math.abs(pan)) / 100.0);
-                else pan = (int)(pan + TRAILING_NOTE_STEREO_PAN * (100 - Math.abs(pan)) / 100.0);
-                if (base.vel > 50) pan = (int)(pan * (1 - (duration - index) / (double)duration));
+                if (odd)
+                    pan = (int) (pan - TRAILING_NOTE_STEREO_PAN * (100 - Math.abs(pan)) / 100.0);
+                else
+                    pan = (int) (pan + TRAILING_NOTE_STEREO_PAN * (100 - Math.abs(pan)) / 100.0);
+                if (base.vel > 50)
+                    pan = (int) (pan * (1 - (duration - index) / (double) duration));
             } else if (change != null && change.pan != null) {
                 pan = change.pan;
             }
             pan = clamp(pan, -100, 100);
-            if (change != null && change.pitch != null) pitch = change.pitch;
+            if (change != null && change.pitch != null)
+                pitch = change.pitch;
             odd = !odd;
-            if (vel > 1) result.add(new Note(newTick, base.layer, base.inst, base.key, vel, pan, pitch));
+            if (vel > 1)
+                result.add(new Note(newTick, base.layer, base.inst, base.key, vel, pan, pitch));
         }
         return result;
     }
 
     private static Change findMidNoteChange(List<Change> changes, long tick) {
-        if (changes.isEmpty() || tick < changes.get(0).tick) return null;
+        if (changes.isEmpty() || tick < changes.get(0).tick)
+            return null;
         for (int i = 0; i < changes.size() - 1; i++) {
             Change c = changes.get(i), next = changes.get(i + 1);
-            if (c.tick <= tick && tick < next.tick) return c;
+            if (c.tick <= tick && tick < next.tick)
+                return c;
         }
         return null; // same behavior as the Python implementation for the final entry
     }
@@ -484,26 +546,40 @@ public final class Midi2Nbs {
         if (channel == 9) {
             MidiDrum drum = MIDI_DRUMS[Math.max(0, Math.min(MIDI_DRUMS.length - 1, midiNote - 24))];
             // Python falls back to drum 27 when note is outside the table.
-            if (midiNote < 24 || midiNote > 87) drum = findDrum(27);
-            if (drum == null || drum.nbsInstrument == -1) return null;
+            if (midiNote < 24 || midiNote > 87)
+                drum = findDrum(27);
+            if (drum == null || drum.nbsInstrument == -1)
+                return null;
             return new KeyInst(drum.nbsPitch + 36, drum.nbsInstrument);
         }
         return new KeyInst(Math.max(0, (midiNote - 21) + keyShift), trackInst);
     }
 
     private static MidiDrum findDrum(int pitch) {
-        for (MidiDrum d : MIDI_DRUMS) if (d.pitch == pitch) return d;
+        for (MidiDrum d : MIDI_DRUMS)
+            if (d.pitch == pitch)
+                return d;
         return null;
     }
 
     private static final class KeyInst {
-        final int key; final int inst;
-        KeyInst(int key, int inst) { this.key=key; this.inst=inst; }
+        final int key;
+        final int inst;
+
+        KeyInst(int key, int inst) {
+            this.key = key;
+            this.inst = inst;
+        }
     }
 
     private static final class MidiMessageWithTick {
-        final long tick; final MidiMessage message;
-        MidiMessageWithTick(long tick, MidiMessage message) { this.tick=tick; this.message=message; }
+        final long tick;
+        final MidiMessage message;
+
+        MidiMessageWithTick(long tick, MidiMessage message) {
+            this.tick = tick;
+            this.message = message;
+        }
     }
 
     private static List<MidiMessageWithTick> mergeTracks(Sequence sequence) {
@@ -530,46 +606,76 @@ public final class Midi2Nbs {
     private static int pyRound(double v) {
         double floor = Math.floor(v);
         double frac = v - floor;
-        if (frac > 0.5) return (int) Math.ceil(v);
-        if (frac < 0.5) return (int) floor;
+        if (frac > 0.5)
+            return (int) Math.ceil(v);
+        if (frac < 0.5)
+            return (int) floor;
         long f = (long) floor;
         return (int) ((f & 1L) == 0 ? f : f + 1);
     }
 
     private static long gcd(long a, long b) {
-        a = Math.abs(a); b = Math.abs(b);
-        while (b != 0) { long t = a % b; a = b; b = t; }
+        a = Math.abs(a);
+        b = Math.abs(b);
+        while (b != 0) {
+            long t = a % b;
+            a = b;
+            b = t;
+        }
         return a;
     }
 
     private static double interp(double x, double a, double b, double c, double d) {
-        if (b == a) return c;
+        if (b == a)
+            return c;
         return c + (x - a) * (d - c) / (b - a);
     }
 
     private static String decodeAscii(byte[] data) {
         int len = 0;
-        while (len < data.length && data[len] != 0) len++;
+        while (len < data.length && data[len] != 0)
+            len++;
         return new String(data, 0, len, StandardCharsets.ISO_8859_1);
     }
 
     private static int safeInt(long v) {
-        if (v > Integer.MAX_VALUE) throw new ArithmeticException("NBS tick exceeds signed int range: " + v);
+        if (v > Integer.MAX_VALUE)
+            throw new ArithmeticException("NBS tick exceeds signed int range: " + v);
         return (int) v;
     }
 
-    private static int clamp(int v, int min, int max) { return Math.max(min, Math.min(max, v)); }
-    private static int clampU16(int v) { return clamp(v, 0, 0xFFFF); }
+    private static int clamp(int v, int min, int max) {
+        return Math.max(min, Math.min(max, v));
+    }
+
+    private static int clampU16(int v) {
+        return clamp(v, 0, 0xFFFF);
+    }
 
     private static final class LittleEndian {
-        static void writeU8(OutputStream out, int v) throws IOException { out.write(v & 0xFF); }
-        static void writeU16(OutputStream out, int v) throws IOException { out.write(v & 0xFF); out.write((v >>> 8) & 0xFF); }
-        static void writeS16(OutputStream out, int v) throws IOException { writeU16(out, v); }
-        static void writeU32(OutputStream out, int v) throws IOException {
-            out.write(v & 0xFF); out.write((v >>> 8) & 0xFF); out.write((v >>> 16) & 0xFF); out.write((v >>> 24) & 0xFF);
+        static void writeU8(OutputStream out, int v) throws IOException {
+            out.write(v & 0xFF);
         }
+
+        static void writeU16(OutputStream out, int v) throws IOException {
+            out.write(v & 0xFF);
+            out.write((v >>> 8) & 0xFF);
+        }
+
+        static void writeS16(OutputStream out, int v) throws IOException {
+            writeU16(out, v);
+        }
+
+        static void writeU32(OutputStream out, int v) throws IOException {
+            out.write(v & 0xFF);
+            out.write((v >>> 8) & 0xFF);
+            out.write((v >>> 16) & 0xFF);
+            out.write((v >>> 24) & 0xFF);
+        }
+
         static void writeString(OutputStream out, String s) throws IOException {
-            if (s == null) s = "";
+            if (s == null)
+                s = "";
             byte[] bytes = s.replaceAll("[^\\x00-\\x7F]", "?").getBytes(StandardCharsets.US_ASCII);
             writeU32(out, bytes.length);
             out.write(bytes);
@@ -579,48 +685,56 @@ public final class Midi2Nbs {
     private static MidiInstrument[] buildMidiInstruments() {
         // Exactly the mapping used by NBSTool/common.py.
         String[] n = {
-                "Acoustic Grand Piano","Bright Acoustic Piano","Electric Grand Piano","Honky-tonk Piano","Electric Piano 1","Electric Piano 2","Harpsichord","Clavinet","Celesta","Glockenspiel","Music Box","Vibraphone","Marimba","Xylophone","Tubular Bells","Dulcimer",
-                "Drawbar Organ","Percussive Organ","Rock Organ","Church Organ","Reed Organ","Accordion","Harmonica","Tango Accordion","Acoustic Guitar (nylon)","Acoustic Guitar (steel)","Electric Guitar (jazz)","Electric Guitar (clean)","Electric Guitar (muted)","Overdriven Guitar","Distortion Guitar","Guitar Harmonics",
-                "Acoustic Bass","Electric Bass (finger)","Electric Bass (pick)","Fretless Bass","Slap Bass 1","Slap Bass 2","Synth Bass 1","Synth Bass 2","Violin","Viola","Cello","Contrabass","Tremolo Strings","Pizzicato Strings","Orchestral Harp","Timpani",
-                "String Ensemble 1","String Ensemble 2","Synth Strings 1","Synth Strings 2","Choir Aahs","Voice Oohs","Synth Choir","Orchestra Hit","Trumpet","Trombone","Tuba","Muted Trumpet","French Horn","Brass Section","Synth Brass 1","Synth Brass 2",
-                "Soprano Sax","Alto Sax","Tenor Sax","Baritone Sax","Oboe","English Horn","Bassoon","Clarinet","Piccolo","Flute","Recorder","Pan Flute","Blown Bottle","Shakuhachi","Whistle","Ocarina",
-                "Lead 1 (square)","Lead 2 (sawtooth)","Lead 3 (calliope)","Lead 4 (chiff)","Lead 5 (charang)","Lead 6 (voice)","Lead 7 (fifths)","Lead 8 (bass + lead)",
-                "Pad 1 (new age)","Pad 2 (warm)","Pad 3 (polysynth)","Pad 4 (choir)","Pad 5 (bowed)","Pad 6 (metallic)","Pad 7 (halo)","Pad 8 (sweep)",
-                "FX 1 (rain)","FX 2 (soundtrack)","FX 3 (crystal)","FX 4 (atmosphere)","FX 5 (brightness)","FX 6 (goblins)","FX 7 (echoes)","FX 8 (sci-fi)",
-                "Sitar","Banjo","Shamisen","Koto","Kalimba","Bag pipe","Fiddle","Shanai","Tinkle Bell","Agogo","Steel Drums","Woodblock","Taiko Drum","Melodic Tom","Synth Drum","Reverse Cymbal","Guitar Fret Noise","Breath Noise","Seashore","Bird Tweet","Telephone Ring","Helicopter","Applause","Gunshot","Percussion"
+                "Acoustic Grand Piano", "Bright Acoustic Piano", "Electric Grand Piano", "Honky-tonk Piano", "Electric Piano 1", "Electric Piano 2", "Harpsichord", "Clavinet", "Celesta", "Glockenspiel", "Music Box", "Vibraphone", "Marimba", "Xylophone", "Tubular Bells", "Dulcimer",
+                "Drawbar Organ", "Percussive Organ", "Rock Organ", "Church Organ", "Reed Organ", "Accordion", "Harmonica", "Tango Accordion", "Acoustic Guitar (nylon)", "Acoustic Guitar (steel)", "Electric Guitar (jazz)", "Electric Guitar (clean)", "Electric Guitar (muted)", "Overdriven Guitar", "Distortion Guitar", "Guitar Harmonics",
+                "Acoustic Bass", "Electric Bass (finger)", "Electric Bass (pick)", "Fretless Bass", "Slap Bass 1", "Slap Bass 2", "Synth Bass 1", "Synth Bass 2", "Violin", "Viola", "Cello", "Contrabass", "Tremolo Strings", "Pizzicato Strings", "Orchestral Harp", "Timpani",
+                "String Ensemble 1", "String Ensemble 2", "Synth Strings 1", "Synth Strings 2", "Choir Aahs", "Voice Oohs", "Synth Choir", "Orchestra Hit", "Trumpet", "Trombone", "Tuba", "Muted Trumpet", "French Horn", "Brass Section", "Synth Brass 1", "Synth Brass 2",
+                "Soprano Sax", "Alto Sax", "Tenor Sax", "Baritone Sax", "Oboe", "English Horn", "Bassoon", "Clarinet", "Piccolo", "Flute", "Recorder", "Pan Flute", "Blown Bottle", "Shakuhachi", "Whistle", "Ocarina",
+                "Lead 1 (square)", "Lead 2 (sawtooth)", "Lead 3 (calliope)", "Lead 4 (chiff)", "Lead 5 (charang)", "Lead 6 (voice)", "Lead 7 (fifths)", "Lead 8 (bass + lead)",
+                "Pad 1 (new age)", "Pad 2 (warm)", "Pad 3 (polysynth)", "Pad 4 (choir)", "Pad 5 (bowed)", "Pad 6 (metallic)", "Pad 7 (halo)", "Pad 8 (sweep)",
+                "FX 1 (rain)", "FX 2 (soundtrack)", "FX 3 (crystal)", "FX 4 (atmosphere)", "FX 5 (brightness)", "FX 6 (goblins)", "FX 7 (echoes)", "FX 8 (sci-fi)",
+                "Sitar", "Banjo", "Shamisen", "Koto", "Kalimba", "Bag pipe", "Fiddle", "Shanai", "Tinkle Bell", "Agogo", "Steel Drums", "Woodblock", "Taiko Drum", "Melodic Tom", "Synth Drum", "Reverse Cymbal", "Guitar Fret Noise", "Breath Noise", "Seashore", "Bird Tweet", "Telephone Ring", "Helicopter", "Applause", "Gunshot", "Percussion"
         };
-        int[] inst = {0,15,15,15,15,15,5,14,7,7,7,10,10,9,7,5,6,10,6,6,6,6,6,6,5,5,0,5,1,12,12,5,1,1,1,1,5,5,1,15,6,6,6,6,6,1,0,3,6,6,6,6,6,6,6,3,16,18,17,16,6,12,12,6,19,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,13,6,6,6,5,6,6,1,7,6,6,6,6,6,6,6,8,8,6,8,5,15,6,6,6,14,14,14,5,10,6,6,6,8,11,10,9,2,3,3,8,4,6,8,6,2,3,3,-1};
+        int[] inst = {0, 15, 15, 15, 15, 15, 5, 14, 7, 7, 7, 10, 10, 9, 7, 5, 6, 10, 6, 6, 6, 6, 6, 6, 5, 5, 0, 5, 1, 12, 12, 5, 1, 1, 1, 1, 5, 5, 1, 15, 6, 6, 6, 6, 6, 1, 0, 3, 6, 6, 6, 6, 6, 6, 6, 3, 16, 18, 17, 16, 6, 12, 12, 6, 19, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 13, 6, 6, 6, 5, 6, 6, 1, 7, 6, 6, 6, 6, 6, 6, 6, 8, 8, 6, 8, 5, 15, 6, 6, 6, 14, 14, 14, 5, 10, 6, 6, 6, 8, 11, 10, 9, 2, 3, 3, 8, 4, 6, 8, 6, 2, 3, 3, -1};
         int[] shift = {
-                0,0,0,0,0,0,1,0,-2,-2,-2,0,0,-2,-2,1,
-                -1,0,-1,-1,-1,-1,-1,-1,1,1,0,1,2,2,2,3,
-                2,2,2,2,1,1,2,0,-1,-1,-1,-1,-1,2,0,0,
-                -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,2,-1,2,-1,-1,
-                -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-                0,-1,-1,-1,1,-1,-1,2,-2,-1,-1,-1,-1,-1,-1,-2,
-                -2,-1,-2,1,0,-1,-1,-1,0,0,0,1,0,-1,-1,-1,
-                -2,-1,0,-2,0,0,0,-2,1,-1,-2,1,2,0,0,0
+                0, 0, 0, 0, 0, 0, 1, 0, -2, -2, -2, 0, 0, -2, -2, 1,
+                -1, 0, -1, -1, -1, -1, -1, -1, 1, 1, 0, 1, 2, 2, 2, 3,
+                2, 2, 2, 2, 1, 1, 2, 0, -1, -1, -1, -1, -1, 2, 0, 0,
+                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 2, -1, 2, -1, -1,
+                -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                0, -1, -1, -1, 1, -1, -1, 2, -2, -1, -1, -1, -1, -1, -1, -2,
+                -2, -1, -2, 1, 0, -1, -1, -1, 0, 0, 0, 1, 0, -1, -1, -1,
+                -2, -1, 0, -2, 0, 0, 0, -2, 1, -1, -2, 1, 2, 0, 0, 0
         };
         String[] shortNames = new String[128];
         // Populate the non-empty short names from common.py.
         String[] pairs = {
-                "0=Grand Piano","1=Acoustic Piano","2=E. Grand Piano","3=H.T. Piano","4=E. Piano 1","5=E. Piano 2","14=D. Organ","23=Bandoneon","24=A.Guitar (nylon)","25=A.Guitar (steel)","26=E.Guitar (jazz)","27=E.Guitar (clean)","28=E.Guitar (mute)","29=OD Guitar","30=Dist. Guitar","31=Guitar H.","32=A. Bass","33=E.Bass (finger)","34=E.Bass (pick)","38=P. Strings","39=O. Harp","41=T. Strings","45=P. Strings","48=String E. 1","49=String E. 2","50=S. Strings 1","51=S. Strings 2","55=O. Hit","62=T. Bells","80=L.1 (square)","81=L.2 (sawtooth)","82=L.3 (calliope)","83=L.4 (chiff)","84=L.5 (charang)","85=L.6 (voice)","86=L.7 (fifths)","87=L.8 (bass + lead)","88=P.1 (new age)","89=P.2 (warm)","90=P.3 (polysynth)","91=P.4 (choir)","92=P.5 (bowed)","93=P.6 (metallic)","94=P.7 (halo)","95=P.8 (sweep)","96=Fx (rain)","97=Fx (strack)","98=Fx (crystal)","99=Fx (atmosph.)","100=Fx (bright.)","101=Fx (goblins)","102=Fx (echoes)","103=Fx (sci-fi)","111=Telephone","118=Rev. Cymbal","119=Guitar F. Noise"};
-        for (String p : pairs) { int eq=p.indexOf('='); shortNames[Integer.parseInt(p.substring(0,eq))]=p.substring(eq+1); }
+                "0=Grand Piano", "1=Acoustic Piano", "2=E. Grand Piano", "3=H.T. Piano", "4=E. Piano 1", "5=E. Piano 2", "14=D. Organ", "23=Bandoneon", "24=A.Guitar (nylon)", "25=A.Guitar (steel)", "26=E.Guitar (jazz)", "27=E.Guitar (clean)", "28=E.Guitar (mute)", "29=OD Guitar", "30=Dist. Guitar", "31=Guitar H.", "32=A. Bass", "33=E.Bass (finger)", "34=E.Bass (pick)", "38=P. Strings", "39=O. Harp", "41=T. Strings", "45=P. Strings", "48=String E. 1", "49=String E. 2", "50=S. Strings 1", "51=S. Strings 2", "55=O. Hit", "62=T. Bells", "80=L.1 (square)", "81=L.2 (sawtooth)", "82=L.3 (calliope)", "83=L.4 (chiff)", "84=L.5 (charang)", "85=L.6 (voice)", "86=L.7 (fifths)", "87=L.8 (bass + lead)", "88=P.1 (new age)", "89=P.2 (warm)", "90=P.3 (polysynth)", "91=P.4 (choir)", "92=P.5 (bowed)", "93=P.6 (metallic)", "94=P.7 (halo)", "95=P.8 (sweep)", "96=Fx (rain)", "97=Fx (strack)", "98=Fx (crystal)", "99=Fx (atmosph.)", "100=Fx (bright.)", "101=Fx (goblins)", "102=Fx (echoes)", "103=Fx (sci-fi)", "111=Telephone", "118=Rev. Cymbal", "119=Guitar F. Noise"};
+        for (String p : pairs) {
+            int eq = p.indexOf('=');
+            shortNames[Integer.parseInt(p.substring(0, eq))] = p.substring(eq + 1);
+        }
         MidiInstrument[] out = new MidiInstrument[128];
-        for (int i=0;i<128;i++) out[i]=new MidiInstrument(n[i],inst[i],shift[i],shortNames[i]==null?"":shortNames[i]);
+        for (int i = 0; i < 128; i++)
+            out[i] = new MidiInstrument(n[i], inst[i], shift[i], shortNames[i] == null ? "" : shortNames[i]);
         return out;
     }
 
     private static MidiDrum[] buildMidiDrums() {
-        int[] inst = {-1,3,4,3,3,4,4,4,4,4,4,2,2,4,4,3,3,3,2,3,2,2,3,3,2,3,4,4,4,4,4,4,3,4,3,4,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2};
-        int[] pitch = {0,8,25,18,27,16,13,9,6,2,17,10,6,6,22,13,15,18,20,23,17,23,24,8,13,18,1,13,2,13,9,2,8,15,13,8,3,20,23,23,17,11,18,10,5,4,16,16,22,22,0,0,21,14,7,0,0,0,0,0,0,0,0,0};
+        int[] inst = {-1, 3, 4, 3, 3, 4, 4, 4, 4, 4, 4, 2, 2, 4, 4, 3, 3, 3, 2, 3, 2, 2, 3, 3, 2, 3, 4, 4, 4, 4, 4, 4, 3, 4, 3, 4, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
+        int[] pitch = {0, 8, 25, 18, 27, 16, 13, 9, 6, 2, 17, 10, 6, 6, 22, 13, 15, 18, 20, 23, 17, 23, 24, 8, 13, 18, 1, 13, 2, 13, 9, 2, 8, 15, 13, 8, 3, 20, 23, 23, 17, 11, 18, 10, 5, 4, 16, 16, 22, 22, 0, 0, 21, 14, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int[] midi = new int[64];
-        for (int i=0;i<64;i++) midi[i]=24+i;
+        for (int i = 0; i < 64; i++)
+            midi[i] = 24 + i;
         MidiDrum[] out = new MidiDrum[64];
-        for (int i=0;i<64;i++) out[i]=new MidiDrum(midi[i],inst[i],pitch[i]);
+        for (int i = 0; i < 64; i++)
+            out[i] = new MidiDrum(midi[i], inst[i], pitch[i]);
         return out;
     }
 
-    /** Minimal CLI: java Midi2Nbs input.mid output.nbs */
+    /**
+     * Minimal CLI: java Midi2Nbs input.mid output.nbs
+     */
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
             System.err.println("Usage: java Midi2Nbs <input.mid> <output.nbs>");

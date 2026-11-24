@@ -1,28 +1,34 @@
 package cc.thonly.reverie_dreams.polymer.item;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
+import cc.thonly.reverie_dreams.item.danmaku.SpellcardArt;
+import cc.thonly.reverie_dreams.item.danmaku.SpellcardItem;
+import cc.thonly.reverie_dreams.item.prop.GensokyoCompassItem;
 import cc.thonly.reverie_dreams.item.prop.Knife;
-import cc.thonly.reverie_dreams.item.prop.TenguShieldItem;
 import cc.thonly.reverie_dreams.item.weapon.TrumpetGun;
 import cc.thonly.reverie_dreams.item.weapon.WeaponOfTheMoon;
+import cc.thonly.reverie_dreams.item.weapon.YoumuSwordUsing;
 import cc.thonly.reverie_dreams.networking.ServerNetworkingHandlers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import eu.pb4.polymer.common.api.PolymerCommonUtils;
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.utils.PolymerClientDecoded;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -34,23 +40,40 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded {
     }
 
     @Override
+    public @Nullable Identifier getPolymerItemModel(ItemStack stack, PacketContext context, HolderLookup.Provider lookup) {
+        var currentModel = stack.get(DataComponents.ITEM_MODEL);
+        if (this.item instanceof SpellcardItem && currentModel != null
+                && currentModel.equals(this.item.components().get(DataComponents.ITEM_MODEL))) {
+            var art = SpellcardArt.itemModel(stack.get(RDDataComponentTypes.DANMAKU_PATTERN.value()));
+            if (art != null) {
+                return art;
+            }
+        }
+        return currentModel;
+    }
+
+    @Override
     public Item getPolymerItem(ItemStack itemStack, PacketContext context) {
         ServerPlayer player = PolymerCommonUtils.getPlayer(context);
         if (ServerNetworkingHandlers.hasModOnClient(player) && ServerNetworkingHandlers.hasModWithVersion(player)) {
             return itemStack.getItem();
         }
         if (this.item instanceof WeaponOfTheMoon) {
-            return Items.BOW;
+            return Items.TRIAL_KEY;
+        }
+        if (this.item instanceof MobBucketItem) {
+            return Items.COD_BUCKET;
         }
         if (this.item instanceof TrumpetGun || this.item instanceof Knife) {
             return Items.TRIAL_KEY;
         }
+        if (this.item instanceof GensokyoCompassItem) {
+            return Items.COMPASS;
+        }
         if (this.item instanceof IDanmakuItem && ReverieDreams.config().enableDanmakuGlow) {
             return Items.TORCH;
         }
-        if (this.item instanceof TenguShieldItem) {
-            return Items.TRIAL_KEY;
-        }
+        // Keep ShieldItem identity: vanilla applies a different blocking pose to other items.
         if (this.item instanceof BlockItem) {
             return Items.RABBIT_FOOT;
         }
@@ -70,21 +93,21 @@ public class PolymerItemImpl implements PolymerItem, PolymerClientDecoded {
     @Override
     public void modifyBasePolymerItemStack(ItemStack out, ItemStack stack, PacketContext context, HolderLookup.Provider lookup) {
         PolymerItem.super.modifyBasePolymerItemStack(out, stack, context, lookup);
-        this.modifyForFoodTag(out, stack, context, lookup);
-    }
-
-    private void modifyForFoodTag(ItemStack out, ItemStack stack, PacketContext context, HolderLookup.Provider lookup) {
-        if (stack.has(RDDataComponentTypes.FOOD_ITEM_TYPE.value())) {
-            FoodProperties foodProps = stack.get(DataComponents.FOOD);
-            if (foodProps == null) {
-                return;
-            }
-            List<FoodProperty> foodProperties = stack.get(RDDataComponentTypes.FOOD_PROPERTIES.value());
-            if (foodProperties == null || foodProperties.isEmpty()) {
-                return;
-            }
-            int size = foodProperties.size();
-            out.set(DataComponents.FOOD, new FoodProperties(foodProps.nutrition() + size, foodProps.saturation() + size * 1.5f, foodProps.canAlwaysEat()));
+        if (this.item instanceof WeaponOfTheMoon weapon) {
+            // Vanilla clients use the replacement item's durability bar for ammunition.
+            out.set(DataComponents.MAX_DAMAGE, weapon.capacity());
+            out.set(DataComponents.DAMAGE, weapon.capacity() - weapon.getRounds(stack));
+            // A vanilla consumable can hold use without the bow item's hard-coded drawing pose.
+            out.set(DataComponents.CONSUMABLE, new Consumable(3600, weapon.getUseAnimation(stack),
+                    Holder.direct(SoundEvents.EMPTY), false, List.of()));
+        }
+        if (this.item instanceof YoumuSwordUsing) {
+            out.set(DataComponents.CONSUMABLE, new Consumable(3600, this.item.getUseAnimation(stack),
+                    Holder.direct(SoundEvents.EMPTY), false, List.of()));
+        }
+        var food = stack.get(DataComponents.FOOD);
+        if (food != null) {
+            out.set(DataComponents.FOOD, food);
         }
     }
 }

@@ -49,7 +49,8 @@ public class SatoriEye extends Item {
                 int count = 0;
                 int max = 3;
                 for (var effect : effects) {
-                    if (count >= max) break;
+                    if (count >= max)
+                        break;
 
                     MutableComponent name = effect.getEffect().value().getDisplayName().copy();
 

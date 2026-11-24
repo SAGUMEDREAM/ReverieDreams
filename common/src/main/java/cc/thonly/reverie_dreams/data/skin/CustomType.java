@@ -29,8 +29,6 @@ public class CustomType extends SkinType {
         return "CustomType{" +
                 "icon=" + this.icon +
                 ", id=" + this.id +
-                ", value='" + this.value + '\'' +
-                ", signature='" + this.signature + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "content_version": 1,
+  "actors_version": 1,
+  "content_sha256": "a010affc516a1b3d021276b857ff824c90e05e1c0f5dd52df4770bc07f589280",
+  "source_sha256": "fdf20ad57234df8b6e30f51784b20d188c974793df8bd8383baa18947bb63579",
+  "size": [
+    57,
+    28,
+    31
+  ],
+  "function_points": [
+    {
+      "id": "rest_stop",
+      "pos": [
+        2,
+        1,
+        8
+      ]
+    },
+    {
+      "id": "shore_rations",
+      "pos": [
+        3,
+        1,
+        6
+      ]
+    },
+    {
+      "id": "wayside_offerings",
+      "pos": [
+        2,
+        1,
+        10
+      ]
+    },
+    {
+      "id": "wind_rites",
+      "pos": [
+        30,
+        3,
+        8
+      ]
+    },
+    {
+      "id": "autumn_festival",
+      "pos": [
+        33,
+        3,
+        22
+      ]
+    },
+    {
+      "id": "pillar_repairs",
+      "pos": [
+        42,
+        3,
+        8
+      ]
+    },
+    {
+      "id": "iron_ring_offering",
+      "pos": [
+        45,
+        3,
+        8
+      ]
+    },
+    {
+      "id": "sanae_cache",
+      "pos": [
+        48,
+        5,
+        21
+      ]
+    }
+  ],
+  "template_sha256": "eef2029bd69e14c6cb144b1059f5dff12d5a8eb135bd3171fde9ff406e7f35dc"
+}

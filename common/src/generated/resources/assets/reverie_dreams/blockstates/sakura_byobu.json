@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "reverie_dreams:block/set2/sakura_byobu"
+    },
+    "facing=east": {
+      "model": "reverie_dreams:block/set2/sakura_byobu",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/set2/sakura_byobu",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/set2/sakura_byobu",
+      "y": 270
+    }
+  }
+}

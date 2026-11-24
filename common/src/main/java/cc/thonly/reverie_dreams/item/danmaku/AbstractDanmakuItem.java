@@ -1,9 +1,10 @@
 package cc.thonly.reverie_dreams.item.danmaku;
 
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuVolleyBudget;
 import cc.thonly.reverie_dreams.item.base.IDanmakuItem;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -58,10 +59,16 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
             if (cooldownManager.isOnCooldown(itemStack)) {
                 return InteractionResult.FAIL;
             }
-            cooldownManager.addCooldown(itemStack, 10);
+            int cooldownTicks = this instanceof DanmakuItem danmakuItem && danmakuItem.type() != null
+                    ? Math.max(1, danmakuItem.type().getCooldownTicks())
+                    : 10;
+            cooldownManager.addCooldown(itemStack, cooldownTicks);
             DanmakuProperties properties = itemStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
-            for (int i = 0; i < properties.count(); i++) {
-                this.shoot(serverWorld, user, hand);
+            DanmakuVolleyBudget.begin(DanmakuVolleyBudget.MAX_BULLETS_PER_USE);
+            try {
+                this.shootVolley(serverWorld, user, hand, itemStack, properties);
+            } finally {
+                DanmakuVolleyBudget.end();
             }
             if (!properties.infinite()) {
                 Integer cur = itemStack.get(DataComponents.DAMAGE);
@@ -81,6 +88,13 @@ public abstract class AbstractDanmakuItem extends Item implements IDanmakuItem {
         }
         user.awardStat(Stats.ITEM_USED.get(this));
         return InteractionResult.SUCCESS;
+    }
+
+    protected void shootVolley(ServerLevel level, LivingEntity owner, InteractionHand hand,
+                               ItemStack stack, DanmakuProperties properties) {
+        for (int i = 0; i < properties.count(); i++) {
+            this.shoot(level, owner, hand);
+        }
     }
 
     public abstract void shoot(ServerLevel serverWorld, LivingEntity user, InteractionHand hand);

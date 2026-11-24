@@ -1,0 +1,25 @@
+plugins {
+    id 'base'
+}
+
+layout.buildDirectory = file('paper/build/standalone-root')
+
+def sourceVersions = new Properties()
+file('gradle.properties').withInputStream { sourceVersions.load(it) }
+['java_version', 'paper_api_version', 'craft_engine_version'].each { name ->
+    def value = sourceVersions.getProperty(name)
+    if (value == null) throw new GradleException("Missing source version ${name}")
+    extensions.extraProperties.set(name, value)
+}
+
+project(':paper') {
+    def metadata = new Properties()
+    file('gradle.properties').withInputStream { metadata.load(it) }
+    group = metadata.getProperty('group')
+    version = metadata.getProperty('version')
+    description = metadata.getProperty('description')
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.compilerArgs += ['-parameters', '-Xlint:-removal', '-Xlint:-dep-ann']
+    }
+}

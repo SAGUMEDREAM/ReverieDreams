@@ -66,7 +66,9 @@ public class CustomSkinSelectorHandlers {
         }
 
         var entity = level.getEntity(targetId);
-        if (entity == null) {
+        if (!(entity instanceof NPCSimpleEntity npc)
+                || !npc.isOwnedBy(player)
+                || npc.distanceToSqr(player) > 64.0 * 64.0) {
             return;
         }
 

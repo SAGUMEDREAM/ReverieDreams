@@ -1,0 +1,123 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "reverie_dreams:gensokyo/young_spruce",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.030100001,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/young_iroha_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.031034129,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/autumn_young_iroha_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.022877209,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/young_itaya_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.023412827,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/autumn_young_itaya_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.028768955,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/young_hauchiwa_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.029621122,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/autumn_young_hauchiwa_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.14245148,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/iroha_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.16611478,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/autumn_iroha_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.17074783,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/hauchiwa_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.20590581,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/autumn_hauchiwa_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.06482411,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/old_itaya_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.069317564,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/autumn_old_itaya_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.29792142,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/itaya_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.42434198,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/autumn_itaya_maple",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.4285712,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/forest_oak",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.49999952,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/spruce",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

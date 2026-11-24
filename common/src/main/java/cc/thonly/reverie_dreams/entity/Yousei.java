@@ -5,10 +5,15 @@ import cc.thonly.reverie_dreams.api.entity.type.FriendlyFaction;
 import cc.thonly.reverie_dreams.api.entity.type.VariantData;
 import cc.thonly.reverie_dreams.api.entity.type.YouseiType;
 import cc.thonly.reverie_dreams.entity.ai.goal.DanmakuGoal;
+import cc.thonly.reverie_dreams.entity.ai.goal.SmartFlyGoal;
 import cc.thonly.reverie_dreams.entity.ai.goal.UniversalLivingAngerGoal;
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.entity.variant.YouseiVariant;
-import cc.thonly.reverie_dreams.entity.variant.YouseiVariants;
+import cc.thonly.reverie_dreams.entity.npc.BaseYousei;
+import cc.thonly.reverie_dreams.entity.npc.KeepInventoryTypes;
+import cc.thonly.reverie_dreams.entity.variant.*;
+import cc.thonly.reverie_dreams.registry.content.variant.YouseiVariants;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.util.GeckoLibUtil;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.server.DelayedTask;
@@ -24,7 +29,6 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +41,12 @@ import java.util.Objects;
 
 @Setter
 @Getter
-public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFaction, VariantData, YouseiType {
+public class Yousei extends BaseYousei implements Leashable, FriendlyFaction, VariantData, YouseiType, GensokyoFairyEntity {
+    private final GensokyoFairyActions fairyActions = new GensokyoFairyActions();
+
+    @Override public GensokyoFairyActions fairyActions() { return this.fairyActions; }
+
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private YouseiVariant variant = null;
 
     public Yousei(EntityType<? extends TamableAnimal> entityType, Level world) {
@@ -51,6 +60,17 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
        );
         this.xpReward = 5;
         this.variant = YouseiVariants.getFromSkinType(this.getSkinType());
+        this.enableFairyFlight();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        GensokyoFairyActions.registerControllers(this, controllers);
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geoCache;
     }
 
     @Override
@@ -70,13 +90,11 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
                 DanmakuShooter.soundDefault(this);
             });
         }));
-//        this.goalSelector.add(2, new SmartFlyGoal(this, 1.2));
-
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Mob.class, 6.0f));
         this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
 
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new SmartFlyGoal(this, 1.2));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(3, new UniversalLivingAngerGoal<>(this, false));
@@ -86,7 +104,9 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
 
     @Override
     public void tick() {
-        this.setSkinType(this.variant != null ? this.variant.getSkinType() : YouseiVariants.BLUE.getSkinType());
+        if (!this.level().isClientSide()) {
+            this.setSkinType(this.variant != null ? this.variant.getSkinType() : YouseiVariants.BLUE.getSkinType());
+        }
         super.tick();
     }
 
@@ -122,6 +142,11 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
     }
 
     @Override
+    public KeepInventoryTypes getKeepInventoryType() {
+        return KeepInventoryTypes.NOT_DROP_ANY;
+    }
+
+    @Override
     public String getFactionId() {
         return "mob";
     }
@@ -143,4 +168,5 @@ public class Yousei extends BaseNPCLikeEntity implements Leashable, FriendlyFact
     public boolean requiresCustomPersistence() {
         return false;
     }
+
 }

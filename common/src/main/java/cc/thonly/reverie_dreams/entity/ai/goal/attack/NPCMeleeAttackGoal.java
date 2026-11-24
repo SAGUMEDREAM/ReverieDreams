@@ -14,10 +14,12 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
+import cc.thonly.reverie_dreams.entity.Oni;
+
 @SuppressWarnings("SimplifiableConditionalExpression")
 public class NPCMeleeAttackGoal extends Goal {
     protected final PathfinderMob mob;
-    private final double speedModifier;
+    private double speedModifier;
     private final boolean followingTargetEvenIfNotSeen;
     private Path path;
     private double pathedTargetX;
@@ -25,7 +27,8 @@ public class NPCMeleeAttackGoal extends Goal {
     private double pathedTargetZ;
     private int ticksUntilNextPathRecalculation;
     private int ticksUntilNextAttack;
-    private final int attackInterval = 20;
+    protected int attackInterval = 20;
+    protected int attackWindup = 0;
     private long lastCanUseCheck;
     private static final long COOLDOWN_BETWEEN_CAN_USE_CHECKS = 20L;
 
@@ -74,7 +77,7 @@ public class NPCMeleeAttackGoal extends Goal {
         this.mob.getNavigation().moveTo(this.path, this.speedModifier);
         this.mob.setAggressive(true);
         this.ticksUntilNextPathRecalculation = 0;
-        this.ticksUntilNextAttack = 0;
+        this.ticksUntilNextAttack = this.getAttackWindup();
     }
 
     @Override
@@ -97,15 +100,16 @@ public class NPCMeleeAttackGoal extends Goal {
     public void tick() {
         LivingEntity target = this.mob.getTarget();
         if (target != null) {
+            boolean planted = this.mob instanceof Oni oni && oni.isPlantingFeetForAttack();
             this.mob.getLookControl().setLookAt(target, 30.0F, 30.0F);
             this.ticksUntilNextPathRecalculation = Math.max(this.ticksUntilNextPathRecalculation - 1, 0);
-            if ((this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(target))
-                && this.ticksUntilNextPathRecalculation <= 0
-                && (
+            if (!planted && (this.followingTargetEvenIfNotSeen || this.mob.getSensing().hasLineOfSight(target))
+                    && this.ticksUntilNextPathRecalculation <= 0
+                    && (
                     this.pathedTargetX == 0.0 && this.pathedTargetY == 0.0 && this.pathedTargetZ == 0.0
-                        || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0
-                        || this.mob.getRandom().nextFloat() < 0.05F
-                )) {
+                            || target.distanceToSqr(this.pathedTargetX, this.pathedTargetY, this.pathedTargetZ) >= 1.0
+                            || this.mob.getRandom().nextFloat() < 0.05F
+            )) {
                 this.pathedTargetX = target.getX();
                 this.pathedTargetY = target.getY();
                 this.pathedTargetZ = target.getZ();
@@ -124,6 +128,22 @@ public class NPCMeleeAttackGoal extends Goal {
                 this.ticksUntilNextPathRecalculation = this.adjustedTickDelay(this.ticksUntilNextPathRecalculation);
             }
 
+            if (this.attackWindup > 0 && !this.mob.isWithinMeleeAttackRange(target)
+                    && !(this.mob instanceof Oni oni && oni.isAttackAnimationRunning())) {
+                this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack, this.getAttackWindup());
+            }
+            if (this.mob instanceof Oni oni
+                    && this.ticksUntilNextAttack == this.getAttackWindup()
+                    && this.mob.isWithinMeleeAttackRange(target) && this.hasLineOfSight(target)) {
+                oni.beginAttackAnimation();
+            }
+            if (this.mob instanceof Oni oni
+                    && (oni.isPlantingFeetForAttack() || this.mob.isWithinMeleeAttackRange(target))) {
+                this.mob.getNavigation().stop();
+                this.mob.getMoveControl().setWantedPosition(this.mob.getX(), this.mob.getY(), this.mob.getZ(), 0);
+                this.mob.setSpeed(0);
+                this.ticksUntilNextPathRecalculation = 0;
+            }
             this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
             this.checkAndPerformAttack(target);
         }
@@ -134,11 +154,14 @@ public class NPCMeleeAttackGoal extends Goal {
             this.resetAttackCooldown();
             this.mob.swing(InteractionHand.MAIN_HAND);
             this.mob.doHurtTarget(getServerLevel(this.mob), target);
+        } else if (this.isTimeToAttack() && this.mob instanceof Oni oni
+                && oni.isAttackAnimationRunning()) {
+            this.resetAttackCooldown();
         }
     }
 
     protected void resetAttackCooldown() {
-        this.ticksUntilNextAttack = this.adjustedTickDelay(this.attackInterval);
+        this.ticksUntilNextAttack = this.getAttackInterval();
     }
 
     protected boolean isTimeToAttack() {
@@ -162,7 +185,7 @@ public class NPCMeleeAttackGoal extends Goal {
         double minZ = box.minZ;
         double maxZ = box.maxZ;
 
-        Vec3[] points = new Vec3[] {
+        Vec3[] points = new Vec3[]{
                 new Vec3((minX + maxX) * 0.5, minY + 0.1, (minZ + maxZ) * 0.5),
                 new Vec3((minX + maxX) * 0.5, (minY + maxY) * 0.5, (minZ + maxZ) * 0.5),
                 new Vec3((minX + maxX) * 0.5, maxY - 0.1, (minZ + maxZ) * 0.5),
@@ -193,7 +216,26 @@ public class NPCMeleeAttackGoal extends Goal {
         return this.ticksUntilNextAttack;
     }
 
-    protected int getAttackInterval() {
+    public NPCMeleeAttackGoal setAttackInterval(int attackInterval) {
+        this.attackInterval = attackInterval;
+        return this;
+    }
+
+    public NPCMeleeAttackGoal setSpeedModifier(double speedModifier) {
+        this.speedModifier = speedModifier;
+        return this;
+    }
+
+    public int getAttackInterval() {
         return this.adjustedTickDelay(this.attackInterval);
+    }
+
+    public NPCMeleeAttackGoal setAttackWindup(int attackWindup) {
+        this.attackWindup = attackWindup;
+        return this;
+    }
+
+    public int getAttackWindup() {
+        return this.adjustedTickDelay(this.attackWindup);
     }
 }

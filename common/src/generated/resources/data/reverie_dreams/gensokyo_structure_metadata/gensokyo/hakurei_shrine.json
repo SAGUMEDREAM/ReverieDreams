@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "content_version": 2,
+  "actors_version": 1,
+  "content_sha256": "871af3ef7dbc917638fbbabfcf14ec60964625633198e3eb283ffc6df29661d3",
+  "source_sha256": "921dd0c451f0163ba10afe3b182f8f356972a2aae313fac81bdb822d46196bc2",
+  "size": [
+    64,
+    22,
+    53
+  ],
+  "function_points": [
+    {
+      "id": "pilgrim_supplies",
+      "pos": [
+        11,
+        1,
+        30
+      ]
+    },
+    {
+      "id": "warding_supplies",
+      "pos": [
+        39,
+        3,
+        24
+      ]
+    }
+  ],
+  "cherry_roots": [
+    [
+      8,
+      1,
+      12
+    ],
+    [
+      10,
+      1,
+      46
+    ],
+    [
+      16,
+      1,
+      13
+    ],
+    [
+      22,
+      1,
+      44
+    ],
+    [
+      26,
+      1,
+      11
+    ],
+    [
+      39,
+      1,
+      48
+    ],
+    [
+      40,
+      1,
+      9
+    ]
+  ],
+  "template_sha256": "a72e32a7182a7200c4cd5047c23a622e8ceb526a7c5aeb7cc3083499d17cd7fb"
+}

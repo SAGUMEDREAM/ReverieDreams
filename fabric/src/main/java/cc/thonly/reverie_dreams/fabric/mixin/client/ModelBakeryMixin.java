@@ -16,7 +16,7 @@ public class ModelBakeryMixin {
     @Shadow
     @Mutable
     @Final
-    static Logger LOGGER;
+    private static Logger LOGGER;
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void reverie_dreams$replaceLogger(CallbackInfo ci) {

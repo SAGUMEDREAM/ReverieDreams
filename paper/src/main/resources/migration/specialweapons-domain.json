@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "paper": "26.1.2 build74",
+    "java": 25,
+    "craftEngine": "26.8.2"
+  },
+  "sourceRegistrationCount": 18,
+  "componentAdapters": 0,
+  "implemented": {
+    "reverie_dreams:weapon_of_the_moon": {
+      "legacyAliasOf": "reverie_dreams:lunar_type_1_rifle",
+      "maxStackSize": 1,
+      "defaultRounds": 0,
+      "capacity": 30,
+      "shotIntervalTicks": 2,
+      "reloadCooldownTicks": 40,
+      "bullet": "reverie_dreams:lunar_bullet_standard",
+      "naturalSource": "RabbitUnit equipment; no source recipe/altar entry found; entity/equipment-drop migration remains required"
+    },
+    "reverie_dreams:magazine": {
+      "legacyAliasOf": "reverie_dreams:lunar_type_1_magazine",
+      "maxStackSize": 16,
+      "defaultRounds": 30,
+      "capacity": 30,
+      "pdc": "reverie_dreams:magazine_rounds INTEGER",
+      "reload": "offhand then inventory index order, first loaded same-type magazine; old rounds return as a new magazine except creative"
+    },
+    "reverie_dreams:lunar_type_1_rifle": {
+      "capacity": 30, "shotIntervalTicks": 2, "reloadCooldownTicks": 40,
+      "damage": 4.0, "pellets": 1, "speed": 3.2, "spread": 0.6, "recoil": 1.3,
+      "lifetimeTicks": 30, "automatic": true, "bulletHitboxScale": 0.7,
+      "bullet": "reverie_dreams:lunar_bullet_standard"
+    },
+    "reverie_dreams:lunar_type_2_pistol": {
+      "capacity": 12, "shotIntervalTicks": 7, "reloadCooldownTicks": 26,
+      "damage": 6.0, "pellets": 1, "speed": 3.5, "spread": 0.5, "recoil": 2.0,
+      "lifetimeTicks": 24, "automatic": false, "bulletHitboxScale": 0.8,
+      "bullet": "reverie_dreams:lunar_bullet_standard"
+    },
+    "reverie_dreams:lunar_type_3_shotgun": {
+      "capacity": 8, "shotIntervalTicks": 16, "reloadCooldownTicks": 56,
+      "damage": 2.5, "pellets": 8, "speed": 3.0, "spread": 6.5, "recoil": 4.0,
+      "lifetimeTicks": 7, "automatic": false, "bulletHitboxScale": 0.7,
+      "bullet": "reverie_dreams:lunar_bullet_pellet"
+    },
+    "reverie_dreams:lunar_type_4_smg": {
+      "capacity": 40, "shotIntervalTicks": 1, "reloadCooldownTicks": 36,
+      "damage": 1.75, "pellets": 1, "speed": 3.0, "spread": 1.8, "recoil": 0.8,
+      "lifetimeTicks": 18, "automatic": true, "bulletHitboxScale": 0.6,
+      "bullet": "reverie_dreams:lunar_bullet_standard"
+    },
+    "reverie_dreams:lunar_type_5_sniper": {
+      "capacity": 5, "shotIntervalTicks": 24, "reloadCooldownTicks": 60,
+      "damage": 28.0, "pellets": 1, "speed": 10.0, "spread": 1.3, "recoil": 5.0,
+      "lifetimeTicks": 24, "automatic": false, "bulletHitboxScale": 0.8,
+      "bullet": "reverie_dreams:lunar_bullet_sniper"
+    },
+    "reverie_dreams:lunar_type_1_magazine": { "capacity": 30, "maxStackSize": 16 },
+    "reverie_dreams:lunar_type_2_magazine": { "capacity": 12, "maxStackSize": 16 },
+    "reverie_dreams:lunar_type_3_magazine": { "capacity": 8, "maxStackSize": 16 },
+    "reverie_dreams:lunar_type_4_magazine": { "capacity": 40, "maxStackSize": 16 },
+    "reverie_dreams:lunar_type_5_magazine": { "capacity": 5, "maxStackSize": 16 },
+    "reverie_dreams:lunar_bullet_standard": { "plainItem": true },
+    "reverie_dreams:lunar_bullet_pellet": { "plainItem": true },
+    "reverie_dreams:lunar_bullet_sniper": { "plainItem": true },
+    "reverie_dreams:lunar_power_cell": { "plainItem": true },
+    "reverie_dreams:lunar_signal_coil": { "plainItem": true },
+    "reverie_dreams:lunar_signal_crystal": { "plainItem": true },
+    "reverie_dreams:trumpet_gun": {
+      "durability": 150,
+      "repair": "minecraft:gold_block",
+      "volleyTicks": [2, 4, 6],
+      "shotsPerVolley": 1,
+      "cooldownTicks": 10,
+      "durabilityPerUse": 1,
+      "damageBreakMode": "hurtWithoutBreaking max-1",
+      "aim": "cast pitch/yaw captured, position recomputed per shot",
+      "initialSpeed": 1.1,
+      "propertiesSpeedAfterSpawn": 2.3,
+      "forwardOffset": 1.5,
+      "divergence": 0
+    },
+    "reverie_dreams:sunflower": {
+      "durability": 256,
+      "repair": "#reverie_dreams:power_block",
+      "volleyTicks": [0, 15, 30],
+      "shotsPerVolley": 5,
+      "cooldownTicks": 50,
+      "durabilityPerUse": 1,
+      "damageBreakMode": "native hurtAndBreak",
+      "aim": "recompute current aim or target center every volley; target alive/current captured world/distance<=32",
+      "freeYawOffsets": [-10, -5, 0, 5, 10],
+      "aimedYawOffsets": [-6, -3, 0, 3, 6],
+      "initialSpeed": 1,
+      "propertiesSpeedAfterSpawn": 1.8,
+      "damage": 3.5,
+      "scale": 2.5,
+      "hitboxScale": 2.5,
+      "divergence": 1,
+      "effectiveForwardOffset": 0,
+      "unusedSourceOffsetArgument": 0.15
+    }
+  },
+  "lunarProjectile": {
+    "templateId": "reverie_dreams:single",
+    "count": 1,
+    "damageAtLevel": "damage * (1 + .25 * clamp(level,0,30) / 30)",
+    "damageType": "reverie_dreams:danmaku_generic",
+    "scale": 1.0,
+    "visualScale": "properties.scale * .85",
+    "speed": "per-type; also launch initial speed",
+    "acceleration": 0,
+    "tile": false,
+    "infinite": false,
+    "speedVersion": 1,
+    "hitboxScale": "RIFLE/SHOTGUN .7; PISTOL/SNIPER .8; SMG .6",
+    "lifetimeTicks": "per-type",
+    "spread": "per-type; aimed multiplier .35, SNIPER .02",
+    "spreadFormula": "26.1.2 Projectile triangular divergence: (nextDouble()-nextDouble())*.0172275*spread",
+    "ownerMovement": true,
+    "origin": "owner x, eyeY, z",
+    "render": "ItemDisplay NONE context, billboard FIXED, Y(-yaw).X(pitch), scale .85; yaw=atan2(-vx,vz), pitch=atan2(-vy,horizontal) from final delta"
+  },
+  "backend": {
+    "publicRecord": "DanmakuService.LaunchSpec(Properties properties,float initialSpeed,float divergence,float forwardOffset,boolean addOwnerMovement,int lifetimeTicks,boolean velocityFacing)",
+    "compatibilityConstructor": "five-argument constructor keeps lifetime 200 and velocityFacing false for trumpet/sunflower/legacy fixtures",
+    "publicMethod": "UUID launchOne(LivingEntity owner,ItemStack visualItem,Location origin,float pitch,float yaw,LaunchSpec spec)",
+    "lifetime": "LaunchSpec.lifetimeTicks drives tick removal, snapshots and restore validation; persisted launch_spec schema1 gains optional lifetime/velocity_facing with defaults 200/false",
+    "scope": "one default straight-motion entity; no template expansion",
+    "gravity": 0,
+    "motionAcceleration": 0,
+    "propertyAccelerationDoesNotDriveDefaultMotion": true,
+    "save": "existing schema1 plus optional launch_spec.schema1; complete visual bytes, properties, resolved base vector, owner, age, roll, bounces, graze and ownerDeadTicks saved",
+    "oldPath": "launch/fire/tick/render/hit methods unchanged; existing11types/187definitions and default schemas unchanged"
+  },
+  "controlModel": {
+    "clientUseState": "minecraft:consumable 3600s / bow animation / intentionally_empty sound supplies a 72000-tick use duration to vanilla clients",
+    "start": "CE behavior cancels the interact event (SUCCESS_AND_CANCEL) then calls Paper startUsingItem; cancelled interact packets do not stop the manually started use state",
+    "triggerPdc": "reverie_dreams:lunar_trigger_held",
+    "onUseTickTicker": "server ticker mirrors source onUseTick: trigger held stops on sneak/empty, automatic types fire each tick subject to cooldown; aim stops when not sneaking and applies SLOWNESS after 6 used ticks",
+    "release": "io.papermc.paper.event.player.PlayerStopUsingItemEvent: trigger marker clears without firing; sneaking release at >=6 ticks fires one aimed shot, otherwise reloads (empty click when dry)",
+    "cooldownGroup": "first use replaces the static CE group with reverie_dreams:lunar_weapon/<uuid>; later copies of the same stack keep their own source cooldown",
+    "consumeGuard": "PlayerItemConsumeEvent cancelled for lunar weapons so the 72000-tick use can never eat the gun",
+    "entityInteraction": "vanilla clients do not enter a using state on interact-entity, so a right-click on a living entity performs one immediate source action (shot or sneak reload) without hold-to-aim",
+    "aimAttack": "source fires an aimed shot from its own C2S LunarAimFirePacket while the client holds attack during aim; a vanilla client cannot send that packet, so the Paper port fires the aimed shot on release and does not synthesize an approximation"
+  },
+  "recoil": {
+    "nativeTurnScale": 0.15,
+    "multiplier": "aimed .5 else 1; max(.02, multiplier * lerp(clamp(level,0,32)/32, 1, .02)); nausea *1.3",
+    "pitch": "type.recoil * multiplier",
+    "yaw": "(nextFloat()-.5) * recoilPitch * .5",
+    "apply": "Entity.turn(recoilYaw, -recoilPitch)",
+    "aimHoldTicks": 6,
+    "aimEffectTicks": 4
+  },
+  "sounds": {
+    "rifle": ["entity.firework_rocket.blast .72/1.65", "item.crossbow.shoot .38/1.45"],
+    "pistol": ["entity.firework_rocket.blast .50/1.95", "item.crossbow.shoot .25/1.7"],
+    "shotgun": ["entity.generic.explode .75/1.6", "item.crossbow.shoot .5/.75"],
+    "smg": ["block.note_block.hat .32/1.15", "entity.firework_rocket.blast .18/1.9"],
+    "sniper": ["entity.firework_rocket.large_blast 1.2/.85", "item.trident.throw .3/.65", "entity.firework_rocket.large_blast_far .4/.8"],
+    "variation": ".98 + nextFloat()*.04, clamp pitch 2, PLAYERS; once per cartridge"
+  },
+  "tooltips": [
+    "gun: item.tooltip.magazine.loaded rounds/capacity",
+    "gun: item.tooltip.lunar.damage %.2f damageAtLevel / pellets",
+    "gun: item.tooltip.lunar.experience %.1f%% = level*25/30 / level",
+    "magazine: item.tooltip.magazine.rounds rounds/capacity",
+    "refresh: item creation, shot, reload, experience-level change and a 20-tick safety refresh; identical lore is not rewritten"
+  ],
+  "colours": [
+    "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
+    "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"
+  ],
+  "sources": {
+    "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/WeaponOfTheMoon.java": "8a8140d423262a987790fe5274a5e0d2e412debe5904f8dbfa7593e3df12952e",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/MagazineItem.java": "09a4dcd9bc70fd40d229c6ba6db9902a022ac523769299a7b18553629bbcfd90",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/LunarWeaponType.java": "6e65ba6aeb484c612e56c7a27db632dad3d1eed406eaf83a10fa9f51e86ec8bc",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/LunarWeaponSounds.java": "84150167084a2b2976290ab9ecaa9a687c39b6149577ee15c061954a7ea94344",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/LunarBulletVisuals.java": "6c1d04e9cecaeded2ab01751285471da9bbb0fa5703fc4c34ef6679bac949fb5",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/TrumpetGun.java": "ea4284db0d520e40bd24c59714e8cc57643a25075ec7178b51c85dd1bd6fafca",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/prop/Sunflower.java": "15367106b64d6953bbb074c723a96ba6d0bb33ffccf2a7d8aa6ca69b727205a6",
+    "common/src/main/java/cc/thonly/reverie_dreams/entity/misc/DanmakuEntity.java": "cc02c07d471d1ab60d3455fbcf341af3cd0aa78fd1b722729ae9b51a32391759",
+    "common/src/main/java/cc/thonly/reverie_dreams/entity/misc/BaseDanmakuEntity.java": "b4b97f9cd7d1e77e03d6ae6479da674afd4657cf68485764ff6242863f351acc",
+    "common/src/main/java/cc/thonly/reverie_dreams/client/renderer/entity/DanmakuLikeRenderer.java": "be6371ac1d1e823f07e74f764ff0dc4984f48afc6efcd5dd0abc2f526a54a990",
+    "common/src/main/java/cc/thonly/reverie_dreams/component/DanmakuProperties.java": "e1b41faa4da6edc8894f08de48c2bfe8ae830d785a03a3acb9c2ef91f7bfa775",
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/item/RDItems.java": "8d4e3e9e121e1ed8fae5cc10dc3505c0ba70891c44a3b5e636b15107314d9a15"
+  },
+  "recipes": {
+    "legacyMagazine": {
+      "type": "minecraft:crafting_shaped",
+      "pattern": ["III", "NMN", "III"],
+      "key": { "I": "minecraft:iron_nugget", "M": "minecraft:copper_ingot", "N": "minecraft:copper_nugget" },
+      "result": "reverie_dreams:lunar_type_1_magazine"
+    },
+    "newRecipeKeys": [
+      "reverie_dreams:lunar_type_1_rifle",
+      "reverie_dreams:lunar_type_2_pistol",
+      "reverie_dreams:lunar_type_3_shotgun",
+      "reverie_dreams:lunar_type_4_smg",
+      "reverie_dreams:lunar_type_5_sniper",
+      "reverie_dreams:lunar_type_2_magazine",
+      "reverie_dreams:lunar_type_3_magazine",
+      "reverie_dreams:lunar_type_4_magazine",
+      "reverie_dreams:lunar_type_5_magazine",
+      "reverie_dreams:lunar_power_cell",
+      "reverie_dreams:lunar_signal_coil",
+      "reverie_dreams:lunar_signal_crystal"
+    ]
+  },
+  "altarRecipes": {
+    "trumpet_gun": {
+      "core": { "id": "minecraft:crossbow", "count": 1 },
+      "slots": [
+        { "id": "reverie_dreams:power_block", "count": 5 },
+        { "id": "minecraft:fermented_spider_eye", "count": 2 },
+        { "id": "minecraft:rabbit_foot", "count": 5 },
+        { "id": "reverie_dreams:power_block", "count": 4 },
+        { "id": "minecraft:gold_ingot", "count": 5 },
+        { "id": "minecraft:honeycomb", "count": 1 },
+        { "id": "minecraft:iron_nugget", "count": 3 },
+        { "id": "minecraft:blaze_rod", "count": 3 }
+      ],
+      "output": { "id": "reverie_dreams:trumpet_gun", "count": 1 }
+    },
+    "sunflower": {
+      "core": { "id": "minecraft:golden_hoe", "count": 1 },
+      "slots": [
+        { "id": "minecraft:sunflower", "count": 32 },
+        { "id": "minecraft:rose_bush", "count": 16 },
+        { "id": "minecraft:peony", "count": 16 },
+        { "id": "reverie_dreams:fairy_dust", "count": 16 },
+        { "id": "minecraft:bone_meal", "count": 16 },
+        { "id": "minecraft:honeycomb", "count": 8 },
+        { "id": "reverie_dreams:point", "count": 24 },
+        { "id": "reverie_dreams:power", "count": 32 }
+      ],
+      "output": { "id": "reverie_dreams:sunflower", "count": 1 }
+    }
+  },
+  "parentRepairRequests": [
+    {
+      "ingredient": "reverie_dreams:power_block",
+      "targets": ["reverie_dreams:sunflower"],
+      "percent": 0.25
+    }
+  ],
+  "remainingFromOriginalAudit": [
+    "reverie_dreams:gap_ball",
+    "reverie_dreams:boundary_ofuda",
+    "reverie_dreams:fumo_license",
+    "reverie_dreams:cursed_decoy_doll",
+    "reverie_dreams:vaisravanas_pagoda",
+    "reverie_dreams:dream_pillow",
+    "reverie_dreams:tengu_shield",
+    "reverie_dreams:tengu_camera",
+    "reverie_dreams:himekaidou_hatates_phone",
+    "reverie_dreams:bad_apple",
+    "reverie_dreams:scarecrow",
+    "reverie_dreams:exorcism_paper",
+    "reverie_dreams:hakurei_cane",
+    "reverie_dreams:bagua_furnace",
+    "reverie_dreams:wind_blessing_cane",
+    "reverie_dreams:magic_broom",
+    "reverie_dreams:gungnir",
+    "reverie_dreams:horai-dama_no_eda",
+    "reverie_dreams:yuka_flower_umbrella",
+    "reverie_dreams:ibukiho",
+    "reverie_dreams:sword_of_hisou",
+    "reverie_dreams:manpozuchi",
+    "reverie_dreams:nue_trident",
+    "reverie_dreams:violin",
+    "reverie_dreams:keyboard",
+    "reverie_dreams:trumpet",
+    "reverie_dreams:knife"
+  ],
+  "pendingAuditedWeaponBoundaries": {
+    "manpozuchi": "Source actual attributes3.5/-2.5,59durability,resizePDCpersisted. Paper26native Mace copied fall math matches, but native grants impulse fall safety to allLiving while source onlyServerPlayer; not registered on an unproven equivalence.",
+    "nue_trident": "Requires source held-in-water grace,guardian melee+4,10tick charge,450durability,nextDamageWillBreak guard,native loyalty/riptide/channeling/pickup and source projectile/item renderer.",
+    "gungnir": "Source also requires sprint+jump at release,not just a vanilla trident. Native spear jab/kinetic fields,source red trail and custom renderer remain.",
+    "specialLaser": "No generic bullet approximation included."
+  },
+  "knownDifferences": [
+    "The source 13-pixel ammo bar is rendered from item data every frame; a Paper item bar cannot be exposed independently, so the remaining rounds live in the PDC and the three-line lore instead.",
+    "XP-dependent tooltip lines are refreshed on item creation, shot, reload, level change and a 20-tick safety interval, not recomputed at render time.",
+    "A fresh CE gun still carries the static type cooldown group until its first server-side use, when it is replaced by a per-stack source-equivalent group.",
+    "BOW use animation is used while the trigger is held because vanilla clients need a consumable-backed use state; the source shows NONE after the first shot.",
+    "Vanilla clients do not send a release for interact-entity use, so entity targeting performs one immediate source action instead of hold-to-aim.",
+    "The source client's aim-attack C2S packet has no vanilla-client equivalent; firing while holding attack during aim is unavailable, and only the release shot is implemented.",
+    "Source advancement/stat triggers are not fired by the Paper port.",
+    "Recoil uses Paper setRotation; the exact client rotation packet timing is not reproduced.",
+    "Ammo visible tooltip preserves real rounds, but custom13pixel native item bar cannot be exposed as an independent Paper component; no false durability added to the non-damageable gun.",
+    "Bursts are transient and cleared on stop as source DelayedTask; active projectiles persist through the shared backend.",
+    "Player death freezes pending frame at death to avoid Bukkit CraftPlayer rebind moving an old source reference to respawn; corpse drift/internals differ.",
+    "Source custom advancement/stat triggers remain to be handled centrally."
+  ]
+}

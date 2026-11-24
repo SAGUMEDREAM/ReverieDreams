@@ -189,7 +189,10 @@ public class SkillContainer<T extends LivingEntity> {
 
     @SuppressWarnings("unchecked")
     public void readAdditionalSaveData(ValueInput view) {
-        view.read("Skill.Id", Skill.CODEC).ifPresent(skill -> this.now = (Skill<T>) skill);
+        view.read("Skill.Id", Skill.CODEC).ifPresent(skill -> {
+            // 旧存档里技能可能保存成 undefined/DEFAULT；置空让下一次 tick 重新选择
+            this.now = skill == Skill.DEFAULT ? null : (Skill<T>) skill;
+        });
         this.nextTrigger = view.getBooleanOr("Skill.NextTrigger", false);
         this.count = view.getIntOr("Skill.Count", 0);
     }

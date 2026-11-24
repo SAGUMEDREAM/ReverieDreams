@@ -61,23 +61,26 @@ public class DanmakuCraftingTableGui extends SimpleGui implements GuiCommon {
     public void init() {
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub001")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(Component.translatable(RDBlocks.DANMAKU_CRAFTING_TABLE.asBlock().getDescriptionId()))
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub001")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(Component.translatable(RDBlocks.DANMAKU_CRAFTING_TABLE.asBlock().getDescriptionId()))
         );
 
         Container inventory = this.blockEntity.getInventory();
         int counter = 0;
         int counter2 = 0;
         Function<Integer, Function<ItemStack, Boolean>> iffib = index -> switch (index) {
+            // 注意：ItemDelegate/BlockDelegate 是自定义 Holder，ItemStack.is(Holder) 在 1.21.2+ 走的是
+            // TypedInstance.is(Holder) 的同一性比较（typeHolder() == type），delegate 与注册表 Holder.Reference
+            // 不是同一对象，因此必须用 asItem() 转成真正的 Item 再比较，否则谓词恒为 false（槽位永远放不进东西）。
             case 0 -> itemStack -> itemStack.is(ItemTags.DYES);
-            case 1 -> itemStack -> itemStack.is(RDItems.DANMAKU_CORE);
-            case 2 -> itemStack -> itemStack.is(RDItems.POWER);
-            case 3 -> itemStack -> itemStack.is(RDItems.POINT);
-            case 4 -> itemStack -> itemStack.is(RDItems.DANMAKU_SHAPE_CREATOR);
+            case 1 -> itemStack -> itemStack.is(RDItems.DANMAKU_CORE.asItem());
+            case 2 -> itemStack -> itemStack.is(RDItems.POWER.asItem());
+            case 3 -> itemStack -> itemStack.is(RDItems.POINT.asItem());
+            case 4 -> itemStack -> itemStack.is(RDItems.DANMAKU_SHAPE_CREATOR.asItem());
             default -> _ -> true;
         };
         for (int i = 0; i < layout.length; i++) {

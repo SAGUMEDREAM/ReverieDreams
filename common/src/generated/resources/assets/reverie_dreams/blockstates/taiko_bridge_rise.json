@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "reverie_dreams:block/set2/taiko_bridge_rise"
+    },
+    "facing=east": {
+      "model": "reverie_dreams:block/set2/taiko_bridge_rise",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/set2/taiko_bridge_rise",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/set2/taiko_bridge_rise",
+      "y": 270
+    }
+  }
+}

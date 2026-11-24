@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/spellcard/touhou/th17/s01_000_hard",
+    "layer1": "reverie_dreams:item/spellcard/difficulty_corner"
+  }
+}

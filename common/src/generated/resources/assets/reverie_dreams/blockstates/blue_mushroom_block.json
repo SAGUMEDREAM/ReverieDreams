@@ -1,0 +1,100 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_down"
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_inside_down"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_up"
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_inside_up"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_north"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_inside_north"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_south"
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_inside_south"
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_west"
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_inside_west"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_east"
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/blue_mushroom_block_inside_east"
+      },
+      "when": {
+        "east": "false"
+      }
+    }
+  ]
+}

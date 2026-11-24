@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import cc.thonly.reverie_dreams.recipe.RecipeResourceLoader;
 
 @Slf4j
 @SuppressWarnings("unchecked")
@@ -63,27 +64,8 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     public void reload(ResourceManager manager) {
         this.dynamicBuilder.clear();
         this.automaticRecipeIdCounter.clear();
-        Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getNamespace().equals(ReverieDreams.MOD_ID) && id.getPath().endsWith(".json");
-        });
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^strength_table_recipe/", "").replaceAll("\\.json$", ""));
-            Resource resource = entry.getValue();
-            try (InputStream stream = resource.open()) {
-                JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-
-                DataResult<StrengthTableRecipe> result = this.getCodec().parse(input);
-
-                result.resultOrPartial(error -> log.error("Failed to load strength table recipe {}, {}", id, error))
-                      .ifPresent(recipe -> {
-                          this.add(registryKey, recipe);
-                      });
-            } catch (IOException e) {
-                log.error("Failed to load strength table recipe {}, {}, {}", id, e.getMessage(), e);
-            }
-        }
+        RecipeResourceLoader.load(manager, this.getTypeId() + "_recipe",
+                id -> id.getNamespace().equals(ReverieDreams.MOD_ID), this.getCodec(), this::add);
         List<Item> danmakuItemView = BuiltInRegistryProviders.DANMAKU_TYPE
                 .values().stream().map(DanmakuType::getItemHolder).map(ItemLike::asItem).toList();
         List<ItemStackTemplate> danmakuItemStackView = danmakuItemView.stream().map(ItemStackTemplate::new).toList();
@@ -163,8 +145,14 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
     }
 
     public IngredientStack tryGetOutput(IngredientStack main, IngredientStack off) {
+        return this.evaluateUpgrade(main, off).output();
+    }
+
+    public Upgrade evaluateUpgrade(IngredientStack main, IngredientStack off) {
         ItemStack mainStack = main.getLazyStack().copy();
         ItemStack offStack = off.getLazyStack().copy();
+        if (mainStack.isEmpty()) return new Upgrade(null, UpgradeStatus.MISSING_SUBJECT);
+        if (offStack.isEmpty()) return new Upgrade(null, UpgradeStatus.MISSING_MATERIAL);
         Item mainItem = mainStack.getItem();
         Item offItem = offStack.getItem();
         boolean isDanmakuItem = mainItem instanceof DanmakuItem;
@@ -177,7 +165,13 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             DanmakuProperties properties = offStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
             if (properties != null) {
                 mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withTemplateId(properties.templateId()));
-                return new IngredientStack(mainStack);
+                var trajectoryConfig = offStack.get(RDDataComponentTypes.DANMAKU_TRAJECTORY_CONFIG.value());
+                if (trajectoryConfig != null) {
+                    mainStack.set(RDDataComponentTypes.DANMAKU_TRAJECTORY_CONFIG.value(), trajectoryConfig);
+                } else {
+                    mainStack.remove(RDDataComponentTypes.DANMAKU_TRAJECTORY_CONFIG.value());
+                }
+                return new Upgrade(new IngredientStack(mainStack), UpgradeStatus.READY);
             }
         }
         if (isDanmakuItem && isSpeedItem) {
@@ -189,8 +183,9 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
                 mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component
                         .withSpeed(sum)
                         .withSpeedVersion(DanmakuProperties.CURRENT_SPEED_VERSION));
-                return new IngredientStack(mainStack);
+                return new Upgrade(new IngredientStack(mainStack), UpgradeStatus.READY);
             }
+            return new Upgrade(null, UpgradeStatus.LIMIT);
         }
         if (isDanmakuItem && isSlime) {
             DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
@@ -198,19 +193,25 @@ public class StrengthTableRecipeType extends BaseRecipeType<StrengthTableRecipe>
             int sum = count + 1;
             if (sum < MAX_COUNT) {
                 mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withCount(sum));
-                return new IngredientStack(mainStack);
+                return new Upgrade(new IngredientStack(mainStack), UpgradeStatus.READY);
             }
+            return new Upgrade(null, UpgradeStatus.LIMIT);
         }
         if (isDanmakuItem && isIronSword) {
             DanmakuProperties component = mainStack.getOrDefault(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), DanmakuProperties.ofDefault());
             float sum = component.damage() + 0.25f;
             if (sum < MAX_DAMAGE) {
                 mainStack.set(RDDataComponentTypes.DANMAKU_PROPERTIES.value(), component.withDamage(sum));
-                return new IngredientStack(mainStack);
+                return new Upgrade(new IngredientStack(mainStack), UpgradeStatus.READY);
             }
+            return new Upgrade(null, UpgradeStatus.LIMIT);
         }
-        return null;
+        return new Upgrade(null, UpgradeStatus.INVALID);
     }
+
+    public enum UpgradeStatus { READY, MISSING_SUBJECT, MISSING_MATERIAL, INVALID, LIMIT }
+
+    public record Upgrade(IngredientStack output, UpgradeStatus status) { }
 
     @Override
     public Boolean isMatch(IngredientStack input, IngredientStack recipe) {

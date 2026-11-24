@@ -26,10 +26,10 @@ package cc.thonly.reverie_dreams.entity.ai.goal.work;//package cc.thonly.reverie
 //        }
 //        return super.canStart();
 //    }
-////    @Override
-////    public boolean shouldResetPath() {
-////        return this.tryingTime % 100 == 0||!isInRange(targetPos);
-////    }
+/// /    @Override
+/// /    public boolean shouldResetPath() {
+/// /        return this.tryingTime % 100 == 0||!isInRange(targetPos);
+/// /    }
 //
 //    @Override
 //    protected boolean isTargetPos(WorldView ignore, BlockPos pos) {

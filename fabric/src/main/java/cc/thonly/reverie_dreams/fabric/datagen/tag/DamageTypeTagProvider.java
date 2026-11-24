@@ -26,6 +26,7 @@ public class DamageTypeTagProvider extends FabricTagsProvider<DamageType> {
         this.builder(DamageTypeTags.NO_KNOCKBACK).add(RDDamageTypes.DANMAKU_GENERIC).add(RDDamageTypes.DANMAKU_REAL);
         this.builder(DamageTypeTags.BYPASSES_ARMOR).add(RDDamageTypes.DANMAKU_REAL);
         this.builder(DamageTypeTags.IS_PROJECTILE).add(RDDamageTypes.DANMAKU_GENERIC).add(RDDamageTypes.DANMAKU_REAL);
+        this.builder(DamageTypeTags.PANIC_CAUSES).add(RDDamageTypes.DANMAKU_GENERIC).add(RDDamageTypes.DANMAKU_REAL);
         this.builder(RDDamageTypeTags.DANMAKU_HIT).add(RDDamageTypes.DANMAKU_GENERIC).add(RDDamageTypes.DANMAKU_REAL);
     }
 }

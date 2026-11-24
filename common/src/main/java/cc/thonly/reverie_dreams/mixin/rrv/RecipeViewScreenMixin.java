@@ -17,7 +17,7 @@ import java.util.List;
 @Pseudo
 @Mixin(RecipeViewScreen.class)
 public abstract class RecipeViewScreenMixin {
-    @Inject(method = "getTooltipFromContainerItem", at=@At("HEAD"), cancellable = true)
+    @Inject(method = "getTooltipFromContainerItem", at = @At("HEAD"), cancellable = true)
     public void reverie_dreams$getTooltipFromContainerGuiItem(@NonNull ItemStack itemStack, CallbackInfoReturnable<List<Component>> cir) {
         if (itemStack.getItem() instanceof GuiPlaceholderItem) {
             cir.setReturnValue(new ArrayList<>(List.of()));

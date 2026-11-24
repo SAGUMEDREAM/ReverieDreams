@@ -26,7 +26,8 @@ public class MidiListener {
     private final Map<String, DeviceWrapper> devices = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler;
 
-    private MidiListener() {}
+    private MidiListener() {
+    }
 
 
     public synchronized void start() {
@@ -86,7 +87,8 @@ public class MidiListener {
         try {
             MidiDevice device = MidiSystem.getMidiDevice(info);
 
-            if (device.getMaxTransmitters() == 0) return;
+            if (device.getMaxTransmitters() == 0)
+                return;
 
             device.open();
 
@@ -106,7 +108,8 @@ public class MidiListener {
 
     private void disconnectDevice(String id) {
         DeviceWrapper wrapper = devices.remove(id);
-        if (wrapper == null) return;
+        if (wrapper == null)
+            return;
 
         try {
             wrapper.transmitter.close();
@@ -127,7 +130,8 @@ public class MidiListener {
         return new Receiver() {
             @Override
             public void send(MidiMessage message, long timeStamp) {
-                if (!(message instanceof ShortMessage sm)) return;
+                if (!(message instanceof ShortMessage sm))
+                    return;
 
                 int command = sm.getCommand();
                 int key = sm.getData1();

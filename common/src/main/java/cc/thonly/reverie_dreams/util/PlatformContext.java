@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.util;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
 import dev.architectury.platform.Mod;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
@@ -116,7 +117,7 @@ public class PlatformContext {
     }
 
 
-    public static boolean isHasConnector() {
+    public static boolean hasConnector() {
         return HAS_CONNECTOR.get();
     }
 

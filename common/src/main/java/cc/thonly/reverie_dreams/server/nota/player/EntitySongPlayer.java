@@ -52,13 +52,9 @@ public class EntitySongPlayer extends RangeSongPlayer {
 
 	@Override
 	public synchronized void playTick(Player player, int tick) {
-		if(!entity.isAlive()) {
-			if(autoDestroy) {
-				destroy();
-			}
-			else {
-				setPlaying(false);
-			}
+		if(!entity.isAlive() || entity.isRemoved()) {
+			destroy();
+			return;
 		}
 		if(!player.level().dimension().equals(entity.level().dimension())) {
 			return; // not in same world

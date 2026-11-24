@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:wheat",
+  "output": {
+    "id": "reverie_dreams:ingredient/flour",
+    "count": 1
+  },
+  "work": 8
+}

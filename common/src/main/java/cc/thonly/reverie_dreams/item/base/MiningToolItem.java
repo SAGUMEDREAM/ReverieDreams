@@ -31,7 +31,7 @@ public abstract class MiningToolItem extends Item {
                 .tool(material,
                         RDBlockTags.MIN_TOOL,
                         attackDamage,
-                        attackSpeed,0.0F
+                        attackSpeed, 0.0F
                 )
         );
 

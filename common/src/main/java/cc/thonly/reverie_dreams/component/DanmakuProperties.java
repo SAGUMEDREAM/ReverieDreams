@@ -13,6 +13,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageType;
 
 import java.util.function.Supplier;
@@ -33,7 +34,7 @@ import java.util.function.Supplier;
 @Builder(toBuilder = true)
 public record DanmakuProperties(Identifier templateId, int count, float damage, ResourceKey<DamageType> damageType,
                                 float scale, float speed, float acceleration, boolean tile, boolean infinite,
-                                int speedVersion) {
+                                int speedVersion, float hitboxScale) {
     public static final Identifier DEFAULT_TEMPLATE_ID = ReverieDreams.id("single");
     public static final int CURRENT_SPEED_VERSION = 1;
     public static final Supplier<DanmakuProperties> EMPTY = () -> new DanmakuProperties(
@@ -46,7 +47,8 @@ public record DanmakuProperties(Identifier templateId, int count, float damage, 
             0,
             false,
             false,
-            CURRENT_SPEED_VERSION
+            CURRENT_SPEED_VERSION,
+            -1.0f
     );
     public static final Codec<DanmakuProperties> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
@@ -59,7 +61,8 @@ public record DanmakuProperties(Identifier templateId, int count, float damage, 
                     Codec.FLOAT.fieldOf("acceleration").forGetter(DanmakuProperties::acceleration),
                     Codec.BOOL.fieldOf("tile").forGetter(DanmakuProperties::tile),
                     Codec.BOOL.fieldOf("infinite").forGetter(DanmakuProperties::infinite),
-                    Codec.INT.optionalFieldOf("speed_version", 0).forGetter(DanmakuProperties::speedVersion)
+                    Codec.INT.optionalFieldOf("speed_version", 0).forGetter(DanmakuProperties::speedVersion),
+                    Codec.FLOAT.optionalFieldOf("hitbox_scale", -1.0f).forGetter(DanmakuProperties::hitboxScale)
             ).apply(instance, DanmakuProperties::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf,DanmakuProperties> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
@@ -69,11 +72,26 @@ public record DanmakuProperties(Identifier templateId, int count, float damage, 
      * 实际飞行速度（格/tick），自动兼容旧数据。
      */
     public float actualSpeed() {
-        return this.speedVersion >= CURRENT_SPEED_VERSION ? this.speed : this.speed * 0.5f;
+        float actual = this.speedVersion >= CURRENT_SPEED_VERSION ? this.speed : this.speed * 0.5f;
+        // 防止数据包/旧组件写入极端速度把弹幕变成瞬移。
+        return Mth.clamp(actual, 0.0f, 4.0f);
     }
 
     public boolean isLegacySpeed() {
         return this.speedVersion < CURRENT_SPEED_VERSION;
+    }
+
+    /**
+     * Explicit collision scale, falling back to the visual scale for old components.
+     * Independent from {@link #scale()} so a bullet can look large without an
+     * unlimited physical hitbox (and vice versa).
+     */
+    public float collisionScale() {
+        float base = this.hitboxScale > 0.0f ? this.hitboxScale : this.scale;
+        if (!Float.isFinite(base)) {
+            return 1.0f;
+        }
+        return Mth.clamp(base, 0.25f, 4.0f);
     }
 
     @SuppressWarnings("MethodDoesntCallSuperMethod")

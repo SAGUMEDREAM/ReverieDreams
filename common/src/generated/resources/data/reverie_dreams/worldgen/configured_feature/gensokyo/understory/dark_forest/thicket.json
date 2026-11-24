@@ -1,0 +1,81 @@
+{
+  "type": "reverie_dreams:gensokyo_understory",
+  "config": {
+    "accents": [
+      {
+        "Name": "minecraft:fern"
+      },
+      {
+        "Name": "minecraft:brown_mushroom"
+      },
+      {
+        "Name": "minecraft:red_mushroom"
+      }
+    ],
+    "flowers": [
+      {
+        "Name": "minecraft:brown_mushroom"
+      },
+      {
+        "Name": "minecraft:red_mushroom"
+      }
+    ],
+    "kind": "thicket",
+    "leaves": [
+      {
+        "Name": "minecraft:dark_oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "minecraft:dark_oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      },
+      {
+        "Name": "minecraft:oak_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    ],
+    "litter": [
+      {
+        "Name": "minecraft:leaf_litter",
+        "Properties": {
+          "facing": "north",
+          "segment_amount": "1"
+        }
+      }
+    ],
+    "logs": [
+      {
+        "Name": "minecraft:dark_oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:dark_oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    ],
+    "theme": "dark_forest"
+  }
+}

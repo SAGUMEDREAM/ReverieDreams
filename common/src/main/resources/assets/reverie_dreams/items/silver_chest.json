@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "reverie_dreams:block/silver_chest"
+    "model": "reverie_dreams:item/decoration/silver_chest"
   }
 }

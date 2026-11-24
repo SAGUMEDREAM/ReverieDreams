@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:item/waterproof_clothing",
+    "layer1": "reverie_dreams:item/waterproof_clothing_overlay",
+    "layer2": "minecraft:trims/items/chestplate_trim_diamond"
+  }
+}

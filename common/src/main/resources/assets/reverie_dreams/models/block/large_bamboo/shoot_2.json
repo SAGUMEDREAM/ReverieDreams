@@ -1,0 +1,356 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "3": "reverie_dreams:block/large_bamboo/shoot",
+    "particle": "reverie_dreams:block/large_bamboo/shoot"
+  },
+  "elements": [
+    {
+      "name": "husk_0",
+      "from": [
+        3,
+        0,
+        3
+      ],
+      "to": [
+        13,
+        2,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            10,
+            2
+          ],
+          "texture": "#3"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            10,
+            2
+          ],
+          "texture": "#3"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            10,
+            2
+          ],
+          "texture": "#3"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            10,
+            2
+          ],
+          "texture": "#3"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ],
+          "texture": "#3"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            10,
+            10
+          ],
+          "texture": "#3"
+        }
+      }
+    },
+    {
+      "name": "husk_1",
+      "from": [
+        4,
+        2,
+        4
+      ],
+      "to": [
+        12,
+        5,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            2,
+            8,
+            5
+          ],
+          "texture": "#3"
+        },
+        "east": {
+          "uv": [
+            0,
+            2,
+            8,
+            5
+          ],
+          "texture": "#3"
+        },
+        "south": {
+          "uv": [
+            0,
+            2,
+            8,
+            5
+          ],
+          "texture": "#3"
+        },
+        "west": {
+          "uv": [
+            0,
+            2,
+            8,
+            5
+          ],
+          "texture": "#3"
+        },
+        "up": {
+          "uv": [
+            0,
+            2,
+            8,
+            10
+          ],
+          "texture": "#3"
+        },
+        "down": {
+          "uv": [
+            0,
+            2,
+            8,
+            10
+          ],
+          "texture": "#3"
+        }
+      }
+    },
+    {
+      "name": "husk_2",
+      "from": [
+        5,
+        5,
+        5
+      ],
+      "to": [
+        11,
+        8,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            5,
+            6,
+            8
+          ],
+          "texture": "#3"
+        },
+        "east": {
+          "uv": [
+            0,
+            5,
+            6,
+            8
+          ],
+          "texture": "#3"
+        },
+        "south": {
+          "uv": [
+            0,
+            5,
+            6,
+            8
+          ],
+          "texture": "#3"
+        },
+        "west": {
+          "uv": [
+            0,
+            5,
+            6,
+            8
+          ],
+          "texture": "#3"
+        },
+        "up": {
+          "uv": [
+            0,
+            5,
+            6,
+            11
+          ],
+          "texture": "#3"
+        },
+        "down": {
+          "uv": [
+            0,
+            5,
+            6,
+            11
+          ],
+          "texture": "#3"
+        }
+      }
+    },
+    {
+      "name": "husk_3",
+      "from": [
+        6,
+        8,
+        6
+      ],
+      "to": [
+        10,
+        11,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            8,
+            4,
+            11
+          ],
+          "texture": "#3"
+        },
+        "east": {
+          "uv": [
+            0,
+            8,
+            4,
+            11
+          ],
+          "texture": "#3"
+        },
+        "south": {
+          "uv": [
+            0,
+            8,
+            4,
+            11
+          ],
+          "texture": "#3"
+        },
+        "west": {
+          "uv": [
+            0,
+            8,
+            4,
+            11
+          ],
+          "texture": "#3"
+        },
+        "up": {
+          "uv": [
+            0,
+            8,
+            4,
+            12
+          ],
+          "texture": "#3"
+        },
+        "down": {
+          "uv": [
+            0,
+            8,
+            4,
+            12
+          ],
+          "texture": "#3"
+        }
+      }
+    },
+    {
+      "name": "husk_4",
+      "from": [
+        7,
+        11,
+        7
+      ],
+      "to": [
+        9,
+        14,
+        9
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            0,
+            14,
+            3
+          ],
+          "texture": "#3"
+        },
+        "east": {
+          "uv": [
+            12,
+            0,
+            14,
+            3
+          ],
+          "texture": "#3"
+        },
+        "south": {
+          "uv": [
+            12,
+            0,
+            14,
+            3
+          ],
+          "texture": "#3"
+        },
+        "west": {
+          "uv": [
+            12,
+            0,
+            14,
+            3
+          ],
+          "texture": "#3"
+        },
+        "up": {
+          "uv": [
+            12,
+            0,
+            14,
+            2
+          ],
+          "texture": "#3"
+        },
+        "down": {
+          "uv": [
+            12,
+            0,
+            14,
+            2
+          ],
+          "texture": "#3"
+        }
+      }
+    }
+  ],
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:paper",
+    "minecraft:paper",
+    "minecraft:stick",
+    "minecraft:string"
+  ],
+  "result": {
+    "id": "reverie_dreams:gohei"
+  }
+}

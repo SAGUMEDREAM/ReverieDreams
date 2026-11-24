@@ -21,7 +21,15 @@ public class MarisaHatBlock extends BaseFumoBlock {
     }
 
     @Override
+    public boolean supportsGrowth() {
+        return false;
+    }
+
+    @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (player.isShiftKeyDown()) {
+            return this.rotateFumo(state, world, pos, player);
+        }
         if (!world.isClientSide()) {
             return InteractionResult.SUCCESS_SERVER;
         }

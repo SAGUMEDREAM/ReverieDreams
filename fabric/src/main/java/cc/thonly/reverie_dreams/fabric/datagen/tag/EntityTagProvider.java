@@ -21,6 +21,7 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
 
     @Override
     protected void addTags(HolderLookup.@NonNull Provider wrapperLookup) {
+        valueLookupBuilder(RDEntityTypeTags.HUMAN).add(EntityType.PLAYER, EntityType.VILLAGER);
         TagAppender<EntityType<?>, EntityType<?>> roleBuilder = valueLookupBuilder(RDEntityTypeTags.NPC_ROLE);
 
         BuiltInRegistryProviders.NPC_ROLE_TYPE.values().forEach(role -> roleBuilder.add(role.getEntityType().value()));
@@ -35,6 +36,7 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
         yousei.add(RDEntityTypes.ICE_FAIRY.value());
 
         TagAppender<EntityType<?>, EntityType<?>> yokai = valueLookupBuilder(RDEntityTypeTags.YOKAI);
+        yokai.add(RDEntityTypes.YOUKAI_CAT.value(), RDEntityTypes.YOUKAI_TANUKI.value(), RDEntityTypes.YOUKAI_FOX.value());
         yokai.add(RDEntityTypes.MAID_YOUSEI.value());
         yokai.add(RDEntityTypes.SUNFLOWER_YOUSEI.value());
         yokai.add(RDEntityTypes.YOUSEI.value());
@@ -43,7 +45,10 @@ public class EntityTagProvider extends FabricTagsProvider.EntityTypeTagsProvider
         yokai.add(RDEntityTypes.GHOST.value());
         yokai.add(RDEntityTypes.MUSHROOM_MONSTER.value());
         yokai.add(RDEntityTypes.MAID_YOUSEI.value());
+        yokai.add(RDEntityTypes.GOBLIN.value());
         yokai.add(RDEntityTypes.ONI.value());
+        yokai.add(RDEntityTypes.WHITE_WOLF_TENGU.value());
+        yokai.add(RDEntityTypes.CROW_TENGU.value());
         yokai.addOptionalTag(RDEntityTypeTags.YOUSEI);
     }
 }

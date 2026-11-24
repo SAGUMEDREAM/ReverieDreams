@@ -10,6 +10,7 @@ import cc.thonly.reverie_dreams.recipe.view.RecipeKeyEntry;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.ClickType;
+import eu.pb4.sgui.api.elements.GuiElement;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import eu.pb4.sgui.api.gui.SlotBasedGui;
@@ -43,7 +44,7 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
     public final GuiOpeningPrevCallback prevGuiCallback;
 
     public KitchenBlockDisplayView(ServerPlayer player, RecipeKeyEntry<KitchenRecipe> key2ValueEntry, GuiOpeningPrevCallback prevGuiCallback) {
-        super(MenuType.GENERIC_9x6, player, false);
+        super(MenuType.GENERIC_9x3, player, false);
         this.key2ValueEntry = key2ValueEntry;
         this.key = this.key2ValueEntry.getKey();
         this.value = this.key2ValueEntry.getValue();
@@ -55,12 +56,12 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
     public void init() {
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub003")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName())
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ue008")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(this.key2ValueEntry.getValue().getOutput().build().getHoverName().copy().withStyle(ChatFormatting.WHITE))
         );
         List<IngredientStack> ingredients = this.value.getIngredients();
         List<IngredientStack> inputs = new LinkedList<>(ingredients);
@@ -99,6 +100,15 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
         }
     }
 
+    @Override
+    public boolean onClick(int index, ClickType type, ContainerInput action, GuiElement element) {
+        if (action == ContainerInput.PICKUP && element != null && !element.getItemStack().isEmpty()
+                && element.getGuiCallback() == GuiElement.EMPTY_CALLBACK) {
+            SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
+        }
+        return super.onClick(index, type, action, element);
+    }
+
     public void back(int index, ClickType clickType, ContainerInput input, SlotBasedGui slotBasedGui) {
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.close();
@@ -113,10 +123,7 @@ public class KitchenBlockDisplayView extends SimpleGui implements DisplayView {
     @Override
     public String[][] getGrid() {
         return new String[][]{
-                {"X", "O", "X", "X", "X", "X", "X", "X", "X"},
-                {"P", "X", "X", "X", "X", "X", "X", "X", "X"},
-                {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
-                {"X", "X", "X", "X", "X", "X", "X", "X", "X"},
+                {"X", "P", "X", "X", "X", "X", "X", "X", "X"},
                 {"X", "I", "I", "I", "I", "I", "X", "O", "X"},
                 {"X", "X", "X", "X", "X", "X", "X", "X", "B"},
         };

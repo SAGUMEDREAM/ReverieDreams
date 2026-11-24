@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=north,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_0"
+    },
+    "facing=north,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_1"
+    },
+    "facing=north,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_2"
+    },
+    "facing=north,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_3"
+    },
+    "facing=north,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_4"
+    },
+    "facing=north,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_5"
+    },
+    "facing=north,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_6"
+    },
+    "facing=north,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_7"
+    },
+    "facing=north,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_8"
+    },
+    "facing=north,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_9"
+    },
+    "facing=north,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_10"
+    },
+    "facing=north,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_11"
+    },
+    "facing=north,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_12"
+    },
+    "facing=north,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_13"
+    },
+    "facing=north,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_14"
+    },
+    "facing=north,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_15"
+    },
+    "facing=east,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_0",
+      "y": 90
+    },
+    "facing=east,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_8",
+      "y": 90
+    },
+    "facing=east,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_1",
+      "y": 90
+    },
+    "facing=east,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_9",
+      "y": 90
+    },
+    "facing=east,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_2",
+      "y": 90
+    },
+    "facing=east,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_10",
+      "y": 90
+    },
+    "facing=east,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_3",
+      "y": 90
+    },
+    "facing=east,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_11",
+      "y": 90
+    },
+    "facing=east,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_4",
+      "y": 90
+    },
+    "facing=east,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_12",
+      "y": 90
+    },
+    "facing=east,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_5",
+      "y": 90
+    },
+    "facing=east,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_13",
+      "y": 90
+    },
+    "facing=east,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_6",
+      "y": 90
+    },
+    "facing=east,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_14",
+      "y": 90
+    },
+    "facing=east,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_7",
+      "y": 90
+    },
+    "facing=east,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_15",
+      "y": 90
+    },
+    "facing=south,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_0",
+      "y": 180
+    },
+    "facing=south,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_4",
+      "y": 180
+    },
+    "facing=south,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_8",
+      "y": 180
+    },
+    "facing=south,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_12",
+      "y": 180
+    },
+    "facing=south,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_1",
+      "y": 180
+    },
+    "facing=south,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_5",
+      "y": 180
+    },
+    "facing=south,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_9",
+      "y": 180
+    },
+    "facing=south,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_13",
+      "y": 180
+    },
+    "facing=south,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_2",
+      "y": 180
+    },
+    "facing=south,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_6",
+      "y": 180
+    },
+    "facing=south,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_10",
+      "y": 180
+    },
+    "facing=south,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_14",
+      "y": 180
+    },
+    "facing=south,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_3",
+      "y": 180
+    },
+    "facing=south,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_7",
+      "y": 180
+    },
+    "facing=south,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_11",
+      "y": 180
+    },
+    "facing=south,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_15",
+      "y": 180
+    },
+    "facing=west,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_0",
+      "y": 270
+    },
+    "facing=west,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_2",
+      "y": 270
+    },
+    "facing=west,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_4",
+      "y": 270
+    },
+    "facing=west,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_6",
+      "y": 270
+    },
+    "facing=west,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_8",
+      "y": 270
+    },
+    "facing=west,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_10",
+      "y": 270
+    },
+    "facing=west,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_12",
+      "y": 270
+    },
+    "facing=west,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/shop_bench_14",
+      "y": 270
+    },
+    "facing=west,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_1",
+      "y": 270
+    },
+    "facing=west,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_3",
+      "y": 270
+    },
+    "facing=west,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_5",
+      "y": 270
+    },
+    "facing=west,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_7",
+      "y": 270
+    },
+    "facing=west,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_9",
+      "y": 270
+    },
+    "facing=west,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_11",
+      "y": 270
+    },
+    "facing=west,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_13",
+      "y": 270
+    },
+    "facing=west,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/shop_bench_15",
+      "y": 270
+    }
+  }
+}

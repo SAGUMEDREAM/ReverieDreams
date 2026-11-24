@@ -1,0 +1,14 @@
+{
+  "models": [
+    "assets/reverie_dreams/models/block/magic_ice.json"
+  ],
+  "source_models": [
+    "assets/reverie_dreams/models/block/ice_making_machine.json",
+    "assets/reverie_dreams/models/block/brewing_barrel.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/block/ice_making_machine.png",
+    "assets/reverie_dreams/textures/block/brewing_barrel.png",
+    "assets/reverie_dreams/textures/block/magic_ice.png"
+  ]
+}

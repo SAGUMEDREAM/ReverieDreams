@@ -1,0 +1,23 @@
+plugins {
+    id 'base'
+}
+
+description = 'Gensokyo map editor (Node.js web UI)'
+
+tasks.register('startEditor', Exec) {
+    group = 'application'
+    description = 'Start the Gensokyo map editor web server on port 3210'
+    workingDir = projectDir
+    commandLine 'node', 'server.mjs'
+}
+
+tasks.register('testEditor', Exec) {
+    group = 'verification'
+    description = 'Run the world editor Node.js test suite'
+    workingDir = projectDir
+    commandLine 'node', '--test'
+}
+
+tasks.named('check') {
+    dependsOn 'testEditor'
+}

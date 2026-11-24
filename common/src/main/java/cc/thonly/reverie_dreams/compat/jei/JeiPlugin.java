@@ -24,6 +24,8 @@ import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopKind;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseSet2Blocks;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -42,6 +44,8 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.GrillImpl(guiHelper));
         registry.addRecipeCategories(new BaseKitchenRecipeCategory.SteamerImpl(guiHelper));
         registry.addRecipeCategories(new BrewingBarrelRecipeCategory(guiHelper));
+        registry.addRecipeCategories(new WorkshopRecipeCategory(guiHelper, false));
+        registry.addRecipeCategories(new WorkshopRecipeCategory(guiHelper, true));
     }
 
     @Override
@@ -57,6 +61,8 @@ public class JeiPlugin implements IModPlugin {
         registry.addRecipes(JeiRecipeTypes.GRILL, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.GRILL));
         registry.addRecipes(JeiRecipeTypes.STEAMER, recipes.getKitchenRecipeTypeList(KitchenRecipeType.TypeInstance.STEAMER));
         registry.addRecipes(JeiRecipeTypes.BREWING, recipes.getRecipeTypeList(RecipeManager.BREWING_BARREL));
+        registry.addRecipes(JeiRecipeTypes.GRINDING, recipes.getRecipeTypeList(RecipeManager.GRINDING));
+        registry.addRecipes(JeiRecipeTypes.HERB_DRYING, recipes.getRecipeTypeList(RecipeManager.HERB_DRYING));
 
 
         ItemViewItemInfo.registerItemInfo((items, component) -> {
@@ -88,6 +94,8 @@ public class JeiPlugin implements IModPlugin {
             }
         }
         registry.addCraftingStation(JeiRecipeTypes.BREWING, RDBlocks.BREWING_BARREL.createStack());
+        registry.addCraftingStation(JeiRecipeTypes.GRINDING, RDJapaneseSet2Blocks.get(WorkshopKind.YAGEN).createStack());
+        registry.addCraftingStation(JeiRecipeTypes.HERB_DRYING, RDJapaneseSet2Blocks.get(WorkshopKind.HERB_DRYING_TRAY).createStack());
     }
 
     @Override

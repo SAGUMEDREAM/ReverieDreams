@@ -1,0 +1,19 @@
+{
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "count": 8.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "gives": {
+    "id": "reverie_dreams:silver_coin"
+  },
+  "max_uses": 6.0,
+  "reputation_discount": 0.2,
+  "wants": {
+    "count": 2.0,
+    "id": "reverie_dreams:oni_horn"
+  },
+  "xp": 15.0
+}

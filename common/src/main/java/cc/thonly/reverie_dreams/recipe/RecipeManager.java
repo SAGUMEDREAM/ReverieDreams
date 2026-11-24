@@ -42,6 +42,9 @@ public class RecipeManager {
     public static final BaseRecipeType<StrengthTableRecipe> STRENGTH_TABLE = registerRecipeType(ReverieDreams.id("strength_table"), new StrengthTableRecipeType());
     public static final BaseRecipeType<KitchenRecipe> KITCHEN_TYPE = registerRecipeType(ReverieDreams.id("kitchen"), new KitchenRecipeType());
     public static final BaseRecipeType<BrewingBarrelRecipe> BREWING_BARREL = registerRecipeType(ReverieDreams.id("barrel"), new BrewingBarrelRecipeType());
+    public static final BaseRecipeType<WorkshopProcessRecipe> GRINDING = registerRecipeType(ReverieDreams.id("grinding"), new WorkshopProcessRecipeType("grinding"));
+    public static final BaseRecipeType<WorkshopProcessRecipe> MILLING = registerRecipeType(ReverieDreams.id("milling"), new WorkshopProcessRecipeType("milling"));
+    public static final BaseRecipeType<WorkshopProcessRecipe> HERB_DRYING = registerRecipeType(ReverieDreams.id("herb_drying"), new WorkshopProcessRecipeType("herb_drying"));
     public static final RegistrySupplier<RecipeSerializer<DanmakuDyeRecipe>> DANMAKU_DYE_RECIPE = registerRecipeSerializer("crafting_special_danmakudye", () -> new RecipeSerializer<>(DanmakuDyeRecipe.MAP_CODEC, DanmakuDyeRecipe.STREAM_CODEC));
 
     public static void bootstrap() {
@@ -57,7 +60,7 @@ public class RecipeManager {
     public static <R extends BaseRecipe> SuggestionProvider<CommandSourceStack> getSuggestions(BaseRecipeType<R> type) {
         return (context, builder) -> {
             for (Identifier key : type.keys()) {
-                builder.suggest(String.valueOf(key));
+                cc.thonly.reverie_dreams.util.command.FilteredSuggestions.resource(builder,key);
             }
             return builder.buildFuture();
         };
@@ -76,17 +79,30 @@ public class RecipeManager {
 
             CompoundTag tag = BaseRecipeType.writeForTag(recipeType);
 
-            payloads.add(new RecipeManagerSyncPacket(typeId, tag));
+            try {
+                payloads.addAll(RecipeManagerSyncPacket.split(typeId, tag));
+            } catch (IllegalArgumentException error) {
+                log.error("Can't sync recipe type {}", typeId, error);
+            }
         }
 
         for (ServerPlayer player : players) {
             if (player.isLocalPlayer()) {
                 continue;
             }
+            boolean supportsBatches = NetworkManager.canPlayerReceive(player, RecipeManagerSyncPacket.BATCH_PACKET_ID);
             for (RecipeManagerSyncPacket payload : payloads) {
-                Identifier key = payload.typeId();
+                if (payload.isBatch() && !supportsBatches) {
+                    if (payload.data().getIntOr("part", -1) == 0) {
+                        log.warn("Client {} does not support batched recipe sync for {}", player.getPlainTextName(), payload.typeId());
+                    }
+                    continue;
+                }
                 NetworkManager.sendToPlayer(player, payload);
-                log.info("Send recipe type registry {} to {}", key, player.getPlainTextName());
+                if (!payload.isBatch() || payload.data().getIntOr("part", -1) == 0) {
+                    log.info("Send recipe type registry {} to {} ({} packets)",
+                            payload.typeId(), player.getPlainTextName(), payload.data().getIntOr("parts", 1));
+                }
             }
         }
     }

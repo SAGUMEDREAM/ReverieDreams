@@ -1,0 +1,8 @@
+{
+  "ingredient": "reverie_dreams:ingredient/soybean",
+  "output": {
+    "id": "reverie_dreams:ingredient/soy_milk",
+    "count": 1
+  },
+  "work": 8
+}

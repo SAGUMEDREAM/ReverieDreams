@@ -1,0 +1,75 @@
+# CE26.8.2. Altar transaction is immediate. Snow6 is the original Polymer client fallback.
+items:
+  reverie_dreams:gensokyo_altar:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.gensokyo_altar>
+    model: reverie_dreams:block/gensokyo_altar
+    behavior:
+      type: block_item
+      block: reverie_dreams:gensokyo_altar
+  reverie_dreams:fast_book_item:
+    material: paper
+    data:
+      item_name: <!i><lang:item.reverie_dreams.fast_book_item>
+    model: reverie_dreams:item/fast_book_item
+    behavior:
+      type: reverie_dreams:fast_recipe_book
+blocks:
+  reverie_dreams:gensokyo_altar:
+    settings:
+      item: reverie_dreams:gensokyo_altar
+      hardness: 5.0
+      resistance: 1200.0
+      luminance: 7
+      can_occlude: false
+      is_suffocating: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:altar
+    state:
+      state: minecraft:snow[layers=6]
+      entity_renderer:
+        item: reverie_dreams:gensokyo_altar
+        display_transform: NONE
+        scale: 1.005
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:gensokyo_altar
+        conditions:
+        - type: survives_explosion
+recipes:
+  reverie_dreams:gensokyo_altar:
+    type: shaped
+    pattern:
+    - X
+    - '#'
+    ingredients:
+      '#': minecraft:enchanting_table
+      X: minecraft:emerald_block
+    result:
+      id: reverie_dreams:gensokyo_altar
+      count: 1
+  reverie_dreams:fast_book_item:
+    type: shaped
+    pattern:
+    - FRP
+    - RXR
+    - PRP
+    ingredients:
+      F: minecraft:feather
+      P: reverie_dreams:power
+      R: minecraft:redstone
+      X: minecraft:book
+    result:
+      id: reverie_dreams:fast_book_item
+      count: 1

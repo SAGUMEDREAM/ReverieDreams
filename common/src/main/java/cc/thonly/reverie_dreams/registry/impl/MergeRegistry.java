@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Slf4j
-public abstract class MergeRegistry<T> implements WritableRegistry<T> {
+public abstract class MergeRegistry<T> implements WritableRegistry<T>, cc.thonly.reverie_dreams.api.registry.MergeRegistry<T> {
 
     private final ResourceKey<? extends Registry<T>> key;
     private final List<Registry<T>> list = new ArrayList<>();
@@ -191,11 +191,12 @@ public abstract class MergeRegistry<T> implements WritableRegistry<T> {
     @Override
     public Holder<T> wrapAsHolder(T value) {
         for (Registry<T> registry : list) {
-            try {
-                return registry.wrapAsHolder(value);
-            } catch (Exception ignored) {}
+            Optional<Holder.Reference<T>> holder = registry.getResourceKey(value).flatMap(registry::get);
+            if (holder.isPresent()) {
+                return holder.get();
+            }
         }
-        return null;
+        return Holder.direct(value);
     }
 
     @Override

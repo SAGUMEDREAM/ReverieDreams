@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "reverie_dreams:block/red_spider_lily"
+  }
+}

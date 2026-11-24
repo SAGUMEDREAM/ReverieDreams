@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
+import cc.thonly.reverie_dreams.restaurant.RestaurantService;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
@@ -44,6 +45,8 @@ public class NPCTemptGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (RestaurantService.isRestaurantShift(this.mob))
+            return false;
         if (this.cooldown > 0) {
             --this.cooldown;
             return false;

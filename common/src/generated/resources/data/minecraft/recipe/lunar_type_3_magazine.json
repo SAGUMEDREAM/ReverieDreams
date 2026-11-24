@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "G": "minecraft:gunpowder",
+    "I": "minecraft:iron_nugget",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "IGI",
+    "CRC",
+    "IGI"
+  ],
+  "result": {
+    "components": {
+      "reverie_dreams:magazine_rounds": 0
+    },
+    "id": "reverie_dreams:lunar_type_3_magazine"
+  }
+}

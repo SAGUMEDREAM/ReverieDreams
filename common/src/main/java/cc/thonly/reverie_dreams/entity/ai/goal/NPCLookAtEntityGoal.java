@@ -42,11 +42,11 @@ public class NPCLookAtEntityGoal extends Goal {
         this.setFlags(EnumSet.of(Flag.LOOK));
         if (targetType == Player.class) {
             Predicate<Entity> predicate = EntitySelector.notRiding(mob);
-            this.targetPredicate = TargetingConditions.forNonCombat().range((double)range).selector((entity, world) -> {
+            this.targetPredicate = TargetingConditions.forNonCombat().range((double) range).selector((entity, world) -> {
                 return predicate.test(entity);
             });
         } else {
-            this.targetPredicate = TargetingConditions.forNonCombat().range((double)range);
+            this.targetPredicate = TargetingConditions.forNonCombat().range((double) range);
         }
 
     }
@@ -63,7 +63,7 @@ public class NPCLookAtEntityGoal extends Goal {
             if (this.targetType == Player.class) {
                 this.target = serverWorld.getNearestPlayer(this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
             } else {
-                this.target = serverWorld.getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.mob.getBoundingBox().inflate((double)this.range, 3.0, (double)this.range), (livingEntity) -> {
+                this.target = serverWorld.getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.mob.getBoundingBox().inflate((double) this.range, 3.0, (double) this.range), (livingEntity) -> {
                     return true;
                 }), this.targetPredicate, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
             }
@@ -75,7 +75,7 @@ public class NPCLookAtEntityGoal extends Goal {
     public boolean canContinueToUse() {
         if (!this.target.isAlive()) {
             return false;
-        } else if (this.mob.distanceToSqr(this.target) > (double)(this.range * this.range)) {
+        } else if (this.mob.distanceToSqr(this.target) > (double) (this.range * this.range)) {
             return false;
         } else {
             return this.lookTime > 0;

@@ -45,6 +45,9 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 
 import java.util.List;
+import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
+import cc.thonly.reverie_dreams.entity.npc.work.NPCProduction;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 
 @SuppressWarnings({"SpellCheckingInspection", "resource", "DataFlowIssue", "SuspiciousNameCombination", "LombokGetterMayBeUsed"})
 public class NPCFishingHook extends Projectile {
@@ -253,7 +256,8 @@ public class NPCFishingHook extends Projectile {
     }
 
     private boolean shouldStopFishing(BaseNPCLikeEntity owner) {
-        if (owner.canInteractWithLevel()) {
+        if (owner.canInteractWithLevel() && EntityTargetUtil.isThisWorkMode(owner,
+                NPCWorkModes.FISHING)) {
             ItemStack selectedItem = owner.getMainHandItem();
             ItemStack selectedItemOffHand = owner.getOffhandItem();
             boolean mainHandIsFishing = selectedItem.is(item -> item.value() instanceof FishingRodItem);
@@ -391,7 +395,7 @@ public class NPCFishingHook extends Projectile {
             }
         } else {
             this.timeUntilLured = Mth.nextInt(this.random, 100, 600);
-            this.timeUntilLured = this.timeUntilLured - this.lureSpeed;
+            this.timeUntilLured = Math.max(1, this.timeUntilLured - this.lureSpeed);
         }
     }
 
@@ -476,7 +480,7 @@ public class NPCFishingHook extends Projectile {
                     double za = owner.getZ() - this.getZ();
                     double speed = 0.1;
                     entity.setDeltaMovement(xa * 0.1, ya * 0.1 + Math.sqrt(Math.sqrt(xa * xa + ya * ya + za * za)) * 0.08, za * 0.1);
-                    this.level().addFreshEntity(entity);
+                    if (this.level().addFreshEntity(entity)) NPCProduction.item(owner, "fish", itemStack);
                     owner.level()
                          .addFreshEntity(new ExperienceOrb(owner.level(), owner.getX(), owner.getY() + 0.5, owner.getZ() + 0.5, this.random.nextInt(6) + 1));
 //                    if (itemStack.is(ItemTags.FISHES)) {

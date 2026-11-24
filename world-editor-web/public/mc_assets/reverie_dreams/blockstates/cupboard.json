@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "reverie_dreams:block/cupboard",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "reverie_dreams:block/cupboard"
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/cupboard",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/cupboard",
+      "y": 270
+    }
+  }
+}

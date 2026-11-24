@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "up": {
+          "texture": "#frame",
+          "uv": [
+            0,
+            15,
+            1,
+            16
+          ]
+        }
+      },
+      "from": [
+        0,
+        1.003,
+        15
+      ],
+      "to": [
+        1,
+        1.003,
+        16
+      ]
+    }
+  ],
+  "textures": {
+    "frame": "reverie_dreams:block/tatami_top_0",
+    "grass": "reverie_dreams:block/tatami_top_15",
+    "particle": "reverie_dreams:block/tatami_top_15",
+    "side": "reverie_dreams:block/tatami_side",
+    "seam": "reverie_dreams:block/tatami_seam"
+  }
+}

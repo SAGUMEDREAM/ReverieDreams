@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * NBS (Note Block Studio) file reader/writer.
- *
+ * <p>
  * Based on the Python implementation provided by the user.
  */
 public class Nbs {
@@ -206,9 +206,9 @@ public class Nbs {
 
     /**
      * 相当于 Python 中:
-     *
+     * <p>
      * for tick, chord in nbs_file:
-     *
+     * <p>
      * 这里把它表示为一个对象。
      */
     public static class Chord {
@@ -245,7 +245,7 @@ public class Nbs {
 
         /**
          * Python:
-         *
+         * <p>
          * def update_header(self, version):
          */
         public void updateHeader(int version) {
@@ -261,7 +261,7 @@ public class Nbs {
 
         /**
          * Python:
-         *
+         * <p>
          * def save(self, filename, version=CURRENT_NBS_VERSION)
          */
         public void save(String filename) throws IOException {
@@ -345,10 +345,10 @@ public class Nbs {
 
     /**
      * Python:
-     *
+     * <p>
      * def read(filename):
-     *     with open(filename, "rb") as fileobj:
-     *         return Parser(fileobj).read_file()
+     * with open(filename, "rb") as fileobj:
+     * return Parser(fileobj).read_file()
      */
     public static NbsFile read(String filename) throws IOException {
         try (InputStream input = new BufferedInputStream(
@@ -360,14 +360,14 @@ public class Nbs {
 
     /**
      * Python:
-     *
+     * <p>
      * def new_file(**header):
-     *     return File(
-     *         Header(**header),
-     *         [],
-     *         [Layer(0, "", False, 100, 0)],
-     *         []
-     *     )
+     * return File(
+     * Header(**header),
+     * [],
+     * [Layer(0, "", False, 100, 0)],
+     * []
+     * )
      */
     public static NbsFile newFile() {
         Header header = new Header();
@@ -451,7 +451,7 @@ public class Nbs {
 
         /**
          * SHORT = Struct("<H")
-         *
+         * <p>
          * unsigned little endian short
          * 0..65535
          */
@@ -465,7 +465,7 @@ public class Nbs {
 
         /**
          * SSHORT = Struct("<h")
-         *
+         * <p>
          * signed little endian short
          * -32768..32767
          */
@@ -479,7 +479,7 @@ public class Nbs {
 
         /**
          * INT = Struct("<I")
-         *
+         * <p>
          * Python unsigned int.
          * Java long 用来保存 0..4294967295。
          */
@@ -547,14 +547,14 @@ public class Nbs {
 
         /**
          * Python:
-         *
+         * <p>
          * value = -1
          * while True:
-         *     jump = read_numeric(SHORT)
-         *     if not jump:
-         *         break
-         *     value += jump
-         *     yield value
+         * jump = read_numeric(SHORT)
+         * if not jump:
+         * break
+         * value += jump
+         * yield value
          */
         private Iterable<Integer> jump() throws IOException {
 

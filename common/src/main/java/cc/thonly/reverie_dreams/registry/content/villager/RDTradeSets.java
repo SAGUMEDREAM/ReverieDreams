@@ -22,11 +22,11 @@ import java.util.Optional;
 import java.util.Set;
 
 public class RDTradeSets {
-    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_1 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
-    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_2 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
-    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_3 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
-    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_4 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
-    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_5 = key(RDVillagerTradeTags.BUTCHER_LEVEL_1);
+    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_1 = key(RDVillagerTradeTags.HAWKERS_LEVEL_1);
+    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_2 = key(RDVillagerTradeTags.HAWKERS_LEVEL_2);
+    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_3 = key(RDVillagerTradeTags.HAWKERS_LEVEL_3);
+    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_4 = key(RDVillagerTradeTags.HAWKERS_LEVEL_4);
+    public static final ResourceKey<TradeSet> HAWKERS_LEVEL_5 = key(RDVillagerTradeTags.HAWKERS_LEVEL_5);
     public static final ResourceKey<TradeSet> PRIEST_LEVEL_1 = key(RDVillagerTradeTags.PRIEST_LEVEL_1);
     public static final ResourceKey<TradeSet> PRIEST_LEVEL_2 = key(RDVillagerTradeTags.PRIEST_LEVEL_2);
     public static final ResourceKey<TradeSet> PRIEST_LEVEL_3 = key(RDVillagerTradeTags.PRIEST_LEVEL_3);
@@ -53,7 +53,13 @@ public class RDTradeSets {
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
         Map<TagKey<VillagerTrade>, Set<ResourceKey<VillagerTrade>>> boundedTagKeys = RDVillagerTrades.getBoundedTagKeys(items, enchantments);
         boundedTagKeys.forEach((tagKey, keys) -> {
-            register(context, key(tagKey), tagKey);
+            float amount = switch (tagKey.location().getPath()) {
+                case "hawkers/level_1", "hawkers/level_2" -> 6.0F;
+                case "hawkers/level_3" -> 5.0F;
+                case "hawkers/level_4", "hawkers/level_5" -> 4.0F;
+                default -> 2.0F;
+            };
+            register(context, key(tagKey), tagKey, ConstantValue.exactly(amount));
         });
     }
 

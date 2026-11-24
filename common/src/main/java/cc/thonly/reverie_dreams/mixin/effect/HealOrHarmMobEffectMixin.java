@@ -33,16 +33,16 @@ public class HealOrHarmMobEffectMixin {
             return;
         }
         if (this.isHarm == mob.isInvertedHealAndHarm()) {
-            mob.hurtServer(level, mob.damageSources().magic(), (float)(6 << amplification));
+            mob.hurtServer(level, mob.damageSources().magic(), (float) (6 << amplification));
         } else {
-            mob.heal((float)Math.max(4 << amplification, 0));
+            mob.heal((float) Math.max(4 << amplification, 0));
         }
         cir.setReturnValue(true);
         cir.cancel();
     }
 
-    @Inject(method = "applyInstantenousEffect", at=@At("HEAD"), cancellable = true)
-    public void reverie_dreams$swapEffectBySomeConditions(ServerLevel serverLevel, @Nullable Entity source,@Nullable Entity owner, LivingEntity mob, int amplification, double scale, CallbackInfo ci) {
+    @Inject(method = "applyInstantenousEffect", at = @At("HEAD"), cancellable = true)
+    public void reverie_dreams$swapEffectBySomeConditions(ServerLevel serverLevel, @Nullable Entity source, @Nullable Entity owner, LivingEntity mob, int amplification, double scale, CallbackInfo ci) {
         if (mob == null) {
             return;
         }
@@ -50,15 +50,15 @@ public class HealOrHarmMobEffectMixin {
             return;
         }
         if (this.isHarm == mob.isInvertedHealAndHarm()) {
-            int amount = (int)(scale * (double)(6 << amplification) + (double)0.5F);
+            int amount = (int) (scale * (double) (6 << amplification) + (double) 0.5F);
             if (source == null) {
-                mob.hurtServer(serverLevel, mob.damageSources().magic(), (float)amount);
+                mob.hurtServer(serverLevel, mob.damageSources().magic(), (float) amount);
             } else {
-                mob.hurtServer(serverLevel, mob.damageSources().indirectMagic(source, owner), (float)amount);
+                mob.hurtServer(serverLevel, mob.damageSources().indirectMagic(source, owner), (float) amount);
             }
         } else {
-            int amount = (int)(scale * (double)(4 << amplification) + (double)0.5F);
-            mob.heal((float)amount);
+            int amount = (int) (scale * (double) (4 << amplification) + (double) 0.5F);
+            mob.heal((float) amount);
         }
         ci.cancel();
     }

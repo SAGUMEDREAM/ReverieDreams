@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "reviewed_on": "2026-11-06",
+  "minecraft_version": "26.1.2",
+  "java_version": 25,
+  "version": "3.6.0",
+  "api": "io.github.toxicity188:bettermodel-bukkit-api:3.6.0",
+  "modrinth_project_id": "4h8rX3rt",
+  "modrinth_version_id": "fToyVqvi",
+  "runtime_filename": "bettermodel-3.6.0-paper.jar",
+  "runtime_url": "https://cdn.modrinth.com/data/4h8rX3rt/versions/fToyVqvi/bettermodel-3.6.0-paper.jar",
+  "runtime_sha512": "b8048f06900a06e4fddb47c7add5af4ae075579a66e29eb29f5e0824c273ad12df57b06afac4f9c6931554e611179b5faa698f36952090ddbd66ae7bfef4d212",
+  "source_commit": "4128f2cea38e06690626d8b81afedad014af525f",
+  "release_metadata": "https://api.modrinth.com/v2/version/fToyVqvi",
+  "license": "MIT"
+}

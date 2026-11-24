@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:white_dye",
+    "B": "minecraft:black_dye",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    "ABA",
+    "PPP"
+  ],
+  "result": {
+    "id": "reverie_dreams:go_board"
+  }
+}

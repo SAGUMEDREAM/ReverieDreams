@@ -1,7 +1,7 @@
 plugins {
     alias libs.plugins.fabricLoom apply(false)
     alias libs.plugins.modDevGradle apply(false)
-    alias libs.plugins.curseForgeGradle apply(false)
+    alias libs.plugins.curseforgeGradle apply(false)
     alias libs.plugins.modrinthMinotaur apply(false)
 }
 
@@ -39,6 +39,11 @@ tasks.register("runClientFabric") {
     description = "Run Fabric Minecraft Client"
     dependsOn(":fabric:runClient")
 }
+tasks.register("runClientFabricPolymer") {
+    group = "dev"
+    description = "Run Fabric client with the main mod + Polymer patch"
+    dependsOn(":fabric:runClientPolymer")
+}
 tasks.register("runClientNeoforge") {
     group = "dev"
     description = "Run NeoForge Minecraft Client"
@@ -66,6 +71,10 @@ tasks.register('runServerPaper', Copy) {
 }
 
 subprojects {
+    if (name in ['world-editor-web', 'document', 'pak-core', 'pak-cli']) {
+        return
+    }
+
     apply plugin: 'java'
     apply plugin: 'java-library'
 

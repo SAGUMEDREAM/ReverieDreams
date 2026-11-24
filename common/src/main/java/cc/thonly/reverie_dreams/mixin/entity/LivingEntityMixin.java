@@ -3,11 +3,14 @@ package cc.thonly.reverie_dreams.mixin.entity;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.BedBlockEntityDreamPillow;
 import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
-import cc.thonly.reverie_dreams.api.level.IWorldExtension;
+import cc.thonly.reverie_dreams.entity.misc.DreamCocoonEntity;
 import cc.thonly.reverie_dreams.item.armor.DreamArmorItem;
 import cc.thonly.reverie_dreams.item.prop.DreamPillowItem;
+import cc.thonly.reverie_dreams.item.weapon.NueTrident;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
+import cc.thonly.reverie_dreams.world.dimension.RDBuiltinLevels;
+import cc.thonly.reverie_dreams.world.dream.DreamStationAccess;
+import cc.thonly.reverie_dreams.world.dream.DreamSleepAnchor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
@@ -21,7 +24,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -32,8 +34,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -47,17 +47,29 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
+
+import cc.thonly.reverie_dreams.item.weapon.YoumuSwordCombat;
 
 @SuppressWarnings({"resource"})
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements LivingEntityDataModifier {
+    @ModifyArg(method = "travelInWater", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/LivingEntity;moveRelative(FLnet/minecraft/world/phys/Vec3;)V"), index = 0)
+    private float reverie_dreams$nueTridentSwimSpeed(float speed) {
+        if ((Object) this instanceof Player player && player.isInWater() && player.isSprinting()
+                && (player.getMainHandItem().getItem() instanceof NueTrident
+                || player.getOffhandItem().getItem() instanceof NueTrident)) {
+            return speed * 1.3F;
+        }
+        return speed;
+    }
+
     @Shadow
     public abstract boolean hasEffect(Holder<MobEffect> effect);
 
@@ -85,9 +97,6 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
     public abstract AttributeInstance getAttribute(Holder<Attribute> attribute);
 
     @Shadow
-    public abstract ItemStack getItemBySlot(EquipmentSlot slot);
-
-    @Shadow
     public abstract Optional<BlockPos> getSleepingPos();
 
     @Shadow
@@ -110,6 +119,8 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
     private BlockPos kanjuBlockPos = new BlockPos(0, 0, 0);
     @Unique
     private BlockPos tempSleepPosition;
+    @Unique
+    private int reverie_dreams$nextDreamArmorHealTick;
 
 
     public LivingEntityMixin(EntityType<?> type, Level world) {
@@ -139,7 +150,23 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
     @Inject(method = "stopSleeping", at = @At(value = "HEAD"))
     public void wakeUpHead(CallbackInfo ci) {
         Optional<BlockPos> blockPos = this.entityData.get(SLEEPING_POS_ID);
-        blockPos.ifPresent(pos -> this.tempSleepPosition = pos);
+        this.tempSleepPosition = blockPos.orElse(null);
+    }
+
+    @Inject(method = "startSleeping", at = @At("TAIL"))
+    private void reverie_dreams$recordDreamSleep(BlockPos pos, CallbackInfo ci) {
+        if ((Object) this instanceof DreamSleepAnchor anchor && this.level().dimension().equals(RDBuiltinLevels.DREAM_WORLD)) {
+            anchor.reverie_dreams$setDreamSleepAnchor(pos);
+        }
+    }
+
+    @Inject(method = "rideTick", at = @At("HEAD"), cancellable = true)
+    private void reverie_dreams$tickInsideCocoon(CallbackInfo ci) {
+        if (this.getVehicle() instanceof DreamCocoonEntity cocoon) {
+            this.setDeltaMovement(net.minecraft.world.phys.Vec3.ZERO);
+            cocoon.positionRider(this);
+            ci.cancel();
+        }
     }
 
     @Inject(method = "stopSleeping", at = @At(value = "TAIL"))
@@ -152,13 +179,13 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         if (!(world instanceof ServerLevel serverWorld)) {
             return;
         }
-        ResourceKey<Level> dreamWorldKey = IWorldExtension.reverie_dreams$getDreamWorldKey();
+        ResourceKey<Level> dreamWorldKey = RDBuiltinLevels.getDreamWorld();
         ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
         if (dreamWorld == null) {
             return;
         }
         ServerLevel overworld = server.overworld();
-        if (serverWorld.equals(dreamWorld)) {
+        if (serverWorld.equals(dreamWorld) && this.tempSleepPosition != null && (Object) this instanceof Player) {
             LevelData.RespawnData respawnData = overworld.getRespawnData();
             BlockPos spawnPos = respawnData.globalPos().pos();
             this.teleportTo(server.overworld(), spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5,
@@ -176,6 +203,16 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
                 BedBlockEntityDreamPillow bedBlockEntityDataModifier = (BedBlockEntityDreamPillow) bedBlockEntity;
                 if (bedBlockEntityDataModifier.reverie_dreams$hasDreamPillow()) {
                     this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20 * 5));
+                    Optional<BlockPos> station = DreamStationAccess.findArrival(dreamWorld);
+                    if (station.isPresent()) {
+                        BlockPos arrival = station.get();
+                        this.fallDistance = 0;
+                        this.teleportTo(dreamWorld, arrival.getX() + 0.5, arrival.getY(), arrival.getZ() + 0.5,
+                                EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
+                        dreamWorld.sendParticles(ParticleTypes.HEART, arrival.getX() + 0.5, arrival.getY() + 1,
+                                arrival.getZ() + 0.5, 5, 0.5, 0.5, 0.5, 0.1);
+                        return;
+                    }
                     this.teleportTo(dreamWorld, this.getX() + 0.5, this.getY(), this.getZ() + 0.5,
                             EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
 
@@ -212,6 +249,12 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         this.fixedPlayerData();
         this.processDeathLevel();
         this.processDimTeleportTick();
+        if (this.tickCount >= this.reverie_dreams$nextDreamArmorHealTick
+                && livingEntity.isAlive() && livingEntity.getHealth() < livingEntity.getMaxHealth()
+                && DreamArmorItem.wearsFullSet(livingEntity) && !livingEntity.hasEffect(MobEffects.REGENERATION)) {
+            livingEntity.heal(1.0F);
+            this.reverie_dreams$nextDreamArmorHealTick = this.tickCount + 50;
+        }
     }
 
     @Unique
@@ -261,9 +304,10 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
             MinecraftServer server = this.level().getServer();
             Level world = this.level();
             double mobY = this.getY();
-            ResourceKey<Level> moonKey = IWorldExtension.reverie_dreams$getMoonKey();
-            ResourceKey<Level> dreamKey = IWorldExtension.reverie_dreams$getDreamWorldKey();
+            ResourceKey<Level> moonKey = RDBuiltinLevels.getMoon();
+            ResourceKey<Level> dreamKey = RDBuiltinLevels.getDreamWorld();
             ResourceKey<Level> registryKey = world.dimension();
+            boolean onMoon = registryKey.equals(moonKey);
             if (server != null) {
                 ServerLevel moonWorld = server.getLevel(moonKey);
                 ServerLevel dreamWorld = server.getLevel(dreamKey);
@@ -271,11 +315,15 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
                 if (moonWorld != null && endWorld != null) {
                     if (registryKey.equals(Level.END)) {
                         if (mobY >= endWorld.getHeight()) {
-                            this.teleportTo(moonWorld, this.getX(), moonWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
+                            this.teleportTo(moonWorld, this.getX(), moonWorld.getMaxY() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
-                    } else if (registryKey.equals(moonKey) || registryKey.equals(dreamKey)) {
-                        this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 0, false, false));
-                        if (mobY >= moonWorld.getHeight()) {
+                    } else if (onMoon || registryKey.equals(dreamKey)) {
+                        if (onMoon) {
+                            this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 20, 0, false, false));
+                        }
+                        int ceiling = onMoon ? moonWorld.getMaxY()
+                                : (dreamWorld != null ? dreamWorld.getMaxY() : moonWorld.getMaxY());
+                        if (mobY > ceiling) {
                             this.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 40 * 20, 0, false, false));
                             this.teleportTo(endWorld, this.getX(), endWorld.getHeight() - 1, this.getZ(), EnumSet.noneOf(Relative.class), this.getYRot(), this.getXRot(), true);
                         }
@@ -285,8 +333,17 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         }
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
     public void damage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        if (this.getVehicle() instanceof DreamCocoonEntity) {
+            cir.setReturnValue(false);
+            return;
+        }
+        if (YoumuSwordCombat.tryParry((LivingEntity) (Object) this, source, damage)) {
+            cir.setReturnValue(false);
+            return;
+        }
         MinecraftServer server = this.level().getServer();
         if (server == null) {
             return;
@@ -296,7 +353,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         boolean deathInKanju = this.triggerDeathInKanju(level, source, damage, cir);
         if (!deathInElixir && !deathInKanju) {
             if ((this.getHealth() - damage <= 0f)) {
-                ResourceKey<Level> dreamWorldKey = IWorldExtension.reverie_dreams$getDreamWorldKey();
+                ResourceKey<Level> dreamWorldKey = RDBuiltinLevels.getMoon();
                 ServerLevel dreamWorld = server.getLevel(dreamWorldKey);
                 if (this.level().equals(dreamWorld) && isPlayer) {
                     this.setHealth(this.getMaxHealth());
@@ -322,18 +379,10 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
 
     @Inject(method = "hurtServer", at = @At("RETURN"))
     public void damageAfter(ServerLevel world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        List<ItemStack> armorStacks = List.of(
-                this.getItemBySlot(EquipmentSlot.HEAD),
-                this.getItemBySlot(EquipmentSlot.CHEST),
-                this.getItemBySlot(EquipmentSlot.LEGS),
-                this.getItemBySlot(EquipmentSlot.FEET)
-        );
-        Stream<Item> itemStream = armorStacks.stream().filter(stack -> stack.is(RDItemTags.DREAM_ARMOR)).map(ItemStack::getItem).filter(item -> item instanceof DreamArmorItem);
-        if (!itemStream.toList().isEmpty()) {
-            RandomSource random = RandomSource.create();
-            if (random.nextIntBetweenInclusive(0, 100) < 39) {
-                this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20));
-            }
+        LivingEntity wearer = (LivingEntity) (Object) this;
+        if (cir.getReturnValueZ() && wearer.isAlive() && DreamArmorItem.wearsFullSet(wearer)
+                && this.random.nextInt(101) < 39) {
+            this.reverie_dreams$nextDreamArmorHealTick = this.tickCount;
         }
     }
 
@@ -462,4 +511,3 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         return this.manpozuchiUsingState;
     }
 }
-

@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "id": "#c:is_birch_forest",
+      "required": false
+    },
+    "reverie_dreams:gensokyo_birch_forest"
+  ]
+}

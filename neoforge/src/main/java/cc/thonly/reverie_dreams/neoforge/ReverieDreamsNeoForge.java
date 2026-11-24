@@ -7,13 +7,17 @@ import cc.thonly.reverie_dreams.api.ReverieDreamsPlugin;
 import cc.thonly.reverie_dreams.api.creative_tab.ICreativeModeTabOutputExtension;
 import cc.thonly.reverie_dreams.api.plugin.callback.ReverieDreamsExtensionEvents;
 import cc.thonly.reverie_dreams.api.registry.AliasManager;
-import cc.thonly.reverie_dreams.api.registry.EntityDataSerializerProviders;
-import cc.thonly.reverie_dreams.api.registry.CompostingChanceRegistry;
-import cc.thonly.reverie_dreams.api.registry.FlammableBlockRegistry;
+import cc.thonly.reverie_dreams.api.registry.entity.EntityDataSerializerProviders;
+import cc.thonly.reverie_dreams.api.registry.block.CompostingChanceRegistry;
+import cc.thonly.reverie_dreams.api.registry.block.FlammableBlockRegistry;
 import cc.thonly.reverie_dreams.creative_tab.content.BaseCreativeTab;
 import cc.thonly.reverie_dreams.mixin.accessor.FireBlockAccessor;
 import cc.thonly.reverie_dreams.neoforge.compat.ReverieDreamsNeoForgeCompats;
 import cc.thonly.reverie_dreams.neoforge.impl.RegistryBuilderFactoryImpl;
+import cc.thonly.reverie_dreams.registry.content.block.VanillaBlockAliases;
+import cc.thonly.reverie_dreams.world.gen.biome.MapleForestRegion;
+import cc.thonly.reverie_dreams.world.gen.biome.MagicForestRegion;
+import terrablender.api.Regions;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +40,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -93,6 +96,10 @@ public class ReverieDreamsNeoForge {
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            VanillaBlockAliases.apply(BuiltInRegistries.BLOCK, BuiltInRegistries.BLOCK::addAlias);
+            VanillaBlockAliases.apply(BuiltInRegistries.ITEM, BuiltInRegistries.ITEM::addAlias);
+            Regions.register(new MapleForestRegion());
+            Regions.register(new MagicForestRegion());
             ReverieDreams.COMMON_LATE_INIT.forEach(Runnable::run);
             ReverieDreams.COMMON_LATE_INIT.clear();
             ReverieDreams.BUS_LATE_INIT.forEach(Runnable::run);

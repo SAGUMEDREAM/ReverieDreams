@@ -3,7 +3,7 @@ package cc.thonly.reverie_dreams.item.prop;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.LivingEntityDataModifier;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;

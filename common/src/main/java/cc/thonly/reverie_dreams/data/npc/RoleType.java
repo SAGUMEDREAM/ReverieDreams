@@ -2,10 +2,8 @@ package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.data.Customer;
 import cc.thonly.reverie_dreams.data.skin.SkinType;
-import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
-import cc.thonly.reverie_dreams.util.CodecMerger;
-import cc.thonly.reverie_dreams.util.LazyList;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -14,18 +12,14 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@SuppressWarnings({"unchecked", "rawtypes"})
 public interface RoleType extends RegistryEntryTranslatable {
-    List<Codec<RoleType>> SUPPORT_TYPE_CODECS = new LazyList<>(() -> {
-        return new ArrayList(
-                List.of(NPCRoleType.BY_REGISTRY_CODEC, NPCSimpleRoleType.BY_REGISTRY_CODEC)
-        );
-    });
-    Codec<RoleType> CODEC = CodecMerger.mergeLazyInitialized(() -> SUPPORT_TYPE_CODECS, roleType -> !roleType.isUnit());
+    /**
+     * Both role families use the same serialized identifier. Built-in roles keep lookup priority.
+     */
+    Codec<RoleType> CODEC = Codec.lazyInitialized(() -> RoleTypeCodec.byId(
+            BuiltInRegistryProviders.NPC_ROLE_TYPE, BuiltInRegistryProviders.NPC_SIMPLE_ROLE_TYPE));
     StreamCodec<RegistryFriendlyByteBuf, RoleType> TRUSTED_STREAM_CODEC = ByteBufCodecs.fromCodecWithRegistriesTrusted(CODEC);
     EntityDataSerializer<RoleType> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
 
@@ -37,7 +31,10 @@ public interface RoleType extends RegistryEntryTranslatable {
 
     boolean isEmpty();
 
-    Holder<EntityType<? extends BaseNPCLikeEntity>> get();
+    /**
+     * Optional entity registration for spawning this role. It may be a redirect entity.
+     */
+    @Nullable Holder<? extends EntityType<?>> get();
 
     Identifier identify();
 

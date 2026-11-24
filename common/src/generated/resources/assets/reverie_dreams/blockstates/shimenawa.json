@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "reverie_dreams:block/shimenawa",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "reverie_dreams:block/shimenawa"
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/shimenawa",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/shimenawa",
+      "y": 270
+    }
+  }
+}

@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.entity.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
-import cc.thonly.reverie_dreams.api.item.IItemStackExtension;
+import cc.thonly.reverie_dreams.api.item.ItemStackExtension;
 import cc.thonly.reverie_dreams.data.Customer;
 import cc.thonly.reverie_dreams.data.npc.NPCLikeInteractionEvent;
 import cc.thonly.reverie_dreams.data.npc.RoleType;
@@ -13,10 +13,8 @@ import cc.thonly.reverie_dreams.entity.npc.container.NPCFoodDataContainer;
 import cc.thonly.reverie_dreams.gui.entity.NPCGui;
 import cc.thonly.reverie_dreams.item.base.CustomSkinSelectorItem;
 import cc.thonly.reverie_dreams.item.prop.SoulCardItem;
-import cc.thonly.reverie_dreams.openai.ProviderRegistry;
+import cc.thonly.reverie_dreams.ai.ProviderRegistry;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
-import cc.thonly.reverie_dreams.registry.content.NPCStates;
-import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.skin.SkinTypes;
@@ -26,7 +24,8 @@ import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
 import cc.thonly.reverie_dreams.server.PlayerSettings;
 import cc.thonly.reverie_dreams.server.dialog.DialogBuilder;
 import cc.thonly.reverie_dreams.server.dialog.DialogEntry;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.server.dialog.NPCSpeech;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
@@ -75,6 +74,15 @@ public class NPCLikeInteractionEvents {
     public static final String KEY_DEFAULT_SEND_MESSAGE_8 = "npc.event.send_message.8";
     public static final String KEY_DEFAULT_SEND_MESSAGE_9 = "npc.event.send_message.9";
 
+    public static final NPCLikeInteractionEvent SETTLEMENT_CLAIM = registerCompanionEvent("settlement_claim", (world, player, stack, hand, entity) -> {
+        if (!stack.isEmpty() || player.isShiftKeyDown() || !(entity instanceof NPCSimpleEntity npc)) {
+            return NPCInteractResult.PASS;
+        }
+        if (!npc.getSettlementLedger().hasPending(player.getUUID()) || !npc.claimSettlements(player)) {
+            return NPCInteractResult.PASS;
+        }
+        return NPCInteractResult.SUCCESS;
+    });
     public static final NPCLikeInteractionEvent CUSTOMER = registerCompanionEvent("customer", (world, player, stack, hand, entity) -> {
         if (entity instanceof NPCSimpleEntity npc && npc.isTame()) {
             NPCCustomerContainer container = npc.getCustomerContainer();
@@ -216,7 +224,7 @@ public class NPCLikeInteractionEvents {
         if (!(entity instanceof NPCSimpleEntity npc)) {
             return NPCInteractResult.PASS;
         }
-        if ((((IItemStackExtension) (Object) stack).reverie_dreams$isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
+        if ((((ItemStackExtension) (Object) stack).reverie_dreams$isFood() || stack.is(RDItemTags.ROLE_TAME_FOOD)) && entity.canFeed()) {
             SoundEventPlayUtils.playSound(player, SoundEvents.GENERIC_EAT.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             FoodProperties food = stack.get(DataComponents.FOOD);
             NPCFoodDataContainer foodData = npc.getFoodData();
@@ -297,7 +305,7 @@ public class NPCLikeInteractionEvents {
         return NPCInteractResult.SUCCESS;
     });
     public static final NPCLikeInteractionEvent SET_OWNER_BY_STICk = registerCompanionEvent("set_owner_by_stick", (world, player, stack, hand, entity) -> {
-        if (stack.is(RDItems.OWNER_STICK)) {
+        if (stack.is(RDItems.OWNER_STICK.asItem())) {
             entity.setOwner(player);
             return NPCInteractResult.SUCCESS;
         }
@@ -358,7 +366,7 @@ public class NPCLikeInteractionEvents {
     }
 
     private static NPCInteractResult handleGenericChat(ServerLevel world, ServerPlayer player, ItemStack stack, InteractionHand hand, BaseNPCLikeEntity entity) {
-        if (entity.getWorkMode().equals(NPCWorkModes.CUSTOMER) && entity.getNpcState().equals(NPCStates.WORKING)) {
+        if (entity instanceof NPCSimpleEntity guest && guest.getCustomerContainer().isCustomerMode()) {
             return NPCInteractResult.PASS;
         }
         RandomSource random = RandomSource.create();
@@ -366,13 +374,12 @@ public class NPCLikeInteractionEvents {
             RoleType roleType = roleEntity.getRoleType();
             Customer customer = roleType.getCustomer();
             List<Component> chats = customer.chats();
+            if (chats.isEmpty()) {
+                return NPCInteractResult.SUCCESS;
+            }
             Component component = chats.get(random.nextIntBetweenInclusive(0, chats.size() - 1));
-            MutableComponent body = Component.empty();
-            body.append(entity.getName());
-            body.append(": ");
-            body.append(component);
             SoundEventPlayUtils.playUISound(player, SoundEvents.NOTE_BLOCK_PLING.value(), 1.0f, 5.0f);
-            player.sendSystemMessage(body, false);
+            NPCSpeech.sayTo(entity, player, component);
         }
         return NPCInteractResult.SUCCESS;
     }

@@ -1,7 +1,8 @@
 package cc.thonly.reverie_dreams.block.bundle;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.registry.FlammableBlockRegistry;
+import cc.thonly.reverie_dreams.api.registry.block.FlammableBlockRegistry;
+import cc.thonly.reverie_dreams.block.base.WoodPressurePlateBlock;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import dev.architectury.hooks.item.tool.AxeItemHooks;
@@ -38,8 +39,13 @@ public class WoodBundle extends AbstractBlockBundle {
     private BlockDelegate fence;
     private BlockDelegate fenceGate;
     private BlockDelegate button;
+    private BlockDelegate pressurePlate;
     @Nullable
     private BlockDelegate fruitLeaves;
+    @Nullable
+    private BlockDelegate leafLitter;
+    private boolean enableLeafTintColor = false;
+    private int leafTintColor = -12012264;
 
     private WoodBundle(Identifier id, TreeGrower saplingGenerator) {
         super(id.getPath(), id);
@@ -94,6 +100,9 @@ public class WoodBundle extends AbstractBlockBundle {
         this.button = RDBlocks.registerSimpleBlock(suffix("button"),
                 (settings) -> new ButtonBlock(BlockSetType.OAK, 30, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_BUTTON));
 
+        this.pressurePlate = RDBlocks.registerSimpleBlock(suffix("pressure_plate"),
+                (settings) -> new WoodPressurePlateBlock(BlockSetType.OAK, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE));
+
         ReverieDreams.COMMON_LATE_INIT.add(() -> {
             // 剥皮：log -> stripped log，wood -> stripped wood
             AxeItemHooks.addStrippable(this.log().get(), this.strippedLog().get());
@@ -112,6 +121,7 @@ public class WoodBundle extends AbstractBlockBundle {
             FuelRegistry.register(200, this.door());
             FuelRegistry.register(300, this.trapdoor());
             FuelRegistry.register(100, this.button());
+            FuelRegistry.register(300, this.pressurePlate());
             FuelRegistry.register(100, this.sapling());
 
             // 可燃：igniteOdds, burnOdds
@@ -127,9 +137,14 @@ public class WoodBundle extends AbstractBlockBundle {
             FlammableBlockRegistry.register(this.door(), 5, 20);
             FlammableBlockRegistry.register(this.trapdoor(), 5, 20);
             FlammableBlockRegistry.register(this.button(), 5, 20);
+            FlammableBlockRegistry.register(this.pressurePlate(), 5, 20);
             FlammableBlockRegistry.register(this.leaves(), 30, 60);
             if (this.fruitLeaves != null) {
                 FlammableBlockRegistry.register(this.fruitLeaves(), 30, 60);
+            }
+            if (this.leafLitter != null) {
+                // 与原版 minecraft:leaf_litter 一致（igniteOdds 60 / burnOdds 100）
+                FlammableBlockRegistry.register(this.leafLitter(), 60, 100);
             }
         });
 
@@ -192,12 +207,39 @@ public class WoodBundle extends AbstractBlockBundle {
         return this.button;
     }
 
+    public BlockDelegate pressurePlate() {
+        return this.pressurePlate;
+    }
+
+    public int leafTintColor() {
+        return this.leafTintColor;
+    }
+
+    public boolean isEnableLeafTintColor() {
+        return this.enableLeafTintColor;
+    }
+
+    public WoodBundle leafTintColor(int leafTintColor) {
+        this.leafTintColor = leafTintColor;
+        this.enableLeafTintColor = true;
+        return this;
+    }
+
     public BlockDelegate fruitLeaves() {
         return this.fruitLeaves;
     }
 
     public void setFruitLeaves(@NotNull BlockDelegate fruitLeaves) {
         this.fruitLeaves = fruitLeaves;
+    }
+
+    @Nullable
+    public BlockDelegate leafLitter() {
+        return this.leafLitter;
+    }
+
+    public void setLeafLitter(@NotNull BlockDelegate leafLitter) {
+        this.leafLitter = leafLitter;
     }
 
     public Collection<BlockDelegate> stream() {
@@ -214,10 +256,14 @@ public class WoodBundle extends AbstractBlockBundle {
                 this.trapdoor,
                 this.fence,
                 this.fenceGate,
-                this.button)
+                this.button,
+                this.pressurePlate)
         );
         if (this.fruitLeaves != null) {
             result.add(this.fruitLeaves);
+        }
+        if (this.leafLitter != null) {
+            result.add(this.leafLitter);
         }
         return result;
     }

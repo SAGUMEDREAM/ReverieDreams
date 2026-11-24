@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:brick",
+    "C": "minecraft:clay_ball",
+    "P": "#minecraft:planks"
+  },
+  "pattern": [
+    " B ",
+    "BCB",
+    "PPP"
+  ],
+  "result": {
+    "id": "reverie_dreams:tea_set"
+  }
+}

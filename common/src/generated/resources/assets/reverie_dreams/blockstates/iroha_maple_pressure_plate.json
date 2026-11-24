@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "reverie_dreams:block/iroha_maple_pressure_plate"
+    },
+    "powered=true": {
+      "model": "reverie_dreams:block/iroha_maple_pressure_plate_down"
+    }
+  }
+}

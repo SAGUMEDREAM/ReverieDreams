@@ -1,0 +1,1007 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "minecraft": "26.1.2",
+    "paperBuild": 74,
+    "craftEngine": "26.8.2",
+    "java": 25
+  },
+  "items": {
+    "reverie_dreams:silver_helmet": {
+      "id": "reverie_dreams:silver_helmet",
+      "material": "silver",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 165,
+      "armor": 2,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:silver_chestplate": {
+      "id": "reverie_dreams:silver_chestplate",
+      "material": "silver",
+      "armorType": "CHESTPLATE",
+      "slot": "chest",
+      "durability": 240,
+      "armor": 6,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:silver_leggings": {
+      "id": "reverie_dreams:silver_leggings",
+      "material": "silver",
+      "armorType": "LEGGINGS",
+      "slot": "legs",
+      "durability": 225,
+      "armor": 5,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:silver_boots": {
+      "id": "reverie_dreams:silver_boots",
+      "material": "silver",
+      "armorType": "BOOTS",
+      "slot": "feet",
+      "durability": 195,
+      "armor": 2,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:magic_ice_helmet": {
+      "id": "reverie_dreams:magic_ice_helmet",
+      "material": "magic_ice",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 198,
+      "armor": 2,
+      "toughness": 0.5,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:magic_ice_chestplate": {
+      "id": "reverie_dreams:magic_ice_chestplate",
+      "material": "magic_ice",
+      "armorType": "CHESTPLATE",
+      "slot": "chest",
+      "durability": 288,
+      "armor": 7,
+      "toughness": 0.5,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:magic_ice_leggings": {
+      "id": "reverie_dreams:magic_ice_leggings",
+      "material": "magic_ice",
+      "armorType": "LEGGINGS",
+      "slot": "legs",
+      "durability": 270,
+      "armor": 5,
+      "toughness": 0.5,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:magic_ice_boots": {
+      "id": "reverie_dreams:magic_ice_boots",
+      "material": "magic_ice",
+      "armorType": "BOOTS",
+      "slot": "feet",
+      "durability": 234,
+      "armor": 2,
+      "toughness": 0.5,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:dream_helmet": {
+      "id": "reverie_dreams:dream_helmet",
+      "material": "dream",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 363,
+      "armor": 3,
+      "toughness": 3,
+      "knockbackResistance": 0,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:dream_chestplate": {
+      "id": "reverie_dreams:dream_chestplate",
+      "material": "dream",
+      "armorType": "CHESTPLATE",
+      "slot": "chest",
+      "durability": 528,
+      "armor": 8,
+      "toughness": 3,
+      "knockbackResistance": 0,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:dream_leggings": {
+      "id": "reverie_dreams:dream_leggings",
+      "material": "dream",
+      "armorType": "LEGGINGS",
+      "slot": "legs",
+      "durability": 495,
+      "armor": 6,
+      "toughness": 3,
+      "knockbackResistance": 0,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:dream_boots": {
+      "id": "reverie_dreams:dream_boots",
+      "material": "dream",
+      "armorType": "BOOTS",
+      "slot": "feet",
+      "durability": 429,
+      "armor": 3,
+      "toughness": 3,
+      "knockbackResistance": 0,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:maid_hairband": {
+      "id": "reverie_dreams:maid_hairband",
+      "material": "maid",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 198,
+      "armor": 2,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:maid_upper_skirt": {
+      "id": "reverie_dreams:maid_upper_skirt",
+      "material": "maid",
+      "armorType": "CHESTPLATE",
+      "slot": "chest",
+      "durability": 288,
+      "armor": 6,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:maid_lowerband": {
+      "id": "reverie_dreams:maid_lowerband",
+      "material": "maid",
+      "armorType": "LEGGINGS",
+      "slot": "legs",
+      "durability": 270,
+      "armor": 5,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:maid_shoe": {
+      "id": "reverie_dreams:maid_shoe",
+      "material": "maid",
+      "armorType": "BOOTS",
+      "slot": "feet",
+      "durability": 234,
+      "armor": 2,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:waterproof_hat": {
+      "id": "reverie_dreams:waterproof_hat",
+      "material": "waterproof",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 132,
+      "armor": 1,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "minecraft:repairs_leather_armor",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:waterproof_clothing": {
+      "id": "reverie_dreams:waterproof_clothing",
+      "material": "waterproof",
+      "armorType": "CHESTPLATE",
+      "slot": "chest",
+      "durability": 192,
+      "armor": 4,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "minecraft:repairs_leather_armor",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:waterproof_leggings": {
+      "id": "reverie_dreams:waterproof_leggings",
+      "material": "waterproof",
+      "armorType": "LEGGINGS",
+      "slot": "legs",
+      "durability": 180,
+      "armor": 3,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "minecraft:repairs_leather_armor",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:waterproof_boots": {
+      "id": "reverie_dreams:waterproof_boots",
+      "material": "waterproof",
+      "armorType": "BOOTS",
+      "slot": "feet",
+      "durability": 156,
+      "armor": 1,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "minecraft:repairs_leather_armor",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:earphone": {
+      "id": "reverie_dreams:earphone",
+      "material": "earphone",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 165,
+      "armor": 2,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "minecraft:repairs_gold_armor",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:koishi_hat": {
+      "id": "reverie_dreams:koishi_hat",
+      "material": "koishi_hat",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 165,
+      "armor": 2,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "minecraft:repairs_gold_armor",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:oni_mask": {
+      "id": "reverie_dreams:oni_mask",
+      "material": "oni_mask",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 220,
+      "armor": 3,
+      "toughness": 1,
+      "knockbackResistance": 0,
+      "enchantability": 15,
+      "repairTag": "reverie_dreams:oni_mask_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    },
+    "reverie_dreams:crown_of_the_underworld": {
+      "id": "reverie_dreams:crown_of_the_underworld",
+      "material": "crown_of_the_underworld",
+      "armorType": "HELMET",
+      "slot": "head",
+      "durability": 363,
+      "armor": 3,
+      "toughness": 1,
+      "knockbackResistance": 0,
+      "enchantability": 22,
+      "repairTag": "minecraft:repairs_gold_armor",
+      "equipSound": "minecraft:item.armor.equip_leather"
+    },
+    "reverie_dreams:low_gravity_boot": {
+      "id": "reverie_dreams:low_gravity_boot",
+      "material": "low_gravity_boot",
+      "armorType": "BOOTS",
+      "slot": "feet",
+      "durability": 195,
+      "armor": 2,
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "equipSound": "minecraft:item.armor.equip_iron"
+    }
+  },
+  "materials": {
+    "crown_of_the_underworld": {
+      "source": "CrownOfTheUnderworldArmorMaterial.java",
+      "baseDurability": 33,
+      "armor": {
+        "HELMET": 3,
+        "CHESTPLATE": 8,
+        "LEGGINGS": 6,
+        "BOOTS": 3
+      },
+      "enchantability": 22,
+      "equipSound": "minecraft:item.armor.equip_leather",
+      "toughness": 1,
+      "knockbackResistance": 0,
+      "repairTag": "minecraft:repairs_gold_armor"
+    },
+    "dream": {
+      "source": "DreamArmorMaterial.java",
+      "baseDurability": 33,
+      "armor": {
+        "HELMET": 3,
+        "CHESTPLATE": 8,
+        "LEGGINGS": 6,
+        "BOOTS": 3
+      },
+      "enchantability": 16,
+      "equipSound": "minecraft:item.armor.equip_iron",
+      "toughness": 3,
+      "knockbackResistance": 0,
+      "repairTag": "reverie_dreams:dream_tool_materials"
+    },
+    "earphone": {
+      "source": "EarphoneArmorMaterial.java",
+      "baseDurability": 15,
+      "armor": {
+        "HELMET": 2,
+        "CHESTPLATE": 6,
+        "LEGGINGS": 5,
+        "BOOTS": 2
+      },
+      "enchantability": 12,
+      "equipSound": "minecraft:item.armor.equip_iron",
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "repairTag": "minecraft:repairs_gold_armor"
+    },
+    "koishi_hat": {
+      "source": "KoishiHatArmorMaterial.java",
+      "baseDurability": 15,
+      "armor": {
+        "HELMET": 2,
+        "CHESTPLATE": 6,
+        "LEGGINGS": 5,
+        "BOOTS": 2
+      },
+      "enchantability": 12,
+      "equipSound": "minecraft:item.armor.equip_iron",
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "repairTag": "minecraft:repairs_gold_armor"
+    },
+    "low_gravity_boot": {
+      "source": "LowGravityBootArmorMaterial.java",
+      "baseDurability": 15,
+      "armor": {
+        "HELMET": 2,
+        "CHESTPLATE": 6,
+        "LEGGINGS": 5,
+        "BOOTS": 2
+      },
+      "enchantability": 12,
+      "equipSound": "minecraft:item.armor.equip_iron",
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "repairTag": "reverie_dreams:silver_tool_materials"
+    },
+    "magic_ice": {
+      "source": "MagicIceArmorMaterial.java",
+      "baseDurability": 18,
+      "armor": {
+        "HELMET": 2,
+        "CHESTPLATE": 7,
+        "LEGGINGS": 5,
+        "BOOTS": 2
+      },
+      "enchantability": 12,
+      "equipSound": "minecraft:item.armor.equip_iron",
+      "toughness": 0.5,
+      "knockbackResistance": 0,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials"
+    },
+    "maid": {
+      "source": "MaidArmorMaterial.java",
+      "baseDurability": 18,
+      "armor": {
+        "HELMET": 2,
+        "CHESTPLATE": 6,
+        "LEGGINGS": 5,
+        "BOOTS": 2
+      },
+      "enchantability": 12,
+      "equipSound": "minecraft:item.armor.equip_leather",
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "repairTag": "reverie_dreams:silver_tool_materials"
+    },
+    "oni_mask": {
+      "source": "OniMaskArmorMaterial.java",
+      "baseDurability": 20,
+      "armor": {
+        "HELMET": 3,
+        "CHESTPLATE": 0,
+        "LEGGINGS": 0,
+        "BOOTS": 0
+      },
+      "enchantability": 15,
+      "equipSound": "minecraft:item.armor.equip_iron",
+      "toughness": 1,
+      "knockbackResistance": 0,
+      "repairTag": "reverie_dreams:oni_mask_materials"
+    },
+    "silver": {
+      "source": "SilverArmorMaterial.java",
+      "baseDurability": 15,
+      "armor": {
+        "HELMET": 2,
+        "CHESTPLATE": 6,
+        "LEGGINGS": 5,
+        "BOOTS": 2
+      },
+      "enchantability": 18,
+      "equipSound": "minecraft:item.armor.equip_iron",
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "repairTag": "reverie_dreams:silver_tool_materials"
+    },
+    "waterproof": {
+      "source": "WaterproofArmorMaterial.java",
+      "baseDurability": 12,
+      "armor": {
+        "HELMET": 1,
+        "CHESTPLATE": 4,
+        "LEGGINGS": 3,
+        "BOOTS": 1,
+        "BODY": 4
+      },
+      "enchantability": 12,
+      "equipSound": "minecraft:item.armor.equip_leather",
+      "toughness": 0,
+      "knockbackResistance": 0,
+      "repairTag": "minecraft:repairs_leather_armor"
+    }
+  },
+  "equipmentAdapters": [
+    "assets/reverie_dreams/equipment/silver.json",
+    "assets/reverie_dreams/equipment/magic_ice.json",
+    "assets/reverie_dreams/equipment/dream.json",
+    "assets/reverie_dreams/equipment/maid.json",
+    "assets/reverie_dreams/equipment/waterproof.json",
+    "assets/reverie_dreams/equipment/earphone.json",
+    "assets/reverie_dreams/equipment/koishi_hat.json",
+    "assets/reverie_dreams/equipment/oni_mask.json",
+    "assets/reverie_dreams/equipment/crown_of_the_underworld.json",
+    "assets/reverie_dreams/equipment/low_gravity_boot.json"
+  ],
+  "sourceMissingLayerReferences": [
+    {
+      "asset": "silver",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/silver.png"
+    },
+    {
+      "asset": "silver",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/silver.png"
+    },
+    {
+      "asset": "magic_ice",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/magic_ice.png"
+    },
+    {
+      "asset": "magic_ice",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/magic_ice.png"
+    },
+    {
+      "asset": "dream",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/dream.png"
+    },
+    {
+      "asset": "dream",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/dream.png"
+    },
+    {
+      "asset": "maid",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/maid.png"
+    },
+    {
+      "asset": "maid",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/maid.png"
+    },
+    {
+      "asset": "waterproof",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/waterproof.png"
+    },
+    {
+      "asset": "waterproof",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/waterproof_overlay.png"
+    },
+    {
+      "asset": "waterproof",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/waterproof.png"
+    },
+    {
+      "asset": "earphone",
+      "layer": "humanoid_leggings",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_leggings/earphone.png"
+    },
+    {
+      "asset": "earphone",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/earphone.png"
+    },
+    {
+      "asset": "earphone",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/earphone.png"
+    },
+    {
+      "asset": "koishi_hat",
+      "layer": "humanoid_leggings",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_leggings/koishi_hat.png"
+    },
+    {
+      "asset": "koishi_hat",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/koishi_hat.png"
+    },
+    {
+      "asset": "koishi_hat",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/koishi_hat.png"
+    },
+    {
+      "asset": "oni_mask",
+      "layer": "humanoid_leggings",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_leggings/oni_mask.png"
+    },
+    {
+      "asset": "oni_mask",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/oni_mask.png"
+    },
+    {
+      "asset": "oni_mask",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/oni_mask.png"
+    },
+    {
+      "asset": "crown_of_the_underworld",
+      "layer": "humanoid_leggings",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_leggings/crown_of_the_underworld.png"
+    },
+    {
+      "asset": "crown_of_the_underworld",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/crown_of_the_underworld.png"
+    },
+    {
+      "asset": "crown_of_the_underworld",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/crown_of_the_underworld.png"
+    },
+    {
+      "asset": "low_gravity_boot",
+      "layer": "humanoid_baby",
+      "path": "assets/reverie_dreams/textures/entity/equipment/humanoid_baby/low_gravity_boot.png"
+    },
+    {
+      "asset": "low_gravity_boot",
+      "layer": "horse_body",
+      "path": "assets/reverie_dreams/textures/entity/equipment/horse_body/low_gravity_boot.png"
+    }
+  ],
+  "omittedUnusedLayers": [
+    {
+      "asset": "silver",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:silver"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "silver",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:silver"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "magic_ice",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:magic_ice"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "magic_ice",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:magic_ice"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "dream",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:dream"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "dream",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:dream"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "maid",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:maid"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "maid",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:maid"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "waterproof",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:waterproof",
+        "reverie_dreams:waterproof_overlay"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "waterproof",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:waterproof"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "earphone",
+      "layer": "humanoid_leggings",
+      "textures": [
+        "reverie_dreams:earphone"
+      ],
+      "reason": "source layer has no PNG; no item uses this layer"
+    },
+    {
+      "asset": "earphone",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:earphone"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "earphone",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:earphone"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "koishi_hat",
+      "layer": "humanoid_leggings",
+      "textures": [
+        "reverie_dreams:koishi_hat"
+      ],
+      "reason": "source layer has no PNG; no item uses this layer"
+    },
+    {
+      "asset": "koishi_hat",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:koishi_hat"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "koishi_hat",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:koishi_hat"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "oni_mask",
+      "layer": "humanoid_leggings",
+      "textures": [
+        "reverie_dreams:oni_mask"
+      ],
+      "reason": "source layer has no PNG; no item uses this layer"
+    },
+    {
+      "asset": "oni_mask",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:oni_mask"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "oni_mask",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:oni_mask"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "crown_of_the_underworld",
+      "layer": "humanoid_leggings",
+      "textures": [
+        "reverie_dreams:crown_of_the_underworld"
+      ],
+      "reason": "source layer has no PNG; no item uses this layer"
+    },
+    {
+      "asset": "crown_of_the_underworld",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:crown_of_the_underworld"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "crown_of_the_underworld",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:crown_of_the_underworld"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "low_gravity_boot",
+      "layer": "humanoid_baby",
+      "textures": [
+        "reverie_dreams:low_gravity_boot"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    },
+    {
+      "asset": "low_gravity_boot",
+      "layer": "horse_body",
+      "textures": [
+        "reverie_dreams:low_gravity_boot"
+      ],
+      "reason": "source creates unsupported/unused layer without PNG"
+    }
+  ],
+  "runtimeRules": {
+    "dream": {
+      "requiresAnyDreamArmor": true,
+      "effect": "minecraft:regeneration",
+      "durationTicks": 20,
+      "amplifier": 0,
+      "onlyIfAbsent": true,
+      "ambient": true,
+      "particles": false,
+      "icon": true
+    },
+    "koishi": {
+      "requiresHelmet": true,
+      "maxVelocityLengthSquared": 1,
+      "requiresSneaking": true,
+      "effect": "minecraft:invisibility",
+      "durationTicks": 10,
+      "amplifier": 0,
+      "ambient": false,
+      "particles": false,
+      "icon": false
+    },
+    "lowGravity": {
+      "effects": [
+        {
+          "id": "minecraft:jump_boost",
+          "durationTicks": 10,
+          "amplifier": 1
+        },
+        {
+          "id": "minecraft:slow_falling",
+          "durationTicks": 10,
+          "amplifier": 1
+        }
+      ],
+      "ambient": false,
+      "particles": false,
+      "icon": false
+    },
+    "waterproof": {
+      "requiresFullSet": true,
+      "effect": "minecraft:water_breathing",
+      "durationTicks": 1,
+      "amplifier": 0,
+      "onlyIfAbsent": true,
+      "rainFlagGlobalOverride": false,
+      "publicRainQueryBridge": true,
+      "riptideRainRestriction": true
+    },
+    "oniMask": {
+      "radius": 8,
+      "intervalTicks": 40,
+      "effect": "minecraft:weakness",
+      "durationTicks": 80,
+      "amplifier": 0,
+      "excludeAllies": true,
+      "excludeFriendlyFaction": true,
+      "oniPassiveTargetExclusionNeedsOniEntity": true
+    },
+    "crown": {
+      "undeadTargetBlock": true,
+      "excludeWitherAndBosses": true,
+      "invertInstantHealthAndDamage": true,
+      "damageBase": 6,
+      "healingBase": 4,
+      "scaleRounding": "(int)(scale*(base<<amplifier)+0.5)",
+      "nativeInvertedTag": "minecraft:inverted_healing_and_harm",
+      "paperPublicEvent": "io.papermc.paper.event.entity.EntityEffectTickEvent",
+      "splashIntensityContext": true,
+      "cloudScale": 0.5
+    },
+    "earphone": {
+      "range": 32,
+      "particle": "minecraft:sonic_boom",
+      "sourceTickerTicks": 20,
+      "allSoundCapture": false,
+      "actualSamples": 11,
+      "actualT": [
+        0.05,
+        0.15,
+        0.25,
+        0.35,
+        0.45,
+        0.55,
+        0.65,
+        0.75,
+        0.85,
+        0.95,
+        1.05
+      ],
+      "originalCountArgumentUnused": true
+    }
+  },
+  "silverMarkerItems": [
+    "reverie_dreams:silver_sword",
+    "reverie_dreams:silver_axe",
+    "reverie_dreams:silver_pickaxe",
+    "reverie_dreams:silver_shovel",
+    "reverie_dreams:silver_hoe",
+    "reverie_dreams:silver_spear",
+    "reverie_dreams:silver_helmet",
+    "reverie_dreams:silver_chestplate",
+    "reverie_dreams:silver_leggings",
+    "reverie_dreams:silver_boots",
+    "reverie_dreams:knife"
+  ],
+  "silverDamage": {
+    "activeHook": "EntityEvent.LIVING_HURT",
+    "extraDamage": 2,
+    "condition": "direct living attacker holding a SILVER_ITEM against undead",
+    "separateArmorReduction": true,
+    "unusedMethod": "onPostHitBySilverWeapon has no registration/caller in current source"
+  },
+  "customRepair": {
+    "reverie_dreams:silver_ingot": [
+      "reverie_dreams:silver_helmet",
+      "reverie_dreams:silver_chestplate",
+      "reverie_dreams:silver_leggings",
+      "reverie_dreams:silver_boots",
+      "reverie_dreams:maid_hairband",
+      "reverie_dreams:maid_upper_skirt",
+      "reverie_dreams:maid_lowerband",
+      "reverie_dreams:maid_shoe",
+      "reverie_dreams:low_gravity_boot"
+    ],
+    "reverie_dreams:dream_crystal_fragment": [
+      "reverie_dreams:dream_helmet",
+      "reverie_dreams:dream_chestplate",
+      "reverie_dreams:dream_leggings",
+      "reverie_dreams:dream_boots"
+    ],
+    "reverie_dreams:ice_scales": [
+      "reverie_dreams:magic_ice_helmet",
+      "reverie_dreams:magic_ice_chestplate",
+      "reverie_dreams:magic_ice_leggings",
+      "reverie_dreams:magic_ice_boots"
+    ],
+    "reverie_dreams:oni_horn": [
+      "reverie_dreams:oni_mask"
+    ]
+  },
+  "notes": [
+    "Old paper/run registry exports have outdated armor values; only current Java source numbers are used.",
+    "Original native humanoid/leggings equipment layers are retained unchanged; missing unused source layers are explicitly recorded.",
+    "Iron carrier preserves native armor enchantability tags while all numeric armor/max-damage/enchantable components are overridden; it avoids unintended leather freeze immunity.",
+    "The original waterproof dye value is signed ARGB -11884033 (0xFF4AA9FF), retained unchanged.",
+    "No independent custom 3D ArmorRenderer registration was found for these 25 current-source items; special headgear geometry beyond native armor layers is not added."
+  ],
+  "customRepairNativeSettings": {
+    "setting": "anvil_repair_item",
+    "placement": "repair material item",
+    "percent": 0.25,
+    "targetVersionExactMultipleCorrection": true
+  },
+  "translationAdditions": {
+    "zh_tw": {
+      "item.reverie_dreams.crown_of_the_underworld": "冥界之冠",
+      "item.reverie_dreams.low_gravity_boot": "低重力靴"
+    },
+    "ja_jp": {
+      "item.reverie_dreams.crown_of_the_underworld": "冥界の冠",
+      "item.reverie_dreams.low_gravity_boot": "低重力ブーツ"
+    }
+  },
+  "vanillaRecipeAudit": {
+    "sourceDirectTags": [
+      "minecraft:head_armor",
+      "minecraft:chest_armor",
+      "minecraft:leg_armor",
+      "minecraft:foot_armor"
+    ],
+    "sourceNoExplicitDyeableTag": true,
+    "ceExplicitInheritanceTags": true,
+    "waterproofDyeableSetting": true,
+    "nativeDyeRecipeIds": [
+      "reverie_dreams:generated_dye_waterproof_hat",
+      "reverie_dreams:generated_dye_waterproof_clothing",
+      "reverie_dreams:generated_dye_waterproof_leggings",
+      "reverie_dreams:generated_dye_waterproof_boots"
+    ],
+    "registrationPath": "AbstractItemManager.dyeableItems -> AbstractRecipeManager.registerDyeRecipes (26.1+)",
+    "smithing": "explicit minecraft:trimmable_armor CE shadow tag feeds vanilla smithing base ingredient; original normal iron armor carrier is also trimmable",
+    "verifiedInGame": false
+  }
+}

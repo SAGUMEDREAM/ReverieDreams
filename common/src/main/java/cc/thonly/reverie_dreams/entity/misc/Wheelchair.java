@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.api.player.PlayerInputManagerAccess;
 import cc.thonly.reverie_dreams.api.polymer.CommonPolymerHolderEntity;
 import cc.thonly.reverie_dreams.api.polymer.callback.PolymerEntityGetterCallback;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.server.InputKey;
+import cc.thonly.reverie_dreams.api.player.InputKey;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.codec.UUIDCodec;
 import lombok.Getter;

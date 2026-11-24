@@ -9,7 +9,7 @@ public class ReverieDreamsConsts {
 
     // Reverie Dreams ingredient ids (reverie_dreams:ingredient/<path>),
     // used to alias RD items onto their NMI equivalents.
-    public static final Identifier BAMBOO_SHOOTS = id("ingredient/bamboo_shoots");
+    public static final Identifier BAMBOO_SHOOTS = id("large_bamboo_shoot");
     public static final Identifier BLACK_PORK = id("ingredient/black_pork");
     public static final Identifier BLACK_SALT = id("ingredient/black_salt");
     public static final Identifier BROCCOLI = id("ingredient/broccoli");

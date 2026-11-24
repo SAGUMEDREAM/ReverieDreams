@@ -1,0 +1,141 @@
+{
+  "parent": "reverie_dreams:block/table",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        -135,
+        0
+      ],
+      "translation": [
+        0,
+        -0.211,
+        -0.3655
+      ],
+      "scale": [
+        0.5968,
+        0.5968,
+        0.5968
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        -0.5403,
+        0
+      ],
+      "scale": [
+        0.3325,
+        0.3325,
+        0.3325
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        -135,
+        0
+      ],
+      "translation": [
+        0,
+        -0.5403,
+        0
+      ],
+      "scale": [
+        0.3325,
+        0.3325,
+        0.3325
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.2871,
+        -0.3181
+      ],
+      "scale": [
+        0.3117,
+        0.3117,
+        0.3117
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        2.2871,
+        -0.3609
+      ],
+      "scale": [
+        0.3117,
+        0.3117,
+        0.3117
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        2.6624,
+        0.052
+      ],
+      "scale": [
+        0.2078,
+        0.2078,
+        0.2078
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        -0.6754,
+        0.1039
+      ],
+      "scale": [
+        0.4156,
+        0.4156,
+        0.4156
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        2.4936,
+        -0.0779
+      ],
+      "scale": [
+        0.3117,
+        0.3117,
+        0.3117
+      ]
+    }
+  }
+}

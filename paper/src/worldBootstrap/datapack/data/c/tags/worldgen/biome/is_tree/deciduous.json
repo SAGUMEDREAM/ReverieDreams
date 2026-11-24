@@ -1,0 +1,22 @@
+{
+  "values": [
+    "reverie_dreams:gensokyo_forest",
+    {
+      "id": "reverie_dreams:gensokyo_birch_forest",
+      "required": false
+    },
+    "reverie_dreams:gensokyo_cherry_grove",
+    {
+      "id": "reverie_dreams:gensokyo_dark_forest",
+      "required": false
+    },
+    {
+      "id": "reverie_dreams:gensokyo_magic_forest",
+      "required": false
+    },
+    {
+      "id": "reverie_dreams:gensokyo_maple_forest",
+      "required": false
+    }
+  ]
+}

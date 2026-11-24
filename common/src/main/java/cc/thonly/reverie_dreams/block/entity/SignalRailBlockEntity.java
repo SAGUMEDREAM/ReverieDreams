@@ -13,6 +13,8 @@ import net.minecraft.world.level.storage.ValueOutput;
 
 import java.util.Objects;
 
+import cc.thonly.reverie_dreams.block.redstone.RedstoneSettings;
+
 @Setter
 @Getter
 public class SignalRailBlockEntity extends BlockEntity {
@@ -24,16 +26,7 @@ public class SignalRailBlockEntity extends BlockEntity {
 
     public boolean testSignName(AbstractMinecart abstractMinecart) {
         if (abstractMinecart instanceof CartSignal cartSignal) {
-            if (Objects.equals(cartSignal.reverie_dreams$getSignName(), this.signName)) {
-                return true;
-            }
-            if (cartSignal.reverie_dreams$getSignName() != null
-                    && !cartSignal.reverie_dreams$getSignName().isEmpty()
-                    && this.signName != null
-                    && !this.signName.isEmpty()) {
-                return this.signName.contains(cartSignal.reverie_dreams$getSignName())
-                        || cartSignal.reverie_dreams$getSignName().contains(this.signName);
-            }
+            return RedstoneSettings.matches(this.signName, cartSignal.reverie_dreams$getSignName());
         }
         return false;
     }

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.CommonEventHandlers;
+import cc.thonly.reverie_dreams.event.CommonEventHandlers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.context.UseOnContext;

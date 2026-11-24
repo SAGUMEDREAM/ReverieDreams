@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "reverie_dreams:gensokyo/cherry",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.18,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/young_cherry",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

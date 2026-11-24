@@ -1,0 +1,1367 @@
+{
+  "version": 1,
+  "content_version": 1,
+  "actors_version": 1,
+  "content_sha256": "970ca3662f1b13d54bf9747684b09bbf483fc125082bfd9abedbbc4e14c655bb",
+  "source_sha256": "cfa25c1e672b2e04563e6ac89eecdaa0f3ebfebd700b632cc1e3f8f73735d7f5",
+  "size": [
+    83,
+    32,
+    96
+  ],
+  "function_points": [
+    {
+      "id": "entrance",
+      "pos": [
+        82,
+        1,
+        45
+      ]
+    },
+    {
+      "id": "rabbit_rations_66_1_33",
+      "pos": [
+        66,
+        1,
+        33
+      ]
+    },
+    {
+      "id": "rabbit_rations_66_1_34",
+      "pos": [
+        66,
+        1,
+        34
+      ]
+    },
+    {
+      "id": "rabbit_rations_66_1_35",
+      "pos": [
+        66,
+        1,
+        35
+      ]
+    },
+    {
+      "id": "rabbit_rations_66_1_36",
+      "pos": [
+        66,
+        1,
+        36
+      ]
+    },
+    {
+      "id": "rabbit_rations_68_1_80",
+      "pos": [
+        68,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_68_1_90",
+      "pos": [
+        68,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_69_1_80",
+      "pos": [
+        69,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "discarded_supplies_69_1_87",
+      "pos": [
+        69,
+        1,
+        87
+      ]
+    },
+    {
+      "id": "rabbit_rations_69_1_90",
+      "pos": [
+        69,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_70_1_80",
+      "pos": [
+        70,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_70_1_81",
+      "pos": [
+        70,
+        1,
+        81
+      ]
+    },
+    {
+      "id": "rabbit_rations_70_1_90",
+      "pos": [
+        70,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_71_1_80",
+      "pos": [
+        71,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_71_1_81",
+      "pos": [
+        71,
+        1,
+        81
+      ]
+    },
+    {
+      "id": "rabbit_rations_71_1_90",
+      "pos": [
+        71,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_72_1_80",
+      "pos": [
+        72,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_72_1_87",
+      "pos": [
+        72,
+        1,
+        87
+      ]
+    },
+    {
+      "id": "rabbit_rations_72_1_90",
+      "pos": [
+        72,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_73_1_80",
+      "pos": [
+        73,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "discarded_supplies_73_1_84",
+      "pos": [
+        73,
+        1,
+        84
+      ]
+    },
+    {
+      "id": "rabbit_rations_73_1_90",
+      "pos": [
+        73,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_74_1_80",
+      "pos": [
+        74,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_74_1_82",
+      "pos": [
+        74,
+        1,
+        82
+      ]
+    },
+    {
+      "id": "discarded_supplies_74_1_83",
+      "pos": [
+        74,
+        1,
+        83
+      ]
+    },
+    {
+      "id": "rabbit_rations_74_1_85",
+      "pos": [
+        74,
+        1,
+        85
+      ]
+    },
+    {
+      "id": "rabbit_rations_74_1_90",
+      "pos": [
+        74,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_1_80",
+      "pos": [
+        75,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_1_84",
+      "pos": [
+        75,
+        1,
+        84
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_1_85",
+      "pos": [
+        75,
+        1,
+        85
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_1_86",
+      "pos": [
+        75,
+        1,
+        86
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_1_90",
+      "pos": [
+        75,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_76_1_80",
+      "pos": [
+        76,
+        1,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_76_1_84",
+      "pos": [
+        76,
+        1,
+        84
+      ]
+    },
+    {
+      "id": "rabbit_rations_76_1_85",
+      "pos": [
+        76,
+        1,
+        85
+      ]
+    },
+    {
+      "id": "rabbit_rations_76_1_86",
+      "pos": [
+        76,
+        1,
+        86
+      ]
+    },
+    {
+      "id": "rabbit_rations_76_1_90",
+      "pos": [
+        76,
+        1,
+        90
+      ]
+    },
+    {
+      "id": "herbal_stock_27_2_32",
+      "pos": [
+        27,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_27_2_33",
+      "pos": [
+        27,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_27_2_34",
+      "pos": [
+        27,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_27_2_35",
+      "pos": [
+        27,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_27_2_36",
+      "pos": [
+        27,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "herbal_stock_30_2_32",
+      "pos": [
+        30,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_30_2_33",
+      "pos": [
+        30,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_30_2_34",
+      "pos": [
+        30,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_30_2_35",
+      "pos": [
+        30,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_30_2_36",
+      "pos": [
+        30,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "herbal_stock_34_2_32",
+      "pos": [
+        34,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_34_2_33",
+      "pos": [
+        34,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_34_2_34",
+      "pos": [
+        34,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_34_2_35",
+      "pos": [
+        34,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_34_2_36",
+      "pos": [
+        34,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "herbal_stock_37_2_32",
+      "pos": [
+        37,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_37_2_33",
+      "pos": [
+        37,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_37_2_34",
+      "pos": [
+        37,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_37_2_35",
+      "pos": [
+        37,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_37_2_36",
+      "pos": [
+        37,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "herbal_stock_41_2_32",
+      "pos": [
+        41,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_41_2_33",
+      "pos": [
+        41,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_41_2_34",
+      "pos": [
+        41,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_41_2_35",
+      "pos": [
+        41,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_41_2_36",
+      "pos": [
+        41,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "herbal_stock_44_2_32",
+      "pos": [
+        44,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_44_2_33",
+      "pos": [
+        44,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_44_2_34",
+      "pos": [
+        44,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_44_2_35",
+      "pos": [
+        44,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_44_2_36",
+      "pos": [
+        44,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "herbal_stock_48_2_32",
+      "pos": [
+        48,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_48_2_33",
+      "pos": [
+        48,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_48_2_34",
+      "pos": [
+        48,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_48_2_35",
+      "pos": [
+        48,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_48_2_36",
+      "pos": [
+        48,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "herbal_stock_51_2_32",
+      "pos": [
+        51,
+        2,
+        32
+      ]
+    },
+    {
+      "id": "herbal_stock_51_2_33",
+      "pos": [
+        51,
+        2,
+        33
+      ]
+    },
+    {
+      "id": "herbal_stock_51_2_34",
+      "pos": [
+        51,
+        2,
+        34
+      ]
+    },
+    {
+      "id": "herbal_stock_51_2_35",
+      "pos": [
+        51,
+        2,
+        35
+      ]
+    },
+    {
+      "id": "herbal_stock_51_2_36",
+      "pos": [
+        51,
+        2,
+        36
+      ]
+    },
+    {
+      "id": "dispensary_57_2_20",
+      "pos": [
+        57,
+        2,
+        20
+      ]
+    },
+    {
+      "id": "dispensary_57_2_21",
+      "pos": [
+        57,
+        2,
+        21
+      ]
+    },
+    {
+      "id": "dispensary_57_2_22",
+      "pos": [
+        57,
+        2,
+        22
+      ]
+    },
+    {
+      "id": "rabbit_rations_68_2_80",
+      "pos": [
+        68,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_68_2_90",
+      "pos": [
+        68,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_69_2_80",
+      "pos": [
+        69,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_69_2_90",
+      "pos": [
+        69,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_70_2_80",
+      "pos": [
+        70,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_70_2_90",
+      "pos": [
+        70,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_71_2_80",
+      "pos": [
+        71,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_71_2_90",
+      "pos": [
+        71,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_72_2_80",
+      "pos": [
+        72,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_72_2_90",
+      "pos": [
+        72,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_73_2_80",
+      "pos": [
+        73,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_73_2_90",
+      "pos": [
+        73,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_74_2_80",
+      "pos": [
+        74,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_74_2_90",
+      "pos": [
+        74,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_2_80",
+      "pos": [
+        75,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_2_85",
+      "pos": [
+        75,
+        2,
+        85
+      ]
+    },
+    {
+      "id": "rabbit_rations_75_2_90",
+      "pos": [
+        75,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "rabbit_rations_76_2_80",
+      "pos": [
+        76,
+        2,
+        80
+      ]
+    },
+    {
+      "id": "rabbit_rations_76_2_90",
+      "pos": [
+        76,
+        2,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_68_3_80",
+      "pos": [
+        68,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_68_3_90",
+      "pos": [
+        68,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_69_3_80",
+      "pos": [
+        69,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_69_3_90",
+      "pos": [
+        69,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_70_3_80",
+      "pos": [
+        70,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_70_3_90",
+      "pos": [
+        70,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_71_3_80",
+      "pos": [
+        71,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_71_3_90",
+      "pos": [
+        71,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_72_3_80",
+      "pos": [
+        72,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_72_3_90",
+      "pos": [
+        72,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_73_3_80",
+      "pos": [
+        73,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_73_3_90",
+      "pos": [
+        73,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_74_3_80",
+      "pos": [
+        74,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_74_3_90",
+      "pos": [
+        74,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_75_3_80",
+      "pos": [
+        75,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_75_3_90",
+      "pos": [
+        75,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_76_3_80",
+      "pos": [
+        76,
+        3,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_76_3_90",
+      "pos": [
+        76,
+        3,
+        90
+      ]
+    },
+    {
+      "id": "reisen_supplies_6_4_80",
+      "pos": [
+        6,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "reisen_supplies_6_4_81",
+      "pos": [
+        6,
+        4,
+        81
+      ]
+    },
+    {
+      "id": "reisen_supplies_6_4_82",
+      "pos": [
+        6,
+        4,
+        82
+      ]
+    },
+    {
+      "id": "reisen_supplies_6_4_84",
+      "pos": [
+        6,
+        4,
+        84
+      ]
+    },
+    {
+      "id": "reisen_supplies_6_4_86",
+      "pos": [
+        6,
+        4,
+        86
+      ]
+    },
+    {
+      "id": "bamboo_stores_68_4_80",
+      "pos": [
+        68,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_68_4_90",
+      "pos": [
+        68,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_69_4_80",
+      "pos": [
+        69,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_69_4_90",
+      "pos": [
+        69,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_70_4_80",
+      "pos": [
+        70,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_70_4_90",
+      "pos": [
+        70,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_71_4_80",
+      "pos": [
+        71,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_71_4_90",
+      "pos": [
+        71,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_72_4_80",
+      "pos": [
+        72,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_72_4_90",
+      "pos": [
+        72,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_73_4_80",
+      "pos": [
+        73,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_73_4_90",
+      "pos": [
+        73,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_74_4_80",
+      "pos": [
+        74,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_74_4_90",
+      "pos": [
+        74,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_75_4_80",
+      "pos": [
+        75,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_75_4_90",
+      "pos": [
+        75,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_76_4_80",
+      "pos": [
+        76,
+        4,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_76_4_90",
+      "pos": [
+        76,
+        4,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_68_5_80",
+      "pos": [
+        68,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_68_5_90",
+      "pos": [
+        68,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_69_5_80",
+      "pos": [
+        69,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_69_5_90",
+      "pos": [
+        69,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_70_5_80",
+      "pos": [
+        70,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_70_5_90",
+      "pos": [
+        70,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_71_5_80",
+      "pos": [
+        71,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_71_5_90",
+      "pos": [
+        71,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_72_5_80",
+      "pos": [
+        72,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_72_5_90",
+      "pos": [
+        72,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_73_5_80",
+      "pos": [
+        73,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_73_5_90",
+      "pos": [
+        73,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_74_5_80",
+      "pos": [
+        74,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_74_5_90",
+      "pos": [
+        74,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_75_5_80",
+      "pos": [
+        75,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_75_5_90",
+      "pos": [
+        75,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "bamboo_stores_76_5_80",
+      "pos": [
+        76,
+        5,
+        80
+      ]
+    },
+    {
+      "id": "bamboo_stores_76_5_90",
+      "pos": [
+        76,
+        5,
+        90
+      ]
+    },
+    {
+      "id": "lunar_research_42_8_38",
+      "pos": [
+        42,
+        8,
+        38
+      ]
+    },
+    {
+      "id": "kaguya_treasury_49_8_40",
+      "pos": [
+        49,
+        8,
+        40
+      ]
+    },
+    {
+      "id": "kaguya_treasury_50_8_40",
+      "pos": [
+        50,
+        8,
+        40
+      ]
+    },
+    {
+      "id": "kaguya_treasury_52_8_39",
+      "pos": [
+        52,
+        8,
+        39
+      ]
+    },
+    {
+      "id": "medical_records_54_8_24",
+      "pos": [
+        54,
+        8,
+        24
+      ]
+    },
+    {
+      "id": "medical_records_55_8_24",
+      "pos": [
+        55,
+        8,
+        24
+      ]
+    },
+    {
+      "id": "medical_records_56_8_24",
+      "pos": [
+        56,
+        8,
+        24
+      ]
+    },
+    {
+      "id": "medical_records_57_8_24",
+      "pos": [
+        57,
+        8,
+        24
+      ]
+    },
+    {
+      "id": "medical_records_58_8_24",
+      "pos": [
+        58,
+        8,
+        24
+      ]
+    },
+    {
+      "id": "medical_records_59_8_24",
+      "pos": [
+        59,
+        8,
+        24
+      ]
+    },
+    {
+      "id": "bamboo_stores_70_8_83",
+      "pos": [
+        70,
+        8,
+        83
+      ]
+    }
+  ],
+  "template_sha256": "970ca3662f1b13d54bf9747684b09bbf483fc125082bfd9abedbbc4e14c655bb"
+}

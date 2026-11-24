@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "FCF",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "F": "minecraft:flower_pot",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "reverie_dreams:medicine_jar_rack",
+    "count": 1
+  }
+}

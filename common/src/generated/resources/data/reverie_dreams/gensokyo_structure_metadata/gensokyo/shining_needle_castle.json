@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "content_version": 1,
+  "actors_version": 1,
+  "content_sha256": "5d7075300843baa4d0e0e435bd19a0a1af5983d9dc472cbe252a21e24dbb5940",
+  "source_sha256": "9c386d39cc452190aadb9e2f4623146803519093e7a84d37095d647d54011465",
+  "size": [
+    326,
+    236,
+    344
+  ],
+  "function_points": [
+    {
+      "id": "retainer_rations_0",
+      "pos": [
+        86,
+        118,
+        95
+      ]
+    },
+    {
+      "id": "sewing_supplies_1",
+      "pos": [
+        86,
+        118,
+        96
+      ]
+    },
+    {
+      "id": "castle_repairs_2",
+      "pos": [
+        86,
+        118,
+        232
+      ]
+    },
+    {
+      "id": "castle_repairs_3",
+      "pos": [
+        86,
+        118,
+        233
+      ]
+    },
+    {
+      "id": "discarded_tricks_4",
+      "pos": [
+        88,
+        118,
+        95
+      ]
+    },
+    {
+      "id": "guard_stores_5",
+      "pos": [
+        88,
+        118,
+        233
+      ]
+    },
+    {
+      "id": "tsukumogami_parts_6",
+      "pos": [
+        163,
+        42,
+        150
+      ]
+    },
+    {
+      "id": "rebellion_notes_7",
+      "pos": [
+        163,
+        42,
+        152
+      ]
+    },
+    {
+      "id": "needle_treasury_8",
+      "pos": [
+        168,
+        42,
+        150
+      ]
+    },
+    {
+      "id": "mallet_remnants_9",
+      "pos": [
+        168,
+        42,
+        152
+      ]
+    },
+    {
+      "id": "retainer_rations_10",
+      "pos": [
+        224,
+        118,
+        95
+      ]
+    },
+    {
+      "id": "sewing_supplies_11",
+      "pos": [
+        224,
+        118,
+        233
+      ]
+    },
+    {
+      "id": "castle_repairs_12",
+      "pos": [
+        226,
+        118,
+        95
+      ]
+    },
+    {
+      "id": "discarded_tricks_13",
+      "pos": [
+        226,
+        118,
+        96
+      ]
+    },
+    {
+      "id": "guard_stores_14",
+      "pos": [
+        226,
+        118,
+        232
+      ]
+    },
+    {
+      "id": "guard_stores_15",
+      "pos": [
+        226,
+        118,
+        233
+      ]
+    }
+  ],
+  "template_sha256": "5d7075300843baa4d0e0e435bd19a0a1af5983d9dc472cbe252a21e24dbb5940"
+}

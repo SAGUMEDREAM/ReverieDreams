@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "minecraft:charcoal",
+    "I": "minecraft:copper_ingot",
+    "S": "minecraft:stone"
+  },
+  "pattern": [
+    " C ",
+    "SIS",
+    "SSS"
+  ],
+  "result": {
+    "id": "reverie_dreams:incense_burner"
+  }
+}

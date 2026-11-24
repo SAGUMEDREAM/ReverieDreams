@@ -1,0 +1,983 @@
+# Source-faithful ordinary tools; exact native components and CE custom-block mining power.
+items:
+  reverie_dreams:silver_sword:
+    material: iron_sword
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_sword>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 240
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 18
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 4.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/fire_aspect
+      - minecraft:enchantable/melee_weapon
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/sweeping
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - minecraft:swords
+      - reverie_dreams:silver_item
+      break_power: 0
+    model: reverie_dreams:item/silver_sword
+  reverie_dreams:silver_axe:
+    material: iron_axe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_axe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 240
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 18
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 7.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.799999952316284
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 5
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/axe'
+            speed: 6
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:axes
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - reverie_dreams:silver_item
+      break_power: 3
+    model: reverie_dreams:item/silver_axe
+  reverie_dreams:silver_pickaxe:
+    material: iron_pickaxe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_pickaxe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 240
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 18
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 2.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.799999952316284
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/pickaxe'
+            speed: 6
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:cluster_max_harvestables
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:pickaxes
+      - reverie_dreams:silver_item
+      break_power: 3
+    model: reverie_dreams:item/silver_pickaxe
+  reverie_dreams:silver_shovel:
+    material: iron_shovel
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_shovel>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 240
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 18
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 3
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -3
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/shovel'
+            speed: 6
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:shovels
+      - reverie_dreams:silver_item
+      break_power: 3
+    model: reverie_dreams:item/silver_shovel
+  reverie_dreams:silver_hoe:
+    material: iron_hoe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_hoe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 240
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 18
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: -0.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -1
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/hoe'
+            speed: 6
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:hoes
+      - reverie_dreams:silver_item
+      break_power: 3
+    model: reverie_dreams:item/silver_hoe
+  reverie_dreams:silver_spear:
+    material: iron_spear
+    data:
+      item_name: <!i><lang:item.reverie_dreams.silver_spear>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 240
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 18
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 1.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.9473683834075928
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:kinetic_weapon:
+          contact_cooldown_ticks: 10
+          delay_ticks: 12
+          dismount_conditions:
+            max_duration_ticks: 50
+            min_speed: 8
+            min_relative_speed: 0
+          knockback_conditions:
+            max_duration_ticks: 135
+            min_speed: 5.1
+            min_relative_speed: 0
+          damage_conditions:
+            max_duration_ticks: 225
+            min_speed: 0
+            min_relative_speed: 4.6
+          forward_movement: 0.38
+          damage_multiplier: 0.95
+          sound: minecraft:item.spear.use
+          hit_sound: minecraft:item.spear.hit
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/fire_aspect
+      - minecraft:enchantable/lunge
+      - minecraft:enchantable/melee_weapon
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - minecraft:spears
+      - reverie_dreams:silver_item
+      break_power: 0
+    model:
+      type: minecraft:select
+      cases:
+      - model:
+          type: minecraft:model
+          model: reverie_dreams:item/silver_spear
+        when:
+        - gui
+        - ground
+        - fixed
+        - on_shelf
+      fallback:
+        type: minecraft:model
+        model: reverie_dreams:item/silver_spear_in_hand
+      property: minecraft:display_context
+    swap_animation_scale: 1.95
+  reverie_dreams:magic_ice_sword:
+    material: iron_sword
+    data:
+      item_name: <!i><lang:item.reverie_dreams.magic_ice_sword>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 380
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 5.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/fire_aspect
+      - minecraft:enchantable/melee_weapon
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/sweeping
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - minecraft:swords
+      - reverie_dreams:magic_ice_weapon
+      break_power: 0
+    model: reverie_dreams:item/magic_ice_sword
+  reverie_dreams:magic_ice_axe:
+    material: iron_axe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.magic_ice_axe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 380
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 8.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.799999952316284
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 5
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/axe'
+            speed: 6.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:axes
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - reverie_dreams:magic_ice_weapon
+      break_power: 3
+    model: reverie_dreams:item/magic_ice_axe
+  reverie_dreams:magic_ice_pickaxe:
+    material: iron_pickaxe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.magic_ice_pickaxe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 380
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 3.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.799999952316284
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/pickaxe'
+            speed: 6.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:cluster_max_harvestables
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:pickaxes
+      - reverie_dreams:magic_ice_weapon
+      break_power: 3
+    model: reverie_dreams:item/magic_ice_pickaxe
+  reverie_dreams:magic_ice_shovel:
+    material: iron_shovel
+    data:
+      item_name: <!i><lang:item.reverie_dreams.magic_ice_shovel>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 380
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 4
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -3
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/shovel'
+            speed: 6.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:shovels
+      - reverie_dreams:magic_ice_weapon
+      break_power: 3
+    model: reverie_dreams:item/magic_ice_shovel
+  reverie_dreams:magic_ice_hoe:
+    material: iron_hoe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.magic_ice_hoe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 380
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 0.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -1
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_iron_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/hoe'
+            speed: 6.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:hoes
+      - reverie_dreams:magic_ice_weapon
+      break_power: 3
+    model: reverie_dreams:item/magic_ice_hoe
+  reverie_dreams:magic_ice_spear:
+    material: iron_spear
+    data:
+      item_name: <!i><lang:item.reverie_dreams.magic_ice_spear>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 380
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 12
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 2.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.9473683834075928
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:kinetic_weapon:
+          contact_cooldown_ticks: 10
+          delay_ticks: 12
+          dismount_conditions:
+            max_duration_ticks: 50
+            min_speed: 8
+            min_relative_speed: 0
+          knockback_conditions:
+            max_duration_ticks: 135
+            min_speed: 5.1
+            min_relative_speed: 0
+          damage_conditions:
+            max_duration_ticks: 225
+            min_speed: 0
+            min_relative_speed: 4.6
+          forward_movement: 0.38
+          damage_multiplier: 0.95
+          sound: minecraft:item.spear.use
+          hit_sound: minecraft:item.spear.hit
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/fire_aspect
+      - minecraft:enchantable/lunge
+      - minecraft:enchantable/melee_weapon
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - minecraft:spears
+      break_power: 0
+    model:
+      type: minecraft:select
+      cases:
+      - model:
+          type: minecraft:model
+          model: reverie_dreams:item/magic_ice_spear
+        when:
+        - gui
+        - ground
+        - fixed
+        - on_shelf
+      fallback:
+        type: minecraft:model
+        model: reverie_dreams:item/magic_ice_spear_in_hand
+      property: minecraft:display_context
+    swap_animation_scale: 1.95
+  reverie_dreams:dream_sword:
+    material: iron_sword
+    data:
+      item_name: <!i><lang:item.reverie_dreams.dream_sword>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1400
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 16
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 7
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.4000000953674316
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks:
+            - minecraft:cobweb
+            speed: 15
+            correct_for_drops: true
+          - blocks: '#minecraft:sword_instantly_mines'
+            speed: 3.4028235e+38
+          - blocks: '#minecraft:sword_efficient'
+            speed: 1.5
+          default_mining_speed: 1
+          damage_per_block: 2
+          can_destroy_blocks_in_creative: false
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/fire_aspect
+      - minecraft:enchantable/melee_weapon
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/sweeping
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - minecraft:swords
+      break_power: 0
+    model: reverie_dreams:item/dream_sword
+  reverie_dreams:dream_axe:
+    material: iron_axe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.dream_axe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1400
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 16
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 10
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.799999952316284
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 5
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_netherite_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/axe'
+            speed: 8.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:axes
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      break_power: 5
+    model: reverie_dreams:item/dream_axe
+  reverie_dreams:dream_pickaxe:
+    material: iron_pickaxe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.dream_pickaxe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1400
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 16
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.799999952316284
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_netherite_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/pickaxe'
+            speed: 8.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:cluster_max_harvestables
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:pickaxes
+      break_power: 5
+    model: reverie_dreams:item/dream_pickaxe
+  reverie_dreams:dream_shovel:
+    material: iron_shovel
+    data:
+      item_name: <!i><lang:item.reverie_dreams.dream_shovel>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1400
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 16
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 5.5
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -3
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_netherite_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/shovel'
+            speed: 8.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:shovels
+      break_power: 5
+    model: reverie_dreams:item/dream_shovel
+  reverie_dreams:dream_hoe:
+    material: iron_hoe
+    data:
+      item_name: <!i><lang:item.reverie_dreams.dream_hoe>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1400
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 16
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 2
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -1
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 2
+          disable_blocking_for_seconds: 0
+        minecraft:tool:
+          rules:
+          - blocks: '#minecraft:incorrect_for_netherite_tool'
+            correct_for_drops: false
+          - blocks: '#minecraft:mineable/hoe'
+            speed: 8.5
+            correct_for_drops: true
+          default_mining_speed: 1
+          damage_per_block: 1
+          can_destroy_blocks_in_creative: true
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:breaks_decorated_pots
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/mining
+      - minecraft:enchantable/mining_loot
+      - minecraft:enchantable/vanishing
+      - minecraft:hoes
+      break_power: 5
+    model: reverie_dreams:item/dream_hoe
+  reverie_dreams:dream_spear:
+    material: iron_spear
+    data:
+      item_name: <!i><lang:item.reverie_dreams.dream_spear>
+      components:
+        minecraft:max_stack_size: 1
+        minecraft:max_damage: 1400
+        minecraft:damage: 0
+        minecraft:enchantable:
+          value: 16
+        minecraft:repairable:
+          items: []
+        minecraft:attribute_modifiers:
+        - type: minecraft:attack_damage
+          id: minecraft:base_attack_damage
+          amount: 4
+          operation: add_value
+          slot: mainhand
+        - type: minecraft:attack_speed
+          id: minecraft:base_attack_speed
+          amount: -2.9473683834075928
+          operation: add_value
+          slot: mainhand
+        minecraft:weapon:
+          item_damage_per_attack: 1
+          disable_blocking_for_seconds: 0
+        minecraft:kinetic_weapon:
+          contact_cooldown_ticks: 10
+          delay_ticks: 12
+          dismount_conditions:
+            max_duration_ticks: 50
+            min_speed: 8
+            min_relative_speed: 0
+          knockback_conditions:
+            max_duration_ticks: 135
+            min_speed: 5.1
+            min_relative_speed: 0
+          damage_conditions:
+            max_duration_ticks: 225
+            min_speed: 0
+            min_relative_speed: 4.6
+          forward_movement: 0.38
+          damage_multiplier: 0.95
+          sound: minecraft:item.spear.use
+          hit_sound: minecraft:item.spear.hit
+    settings:
+      enchantable: true
+      respect_repairable_component: false
+      tags:
+      - minecraft:enchantable/durability
+      - minecraft:enchantable/fire_aspect
+      - minecraft:enchantable/lunge
+      - minecraft:enchantable/melee_weapon
+      - minecraft:enchantable/sharp_weapon
+      - minecraft:enchantable/vanishing
+      - minecraft:enchantable/weapon
+      - minecraft:spears
+      break_power: 0
+    model:
+      type: minecraft:select
+      cases:
+      - model:
+          type: minecraft:model
+          model: reverie_dreams:item/dream_spear
+        when:
+        - gui
+        - ground
+        - fixed
+        - on_shelf
+      fallback:
+        type: minecraft:model
+        model: reverie_dreams:item/dream_spear_in_hand
+      property: minecraft:display_context
+    swap_animation_scale: 1.95
+

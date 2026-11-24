@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "reverie_dreams:timber_white_wall_horizontal"
+  ],
+  "result": {
+    "id": "reverie_dreams:timber_white_wall_cross",
+    "count": 1
+  }
+}

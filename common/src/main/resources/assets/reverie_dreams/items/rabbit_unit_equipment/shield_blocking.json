@@ -1,0 +1,33 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "minecraft:item/shield_blocking",
+    "model": {
+      "type": "minecraft:shield"
+    },
+    "transformation": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "left_rotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "scale": [
+        1,
+        -1,
+        -1
+      ],
+      "right_rotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  }
+}

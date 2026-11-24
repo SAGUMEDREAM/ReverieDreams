@@ -1,0 +1,25 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/understory_oak",
+          "placement": []
+        },
+        "chance": 0.15
+      },
+      {
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/magic_dark_oak",
+          "placement": []
+        },
+        "chance": 0.29411763
+      }
+    ],
+    "default": {
+      "feature": "reverie_dreams:gensokyo/magic_oak",
+      "placement": []
+    }
+  },
+  "type": "minecraft:random_selector"
+}

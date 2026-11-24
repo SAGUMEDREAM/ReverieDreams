@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.server.input;
 
-import cc.thonly.reverie_dreams.server.InputKey;
+import cc.thonly.reverie_dreams.api.player.InputKey;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.EnumMap;

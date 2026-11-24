@@ -1,0 +1,23 @@
+{
+  "additional_wants": {
+    "id": "reverie_dreams:gold_coin"
+  },
+  "given_item_modifiers": [
+    {
+      "add": false,
+      "count": 32.0,
+      "function": "minecraft:set_count"
+    }
+  ],
+  "gives": {
+    "count": 16,
+    "id": "reverie_dreams:exorcism_paper"
+  },
+  "max_uses": 3.0,
+  "reputation_discount": 0.1,
+  "wants": {
+    "count": 32.0,
+    "id": "reverie_dreams:fairy_dust"
+  },
+  "xp": 30.0
+}

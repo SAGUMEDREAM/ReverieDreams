@@ -1,0 +1,43 @@
+{
+  "dye": {
+    "id": "minecraft:pink_dye",
+    "count": 4
+  },
+  "core": {
+    "id": "reverie_dreams:danmaku_core",
+    "count": 4
+  },
+  "power": {
+    "id": "reverie_dreams:power",
+    "count": 35
+  },
+  "point": {
+    "id": "reverie_dreams:point",
+    "count": 35
+  },
+  "material": {
+    "id": "reverie_dreams:danmaku_shape_blueprint",
+    "count": 1,
+    "components": {
+      "reverie_dreams:shape": {
+        "id": "reverie_dreams:danmaku/leaf",
+        "count": 1
+      }
+    }
+  },
+  "output": {
+    "id": "reverie_dreams:danmaku/leaf",
+    "count": 1,
+    "components": {
+      "minecraft:item_name": {
+        "translate": "item.reverie_dreams.danmaku.leaf",
+        "color": "#FF3DB0"
+      },
+      "minecraft:dyed_color": 16724365,
+      "minecraft:use_cooldown": {
+        "seconds": 0.5,
+        "cooldown_group": "minecraft:986f4d2e-0c06-34ab-8759-eca38e3072e7"
+      }
+    }
+  }
+}

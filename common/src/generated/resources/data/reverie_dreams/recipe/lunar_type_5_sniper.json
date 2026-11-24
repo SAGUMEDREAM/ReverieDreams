@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "I": "minecraft:iron_ingot",
+    "M": "reverie_dreams:moon_stone",
+    "Q": "minecraft:quartz",
+    "R": "minecraft:redstone",
+    "S": "reverie_dreams:silver_ingot"
+  },
+  "pattern": [
+    "AQI",
+    "SMR",
+    " S "
+  ],
+  "result": {
+    "id": "reverie_dreams:lunar_type_5_sniper"
+  }
+}

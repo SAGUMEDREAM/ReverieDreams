@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.item.weapon;
 
 import cc.thonly.reverie_dreams.entity.misc.BaguaFurnaceEntity;
+import cc.thonly.reverie_dreams.entity.projectile.BaguaFireball;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -8,17 +10,18 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
-import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 
 public class BaguaFurnace extends Item {
+    public static final int NORMAL_COOLDOWN_TICKS = 20;
+    public static final int DEPLOY_COOLDOWN_TICKS = 20 * 40;
+    public static final int DEPLOY_DURABILITY_COST = 15;
+
     public BaguaFurnace(Properties settings) {
         super(settings);
     }
@@ -28,15 +31,23 @@ public class BaguaFurnace extends Item {
         if (!world.isClientSide() && user instanceof ServerPlayer player) {
             ServerLevel serverWorld = (ServerLevel) world;
             BaguaFurnaceEntity baguaFurnaceEntity = new BaguaFurnaceEntity(serverWorld, user);
-            serverWorld.addFreshEntity(baguaFurnaceEntity);
+            if (!serverWorld.addFreshEntity(baguaFurnaceEntity))
+                return stack;
 
-            FoodData hungerManager = player.getFoodData();
-            hungerManager.eat(-6, -6);
+            serverWorld.sendParticles(
+                    ParticleTypes.FLAME,
+                    player.getX(), player.getEyeY(), player.getZ(),
+                    20, 0.35D, 0.35D, 0.35D, 0.03D
+            );
+            serverWorld.playSound(
+                    null, player.blockPosition(), SoundEvents.BLAZE_SHOOT,
+                    SoundSource.PLAYERS, 0.8F, 1.0F
+            );
 
-            ItemCooldowns itemCooldownManager = player.getCooldowns();
-            itemCooldownManager.addCooldown(stack, 20 * 40);
+            player.getCooldowns().addCooldown(stack, DEPLOY_COOLDOWN_TICKS);
             if (!player.hasInfiniteMaterials()) {
-                stack.hurtWithoutBreaking(15, player);
+                stack.hurtAndBreak(DEPLOY_DURABILITY_COST, player, user.getUsedItemHand() == InteractionHand.OFF_HAND
+                        ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND);
             }
         }
         return stack;
@@ -44,7 +55,7 @@ public class BaguaFurnace extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        return Items.FLINT_AND_STEEL.useOn(context);
+        return this.use(context.getLevel(), context.getPlayer(), context.getHand());
     }
 
     @Override
@@ -59,24 +70,44 @@ public class BaguaFurnace extends Item {
 
     @Override
     public InteractionResult use(Level world, Player user, InteractionHand hand) {
-        ItemStack itemStack = user.getItemInHand(hand);
-        if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            if (user.isShiftKeyDown()) {
-                user.startUsingItem(hand);
-                return InteractionResult.CONSUME;
-            }
-            world.playSound((Entity) null, user.getX(), user.getY(), user.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-            SmallFireball fireballEntity = new SmallFireball(serverWorld, user.getX(), user.getEyeY(), user.getZ(), new Vec3(0, 0, 0));
-            fireballEntity.shootFromRotation(user, user.getXRot(), user.getYRot(), 0.0F, 1.5f, 1.0F);
-            world.addFreshEntity(fireballEntity);
-            ItemCooldowns itemCooldownManager = user.getCooldowns();
-            itemCooldownManager.addCooldown(itemStack, 20);
-            return InteractionResult.SUCCESS_SERVER;
+        if (world.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+        if (!(world instanceof ServerLevel serverWorld) || !(user instanceof ServerPlayer player)) {
+            return InteractionResult.PASS;
         }
 
-        user.awardStat(Stats.ITEM_USED.get(this));
-        itemStack.consume(1, user);
-        return InteractionResult.SUCCESS;
-    }
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (player.getCooldowns().isOnCooldown(itemStack)) {
+            return InteractionResult.FAIL;
+        }
 
+        if (player.isShiftKeyDown()) {
+            player.startUsingItem(hand);
+            return InteractionResult.CONSUME;
+        }
+
+        BaguaFireball fireball = new BaguaFireball(serverWorld, player);
+        fireball.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+        serverWorld.addFreshEntity(fireball);
+
+        serverWorld.sendParticles(
+                ParticleTypes.FLAME,
+                player.getX(), player.getEyeY(), player.getZ(),
+                8, 0.12D, 0.12D, 0.12D, 0.02D
+        );
+        serverWorld.playSound(
+                null, player.blockPosition(), SoundEvents.BLAZE_SHOOT,
+                SoundSource.PLAYERS, 0.6F, 1.0F
+        );
+
+        player.getCooldowns().addCooldown(itemStack, NORMAL_COOLDOWN_TICKS);
+        if (!player.hasInfiniteMaterials()) {
+            itemStack.hurtAndBreak(1, player, hand == InteractionHand.OFF_HAND
+                    ? EquipmentSlot.OFFHAND
+                    : EquipmentSlot.MAINHAND);
+        }
+        player.awardStat(Stats.ITEM_USED.get(this));
+        return InteractionResult.SUCCESS_SERVER;
+    }
 }

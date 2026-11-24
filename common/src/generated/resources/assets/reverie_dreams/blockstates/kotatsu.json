@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "east=false,north=false,south=false,west=false": {
+      "model": "reverie_dreams:block/kotatsu_0"
+    },
+    "east=false,north=false,south=false,west=true": {
+      "model": "reverie_dreams:block/kotatsu_8"
+    },
+    "east=false,north=false,south=true,west=false": {
+      "model": "reverie_dreams:block/kotatsu_4"
+    },
+    "east=false,north=false,south=true,west=true": {
+      "model": "reverie_dreams:block/kotatsu_12"
+    },
+    "east=false,north=true,south=false,west=false": {
+      "model": "reverie_dreams:block/kotatsu_1"
+    },
+    "east=false,north=true,south=false,west=true": {
+      "model": "reverie_dreams:block/kotatsu_9"
+    },
+    "east=false,north=true,south=true,west=false": {
+      "model": "reverie_dreams:block/kotatsu_5"
+    },
+    "east=false,north=true,south=true,west=true": {
+      "model": "reverie_dreams:block/kotatsu_13"
+    },
+    "east=true,north=false,south=false,west=false": {
+      "model": "reverie_dreams:block/kotatsu_2"
+    },
+    "east=true,north=false,south=false,west=true": {
+      "model": "reverie_dreams:block/kotatsu_10"
+    },
+    "east=true,north=false,south=true,west=false": {
+      "model": "reverie_dreams:block/kotatsu_6"
+    },
+    "east=true,north=false,south=true,west=true": {
+      "model": "reverie_dreams:block/kotatsu_14"
+    },
+    "east=true,north=true,south=false,west=false": {
+      "model": "reverie_dreams:block/kotatsu_3"
+    },
+    "east=true,north=true,south=false,west=true": {
+      "model": "reverie_dreams:block/kotatsu_11"
+    },
+    "east=true,north=true,south=true,west=false": {
+      "model": "reverie_dreams:block/kotatsu_7"
+    },
+    "east=true,north=true,south=true,west=true": {
+      "model": "reverie_dreams:block/kotatsu_15"
+    }
+  }
+}

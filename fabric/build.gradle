@@ -5,16 +5,20 @@ import groovy.json.JsonSlurper
 plugins {
     id 'multiloader-loader'
     alias libs.plugins.fabricLoom
-    alias libs.plugins.curseForgeGradle
+    alias libs.plugins.curseforgeGradle
     alias libs.plugins.modrinthMinotaur
 }
 
 apply from: rootProject.file('repositories.gradle')
+apply from: rootProject.file('pak/core/gradle/native-resources.gradle')
 dependencies {
+    // Pure Java MPEG decoder; output uses Minecraft/OpenAL, never JavaSound devices.
+    implementation include('javazoom:jlayer:1.0.1')
     minecraft "net.minecraft:minecraft:${minecraft_version}"
     implementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
     implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
     implementation("dev.architectury:architectury-fabric:${architectury_api_version}")
+    implementation include("com.github.luben:zstd-jni:${zstd_jni_version}")
 //    compileOnly("cc.thonly:keine-common:${keine_version}")
 //    implementation include("cc.thonly:keine-fabric:${keine_version}")
     implementation include("com.geckolib:geckolib-fabric-${minecraft_version}:${geckolib_version}")
@@ -28,10 +32,13 @@ dependencies {
     implementation include("eu.pb4:map-canvas-api:${mapcanvas_version}")
     implementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
     implementation("maven.modrinth:jade:${jade_version}+fabric")
-    runtimeOnly("squeek.appleskin:appleskin-fabric:${appleskin_version}")
-    implementation("squeek.appleskin:appleskin-fabric:${appleskin_version}:api")
+    runtimeOnly("squeek.appleskin:appleskin-fabric:${appleskin_fabric_version}")
+    implementation("squeek.appleskin:appleskin-fabric:${appleskin_fabric_version}:api")
     implementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}")
     implementation include("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
+    implementation include("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}")
+
+//    runtimeOnly(files("/libs/Gensokyo Relics-1.0.1FixV3.jar"))
 
     // Polymer
     compileOnly("eu.pb4:polymer-autohost:[${polymer_version}]")
@@ -45,10 +52,10 @@ dependencies {
     compileOnly("eu.pb4:polymer-sound-patcher:[${polymer_version}]")
     compileOnly("eu.pb4:polymer-virtual-entity:[${polymer_version}]")
     compileOnly("eu.pb4:factorytools:[${factorytools_version}]")
-    compileOnly("de.tomalbrc:blockbench-import-library:${bil_version}")
+    compileOnly("maven.modrinth:ti3tgKQn:${bil_fabric_version_id}")
     compileOnly("eu.pb4:booklet:${booklet_version}")
     // YSM
-    compileOnly("maven.modrinth:jQtfvgHC:FJTjrHQu")
+    compileOnly("maven.modrinth:jQtfvgHC:8wyElIa7") // Sparkle Morpher 2.3.2, Fabric 26.1.2
     compileOnly files('libs/camera-obscura-1.2.3+26.1.jar')
     implementation include("eu.pb4:sgui:[${sgui_fabric_version}]")
 //    implementation files('libs/camera-obscura-2.0.0-beta.1+26.1-release.jar')
@@ -61,6 +68,8 @@ dependencies {
 //    runtimeOnly("cc.cassian.rrv:reliable-recipe-viewer-fabric:${rrv_version}+${minecraft_version}")
 
     compileOnly("maven.modrinth:polydex:${polydex_version}")
+    // 食物工艺
+    compileOnly("maven.modrinth:RHUULg17:XGzNr0Xm")
     compileOnly files('libs/create-fly-26.1-pre-2-6.0.9-1.jar')
     compileOnly files('libs/polyfactory-0.11.0+26.1.jar')
     compileOnly files('libs/eiv-fabric-7.0.0+26.1.jar')
@@ -92,6 +101,11 @@ dependencies {
     implementation include('org.reflections:reflections:0.10.2')
     implementation include("com.fasterxml.jackson.core:jackson-databind:2.18.3")
     implementation include("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3")
+
+    def distantHorizonsJar = rootProject.file('fabric/libs/DistantHorizons-3.3.3-26.1.2-fabric-neoforge.jar')
+    if (distantHorizonsJar.exists()) {
+        compileOnly files(distantHorizonsJar)
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -99,6 +113,9 @@ tasks.withType(JavaCompile).configureEach {
     it.options.release = 25
     options.compilerArgs << "-Xlint:-deprecation"
     options.compilerArgs += ["-Xlint:none"]
+    if (!rootProject.file('fabric/libs/DistantHorizons-3.3.3-26.1.2-fabric-neoforge.jar').exists()) {
+        exclude 'cc/thonly/reverie_dreams/compat/distanthorizons/**'
+    }
 }
 
 modrinth {
@@ -133,30 +150,28 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
 }
 
-curseforge {
-    apiKey = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
-    project {
-        id = "${curseforge_project_id}"
-        changelog = rootProject.file('./CHANGELOG_RECENT.md')
-        changelogType = "markdown"
-        releaseType = "${project.version_type}" // Options: release, beta, alpha
-        addGameVersion '26.1.2'
-        addGameVersion "Fabric"
-        mainArtifact(project(':fabric').jar) {
-            relations {
-                requiredDependency("fabric-api")
-                requiredDependency("architectury-api")
-                optionalDependency("jei")
-                optionalDependency("roughly-enough-items")
-                optionalDependency("rrv")
-                optionalDependency("jade")
-                optionalDependency("appleskin")
-                optionalDependency("farmers-delight-refabricated")
-                optionalDependency("kaleidoscope-cookery-refabricated")
-                optionalDependency("more-delight-fabric")
-            }
-        }
-    }
+tasks.register("curseforge", net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = "upload"
+    description = "Uploads the Fabric jar to CurseForge"
+
+    apiToken = System.getenv("CURSEFORGE_API_KEY") ?: "unset"
+
+    def mainFile = upload(curseforge_project_id, tasks.named("jar"))
+    mainFile.changelog = rootProject.file('./CHANGELOG_RECENT.md')
+    mainFile.changelogType = "markdown"
+    mainFile.releaseType = "${project.version_type}" // Options: release, beta, alpha
+    mainFile.addGameVersion "${minecraft_version}"
+    mainFile.addModLoader "Fabric"
+    mainFile.addRequirement "fabric-api"
+    mainFile.addRequirement "architectury-api"
+    mainFile.addOptional "jei"
+    mainFile.addOptional "roughly-enough-items"
+    mainFile.addOptional "rrv"
+    mainFile.addOptional "jade"
+    mainFile.addOptional "appleskin"
+    mainFile.addOptional "farmers-delight-refabricated"
+    mainFile.addOptional "kaleidoscope-cookery-refabricated"
+    mainFile.addOptional "more-delight-fabric"
 }
 
 loom {
@@ -175,7 +190,16 @@ loom {
             setConfigName("fabric Client")
             ideConfigGenerated(true)
             programArgs(["--username", "Dev"])
+            // Sparkle 2.3.2 also ships IrisApi; the real Iris API must take precedence in dev.
+            vmArg "-Dfabric.debug.loadLate=sparkle_morpher"
             runDir("runs")
+        }
+        clientPolymer {
+            client()
+            setConfigName("fabric Client (mod + polymer)")
+            ideConfigGenerated(true)
+            programArgs(["--username", "Dev"])
+            runDir("runs/polymer-client")
         }
         server {
             server()
@@ -194,6 +218,21 @@ loom {
             vmArg "-Dfabric-api.datagen.modid=${mod_id}"
         }
     }
+}
+
+// Combined dev client: main Fabric mod (this project) + the Polymer patch jar.
+def polymerClientMods = layout.projectDirectory.dir("runs/polymer-client/mods")
+tasks.register("syncPolymerClientMod", Copy) {
+    dependsOn(":polymer:jar")
+    from(project(":polymer").tasks.named("jar").flatMap { it.archiveFile })
+    into(polymerClientMods)
+    rename { "reverie_dreams_polymerify-dev.jar" }
+    doFirst {
+        delete(fileTree(dir: polymerClientMods, include: "reverie_dreams_polymerify*.jar"))
+    }
+}
+tasks.named("runClientPolymer") {
+    dependsOn("syncPolymerClientMod")
 }
 
 

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " I ",
+    " S ",
+    " C "
+  ],
+  "key": {
+    "I": "minecraft:iron_chain",
+    "S": "minecraft:stick",
+    "C": "minecraft:cauldron"
+  },
+  "result": {
+    "id": "reverie_dreams:jizaikagi",
+    "count": 1
+  }
+}

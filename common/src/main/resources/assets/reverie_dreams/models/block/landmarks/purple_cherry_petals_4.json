@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flowerbed_4",
+  "textures": {
+    "flowerbed": "reverie_dreams:block/purple_cherry_petals",
+    "stem": "reverie_dreams:block/purple_cherry_petals_stem"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "reverie_dreams:block/lemon_planks"
+  }
+}

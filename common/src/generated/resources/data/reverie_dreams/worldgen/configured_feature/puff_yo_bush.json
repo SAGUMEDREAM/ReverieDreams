@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "reverie_dreams:puff_yo_bush",
+            "Properties": {
+              "age": "0"
+            }
+          },
+          "weight": 6
+        },
+        {
+          "data": {
+            "Name": "reverie_dreams:puff_yo_bush",
+            "Properties": {
+              "age": "1"
+            }
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "reverie_dreams:puff_yo_bush",
+            "Properties": {
+              "age": "2"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

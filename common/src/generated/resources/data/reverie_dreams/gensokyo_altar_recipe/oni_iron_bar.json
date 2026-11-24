@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "reverie_dreams:iron_bar",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "reverie_dreams:oni_horn",
+      "count": 4
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 32
+    },
+    {
+      "id": "reverie_dreams:silver_ingot",
+      "count": 16
+    },
+    {
+      "id": "minecraft:gold_block",
+      "count": 4
+    },
+    {
+      "id": "minecraft:iron_block",
+      "count": 8
+    },
+    {
+      "id": "minecraft:blaze_powder",
+      "count": 16
+    },
+    {
+      "id": "minecraft:magma_cream",
+      "count": 8
+    },
+    {
+      "id": "minecraft:netherite_ingot",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:oni_iron_bar",
+    "count": 1
+  }
+}

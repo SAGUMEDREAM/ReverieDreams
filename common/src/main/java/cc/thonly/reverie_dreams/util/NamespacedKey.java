@@ -51,8 +51,10 @@ public class NamespacedKey {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof NamespacedKey other)) return false;
+        if (this == obj)
+            return true;
+        if (!(obj instanceof NamespacedKey other))
+            return false;
         return this.namespace.equals(other.namespace) && this.path.equals(other.path);
     }
 

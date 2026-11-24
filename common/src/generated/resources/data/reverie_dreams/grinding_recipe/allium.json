@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:allium",
+  "output": {
+    "id": "minecraft:magenta_dye",
+    "count": 2
+  },
+  "work": 8
+}

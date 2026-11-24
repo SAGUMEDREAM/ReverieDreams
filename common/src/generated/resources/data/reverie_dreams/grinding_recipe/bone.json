@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:bone",
+  "output": {
+    "id": "minecraft:bone_meal",
+    "count": 4
+  },
+  "work": 8
+}

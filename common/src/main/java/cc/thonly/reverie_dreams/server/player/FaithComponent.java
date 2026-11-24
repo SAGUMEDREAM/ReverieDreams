@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.server.player;
 
+import cc.thonly.reverie_dreams.api.player.PlayerComponent;
+import cc.thonly.reverie_dreams.api.player.PlayerComponentInitializer;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;

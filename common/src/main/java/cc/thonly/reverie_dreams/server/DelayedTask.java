@@ -81,6 +81,17 @@ public class DelayedTask {
         }
     }
 
+    /**
+     * 服务器停止时丢弃该服务器所有尚未执行的任务，避免静态 TASKS 跨存档持有旧 ServerLevel。
+     */
+    public static synchronized void clear(MinecraftServer server) {
+        if (server == null) {
+            TASKS.clear();
+            return;
+        }
+        TASKS.removeIf(task -> task.server == server);
+    }
+
     public void stop() {
         TASKS.remove(this);
     }

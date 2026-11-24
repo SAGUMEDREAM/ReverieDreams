@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.compat.jade;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.client.renderer.NPCSpeechRenderer;
 import cc.thonly.reverie_dreams.block.cooking.*;
 import cc.thonly.reverie_dreams.block.entity.*;
 import cc.thonly.reverie_dreams.block.kitchen.BrewingBarrelBlock;
@@ -32,6 +33,17 @@ public class JadePlugin implements IWailaPlugin {
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
+        registration.addBeforeRenderCallback((box, animation, graphics, accessor) -> {
+            if (accessor instanceof EntityAccessor entity && !snownee.jade.api.ui.JadeUI.isPinned()) {
+                var rect = animation.expectedRect;
+                var position = NPCSpeechRenderer.avoidTooltip(entity.getEntity(),
+                        new NPCSpeechRenderer.Bounds(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight()));
+                if (position != null) {
+                    animation.rect.setPosition(position.x, position.y);
+                }
+            }
+            return false;
+        });
         registration.registerBlockComponent(KitchenwareComponentProvider.INSTANCE, CookingPot.class);
         registration.registerBlockComponent(KitchenwareComponentProvider.INSTANCE, CuttingBoard.class);
         registration.registerBlockComponent(KitchenwareComponentProvider.INSTANCE, FryingPan.class);

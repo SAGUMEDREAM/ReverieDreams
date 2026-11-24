@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "reverie_dreams:block/andon",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "reverie_dreams:block/andon"
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/andon",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/andon",
+      "y": 270
+    }
+  }
+}

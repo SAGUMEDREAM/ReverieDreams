@@ -23,7 +23,7 @@ import java.util.Optional;
 public class RegistrySetBuilderMixin {
     @Inject(method = "lookup", at = @At("RETURN"), cancellable = true)
     private <T> void reverie_dreams$lookup(ResourceKey<? extends Registry<? extends T>> key, CallbackInfoReturnable<Optional<HolderLookup.RegistryLookup<T>>> cir) {
-        if (!BuiltInRegistryProviders.LOOKUP) {
+        if (!BuiltInRegistryProviders.LOOKUP.get()) {
             return;
         }
         this.reverie_dreams$RedirectLookup(key, cir);

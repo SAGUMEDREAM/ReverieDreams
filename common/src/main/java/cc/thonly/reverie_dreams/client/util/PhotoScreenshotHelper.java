@@ -109,7 +109,8 @@ public class PhotoScreenshotHelper {
 
         for (int colorId = 0; colorId < 64; colorId++) {
             MapColor mapColor = MapColor.byId(colorId);
-            if (mapColor == MapColor.NONE) continue;
+            if (mapColor == MapColor.NONE)
+                continue;
 
             int base = mapColor.col;
 

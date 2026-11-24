@@ -16,13 +16,16 @@ public class HairballVariantModel extends DefaultedEntityGeoModel<Hairball> {
 
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {
-        Boolean geckolibData = renderState.getGeckolibData(Hairball.BLACK_COLOR_TICKET);
-        if (geckolibData == null) {
-            return super.getModelResource(renderState);
-        }
-        if (geckolibData) {
-            return BLACK;
-        }
-        return NORMAL;
+        return this.buildFormattedModelPath(renderState.getOrDefaultGeckolibData(Hairball.BLACK_COLOR_TICKET, false) ? BLACK : NORMAL);
+    }
+
+    @Override
+    public Identifier getTextureResource(GeoRenderState renderState) {
+        return this.buildFormattedTexturePath(renderState.getOrDefaultGeckolibData(Hairball.BLACK_COLOR_TICKET, false) ? BLACK : NORMAL);
+    }
+
+    @Override
+    public Identifier getAnimationResource(Hairball entity) {
+        return this.buildFormattedAnimationPath(entity.isBlackColor() ? BLACK : NORMAL);
     }
 }

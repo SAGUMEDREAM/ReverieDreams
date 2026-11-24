@@ -115,7 +115,49 @@ public class SkinFetcher {
             }
             find = true;
         }
+        try {
+            Optional<byte[]> decrypted = PakSkinAssets.decrypt(id.getPath());
+            if (decrypted.isPresent()) {
+                return uploadSkin(decrypted.get(), useSlim);
+            }
+        } catch (IOException | RuntimeException | LinkageError e) {
+            log.warn("Unable to read encrypted skin {}: {}", id, e.getMessage());
+        }
         return Optional.empty();
+    }
+
+    private static Optional<Property> uploadSkin(byte[] png, boolean useSlim) {
+        String md5 = SkinFetcherCaches.getMD5FromInputStream(new ByteArrayInputStream(png));
+        if (md5 != null) {
+            SkinFetcherCaches.Entry cached = SkinFetcherCaches.MD5_CACHED.get(md5);
+            if (cached != null) {
+                Arrays.fill(png, (byte) 0);
+                return Optional.of(cached.property());
+            }
+        }
+        Path tempFile = null;
+        try {
+            tempFile = Files.createTempFile("npcskin_", ".png");
+            Files.write(tempFile, png);
+            Optional<Property> skin = getSkinFromFile(tempFile.toFile(), useSlim);
+            if (skin.isPresent() && md5 != null) {
+                SkinFetcherCaches.MD5_CACHED.put(md5, new SkinFetcherCaches.Entry(skin.get()));
+                SkinFetcherCaches.save();
+            }
+            return skin;
+        } catch (IOException e) {
+            log.error("Error uploading decrypted skin", e);
+            return Optional.empty();
+        } finally {
+            if (tempFile != null) {
+                try {
+                    Files.deleteIfExists(tempFile);
+                } catch (IOException e) {
+                    log.warn("Cannot delete temporary skin file {}", tempFile, e);
+                }
+            }
+            Arrays.fill(png, (byte) 0);
+        }
     }
 
     /**

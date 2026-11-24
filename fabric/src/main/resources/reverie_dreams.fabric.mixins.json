@@ -16,6 +16,7 @@
     "accessor.SingleItemRecipeAccessor",
     "accessor.StockpotRecipeAccessor",
     "accessor.TeapotRecipeAccessor",
+    "compat.DhInternalServerTicketMixin",
     "farmersdelight.CookingPotRecipeMixin",
     "farmersdelight.CuttingBoardRecipeMixin",
     "kaleidoscopecookery.PotRecipeMixin",
@@ -23,17 +24,15 @@
     "kaleidoscopecookery.StockpotRecipeMixin",
     "kaleidoscopecookery.TeapotRecipeMixin",
     "lootr.ILootrAPIMixin",
-    "patches.ResourcePackManagerMixin",
-    "patches.YsmComponentsMixin"
+    "patches.ResourcePackManagerMixin"
   ],
   "client": [
-    "accessor.ModernPlayerModelScreenAccessor",
+    "client.PakClientPackMixin",
     "client.BaseNPCLikeEntityMixin",
     "client.BaseNPCLikeEntityRendererMixin",
     "client.EntityRenderDispatcherMixin",
     "client.ModelBakeryMixin",
     "client.ModelManagerMixin",
-    "client.ModernPlayerModelScreenMixin",
     "client.TextureSlotsMixin"
   ],
   "injectors": {

@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "paper": "26.1.2 build74",
+    "craftEngine": "26.8.2",
+    "java": 25
+  },
+  "sourceRegistrationCount": 4,
+  "componentAdapters": 0,
+  "implemented": {
+    "reverie_dreams:upgraded_health": {
+      "increase": 2,
+      "maximumDefault": 1024,
+      "healOnUse": false,
+      "consume": 1,
+      "creativeConsumes": false,
+      "modifierDeathDebit": 1,
+      "rawLethalHealthBaseDebit": 2,
+      "nativeNewPlayerModifierDefault": 0
+    },
+    "reverie_dreams:bomb": {
+      "range": "caster AABB inflated20 in all axes",
+      "hostileBulletPoints": [
+        1,
+        4
+      ],
+      "otherEntityPoints": 1,
+      "ownBulletsCancelled": false,
+      "damage": 0,
+      "consume": 1,
+      "nativeUseCooldownSeconds": 2,
+      "explicitCooldownTicks": null
+    },
+    "reverie_dreams:cheque": {
+      "maximumStackSize": 1,
+      "coinValues": {
+        "copper_coin": 1,
+        "silver_coin": 10,
+        "gold_coin": 100
+      },
+      "depositMinimum": 10,
+      "deposit": "all coins, Shift; matching profile name unless creative",
+      "redeem": "any bearer; no ownership check",
+      "overflow": "refuse signed-int overflow without debiting input",
+      "pdc": [
+        "cheque_amount:INTEGER",
+        "cheque_player_id:STRING",
+        "cheque_name:STRING Adventure JSON"
+      ]
+    },
+    "reverie_dreams:treasure_hunting_rod": {
+      "durability": 300,
+      "enchantability": 5,
+      "attackDamageBonus": 6.5,
+      "attackSpeed": -2.799999952316284,
+      "use": "sneak;35ticks;1hurtWithoutBreaking durability",
+      "repairable": "#minecraft:diamond_tool_materials",
+      "acquisition": "existing gensokyo_altar_recipe/treasure_hunting_rod"
+    }
+  },
+  "treasureRod": {
+    "scanRadius": 8,
+    "scanUp": 4,
+    "scanDown": 8,
+    "candidateBlocks": 3757,
+    "neighbours": 6,
+    "nearestVeinLimit": 12,
+    "totalMarkerLimit": 20,
+    "markerWorldTicks": 100,
+    "tags": [
+      "minecraft:coal_ores",
+      "minecraft:copper_ores",
+      "minecraft:diamond_ores",
+      "minecraft:emerald_ores",
+      "minecraft:gold_ores",
+      "minecraft:iron_ores",
+      "minecraft:lapis_ores",
+      "minecraft:redstone_ores",
+      "c:ores",
+      "c:ores/quartz",
+      "c:ores/netherite_scrap"
+    ],
+    "sourceCustomOreIds": [
+      "reverie_dreams:silver_ore",
+      "reverie_dreams:deepslate_silver_ore",
+      "reverie_dreams:orb_ore",
+      "reverie_dreams:deepslate_orb_ore",
+      "reverie_dreams:moon_iron_ore",
+      "reverie_dreams:moon_gold_ore",
+      "reverie_dreams:moon_quartz_ore",
+      "reverie_dreams:moon_diamond_ore",
+      "reverie_dreams:dream_crystal_ore"
+    ],
+    "customColors": {
+      "reverie_dreams:silver_ore": 14081764,
+      "reverie_dreams:deepslate_silver_ore": 14081764,
+      "reverie_dreams:orb_ore": 10258175,
+      "reverie_dreams:deepslate_orb_ore": 10258175,
+      "reverie_dreams:moon_iron_ore": 13030128,
+      "reverie_dreams:moon_gold_ore": 16769674,
+      "reverie_dreams:moon_quartz_ore": 15986147,
+      "reverie_dreams:moon_diamond_ore": 10219752,
+      "reverie_dreams:dream_crystal_ore": 16748504
+    },
+    "nativeConventionFallback": {
+      "minecraft:nether_quartz_ore": 15920356,
+      "minecraft:ancient_debris": 9203295
+    },
+    "markerPdc": "reverie_dreams:ore_esp_marker"
+  },
+  "health": {
+    "modifierPdc": "reverie_dreams:max_health_modifier FLOAT",
+    "nativeAttribute": "MAX_HEALTH base persisted by Paper, never re-add auxiliary modifier at login",
+    "respawn": "Source has no restoreFrom mixin for its unique modifier field; new player defaults0 while native attribute bases are copied",
+    "scope": "Player use and player health modifier lifecycle; global mob Mixin mechanics and custom advancement/stat triggers remain separate"
+  },
+  "bombEntityMapping": {
+    "ordinaryBullet": "DanmakuService snapshots+cancel, source0.5x0.5 dimensions times collisionScale",
+    "npc": "canonical Wolf counted once; Mannequin maps to carrier",
+    "excludedHelpers": [
+      "CE furniture meta/collision/seat",
+      "constant CE renderer packet entities (not Bukkit world entities)",
+      "storage_pending_drops empty display",
+      "ore_esp_marker display"
+    ],
+    "notes": "Treasurer markers excluded by parent mapping requirement; source OreEsp renderer is presentation only in migrated representation."
+  },
+  "sources": {
+    "common/src/main/java/cc/thonly/reverie_dreams/item/prop/UpgradedHealthItem.java": "a6eccd86780aba922d3653d50b4e408b253cc18d2b2376501b06d6278c6d14fa",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/prop/BombItem.java": "77c7e4ccc23fec33135a36947c1452d4a16a17be2f7869875fcf8b9647ece4d3",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/prop/Cheque.java": "400cd59361ae5e8dc43a592ccbcf95da08fed28b4b22a0d648791ffb2aac6edf",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/TreasureHuntingRod.java": "f4180dc6a025b390e0646bd85ceadd97508c1eb08fac56cdeab4f5a7cffbe3e5",
+    "common/src/main/java/cc/thonly/reverie_dreams/util/OreDetector.java": "9efa6318fdb4f1c328c9f15f31b7d876ab5807047dd6e80a0d52940cbb125cbc",
+    "common/src/main/java/cc/thonly/reverie_dreams/entity/misc/OreEspEntity.java": "be54afb944a72938b91c02f2b4d6e1f5854a6d17a498d2d044ae4d5aabb08368",
+    "common/src/main/java/cc/thonly/reverie_dreams/mixin/entity/LivingEntityMixin.java": "08cf1e2ac78b726ac30b56268241d26af8ac3eac2a904bc22208d4febf75e40b",
+    "common/src/main/java/cc/thonly/reverie_dreams/mixin/entity/PlayerEntityMixin.java": "d9bc1ead2fccabf84b0936e31ac4a03a08e214ccb6cb2da53c965b94199b363f",
+    "common/src/main/java/cc/thonly/reverie_dreams/mixin/server/ServerPlayerEntityMixin.java": "a631fb3083d918c07fc714cf3d54d97d50fec96568ef721f8beb47de990956d5",
+    "common/src/main/java/cc/thonly/reverie_dreams/util/item/ItemUtils.java": "8c60dc4318faf411372f03f7d4d666448248654ae193d8cb5137f8d2171394bd",
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/item/RDItems.java": "cffb8ecfa32e01ca8bdca4bde2cdf57b560ac45ede47dfabca540cd5ed642efa",
+    "common/src/main/java/cc/thonly/reverie_dreams/ReverieDreamsConfiguration.java": "2d008b9441946e34e50e869d79f13407cd4040165943bf3b9f8c5b40d2d00059",
+    "common/src/main/java/cc/thonly/reverie_dreams/component/tooltip/InitTooltips.java": "0db328bef84390ba51683f70e98556dfb34fa9544b2c4557214f023d972ce6cc"
+  },
+  "sourceAuditRows": [
+    {
+      "id": "reverie_dreams:upgraded_health",
+      "class": "UpgradedHealthItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/UpgradedHealthItem.java",
+      "sourceSha256": "a6eccd86780aba922d3653d50b4e408b253cc18d2b2376501b06d6278c6d14fa",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:bomb",
+      "class": "BombItem",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/BombItem.java",
+      "sourceSha256": "77c7e4ccc23fec33135a36947c1452d4a16a17be2f7869875fcf8b9647ece4d3",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:cheque",
+      "class": "Cheque",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/prop/Cheque.java",
+      "sourceSha256": "8d8232c5ad2101636b936144f9d233db9bf72c667edaed40647c171f37779337",
+      "methods": [
+        "use"
+      ],
+      "status": "pending_behavior_migration"
+    },
+    {
+      "id": "reverie_dreams:treasure_hunting_rod",
+      "class": "TreasureHuntingRod",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/TreasureHuntingRod.java",
+      "sourceSha256": "f4180dc6a025b390e0646bd85ceadd97508c1eb08fac56cdeab4f5a7cffbe3e5",
+      "methods": [
+        "use",
+        "isOre"
+      ],
+      "status": "pending_behavior_migration"
+    }
+  ],
+  "recipes": {
+    "upgraded_health": {
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "key": {
+        "X": "reverie_dreams:upgraded_health_fragment"
+      },
+      "pattern": [
+        "XX",
+        "XX"
+      ],
+      "result": {
+        "id": "reverie_dreams:upgraded_health"
+      }
+    },
+    "bomb": {
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "key": {
+        "X": "reverie_dreams:bomb_fragment"
+      },
+      "pattern": [
+        "XX",
+        "XX"
+      ],
+      "result": {
+        "id": "reverie_dreams:bomb"
+      }
+    },
+    "cheque": {
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "key": {
+        "#": "minecraft:paper",
+        "G": "reverie_dreams:gold_coin"
+      },
+      "pattern": [
+        "  G",
+        "## ",
+        "## "
+      ],
+      "result": {
+        "id": "reverie_dreams:cheque"
+      }
+    },
+    "upgraded_health_fragment": {
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "key": {
+        "X": "reverie_dreams:upgraded_health"
+      },
+      "pattern": [
+        "X"
+      ],
+      "result": {
+        "count": 4,
+        "id": "reverie_dreams:upgraded_health_fragment"
+      }
+    },
+    "bomb_fragment": {
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "key": {
+        "X": "reverie_dreams:bomb"
+      },
+      "pattern": [
+        "X"
+      ],
+      "result": {
+        "count": 4,
+        "id": "reverie_dreams:bomb_fragment"
+      }
+    }
+  },
+  "altarRecipe": {
+    "core": {
+      "id": "minecraft:diamond_pickaxe",
+      "count": 1
+    },
+    "slots": [
+      {
+        "id": "minecraft:iron_ingot",
+        "count": 5
+      },
+      {
+        "id": "minecraft:iron_ingot",
+        "count": 6
+      },
+      {
+        "id": "minecraft:rabbit_foot",
+        "count": 9
+      },
+      {
+        "id": "minecraft:netherite_ingot",
+        "count": 1
+      },
+      {
+        "id": "minecraft:gold_ingot",
+        "count": 10
+      },
+      {
+        "id": "minecraft:netherite_ingot",
+        "count": 1
+      },
+      {
+        "id": "minecraft:redstone",
+        "count": 8
+      },
+      {
+        "id": "minecraft:stone_button",
+        "count": 1
+      }
+    ],
+    "output": {
+      "id": "reverie_dreams:treasure_hunting_rod",
+      "count": 1
+    }
+  },
+  "remainingFromPriorAudit": [
+    "reverie_dreams:gap_ball",
+    "reverie_dreams:boundary_ofuda",
+    "reverie_dreams:fumo_license",
+    "reverie_dreams:cursed_decoy_doll",
+    "reverie_dreams:vaisravanas_pagoda",
+    "reverie_dreams:dream_pillow",
+    "reverie_dreams:tengu_shield",
+    "reverie_dreams:tengu_camera",
+    "reverie_dreams:himekaidou_hatates_phone",
+    "reverie_dreams:bad_apple",
+    "reverie_dreams:scarecrow",
+    "reverie_dreams:exorcism_paper",
+    "reverie_dreams:weapon_of_the_moon",
+    "reverie_dreams:magazine",
+    "reverie_dreams:sunflower",
+    "reverie_dreams:hakurei_cane",
+    "reverie_dreams:bagua_furnace",
+    "reverie_dreams:wind_blessing_cane",
+    "reverie_dreams:magic_broom",
+    "reverie_dreams:gungnir",
+    "reverie_dreams:horai-dama_no_eda",
+    "reverie_dreams:yuka_flower_umbrella",
+    "reverie_dreams:ibukiho",
+    "reverie_dreams:sword_of_hisou",
+    "reverie_dreams:manpozuchi",
+    "reverie_dreams:nue_trident",
+    "reverie_dreams:trumpet_gun",
+    "reverie_dreams:violin",
+    "reverie_dreams:keyboard",
+    "reverie_dreams:trumpet",
+    "reverie_dreams:knife"
+  ],
+  "deferredReasons": {
+    "bad_apple": "Actual source starts DialogPlayer badapple.json video; no bundled video found. Only food/unfreeze would not implement source ability.",
+    "dream_pillow": "Parent owns Dream dimension/pillow migration.",
+    "specialGunsAndLaser": "No normal-bullet approximation introduced in this batch."
+  }
+}

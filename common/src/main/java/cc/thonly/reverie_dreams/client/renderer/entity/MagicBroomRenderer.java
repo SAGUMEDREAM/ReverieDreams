@@ -29,7 +29,8 @@ public class MagicBroomRenderer extends EntityRenderer<MagicBroom, ItemHolderRen
         renderState.yRot = entity.getYRot();
         renderState.xRotO = entity.xRotO;
         renderState.yRotO = entity.yRotO;
-        this.itemModelResolver.updateForNonLiving(renderState.itemRenderState, renderState.itemStack, ItemDisplayContext.GROUND, entity);
+        // The flying entity uses the raw model; GROUND belongs to dropped items.
+        this.itemModelResolver.updateForNonLiving(renderState.itemRenderState, renderState.itemStack, ItemDisplayContext.NONE, entity);
     }
 
     @Override

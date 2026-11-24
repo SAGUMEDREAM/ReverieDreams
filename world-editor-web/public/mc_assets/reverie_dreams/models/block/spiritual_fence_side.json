@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "reverie_dreams:block/spiritual_planks"
+  }
+}

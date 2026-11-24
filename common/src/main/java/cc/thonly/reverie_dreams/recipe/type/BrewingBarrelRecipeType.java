@@ -5,7 +5,6 @@ import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.ItemComparatorView;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.BrewingBarrelRecipe;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -24,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import cc.thonly.reverie_dreams.recipe.RecipeResourceLoader;
 
 @Slf4j
 public class BrewingBarrelRecipeType extends BaseRecipeType<BrewingBarrelRecipe> {
@@ -56,8 +56,8 @@ public class BrewingBarrelRecipeType extends BaseRecipeType<BrewingBarrelRecipe>
             boolean matched = true;
 
             for (int i = 0; i < materials.size(); i++) {
-                ItemComparatorView material = ItemComparatorView.of(materials.get(i)).map(ItemUtils::updateItemStackTag);
-                ItemComparatorView input = ItemComparatorView.of(stackList.get(i)).map(ItemUtils::updateItemStackTag);
+                ItemComparatorView material = ItemComparatorView.of(materials.get(i));
+                ItemComparatorView input = ItemComparatorView.of(stackList.get(i));
 
                 if (!material.matches(input)) {
                     matched = false;
@@ -85,27 +85,8 @@ public class BrewingBarrelRecipeType extends BaseRecipeType<BrewingBarrelRecipe>
 
     @Override
     public void reload(ResourceManager manager) {
-        Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getPath().endsWith(".json");
-        });
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^barrel_recipe/", "").replaceAll("\\.json$", ""));
-            Resource resource = entry.getValue();
-            try (InputStream stream = resource.open()) {
-                JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-
-                DataResult<BrewingBarrelRecipe> result = this.getCodec().parse(input);
-
-                result.resultOrPartial(error -> log.error("Failed to load gensokyo altar recipe {}, {}", id, error))
-                        .ifPresent(recipe -> {
-                            this.add(registryKey, recipe);
-                        });
-            } catch (IOException e) {
-                log.error("Failed to load gensokyo altar recipe {}, {}, {}", id, e.getMessage(), e);
-            }
-        }
+        RecipeResourceLoader.load(manager, this.getTypeId() + "_recipe",
+                id -> true, this.getCodec(), this::add);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -18,10 +20,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShearsItem.class)
 public class ShearsItemMixin {
+    @Redirect(method = "createToolProperties", at = @At(value = "FIELD",
+            target = "Lnet/minecraft/tags/BlockTags;WOOL:Lnet/minecraft/tags/TagKey;"))
+    private static TagKey<Block> reverieDreams$woolMiningSpeed() {
+        return RDBlockTags.SHEARS_WOOL;
+    }
+
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     public void useOnBlessedSpiritualLog(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = context.getPlayer();
@@ -33,7 +42,7 @@ public class ShearsItemMixin {
         Level level = context.getLevel();
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = level.getBlockState(blockPos);
-        if (blockState.is(RDWoodBlocks.BLESSED_SPIRITUAL_LOG)) {
+        if (blockState.is(RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asBlock())) {
             if (!level.isClientSide()) {
                 level.setBlock(blockPos, RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().asBlock().withPropertiesOf(blockState), Block.UPDATE_KNOWN_SHAPE);
                 itemStack.hurtWithoutBreaking(1, player);

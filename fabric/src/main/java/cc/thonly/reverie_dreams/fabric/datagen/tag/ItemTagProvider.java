@@ -41,6 +41,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+import cc.thonly.reverie_dreams.registry.content.block.RDDeadwoodBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDLandmarkBlocks;
 
 @SuppressWarnings("deprecation")
 public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
@@ -51,6 +53,11 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        valueLookupBuilder(RDItemTags.YOUKAI_MEAT).addOptionalTag(ItemTags.MEAT)
+                .addOptionalTag(cc.thonly.reverie_dreams.api.registry.tag.ConventionalItemTags.RAW_MEAT_FOODS)
+                .addOptionalTag(cc.thonly.reverie_dreams.api.registry.tag.ConventionalItemTags.COOKED_MEAT_FOODS)
+                .addOptionalTag(cc.thonly.reverie_dreams.api.registry.tag.ConventionalItemTags.RAW_MEATS_FOODS)
+                .addOptionalTag(cc.thonly.reverie_dreams.api.registry.tag.ConventionalItemTags.COOKED_MEATS_FOODS);
         // 基础工具方法
         BiConsumer<TagKey<Item>, Collection<? extends Item>> addAll = (tag, items) -> valueLookupBuilder(tag).add(items.toArray(Item[]::new));
         Supplier<List<Item>> allDanmakuItemGetter = () -> {
@@ -65,26 +72,32 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             return list;
         };
         TagAppender<Item, Item> logs = valueLookupBuilder(ItemTags.LOGS);
+        TagAppender<Item, Item> logsThatBurn = valueLookupBuilder(ItemTags.LOGS_THAT_BURN);
+        for (var entry : RDDeadwoodBlocks.SPLINTERED_LOGS.values()) {
+            logs.add(entry.asItem());
+            logsThatBurn.add(entry.asItem());
+        }
         TagAppender<Item, Item> strippedLogs = valueLookupBuilder(ConventionalItemTags.STRIPPED_LOGS);
         TagAppender<Item, Item> strippedWoods = valueLookupBuilder(ConventionalItemTags.STRIPPED_WOODS);
         TagAppender<Item, Item> planks = valueLookupBuilder(ItemTags.PLANKS);
-        TagAppender<Item, Item> buttons = valueLookupBuilder(ItemTags.BUTTONS);
-        TagAppender<Item, Item> fences = valueLookupBuilder(ItemTags.FENCES);
-        TagAppender<Item, Item> fenceGates = valueLookupBuilder(ItemTags.FENCE_GATES);
-        TagAppender<Item, Item> slabs = valueLookupBuilder(ItemTags.SLABS);
-        TagAppender<Item, Item> doors = valueLookupBuilder(ItemTags.DOORS);
-        TagAppender<Item, Item> trapdoors = valueLookupBuilder(ItemTags.TRAPDOORS);
+        TagAppender<Item, Item> saplings = valueLookupBuilder(ItemTags.SAPLINGS);
+        cc.thonly.reverie_dreams.registry.content.block.RDGensokyoSaplings.SAPLINGS.values()
+                .forEach(sapling -> saplings.add(sapling.asItem()));
+        saplings.add(RDLandmarkBlocks.PURPLE_CHERRY_SAPLING.asItem());
+        saplings.add(RDWoodBlocks.PLUM_SAPLING.asItem(), RDWoodBlocks.PINE_SAPLING.asItem(), RDWoodBlocks.CHESTNUT_SAPLING.asItem());
+        valueLookupBuilder(ItemTags.LEAVES).add(RDLandmarkBlocks.PURPLE_CHERRY_LEAVES.asItem());
+        valueLookupBuilder(ItemTags.LEAVES).add(
+                RDWoodBlocks.PLUM_FRUIT_LEAVES.asItem(),
+                RDWoodBlocks.PINE_FRUIT_LEAVES.asItem(),
+                RDWoodBlocks.CHESTNUT_FRUIT_LEAVES.asItem()
+        );
         Consumer<WoodBundle> woodBundleFunction = (bundle) -> {
-            logs.add(bundle.log().asItem());
+            logs.add(bundle.log().asItem(), bundle.wood().asItem(), bundle.strippedLog().asItem(), bundle.strippedWood().asItem());
+            logsThatBurn.add(bundle.log().asItem(), bundle.wood().asItem(), bundle.strippedLog().asItem(), bundle.strippedWood().asItem());
             strippedLogs.add(bundle.strippedLog().asItem());
             strippedWoods.add(bundle.strippedWood().asItem());
-            planks.add(bundle.log().asItem());
-            buttons.add(bundle.button().asItem());
-            fences.add(bundle.fence().asItem());
-            fenceGates.add(bundle.fenceGate().asItem());
-            slabs.add(bundle.slab().asItem());
-            doors.add(bundle.door().asItem());
-            trapdoors.add(bundle.trapdoor().asItem());
+            planks.add(bundle.planks().asItem());
+            saplings.add(bundle.sapling().asItem());
         };
         for (WoodBundle instance : WoodBundle.INSTANCES) {
             woodBundleFunction.accept(instance);
@@ -95,6 +108,9 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         // 通用 Tag
         valueLookupBuilder(RDItemTags.EMPTY).add(Items.BEDROCK).add(Items.BARRIER);
+        valueLookupBuilder(ConventionalItemTags.HIDDEN_FROM_RECIPE_VIEWERS).add(RDItems.COMBAT_TECHNIQUE.asItem());
+        valueLookupBuilder(RDItemTags.ZABUTONS).add(RDBlocks.ZABUTON.asItem())
+                .add(RDBlocks.ZABUTONS.values().stream().map(block -> block.asItem()).toArray(Item[]::new));
         addAll.accept(RDItemTags.FUMO, FumoTypes.getView().stream().map(FumoType::item).toList());
         addAll.accept(ItemTags.CREEPER_DROP_MUSIC_DISCS, AlbumItem.ITEMS);
 
@@ -109,6 +125,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, allTool);
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(RDItems.TENGU_SHIELD.asItem()));
         addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(RDItems.IRON_BAR.asItem()));
+        addAll.accept(ItemTags.DURABILITY_ENCHANTABLE, List.of(RDItems.ONI_IRON_BAR.asItem()));
         addAll.accept(ConventionalItemTags.SHIELD_TOOLS, List.of(RDItems.TENGU_SHIELD.asItem()));
 
         // 盔甲类 Tag
@@ -139,7 +156,8 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 RDBlocks.DEEPSLATE_SILVER_ORE.asItem()
         );
         valueLookupBuilder(RDItemTags.SILVER_ARMOR).add(RDItems.SILVER_HELMET.asItem(), RDItems.SILVER_CHESTPLATE.asItem(), RDItems.SILVER_LEGGINGS.asItem(), RDItems.SILVER_BOOTS.asItem());
-        valueLookupBuilder(RDItemTags.IRON_BAR_MATERIALS).add(Items.IRON_BLOCK);
+        valueLookupBuilder(RDItemTags.IRON_BAR_MATERIALS).add(Items.IRON_BLOCK).add(RDItems.ONI_HORN.asItem());
+        valueLookupBuilder(RDItemTags.ONI_MASK_MATERIALS).add(RDItems.ONI_HORN.asItem());
         valueLookupBuilder(RDItemTags.SILVER_TOOL_MATERIALS).add(RDItems.SILVER_INGOT.asItem());
         valueLookupBuilder(RDItemTags.MAGIC_ICE_ARMOR).add(RDItems.MAGIC_ICE_HELMET.asItem(), RDItems.MAGIC_ICE_CHESTPLATE.asItem(), RDItems.MAGIC_ICE_LEGGINGS.asItem(), RDItems.MAGIC_ICE_BOOTS.asItem());
         valueLookupBuilder(RDItemTags.MAGIC_ICE_TOOL_MATERIALS).add(RDItems.ICE_SCALES.asItem());
@@ -158,7 +176,6 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         danmakuRepairAcceptableItems.add(RDItems.POWER.asItem());
 
         // 自定义方块
-        valueLookupBuilder(ItemTags.PLANKS).addAll(WoodBundle.INSTANCES.stream().map(ins -> ins.planks().asItem()));
         valueLookupBuilder(RDItemTags.ORB_BLOCK).add(
                 RDBlocks.RED_ORB_BLOCK.asItem(),
                 RDBlocks.YELLOW_ORB_BLOCK.asItem(),
@@ -200,6 +217,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 ItemTags.STAIRS, BlockTypeGroup.STAIR.items(),
                 ItemTags.SLABS, BlockTypeGroup.SLAB.items(),
                 ItemTags.BUTTONS, BlockTypeGroup.BUTTON.items(),
+                ItemTags.WOODEN_PRESSURE_PLATES, BlockTypeGroup.PRESSURE_PLATE.items(),
                 ItemTags.TRAPDOORS, BlockTypeGroup.TRAPDOOR.items(),
                 ItemTags.DOORS, BlockTypeGroup.DOOR.items(),
                 ItemTags.LEAVES, BlockTypeGroup.LEAVES.items()

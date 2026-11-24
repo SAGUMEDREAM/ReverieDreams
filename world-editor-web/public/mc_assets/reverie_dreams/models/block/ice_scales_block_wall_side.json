@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "reverie_dreams:block/ice_scales_block"
+  }
+}

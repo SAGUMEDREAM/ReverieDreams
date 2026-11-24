@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.entity;
 
-import cc.thonly.reverie_dreams.polymer.entity.inf.PolymerHolderEntity;
+import cc.thonly.reverie_dreams.polymer.entity.bridge.PolymerHolderEntity;
 import cc.thonly.reverie_dreams.polymer.helper.PolymerEntityHelper;
 import cc.thonly.reverie_dreams.polymer.entity.holder.WheelChairHolder;
 import cc.thonly.reverie_dreams.entity.misc.Wheelchair;
@@ -25,7 +25,7 @@ public record WheelChairImpl(Wheelchair source) implements PolymerEntity, Polyme
 
     public WheelChairImpl {
         if (!source.level().isClientSide()) {
-            PolymerEntityHelper.addEntityHolderModel(this);
+            PolymerEntityHelper.addEntityHolderModel(this, source);
         }
     }
 

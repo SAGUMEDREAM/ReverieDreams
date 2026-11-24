@@ -1,0 +1,1377 @@
+{
+  "target": {
+    "paper": "26.1.2 build74",
+    "java": 25,
+    "craftEngine": "26.8.2",
+    "minecraft": "26.1.2"
+  },
+  "types": [
+    {
+      "id": "reverie_dreams:amulet",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 2.0,
+      "scale": 1.0,
+      "speed": 1.2,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 120,
+      "cooldownTicks": 10,
+      "hitboxScale": 1.0
+    },
+    {
+      "id": "reverie_dreams:arrowhead",
+      "damageType": "reverie_dreams:danmaku_real",
+      "damage": 2.0,
+      "scale": 1.0,
+      "speed": 1.4,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 110,
+      "cooldownTicks": 9,
+      "hitboxScale": 1.0
+    },
+    {
+      "id": "reverie_dreams:ball",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 2.0,
+      "scale": 1.0,
+      "speed": 1.2,
+      "tile": true,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 120,
+      "cooldownTicks": 10,
+      "hitboxScale": 1.0
+    },
+    {
+      "id": "reverie_dreams:bubble",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 2.0,
+      "scale": 2.0,
+      "speed": 1.0,
+      "tile": true,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 80,
+      "cooldownTicks": 14,
+      "hitboxScale": 2.0
+    },
+    {
+      "id": "reverie_dreams:bullet",
+      "damageType": "reverie_dreams:danmaku_real",
+      "damage": 3.0,
+      "scale": 1.0,
+      "speed": 1.1,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 100,
+      "cooldownTicks": 12,
+      "hitboxScale": 1.0
+    },
+    {
+      "id": "reverie_dreams:fireball",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 2.25,
+      "scale": 1.1,
+      "speed": 1.1,
+      "tile": true,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 110,
+      "cooldownTicks": 11,
+      "hitboxScale": 1.1
+    },
+    {
+      "id": "reverie_dreams:fireball_glowy",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 1.5,
+      "scale": 0.9,
+      "speed": 1.6,
+      "tile": true,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 140,
+      "cooldownTicks": 8,
+      "hitboxScale": 0.9
+    },
+    {
+      "id": "reverie_dreams:kunai",
+      "damageType": "reverie_dreams:danmaku_real",
+      "damage": 2.5,
+      "scale": 0.9,
+      "speed": 1.1,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 100,
+      "cooldownTicks": 11,
+      "hitboxScale": 0.9
+    },
+    {
+      "id": "reverie_dreams:rice",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 1.75,
+      "scale": 0.9,
+      "speed": 1.3,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 140,
+      "cooldownTicks": 8,
+      "hitboxScale": 0.9
+    },
+    {
+      "id": "reverie_dreams:star",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 2.0,
+      "scale": 1.0,
+      "speed": 1.2,
+      "tile": true,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 120,
+      "cooldownTicks": 10,
+      "hitboxScale": 1.0
+    },
+    {
+      "id": "reverie_dreams:note",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 1.75,
+      "scale": 0.8,
+      "speed": 1.7,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 140,
+      "cooldownTicks": 8,
+      "hitboxScale": 0.8
+    }
+  ],
+  "excludedTypes": [
+    {
+      "id": "reverie_dreams:laser",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 4.0,
+      "scale": 1.5,
+      "speed": 1.2,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 120,
+      "cooldownTicks": 10,
+      "hitboxScale": 1.5
+    },
+    {
+      "id": "reverie_dreams:big_laser",
+      "damageType": "reverie_dreams:danmaku_generic",
+      "damage": 4.0,
+      "scale": 1.5,
+      "speed": 1.2,
+      "tile": false,
+      "infinite": false,
+      "speedVersion": 1,
+      "durability": 120,
+      "cooldownTicks": 10,
+      "hitboxScale": 1.5
+    }
+  ],
+  "colours": {
+    "white": 16777215,
+    "orange": 16749605,
+    "magenta": 15082670,
+    "light_blue": 2067967,
+    "yellow": 16776998,
+    "lime": 14352166,
+    "pink": 16724365,
+    "gray": 10197915,
+    "light_gray": 7434609,
+    "cyan": 1099519,
+    "purple": 16721620,
+    "blue": 526591,
+    "brown": 10495744,
+    "green": 3473204,
+    "red": 16724273,
+    "black": 2500134
+  },
+  "items": {
+    "reverie_dreams:danmaku/amulet": {
+      "type": "reverie_dreams:amulet",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/white": {
+      "type": "reverie_dreams:amulet",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/orange": {
+      "type": "reverie_dreams:amulet",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/magenta": {
+      "type": "reverie_dreams:amulet",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/light_blue": {
+      "type": "reverie_dreams:amulet",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/yellow": {
+      "type": "reverie_dreams:amulet",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/lime": {
+      "type": "reverie_dreams:amulet",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/pink": {
+      "type": "reverie_dreams:amulet",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/gray": {
+      "type": "reverie_dreams:amulet",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/light_gray": {
+      "type": "reverie_dreams:amulet",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/cyan": {
+      "type": "reverie_dreams:amulet",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/purple": {
+      "type": "reverie_dreams:amulet",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/blue": {
+      "type": "reverie_dreams:amulet",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/brown": {
+      "type": "reverie_dreams:amulet",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/green": {
+      "type": "reverie_dreams:amulet",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/red": {
+      "type": "reverie_dreams:amulet",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/amulet/black": {
+      "type": "reverie_dreams:amulet",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/amulet"
+    },
+    "reverie_dreams:danmaku/arrowhead": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/white": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/orange": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/magenta": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/light_blue": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/yellow": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/lime": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/pink": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/gray": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/light_gray": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/cyan": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/purple": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/blue": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/brown": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/green": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/red": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/arrowhead/black": {
+      "type": "reverie_dreams:arrowhead",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/arrowhead"
+    },
+    "reverie_dreams:danmaku/ball": {
+      "type": "reverie_dreams:ball",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/white": {
+      "type": "reverie_dreams:ball",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/orange": {
+      "type": "reverie_dreams:ball",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/magenta": {
+      "type": "reverie_dreams:ball",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/light_blue": {
+      "type": "reverie_dreams:ball",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/yellow": {
+      "type": "reverie_dreams:ball",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/lime": {
+      "type": "reverie_dreams:ball",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/pink": {
+      "type": "reverie_dreams:ball",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/gray": {
+      "type": "reverie_dreams:ball",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/light_gray": {
+      "type": "reverie_dreams:ball",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/cyan": {
+      "type": "reverie_dreams:ball",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/purple": {
+      "type": "reverie_dreams:ball",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/blue": {
+      "type": "reverie_dreams:ball",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/brown": {
+      "type": "reverie_dreams:ball",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/green": {
+      "type": "reverie_dreams:ball",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/red": {
+      "type": "reverie_dreams:ball",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/ball/black": {
+      "type": "reverie_dreams:ball",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/ball"
+    },
+    "reverie_dreams:danmaku/bubble": {
+      "type": "reverie_dreams:bubble",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/white": {
+      "type": "reverie_dreams:bubble",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/orange": {
+      "type": "reverie_dreams:bubble",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/magenta": {
+      "type": "reverie_dreams:bubble",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/light_blue": {
+      "type": "reverie_dreams:bubble",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/yellow": {
+      "type": "reverie_dreams:bubble",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/lime": {
+      "type": "reverie_dreams:bubble",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/pink": {
+      "type": "reverie_dreams:bubble",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/gray": {
+      "type": "reverie_dreams:bubble",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/light_gray": {
+      "type": "reverie_dreams:bubble",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/cyan": {
+      "type": "reverie_dreams:bubble",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/purple": {
+      "type": "reverie_dreams:bubble",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/blue": {
+      "type": "reverie_dreams:bubble",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/brown": {
+      "type": "reverie_dreams:bubble",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/green": {
+      "type": "reverie_dreams:bubble",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/red": {
+      "type": "reverie_dreams:bubble",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bubble/black": {
+      "type": "reverie_dreams:bubble",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/bubble"
+    },
+    "reverie_dreams:danmaku/bullet": {
+      "type": "reverie_dreams:bullet",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/white": {
+      "type": "reverie_dreams:bullet",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/orange": {
+      "type": "reverie_dreams:bullet",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/magenta": {
+      "type": "reverie_dreams:bullet",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/light_blue": {
+      "type": "reverie_dreams:bullet",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/yellow": {
+      "type": "reverie_dreams:bullet",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/lime": {
+      "type": "reverie_dreams:bullet",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/pink": {
+      "type": "reverie_dreams:bullet",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/gray": {
+      "type": "reverie_dreams:bullet",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/light_gray": {
+      "type": "reverie_dreams:bullet",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/cyan": {
+      "type": "reverie_dreams:bullet",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/purple": {
+      "type": "reverie_dreams:bullet",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/blue": {
+      "type": "reverie_dreams:bullet",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/brown": {
+      "type": "reverie_dreams:bullet",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/green": {
+      "type": "reverie_dreams:bullet",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/red": {
+      "type": "reverie_dreams:bullet",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/bullet/black": {
+      "type": "reverie_dreams:bullet",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/bullet"
+    },
+    "reverie_dreams:danmaku/fireball": {
+      "type": "reverie_dreams:fireball",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/white": {
+      "type": "reverie_dreams:fireball",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/orange": {
+      "type": "reverie_dreams:fireball",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/magenta": {
+      "type": "reverie_dreams:fireball",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/light_blue": {
+      "type": "reverie_dreams:fireball",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/yellow": {
+      "type": "reverie_dreams:fireball",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/lime": {
+      "type": "reverie_dreams:fireball",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/pink": {
+      "type": "reverie_dreams:fireball",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/gray": {
+      "type": "reverie_dreams:fireball",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/light_gray": {
+      "type": "reverie_dreams:fireball",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/cyan": {
+      "type": "reverie_dreams:fireball",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/purple": {
+      "type": "reverie_dreams:fireball",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/blue": {
+      "type": "reverie_dreams:fireball",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/brown": {
+      "type": "reverie_dreams:fireball",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/green": {
+      "type": "reverie_dreams:fireball",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/red": {
+      "type": "reverie_dreams:fireball",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball/black": {
+      "type": "reverie_dreams:fireball",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/fireball"
+    },
+    "reverie_dreams:danmaku/fireball_glowy": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/white": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/orange": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/magenta": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/light_blue": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/yellow": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/lime": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/pink": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/gray": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/light_gray": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/cyan": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/purple": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/blue": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/brown": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/green": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/red": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/fireball_glowy/black": {
+      "type": "reverie_dreams:fireball_glowy",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/fireball_glowy"
+    },
+    "reverie_dreams:danmaku/kunai": {
+      "type": "reverie_dreams:kunai",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/white": {
+      "type": "reverie_dreams:kunai",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/orange": {
+      "type": "reverie_dreams:kunai",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/magenta": {
+      "type": "reverie_dreams:kunai",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/light_blue": {
+      "type": "reverie_dreams:kunai",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/yellow": {
+      "type": "reverie_dreams:kunai",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/lime": {
+      "type": "reverie_dreams:kunai",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/pink": {
+      "type": "reverie_dreams:kunai",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/gray": {
+      "type": "reverie_dreams:kunai",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/light_gray": {
+      "type": "reverie_dreams:kunai",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/cyan": {
+      "type": "reverie_dreams:kunai",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/purple": {
+      "type": "reverie_dreams:kunai",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/blue": {
+      "type": "reverie_dreams:kunai",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/brown": {
+      "type": "reverie_dreams:kunai",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/green": {
+      "type": "reverie_dreams:kunai",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/red": {
+      "type": "reverie_dreams:kunai",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/kunai/black": {
+      "type": "reverie_dreams:kunai",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/kunai"
+    },
+    "reverie_dreams:danmaku/rice": {
+      "type": "reverie_dreams:rice",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/white": {
+      "type": "reverie_dreams:rice",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/orange": {
+      "type": "reverie_dreams:rice",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/magenta": {
+      "type": "reverie_dreams:rice",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/light_blue": {
+      "type": "reverie_dreams:rice",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/yellow": {
+      "type": "reverie_dreams:rice",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/lime": {
+      "type": "reverie_dreams:rice",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/pink": {
+      "type": "reverie_dreams:rice",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/gray": {
+      "type": "reverie_dreams:rice",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/light_gray": {
+      "type": "reverie_dreams:rice",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/cyan": {
+      "type": "reverie_dreams:rice",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/purple": {
+      "type": "reverie_dreams:rice",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/blue": {
+      "type": "reverie_dreams:rice",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/brown": {
+      "type": "reverie_dreams:rice",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/green": {
+      "type": "reverie_dreams:rice",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/red": {
+      "type": "reverie_dreams:rice",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/rice/black": {
+      "type": "reverie_dreams:rice",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/rice"
+    },
+    "reverie_dreams:danmaku/star": {
+      "type": "reverie_dreams:star",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/white": {
+      "type": "reverie_dreams:star",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/orange": {
+      "type": "reverie_dreams:star",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/magenta": {
+      "type": "reverie_dreams:star",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/light_blue": {
+      "type": "reverie_dreams:star",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/yellow": {
+      "type": "reverie_dreams:star",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/lime": {
+      "type": "reverie_dreams:star",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/pink": {
+      "type": "reverie_dreams:star",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/gray": {
+      "type": "reverie_dreams:star",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/light_gray": {
+      "type": "reverie_dreams:star",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/cyan": {
+      "type": "reverie_dreams:star",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/purple": {
+      "type": "reverie_dreams:star",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/blue": {
+      "type": "reverie_dreams:star",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/brown": {
+      "type": "reverie_dreams:star",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/green": {
+      "type": "reverie_dreams:star",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/red": {
+      "type": "reverie_dreams:star",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/star/black": {
+      "type": "reverie_dreams:star",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/star"
+    },
+    "reverie_dreams:danmaku/note": {
+      "type": "reverie_dreams:note",
+      "colour": "default",
+      "rgb": 14606046,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/white": {
+      "type": "reverie_dreams:note",
+      "colour": "white",
+      "rgb": 16777215,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/orange": {
+      "type": "reverie_dreams:note",
+      "colour": "orange",
+      "rgb": 16749605,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/magenta": {
+      "type": "reverie_dreams:note",
+      "colour": "magenta",
+      "rgb": 15082670,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/light_blue": {
+      "type": "reverie_dreams:note",
+      "colour": "light_blue",
+      "rgb": 2067967,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/yellow": {
+      "type": "reverie_dreams:note",
+      "colour": "yellow",
+      "rgb": 16776998,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/lime": {
+      "type": "reverie_dreams:note",
+      "colour": "lime",
+      "rgb": 14352166,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/pink": {
+      "type": "reverie_dreams:note",
+      "colour": "pink",
+      "rgb": 16724365,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/gray": {
+      "type": "reverie_dreams:note",
+      "colour": "gray",
+      "rgb": 10197915,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/light_gray": {
+      "type": "reverie_dreams:note",
+      "colour": "light_gray",
+      "rgb": 7434609,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/cyan": {
+      "type": "reverie_dreams:note",
+      "colour": "cyan",
+      "rgb": 1099519,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/purple": {
+      "type": "reverie_dreams:note",
+      "colour": "purple",
+      "rgb": 16721620,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/blue": {
+      "type": "reverie_dreams:note",
+      "colour": "blue",
+      "rgb": 526591,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/brown": {
+      "type": "reverie_dreams:note",
+      "colour": "brown",
+      "rgb": 10495744,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/green": {
+      "type": "reverie_dreams:note",
+      "colour": "green",
+      "rgb": 3473204,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/red": {
+      "type": "reverie_dreams:note",
+      "colour": "red",
+      "rgb": 16724273,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    },
+    "reverie_dreams:danmaku/note/black": {
+      "type": "reverie_dreams:note",
+      "colour": "black",
+      "rgb": 2500134,
+      "sourceItemId": "reverie_dreams:danmaku/note"
+    }
+  },
+  "ordinaryTrajectoryIds": [
+    "single",
+    "triple",
+    "fan",
+    "bullet",
+    "star",
+    "heart",
+    "x",
+    "round",
+    "ring",
+    "ring_view",
+    "ring_horizontal"
+  ],
+  "projectile": {
+    "lifetime": 200,
+    "pickup": false,
+    "piercing": false,
+    "gravity": 0,
+    "divergence": 0.05,
+    "spawnOffset": 0.25,
+    "airInertia": 0.99,
+    "waterInertia": 0.8,
+    "noteMaxBounces": 5,
+    "noteDamping": 0.8,
+    "perUseBudget": 64,
+    "ordinaryAccelerationConnected": false,
+    "ordinaryOriginRangeLimit": false
+  },
+  "repairIngredients": [
+    "reverie_dreams:power"
+  ],
+  "durabilityRule": "source hurtWithoutBreaking clamps max-1; does not break normally; Unbreaking/creative and damage-event retained",
+  "sourceIdentity": {
+    "registeredOrdinaryItems": 11,
+    "registeredExcludedLaserItems": 2,
+    "colourComponentAdapters": 176,
+    "ceDefinitions": 187,
+    "helperItems": 0,
+    "registrationSource": "common/src/main/java/cc/thonly/reverie_dreams/data/danmaku/DanmakuType.java#createItemEntry",
+    "colourTemplateSource": "common/src/main/java/cc/thonly/reverie_dreams/data/danmaku/DanmakuType.java#getColorPairs",
+    "sourceStatement": "Each DanmakuType registers ONE Item. The sixteen colours are ItemStackTemplate component variants, not additional source registry items.",
+    "registrationLine": 146,
+    "colourTemplateLine": 165
+  },
+  "notMigrated": [
+    "DanmakuCraftingTable survival acquisition and template assembly",
+    "vanilla crafting-grid dynamic dye transaction (metadata-safe dye API is supplied)",
+    "anvil repair with custom power ingredient identity",
+    "STG pattern/director/scripted spellcards/custom trajectory",
+    "laser and big_laser",
+    "non-living entity hit callbacks",
+    "source custom enchantment durability effects beyond Unbreaking"
+  ],
+  "schemaVersion": 1
+}

@@ -1,12 +1,12 @@
 package cc.thonly.reverie_dreams.data.skin;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
-import cc.thonly.reverie_dreams.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.skin.MobSkinTypes;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.skin.SkinFetcher;
@@ -49,11 +49,12 @@ public class SkinType implements SerializableProvider<SkinType>, RegistryEntryOw
     public static final EntityDataSerializer<SkinType> SERIALIZER = EntityDataSerializer.forValueType(TRUSTED_STREAM_CODEC);
     public static final Identifier RECOVERY = ReverieDreams.id("recovery");
 
+    private static final Property PLACEHOLDER = new Property("ewogICJ0aW1lc3RhbXAiIDogMTcwODU4MzQ0MDY4OSwKICAicHJvZmlsZUlkIiA6ICJiM2E3NjExNGVmMzI0ZjYyYWM4NDRiOWJmNTY1NGFiOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNcmd1eW1hbnBlcnNvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lODRjY2E2ZGVhNjhlN2UzYzZhNDJiYTQ2YTNhN2ZlODdlZDY3YTk3ZmRjOTRlNTY0NzI1YTc0ZTYxYjBmOTI3IgogICAgfQogIH0KfQ==",
+            "x/b2EYJFrRIkSl5TviHdKoZcwBmmDt0RfAa2y0oTK3n/YZ2xco3rl/D60NN5CSWK24Ui0VaGQ66SdrKV742aXjiNAKzOTxga3IEHSaCTN/to9jrvKHvz0esyAGiLFB98co9o4nZyGClTlzieW0dHexPmyfa6g8MTlS/T3kjACDIT8OQvSkl95U2iMnvvmqfLnZ9l7WlvEkD9+gjNg8dRUFwMGVGVRz2hCYHR6WxjOJEpqbYMMRMJgKBXRzKVCwxy7cDW+warLZL7BwV8pYZVv4FOc8epaJm3JsTbwp7eTMxb+o8rSupv1Aoq52iJwZfk4x+c0rRS/xCfc+d1bY1UfLG6s2NnwvUJpMJ3VdSMVcRZ5QecGX+OU8ZVdi+VWAZncZ4csrcZ1KqI30EeA6ztccTaarA6nmwghGzNUi+bXCUJctnzBXpjL7eErgrTeHso8JgmOpybMeu+UefDWIw1fbRWjRuX5l9/VRZp3zR4wfSu7NMuKANx/cmx0almu4ef0qeN9PZ39fjOoxwEQvaGbeq2pH0+2HCE9hHnWoH6RXFuCFTnnQkc8TsFNOWQVrY6alg1X6wWS2tzfuIzzW/EjM6Wl3qpNDd4VaVHWUNfq6xGp+F+kpymaKrCGvSxAQiLrJ/kK0SK5kAW16kKedkiSFji3dmdBlrYbTitNRFPXRg=");
+
     @Setter
     @Getter
     protected Identifier id;
-    protected String value;
-    protected String signature;
     @Setter
     private Property property;
     @Setter
@@ -62,7 +63,7 @@ public class SkinType implements SerializableProvider<SkinType>, RegistryEntryOw
     @Getter
     @Setter
     @ToString.Exclude
-    private RegistryProvider<SkinType> owner;
+    private RegistryProviderLookup<SkinType> owner;
     @Setter
     @Getter
     private boolean slim;
@@ -72,17 +73,7 @@ public class SkinType implements SerializableProvider<SkinType>, RegistryEntryOw
 
     public SkinType(Identifier id) {
         this.id = id;
-        this.value = "null";
-        this.signature = "null";
         this.slim = true;
-    }
-
-    public SkinType(Identifier id, String value, String signature) {
-        this.id = id;
-        this.value = value;
-        this.signature = signature;
-        this.slim = true;
-        this.valid();
     }
 
     @Override
@@ -100,8 +91,7 @@ public class SkinType implements SerializableProvider<SkinType>, RegistryEntryOw
             if (ReverieDreams.getServer() != null) {
                 log.warn("Unable to get skin properties until data pack is loaded");
             }
-            return new Property("ewogICJ0aW1lc3RhbXAiIDogMTcwODU4MzQ0MDY4OSwKICAicHJvZmlsZUlkIiA6ICJiM2E3NjExNGVmMzI0ZjYyYWM4NDRiOWJmNTY1NGFiOSIsCiAgInByb2ZpbGVOYW1lIiA6ICJNcmd1eW1hbnBlcnNvbiIsCiAgInNpZ25hdHVyZVJlcXVpcmVkIiA6IHRydWUsCiAgInRleHR1cmVzIiA6IHsKICAgICJTS0lOIiA6IHsKICAgICAgInVybCIgOiAiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS9lODRjY2E2ZGVhNjhlN2UzYzZhNDJiYTQ2YTNhN2ZlODdlZDY3YTk3ZmRjOTRlNTY0NzI1YTc0ZTYxYjBmOTI3IgogICAgfQogIH0KfQ==",
-                    "x/b2EYJFrRIkSl5TviHdKoZcwBmmDt0RfAa2y0oTK3n/YZ2xco3rl/D60NN5CSWK24Ui0VaGQ66SdrKV742aXjiNAKzOTxga3IEHSaCTN/to9jrvKHvz0esyAGiLFB98co9o4nZyGClTlzieW0dHexPmyfa6g8MTlS/T3kjACDIT8OQvSkl95U2iMnvvmqfLnZ9l7WlvEkD9+gjNg8dRUFwMGVGVRz2hCYHR6WxjOJEpqbYMMRMJgKBXRzKVCwxy7cDW+warLZL7BwV8pYZVv4FOc8epaJm3JsTbwp7eTMxb+o8rSupv1Aoq52iJwZfk4x+c0rRS/xCfc+d1bY1UfLG6s2NnwvUJpMJ3VdSMVcRZ5QecGX+OU8ZVdi+VWAZncZ4csrcZ1KqI30EeA6ztccTaarA6nmwghGzNUi+bXCUJctnzBXpjL7eErgrTeHso8JgmOpybMeu+UefDWIw1fbRWjRuX5l9/VRZp3zR4wfSu7NMuKANx/cmx0almu4ef0qeN9PZ39fjOoxwEQvaGbeq2pH0+2HCE9hHnWoH6RXFuCFTnnQkc8TsFNOWQVrY6alg1X6wWS2tzfuIzzW/EjM6Wl3qpNDd4VaVHWUNfq6xGp+F+kpymaKrCGvSxAQiLrJ/kK0SK5kAW16kKedkiSFji3dmdBlrYbTitNRFPXRg=");
+            return PLACEHOLDER;
         }
         if (!PlatformContext.hasPolymer()) {
             return new Property("builtin", "builtin", "builtin");
@@ -112,7 +102,8 @@ public class SkinType implements SerializableProvider<SkinType>, RegistryEntryOw
                 log.debug("Fetching {} skin from networking", this.id);
                 this.setProperty(skinFromNPCSkin.get());
             } else {
-                this.setProperty(texture(this.value, this.signature));
+                log.warn("Unable to resolve skin {}; using placeholder", this.id);
+                this.setProperty(PLACEHOLDER);
             }
         }
         return this.property;
@@ -131,25 +122,10 @@ public class SkinType implements SerializableProvider<SkinType>, RegistryEntryOw
         return Objects.equals(this.id, skinType.id);
     }
 
-    private void valid() {
-        try {
-            Identifier fileId = ReverieDreams.id("entity/player/%s".formatted(this.id.getPath()));
-
-        } catch (Exception err) {
-            log.error("Can't parse role code", err);
-        }
-    }
-
-    private static Property texture(String value, String signature) {
-        return new Property("textures", value, signature);
-    }
-
     @Override
     public String toString() {
         return "SkinType{" +
                 "id=" + id +
-                ", value='" + value + '\'' +
-                ", signature='" + signature + '\'' +
                 ", slim=" + slim +
                 '}';
     }

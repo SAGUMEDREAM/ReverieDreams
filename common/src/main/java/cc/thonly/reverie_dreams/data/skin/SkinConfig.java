@@ -1,8 +1,8 @@
 package cc.thonly.reverie_dreams.data.skin;
 
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -32,7 +32,7 @@ public class SkinConfig implements SerializableProvider<SkinConfig>, RegistryEnt
     private final Optional<Identifier> elytraTexture;
     @ToString.Exclude
     @Setter
-    private RegistryProvider<SkinConfig> owner;
+    private RegistryProviderLookup<SkinConfig> owner;
 
     public SkinConfig(ModelType type, Optional<Identifier> capeTexture, Optional<Identifier> elytraTexture) {
         this.registryKey = null;

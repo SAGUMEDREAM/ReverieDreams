@@ -1,0 +1,17 @@
+{
+  "block.reverie_dreams.danmaku_crafting_table": "Danmaku Crafting Table",
+  "block.reverie_dreams.strength_table": "Strengthening Table",
+  "item.reverie_dreams.danmaku_core": "Danmaku Core",
+  "item.reverie_dreams.danmaku_recipe_creator": "Danmaku Recipe Creator",
+  "item.reverie_dreams.spell_card_template": "Spell Card Template",
+  "item.reverie_dreams.speed_feather": "Speed Feather",
+  "item.action.click.shape_recipe.fail": "§cUnknown shape recipe",
+  "item.action.click.shape_recipe.success": "§aSuccess crafting",
+  "message.reverie_dreams.danmaku_creator.save": "Apply shape",
+  "message.reverie_dreams.danmaku_creator.cancel": "Cancel",
+  "message.reverie_dreams.danmaku_creator.changed": "The creator in your hand changed; reopen it.",
+  "message.reverie_dreams.danmaku_table.inventory_full": "Not enough inventory space.",
+  "message.reverie_dreams.danmaku_table.no_recipe": "No matching recipe.",
+  "message.reverie_dreams.danmaku_table.unsupported_output": "This result is not migrated yet.",
+  "message.reverie_dreams.danmaku_table.unavailable": "This table is unavailable."
+}

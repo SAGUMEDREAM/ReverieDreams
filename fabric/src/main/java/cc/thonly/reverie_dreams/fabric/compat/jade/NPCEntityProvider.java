@@ -4,7 +4,6 @@ import cc.thonly.reverie_dreams.entity.npc.NPCCompanionEntity;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.fabric.compat.jade.element.FoodElement;
 import cc.thonly.reverie_dreams.registry.content.NPCStates;
-import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.PlainTextContents;
 import net.minecraft.resources.Identifier;
@@ -55,10 +54,8 @@ public class NPCEntityProvider implements IEntityComponentProvider {
                         )
                 );
             }
-            if (Objects.equals(data.state(), NPCStates.WORKING) && Objects.equals(data.workMode(), NPCWorkModes.CUSTOMER)) {
-                for (Component component : data.foodTextComponents()) {
-                    iTooltip.add(component);
-                }
+            for (Component component : data.foodTextComponents()) {
+                iTooltip.add(component);
             }
         }
     }

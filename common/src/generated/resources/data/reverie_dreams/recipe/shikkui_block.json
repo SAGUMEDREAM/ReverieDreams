@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "E": "minecraft:gravel",
+    "S": "minecraft:sand"
+  },
+  "pattern": [
+    "SE",
+    "SS"
+  ],
+  "result": {
+    "count": 4,
+    "id": "reverie_dreams:shikkui_block"
+  }
+}

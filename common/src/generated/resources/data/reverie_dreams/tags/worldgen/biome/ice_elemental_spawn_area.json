@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#c:is_snowy",
+      "required": false
+    },
+    {
+      "id": "#c:is_snowy_plains",
+      "required": false
+    },
+    {
+      "id": "#c:is_cold/end",
+      "required": false
+    }
+  ]
+}

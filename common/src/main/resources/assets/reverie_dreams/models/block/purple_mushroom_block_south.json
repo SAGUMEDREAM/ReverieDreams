@@ -1,0 +1,33 @@
+{
+  "textures": {
+    "atlas": "reverie_dreams:block/purple_mushroom_atlas",
+    "particle": "reverie_dreams:block/purple_mushroom_cap"
+  },
+  "elements": [
+    {
+      "name": "purple_mushroom_block",
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "south": {
+          "uv": [
+            8,
+            0,
+            16,
+            8
+          ],
+          "texture": "#atlas",
+          "cullface": "south"
+        }
+      }
+    }
+  ]
+}

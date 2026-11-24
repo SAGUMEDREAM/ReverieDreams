@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "Q": "minecraft:quartz"
+  },
+  "pattern": [
+    " Q ",
+    "QIQ",
+    " Q "
+  ],
+  "result": {
+    "count": 2,
+    "id": "reverie_dreams:lunar_signal_crystal"
+  }
+}

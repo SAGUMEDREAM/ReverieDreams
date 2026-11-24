@@ -1,0 +1,77 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "3": "reverie_dreams:block/bamboo_forest/litter",
+    "particle": "reverie_dreams:block/bamboo_forest/litter"
+  },
+  "elements": [
+    {
+      "name": "leaf_patch_0",
+      "from": [
+        0,
+        0.125,
+        0
+      ],
+      "to": [
+        8,
+        0.125,
+        8
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "texture": "#3"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            8,
+            8
+          ],
+          "texture": "#3"
+        }
+      }
+    },
+    {
+      "name": "leaf_patch_1",
+      "from": [
+        8,
+        0.125,
+        8
+      ],
+      "to": [
+        16,
+        0.125,
+        16
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ],
+          "texture": "#3"
+        },
+        "down": {
+          "uv": [
+            8,
+            8,
+            16,
+            16
+          ],
+          "texture": "#3"
+        }
+      }
+    }
+  ],
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false
+}

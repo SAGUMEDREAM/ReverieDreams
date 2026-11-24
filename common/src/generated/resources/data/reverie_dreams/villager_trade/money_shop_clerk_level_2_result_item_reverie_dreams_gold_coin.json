@@ -10,7 +10,6 @@
     "id": "reverie_dreams:gold_coin"
   },
   "max_uses": 12.0,
-  "reputation_discount": 0.13,
   "wants": {
     "count": 10.0,
     "id": "reverie_dreams:silver_coin"

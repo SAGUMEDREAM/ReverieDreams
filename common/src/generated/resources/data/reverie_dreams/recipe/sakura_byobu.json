@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "PFP",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:stick",
+    "P": "minecraft:paper",
+    "F": "minecraft:pink_dye"
+  },
+  "result": {
+    "id": "reverie_dreams:sakura_byobu",
+    "count": 1
+  }
+}

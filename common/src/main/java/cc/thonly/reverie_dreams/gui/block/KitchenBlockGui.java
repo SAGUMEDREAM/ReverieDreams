@@ -12,13 +12,12 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.KitchenRecipe;
 import cc.thonly.reverie_dreams.recipe.type.KitchenRecipeType;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDGuiPlaceholderItems;
 import cc.thonly.reverie_dreams.util.WeakHashSet;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
-import cc.thonly.reverie_dreams.util.item.GuiElementBuilderSetter;
 import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
@@ -28,8 +27,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
@@ -39,7 +38,6 @@ import net.minecraft.world.item.component.UseRemainder;
 import net.minecraft.world.level.block.Block;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements GuiCommon {
     public static final String[][] GRID = new String[][]{
@@ -58,11 +56,13 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
             "T", 4,
             "O", 5
     );
+    private static final int PREVIOUS_SLOT = 28;
+    private static final int STATUS_SLOT = 31;
+    private static final int NEXT_SLOT = 34;
 
     private final Block block;
     private final KitchenwareBlockEntity blockEntity;
     private final KitchenRecipeType.TypeInstance recipeType;
-    private final Map<Integer, GuiElementBuilder> displayed = new HashMap<>();
     private final List<Integer> displayIndexes = new ArrayList<>();
     private int page = 0;
     private int maxPage = 0;
@@ -79,14 +79,15 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     public void init() {
         Set<KitchenBlockGui<?>> session = KitchenwareBlockEntity.SESSIONS.computeIfAbsent(this.blockEntity.getUuid(), (map) -> new WeakHashSet<>());
         session.add(this);
+        this.displayIndexes.clear();
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub003")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(Component.translatable(this.block.getDescriptionId()))
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub003")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(Component.translatable(this.block.getDescriptionId()).withStyle(ChatFormatting.WHITE))
         );
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
@@ -95,28 +96,15 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
 
                 switch (posChar) {
                     case "X" -> this.setSlot(index, new GuiElementBuilder(Items.AIR));
-                    case "N" ->
-                            this.setSlot(index, new GuiElementBuilder(RDGuiPlaceholderItems.NEXT.value()).setCallback((i, t, sat, sbg) -> {
-                                SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-                                if (this.page < this.maxPage) {
-                                    this.page++;
-                                    this.onTick();
-                                }
-                            }));
-                    case "P" ->
-                            this.setSlot(index, new GuiElementBuilder(RDGuiPlaceholderItems.PREV.value()).setCallback((i, t, sat, sbg) -> {
-                                SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-                                if (this.page > 0) {
-                                    this.page--;
-                                    this.onTick();
-                                }
-                            }));
-                    case "Z" -> {
-                        GuiElementBuilder guiElementBuilder = new GuiElementBuilder().setItem(Items.AIR);
-                        this.displayed.put(index, guiElementBuilder);
-                        this.displayIndexes.add(index);
-                        this.setSlot(index, guiElementBuilder);
-                    }
+                    case "N", "P" -> { }
+                    case "Z" -> this.displayIndexes.add(index);
+                    case "O" -> this.setSlot(index, new Slot(this.blockEntity.getInventory(),
+                            KitchenwareBlockEntity.OUTPUT_SLOT, 0, 0) {
+                        @Override
+                        public boolean mayPlace(ItemStack stack) {
+                            return false;
+                        }
+                    });
                     default -> {
                         Integer invIndex = CHAR2INDEX.get(posChar);
                         if (invIndex != null) {
@@ -137,7 +125,8 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
                 UseRemainder useRemainderComponent = stack.get(DataComponents.USE_REMAINDER);
                 if (useRemainderComponent != null) {
                     ItemStack itemStack = useRemainderComponent.convertInto().create();
-                    this.blockEntity.throwItem((ServerLevel) blockEntity.getLevel(), itemStack);
+                    var pos = this.blockEntity.getBlockPos();
+                    Containers.dropItemStack(this.blockEntity.getLevel(), pos.getX(), pos.getY(), pos.getZ(), itemStack);
                 }
                 stack.shrink(1);
             }
@@ -156,72 +145,100 @@ public class KitchenBlockGui<R extends BaseRecipe> extends SimpleGui implements 
     @Override
     public void onTick() {
         super.onTick();
-
-        if (this.blockEntity == null || this.blockEntity.getLevel() == null) {
+        if (!this.canUseKitchen()) {
             this.close();
             return;
         }
 
-        for (Integer index : this.displayIndexes) {
-            GuiElementBuilder guiElementBuilder = new GuiElementBuilder().setItem(Items.AIR);
-            this.displayed.put(index, guiElementBuilder);
-            this.setSlot(index, guiElementBuilder);
-        }
-
-        Block block = this.blockEntity.getLevel().getBlockState(this.blockEntity.getBlockPos()).getBlock();
-        if (!(block instanceof AbstractKitchenwareBlock)) {
-            this.close();
-            return;
-        }
-
-        KitchenRecipeType kitchenRecipeType = this.getRecipeTypeInstance();
-        SimpleContainer inventory = this.blockEntity.getInventory();
-        List<IngredientStack> inputs = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            inputs.add(new IngredientStack(inventory.getItem(i).copy()));
-        }
-
-        List<KitchenRecipe> matches = kitchenRecipeType.getMatches(this.recipeType, inputs);
-        int recipesPerPage = this.displayed.size();
-        this.maxPage = (matches.size() - 1) / recipesPerPage;
+        List<IngredientStack> inputs = this.readInputs();
+        List<KitchenRecipe> matches = this.getRecipeTypeInstance().getMatches(this.recipeType, inputs).stream()
+                .sorted(Comparator.comparing(KitchenRecipe::getId))
+                .toList();
+        int recipesPerPage = this.displayIndexes.size();
+        this.maxPage = Math.max(0, (matches.size() - 1) / recipesPerPage);
+        this.page = Math.min(this.page, this.maxPage);
         List<KitchenRecipe> pageRecipes = getRecipesForCurrentPage(matches, recipesPerPage);
 
-        // 清空旧显示
-        for (GuiElementBuilder builder : this.displayed.values()) {
-            GuiElementBuilderSetter.setter(builder, Items.AIR);
+        for (int index = 0; index < recipesPerPage; index++) {
+            int slot = this.displayIndexes.get(index);
+            if (index >= pageRecipes.size()) {
+                this.clearSlot(slot);
+                continue;
+            }
+            KitchenRecipe recipe = pageRecipes.get(index);
+            ItemStack preview = ItemUtils.buildFoodTags(recipe, new IngredientStack(recipe.getOutput().build()), inputs).build();
+            GuiElementBuilder builder = new GuiElementBuilder(preview)
+                    .addLoreLine(Component.translatableWithFallback("gui.reverie_dreams.kitchen.start", "Click to start cooking"))
+                    .addLoreLine(Component.translatableWithFallback("gui.reverie_dreams.kitchen.consume", "Uses one item from each occupied ingredient slot"))
+                    .setCallback((slotIndex, clickType, input, slotBasedGui) -> this.startCooking(recipe));
+            this.setSlot(slot, builder);
         }
 
-        int i = 0;
-        for (Map.Entry<Integer, GuiElementBuilder> entry : this.displayed.entrySet()) {
-            if (i >= pageRecipes.size()) break;
+        this.setSlot(STATUS_SLOT, new GuiElementBuilder(matches.isEmpty() ? Items.PAPER : Items.BOOK)
+                .setName(matches.isEmpty()
+                        ? Component.translatableWithFallback("gui.reverie_dreams.kitchen.no_matches", "No dishes match these ingredients")
+                        : Component.translatableWithFallback("gui.reverie_dreams.kitchen.page", "Dishes %s/%s · %s available",
+                                this.page + 1, this.maxPage + 1, matches.size()))
+                .addLoreLine(Component.translatableWithFallback("gui.reverie_dreams.kitchen.help",
+                        "Place ingredients below and select a dish above"))
+                .setCallback(() -> SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f)));
+        this.setPageControl(PREVIOUS_SLOT, -1);
+        this.setPageControl(NEXT_SLOT, 1);
+    }
 
-            KitchenRecipe recipe = pageRecipes.get(i);
-            ItemStack outputShow = ItemUtils.buildFoodTags(recipe, new IngredientStack(recipe.getOutput().build()), inputs).build();
-            AtomicReference<ItemStack> output = new AtomicReference<>(outputShow);
+    private boolean canUseKitchen() {
+        var level = this.blockEntity.getLevel();
+        return level != null && level.getBlockEntity(this.blockEntity.getBlockPos()) == this.blockEntity
+                && level.getBlockState(this.blockEntity.getBlockPos()).getBlock() instanceof AbstractKitchenwareBlock
+                && (this.blockEntity.getPreOutput() == null || this.blockEntity.getPreOutput().isEmpty());
+    }
 
-            GuiElementBuilder builder = entry.getValue();
-            GuiElementBuilderSetter.setter(builder, outputShow);
-
-            builder.setCallback((slotIndex, clickType, input, slotBasedGui) -> {
-                ItemStack itemStack = output.get();
-                for (CraftingConflict conflict : BuiltInRegistryProviders.CRAFTING_CONFLICT.values()) {
-                    if (conflict.test(itemStack)) {
-                        SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_DARK_CUISINE).trigger(this.player);
-                        output.set(RDCuisineItems.DARK_CUISINE.createStack());
-                    }
-                }
-                if (outputShow.getOrDefault(RDDataComponentTypes.FOOD_PROPERTIES.value(), List.of()).size() >= 5) {
-                    SimpleTriggerFactory
-                            .create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG)
-                            .trigger(this.player);
-                }
-                SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING).trigger(this.player);
-                handleCrafting(output.get(), inputs, recipe);
-            });
-
-            this.setSlot(entry.getKey(), builder);
-            i++;
+    private List<IngredientStack> readInputs() {
+        List<IngredientStack> inputs = new ArrayList<>(5);
+        for (int slot = 0; slot < 5; slot++) {
+            inputs.add(new IngredientStack(this.blockEntity.getInventory().getItem(slot).copy()));
         }
+        return inputs;
+    }
+
+    private void setPageControl(int slot, int step) {
+        if (this.page + step < 0 || this.page + step > this.maxPage) {
+            this.clearSlot(slot);
+            return;
+        }
+        var item = step < 0 ? RDGuiPlaceholderItems.PREV.value() : RDGuiPlaceholderItems.NEXT.value();
+        this.setSlot(slot, new GuiElementBuilder(item).setCallback((index, click, action, gui) -> {
+            this.page += step;
+            SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
+            this.onTick();
+        }));
+    }
+
+    private void startCooking(KitchenRecipe selected) {
+        if (!this.canUseKitchen()) {
+            this.close();
+            return;
+        }
+        List<IngredientStack> inputs = this.readInputs();
+        KitchenRecipe recipe = this.getRecipeTypeInstance().getRecipeView(this.recipeType).get(selected.getId());
+        if (recipe == null || !this.getRecipeTypeInstance().isMatches(recipe, inputs)) {
+            this.onTick();
+            return;
+        }
+        ItemStack preview = ItemUtils.buildFoodTags(recipe, new IngredientStack(recipe.getOutput().build()), inputs).build();
+        ItemStack output = preview;
+        for (CraftingConflict conflict : BuiltInRegistryProviders.CRAFTING_CONFLICT.values()) {
+            if (conflict.test(preview)) {
+                SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_DARK_CUISINE).trigger(this.player);
+                output = RDCuisineItems.DARK_CUISINE.createStack();
+                break;
+            }
+        }
+        if (FoodProperties.get(preview).size() >= 5) {
+            SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING_AMOUNT_OF_5_TAG).trigger(this.player);
+        }
+        SimpleTriggerFactory.create(SimpleTriggerKeys.KITCHEN_COOKING).trigger(this.player);
+        this.handleCrafting(output, inputs, recipe);
     }
 
     private List<KitchenRecipe> getRecipesForCurrentPage(List<KitchenRecipe> all, int pageSize) {

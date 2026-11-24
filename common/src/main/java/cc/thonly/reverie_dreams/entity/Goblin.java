@@ -27,6 +27,18 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Goblin extends BaseNPCLikeEntity {
+    @Override
+    public void setTarget(net.minecraft.world.entity.LivingEntity target) {
+        super.setTarget(entityTags().contains(cc.thonly.reverie_dreams.world.gensokyo.adventure.ScarletAdventure.FRIENDLY)?null:target);
+    }
+    @Override
+    public boolean canAttack(net.minecraft.world.entity.LivingEntity target) {
+        return !entityTags().contains(cc.thonly.reverie_dreams.world.gensokyo.adventure.ScarletAdventure.FRIENDLY)&&super.canAttack(target);
+    }
+    @Override
+    protected boolean shouldDropLoot(net.minecraft.server.level.ServerLevel level) {
+        return !entityTags().contains(cc.thonly.reverie_dreams.world.gensokyo.adventure.ScarletAdventure.FRIENDLY)&&super.shouldDropLoot(level);
+    }
     public static final Set<Item> GOLDEN_ITEMS = new HashSet<>();
     public static List<Item> PICKAXE_POOL = new ArrayList<>();
     public static List<Item> OFFHAND_POOL = new ArrayList<>();

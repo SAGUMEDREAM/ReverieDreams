@@ -1,0 +1,7165 @@
+{
+  "format_version": 1,
+  "blocks": [
+    {
+      "id": "minecraft:acacia_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:acacia_door",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_fence",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_fence_gate",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_hanging_sign",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:acacia_log",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_planks",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_pressure_plate",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:acacia_shelf",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_sign",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_slab",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_stairs",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_trapdoor",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_wall_hanging_sign",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_wall_sign",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:acacia_wood",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:activator_rail",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:air",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:allium",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:amethyst_block",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:amethyst_cluster",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:ancient_debris",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:andesite",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:andesite_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:andesite_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:andesite_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:anvil",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:attached_melon_stem",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:attached_pumpkin_stem",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:azalea",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:azalea_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:azure_bluet",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:bamboo",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:bamboo_block",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:bamboo_door",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_fence",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_fence_gate",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_hanging_sign",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_mosaic",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_mosaic_slab",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_mosaic_stairs",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_planks",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_pressure_plate",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_sapling",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:bamboo_shelf",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_sign",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_slab",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_stairs",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_trapdoor",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_wall_hanging_sign",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:bamboo_wall_sign",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:barrel",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:barrier",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:basalt",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:beacon",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:bedrock",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:bee_nest",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:beehive",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:beetroots",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:bell",
+      "color": "#d7cd42"
+    },
+    {
+      "id": "minecraft:big_dripleaf",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:big_dripleaf_stem",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:birch_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:birch_door",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_fence",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_fence_gate",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_hanging_sign",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:birch_log",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_planks",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_pressure_plate",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:birch_shelf",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_sign",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_slab",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_stairs",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_trapdoor",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_wall_hanging_sign",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_wall_sign",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:birch_wood",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:black_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:black_bed",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_candle",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:black_carpet",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_concrete",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_concrete_powder",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_glazed_terracotta",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_shulker_box",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_stained_glass",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:black_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:black_terracotta",
+      "color": "#1f120d"
+    },
+    {
+      "id": "minecraft:black_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:black_wool",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:blackstone",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:blackstone_slab",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:blackstone_stairs",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:blackstone_wall",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:blast_furnace",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:blue_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:blue_bed",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_candle",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:blue_carpet",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_concrete",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_concrete_powder",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_glazed_terracotta",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_ice",
+      "color": "#8a8adc"
+    },
+    {
+      "id": "minecraft:blue_orchid",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:blue_shulker_box",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_stained_glass",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:blue_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:blue_terracotta",
+      "color": "#41354f"
+    },
+    {
+      "id": "minecraft:blue_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:blue_wool",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:bone_block",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:bookshelf",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:brain_coral",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:brain_coral_block",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:brain_coral_fan",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:brain_coral_wall_fan",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:brewing_stand",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:brick_slab",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:brick_stairs",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:brick_wall",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:bricks",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:brown_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:brown_bed",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_candle",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:brown_carpet",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_concrete",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_concrete_powder",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_glazed_terracotta",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_mushroom",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_mushroom_block",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:brown_shulker_box",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_stained_glass",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:brown_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:brown_terracotta",
+      "color": "#412b1e"
+    },
+    {
+      "id": "minecraft:brown_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:brown_wool",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:bubble_column",
+      "color": "#3737dc"
+    },
+    {
+      "id": "minecraft:bubble_coral",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:bubble_coral_block",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:bubble_coral_fan",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:bubble_coral_wall_fan",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:budding_amethyst",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:bush",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:cactus",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:cactus_flower",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:calcite",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:calibrated_sculk_sensor",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:campfire",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:candle",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:carrots",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:cartography_table",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:carved_pumpkin",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:cauldron",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:cave_air",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:cave_vines",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:cave_vines_plant",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:chain_command_block",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:cherry_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:cherry_door",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_fence",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_fence_gate",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_hanging_sign",
+      "color": "#8a4243"
+    },
+    {
+      "id": "minecraft:cherry_leaves",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:cherry_log",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_planks",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_pressure_plate",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_sapling",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:cherry_shelf",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_sign",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_slab",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_stairs",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_trapdoor",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_wall_hanging_sign",
+      "color": "#8a4243"
+    },
+    {
+      "id": "minecraft:cherry_wall_sign",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:cherry_wood",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:chest",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:chipped_anvil",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:chiseled_bookshelf",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:chiseled_copper",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:chiseled_deepslate",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:chiseled_nether_bricks",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:chiseled_polished_blackstone",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:chiseled_quartz_block",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:chiseled_red_sandstone",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:chiseled_resin_bricks",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:chiseled_sandstone",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:chiseled_stone_bricks",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:chiseled_tuff",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:chiseled_tuff_bricks",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:chorus_flower",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:chorus_plant",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:clay",
+      "color": "#8d909e"
+    },
+    {
+      "id": "minecraft:closed_eyeblossom",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:coal_block",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:coal_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:coarse_dirt",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:cobbled_deepslate",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:cobbled_deepslate_slab",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:cobbled_deepslate_stairs",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:cobbled_deepslate_wall",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:cobblestone",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:cobblestone_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:cobblestone_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:cobblestone_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:cobweb",
+      "color": "#ababab"
+    },
+    {
+      "id": "minecraft:cocoa",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:command_block",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:comparator",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:composter",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:conduit",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:copper_block",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:copper_bulb",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:copper_chest",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:copper_door",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:copper_golem_statue",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:copper_grate",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:copper_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:copper_torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:copper_trapdoor",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:copper_wall_torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:cornflower",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:cracked_deepslate_bricks",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:cracked_deepslate_tiles",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:cracked_nether_bricks",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:cracked_polished_blackstone_bricks",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:cracked_stone_bricks",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:crafter",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:crafting_table",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:creaking_heart",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:creeper_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:creeper_wall_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:crimson_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:crimson_door",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_fence",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_fence_gate",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_fungus",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:crimson_hanging_sign",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_hyphae",
+      "color": "#4f1519"
+    },
+    {
+      "id": "minecraft:crimson_nylium",
+      "color": "#a3292a"
+    },
+    {
+      "id": "minecraft:crimson_planks",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_pressure_plate",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_roots",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:crimson_shelf",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_sign",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_slab",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_stairs",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_stem",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_trapdoor",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_wall_hanging_sign",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crimson_wall_sign",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:crying_obsidian",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:cut_copper",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:cut_copper_slab",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:cut_copper_stairs",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:cut_red_sandstone",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:cut_red_sandstone_slab",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:cut_sandstone",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:cut_sandstone_slab",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:cyan_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:cyan_bed",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_candle",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:cyan_carpet",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_concrete",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_concrete_powder",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_glazed_terracotta",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_shulker_box",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_stained_glass",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:cyan_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:cyan_terracotta",
+      "color": "#4b4f4f"
+    },
+    {
+      "id": "minecraft:cyan_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:cyan_wool",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:damaged_anvil",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:dandelion",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:dark_oak_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:dark_oak_door",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_fence",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_fence_gate",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_hanging_sign",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:dark_oak_log",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_planks",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_pressure_plate",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:dark_oak_shelf",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_sign",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_slab",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_stairs",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_trapdoor",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_wall_hanging_sign",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_wall_sign",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_oak_wood",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:dark_prismarine",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:dark_prismarine_slab",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:dark_prismarine_stairs",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:daylight_detector",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:dead_brain_coral",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_brain_coral_block",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_brain_coral_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_brain_coral_wall_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_bubble_coral",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_bubble_coral_block",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_bubble_coral_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_bubble_coral_wall_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_bush",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:dead_fire_coral",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_fire_coral_block",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_fire_coral_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_fire_coral_wall_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_horn_coral",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_horn_coral_block",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_horn_coral_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_horn_coral_wall_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_tube_coral",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_tube_coral_block",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_tube_coral_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dead_tube_coral_wall_fan",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:decorated_pot",
+      "color": "#7a3327"
+    },
+    {
+      "id": "minecraft:deepslate",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_brick_slab",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_brick_stairs",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_brick_wall",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_bricks",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_coal_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_copper_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_diamond_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_emerald_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_gold_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_iron_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_lapis_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_redstone_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_tile_slab",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_tile_stairs",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_tile_wall",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:deepslate_tiles",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:detector_rail",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:diamond_block",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:diamond_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:diorite",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:diorite_slab",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:diorite_stairs",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:diorite_wall",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:dirt",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:dirt_path",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:dispenser",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:dragon_egg",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:dragon_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:dragon_wall_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:dried_ghast",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:dried_kelp_block",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:dripstone_block",
+      "color": "#412b1e"
+    },
+    {
+      "id": "minecraft:dropper",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:emerald_block",
+      "color": "#00bb32"
+    },
+    {
+      "id": "minecraft:emerald_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:enchanting_table",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:end_gateway",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:end_portal",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:end_portal_frame",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:end_rod",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:end_stone",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:end_stone_brick_slab",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:end_stone_brick_stairs",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:end_stone_brick_wall",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:end_stone_bricks",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:ender_chest",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:exposed_chiseled_copper",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_copper",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:exposed_copper_bulb",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:exposed_copper_chest",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_copper_door",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_copper_golem_statue",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_copper_grate",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:exposed_copper_trapdoor",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_cut_copper",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_cut_copper_slab",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_cut_copper_stairs",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:exposed_lightning_rod",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:farmland",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:fern",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:fire",
+      "color": "#dc0000"
+    },
+    {
+      "id": "minecraft:fire_coral",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:fire_coral_block",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:fire_coral_fan",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:fire_coral_wall_fan",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:firefly_bush",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:fletching_table",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:flower_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:flowering_azalea",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:flowering_azalea_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:frogspawn",
+      "color": "#3737dc"
+    },
+    {
+      "id": "minecraft:frosted_ice",
+      "color": "#8a8adc"
+    },
+    {
+      "id": "minecraft:furnace",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:gilded_blackstone",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:glass",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:glow_lichen",
+      "color": "#6d9081"
+    },
+    {
+      "id": "minecraft:glowstone",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:gold_block",
+      "color": "#d7cd42"
+    },
+    {
+      "id": "minecraft:gold_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:golden_dandelion",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:granite",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:granite_slab",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:granite_stairs",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:granite_wall",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:grass_block",
+      "color": "#6d9930"
+    },
+    {
+      "id": "minecraft:gravel",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:gray_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:gray_bed",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_candle",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:gray_carpet",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_concrete",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_concrete_powder",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_glazed_terracotta",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_shulker_box",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_stained_glass",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:gray_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:gray_terracotta",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:gray_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:gray_wool",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:green_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:green_bed",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_candle",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:green_carpet",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_concrete",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_concrete_powder",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_glazed_terracotta",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_shulker_box",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_stained_glass",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:green_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:green_terracotta",
+      "color": "#414624"
+    },
+    {
+      "id": "minecraft:green_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:green_wool",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:grindstone",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:hanging_roots",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:hay_block",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:heavy_core",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:heavy_weighted_pressure_plate",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:honey_block",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:honeycomb_block",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:hopper",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:horn_coral",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:horn_coral_block",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:horn_coral_fan",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:horn_coral_wall_fan",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:ice",
+      "color": "#8a8adc"
+    },
+    {
+      "id": "minecraft:infested_chiseled_stone_bricks",
+      "color": "#8d909e"
+    },
+    {
+      "id": "minecraft:infested_cobblestone",
+      "color": "#8d909e"
+    },
+    {
+      "id": "minecraft:infested_cracked_stone_bricks",
+      "color": "#8d909e"
+    },
+    {
+      "id": "minecraft:infested_deepslate",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:infested_mossy_stone_bricks",
+      "color": "#8d909e"
+    },
+    {
+      "id": "minecraft:infested_stone",
+      "color": "#8d909e"
+    },
+    {
+      "id": "minecraft:infested_stone_bricks",
+      "color": "#8d909e"
+    },
+    {
+      "id": "minecraft:iron_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:iron_block",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:iron_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:iron_door",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:iron_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:iron_trapdoor",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:jack_o_lantern",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:jigsaw",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:jukebox",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:jungle_door",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_fence",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_fence_gate",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_hanging_sign",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:jungle_log",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_planks",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_pressure_plate",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:jungle_shelf",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_sign",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_slab",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_stairs",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_trapdoor",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_wall_hanging_sign",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_wall_sign",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:jungle_wood",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:kelp",
+      "color": "#3737dc"
+    },
+    {
+      "id": "minecraft:kelp_plant",
+      "color": "#3737dc"
+    },
+    {
+      "id": "minecraft:ladder",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:lapis_block",
+      "color": "#3f6edc"
+    },
+    {
+      "id": "minecraft:lapis_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:large_amethyst_bud",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:large_fern",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:lava",
+      "color": "#dc0000"
+    },
+    {
+      "id": "minecraft:lava_cauldron",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:leaf_litter",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:lectern",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:lever",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:light",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:light_blue_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:light_blue_bed",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_candle",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:light_blue_carpet",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_concrete",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_concrete_powder",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_glazed_terracotta",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_shulker_box",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_stained_glass",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_blue_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:light_blue_terracotta",
+      "color": "#605d77"
+    },
+    {
+      "id": "minecraft:light_blue_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:light_blue_wool",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:light_gray_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:light_gray_bed",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_candle",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:light_gray_carpet",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_concrete",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_concrete_powder",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_glazed_terracotta",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_shulker_box",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_stained_glass",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_gray_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:light_gray_terracotta",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:light_gray_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:light_gray_wool",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:light_weighted_pressure_plate",
+      "color": "#d7cd42"
+    },
+    {
+      "id": "minecraft:lightning_rod",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:lilac",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:lily_of_the_valley",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:lily_pad",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:lime_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:lime_bed",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_candle",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:lime_carpet",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_concrete",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_concrete_powder",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_glazed_terracotta",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_shulker_box",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_stained_glass",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lime_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:lime_terracotta",
+      "color": "#58642d"
+    },
+    {
+      "id": "minecraft:lime_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:lime_wool",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:lodestone",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:loom",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:magenta_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:magenta_bed",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_candle",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:magenta_carpet",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_concrete",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_concrete_powder",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_glazed_terracotta",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_shulker_box",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_stained_glass",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magenta_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:magenta_terracotta",
+      "color": "#804b5d"
+    },
+    {
+      "id": "minecraft:magenta_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:magenta_wool",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:magma_block",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:mangrove_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:mangrove_door",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_fence",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_fence_gate",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_hanging_sign",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:mangrove_log",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_planks",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_pressure_plate",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_propagule",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:mangrove_roots",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:mangrove_shelf",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_sign",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_slab",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_stairs",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_trapdoor",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_wall_hanging_sign",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_wall_sign",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:mangrove_wood",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:medium_amethyst_bud",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:melon",
+      "color": "#6db015"
+    },
+    {
+      "id": "minecraft:melon_stem",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:moss_block",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:moss_carpet",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:mossy_cobblestone",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mossy_cobblestone_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mossy_cobblestone_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mossy_cobblestone_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mossy_stone_brick_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mossy_stone_brick_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mossy_stone_brick_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mossy_stone_bricks",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:moving_piston",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:mud",
+      "color": "#4b4f4f"
+    },
+    {
+      "id": "minecraft:mud_brick_slab",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:mud_brick_stairs",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:mud_brick_wall",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:mud_bricks",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:muddy_mangrove_roots",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:mushroom_stem",
+      "color": "#ababab"
+    },
+    {
+      "id": "minecraft:mycelium",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:nether_brick_fence",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:nether_brick_slab",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:nether_brick_stairs",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:nether_brick_wall",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:nether_bricks",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:nether_gold_ore",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:nether_portal",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:nether_quartz_ore",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:nether_sprouts",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:nether_wart",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:nether_wart_block",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:netherite_block",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:netherrack",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:note_block",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:oak_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_hanging_sign",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:oak_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:oak_shelf",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_sign",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_wall_hanging_sign",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_wall_sign",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:oak_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:observer",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:obsidian",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:ochre_froglight",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:open_eyeblossom",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:orange_bed",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_candle",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:orange_carpet",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_concrete",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_concrete_powder",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_glazed_terracotta",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_shulker_box",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_stained_glass",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:orange_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:orange_terracotta",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:orange_tulip",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:orange_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:orange_wool",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:oxeye_daisy",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:oxidized_chiseled_copper",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_copper",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:oxidized_copper_bulb",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:oxidized_copper_chest",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_copper_door",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_copper_golem_statue",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_copper_grate",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:oxidized_copper_trapdoor",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_cut_copper",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_cut_copper_slab",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_cut_copper_stairs",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:oxidized_lightning_rod",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:packed_ice",
+      "color": "#8a8adc"
+    },
+    {
+      "id": "minecraft:packed_mud",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:pale_hanging_moss",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:pale_moss_block",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:pale_moss_carpet",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:pale_oak_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:pale_oak_door",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_fence",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_fence_gate",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_hanging_sign",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_leaves",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:pale_oak_log",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_planks",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_pressure_plate",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_sapling",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:pale_oak_shelf",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_sign",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_slab",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_stairs",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_trapdoor",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_wall_hanging_sign",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_wall_sign",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:pale_oak_wood",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:pearlescent_froglight",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:peony",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:petrified_oak_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:piglin_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:piglin_wall_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:pink_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:pink_bed",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_candle",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:pink_carpet",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_concrete",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_concrete_powder",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_glazed_terracotta",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_petals",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:pink_shulker_box",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_stained_glass",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:pink_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:pink_terracotta",
+      "color": "#8a4243"
+    },
+    {
+      "id": "minecraft:pink_tulip",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:pink_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:pink_wool",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "minecraft:piston",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:piston_head",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:pitcher_crop",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:pitcher_plant",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:player_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:player_wall_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:podzol",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:pointed_dripstone",
+      "color": "#412b1e"
+    },
+    {
+      "id": "minecraft:polished_andesite",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:polished_andesite_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:polished_andesite_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:polished_basalt",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_brick_slab",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_brick_stairs",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_brick_wall",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_bricks",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:polished_blackstone_pressure_plate",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_slab",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_stairs",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_blackstone_wall",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:polished_deepslate",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:polished_deepslate_slab",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:polished_deepslate_stairs",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:polished_deepslate_wall",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:polished_diorite",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:polished_diorite_slab",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:polished_diorite_stairs",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:polished_granite",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:polished_granite_slab",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:polished_granite_stairs",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:polished_tuff",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:polished_tuff_slab",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:polished_tuff_stairs",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:polished_tuff_wall",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:poppy",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:potatoes",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:potted_acacia_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_allium",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_azalea_bush",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_azure_bluet",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_bamboo",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_birch_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_blue_orchid",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_brown_mushroom",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_cactus",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_cherry_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_closed_eyeblossom",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_cornflower",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_crimson_fungus",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_crimson_roots",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_dandelion",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_dark_oak_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_dead_bush",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_fern",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_flowering_azalea_bush",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_golden_dandelion",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_jungle_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_lily_of_the_valley",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_mangrove_propagule",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_oak_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_open_eyeblossom",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_orange_tulip",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_oxeye_daisy",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_pale_oak_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_pink_tulip",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_poppy",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_red_mushroom",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_red_tulip",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_spruce_sapling",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_torchflower",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_warped_fungus",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_warped_roots",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_white_tulip",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:potted_wither_rose",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:powder_snow",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:powder_snow_cauldron",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:powered_rail",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:prismarine",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:prismarine_brick_slab",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:prismarine_brick_stairs",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:prismarine_bricks",
+      "color": "#4fbcb7"
+    },
+    {
+      "id": "minecraft:prismarine_slab",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:prismarine_stairs",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:prismarine_wall",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:pumpkin",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:pumpkin_stem",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:purple_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:purple_bed",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purple_candle",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purple_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:purple_carpet",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purple_concrete",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purple_concrete_powder",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purple_glazed_terracotta",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purple_shulker_box",
+      "color": "#693e4b"
+    },
+    {
+      "id": "minecraft:purple_stained_glass",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purple_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:purple_terracotta",
+      "color": "#693e4b"
+    },
+    {
+      "id": "minecraft:purple_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:purple_wool",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:purpur_block",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:purpur_pillar",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:purpur_slab",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:purpur_stairs",
+      "color": "#9941ba"
+    },
+    {
+      "id": "minecraft:quartz_block",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:quartz_bricks",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:quartz_pillar",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:quartz_slab",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:quartz_stairs",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:rail",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:raw_copper_block",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:raw_gold_block",
+      "color": "#d7cd42"
+    },
+    {
+      "id": "minecraft:raw_iron_block",
+      "color": "#ba967e"
+    },
+    {
+      "id": "minecraft:red_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:red_bed",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_candle",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:red_carpet",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_concrete",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_concrete_powder",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_glazed_terracotta",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_mushroom",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_mushroom_block",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_nether_brick_slab",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:red_nether_brick_stairs",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:red_nether_brick_wall",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:red_nether_bricks",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:red_sand",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:red_sandstone",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:red_sandstone_slab",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:red_sandstone_stairs",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:red_sandstone_wall",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:red_shulker_box",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_stained_glass",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:red_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:red_terracotta",
+      "color": "#7a3327"
+    },
+    {
+      "id": "minecraft:red_tulip",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:red_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:red_wool",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:redstone_block",
+      "color": "#dc0000"
+    },
+    {
+      "id": "minecraft:redstone_lamp",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:redstone_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:redstone_torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:redstone_wall_torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:redstone_wire",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:reinforced_deepslate",
+      "color": "#565656"
+    },
+    {
+      "id": "minecraft:repeater",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:repeating_command_block",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:resin_block",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:resin_brick_slab",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:resin_brick_stairs",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:resin_brick_wall",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:resin_bricks",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:resin_clump",
+      "color": "#89461f"
+    },
+    {
+      "id": "minecraft:respawn_anchor",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:rooted_dirt",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:rose_bush",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:sand",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:sandstone",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:sandstone_slab",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:sandstone_stairs",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:sandstone_wall",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:scaffolding",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:sculk",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:sculk_catalyst",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:sculk_sensor",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:sculk_shrieker",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:sculk_vein",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:sea_lantern",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:sea_pickle",
+      "color": "#586d2c"
+    },
+    {
+      "id": "minecraft:seagrass",
+      "color": "#3737dc"
+    },
+    {
+      "id": "minecraft:short_dry_grass",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:short_grass",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:shroomlight",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:shulker_box",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:skeleton_skull",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:skeleton_wall_skull",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:slime_block",
+      "color": "#6d9930"
+    },
+    {
+      "id": "minecraft:small_amethyst_bud",
+      "color": "#6d3699"
+    },
+    {
+      "id": "minecraft:small_dripleaf",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:smithing_table",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:smoker",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:smooth_basalt",
+      "color": "#151515"
+    },
+    {
+      "id": "minecraft:smooth_quartz",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:smooth_quartz_slab",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:smooth_quartz_stairs",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:smooth_red_sandstone",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:smooth_red_sandstone_slab",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:smooth_red_sandstone_stairs",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:smooth_sandstone",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:smooth_sandstone_slab",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:smooth_sandstone_stairs",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:smooth_stone",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:smooth_stone_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:sniffer_egg",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:snow",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:snow_block",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:soul_campfire",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:soul_fire",
+      "color": "#5884ba"
+    },
+    {
+      "id": "minecraft:soul_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:soul_sand",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:soul_soil",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:soul_torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:soul_wall_torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:spawner",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:sponge",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:spore_blossom",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:spruce_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:spruce_door",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_fence",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_fence_gate",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_hanging_sign",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:spruce_log",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_planks",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_pressure_plate",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:spruce_shelf",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_sign",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_slab",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_stairs",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_trapdoor",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_wall_hanging_sign",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:spruce_wall_sign",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:spruce_wood",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:sticky_piston",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone_brick_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone_brick_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone_brick_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone_bricks",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:stone_pressure_plate",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stone_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stonecutter",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:stripped_acacia_log",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:stripped_acacia_wood",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:stripped_bamboo_block",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:stripped_birch_log",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:stripped_birch_wood",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:stripped_cherry_log",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:stripped_cherry_wood",
+      "color": "#8a4243"
+    },
+    {
+      "id": "minecraft:stripped_crimson_hyphae",
+      "color": "#4f1519"
+    },
+    {
+      "id": "minecraft:stripped_crimson_stem",
+      "color": "#7f3653"
+    },
+    {
+      "id": "minecraft:stripped_dark_oak_log",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:stripped_dark_oak_wood",
+      "color": "#58412c"
+    },
+    {
+      "id": "minecraft:stripped_jungle_log",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:stripped_jungle_wood",
+      "color": "#825e42"
+    },
+    {
+      "id": "minecraft:stripped_mangrove_log",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:stripped_mangrove_wood",
+      "color": "#842c2c"
+    },
+    {
+      "id": "minecraft:stripped_oak_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:stripped_oak_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:stripped_pale_oak_log",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:stripped_pale_oak_wood",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:stripped_spruce_log",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:stripped_spruce_wood",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "minecraft:stripped_warped_hyphae",
+      "color": "#4a2535"
+    },
+    {
+      "id": "minecraft:stripped_warped_stem",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:structure_block",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:structure_void",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:sugar_cane",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:sunflower",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:suspicious_gravel",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:suspicious_sand",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:sweet_berry_bush",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:tall_dry_grass",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:tall_grass",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:tall_seagrass",
+      "color": "#3737dc"
+    },
+    {
+      "id": "minecraft:target",
+      "color": "#dcd9d3"
+    },
+    {
+      "id": "minecraft:terracotta",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:test_block",
+      "color": "#848484"
+    },
+    {
+      "id": "minecraft:test_instance_block",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:tinted_glass",
+      "color": "#414141"
+    },
+    {
+      "id": "minecraft:tnt",
+      "color": "#dc0000"
+    },
+    {
+      "id": "minecraft:torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:torchflower",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:torchflower_crop",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:trapped_chest",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:trial_spawner",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:tripwire",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:tripwire_hook",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:tube_coral",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:tube_coral_block",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:tube_coral_fan",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:tube_coral_wall_fan",
+      "color": "#2c4199"
+    },
+    {
+      "id": "minecraft:tuff",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:tuff_brick_slab",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:tuff_brick_stairs",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:tuff_brick_wall",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:tuff_bricks",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:tuff_slab",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:tuff_stairs",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:tuff_wall",
+      "color": "#31231e"
+    },
+    {
+      "id": "minecraft:turtle_egg",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "minecraft:twisting_vines",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:twisting_vines_plant",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:vault",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:verdant_froglight",
+      "color": "#6d9081"
+    },
+    {
+      "id": "minecraft:vine",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:void_air",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:wall_torch",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:warped_button",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:warped_door",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_fence",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_fence_gate",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_fungus",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:warped_hanging_sign",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_hyphae",
+      "color": "#4a2535"
+    },
+    {
+      "id": "minecraft:warped_nylium",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:warped_planks",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_pressure_plate",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_roots",
+      "color": "#416d84"
+    },
+    {
+      "id": "minecraft:warped_shelf",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_sign",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_slab",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_stairs",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_stem",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_trapdoor",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_wall_hanging_sign",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_wall_sign",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:warped_wart_block",
+      "color": "#119b72"
+    },
+    {
+      "id": "minecraft:water",
+      "color": "#3737dc"
+    },
+    {
+      "id": "minecraft:water_cauldron",
+      "color": "#606060"
+    },
+    {
+      "id": "minecraft:waxed_chiseled_copper",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_copper_block",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_copper_bulb",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_copper_chest",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_copper_door",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_copper_golem_statue",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_copper_grate",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:waxed_copper_trapdoor",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_cut_copper",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_cut_copper_slab",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_cut_copper_stairs",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_exposed_chiseled_copper",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_bulb",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_chest",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_door",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_golem_statue",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_grate",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:waxed_exposed_copper_trapdoor",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_cut_copper",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_cut_copper_slab",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_cut_copper_stairs",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_exposed_lightning_rod",
+      "color": "#745c54"
+    },
+    {
+      "id": "minecraft:waxed_lightning_rod",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_chiseled_copper",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_bulb",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_chest",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_door",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_golem_statue",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_grate",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_copper_trapdoor",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_cut_copper",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_cut_copper_slab",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_cut_copper_stairs",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_oxidized_lightning_rod",
+      "color": "#126c73"
+    },
+    {
+      "id": "minecraft:waxed_weathered_chiseled_copper",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_bulb",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_chest",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_door",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_golem_statue",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_grate",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:waxed_weathered_copper_trapdoor",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_cut_copper",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_cut_copper_slab",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_cut_copper_stairs",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:waxed_weathered_lightning_rod",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_chiseled_copper",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_copper",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_copper_bars",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:weathered_copper_bulb",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_copper_chain",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:weathered_copper_chest",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_copper_door",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_copper_golem_statue",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_copper_grate",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_copper_lantern",
+      "color": "#909090"
+    },
+    {
+      "id": "minecraft:weathered_copper_trapdoor",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_cut_copper",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_cut_copper_slab",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_cut_copper_stairs",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weathered_lightning_rod",
+      "color": "#327a78"
+    },
+    {
+      "id": "minecraft:weeping_vines",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:weeping_vines_plant",
+      "color": "#600100"
+    },
+    {
+      "id": "minecraft:wet_sponge",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:wheat",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:white_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:white_bed",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:white_candle",
+      "color": "#ababab"
+    },
+    {
+      "id": "minecraft:white_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:white_carpet",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:white_concrete",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:white_concrete_powder",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:white_glazed_terracotta",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:white_shulker_box",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:white_stained_glass",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:white_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:white_terracotta",
+      "color": "#b4988a"
+    },
+    {
+      "id": "minecraft:white_tulip",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:white_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:white_wool",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "minecraft:wildflowers",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:wither_rose",
+      "color": "#006a00"
+    },
+    {
+      "id": "minecraft:wither_skeleton_skull",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:wither_skeleton_wall_skull",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:yellow_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:yellow_bed",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_candle",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_candle_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:yellow_carpet",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_concrete",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_concrete_powder",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_glazed_terracotta",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_shulker_box",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_stained_glass",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:yellow_stained_glass_pane",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:yellow_terracotta",
+      "color": "#a0721f"
+    },
+    {
+      "id": "minecraft:yellow_wall_banner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "minecraft:yellow_wool",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "minecraft:zombie_head",
+      "color": "#000000"
+    },
+    {
+      "id": "minecraft:zombie_wall_head",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:andon",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:anti_collision_barrel",
+      "color": "#909090"
+    },
+    {
+      "id": "reverie_dreams:bamboo_debris",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:bamboo_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:bamboo_leaf_bush",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:bamboo_leaf_cluster",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:bamboo_leaf_litter",
+      "color": "#58412c"
+    },
+    {
+      "id": "reverie_dreams:bell_rope",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:black_salt_block",
+      "color": "#d5c98c"
+    },
+    {
+      "id": "reverie_dreams:black_wool_slab",
+      "color": "#151515"
+    },
+    {
+      "id": "reverie_dreams:black_wool_stairs",
+      "color": "#151515"
+    },
+    {
+      "id": "reverie_dreams:black_zabuton",
+      "color": "#151515"
+    },
+    {
+      "id": "reverie_dreams:blessed_spiritual_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:blue_mushroom",
+      "color": "#2c4199"
+    },
+    {
+      "id": "reverie_dreams:blue_mushroom_block",
+      "color": "#2c4199"
+    },
+    {
+      "id": "reverie_dreams:blue_orb_block",
+      "color": "#00bb32"
+    },
+    {
+      "id": "reverie_dreams:blue_wool_slab",
+      "color": "#2c4199"
+    },
+    {
+      "id": "reverie_dreams:blue_wool_stairs",
+      "color": "#2c4199"
+    },
+    {
+      "id": "reverie_dreams:blue_zabuton",
+      "color": "#2c4199"
+    },
+    {
+      "id": "reverie_dreams:book_box",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:book_stack",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:brewing_barrel",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:broccoli",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:brown_wool_slab",
+      "color": "#58412c"
+    },
+    {
+      "id": "reverie_dreams:brown_wool_stairs",
+      "color": "#58412c"
+    },
+    {
+      "id": "reverie_dreams:brown_zabuton",
+      "color": "#58412c"
+    },
+    {
+      "id": "reverie_dreams:butsudan",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:byobu",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:cash_box",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:chabudai",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:chair",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:chess_board",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:chestnut_fruit_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:chestnut_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:chill",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:chochin",
+      "color": "#909090"
+    },
+    {
+      "id": "reverie_dreams:clover_patch",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:connected_counter",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:cooking_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cucumber",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/a_little_sweet_poison",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/all_meat_feast",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/arctic_sweet_shrimp_and_peach_salad",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/assorted_tempura",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/baked_crab_with_cream",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/baked_sweet_potatoes",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/bamboo_shoots_fried_meat",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/bamboo_shoots_stewed_in_stone_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/bamboo_steamed_egg",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/bamboo_tube_roasted_drunken_shrimp",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/bamboo_tube_steamed_pork",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/bear_paw",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/beef_hot_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/beef_rice",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/beef_wellington",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/beetle_steamed_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/biscay_biscuits",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/boiled_fish",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/braised_eel",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/braised_pork_with_peach",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/burnt_pudding",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/butter_steak",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/candied_chestnuts",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/candied_sweet_potato",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cat_food",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cat_kululi",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cat_pizza",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cats_playing_in_water",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cheese_egg",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cold_dish_carving",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cold_tofu",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/colorful_jade_fried_buns",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cooking_tofu",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/cream_stew",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/crisp_cyclone",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/dark_cuisine",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/deep_fried_cicada_shells",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/depressed_cheese_sticks",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/dew_boiled_eggs",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/dorayaki",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/dumpling",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/eel_egg_donburi",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/eggs_benedict",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/energy_string",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/failing_sakura_snow",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fantasy_is_all_the_rage",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fish_leaps_over_dragon_gate",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/flowers_birds_wind_and_moon",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/flowing_water_noodles",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fried_hagfish",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fried_pork_cutlet",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fried_pork_shreds",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fried_shrimp_tempura",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fried_tofu",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fried_tomato_strips",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/fright_adventure",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/game_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/gensokyo_buddha_jumps_over_the_wall",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/gensokyo_star_lotus_ship",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/giant_tamagoyaki",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/ginkgo_and_radish_pork_rib_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/gloomy_fruit_pie",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/glutinous_rice_balls",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/golden_crispy_fish_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/grand_banquet",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/green_bamboo_welcomes_spring",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/green_fairy_mushroom",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/grilled_hagfish",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/grilled_pork_rice_balls",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/heart_porridge_gruel",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/hell_thrill_warning",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/holy_white_lotus_seed_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/honey_bbq_pork",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/horai-dama_no_eda",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/hot_waffles",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/hula_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/lion_head",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/longyin_peach",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/looking_up_at_the_ceiling_fruit_pie",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/lotus_fish_rice_bowl",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/luohan_vegetarian",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/mad_hatter_tea_party",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/magma",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/maoyu_lava_tofu",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/maoyu_tricolor_ice_cream",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/mapo_tofu",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/milky_mushroom_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/mochi",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/molecular_egg",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/moon_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/moon_lovers",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/moonlight_dumplings",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/moonlight_over_lotus_pond",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/mushroom_girls_dance_stew",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/mushroom_meat_slices",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/nigiri_sushi",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/oedo_boat_festival",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/okonomiyaki",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/one_hit_kill",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/ordinary_small_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pan_fried_mushroom_meat_roll",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pan_fried_salmon",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/peach_blossom_glaze_roll",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/peach_blossom_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/phoenix",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pickled_cucumbers",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pig_deer_butterfly",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pine_nut_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pirate_bacon",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/plum_tea_rice",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/poetry_and_ginkgo",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/poisonous_garden",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pork_and_trout_smoked",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pork_rice",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/potato_croquettes",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pseudo_jiritama",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/pumpkin_shrimp_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/rapunzel",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/real_seafood_miso_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/red_bean_daifuku",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/refreshing_pudding",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/reversing_the_world",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/rice_ball",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/risotto",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/roasted_mushrooms",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/sakura_pudding",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/salmon_tempura",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/sashimi_platter",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/scarlet_devils_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/scones",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/screaming_oden",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/sea_urchin_sashimi",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/sea_urchin_shingen_pancake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/seafood_miso_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/secret_dried_fish",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/secret_mushroom_casserole",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/seven_colored_yokan",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/shiraga_sadamatsu",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/skinny_horse_dumpling",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/snow_white",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/steamed_egg_with_sea_urchin",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/stinky_tofu",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/strength_soup",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/superme_seafood_noodles",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/taichi_bagua_fish_maw",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/taketorihime",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/takoyaki",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/the_beauty_of_han_palace",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/the_dream",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/the_mars",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/the_source_of_life",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/tianshi_braised_chestnut_mushrooms",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/tofu_miso",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/tofu_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/tonkotsu_ramen",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/toon_pancakes",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/two_heavens_one_style",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/udumbara_cake",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/unconscious_monster_mousse",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/vegetable_special",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/warm_rice_ball",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/white_peach_eight_bridge",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/yunshan_cotton_candy",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cuisine/zhaji",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cupboard",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:cutting_board",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:cyan_wool_slab",
+      "color": "#416d84"
+    },
+    {
+      "id": "reverie_dreams:cyan_wool_stairs",
+      "color": "#416d84"
+    },
+    {
+      "id": "reverie_dreams:cyan_zabuton",
+      "color": "#416d84"
+    },
+    {
+      "id": "reverie_dreams:danmaku_crafting_table",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:deepslate_orb_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "reverie_dreams:deepslate_silver_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "reverie_dreams:dream_crystal_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:dream_stone",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:dream_stone_brick",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:dream_stone_brick_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:dream_stone_brick_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:dream_stone_brick_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:dream_stone_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:dream_stone_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:dream_stone_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:dream_world_blue_line_block",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:dream_world_red_line_block",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:ema_rack",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:engawa",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:extreme_cooking_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:extreme_cutting_board",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:extreme_frying_pan",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:extreme_grill",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:extreme_steamer",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:ficus_microcarpa",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:flower_vase",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:folded_futon",
+      "color": "#2c4199"
+    },
+    {
+      "id": "reverie_dreams:footstep_moss",
+      "color": "#586d2c"
+    },
+    {
+      "id": "reverie_dreams:frying_pan",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:fumizukue",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:fumo/alice",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/aya",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/blue_reimu",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/chen",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/cherries_shion",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/chimata",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/cirno",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/clownpiece",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/eiki",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/eirin",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/flan",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/flandre",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/hatate",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/joon",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/kaguya",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/kanmarisa",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/kasen",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/kogasa",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/koishi",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/kokoro",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/kosuzu",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/marisa",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/marisa_hat",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/mcky",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/meiling",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/melon",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/mokou",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/momiji",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/mystia",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/nazrin",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/new_reimu",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/nue",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/parsee",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/patchouli",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/pc98_marisa",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/ran",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/reimu",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/reisen",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/remilia",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/renko",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/rumia",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/sakuya",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/sanae",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/satori",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/seija",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/shion",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/shou",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/smart_cirno",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/suika",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/suwako",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/tan_cirno",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/tenshi",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/tewi",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/utsuho",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/wakasagihime",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/youmu",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/yukari",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/yuuka",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fumo/yuyuko",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:fusuma_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:futon",
+      "color": "#2c4199"
+    },
+    {
+      "id": "reverie_dreams:garden_sunflower",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_altar",
+      "color": "#842c2c"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_birch_forest_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_cherry_grove_sapling",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_dark_forest_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_forest_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_jungle_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_magic_forest_sapling",
+      "color": "#909090"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_maple_forest_sapling",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:gensokyo_taiga_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_button",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_fruit_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ginkgo_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:go_board",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:gohei",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:grape",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:gray_wool_slab",
+      "color": "#414141"
+    },
+    {
+      "id": "reverie_dreams:gray_wool_stairs",
+      "color": "#414141"
+    },
+    {
+      "id": "reverie_dreams:gray_zabuton",
+      "color": "#414141"
+    },
+    {
+      "id": "reverie_dreams:green_orb_block",
+      "color": "#00bb32"
+    },
+    {
+      "id": "reverie_dreams:green_wool_slab",
+      "color": "#586d2c"
+    },
+    {
+      "id": "reverie_dreams:green_wool_stairs",
+      "color": "#586d2c"
+    },
+    {
+      "id": "reverie_dreams:green_zabuton",
+      "color": "#586d2c"
+    },
+    {
+      "id": "reverie_dreams:grill",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_button",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_leaf_litter",
+      "color": "#58412c"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:hauchiwa_maple_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:herb_drying_tray",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:hibachi",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "reverie_dreams:hokora",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:ice_making_machine",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:ice_scales_block",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:ice_scales_block_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ice_scales_block_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:ice_scales_block_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:incense_burner",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:ingredient_basket",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_button",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_leaf_litter",
+      "color": "#58412c"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:iroha_maple_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:irori",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_button",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_leaf_litter",
+      "color": "#58412c"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:itaya_maple_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:jizaikagi",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:jizo_statue",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:kakejiku",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:kamidana",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:kawara_tiles",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:kawara_tiles_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:kawara_tiles_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:komainu_a",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:komainu_un",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:kotatsu",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:large_bamboo",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:large_bamboo_shoot",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:lemon_button",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:lemon_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_fruit_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:lemon_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:lemon_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:lemon_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:lemon_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:light_blue_wool_slab",
+      "color": "#5884ba"
+    },
+    {
+      "id": "reverie_dreams:light_blue_wool_stairs",
+      "color": "#5884ba"
+    },
+    {
+      "id": "reverie_dreams:light_blue_zabuton",
+      "color": "#5884ba"
+    },
+    {
+      "id": "reverie_dreams:light_gray_wool_slab",
+      "color": "#848484"
+    },
+    {
+      "id": "reverie_dreams:light_gray_wool_stairs",
+      "color": "#848484"
+    },
+    {
+      "id": "reverie_dreams:light_gray_zabuton",
+      "color": "#848484"
+    },
+    {
+      "id": "reverie_dreams:lime_wool_slab",
+      "color": "#6db015"
+    },
+    {
+      "id": "reverie_dreams:lime_wool_stairs",
+      "color": "#6db015"
+    },
+    {
+      "id": "reverie_dreams:lime_zabuton",
+      "color": "#6db015"
+    },
+    {
+      "id": "reverie_dreams:magenta_wool_slab",
+      "color": "#9941ba"
+    },
+    {
+      "id": "reverie_dreams:magenta_wool_stairs",
+      "color": "#9941ba"
+    },
+    {
+      "id": "reverie_dreams:magenta_zabuton",
+      "color": "#9941ba"
+    },
+    {
+      "id": "reverie_dreams:magic_ice",
+      "color": "#8a8adc"
+    },
+    {
+      "id": "reverie_dreams:magic_mushroom_stem",
+      "color": "#ababab"
+    },
+    {
+      "id": "reverie_dreams:marisa_hat",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:medicine_cabinet",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:medicine_jar_rack",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:menu_book",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:merchandise_shelf",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:mirror_bridge",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:moon_diamond_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:moon_gold_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:moon_iron_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:moon_quartz_ore",
+      "color": "#600100"
+    },
+    {
+      "id": "reverie_dreams:moon_stone",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:moon_stone_brick",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:moon_stone_brick_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:moon_stone_brick_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:moon_stone_brick_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:moon_stone_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:moon_stone_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:moon_stone_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:mushiko_mado",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:music_block",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:mystia_bell",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:mystia_cooking_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:mystia_cutting_board",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:mystia_frying_pan",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:mystia_grill",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:mystia_steamer",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:noren_black",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:noren_brown",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:noren_green",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:noren_indigo",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:noren_red",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:noren_white",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:nuke_cooking_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:nuke_cutting_board",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:nuke_frying_pan",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:nuke_grill",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:nuke_steamer",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:ofuda_rack",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:omamori_cabinet",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:omikuji_rack",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:onion",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:orange_wool_slab",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "reverie_dreams:orange_wool_stairs",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "reverie_dreams:orange_zabuton",
+      "color": "#ba6d2c"
+    },
+    {
+      "id": "reverie_dreams:orb_ore",
+      "color": "#565656"
+    },
+    {
+      "id": "reverie_dreams:oshiire",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:paddy_field",
+      "color": "#825e42"
+    },
+    {
+      "id": "reverie_dreams:peach_button",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:peach_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_fruit_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:peach_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:peach_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:peach_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:peach_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:pine_fruit_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:pine_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:pink_wool_slab",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:pink_wool_stairs",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:pink_zabuton",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:plate",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:plum_fruit_leaves",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:plum_sapling",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:point_block",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:power_block",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:puff_yo_bush",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:purple_cherry_leaves",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:purple_cherry_petals",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:purple_cherry_sapling",
+      "color": "#d06d8e"
+    },
+    {
+      "id": "reverie_dreams:purple_mushroom",
+      "color": "#6d3699"
+    },
+    {
+      "id": "reverie_dreams:purple_mushroom_block",
+      "color": "#6d3699"
+    },
+    {
+      "id": "reverie_dreams:purple_orb_block",
+      "color": "#00bb32"
+    },
+    {
+      "id": "reverie_dreams:purple_wool_slab",
+      "color": "#6d3699"
+    },
+    {
+      "id": "reverie_dreams:purple_wool_stairs",
+      "color": "#6d3699"
+    },
+    {
+      "id": "reverie_dreams:purple_zabuton",
+      "color": "#6d3699"
+    },
+    {
+      "id": "reverie_dreams:rail_controller_block",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:raked_gravel",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:ranma",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:record_player",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:red_beans",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:red_orb_block",
+      "color": "#00bb32"
+    },
+    {
+      "id": "reverie_dreams:red_spider_lily",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:red_wool_slab",
+      "color": "#842c2c"
+    },
+    {
+      "id": "reverie_dreams:red_wool_stairs",
+      "color": "#842c2c"
+    },
+    {
+      "id": "reverie_dreams:red_zabuton",
+      "color": "#842c2c"
+    },
+    {
+      "id": "reverie_dreams:remote_client",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:remote_server",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:rice",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:saisen_bako",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:sake_cask_rack",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:sakura_byobu",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:scroll_rack",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:shikkui_block",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:shikkui_slab",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:shikkui_stairs",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:shikkui_wall",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:shimenawa",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:shoji_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:shoji_pane",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:shop_bench",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:short_sunflower",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:shrine_bell",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:signal_delayer",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:signal_rails",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:silver_block",
+      "color": "#909090"
+    },
+    {
+      "id": "reverie_dreams:silver_chest",
+      "color": "#909090"
+    },
+    {
+      "id": "reverie_dreams:silver_ore",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:soy_beans",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:speaker",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_button",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:spiritual_door",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_fence",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_fence_gate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_leaves",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:spiritual_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_planks",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_pressure_plate",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_sapling",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:spiritual_slab",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_stairs",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_trapdoor",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:spiritual_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_birch_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_cherry_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_dark_oak_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_hauchiwa_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_iroha_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_itaya_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_oak_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:splintered_spruce_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:steamer",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:stepping_stone",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:stone_lantern",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:stone_mill",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:strength_table",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_ginkgo_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_ginkgo_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_hauchiwa_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_hauchiwa_maple_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_iroha_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_iroha_maple_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_itaya_maple_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_itaya_maple_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_lemon_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_lemon_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_peach_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_peach_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_spiritual_log",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:stripped_spiritual_wood",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:sudare",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:super_cooking_pot",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:super_cutting_board",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:super_frying_pan",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:super_grill",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:super_steamer",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:suzuri",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:sweet_potato",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:table",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:taiko_bridge_approach",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:taiko_bridge_crown",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:taiko_bridge_rise",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:tansu",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:tatami",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:tatami_block",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:tatami_corner",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:tea_set",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:timber_white_wall",
+      "color": "#b4988a"
+    },
+    {
+      "id": "reverie_dreams:timber_white_wall_cross",
+      "color": "#b4988a"
+    },
+    {
+      "id": "reverie_dreams:timber_white_wall_horizontal",
+      "color": "#b4988a"
+    },
+    {
+      "id": "reverie_dreams:tomato",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:toon",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:tremella",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:tsukubai",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:udumbara_flower",
+      "color": "#006a00"
+    },
+    {
+      "id": "reverie_dreams:vermilion_railing",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:wheel_chair",
+      "color": "#151515"
+    },
+    {
+      "id": "reverie_dreams:white_radish",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:white_wool_slab",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:white_wool_stairs",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:white_zabuton",
+      "color": "#dcdcdc"
+    },
+    {
+      "id": "reverie_dreams:wind_chime",
+      "color": "#000000"
+    },
+    {
+      "id": "reverie_dreams:wooden_box",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:xiangqi_board",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:yagen",
+      "color": "#6f4a2a"
+    },
+    {
+      "id": "reverie_dreams:yellow_orb_block",
+      "color": "#00bb32"
+    },
+    {
+      "id": "reverie_dreams:yellow_wool_slab",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "reverie_dreams:yellow_wool_stairs",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "reverie_dreams:yellow_zabuton",
+      "color": "#c5c52c"
+    },
+    {
+      "id": "reverie_dreams:yotsume_gaki",
+      "color": "#7b663e"
+    },
+    {
+      "id": "reverie_dreams:yukimi_lantern",
+      "color": "#606060"
+    },
+    {
+      "id": "reverie_dreams:zabuton",
+      "color": "#dcdcdc"
+    }
+  ]
+}

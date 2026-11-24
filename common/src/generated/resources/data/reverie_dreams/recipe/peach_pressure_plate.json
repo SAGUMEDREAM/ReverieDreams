@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "reverie_dreams:peach_planks"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "reverie_dreams:peach_pressure_plate"
+  }
+}

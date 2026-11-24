@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.entity.ai.goal;
 
 import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
+import cc.thonly.reverie_dreams.entity.ai.TargetReachability;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,6 +15,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
+import cc.thonly.reverie_dreams.entity.variant.GensokyoFairyEntity;
+
 @Getter
 @Setter
 @ToString
@@ -25,6 +28,7 @@ public class DanmakuGoal extends Goal {
     @Nullable
     private LivingEntity attackTarget;
     private final DanmakuShooter launcher;
+    private final TargetReachability reachability;
 
     private final int minDelayTicks;
     private final int maxDelayTicks;
@@ -37,6 +41,7 @@ public class DanmakuGoal extends Goal {
     public DanmakuGoal(LivingEntity self, @Nullable DanmakuShooter launcher, int minDelayTicks, int maxDelayTicks) {
         this.self = self;
         this.mob = (Mob) self;
+        this.reachability = new TargetReachability(this.mob);
         this.launcher = launcher != null ? launcher : DEFAULT_MOB_DANMAKU_FIRE_LAUNCHER;
         this.minDelayTicks = minDelayTicks;
         this.maxDelayTicks = maxDelayTicks;
@@ -61,6 +66,9 @@ public class DanmakuGoal extends Goal {
                 return false;
             }
         }
+        if (!this.reachability.canEngage(livingEntity)) {
+            return false;
+        }
         this.attackTarget = livingEntity;
         return true;
     }
@@ -74,11 +82,14 @@ public class DanmakuGoal extends Goal {
     public void stop() {
         this.attackTarget = null;
         this.updateCountdownTicks = -1;
+        this.mob.getNavigation().stop();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.attackTarget != null && this.attackTarget.isAlive();
+        return this.attackTarget != null
+                && this.attackTarget.isAlive()
+                && this.reachability.canEngage(this.attackTarget);
     }
 
     @Override
@@ -107,18 +118,25 @@ public class DanmakuGoal extends Goal {
         this.mob.setXRot(pitchYaw[0]);
         this.mob.setYRot(pitchYaw[1]);
 
+        boolean hasLineOfSight = this.mob.getSensing().hasLineOfSight(this.attackTarget);
         double distanceSq = this.self.distanceToSqr(this.attackTarget);
-        if (distanceSq > 64.0) {
-            if (this.mob.getNavigation().isDone()) {
+        if (distanceSq > 64.0 || !hasLineOfSight) {
+            // 看不见目标时继续靠近；但只有确实有路时才尝试寻路
+            if (this.mob.getNavigation().isDone() && this.reachability.test(this.attackTarget)) {
                 this.mob.getNavigation().moveTo(this.attackTarget, 1.5);
             }
         } else {
             this.mob.getNavigation().stop();
         }
 
+        if (this.updateCountdownTicks == 6 && hasLineOfSight && this.self.level() instanceof ServerLevel) {
+            GensokyoFairyEntity.beginRangedAttack(this.self);
+        }
         if (--this.updateCountdownTicks <= 0) {
             Level world = this.self.level();
-            if (world instanceof ServerLevel serverWorld) {
+            // 看不见目标时不要隔墙开火；等移动/转向后再尝试
+            if (world instanceof ServerLevel serverWorld && hasLineOfSight) {
+                GensokyoFairyEntity.beginRangedAttack(this.self);
                 this.launcher.fire(this.self, this.attackTarget, serverWorld);
             }
             this.resetCooldown();

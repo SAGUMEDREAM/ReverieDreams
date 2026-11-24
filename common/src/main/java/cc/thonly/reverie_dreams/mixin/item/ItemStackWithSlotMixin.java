@@ -10,8 +10,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemStackWithSlot.class)
 public class ItemStackWithSlotMixin {
+    /**
+     * 容器/玩家背包读档时清理旧版本自动写入的冗余属性组件。
+     */
     @Inject(method = "<init>", at = @At("TAIL"))
-    public void reverie_dreams$byInitStack(int slot, ItemStack stack, CallbackInfo ci) {
-        ItemUtils.updateItemStackTag(stack);
+    public void reverie_dreams$normalizeStack(int slot, ItemStack stack, CallbackInfo ci) {
+        ItemUtils.normalizeItemStackTag(stack);
     }
 }

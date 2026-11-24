@@ -1,0 +1,149 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Reverie Dreams - uniform 1px UV and separated book layers",
+	"parent": "minecraft:block/block",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "reverie_dreams:block/restaurant_atlas",
+		"particle": "reverie_dreams:block/restaurant_atlas",
+		"status": "block/red_concrete"
+	},
+	"elements": [
+		{
+			"name": "wood_base",
+			"from": [2, 0, 3],
+			"to": [14, 2, 13],
+			"faces": {
+				"north": {"uv": [1, 1, 4, 1.5], "texture": "#0"},
+				"east": {"uv": [1, 1, 3.5, 1.5], "texture": "#0"},
+				"south": {"uv": [1, 1, 4, 1.5], "texture": "#0"},
+				"west": {"uv": [1, 1, 3.5, 1.5], "texture": "#0"},
+				"up": {"uv": [1, 1, 4, 3.5], "texture": "#0"},
+				"down": {"uv": [1, 1, 4, 3.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "left_post",
+			"from": [3, 2, 6],
+			"to": [5, 13, 10],
+			"faces": {
+				"north": {"uv": [1, 1, 3.75, 1.5], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [1, 1, 3.75, 2], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [1, 1, 3.75, 1.5], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [1, 1, 3.75, 2], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [1, 1, 1.5, 2], "texture": "#0"},
+				"down": {"uv": [1, 1, 1.5, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "right_post",
+			"from": [11, 2, 6],
+			"to": [13, 13, 10],
+			"faces": {
+				"north": {"uv": [1, 1, 3.75, 1.5], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [1, 1, 3.75, 2], "rotation": 90, "texture": "#0"},
+				"south": {"uv": [1, 1, 3.75, 1.5], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [1, 1, 3.75, 2], "rotation": 90, "texture": "#0"},
+				"up": {"uv": [1, 1, 1.5, 2], "texture": "#0"},
+				"down": {"uv": [1, 1, 1.5, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "cross_beam",
+			"from": [2, 13, 6],
+			"to": [14, 15, 10],
+			"faces": {
+				"north": {"uv": [1, 1, 4, 1.5], "texture": "#0"},
+				"east": {"uv": [1, 1, 2, 1.5], "texture": "#0"},
+				"south": {"uv": [1, 1, 4, 1.5], "texture": "#0"},
+				"west": {"uv": [1, 1, 2, 1.5], "texture": "#0"},
+				"up": {"uv": [1, 1, 4, 2], "texture": "#0"},
+				"down": {"uv": [1, 1, 4, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "bell_hanger",
+			"from": [7.5, 11, 7.5],
+			"to": [8.5, 13, 8.5],
+			"faces": {
+				"north": {"uv": [10, 1.25, 10.25, 1.75], "texture": "#0"},
+				"east": {"uv": [10, 1.25, 10.25, 1.75], "texture": "#0"},
+				"south": {"uv": [10, 1.25, 10.25, 1.75], "texture": "#0"},
+				"west": {"uv": [10, 1.25, 10.25, 1.75], "texture": "#0"},
+				"up": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"},
+				"down": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "bell_crown",
+			"from": [6.5, 10, 6.5],
+			"to": [9.5, 11, 9.5],
+			"faces": {
+				"north": {"uv": [10, 1.25, 10.75, 1.5], "texture": "#0"},
+				"east": {"uv": [10, 1.25, 10.75, 1.5], "texture": "#0"},
+				"south": {"uv": [10, 1.25, 10.75, 1.5], "texture": "#0"},
+				"west": {"uv": [10, 1.25, 10.75, 1.5], "texture": "#0"},
+				"up": {"uv": [10, 1.25, 10.75, 2], "texture": "#0"},
+				"down": {"uv": [10, 1.25, 10.75, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "bell_body",
+			"from": [5.5, 6, 5.5],
+			"to": [10.5, 10, 10.5],
+			"faces": {
+				"north": {"uv": [10, 1.25, 11.25, 2.25], "texture": "#0"},
+				"east": {"uv": [10, 1.25, 11.25, 2.25], "texture": "#0"},
+				"south": {"uv": [10, 1.25, 11.25, 2.25], "texture": "#0"},
+				"west": {"uv": [10, 1.25, 11.25, 2.25], "texture": "#0"},
+				"up": {"uv": [10, 1.25, 11.25, 2.5], "texture": "#0"},
+				"down": {"uv": [10, 1.25, 11.25, 2.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "bell_lip",
+			"from": [5, 5, 5],
+			"to": [11, 6, 11],
+			"faces": {
+				"north": {"uv": [10, 1.25, 11.5, 1.5], "texture": "#0"},
+				"east": {"uv": [10, 1.25, 11.5, 1.5], "texture": "#0"},
+				"south": {"uv": [10, 1.25, 11.5, 1.5], "texture": "#0"},
+				"west": {"uv": [10, 1.25, 11.5, 1.5], "texture": "#0"},
+				"up": {"uv": [10, 1.25, 11.5, 2.75], "texture": "#0"},
+				"down": {"uv": [10, 1.25, 11.5, 2.75], "texture": "#0"}
+			}
+		},
+		{
+			"name": "clapper",
+			"from": [7.5, 4, 7.5],
+			"to": [8.5, 5, 8.5],
+			"faces": {
+				"north": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"},
+				"east": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"},
+				"south": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"},
+				"west": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"},
+				"up": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"},
+				"down": {"uv": [10, 1.25, 10.25, 1.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "business_status",
+			"from": [4, 14, 5],
+			"to": [12, 15, 6],
+			"faces": {
+				"north": {"uv": [0, 0, 8, 1], "texture": "#status"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#status"},
+				"south": {"uv": [0, 0, 8, 1], "texture": "#status"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#status"},
+				"up": {"uv": [0, 0, 8, 1], "texture": "#status"},
+				"down": {"uv": [0, 0, 8, 1], "texture": "#status"}
+			}
+		}
+	],
+	"display": {
+		"gui": {
+			"rotation": [30, -135, 0],
+			"scale": [0.8, 0.8, 0.8]
+		}
+	}
+}

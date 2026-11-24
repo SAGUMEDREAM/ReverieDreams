@@ -4,6 +4,12 @@ import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.*;
 import cc.thonly.reverie_dreams.block.kitchen.*;
 import cc.thonly.reverie_dreams.block.props.*;
+import cc.thonly.reverie_dreams.block.decor.ZabutonBlock;
+import cc.thonly.reverie_dreams.block.decor.TatamiBlock;
+import cc.thonly.reverie_dreams.block.decor.ChabudaiBlock;
+import cc.thonly.reverie_dreams.block.decor.RecordPlayerBlock;
+import cc.thonly.reverie_dreams.block.decor.TeaSetBlock;
+import cc.thonly.reverie_dreams.block.decor.RakedGravelBlock;
 import cc.thonly.reverie_dreams.block.redstone.*;
 import cc.thonly.reverie_dreams.fabric.ReverieDreamsFabric;
 import cc.thonly.reverie_dreams.polymer.block.*;
@@ -15,6 +21,7 @@ import cc.thonly.reverie_dreams.block.cooking.AbstractKitchenwareBlock;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import eu.pb4.factorytools.api.block.model.SignModel;
 import eu.pb4.factorytools.api.block.model.generic.BlockStateModelManager;
+import eu.pb4.factorytools.api.block.model.generic.ShiftyBlockStateModel;
 import eu.pb4.polymer.blocks.api.BlockModelType;
 import eu.pb4.polymer.common.api.PolymerCommonUtils;
 import eu.pb4.polymer.core.api.block.PolymerBlock;
@@ -25,6 +32,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import cc.thonly.reverie_dreams.block.decor.BoardGameBlock;
+import cc.thonly.reverie_dreams.block.decor.living.FoldedFutonBlock;
+import cc.thonly.reverie_dreams.block.decor.living.FutonBlock;
+import cc.thonly.reverie_dreams.block.decor.living.HangingOrnamentBlock;
+import cc.thonly.reverie_dreams.block.decor.living.LivingStorageBlock;
+import cc.thonly.reverie_dreams.block.decor.living.TimberWhiteWallBlock;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopBridgeBlock;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopDecorBlock;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopKind;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopStationBlock;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopStorageBlock;
+import cc.thonly.reverie_dreams.block.restaurant.RestaurantBlock;
+import cc.thonly.reverie_dreams.polymer.block.BoardGameImpl;
+import eu.pb4.polymer.blocks.api.PolymerBlockResourceUtils;
 
 @Slf4j
 public class PolymerBlockHelper {
@@ -45,6 +66,10 @@ public class PolymerBlockHelper {
     }
 
     public static PolymerBlock requestBlockOverlay(Block block) {
+        if (block instanceof PaddyFieldBlock) {
+            return new RealSingleStatePolymerBlock(Blocks.FARMLAND.defaultBlockState()
+                    .setValue(FarmlandBlock.MOISTURE, FarmlandBlock.MAX_MOISTURE));
+        }
         Identifier id = BuiltInRegistries.BLOCK.getKey(block);
         BlockState defaultState = block.defaultBlockState();
 
@@ -57,10 +82,40 @@ public class PolymerBlockHelper {
         });
 
         return switch (block) {
+            case CuisineBlock ignored -> BaseFactoryBlock.SAPLING;
+            case RestaurantBlock restaurant -> new RestaurantImpl(restaurant);
             case RailControllerBlock ignored -> RailPolymerBlock.INSTANCE;
             case SignalRailBlock ignored -> RailPolymerBlock.INSTANCE;
             case SignalDelayerBlock ignored -> BaseFactoryBlock.BARRIER;
             case ChairBlock ignored -> BaseFactoryBlock.BARRIER;
+            case RecordPlayerBlock ignored -> BaseFactoryBlock.LOW_TABLE;
+            case ChabudaiBlock ignored -> new BoardGameImpl(true);
+            case BoardGameBlock ignored -> new BoardGameImpl(false);
+            case TeaSetBlock ignored -> BaseFactoryBlock.SAPLING;
+            case HangingOrnamentBlock ignored -> BaseFactoryBlock.SAPLING;
+            case FutonBlock ignored -> new BaseFactoryBlock(
+                    PolymerBlockResourceUtils.requestEmpty(BlockModelType.TRAPDOOR_BOTTOM),
+                    false, ShiftyBlockStateModel::longRange);
+            case FoldedFutonBlock ignored -> BaseFactoryBlock.LOW_TABLE;
+            case WorkshopStorageBlock furniture -> new WorkshopImpl(switch (furniture.kind()) {
+                case FUMIZUKUE, BOOK_BOX, INGREDIENT_BASKET -> BaseFactoryBlock.LOW_TABLE;
+                default -> BaseFactoryBlock.BARRIER;
+            });
+            case WorkshopStationBlock furniture -> new WorkshopImpl(furniture.kind().collision()?BaseFactoryBlock.BARRIER:BaseFactoryBlock.SAPLING);
+            case WorkshopBridgeBlock bridge -> bridge.kind()
+                    == WorkshopKind.TAIKO_BRIDGE_APPROACH
+                    ? BaseFactoryBlock.LOW_TABLE : BaseFactoryBlock.BARRIER;
+            case WorkshopDecorBlock furniture -> !furniture.kind().collision()
+                    ? BaseFactoryBlock.SAPLING : furniture.kind()==WorkshopKind.SHOP_BENCH
+                    ? BaseFactoryBlock.LOW_TABLE : BaseFactoryBlock.BARRIER;
+            case LivingStorageBlock ignored -> BaseFactoryBlock.BARRIER;
+            case TimberWhiteWallBlock ignored -> BaseFactoryBlock.BARRIER;
+            case TatamiBlock ignored -> defaultState.isCollisionShapeFullBlock(PolymerCommonUtils.getFakeLevel(), BlockPos.ZERO)
+                    ? BaseFactoryBlock.BARRIER : new StateCopyFactoryBlock(Blocks.YELLOW_CARPET, ShiftyBlockStateModel::longRange);
+            case RakedGravelBlock ignored -> {
+                var mapped = StatePolymerBlock.of(block, BlockModelType.FULL_BLOCK);
+                yield mapped != null ? mapped : BaseFactoryBlock.BARRIER;
+            }
             case TableBlock ignored -> BaseFactoryBlock.BARRIER;
             case BrewingBarrelBlock ignored -> BaseFactoryBlock.BARRIER;
             case CupboardBlock ignored -> BaseFactoryBlock.BARRIER;
@@ -72,8 +127,7 @@ public class PolymerBlockHelper {
             case AbstractCropBlock ignored -> new CropHolderImpl(ignored);
             case FruitLeavesBlock ignored -> new FruitLeavesImpl(ignored);
             case ModelBlock ignored -> new ModelFactoryImpl(ignored);
-            case MarisaHatBlock ignored -> new FumoImpl(ignored);
-            case BaseFumoBlock ignored -> new FumoImpl(ignored);
+            case BaseFumoBlock ignored -> FumoImpl.INSTANCE;
             case GensokyoAltarBlock ignored -> new GensokyoAltarImpl();
             case CashBoxBlock ignored -> new HorizontalFacingImpl(ignored);
             case AbstractKitchenwareBlock ignored -> new AbstractKitchenwareImpl(ignored);
@@ -96,6 +150,9 @@ public class PolymerBlockHelper {
             case FlowerPotBlock ignored -> new PottedPlantPolymerBlock(id);
             case IronBarsBlock ignored -> StateCopyFactoryBlock.PANE;
             case LanternBlock ignored -> StateCopyFactoryBlock.LANTERN;
+            case ZabutonBlock cushion -> new StateCopyFactoryBlock(
+                    BuiltInRegistries.BLOCK.getValue(Identifier.withDefaultNamespace(cushion.color().getName() + "_carpet")),
+                    ShiftyBlockStateModel::longRange);
             case HorizontalDirectionalBlock ignored -> BaseFactoryBlock.BARRIER;
             case CarpetBlock ignored -> StateCopyFactoryBlock.CARPET;
             case ChainBlock ignored -> StateCopyFactoryBlock.CHAIN;

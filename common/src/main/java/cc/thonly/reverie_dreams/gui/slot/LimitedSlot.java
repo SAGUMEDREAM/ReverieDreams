@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.gui.slot;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 public class LimitedSlot extends Slot {
 
@@ -23,7 +24,7 @@ public class LimitedSlot extends Slot {
 
     @Override
     public int getMaxStackSize(
-            net.minecraft.world.item.ItemStack stack
+            ItemStack stack
     ) {
         return this.maxStackSize;
     }

@@ -1,7 +1,7 @@
 {
 	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
-	"parent": "table",
+	"parent": "minecraft:block/block",
 	"textures": {
 		"0": "reverie_dreams:block/table_and_chair_set",
 		"particle": "reverie_dreams:block/table_and_chair_set"

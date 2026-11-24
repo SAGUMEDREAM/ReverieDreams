@@ -1,8 +1,5 @@
 package cc.thonly.reverie_dreams.api.player;
 
-import cc.thonly.reverie_dreams.server.player.PlayerComponent;
-import cc.thonly.reverie_dreams.server.player.PlayerComponentInitializer;
-
 @SuppressWarnings("rawtypes")
 @FunctionalInterface
 public interface PlayerComponentContextRegistry {

@@ -1,0 +1,8 @@
+{
+  "parent": "reverie_dreams:block/deadwood/split_2",
+  "textures": {
+    "side": "minecraft:block/cherry_log",
+    "top": "minecraft:block/cherry_log_top",
+    "split": "minecraft:block/stripped_cherry_log"
+  }
+}

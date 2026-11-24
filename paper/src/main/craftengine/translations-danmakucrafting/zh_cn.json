@@ -1,0 +1,17 @@
+{
+  "block.reverie_dreams.danmaku_crafting_table": "弹幕工作台",
+  "block.reverie_dreams.strength_table": "强化台",
+  "item.reverie_dreams.danmaku_core": "弹幕核心",
+  "item.reverie_dreams.danmaku_recipe_creator": "弹幕创作模板",
+  "item.reverie_dreams.spell_card_template": "符卡模板",
+  "item.reverie_dreams.speed_feather": "速度羽毛",
+  "item.action.click.shape_recipe.fail": "§c无效配方",
+  "item.action.click.shape_recipe.success": "§a成功",
+  "message.reverie_dreams.danmaku_creator.save": "应用形状",
+  "message.reverie_dreams.danmaku_creator.cancel": "取消",
+  "message.reverie_dreams.danmaku_creator.changed": "手中的绘图器已改变，请重新打开。",
+  "message.reverie_dreams.danmaku_table.inventory_full": "物品栏空间不足。",
+  "message.reverie_dreams.danmaku_table.no_recipe": "没有匹配配方。",
+  "message.reverie_dreams.danmaku_table.unsupported_output": "此结果尚未移植。",
+  "message.reverie_dreams.danmaku_table.unavailable": "当前无法使用此工作台。"
+}

@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.proxy;
 
-import cc.thonly.reverie_dreams.proxy.TenguCameraItemUse;
+import cc.thonly.reverie_dreams.api.proxy.TenguCameraItemUse;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;

@@ -1,7 +1,34 @@
 {
   "variants": {
-    "": {
+    "facing=east,occupied=false": {
+      "model": "reverie_dreams:block/speaker",
+      "y": 90
+    },
+    "facing=east,occupied=true": {
+      "model": "reverie_dreams:block/speaker_on",
+      "y": 90
+    },
+    "facing=north,occupied=false": {
       "model": "reverie_dreams:block/speaker"
+    },
+    "facing=north,occupied=true": {
+      "model": "reverie_dreams:block/speaker_on"
+    },
+    "facing=south,occupied=false": {
+      "model": "reverie_dreams:block/speaker",
+      "y": 180
+    },
+    "facing=south,occupied=true": {
+      "model": "reverie_dreams:block/speaker_on",
+      "y": 180
+    },
+    "facing=west,occupied=false": {
+      "model": "reverie_dreams:block/speaker",
+      "y": 270
+    },
+    "facing=west,occupied=true": {
+      "model": "reverie_dreams:block/speaker_on",
+      "y": 270
     }
   }
 }

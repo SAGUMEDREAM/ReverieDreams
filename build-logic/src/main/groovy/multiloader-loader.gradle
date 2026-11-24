@@ -24,13 +24,26 @@ dependencies {
 tasks.named('compileJava', JavaCompile) {
     dependsOn(configurations.commonJava)
     source(configurations.commonJava)
+    // Keep author tools out of the two physical-client loader JARs.
+    if (project.name in ['fabric', 'neoforge']) {
+        source({ rootProject.project(':pak-core').sourceSets.clientRuntime.allJava })
+    } else {
+        source(rootProject.file('pak/core/src/main/java'))
+    }
 }
+
+// Hand-authored resources are authoritative when datagen emits the same path.
+// Filter only the generated input; unrelated duplicate entries must still fail.
+def commonMainResources = project(':common').file('src/main/resources')
+def suppliedByCommonMain = { entry -> new File(commonMainResources, entry.path).isFile() }
 
 processResources {
     dependsOn(configurations.commonResources)
     dependsOn(configurations.commonGeneratedResources)
     from(configurations.commonResources)
-    from(configurations.commonGeneratedResources)
+    from(configurations.commonGeneratedResources) {
+        exclude(suppliedByCommonMain)
+    }
 }
 
 tasks.named('javadoc', Javadoc).configure {
@@ -39,10 +52,17 @@ tasks.named('javadoc', Javadoc).configure {
 }
 
 tasks.named("sourcesJar", Jar) {
+    if (project.name in ['fabric', 'neoforge']) {
+        from({ rootProject.project(':pak-core').sourceSets.clientRuntime.allJava })
+    } else {
+        from(rootProject.file('pak/core/src/main/java'))
+    }
     dependsOn(configurations.commonJava)
     from(configurations.commonJava)
     dependsOn(configurations.commonResources)
     from(configurations.commonResources)
     dependsOn(configurations.commonGeneratedResources)
-    from(configurations.commonGeneratedResources)
+    from(configurations.commonGeneratedResources) {
+        exclude(suppliedByCommonMain)
+    }
 }

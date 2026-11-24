@@ -204,8 +204,10 @@ public class NPCFindWaterGoal extends Goal {
 
     private static float approachAngle(float current, float target, float maxChange) {
         float delta = Mth.wrapDegrees(target - current);
-        if (delta > maxChange) delta = maxChange;
-        if (delta < -maxChange) delta = -maxChange;
+        if (delta > maxChange)
+            delta = maxChange;
+        if (delta < -maxChange)
+            delta = -maxChange;
         return current + delta;
     }
 

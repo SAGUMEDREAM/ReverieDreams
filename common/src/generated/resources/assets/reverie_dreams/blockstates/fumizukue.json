@@ -1,0 +1,94 @@
+{
+  "variants": {
+    "facing=north,open=false,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none"
+    },
+    "facing=north,open=false,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone"
+    },
+    "facing=north,open=false,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books"
+    },
+    "facing=north,open=true,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none_open"
+    },
+    "facing=north,open=true,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone_open"
+    },
+    "facing=north,open=true,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books_open"
+    },
+    "facing=east,open=false,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none",
+      "y": 90
+    },
+    "facing=east,open=false,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone",
+      "y": 90
+    },
+    "facing=east,open=false,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books",
+      "y": 90
+    },
+    "facing=east,open=true,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none_open",
+      "y": 90
+    },
+    "facing=east,open=true,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone_open",
+      "y": 90
+    },
+    "facing=east,open=true,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books_open",
+      "y": 90
+    },
+    "facing=south,open=false,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none",
+      "y": 180
+    },
+    "facing=south,open=false,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone",
+      "y": 180
+    },
+    "facing=south,open=false,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books",
+      "y": 180
+    },
+    "facing=south,open=true,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none_open",
+      "y": 180
+    },
+    "facing=south,open=true,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone_open",
+      "y": 180
+    },
+    "facing=south,open=true,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books_open",
+      "y": 180
+    },
+    "facing=west,open=false,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none",
+      "y": 270
+    },
+    "facing=west,open=false,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone",
+      "y": 270
+    },
+    "facing=west,open=false,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books",
+      "y": 270
+    },
+    "facing=west,open=true,accessory=none": {
+      "model": "reverie_dreams:block/set2/fumizukue_none_open",
+      "y": 270
+    },
+    "facing=west,open=true,accessory=inkstone": {
+      "model": "reverie_dreams:block/set2/fumizukue_inkstone_open",
+      "y": 270
+    },
+    "facing=west,open=true,accessory=books": {
+      "model": "reverie_dreams:block/set2/fumizukue_books_open",
+      "y": 270
+    }
+  }
+}

@@ -1,10 +1,10 @@
 package cc.thonly.reverie_dreams.gui.block;
 
 import cc.thonly.reverie_dreams.gui.container.InfiniteContainerGui;
+import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
+import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -25,9 +25,8 @@ public class CupboardGui extends InfiniteContainerGui {
 
     @Override
     public boolean canInsertItem(ItemStack itemStack) {
-        ItemUtils.updateItemStackTag(itemStack);
-        return itemStack.has(RDDataComponentTypes.FOOD_PROPERTIES.value())
-                || itemStack.has(RDDataComponentTypes.BEVERAGE_PROPERTIES.value())
+        return !FoodProperties.get(itemStack).isEmpty()
+                || !BeverageProperties.get(itemStack).isEmpty()
                 || itemStack.is(RDItemTags.FOOD)
                 || itemStack.is(RDItemTags.BEVERAGE)
                 || itemStack.is(RDItemTags.INGREDIENT)

@@ -1,12 +1,27 @@
-name: paper
+name: ReverieDreams
 description: $description
 version: '${version}'
 
 main: cc.thonly.reverie_dreams.paper.ReverieDreamsPlugin
-bootstrapper: cc.thonly.paper.ReverieDreamsBootstrap
-loader: cc.thonly.paper.ReverieDreamsLoader
+bootstrapper: cc.thonly.reverie_dreams.paper.ReverieDreamsBootstrap
+loader: cc.thonly.reverie_dreams.paper.ReverieDreamsLoader
 api-version: '26.1.2'
 load: POSTWORLD
 
 authors: [稀神灵梦]
 website: https://github.com/SAGUMEDREAM/ReverieDreams
+
+dependencies:
+  server:
+    BetterModel:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    ReverieDreamsWorld:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    CraftEngine:
+      load: BEFORE
+      required: true
+      join-classpath: true

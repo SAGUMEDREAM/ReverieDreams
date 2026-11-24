@@ -59,9 +59,9 @@ public class RDEnchantments {
                 Enchantment.enchantment(
                                 Enchantment.definition(
                                         itemLookup.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
-                                        10,
+                                        3,
                                         4,
-                                        Enchantment.dynamicCost(1, 10),
+                                        Enchantment.dynamicCost(8, 10),
                                         Enchantment.dynamicCost(21, 7),
                                         5,
                                         EquipmentSlotGroup.HAND
@@ -82,9 +82,9 @@ public class RDEnchantments {
                 Enchantment.enchantment(
                                 Enchantment.definition(
                                         itemLookup.getOrThrow(ItemTags.SHARP_WEAPON_ENCHANTABLE),
-                                        10,
+                                        2,
                                         3,
-                                        Enchantment.dynamicCost(1, 10),
+                                        Enchantment.dynamicCost(8, 10),
                                         Enchantment.dynamicCost(21, 15),
                                         5,
                                         EquipmentSlotGroup.HAND
@@ -97,10 +97,10 @@ public class RDEnchantments {
                 Enchantment.enchantment(
                                 Enchantment.definition(
                                         itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
-                                        10,
+                                        3,
                                         5,
-                                        Enchantment.dynamicCost(1, 10),
-                                        Enchantment.dynamicCost(1, 15),
+                                        Enchantment.dynamicCost(5, 10),
+                                        Enchantment.dynamicCost(15, 15),
                                         5,
                                         EquipmentSlotGroup.ARMOR
                                 )
@@ -132,7 +132,7 @@ public class RDEnchantments {
                 Enchantment.enchantment(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ItemTags.FIRE_ASPECT_ENCHANTABLE),
-                                10,
+                                2,
                                 3,
                                 Enchantment.dynamicCost(10, 20),
                                 Enchantment.dynamicCost(60, 20),
@@ -147,7 +147,7 @@ public class RDEnchantments {
                 Enchantment.enchantment(
                         Enchantment.definition(
                                 itemLookup.getOrThrow(ItemTags.SWORDS),
-                                6,
+                                2,
                                 2,
                                 Enchantment.dynamicCost(9, 21),
                                 Enchantment.dynamicCost(60, 20),

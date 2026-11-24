@@ -1,0 +1,4503 @@
+# CraftEngine26.8.2 native furniture; original Fumo models, collision-free targeting and server-selected sounds.
+items:
+  reverie_dreams:fumo/alice:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.alice>
+    model: reverie_dreams:block/fumo/alice
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/alice
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/alice
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/alice
+  reverie_dreams:fumo/aya:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.aya>
+    model: reverie_dreams:block/fumo/aya
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/aya
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/aya
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/aya
+  reverie_dreams:fumo/blue_reimu:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.blue_reimu>
+    model: reverie_dreams:block/fumo/blue_reimu
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/blue_reimu
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/blue_reimu
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/blue_reimu
+  reverie_dreams:fumo/chen:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.chen>
+    model: reverie_dreams:block/fumo/chen
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/chen
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/chen
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/chen
+  reverie_dreams:fumo/cherries_shion:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.cherries_shion>
+    model: reverie_dreams:block/fumo/cherries_shion
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/cherries_shion
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/cherries_shion
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/cherries_shion
+  reverie_dreams:fumo/chimata:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.chimata>
+    model: reverie_dreams:block/fumo/chimata
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/chimata
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/chimata
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/chimata
+  reverie_dreams:fumo/cirno:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.cirno>
+    model: reverie_dreams:block/fumo/cirno
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/cirno
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/cirno
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/cirno
+  reverie_dreams:fumo/clownpiece:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.clownpiece>
+    model: reverie_dreams:block/fumo/clownpiece
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/clownpiece
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/clownpiece
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/clownpiece
+  reverie_dreams:fumo/eiki:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.eiki>
+    model: reverie_dreams:block/fumo/eiki
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/eiki
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/eiki
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/eiki
+  reverie_dreams:fumo/eirin:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.eirin>
+    model: reverie_dreams:block/fumo/eirin
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/eirin
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/eirin
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/eirin
+  reverie_dreams:fumo/flan:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.flan>
+    model: reverie_dreams:block/fumo/flan
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/flan
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/flan
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/flan
+  reverie_dreams:fumo/flandre:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.flandre>
+    model: reverie_dreams:block/fumo/flandre
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/flandre
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/flandre
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/flandre
+  reverie_dreams:fumo/hatate:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.hatate>
+    model: reverie_dreams:block/fumo/hatate
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/hatate
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/hatate
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/hatate
+  reverie_dreams:fumo/joon:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.joon>
+    model: reverie_dreams:block/fumo/joon
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/joon
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/joon
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/joon
+  reverie_dreams:fumo/kaguya:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.kaguya>
+    model: reverie_dreams:block/fumo/kaguya
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/kaguya
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/kaguya
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/kaguya
+  reverie_dreams:fumo/kanmarisa:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.kanmarisa>
+    model: reverie_dreams:block/fumo/kanmarisa
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/kanmarisa
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/kanmarisa
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/kanmarisa
+  reverie_dreams:fumo/kasen:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.kasen>
+    model: reverie_dreams:block/fumo/kasen
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/kasen
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/kasen
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/kasen
+  reverie_dreams:fumo/kogasa:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.kogasa>
+    model: reverie_dreams:block/fumo/kogasa
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/kogasa
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/kogasa
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/kogasa
+  reverie_dreams:fumo/koishi:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.koishi>
+    model: reverie_dreams:block/fumo/koishi
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/koishi
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/koishi
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/koishi
+  reverie_dreams:fumo/kokoro:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.kokoro>
+    model: reverie_dreams:block/fumo/kokoro
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/kokoro
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/kokoro
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/kokoro
+  reverie_dreams:fumo/kosuzu:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.kosuzu>
+    model: reverie_dreams:block/fumo/kosuzu
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/kosuzu
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/kosuzu
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/kosuzu
+  reverie_dreams:fumo/marisa:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.marisa>
+    model: reverie_dreams:block/fumo/marisa
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/marisa
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/marisa
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/marisa
+  reverie_dreams:fumo/marisa_hat:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.marisa_hat>
+    model: reverie_dreams:block/fumo/marisa_hat
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/marisa_hat
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/marisa_hat
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/marisa_hat
+  reverie_dreams:fumo/mcky:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.mcky>
+    model: reverie_dreams:block/fumo/mcky
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/mcky
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/mcky
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/mcky
+  reverie_dreams:fumo/meiling:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.meiling>
+    model: reverie_dreams:block/fumo/meiling
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/meiling
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/meiling
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/meiling
+  reverie_dreams:fumo/melon:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.melon>
+    model: reverie_dreams:block/fumo/melon
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/melon
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/melon
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/melon
+  reverie_dreams:fumo/mokou:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.mokou>
+    model: reverie_dreams:block/fumo/mokou
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/mokou
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/mokou
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/mokou
+  reverie_dreams:fumo/momiji:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.momiji>
+    model: reverie_dreams:block/fumo/momiji
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/momiji
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/momiji
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/momiji
+  reverie_dreams:fumo/mystia:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.mystia>
+    model: reverie_dreams:block/fumo/mystia
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/mystia
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/mystia
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/mystia
+  reverie_dreams:fumo/nazrin:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.nazrin>
+    model: reverie_dreams:block/fumo/nazrin
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/nazrin
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/nazrin
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/nazrin
+  reverie_dreams:fumo/new_reimu:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.new_reimu>
+    model: reverie_dreams:block/fumo/new_reimu
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/new_reimu
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/new_reimu
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/new_reimu
+  reverie_dreams:fumo/nue:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.nue>
+    model: reverie_dreams:block/fumo/nue
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/nue
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/nue
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/nue
+  reverie_dreams:fumo/parsee:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.parsee>
+    model: reverie_dreams:block/fumo/parsee
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/parsee
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/parsee
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/parsee
+  reverie_dreams:fumo/patchouli:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.patchouli>
+    model: reverie_dreams:block/fumo/patchouli
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/patchouli
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/patchouli
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/patchouli
+  reverie_dreams:fumo/pc98_marisa:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.pc98_marisa>
+    model: reverie_dreams:block/fumo/pc98_marisa
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/pc98_marisa
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/pc98_marisa
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/pc98_marisa
+  reverie_dreams:fumo/ran:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.ran>
+    model: reverie_dreams:block/fumo/ran
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/ran
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/ran
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/ran
+  reverie_dreams:fumo/reimu:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.reimu>
+    model: reverie_dreams:block/fumo/reimu
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/reimu
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/reimu
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/reimu
+  reverie_dreams:fumo/reisen:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.reisen>
+    model: reverie_dreams:block/fumo/reisen
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/reisen
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/reisen
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/reisen
+  reverie_dreams:fumo/remilia:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.remilia>
+    model: reverie_dreams:block/fumo/remilia
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/remilia
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/remilia
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/remilia
+  reverie_dreams:fumo/renko:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.renko>
+    model: reverie_dreams:block/fumo/renko
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/renko
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/renko
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/renko
+  reverie_dreams:fumo/rumia:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.rumia>
+    model: reverie_dreams:block/fumo/rumia
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/rumia
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/rumia
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/rumia
+  reverie_dreams:fumo/sakuya:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.sakuya>
+    model: reverie_dreams:block/fumo/sakuya
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/sakuya
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/sakuya
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/sakuya
+  reverie_dreams:fumo/sanae:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.sanae>
+    model: reverie_dreams:block/fumo/sanae
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/sanae
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/sanae
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/sanae
+  reverie_dreams:fumo/satori:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.satori>
+    model: reverie_dreams:block/fumo/satori
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/satori
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/satori
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/satori
+  reverie_dreams:fumo/seija:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.seija>
+    model: reverie_dreams:block/fumo/seija
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/seija
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/seija
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/seija
+  reverie_dreams:fumo/shion:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.shion>
+    model: reverie_dreams:block/fumo/shion
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/shion
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/shion
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/shion
+  reverie_dreams:fumo/shou:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.shou>
+    model: reverie_dreams:block/fumo/shou
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/shou
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/shou
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/shou
+  reverie_dreams:fumo/smart_cirno:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.smart_cirno>
+    model: reverie_dreams:block/fumo/smart_cirno
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/smart_cirno
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/smart_cirno
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/smart_cirno
+  reverie_dreams:fumo/suika:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.suika>
+    model: reverie_dreams:block/fumo/suika
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/suika
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/suika
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/suika
+  reverie_dreams:fumo/suwako:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.suwako>
+    model: reverie_dreams:block/fumo/suwako
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/suwako
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/suwako
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/suwako
+  reverie_dreams:fumo/tan_cirno:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.tan_cirno>
+    model: reverie_dreams:block/fumo/tan_cirno
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/tan_cirno
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/tan_cirno
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/tan_cirno
+  reverie_dreams:fumo/tenshi:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.tenshi>
+    model: reverie_dreams:block/fumo/tenshi
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/tenshi
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/tenshi
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/tenshi
+  reverie_dreams:fumo/tewi:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.tewi>
+    model: reverie_dreams:block/fumo/tewi
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/tewi
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/tewi
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/tewi
+  reverie_dreams:fumo/utsuho:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.utsuho>
+    model: reverie_dreams:block/fumo/utsuho
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/utsuho
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/utsuho
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/utsuho
+  reverie_dreams:fumo/wakasagihime:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.wakasagihime>
+    model: reverie_dreams:block/fumo/wakasagihime
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/wakasagihime
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/wakasagihime
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/wakasagihime
+  reverie_dreams:fumo/youmu:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.youmu>
+    model: reverie_dreams:block/fumo/youmu
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/youmu
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/youmu
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/youmu
+  reverie_dreams:fumo/yukari:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.yukari>
+    model: reverie_dreams:block/fumo/yukari
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/yukari
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/yukari
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/yukari
+  reverie_dreams:fumo/yuuka:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.yuuka>
+    model: reverie_dreams:block/fumo/yuuka
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/yuuka
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/yuuka
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/yuuka
+  reverie_dreams:fumo/yuyuko:
+    material: paper
+    settings:
+      tags:
+      - reverie_dreams:fumo
+    data:
+      item_name: <!i><lang:block.reverie_dreams.fumo.yuyuko>
+    model: reverie_dreams:block/fumo/yuyuko
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          rotation: sixteen
+          alignment: center
+      furniture:
+        settings:
+          item: reverie_dreams:fumo/yuyuko
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place:
+              id: minecraft:block.wool.place
+              volume: 0.5
+              pitch: 1
+            hit: minecraft:block.wool.hit
+        events:
+        - 'on': right_click
+          functions:
+          - type: if_else
+            rules:
+            - conditions:
+              - type: random
+                value: 0.3333333333333333
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/0
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - conditions:
+              - type: random
+                value: 0.5
+              functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/1
+                source: BLOCK
+                volume: 1
+                pitch: 1
+            - functions:
+              - type: play_sound
+                sound: reverie_dreams:fumo/2
+                source: BLOCK
+                volume: 1
+                pitch: 1
+          - type: update_interaction_tick
+          - type: cancel_event
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:fumo/yuyuko
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              invisible: true
+              width: 0.625
+              height: 0.625
+              interactive: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:fumo/yuyuko
+sounds:
+  reverie_dreams:fumo/0:
+    subtitle: sound.reverie_dreams.fumo/0
+    sounds:
+    - reverie_dreams:fumo/0
+  reverie_dreams:fumo/1:
+    subtitle: sound.reverie_dreams.fumo/1
+    sounds:
+    - reverie_dreams:fumo/1
+  reverie_dreams:fumo/2:
+    subtitle: sound.reverie_dreams.fumo/2
+    sounds:
+    - reverie_dreams:fumo/2
+  reverie_dreams:fumo/3:
+    subtitle: sound.reverie_dreams.fumo/3
+    sounds:
+    - reverie_dreams:fumo/3

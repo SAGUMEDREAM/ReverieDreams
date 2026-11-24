@@ -1,90 +1,151 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.AnimalEntityActionController;
-import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.entity.ai.work.AnimalFeeding;
+import cc.thonly.reverie_dreams.entity.ai.work.ScheduledWorkGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.mixin.accessor.AnimalAccessor;
-import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import lombok.Getter;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.target.TargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumSet;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-@Getter
-public class NPCBreedGoal extends TargetGoal {
-    private final BaseNPCLikeEntity maid;
-    private final TargetingConditions targetPredicate = TargetingConditions.forCombat().range(16).selector((e, w) -> {
-        return !e.hasCustomName();
-    });
-    @Nullable
-    private Runnable task;
-    private Animal targetEntity;
+import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
+import cc.thonly.reverie_dreams.entity.npc.work.NPCProduction;
 
-    public NPCBreedGoal(BaseNPCLikeEntity maid) {
-        super(maid, false);
-        this.maid = maid;
-        this.setFlags(EnumSet.of(Flag.TARGET));
+public class NPCBreedGoal extends ScheduledWorkGoal {
+    private Animal first;
+    private Animal second;
+    private int phase;
+
+    private record Region(Object species, int x, int z) {
+    }
+
+    public NPCBreedGoal(BaseNPCLikeEntity npc) {
+        super(npc, NPCWorkModes.BREED);
     }
 
     @Override
-    public boolean canUse() {
-        if (!this.maid.isTame() || this.maid.isOrderedToSit()) {
-            return false;
-        }
-        NPCState state = maid.getNpcState();
-        LivingEntity owner = this.maid.getOwner();
-        if (owner == null || state != NPCStates.WORKING || maid.getWorkMode() != NPCWorkModes.BREED) {
-            return false;
-        }
-        BlockPos workPos = maid.getWorkingPos();
-        ServerLevel serverWorld = getServerLevel(maid);
+    protected int searchInterval() {
+        return 20;
+    }
 
-        List<Animal> targets = this.mob.level().getEntitiesOfClass(Animal.class, new AABB(workPos).inflate(16, 8, 16), (e) -> {
-            boolean alive = e.isAlive();
-            boolean hasItem = e.isFood(this.maid.getItemInHand(InteractionHand.MAIN_HAND));
-            int i = e.getAge();
-            if (i == 0 && e.canFallInLove() && !e.isBaby()) {
-                return alive && hasItem;
+    private boolean ready(Animal animal) {
+        return animal.isAlive() && !animal.isBaby() && animal.getAge() == 0 && !animal.hasCustomName() && animal.canFallInLove();
+    }
+
+    @Override
+    protected boolean findTask(ServerLevel level) {
+        var animals = level.getEntitiesOfClass(Animal.class, site.box(), a -> a.isAlive() && site.contains(a.blockPosition()));
+        if (npc instanceof NPCSimpleEntity simple && simple.getSkillTask().offspringObjective()) {
+            long pending = animals.stream().filter(a -> a.isInLove() && NPCProduction.ownedParent(a, npc)).count();
+            if ((pending + 1) / 2 >= simple.getSkillTask().quantityRemaining()) {
+                work().status("waiting_for_offspring");
+                return false;
             }
-            return false;
-        });
-        this.targetEntity = serverWorld.getNearestEntity(targets, this.targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
-        return this.targetEntity != null;
+        }
+        var candidates = animals.stream().filter(this::ready).filter(a -> !(npc instanceof NPCSimpleEntity simple) || simple.getSkillTask().wantsAnimal(a)).filter(a -> work().available(a.getUUID(), level.getGameTime()))
+                .sorted(Comparator.comparingDouble(npc::distanceToSqr)).toList();
+        for (var animal : candidates) {
+            long count = animals.stream().filter(a -> a.getType() == animal.getType()).count();
+            long lovers = animals.stream().filter(a -> a.getType() == animal.getType() && a.isInLove()).count();
+            if (!AnimalFeeding.withinLimit((int) count, (int) lovers, ReverieDreams.config().npcBreedMaxAnimals))
+                continue;
+            var partner = animals.stream().filter(a -> a != animal && a.getClass() == animal.getClass()
+                    && !a.isBaby() && a.getAge() == 0 && !a.hasCustomName() && (a.isInLove() || a.canFallInLove())
+                    && (!a.isInLove() || !(npc instanceof NPCSimpleEntity simple)
+                    || !simple.getSkillTask().active() || NPCProduction.ownedParent(a, npc))
+                    && work().available(a.getUUID(), level.getGameTime())).min(Comparator.comparingDouble(animal::distanceToSqr)).orElse(null);
+            if (partner == null)
+                continue;
+            int required = partner.isInLove() ? 1 : 2;
+            if (AnimalFeeding.foodCount(npc.getInventory(), animal::isFood) < required + ReverieDreams.config().npcBreedFoodReserve) {
+                work().demand(animal::isFood, 32, "need_animals_and_food");
+                continue;
+            }
+            first = animal;
+            second = partner;
+            phase = 0;
+            return true;
+        }
+        if (work().demand() == null)
+            work().status(candidates.isEmpty() ? "waiting_for_animals" : "breed_limit_or_pair");
+        return false;
     }
 
     @Override
-    public void start() {
-        this.task = () -> {
-            ((AnimalEntityActionController) this.targetEntity).reverie_dreams$eatStackFood(this.maid, InteractionHand.MAIN_HAND, this.maid.getItemInHand(InteractionHand.MAIN_HAND));
-            ((AnimalAccessor) this.targetEntity).reverie_dreams$playEatingSound();
-            ((AnimalEntityActionController) this.targetEntity).reverie_dreams$loveEntity(this.maid);
-        };
+    protected List<?> resources() {
+        if (first == null || second == null)
+            return List.of();
+        var keys = new ArrayList<Object>();
+        keys.add(first.getUUID());
+        keys.add(second.getUUID());
+        for (int x = (site.center().getX() - site.radius()) >> 4; x <= (site.center().getX() + site.radius()) >> 4; x++)
+            for (int z = (site.center().getZ() - site.radius()) >> 4; z <= (site.center().getZ() + site.radius()) >> 4; z++)
+                keys.add(new Region(first.getType(), x, z));
+        return keys;
     }
 
     @Override
-    public void tick() {
-        if (this.task == null) {
+    protected boolean validTask(ServerLevel level) {
+        return first != null && second != null && first.level() == level && second.level() == level
+                && first.isAlive() && second.isAlive() && !first.isBaby() && !second.isBaby()
+                && first.getAge() == 0 && second.getAge() == 0 && site.contains(first.blockPosition()) && site.contains(second.blockPosition());
+    }
+
+    @Override
+    protected void clearTask() {
+        first = null;
+        second = null;
+    }
+
+    @Override
+    protected void runTask(ServerLevel level) {
+        Animal animal = phase == 0 ? first : second;
+        if (animal.isInLove()) {
+            if (phase++ == 1)
+                finish("ready", 20);
             return;
         }
-        if (this.targetEntity != null && this.targetEntity.isAlive()) {
-            this.maid.getNavigation().moveTo(this.targetEntity, 1.0D);
-
-            if (this.maid.distanceToSqr(this.targetEntity) <= 4.0D) {
-                this.task.run();
-                this.task = null;
-                this.stop();
-            }
+        if (!ready(animal)) {
+            finish("waiting_for_animals", 20);
+            return;
         }
+        if (!reach(animal, 1.8))
+            return;
+        var hand = work().tools().ensure(npc.getInventory(), animal::isFood);
+        if (hand == null) {
+            work().demand(animal::isFood, 32, "need_animals_and_food");
+            finish("need_animals_and_food", 20);
+            return;
+        }
+        boolean fed = AnimalFeeding.feed(npc.getInventory(), hand == InteractionHand.MAIN_HAND ? 22 : 23,
+                animal::isFood, () -> validTask(level) && ready(animal) && npc.distanceToSqr(animal) <= 4 && belowLimit(level, animal),
+                ReverieDreams.config().npcBreedFoodReserve,
+                stack -> ((AnimalEntityActionController) animal).reverie_dreams$eatStackFood(npc, hand, stack),
+                () -> ((AnimalEntityActionController) animal).reverie_dreams$loveEntity(npc));
+        if (!fed) {
+            finish("need_animals_and_food", 20);
+            return;
+        }
+        NPCProduction.fed(animal, npc);
+        npc.swing(hand);
+        work().action();
+        if (phase++ == 1)
+            finish("ready", 20);
     }
 
+    private boolean belowLimit(ServerLevel level, Animal animal) {
+        var sameSpecies = level.getEntitiesOfClass(Animal.class, site.box(), a -> a.isAlive() && a.getType() == animal.getType() && site.contains(a.blockPosition()));
+        int lovers = (int) sameSpecies.stream().filter(Animal::isInLove).count();
+        // Completing an existing pair does not reserve a second offspring.
+        int expected = (lovers + 1) / 2;
+        if (phase == 1 && first.isInLove() || phase == 0 && second.isInLove())
+            expected = lovers / 2;
+        return sameSpecies.size() + expected < ReverieDreams.config().npcBreedMaxAnimals;
+    }
 }

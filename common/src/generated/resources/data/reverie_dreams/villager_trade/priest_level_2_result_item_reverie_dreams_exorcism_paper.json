@@ -6,11 +6,12 @@
   "given_item_modifiers": [
     {
       "add": false,
-      "count": 6.0,
+      "count": 16.0,
       "function": "minecraft:set_count"
     }
   ],
   "gives": {
+    "count": 16,
     "id": "reverie_dreams:exorcism_paper"
   },
   "reputation_discount": 0.2,

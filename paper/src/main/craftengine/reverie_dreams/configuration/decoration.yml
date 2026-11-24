@@ -1,0 +1,3537 @@
+# CraftEngine26.8.2; static decoration and native seat/light implementations.
+# Collision approximations are documented in migration/full-decoration.md.
+items:
+  reverie_dreams:sudare:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.sudare>
+    model: reverie_dreams:block/sudare
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:sudare
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wood.break
+            place: minecraft:block.wood.place
+            hit: minecraft:block.wood.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:sudare
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:sudare
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:sudare
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:sudare
+  reverie_dreams:kakejiku:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.kakejiku>
+    model: reverie_dreams:block/kakejiku
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:kakejiku
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wood.break
+            place: minecraft:block.wood.place
+            hit: minecraft:block.wood.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:kakejiku
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:kakejiku
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:kakejiku
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:kakejiku
+  reverie_dreams:noren_indigo:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.noren_indigo>
+    model: reverie_dreams:block/noren_indigo
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:noren_indigo
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:noren_indigo
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:noren_indigo
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:noren_indigo
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:noren_indigo
+  reverie_dreams:noren_white:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.noren_white>
+    model: reverie_dreams:block/noren_white
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:noren_white
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:noren_white
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:noren_white
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:noren_white
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:noren_white
+  reverie_dreams:noren_red:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.noren_red>
+    model: reverie_dreams:block/noren_red
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:noren_red
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:noren_red
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:noren_red
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:noren_red
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:noren_red
+  reverie_dreams:noren_black:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.noren_black>
+    model: reverie_dreams:block/noren_black
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:noren_black
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:noren_black
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:noren_black
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:noren_black
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:noren_black
+  reverie_dreams:noren_brown:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.noren_brown>
+    model: reverie_dreams:block/noren_brown
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:noren_brown
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:noren_brown
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:noren_brown
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:noren_brown
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:noren_brown
+  reverie_dreams:noren_green:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.noren_green>
+    model: reverie_dreams:block/noren_green
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: four
+        wall:
+          alignment: center
+          rotation: four
+        ceiling:
+          alignment: center
+          rotation: four
+      furniture:
+        settings:
+          item: reverie_dreams:noren_green
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:noren_green
+              display_transform: NONE
+              translation: 0,0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,0,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          wall:
+            elements:
+            - item: reverie_dreams:noren_green
+              display_transform: NONE
+              translation: 0,0,0.5
+            hitboxes:
+            - type: interaction
+              position: -0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-0.5,-0.125
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+          ceiling:
+            elements:
+            - item: reverie_dreams:noren_green
+              display_transform: NONE
+              translation: 0,-0.5,0
+              rotation: 180
+            hitboxes:
+            - type: interaction
+              position: -0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: -0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.125,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: interaction
+              position: 0.375,-1,-0.375
+              width: 0.25
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:noren_green
+  reverie_dreams:marisa_hat:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.marisa_hat>
+    model: reverie_dreams:block/marisa_hat
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: sixteen
+      furniture:
+        settings:
+          item: reverie_dreams:marisa_hat
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wool.break
+            place: minecraft:block.wool.place
+            hit: minecraft:block.wool.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:marisa_hat
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              width: 0.625
+              height: 0.625
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: shulker
+              position: 0,0,0
+              scale: 0.625
+              peek: 0
+              invisible: true
+              interactive: false
+              interaction_entity: false
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:marisa_hat
+  reverie_dreams:table:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.table>
+    model: reverie_dreams:block/table
+    behavior:
+      type: furniture_item
+      rules:
+        ground:
+          alignment: center
+          rotation: south
+      furniture:
+        settings:
+          item: reverie_dreams:table
+          hit_times: 3
+          sounds:
+            break: minecraft:block.wood.break
+            place: minecraft:block.wood.place
+            hit: minecraft:block.wood.hit
+        variants:
+          ground:
+            loot_spawn_offset: 0,0.3,0
+            elements:
+            - item: reverie_dreams:table
+              display_transform: NONE
+              translation: 0,0.5,0
+            hitboxes:
+            - type: interaction
+              position: 0,0,0
+              width: 1
+              height: 1
+              interactive: true
+              invisible: true
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: shulker
+              position: -0.25,0.5,-0.25
+              scale: 0.5
+              peek: 0
+              invisible: true
+              interactive: false
+              interaction_entity: false
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: shulker
+              position: -0.25,0.5,0.25
+              scale: 0.5
+              peek: 0
+              invisible: true
+              interactive: false
+              interaction_entity: false
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: shulker
+              position: 0.25,0.5,-0.25
+              scale: 0.5
+              peek: 0
+              invisible: true
+              interactive: false
+              interaction_entity: false
+              blocks_building: true
+              can_be_hit_by_projectile: false
+            - type: shulker
+              position: 0.25,0.5,0.25
+              scale: 0.5
+              peek: 0
+              invisible: true
+              interactive: false
+              interaction_entity: false
+              blocks_building: true
+              can_be_hit_by_projectile: false
+        loot:
+          template: default:loot_table/furniture
+          arguments:
+            item: reverie_dreams:table
+  reverie_dreams:anti_collision_barrel:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.anti_collision_barrel>
+    model: reverie_dreams:block/anti_collision_barrel
+    behavior:
+      type: block_item
+      block: reverie_dreams:anti_collision_barrel
+  reverie_dreams:raked_gravel:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.raked_gravel>
+    model: reverie_dreams:block/raked_gravel
+    behavior:
+      type: block_item
+      block: reverie_dreams:raked_gravel
+  reverie_dreams:stepping_stone:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.stepping_stone>
+    model: reverie_dreams:block/stepping_stone
+    behavior:
+      type: block_item
+      block: reverie_dreams:stepping_stone
+  reverie_dreams:zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.zabuton>
+    model: reverie_dreams:block/zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:zabuton
+  reverie_dreams:white_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.white_zabuton>
+    model: reverie_dreams:item/decoration/white_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:white_zabuton
+  reverie_dreams:orange_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.orange_zabuton>
+    model: reverie_dreams:item/decoration/orange_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:orange_zabuton
+  reverie_dreams:magenta_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.magenta_zabuton>
+    model: reverie_dreams:item/decoration/magenta_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:magenta_zabuton
+  reverie_dreams:light_blue_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.light_blue_zabuton>
+    model: reverie_dreams:item/decoration/light_blue_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:light_blue_zabuton
+  reverie_dreams:yellow_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.yellow_zabuton>
+    model: reverie_dreams:item/decoration/yellow_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:yellow_zabuton
+  reverie_dreams:lime_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.lime_zabuton>
+    model: reverie_dreams:item/decoration/lime_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:lime_zabuton
+  reverie_dreams:pink_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.pink_zabuton>
+    model: reverie_dreams:item/decoration/pink_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:pink_zabuton
+  reverie_dreams:gray_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.gray_zabuton>
+    model: reverie_dreams:item/decoration/gray_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:gray_zabuton
+  reverie_dreams:light_gray_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.light_gray_zabuton>
+    model: reverie_dreams:item/decoration/light_gray_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:light_gray_zabuton
+  reverie_dreams:cyan_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.cyan_zabuton>
+    model: reverie_dreams:item/decoration/cyan_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:cyan_zabuton
+  reverie_dreams:purple_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.purple_zabuton>
+    model: reverie_dreams:item/decoration/purple_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:purple_zabuton
+  reverie_dreams:blue_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.blue_zabuton>
+    model: reverie_dreams:item/decoration/blue_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:blue_zabuton
+  reverie_dreams:brown_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.brown_zabuton>
+    model: reverie_dreams:item/decoration/brown_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:brown_zabuton
+  reverie_dreams:green_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.green_zabuton>
+    model: reverie_dreams:item/decoration/green_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:green_zabuton
+  reverie_dreams:red_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.red_zabuton>
+    model: reverie_dreams:item/decoration/red_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:red_zabuton
+  reverie_dreams:black_zabuton:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.black_zabuton>
+    model: reverie_dreams:item/decoration/black_zabuton
+    settings:
+      tags:
+      - reverie_dreams:zabutons
+    behavior:
+      type: block_item
+      block: reverie_dreams:black_zabuton
+  reverie_dreams:tatami_corner:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.tatami_corner>
+    model: reverie_dreams:block/tatami_corner
+    behavior:
+      type: block_item
+      block: reverie_dreams:tatami_corner
+  reverie_dreams:byobu:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.byobu>
+    model: reverie_dreams:block/byobu
+    behavior:
+      type: block_item
+      block: reverie_dreams:byobu
+  reverie_dreams:andon:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.andon>
+    model: reverie_dreams:block/andon
+    behavior:
+      type: block_item
+      block: reverie_dreams:andon
+  reverie_dreams:stone_lantern:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.stone_lantern>
+    model: reverie_dreams:block/stone_lantern
+    behavior:
+      type: block_item
+      block: reverie_dreams:stone_lantern
+blocks:
+  reverie_dreams:anti_collision_barrel:
+    settings:
+      item: reverie_dreams:anti_collision_barrel
+      hardness: 5
+      resistance: 6
+      is_suffocating: true
+      is_redstone_conductor: true
+      can_occlude: false
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+      tags:
+      - minecraft:mineable/pickaxe
+      correct_tools:
+      - '#minecraft:pickaxes'
+    states:
+      auto_state: solid
+      model: reverie_dreams:block/anti_collision_barrel
+    loot:
+      template: default:loot_table/self
+  reverie_dreams:raked_gravel:
+    settings:
+      item: reverie_dreams:raked_gravel
+      hardness: 0.6
+      resistance: 0.6
+      is_suffocating: true
+      is_redstone_conductor: true
+      can_occlude: true
+      sounds:
+        break: minecraft:block.gravel.break
+        fall: minecraft:block.gravel.fall
+        hit: minecraft:block.gravel.hit
+        place: minecraft:block.gravel.place
+        step: minecraft:block.gravel.step
+      tags:
+      - minecraft:mineable/shovel
+    states:
+      auto_state: solid
+      model: reverie_dreams:block/raked_gravel
+    loot:
+      template: default:loot_table/self
+  reverie_dreams:stepping_stone:
+    settings:
+      item: reverie_dreams:stepping_stone
+      hardness: 1.5
+      resistance: 6
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+      tags:
+      - minecraft:mineable/pickaxe
+      correct_tools:
+      - '#minecraft:pickaxes'
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:stepping_stone
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:stepping_stone
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:stepping_stone
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:stepping_stone
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+  reverie_dreams:zabuton:
+    settings:
+      item: reverie_dreams:zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:white_zabuton:
+    settings:
+      item: reverie_dreams:white_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:white_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:white_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:white_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:white_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:orange_zabuton:
+    settings:
+      item: reverie_dreams:orange_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:orange_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:orange_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:orange_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:orange_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:magenta_zabuton:
+    settings:
+      item: reverie_dreams:magenta_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:magenta_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:magenta_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:magenta_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:magenta_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:light_blue_zabuton:
+    settings:
+      item: reverie_dreams:light_blue_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_blue_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_blue_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_blue_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_blue_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:yellow_zabuton:
+    settings:
+      item: reverie_dreams:yellow_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:yellow_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:yellow_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:yellow_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:yellow_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:lime_zabuton:
+    settings:
+      item: reverie_dreams:lime_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:lime_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:lime_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:lime_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:lime_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:pink_zabuton:
+    settings:
+      item: reverie_dreams:pink_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:pink_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:pink_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:pink_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:pink_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:gray_zabuton:
+    settings:
+      item: reverie_dreams:gray_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:gray_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:gray_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:gray_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:gray_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:light_gray_zabuton:
+    settings:
+      item: reverie_dreams:light_gray_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_gray_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_gray_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_gray_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:light_gray_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:cyan_zabuton:
+    settings:
+      item: reverie_dreams:cyan_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:cyan_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:cyan_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:cyan_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:cyan_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:purple_zabuton:
+    settings:
+      item: reverie_dreams:purple_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:purple_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:purple_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:purple_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:purple_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:blue_zabuton:
+    settings:
+      item: reverie_dreams:blue_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:blue_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:blue_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:blue_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:blue_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:brown_zabuton:
+    settings:
+      item: reverie_dreams:brown_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:brown_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:brown_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:brown_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:brown_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:green_zabuton:
+    settings:
+      item: reverie_dreams:green_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:green_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:green_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:green_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:green_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:red_zabuton:
+    settings:
+      item: reverie_dreams:red_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:red_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:red_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:red_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:red_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:black_zabuton:
+    settings:
+      item: reverie_dreams:black_zabuton
+      hardness: 0.8
+      resistance: 0.8
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wool.break
+        fall: minecraft:block.wool.fall
+        hit: minecraft:block.wool.hit
+        place: minecraft:block.wool.place
+        step: minecraft:block.wool.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:black_zabuton
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+        facing=north:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:black_zabuton
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+        facing=south:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:black_zabuton
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+        facing=west:
+          state: white_carpet
+          entity_renderer:
+            item: reverie_dreams:black_zabuton
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+    behavior:
+      type: seat_block
+      seats:
+      - 0,0,0 0
+  reverie_dreams:tatami_corner:
+    settings:
+      item: reverie_dreams:tatami_corner
+      hardness: 2
+      resistance: 3
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.grass.break
+        fall: minecraft:block.grass.fall
+        hit: minecraft:block.grass.hit
+        place: minecraft:block.grass.place
+        step: minecraft:block.grass.step
+      tags: []
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: cherry_trapdoor[facing=north,half=bottom,open=false,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:tatami_corner
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+          transparent: true
+        facing=north:
+          state: cherry_trapdoor[facing=north,half=bottom,open=false,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:tatami_corner
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+          transparent: true
+        facing=south:
+          state: cherry_trapdoor[facing=north,half=bottom,open=false,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:tatami_corner
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+          transparent: true
+        facing=west:
+          state: cherry_trapdoor[facing=north,half=bottom,open=false,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:tatami_corner
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+          transparent: true
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+  reverie_dreams:byobu:
+    settings:
+      item: reverie_dreams:byobu
+      hardness: 2
+      resistance: 3
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+      tags:
+      - minecraft:mineable/axe
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: cherry_trapdoor[facing=west,half=bottom,open=true,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:byobu
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+          transparent: true
+        facing=north:
+          state: cherry_trapdoor[facing=south,half=bottom,open=true,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:byobu
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+          transparent: true
+        facing=south:
+          state: cherry_trapdoor[facing=north,half=bottom,open=true,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:byobu
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+          transparent: true
+        facing=west:
+          state: cherry_trapdoor[facing=east,half=bottom,open=true,powered=true,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:byobu
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+          transparent: true
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+  reverie_dreams:andon:
+    settings:
+      item: reverie_dreams:andon
+      hardness: 2
+      resistance: 3
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+      luminance: 14
+      tags:
+      - minecraft:mineable/axe
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:andon
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+          transparent: true
+        facing=north:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:andon
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+          transparent: true
+        facing=south:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:andon
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+          transparent: true
+        facing=west:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:andon
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+          transparent: true
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+  reverie_dreams:stone_lantern:
+    settings:
+      item: reverie_dreams:stone_lantern
+      hardness: 1.5
+      resistance: 6
+      is_suffocating: false
+      is_redstone_conductor: false
+      can_occlude: false
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+      luminance: 15
+      tags:
+      - minecraft:mineable/pickaxe
+      correct_tools:
+      - '#minecraft:pickaxes'
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        facing=east:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:stone_lantern
+            display_transform: NONE
+            rotation: 90
+            scale: 1.005
+          transparent: true
+        facing=north:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:stone_lantern
+            display_transform: NONE
+            rotation: 0
+            scale: 1.005
+          transparent: true
+        facing=south:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:stone_lantern
+            display_transform: NONE
+            rotation: 180
+            scale: 1.005
+          transparent: true
+        facing=west:
+          state: weathered_copper_lantern[hanging=false,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:stone_lantern
+            display_transform: NONE
+            rotation: 270
+            scale: 1.005
+          transparent: true
+      variants:
+        facing=east:
+          appearance: facing=east
+        facing=north:
+          appearance: facing=north
+        facing=south:
+          appearance: facing=south
+        facing=west:
+          appearance: facing=west
+    loot:
+      template: default:loot_table/self
+recipes:
+  reverie_dreams:andon:
+    type: shaped
+    pattern:
+    - PPP
+    - PTP
+    - PPP
+    ingredients:
+      P: minecraft:paper
+      T: minecraft:torch
+    result:
+      id: reverie_dreams:andon
+      count: 1
+  reverie_dreams:anti_collision_barrel:
+    type: shaped
+    pattern:
+    - YXY
+    - Z#Z
+    - YXY
+    ingredients:
+      '#': minecraft:iron_block
+      X: minecraft:yellow_wool
+      Y: minecraft:red_wool
+      Z: minecraft:white_wool
+    result:
+      id: reverie_dreams:anti_collision_barrel
+      count: 1
+  reverie_dreams:byobu:
+    type: shaped
+    pattern:
+    - P#P
+    - P#P
+    - P#P
+    ingredients:
+      '#': reverie_dreams:iroha_maple_planks
+      P: minecraft:paper
+    result:
+      id: reverie_dreams:byobu
+      count: 1
+  reverie_dreams:kakejiku:
+    type: shaped
+    pattern:
+    - ' P '
+    - ' P '
+    - ' S '
+    ingredients:
+      P: minecraft:paper
+      S: minecraft:stick
+    result:
+      id: reverie_dreams:kakejiku
+      count: 1
+  reverie_dreams:marisa_hat:
+    type: shaped
+    pattern:
+    - ' X '
+    - X#X
+    - XYX
+    ingredients:
+      '#': minecraft:black_wool
+      X: minecraft:white_wool
+      Y: minecraft:leather
+    result:
+      id: reverie_dreams:marisa_hat
+      count: 1
+  reverie_dreams:noren_black:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:black_wool
+    result:
+      id: reverie_dreams:noren_black
+      count: 2
+  reverie_dreams:noren_brown:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:brown_wool
+    result:
+      id: reverie_dreams:noren_brown
+      count: 2
+  reverie_dreams:noren_green:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:green_wool
+    result:
+      id: reverie_dreams:noren_green
+      count: 2
+  reverie_dreams:noren_indigo:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:blue_wool
+    result:
+      id: reverie_dreams:noren_indigo
+      count: 2
+  reverie_dreams:noren_red:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:red_wool
+    result:
+      id: reverie_dreams:noren_red
+      count: 2
+  reverie_dreams:noren_white:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:white_wool
+    result:
+      id: reverie_dreams:noren_white
+      count: 2
+  reverie_dreams:raked_gravel:
+    type: shaped
+    pattern:
+    - GG
+    - GG
+    ingredients:
+      G: minecraft:gravel
+    result:
+      id: reverie_dreams:raked_gravel
+      count: 4
+  reverie_dreams:stepping_stone:
+    type: shaped
+    pattern:
+    - SS
+    ingredients:
+      S: minecraft:stone
+    result:
+      id: reverie_dreams:stepping_stone
+      count: 4
+  reverie_dreams:stone_lantern:
+    type: shaped
+    pattern:
+    - ' S '
+    - CCC
+    ingredients:
+      C: minecraft:cobblestone
+      S: minecraft:stone
+    result:
+      id: reverie_dreams:stone_lantern
+      count: 4
+  reverie_dreams:sudare:
+    type: shaped
+    pattern:
+    - BBB
+    - SSS
+    - BBB
+    ingredients:
+      B: minecraft:bamboo
+      S: minecraft:string
+    result:
+      id: reverie_dreams:sudare
+      count: 2
+  reverie_dreams:table:
+    type: shaped
+    pattern:
+    - '###'
+    - A A
+    - X X
+    ingredients:
+      '#': '#minecraft:planks'
+      A: '#minecraft:wooden_slabs'
+      X: minecraft:stick
+    result:
+      id: reverie_dreams:table
+      count: 1
+  reverie_dreams:tatami_corner:
+    type: shaped
+    pattern:
+    - XX
+    - XX
+    ingredients:
+      X: minecraft:wheat
+    result:
+      id: reverie_dreams:tatami_corner
+      count: 1
+  reverie_dreams:zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:white_wool
+    result:
+      id: reverie_dreams:zabuton
+      count: 2
+  reverie_dreams:white_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:white_wool
+    result:
+      id: reverie_dreams:white_zabuton
+      count: 2
+  reverie_dreams:white_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:white_dye
+    result:
+      id: reverie_dreams:white_zabuton
+      count: 1
+  reverie_dreams:orange_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:orange_wool
+    result:
+      id: reverie_dreams:orange_zabuton
+      count: 2
+  reverie_dreams:orange_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:orange_dye
+    result:
+      id: reverie_dreams:orange_zabuton
+      count: 1
+  reverie_dreams:magenta_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:magenta_wool
+    result:
+      id: reverie_dreams:magenta_zabuton
+      count: 2
+  reverie_dreams:magenta_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:magenta_dye
+    result:
+      id: reverie_dreams:magenta_zabuton
+      count: 1
+  reverie_dreams:light_blue_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:light_blue_wool
+    result:
+      id: reverie_dreams:light_blue_zabuton
+      count: 2
+  reverie_dreams:light_blue_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:light_blue_dye
+    result:
+      id: reverie_dreams:light_blue_zabuton
+      count: 1
+  reverie_dreams:yellow_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:yellow_wool
+    result:
+      id: reverie_dreams:yellow_zabuton
+      count: 2
+  reverie_dreams:yellow_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:yellow_dye
+    result:
+      id: reverie_dreams:yellow_zabuton
+      count: 1
+  reverie_dreams:lime_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:lime_wool
+    result:
+      id: reverie_dreams:lime_zabuton
+      count: 2
+  reverie_dreams:lime_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:lime_dye
+    result:
+      id: reverie_dreams:lime_zabuton
+      count: 1
+  reverie_dreams:pink_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:pink_wool
+    result:
+      id: reverie_dreams:pink_zabuton
+      count: 2
+  reverie_dreams:pink_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:pink_dye
+    result:
+      id: reverie_dreams:pink_zabuton
+      count: 1
+  reverie_dreams:gray_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:gray_wool
+    result:
+      id: reverie_dreams:gray_zabuton
+      count: 2
+  reverie_dreams:gray_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:gray_dye
+    result:
+      id: reverie_dreams:gray_zabuton
+      count: 1
+  reverie_dreams:light_gray_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:light_gray_wool
+    result:
+      id: reverie_dreams:light_gray_zabuton
+      count: 2
+  reverie_dreams:light_gray_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:light_gray_dye
+    result:
+      id: reverie_dreams:light_gray_zabuton
+      count: 1
+  reverie_dreams:cyan_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:cyan_wool
+    result:
+      id: reverie_dreams:cyan_zabuton
+      count: 2
+  reverie_dreams:cyan_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:cyan_dye
+    result:
+      id: reverie_dreams:cyan_zabuton
+      count: 1
+  reverie_dreams:purple_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:purple_wool
+    result:
+      id: reverie_dreams:purple_zabuton
+      count: 2
+  reverie_dreams:purple_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:purple_dye
+    result:
+      id: reverie_dreams:purple_zabuton
+      count: 1
+  reverie_dreams:blue_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:blue_wool
+    result:
+      id: reverie_dreams:blue_zabuton
+      count: 2
+  reverie_dreams:blue_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:blue_dye
+    result:
+      id: reverie_dreams:blue_zabuton
+      count: 1
+  reverie_dreams:brown_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:brown_wool
+    result:
+      id: reverie_dreams:brown_zabuton
+      count: 2
+  reverie_dreams:brown_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:brown_dye
+    result:
+      id: reverie_dreams:brown_zabuton
+      count: 1
+  reverie_dreams:green_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:green_wool
+    result:
+      id: reverie_dreams:green_zabuton
+      count: 2
+  reverie_dreams:green_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:green_dye
+    result:
+      id: reverie_dreams:green_zabuton
+      count: 1
+  reverie_dreams:red_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:red_wool
+    result:
+      id: reverie_dreams:red_zabuton
+      count: 2
+  reverie_dreams:red_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:red_dye
+    result:
+      id: reverie_dreams:red_zabuton
+      count: 1
+  reverie_dreams:black_zabuton:
+    type: shaped
+    pattern:
+    - WWW
+    - WSW
+    - WWW
+    ingredients:
+      S: minecraft:string
+      W: minecraft:black_wool
+    result:
+      id: reverie_dreams:black_zabuton
+      count: 2
+  reverie_dreams:black_zabuton_from_dye:
+    type: shapeless
+    ingredients:
+    - '#reverie_dreams:zabutons'
+    - minecraft:black_dye
+    result:
+      id: reverie_dreams:black_zabuton
+      count: 1

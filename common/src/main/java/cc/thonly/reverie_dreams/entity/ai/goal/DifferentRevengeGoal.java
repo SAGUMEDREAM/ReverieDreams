@@ -20,7 +20,7 @@ public class DifferentRevengeGoal extends TargetGoal {
     @Nullable
     private Class<?>[] noHelpTypes;
 
-    public DifferentRevengeGoal(PathfinderMob mob, Class<?> ... noRevengeTypes) {
+    public DifferentRevengeGoal(PathfinderMob mob, Class<?>... noRevengeTypes) {
         super(mob, true);
         this.noRevengeTypes = noRevengeTypes;
         this.setFlags(EnumSet.of(Flag.TARGET));
@@ -40,13 +40,14 @@ public class DifferentRevengeGoal extends TargetGoal {
             return false;
         }
         for (Class<?> class_ : this.noRevengeTypes) {
-            if (!class_.isAssignableFrom(livingEntity.getClass())) continue;
+            if (!class_.isAssignableFrom(livingEntity.getClass()))
+                continue;
             return false;
         }
         return this.canAttack(livingEntity, VALID_AVOIDABLES_PREDICATE);
     }
 
-    public DifferentRevengeGoal setGroupRevenge(Class<?> ... noHelpTypes) {
+    public DifferentRevengeGoal setGroupRevenge(Class<?>... noHelpTypes) {
         this.groupRevenge = true;
         this.noHelpTypes = noHelpTypes;
         return this;
@@ -69,15 +70,18 @@ public class DifferentRevengeGoal extends TargetGoal {
         AABB box = AABB.unitCubeFromLowerCorner(this.mob.position()).inflate(d, 10.0, d);
         List<? extends Mob> list = this.mob.level().getEntitiesOfClass(this.mob.getClass(), box, EntitySelector.NO_SPECTATORS);
         for (Mob mobEntity : list) {
-            if (this.mob == mobEntity || mobEntity.getTarget() != null || this.mob instanceof TamableAnimal && ((TamableAnimal)this.mob).getOwner() != ((TamableAnimal)mobEntity).getOwner() || mobEntity.isAlliedTo(this.mob.getLastHurtByMob())) continue;
+            if (this.mob == mobEntity || mobEntity.getTarget() != null || this.mob instanceof TamableAnimal && ((TamableAnimal) this.mob).getOwner() != ((TamableAnimal) mobEntity).getOwner() || mobEntity.isAlliedTo(this.mob.getLastHurtByMob()))
+                continue;
             if (this.noHelpTypes != null) {
                 boolean bl = false;
                 for (Class<?> class_ : this.noHelpTypes) {
-                    if (mobEntity.getClass() != class_) continue;
+                    if (mobEntity.getClass() != class_)
+                        continue;
                     bl = true;
                     break;
                 }
-                if (bl) continue;
+                if (bl)
+                    continue;
             }
             this.setMobEntityTarget(mobEntity, this.mob.getLastHurtByMob());
         }

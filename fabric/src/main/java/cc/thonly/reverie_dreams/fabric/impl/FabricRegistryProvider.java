@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.impl;
 
-import cc.thonly.reverie_dreams.registry.RegistryExtension;
+import cc.thonly.reverie_dreams.api.registry.RegistryExtension;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.Registry;

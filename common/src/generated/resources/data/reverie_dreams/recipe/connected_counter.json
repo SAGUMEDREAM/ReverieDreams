@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "S S"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "C": "minecraft:chest",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "reverie_dreams:connected_counter",
+    "count": 2
+  }
+}

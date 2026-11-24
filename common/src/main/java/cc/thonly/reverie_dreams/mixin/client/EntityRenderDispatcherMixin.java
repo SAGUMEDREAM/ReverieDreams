@@ -2,10 +2,13 @@ package cc.thonly.reverie_dreams.mixin.client;
 
 import cc.thonly.reverie_dreams.client.renderer.entity.EmptyRenderer;
 import cc.thonly.reverie_dreams.client.renderer.entity.state.NPCAvatarRenderState;
+import cc.thonly.reverie_dreams.entity.misc.DreamCocoonEntity;
 import cc.thonly.reverie_dreams.util.PlatformContext;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,6 +25,14 @@ public class EntityRenderDispatcherMixin {
     private Map<EntityType<?>, EntityRenderer<?, ?>> renderers;
     @Unique
     private EmptyRenderer reverie_dreams$emptyRenderer = null;
+
+    @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
+    private void reverie_dreams$hideCocoonPassenger(Entity entity, Frustum frustum, double x, double y, double z,
+                                                    CallbackInfoReturnable<Boolean> cir) {
+        if (entity.getVehicle() instanceof DreamCocoonEntity) {
+            cir.setReturnValue(false);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     @Inject(method = "getRenderer(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;)Lnet/minecraft/client/renderer/entity/EntityRenderer;",

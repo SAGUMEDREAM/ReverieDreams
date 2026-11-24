@@ -7,24 +7,14 @@ import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Relative;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
 @SuppressWarnings("resource")
@@ -42,15 +32,27 @@ public class GapGui extends SimpleGui {
     public GapGui(ServerPlayer player, ItemStack stack) {
         super(MenuType.GENERIC_9x3, player, false);
         this.stack = stack;
-        this.gapRecorders = new ArrayList<>(stack.getOrDefault(RDDataComponentTypes.GAP_RECORDER.value(), new ArrayList<>()));
-        while (gapRecorders.size() <= MAX_INDEX) {
-            this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().identifier().toString(), BlockPos.ZERO, false));
-        }
+        this.gapRecorders = new ArrayList<>(stack.getOrDefault(
+                RDDataComponentTypes.GAP_RECORDER.value(), new ArrayList<>()));
+        this.fillMissingRecorders();
         this.init();
     }
 
+    private void fillMissingRecorders() {
+        while (this.gapRecorders.size() <= MAX_INDEX) {
+            this.gapRecorders.add(new GapRecorder(
+                    "未记录",
+                    this.getPlayer().level().dimension().identifier().toString(),
+                    BlockPos.ZERO,
+                    false
+            ));
+        }
+    }
+
     public void init() {
-        Component text = this.stack.getCustomName() != null ? this.stack.getCustomName() : this.stack.getHoverName();
+        Component text = this.stack.getCustomName() != null
+                ? this.stack.getCustomName()
+                : this.stack.getHoverName();
         this.setTitle(text);
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
@@ -60,120 +62,131 @@ public class GapGui extends SimpleGui {
 
                 switch (pos) {
                     case "X" -> setSlot(slot, new GuiElementBuilder(RDGuiPlaceholderItems.EMPTY_SLOT.asItem()));
-                    case "I" -> {
-                        if (index < MIN_INDEX || index > MAX_INDEX) break;
-                        GapRecorder recorder = this.gapRecorders.get(index);
-                        setSlot(slot, new GuiElementBuilder(recorder.enable() ? Items.BARRIER : Items.ENDER_EYE)
-                                .setName(Component.literal("传送" + index))
-                                .setCallback(click -> teleport(index)));
-                    }
+                    case "I" -> setSlot(slot, new GuiElementBuilder(RDGuiPlaceholderItems.EMPTY_SLOT.asItem()));
                     case "A" -> {
-                        if (index < MIN_INDEX || index > MAX_INDEX) break;
+                        if (index < MIN_INDEX || index > MAX_INDEX)
+                            break;
                         setSlot(slot, new GuiElementBuilder(Items.EMERALD_BLOCK)
-                                .setName(Component.literal("记录 " + index))
+                                .setName(Component.translatable("dialog.gap.record", index))
                                 .setCallback(click -> add(index)));
                     }
                     case "D" -> {
-                        if (index < MIN_INDEX || index > MAX_INDEX) break;
+                        if (index < MIN_INDEX || index > MAX_INDEX)
+                            break;
                         setSlot(slot, new GuiElementBuilder(Items.REDSTONE_BLOCK)
-                                .setName(Component.literal("删除 " + index))
+                                .setName(Component.translatable("dialog.gap.delete", index))
                                 .setCallback(click -> delete(index)));
                     }
                 }
-
             }
         }
+        this.updateTeleportSlots();
     }
 
     @Override
     public void onTick() {
         super.onTick();
-        this.gapRecorders = new ArrayList<>(this.stack.getOrDefault(RDDataComponentTypes.GAP_RECORDER.value(), new ArrayList<>()));
-        while (gapRecorders.size() <= MAX_INDEX) {
-            this.gapRecorders.add(new GapRecorder("未记录", this.getPlayer().level().dimension().identifier().toString(), BlockPos.ZERO, false));
-        }
+        this.gapRecorders = new ArrayList<>(this.stack.getOrDefault(
+                RDDataComponentTypes.GAP_RECORDER.value(), new ArrayList<>()));
+        this.fillMissingRecorders();
         this.updateTeleportSlots();
     }
 
-
     private void updateTeleportSlots() {
+        int selected = this.stack.getOrDefault(RDDataComponentTypes.GAP_TARGET_INDEX.value(), 0);
         for (int col = 2; col <= 6; col++) {
             int index = col - 2;
-            int slot = 0 * 9 + col;
-
+            int slot = col;
             GapRecorder recorder = this.gapRecorders.get(index);
-            if (recorder == null) {
-                return;
-            }
             boolean hasTarget = recorder.enable();
-            Item item = hasTarget ? Items.ENDER_EYE : Items.BARRIER;
+            boolean isSelected = hasTarget && index == selected;
 
+            Item item = !hasTarget
+                    ? Items.BARRIER
+                    : (isSelected ? Items.ENDER_EYE : Items.ENDER_PEARL);
+
+            Component targetBase = Component.translatable(
+                    isSelected ? "dialog.gap.target.selected" : "dialog.gap.target.normal", index);
+            Component targetName = hasTarget
+                    ? Component.translatable("dialog.gap.target.recorded", targetBase, recorder.name())
+                    : Component.translatable("dialog.gap.target.empty", targetBase);
             this.setSlot(slot, new GuiElementBuilder(item)
-                    .setName(Component.literal("传送 " + index + (hasTarget ? (" - " + recorder.name()) : "（未记录）")))
+                    .setName(targetName)
                     .setLore(List.of(
-                            Component.literal("世界：" + recorder.world()),
-                            Component.literal("世界：" + recorder.value().getX() + " " + recorder.value().getY() + " " + recorder.value().getZ())
+                            Component.translatable("dialog.gap.world", recorder.world()),
+                            Component.translatable("dialog.gap.position",
+                                    recorder.value().getX(),
+                                    recorder.value().getY(),
+                                    recorder.value().getZ()),
+                            Component.translatable(isSelected
+                                    ? "dialog.gap.current_hint"
+                                    : "dialog.gap.select_hint")
                     ))
-                    .setCallback(click -> teleport(index)));
+                    .setCallback(click -> selectTarget(index)));
         }
     }
 
-    public void teleport(int index) {
+    public void selectTarget(int index) {
         GapRecorder recorder = this.gapRecorders.get(index);
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-        if (recorder != null && recorder.enable()) {
-            BlockPos pos = recorder.value();
-            MinecraftServer server = this.player.level().getServer();
-            Identifier id = Identifier.parse(recorder.world());
-            ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, id);
-            ServerLevel targetWorld = server.getLevel(worldKey);
-            if (targetWorld == null) {
-                this.player.sendSystemMessage(Component.literal("目标世界不存在: " + id), false);
-                return;
-            }
-            this.player.teleportTo(targetWorld,
-                    pos.getX() + 0.5,
-                    pos.getY(),
-                    pos.getZ() + 0.5,
-                    EnumSet.noneOf(Relative.class),
-                    this.player.getYRot(),
-                    this.player.getXRot(),
-                    true);
-            this.player.sendSystemMessage(Component.literal("已传送至：" + recorder.name()), false);
-            SoundEventPlayUtils.playSound(player, SoundEvents.CHORUS_FRUIT_TELEPORT, SoundSource.NEUTRAL, 1.0f, 1.0f);
-            SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
-            this.player.getCooldowns().addCooldown(this.stack, 3 * 20);
-            this.close();
-        } else {
-            this.player.sendSystemMessage(Component.literal("目标位置不存在。"), false);
+        if (recorder == null || !recorder.enable()) {
+            this.player.sendSystemMessage(Component.translatable("dialog.gap.target_missing"), false);
+            return;
         }
+
+        this.stack.set(RDDataComponentTypes.GAP_TARGET_INDEX.value(), index);
+        this.player.getInventory().setChanged();
+        this.player.sendSystemMessage(Component.translatable(
+                "dialog.gap.selected", index, recorder.name()), false);
+        this.updateTeleportSlots();
+        this.close();
     }
 
     public void add(int index) {
         BlockPos pos = this.player.blockPosition();
-        GapRecorder recorder = new GapRecorder("位置 " + index, this.getPlayer().level().dimension().identifier().toString(), pos, true);
+        GapRecorder recorder = new GapRecorder(
+                "位置 " + index,
+                this.getPlayer().level().dimension().identifier().toString(),
+                pos,
+                true
+        );
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         this.gapRecorders.set(index, recorder);
         this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
-        this.player.sendSystemMessage(Component.literal("已记录当前位置至槽位 " + index), false);
-        this.init();
-        this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
+
+        int selected = this.stack.getOrDefault(RDDataComponentTypes.GAP_TARGET_INDEX.value(), 0);
+        if (selected < MIN_INDEX || selected > MAX_INDEX
+                || !this.gapRecorders.get(selected).enable()) {
+            this.stack.set(RDDataComponentTypes.GAP_TARGET_INDEX.value(), index);
+        }
+
+        this.player.sendSystemMessage(Component.translatable("dialog.gap.recorded", index), false);
         this.player.getInventory().setChanged();
+        this.init();
     }
 
     public void delete(int index) {
         GapRecorder recorder = this.gapRecorders.get(index);
         SoundEventPlayUtils.playUISound(this.player, 1.0f, 1.0f);
         if (recorder != null) {
-            GapRecorder.GapRecorderBuilder builder = recorder.toBuilder();
-            builder.enable(false);
-            this.gapRecorders.set(index, builder.build());
+            this.gapRecorders.set(index, recorder.toBuilder().enable(false).build());
             this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
-            this.player.sendSystemMessage(Component.literal("已清除槽位 " + index), false);
-            this.init();
+
+            if (this.stack.getOrDefault(RDDataComponentTypes.GAP_TARGET_INDEX.value(), 0) == index) {
+                int fallback = MIN_INDEX;
+                for (int i = MIN_INDEX; i <= MAX_INDEX; i++) {
+                    if (this.gapRecorders.get(i).enable()) {
+                        fallback = i;
+                        break;
+                    }
+                }
+                this.stack.set(RDDataComponentTypes.GAP_TARGET_INDEX.value(), fallback);
+            }
+
+            this.player.sendSystemMessage(Component.translatable("dialog.gap.cleared", index), false);
         }
-        this.stack.set(RDDataComponentTypes.GAP_RECORDER.value(), this.gapRecorders);
         this.player.getInventory().setChanged();
+        this.init();
     }
 
     @Override

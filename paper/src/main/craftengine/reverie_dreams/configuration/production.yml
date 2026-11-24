@@ -1,0 +1,230 @@
+# Pinned CraftEngine 26.8.2. Machine state belongs to the per-position Java controller.
+items:
+  reverie_dreams:ice_making_machine:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.ice_making_machine>
+    model: reverie_dreams:block/ice_making_machine
+    behavior:
+      type: block_item
+      block: reverie_dreams:ice_making_machine
+  reverie_dreams:brewing_barrel:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.brewing_barrel>
+    model: reverie_dreams:block/brewing_barrel
+    behavior:
+      type: block_item
+      block: reverie_dreams:brewing_barrel
+  reverie_dreams:magic_ice:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.magic_ice>
+    model: reverie_dreams:block/magic_ice
+    behavior:
+      type: block_item
+      block: reverie_dreams:magic_ice
+blocks:
+  reverie_dreams:ice_making_machine:
+    settings:
+      item: reverie_dreams:ice_making_machine
+      hardness: 1.5
+      resistance: 6.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+      push_reaction: block
+    behavior:
+      type: reverie_dreams:production
+      machine: ice
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/ice_making_machine
+        east:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/ice_making_machine
+            y: 90
+        south:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/ice_making_machine
+            y: 180
+        west:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/ice_making_machine
+            y: 270
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:ice_making_machine
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:brewing_barrel:
+    settings:
+      item: reverie_dreams:brewing_barrel
+      hardness: 2.5
+      resistance: 2.5
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+      push_reaction: block
+    behavior:
+      type: reverie_dreams:production
+      machine: barrel
+    states:
+      properties:
+        facing:
+          type: direction
+          default: north
+      appearances:
+        down:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/brewing_barrel
+            x: 180
+        up:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/brewing_barrel
+        north:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/brewing_barrel
+            x: 90
+        east:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/brewing_barrel
+            x: 90
+            y: 90
+        south:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/brewing_barrel
+            x: 90
+            y: 180
+        west:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/brewing_barrel
+            x: 90
+            y: 270
+      variants:
+        facing=down:
+          appearance: down
+        facing=up:
+          appearance: up
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:brewing_barrel
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:magic_ice:
+    settings:
+      item: reverie_dreams:magic_ice
+      hardness: 2.8
+      resistance: 2.8
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      sounds:
+        break: minecraft:block.glass.break
+        fall: minecraft:block.glass.fall
+        hit: minecraft:block.glass.hit
+        place: minecraft:block.glass.place
+        step: minecraft:block.glass.step
+      friction: 0.989
+    state:
+      auto_state: solid
+      model:
+        path: reverie_dreams:block/magic_ice
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:magic_ice
+        conditions:
+        - type: survives_explosion
+recipes:
+  reverie_dreams:ice_making_machine:
+    type: shaped
+    pattern:
+    - ICI
+    - IBI
+    - CWC
+    ingredients:
+      B: minecraft:blue_ice
+      C: minecraft:copper_ingot
+      I: minecraft:iron_ingot
+      W: minecraft:bucket
+    result:
+      id: reverie_dreams:ice_making_machine
+      count: 1
+  reverie_dreams:brewing_barrel:
+    type: shaped
+    pattern:
+    - '# #'
+    - '#C#'
+    - '# #'
+    ingredients:
+      '#': '#minecraft:wooden_slabs'
+      C: minecraft:barrel
+    result:
+      id: reverie_dreams:brewing_barrel
+      count: 1
+  reverie_dreams:magic_ice:
+    type: shaped
+    pattern:
+    - XXX
+    - X#X
+    - XXX
+    ingredients:
+      '#': reverie_dreams:power
+      X: minecraft:ice
+    result:
+      id: reverie_dreams:magic_ice
+      count: 8

@@ -1,0 +1,651 @@
+{
+  "minecraft": "26.1.2",
+  "source_sha256": "ad28cb3aff56b04f7ce3441926c27e5f32425d59f145b765ff653ee09a27f194",
+  "feature_sha256": {
+    "minecraft:ore_coal": "5747c313b45a3a530020fa4bc2e67e4949029ef4ab47e20f8cefd6f691c9aa97",
+    "minecraft:ore_coal_buried": "9fa9b7401038cb702c81cd6ed502e79eb7634b326ada1bff9981ec08cc4230be",
+    "minecraft:ore_copper_small": "bcd4c1673ab714a4ffd4e3b16d23815d30edc3eefba192e9a64418397b60ba1a",
+    "minecraft:ore_diamond_buried": "e3672bab70b3b1e134fed8558615dae0bb82bcb55e4fb0b10ede7b6390ddf8c6",
+    "minecraft:ore_diamond_large": "3b106a44a3c0fb9a4e3485859d0d32bc429feacab7a639f3eaa70b92c9683fa6",
+    "minecraft:ore_diamond_medium": "be6ec4e61d4f31f8b0f0a6b1582cbfd70d91957bd2b144c36caed7c0f1eb9983",
+    "minecraft:ore_diamond_small": "f66eee9cadbf8334663dbb8bae8af4ecd8c7dc0b3bad45df2e7e4970ff64e60e",
+    "minecraft:ore_emerald": "58dfbadaae26d8cd637ebd7ce796df86d0e48e94a3bfeaf27cd6d85ca78a33a2",
+    "minecraft:ore_gold": "db32c820de79d6ce5f048443f3fd498473dffbe6326863f88b61a2f66e9134c8",
+    "minecraft:ore_gold_buried": "83dd03420f1b4e8116b9f4a5023b3d792bc6acc928fb8ffcb4e6320801e24e1f",
+    "minecraft:ore_iron": "45335735e29773b5ae595930491ef8755c5722cee298a48eead98207795a5c5e",
+    "minecraft:ore_iron_small": "90cf1391e4860ec6d3c6eba0f7820ad7acc461c8ce9d0b9982aefca738983d57",
+    "minecraft:ore_lapis": "0d5c9ff256d9975509235c148ef886cbfdb56d63e428d39be8b89f5af30b52e9",
+    "minecraft:ore_lapis_buried": "740c9c4da05eb4277ead5312bc7cd3f4e68f0cb5818690b610e9e445311d4db8",
+    "minecraft:ore_redstone": "dc1a39daba70c9a92ff12c8a8c3dd0ac0c2ffe52ace935cc314b875dfaff50b2",
+    "reverie_dreams:overworld_orb_ore": "92aa80787034b6d0dd3274c39d32b6dcd8ac64a1dde12ae55694d63fe2e5be55",
+    "reverie_dreams:overworld_silver_ore": "906add37f6e054e41f40d11544e7a4b71c04dccde7f48528c53aea1d2e789e71"
+  },
+  "features": {
+    "minecraft:ore_coal": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 17,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:coal_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_coal_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_coal_buried": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0.5,
+        "size": 17,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:coal_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_coal_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_copper_small": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 10,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:copper_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_copper_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_diamond_buried": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 1,
+        "size": 8,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_diamond_large": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0.7,
+        "size": 12,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_diamond_medium": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0.5,
+        "size": 8,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_diamond_small": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0.5,
+        "size": 4,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_diamond_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_emerald": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 3,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:emerald_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_emerald_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_gold": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 9,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:gold_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_gold_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_gold_buried": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0.5,
+        "size": 9,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:gold_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_gold_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_iron": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 9,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:iron_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_iron_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_iron_small": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 4,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:iron_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_iron_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_lapis": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 7,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:lapis_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_lapis_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_lapis_buried": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 1,
+        "size": 7,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:lapis_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_lapis_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "minecraft:ore_redstone": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0,
+        "size": 8,
+        "targets": [
+          {
+            "state": {
+              "Name": "minecraft:redstone_ore",
+              "Properties": {
+                "lit": "false"
+              }
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "minecraft:deepslate_redstone_ore",
+              "Properties": {
+                "lit": "false"
+              }
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "reverie_dreams:overworld_orb_ore": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0.32,
+        "size": 7,
+        "targets": [
+          {
+            "state": {
+              "Name": "reverie_dreams:orb_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "reverie_dreams:deepslate_orb_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    },
+    "reverie_dreams:overworld_silver_ore": {
+      "type": "minecraft:ore",
+      "config": {
+        "discard_chance_on_air_exposure": 0.3,
+        "size": 15,
+        "targets": [
+          {
+            "state": {
+              "Name": "reverie_dreams:silver_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:stone_ore_replaceables"
+            }
+          },
+          {
+            "state": {
+              "Name": "reverie_dreams:deepslate_silver_ore"
+            },
+            "target": {
+              "predicate_type": "minecraft:tag_match",
+              "tag": "minecraft:deepslate_ore_replaceables"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "biome_rules": {
+    "overworld": [
+      "minecraft:badlands",
+      "minecraft:bamboo_jungle",
+      "minecraft:beach",
+      "minecraft:birch_forest",
+      "minecraft:cherry_grove",
+      "minecraft:cold_ocean",
+      "minecraft:dark_forest",
+      "minecraft:deep_cold_ocean",
+      "minecraft:deep_dark",
+      "minecraft:deep_frozen_ocean",
+      "minecraft:deep_lukewarm_ocean",
+      "minecraft:deep_ocean",
+      "minecraft:desert",
+      "minecraft:dripstone_caves",
+      "minecraft:eroded_badlands",
+      "minecraft:flower_forest",
+      "minecraft:forest",
+      "minecraft:frozen_ocean",
+      "minecraft:frozen_peaks",
+      "minecraft:frozen_river",
+      "minecraft:grove",
+      "minecraft:ice_spikes",
+      "minecraft:jagged_peaks",
+      "minecraft:jungle",
+      "minecraft:lukewarm_ocean",
+      "minecraft:lush_caves",
+      "minecraft:mangrove_swamp",
+      "minecraft:meadow",
+      "minecraft:mushroom_fields",
+      "minecraft:ocean",
+      "minecraft:old_growth_birch_forest",
+      "minecraft:old_growth_pine_taiga",
+      "minecraft:old_growth_spruce_taiga",
+      "minecraft:pale_garden",
+      "minecraft:plains",
+      "minecraft:river",
+      "minecraft:savanna",
+      "minecraft:savanna_plateau",
+      "minecraft:snowy_beach",
+      "minecraft:snowy_plains",
+      "minecraft:snowy_slopes",
+      "minecraft:snowy_taiga",
+      "minecraft:sparse_jungle",
+      "minecraft:stony_peaks",
+      "minecraft:stony_shore",
+      "minecraft:sunflower_plains",
+      "minecraft:swamp",
+      "minecraft:taiga",
+      "minecraft:warm_ocean",
+      "minecraft:windswept_forest",
+      "minecraft:windswept_gravelly_hills",
+      "minecraft:windswept_hills",
+      "minecraft:windswept_savanna",
+      "minecraft:wooded_badlands",
+      "reverie_dreams:gensokyo_forest",
+      "reverie_dreams:gensokyo_birch_forest",
+      "reverie_dreams:gensokyo_taiga",
+      "reverie_dreams:gensokyo_cherry_grove",
+      "reverie_dreams:gensokyo_dark_forest",
+      "reverie_dreams:gensokyo_magic_forest",
+      "reverie_dreams:gensokyo_maple_forest"
+    ],
+    "badlands": [
+      "minecraft:badlands",
+      "minecraft:eroded_badlands",
+      "minecraft:wooded_badlands"
+    ],
+    "mountain": [
+      "minecraft:cherry_grove",
+      "minecraft:frozen_peaks",
+      "minecraft:grove",
+      "minecraft:jagged_peaks",
+      "minecraft:meadow",
+      "minecraft:snowy_slopes",
+      "minecraft:stony_peaks",
+      "minecraft:windswept_forest",
+      "minecraft:windswept_gravelly_hills",
+      "minecraft:windswept_hills",
+      "reverie_dreams:gensokyo_cherry_grove"
+    ]
+  },
+  "source_placements": {
+    "reverie_dreams:overworld_silver_ore_placed": {
+      "sha256": "bdac8dd9825a3e94cdcc0f7f346da008f0edb3e6ddfb9add64f7a77c351f5caa",
+      "definition": {
+        "feature": "reverie_dreams:overworld_silver_ore",
+        "placement": [
+          {
+            "type": "minecraft:count",
+            "count": 9
+          },
+          {
+            "type": "minecraft:in_square"
+          },
+          {
+            "type": "minecraft:height_range",
+            "height": {
+              "type": "minecraft:uniform",
+              "max_inclusive": {
+                "below_top": 10
+              },
+              "min_inclusive": {
+                "above_bottom": 10
+              }
+            }
+          },
+          {
+            "type": "minecraft:biome"
+          }
+        ]
+      }
+    },
+    "reverie_dreams:overworld_orb_ore_placed": {
+      "sha256": "50df03f5421061865e3ec4650d343b534eb12cd33790e37d881a3c90a5b1ea2f",
+      "definition": {
+        "feature": "reverie_dreams:overworld_orb_ore",
+        "placement": [
+          {
+            "type": "minecraft:count",
+            "count": 7
+          },
+          {
+            "type": "minecraft:in_square"
+          },
+          {
+            "type": "minecraft:height_range",
+            "height": {
+              "type": "minecraft:trapezoid",
+              "max_inclusive": {
+                "above_bottom": 80
+              },
+              "min_inclusive": {
+                "above_bottom": -80
+              }
+            }
+          },
+          {
+            "type": "minecraft:biome"
+          }
+        ]
+      }
+    }
+  },
+  "previous_catalog_source_sha256": "a3b1a945da6034b4950344476eda10467d0bd9bdd134ed2ecf956d0f95a54592",
+  "source_file_sha256": {
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/gen/GensokyoOreGeneration.java": "2d3c3646892cea0b06755b527afc0987b8d0130e22ffd09cbc07cb3eeb7c9f97",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/gen/GensokyoBiomeSource.java": "f970484ef0693052ffcfa44331cc88a0fc61df0e2dc3de75630c23d25e6f9327",
+    "fabric/src/main/java/cc/thonly/reverie_dreams/fabric/datagen/tag/BiomeTagProvider.java": "0a520adc7e95a7795fc663517d20fc9b3d3764648638523605e63003ad9a94b5",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/BiomeModificationInit.java": "15b3226bf0f6c111d717b04ae4d54869457fad5dda1db749ecfc5ecf6421f0e6",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/tree/GensokyoForestBootstrap.java": "e3be30a78cce4d0add7c3874a0aa187a5b87129e0b956d4649ebc541a4e8066b",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/tree/GensokyoForestType.java": "b3351f2489cf0498ed6f9d3effbccb610658cca969eaf40dcca3e6f1b8eaad8a",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/tree/GensokyoTreeConfiguration.java": "6581e3cbd4ffc0a73be310f3fd30e23a30f63d1db93e979596df6f1309c017b6",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/tree/GensokyoTreeFeature.java": "299b845ef53e4dc1062483569529c1cea7bce34de657c5568192213274ca4e71",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/tree/GensokyoTreeProfile.java": "d5e02c3849bb3d78be7561457e8c34956794d9a073dc146c3ee296b0559bdd1b",
+    "common/src/main/java/cc/thonly/reverie_dreams/world/gensokyo/tree/GensokyoTreeShape.java": "ddd7270d58c86c346f3fab5b5306e66e2d4180e1580d70d1af6e577f39116d4f"
+  },
+  "map_source_sha256": "4e30749817f2faf62bb8e4d7fd3fa1f64135fc2e479cf21392a395e1203a7f65",
+  "map_raw_sha256": "b99684c2ebc8cc6a52240b408ae36a3194f9dc590b6130f3b76dddf50fa62935",
+  "source_digest_method": "SHA256 of compact JSON [source_file_sha256, feature_sha256, biome_rules, source_placements], in stored key order; map identity separate."
+}

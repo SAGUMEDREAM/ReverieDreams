@@ -1,12 +1,13 @@
 {
   "values": [
-    "reverie_dreams:spiritual_door",
+    "reverie_dreams:iroha_maple_door",
+    "reverie_dreams:fusuma_door",
     "reverie_dreams:lemon_door",
+    "reverie_dreams:itaya_maple_door",
     "reverie_dreams:ginkgo_door",
+    "reverie_dreams:shoji_door",
     "reverie_dreams:peach_door",
-    "reverie_dreams:ginkgo_door",
-    "reverie_dreams:lemon_door",
-    "reverie_dreams:spiritual_door",
-    "reverie_dreams:peach_door"
+    "reverie_dreams:hauchiwa_maple_door",
+    "reverie_dreams:spiritual_door"
   ]
 }

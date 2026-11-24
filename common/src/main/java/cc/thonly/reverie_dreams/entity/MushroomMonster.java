@@ -70,17 +70,17 @@ public class MushroomMonster extends PathfinderMob implements GeoEntity {
     @Override
     public boolean doHurtTarget(ServerLevel world, Entity target) {
         if (target instanceof LivingEntity) {
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.POISON, 10 * 20));
-            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.NAUSEA, 15 * 20));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.POISON, 5 * 20));
+            ((LivingEntity) target).addEffect(new MobEffectInstance(MobEffects.NAUSEA, 8 * 20));
         }
         return super.doHurtTarget(world, target);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 30)
+                .add(Attributes.MAX_HEALTH, 20)
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
-                .add(Attributes.ATTACK_DAMAGE, 3.5)
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.FOLLOW_RANGE, 15);
     }
 

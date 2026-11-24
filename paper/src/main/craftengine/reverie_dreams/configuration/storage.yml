@@ -1,0 +1,120 @@
+# Native CraftEngine 26.8.2 simple_storage_block; original independent 27-slot boxes.
+items:
+  reverie_dreams:silver_chest:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.silver_chest>
+    model: reverie_dreams:block/silver_chest
+    behavior:
+      type: block_item
+      block: reverie_dreams:silver_chest
+    settings:
+      tags:
+      - reverie_dreams:silver_item
+  reverie_dreams:wooden_box:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.wooden_box>
+    model: reverie_dreams:block/wooden_box
+    behavior:
+      type: block_item
+      block: reverie_dreams:wooden_box
+blocks:
+  reverie_dreams:silver_chest:
+    settings:
+      item: reverie_dreams:silver_chest
+      hardness: 5
+      resistance: 6
+      can_occlude: false
+      is_suffocating: true
+      is_redstone_conductor: true
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+      tags:
+      - minecraft:mineable/pickaxe
+      - minecraft:needs_stone_tool
+      correct_tools:
+      - '#minecraft:pickaxes'
+      required_break_power: 2
+    behavior:
+      type: simple_storage_block
+      rows: 3
+      title: <lang:block.reverie_dreams.silver_chest>
+      has_signal: false
+      allow_input: true
+      allow_output: true
+      data_key: reverie_dreams:storage/silver_chest
+      sounds:
+        open: minecraft:block.chest.open
+        close: minecraft:block.chest.close
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        box:
+          state: minecraft:barrier
+          entity_renderer:
+            item: reverie_dreams:silver_chest
+            display_transform: NONE
+            scale: 1
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:silver_chest
+  reverie_dreams:wooden_box:
+    settings:
+      item: reverie_dreams:wooden_box
+      hardness: 2.5
+      resistance: 2.5
+      can_occlude: false
+      is_suffocating: true
+      is_redstone_conductor: true
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: simple_storage_block
+      rows: 3
+      title: <lang:block.reverie_dreams.wooden_box>
+      has_signal: false
+      allow_input: true
+      allow_output: true
+      data_key: reverie_dreams:storage/wooden_box
+      sounds:
+        open: minecraft:block.chest.open
+        close: minecraft:block.chest.close
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        box:
+          state: minecraft:barrier
+          entity_renderer:
+            item: reverie_dreams:wooden_box
+            display_transform: NONE
+            scale: 1
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:wooden_box

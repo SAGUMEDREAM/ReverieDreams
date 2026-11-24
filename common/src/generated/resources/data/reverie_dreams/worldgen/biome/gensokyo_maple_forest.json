@@ -1,0 +1,54 @@
+{
+  "carvers": [],
+  "downfall": 0.6,
+  "effects": {
+    "foliage_color": "#668347",
+    "grass_color": "#879b55",
+    "water_color": "#3f6f9a"
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:glow_lichen",
+      "minecraft:patch_tall_grass_2",
+      "minecraft:forest_flowers",
+      "reverie_dreams:gensokyo/maple_forest_trees",
+      "minecraft:patch_bush",
+      "minecraft:flower_default",
+      "minecraft:patch_grass_forest",
+      "minecraft:brown_mushroom_normal",
+      "reverie_dreams:maple_leaf_litter_placed",
+      "minecraft:patch_pumpkin",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_firefly_bush_near_water",
+      "reverie_dreams:gensokyo/rocks/maple_forest/low_outcrop",
+      "reverie_dreams:gensokyo/rocks/maple_forest/rock_cluster",
+      "reverie_dreams:gensokyo/rocks/maple_forest/landmark_boulder",
+      "reverie_dreams:gensokyo/understory/maple_forest/leaf_patch",
+      "reverie_dreams:gensokyo/understory/maple_forest/shrub",
+      "reverie_dreams:gensokyo/understory/maple_forest/thicket",
+      "reverie_dreams:gensokyo/understory/maple_forest/floor_patch"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 0.7
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PRP",
+    "S S"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "S": "minecraft:stick",
+    "R": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "reverie_dreams:taiko_bridge_crown",
+    "count": 4
+  }
+}

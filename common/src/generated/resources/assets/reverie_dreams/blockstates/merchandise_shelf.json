@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,open=false": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf"
+    },
+    "facing=north,open=true": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf_open"
+    },
+    "facing=east,open=false": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf",
+      "y": 90
+    },
+    "facing=east,open=true": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf_open",
+      "y": 90
+    },
+    "facing=south,open=false": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf",
+      "y": 180
+    },
+    "facing=south,open=true": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf_open",
+      "y": 180
+    },
+    "facing=west,open=false": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf",
+      "y": 270
+    },
+    "facing=west,open=true": {
+      "model": "reverie_dreams:block/set2/merchandise_shelf_open",
+      "y": 270
+    }
+  }
+}

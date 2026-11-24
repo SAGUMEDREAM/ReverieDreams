@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "C": "minecraft:campfire"
+  },
+  "result": {
+    "id": "reverie_dreams:irori",
+    "count": 1
+  }
+}

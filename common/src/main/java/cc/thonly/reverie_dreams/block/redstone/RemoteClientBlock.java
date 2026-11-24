@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.block.redstone;
 
 import cc.thonly.reverie_dreams.block.entity.RemoteBlockEntity;
-import cc.thonly.reverie_dreams.gui.block.RemoteGui;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,32 +22,31 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
+import cc.thonly.reverie_dreams.server.dialog.RedstoneConfigDialog;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 public class RemoteClientBlock extends Block implements EntityBlock {
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public RemoteClientBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(POWERED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(POWERED, false));
     }
 
     @Override
     public @NotNull InteractionResult useWithoutItem(@NonNull BlockState blockState, Level level, @NonNull BlockPos blockPos, @NonNull Player player, @NonNull BlockHitResult blockHitResult) {
-        if (!level.isClientSide()) {
-            RemoteBlockEntity blockEntity = getBlockEntity(level, blockPos);
-            if (blockEntity == null) {
-                return InteractionResult.FAIL;
-            }
-            RemoteGui remoteGui = new RemoteGui(blockEntity, (ServerPlayer) player);
-            remoteGui.open();
-            return InteractionResult.SUCCESS_SERVER;
-        }
-        return InteractionResult.SUCCESS;
+        if (player instanceof ServerPlayer serverPlayer)
+            RedstoneConfigDialog.open(serverPlayer, blockPos);
+        return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED);
+        builder.add(POWERED, FACING);
     }
 
     @Override
@@ -82,4 +80,20 @@ public class RemoteClientBlock extends Block implements EntityBlock {
         BlockEntity be = level.getBlockEntity(pos);
         return be instanceof RemoteBlockEntity r ? r : null;
     }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+
+    @Override
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
+    }
+
+    @Override
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
+    }
+
 }

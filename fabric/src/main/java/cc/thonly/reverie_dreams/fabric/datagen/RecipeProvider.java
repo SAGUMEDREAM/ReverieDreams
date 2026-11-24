@@ -14,7 +14,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 
     @Override
     protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
-        return new ImplRecipeGenerator(registryLookup, exporter);
+        return new RDRecipeGenerator(registryLookup, exporter);
     }
 
     @Override

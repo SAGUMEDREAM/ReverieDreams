@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "reverie_dreams:gensokyo/jungle_young",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.1,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/jungle_canopy",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.24444444,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/jungle_forked",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.26470593,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/jungle_tiered",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.32000002,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/jungle_leaning",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.4705883,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/jungle_spreading",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

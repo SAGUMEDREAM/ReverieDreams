@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": "minecraft:stone",
+    "T": "minecraft:torch"
+  },
+  "pattern": [
+    "SSS",
+    "STS",
+    "S S"
+  ],
+  "result": {
+    "id": "reverie_dreams:yukimi_lantern"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/carpet",
+  "textures": {
+    "wool": "reverie_dreams:block/footstep_moss_dim"
+  }
+}

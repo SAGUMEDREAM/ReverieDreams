@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:rose_bush",
+  "output": {
+    "id": "minecraft:red_dye",
+    "count": 3
+  },
+  "work": 8
+}

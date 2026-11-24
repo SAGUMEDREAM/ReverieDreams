@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gensokyo Map Editor</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="app-header">
+  <div class="menubar">
+    <div class="brand">
+      <span class="brand-icon">◆</span>
+      Gensokyo World Editor
+      <span class="version">P4</span>
+      <span id="titleMapName" class="title-map">[未命名地图]</span>
+    </div>
+    <nav class="menubar-menus" aria-label="主菜单">
+      <details class="menu">
+        <summary>文件</summary>
+        <div class="menu-popover">
+          <button type="button" data-command="save"><span>保存地图</span><kbd>Ctrl+S</kbd></button>
+          <button type="button" data-command="import-common"><span>从 common 导入</span></button>
+          <button type="button" data-command="sync"><span>同步到 resources</span></button>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>编辑</summary>
+        <div class="menu-popover">
+          <button type="button" data-command="undo"><span>撤销</span><kbd>Ctrl+Z</kbd></button>
+          <button type="button" data-command="redo"><span>重做</span><kbd>Ctrl+Y</kbd></button>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>视图</summary>
+        <div class="menu-popover">
+          <button type="button" data-command="view-2d"><span>2D 视图</span></button>
+          <button type="button" data-command="view-3d"><span>3D 视图</span></button>
+          <button type="button" data-command="fit"><span>适应地图</span><kbd>F</kbd></button>
+          <button type="button" data-command="toggle-grid"><span>显示 / 隐藏网格</span><kbd>G</kbd></button>
+          <button type="button" data-command="toggle-water"><span>显示 / 隐藏水面</span><kbd>W</kbd></button>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>图层</summary>
+        <div class="menu-popover">
+          <button type="button" data-command="layer-height"><span>高度层</span><kbd>1</kbd></button>
+          <button type="button" data-command="layer-biome"><span>群系层</span><kbd>2</kbd></button>
+          <button type="button" data-command="layer-surface"><span>地表层</span><kbd>3</kbd></button>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>场景</summary>
+        <div class="menu-popover">
+          <button type="button" data-command="focus-spawn"><span>出生点设置</span></button>
+          <button type="button" data-command="focus-meta"><span>地图信息</span></button>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>模块</summary>
+        <div class="menu-popover">
+          <button type="button" data-command="module-terrain"><span>地形编辑器</span><kbd>T</kbd></button>
+          <button type="button" data-command="module-blocks"><span>方块物品栏</span></button>
+          <button type="button" data-command="module-objects"><span>结构调色板</span><kbd>D</kbd></button>
+          <button type="button" data-command="module-view"><span>光照 / 视图</span><kbd>V</kbd></button>
+          <button type="button" data-command="module-map"><span>地图信息</span></button>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>帮助</summary>
+        <div class="menu-popover">
+          <button type="button" data-command="shortcuts"><span>快捷键说明</span></button>
+          <button type="button" data-command="about"><span>关于编辑器</span></button>
+        </div>
+      </details>
+    </nav>
+    <div class="menubar-status">
+      <span id="dirtyState" class="dirty-state">未修改</span>
+      <span id="authBadge" class="auth-badge" hidden></span>
+      <button id="logoutBtn" class="auth-logout" type="button" hidden>退出</button>
+    </div>
+  </div>
+
+  <div class="toolbar" role="toolbar" aria-label="主工具栏">
+    <div class="toolbar-group">
+      <button id="undoBtn" type="button" class="toolbar-btn" title="撤销 Ctrl+Z">↶</button>
+      <button id="redoBtn" type="button" class="toolbar-btn" title="重做 Ctrl+Y">↷</button>
+    </div>
+    <span class="toolbar-sep"></span>
+    <div class="toolbar-group">
+      <button id="saveBtn" type="button" class="primary toolbar-btn" title="保存地图 Ctrl+S">保存</button>
+      <button id="importCommonBtn" type="button" class="toolbar-btn" title="从 common 导入地图">导入 common</button>
+      <button id="syncBtn" type="button" class="toolbar-btn" title="把 source 同步到 resources">同步 resources</button>
+    </div>
+    <span class="toolbar-sep"></span>
+    <div class="toolbar-group">
+      <div class="segmented toolbar-segmented" id="viewModeButtons">
+        <button data-view="2d" class="active">2D</button>
+        <button data-view="3d">3D</button>
+      </div>
+      <button id="fitViewBtn" type="button" class="toolbar-btn" title="适应地图 F">⤢ 适应</button>
+    </div>
+    <div class="toolbar-spacer"></div>
+    <span class="toolbar-hint">Minecraft Terrain Workshop · WC3 workflow</span>
+    <button type="button" class="toolbar-btn" disabled title="测试地图功能尚未接入">▶ 测试地图</button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="panel left-dock">
+    <section class="minimap-section">
+      <div class="palette-title">
+        <span>地图</span>
+        <span class="palette-subtitle">Minimap</span>
+      </div>
+      <div class="minimap-wrap">
+        <canvas id="minimap" width="180" height="180"></canvas>
+        <span class="minimap-label">概览</span>
+      </div>
+      <label class="check-row"><input id="gridToggle" type="checkbox" checked> 显示网格</label>
+      <label class="check-row"><input id="waterToggle" type="checkbox" checked> 水面覆盖</label>
+    </section>
+  </aside>
+
+  <section class="canvas-wrap" id="viewportStage">
+    <canvas id="mapCanvas" width="720" height="720"></canvas>
+    <canvas id="terrainCanvas" width="720" height="720"></canvas>
+    <div id="cursorInfo" class="hud">移动鼠标查看地图信息</div>
+    <div id="structureSelectBox" class="structure-select-box" hidden></div>
+    <div class="hotbar" id="hotbar" aria-label="快捷工具栏">
+      <button type="button" class="hotbar-slot" data-hotbar="brush" title="笔刷 B"><span>▰</span><small>笔刷</small></button>
+      <button type="button" class="hotbar-slot" data-hotbar="rect" title="矩形 R"><span>▭</span><small>矩形</small></button>
+      <button type="button" class="hotbar-slot" data-hotbar="pick" title="吸管 I"><span>⌖</span><small>吸管</small></button>
+      <button type="button" class="hotbar-slot" data-hotbar="raise" title="抬升"><span>▲</span><small>抬升</small></button>
+      <button type="button" class="hotbar-slot" data-hotbar="lower" title="降低"><span>▼</span><small>降低</small></button>
+      <button type="button" class="hotbar-slot" data-hotbar="smooth" title="平滑"><span>≈</span><small>平滑</small></button>
+      <button type="button" class="hotbar-slot" data-hotbar="flatten" title="压平"><span>▬</span><small>压平</small></button>
+      <button type="button" class="hotbar-slot hotbar-block" data-hotbar="block" id="hotbarBlock" title="当前方块"><span class="hotbar-block-swatch"></span><small>方块</small></button>
+      <button type="button" class="hotbar-slot" data-hotbar="underground" title="地下切片"><span>◫</span><small>地下</small></button>
+    </div>
+  </section>
+
+  <aside class="panel tool-palette">
+    <div class="palette-window-title">
+      <span>工作台</span>
+      <span class="palette-subtitle">Workbench</span>
+    </div>
+    <div class="tool-tabs" id="toolTabs">
+      <button data-page="terrain" class="active"><span class="tab-icon">⛏</span>地形</button>
+      <button data-page="blocks"><span class="tab-icon">▦</span>方块</button>
+      <button data-page="objects"><span class="tab-icon">⌂</span>结构</button>
+      <button data-page="light"><span class="tab-icon">☀</span>光照</button>
+      <button data-page="map"><span class="tab-icon">▤</span>地图</button>
+    </div>
+
+    <div class="tool-page" data-page="terrain">
+      <section>
+        <h2>图层</h2>
+        <div class="segmented" id="layerButtons">
+          <button data-layer="height" class="active">高度</button>
+          <button data-layer="biome">群系</button>
+          <button data-layer="surface">地表</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>模式</h2>
+        <div class="segmented vertical" id="editModeButtons">
+          <button data-mode="brush" class="active">笔刷</button>
+          <button data-mode="rect">矩形</button>
+          <button data-mode="select">选区</button>
+          <button data-mode="pick">吸管</button>
+        </div>
+      </section>
+
+      <section id="heightTools">
+        <h2>高度工具</h2>
+        <div class="segmented vertical" id="heightToolButtons">
+          <button data-tool="raise" class="active">抬升</button>
+          <button data-tool="lower">降低</button>
+          <button data-tool="smooth">平滑</button>
+          <button data-tool="flatten">压平</button>
+          <button data-tool="set">设为</button>
+          <button data-tool="void">挖空</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>笔刷半径 <span id="brushSizeValue" class="badge">2</span></h2>
+        <input id="brushSize" type="range" min="0" max="512" value="2">
+        <label class="check-row">精确半径 <input id="brushSizeInput" type="number" min="0" max="512" step="1" value="2"></label>
+        <p class="hint">范围 0–512，可直接输入精确值（大半径群系涂抹更快）。</p>
+      </section>
+
+      <section id="brushStrengthSection">
+        <h2>笔刷强度 <span id="brushStrengthValue" class="badge">1</span></h2>
+        <input id="brushStrength" type="range" min="1" max="10" value="1">
+        <p class="hint">强度影响高度抬升/降低幅度，以及平滑和压平的渐变强度。</p>
+      </section>
+
+      <section id="terrain3dDisplaySection" hidden>
+        <h2>3D 起伏显示 <span id="terrain3dExaggerationValue" class="badge">1×</span> <span id="terrain3dXzScaleValue" class="badge">XZ 1×</span></h2>
+        <label class="check-row">垂直夸张
+          <select id="terrain3dExaggeration">
+            <option value="auto">自动</option>
+            <option value="1">1×（1:1 真实比例）</option>
+            <option value="2">2×</option>
+            <option value="4">4×</option>
+            <option value="8">8×</option>
+            <option value="16">16×</option>
+            <option value="32">32×</option>
+            <option value="64">64×</option>
+          </select>
+        </label>
+        <label class="check-row">横向缩放（XZ）
+          <select id="terrain3dXzScale">
+            <option value="0.25">0.25×（压缩）</option>
+            <option value="0.5">0.5×</option>
+            <option value="1">1×（真实比例）</option>
+            <option value="2">2×</option>
+            <option value="4">4×（拉伸）</option>
+          </select>
+        </label>
+        <label class="check-row"><input id="terrain3dBorder" type="checkbox" checked>外围山地与河流（只读预览）</label>
+        <label class="check-row">3D 网格精度
+          <select id="terrain3dDetail">
+            <option value="192">标准（快）</option>
+            <option value="384">高</option>
+            <option value="640">超高（慢）</option>
+            <option value="0">1:1 方块（局部 512×512）</option>
+          </select>
+        </label>
+        <p class="hint">仅影响 3D 预览，不改地图数据，也不影响保存到游戏的地图。垂直夸张自动模式会按地图宽度和高度差选择倍数；横向缩放只改变 XZ 预览比例，1× 为真实比例。标准/高/超高是整图降采样预览；1:1 方块只渲染视图中心 512×512 的完整方块网格，随视角移动，缩放下限 2×、上限 100×，整图缩放请切回降采样模式。</p>
+      </section>
+
+      <section id="actualModeSection">
+        <h2>3D 实际方块</h2>
+        <label class="check-row"><input id="actualTerrainToggle" type="checkbox"> 使用实际方块阶梯</label>
+        <p class="hint">关闭坡度平滑，3D 顶面按高度图逐格显示，并在高度差处生成竖直方块侧面。</p>
+      </section>
+
+      <section id="selectionSection">
+        <h2>地形选区 <span id="selectionInfo" class="badge">无</span></h2>
+        <div class="selection-actions">
+          <button id="copySelectionBtn" type="button">复制</button>
+          <button id="pasteSelectionBtn" type="button">粘贴</button>
+          <button id="clearSelectionBtn" type="button">清除</button>
+        </div>
+        <div class="template-row">
+          <input id="terrainTemplateName" type="text" placeholder="地形模板名称">
+          <button id="saveTerrainTemplateBtn" type="button">保存模板</button>
+        </div>
+        <div class="template-row">
+          <select id="terrainTemplateList"></select>
+          <button id="pasteTerrainTemplateBtn" type="button">粘贴模板</button>
+          <button id="deleteTerrainTemplateBtn" type="button" class="danger-button">删除</button>
+        </div>
+        <p class="hint">选区模式拖动框选；Ctrl+C / Ctrl+V 复制粘贴，粘贴以当前鼠标格为左上角。模板保存在浏览器本地。</p>
+      </section>
+
+      <section id="biomePaletteSection" hidden>
+        <h2>当前地图群系调色板 <span id="biomeCount" class="badge">0</span></h2>
+        <input id="biomeSearch" type="search" placeholder="搜索群系 ID，例如 forest / gensokyo">
+        <div id="biomePalette" class="palette biome-palette-scroll"></div>
+        <p class="hint">这里保持地图索引稳定；已有群系点击后用作群系笔刷。候选群系不会自动追加。</p>
+        <h3>候选群系库 <span id="biomeCandidateCount" class="badge">0</span></h3>
+        <input id="biomeCandidateSearch" type="search" placeholder="搜索中文名、完整 ID 或路径">
+        <div id="biomeCandidates" class="palette biome-palette-scroll"></div>
+        <p class="hint">按“幻想乡群系 / 原版群系 / 其他模组群系”分组；点击候选才会追加到当前地图调色板，最多 256 项且不重排旧索引。</p>
+        <label class="check-row">群系过渡 <input id="biomeTransition" type="range" min="0" max="64" step="1" value="0"><span id="biomeTransitionValue" class="badge">0</span></label>
+        <p class="hint">0 为硬边界；过渡用确定性 hash 在边界附近混样。编辑器逐格预览，游戏按 4×4 quart 采样，客户端“生物群系混合”会进一步柔化颜色。</p>
+      </section>
+
+      <section>
+        <h2>地下编辑</h2>
+        <label class="check-row"><input id="undergroundToggle" type="checkbox"> 地下切片模式</label>
+        <label class="check-row">切片 Y <input id="undergroundY" type="number" min="0" max="1023" step="1" value="32"></label>
+        <label class="check-row">笔刷 Y 下限 <input id="undergroundYMin" type="number" min="0" max="1023" step="1" value="32"></label>
+        <label class="check-row">笔刷 Y 上限 <input id="undergroundYMax" type="number" min="0" max="1023" step="1" value="32"></label>
+        <div class="selection-actions">
+          <button id="undergroundRangeFromSliceBtn" type="button">范围 = 切片</button>
+          <button id="undergroundSliceFromRangeBtn" type="button">切片 = 范围顶</button>
+        </div>
+        <label class="check-row"><input id="undergroundClearToggle" type="checkbox"> 清除覆盖（恢复自动生成）</label>
+        <p class="hint">切片 Y 控制 2D/3D 预览；笔刷 Y 范围控制一次落笔覆盖的垂直范围（单次最多 256 格）。3D 地下模式下 Shift+滚轮调整切片 Y。</p>
+      </section>
+    </div>
+
+    <div class="tool-page" data-page="blocks" hidden>
+      <section id="surfacePaletteSection" hidden>
+        <h2>地表调色板</h2>
+        <div id="surfacePalette" class="palette"></div>
+      </section>
+
+      <section id="allBlocksSection">
+        <h2>方块物品栏</h2>
+        <input id="blockSearch" type="search" placeholder="搜索方块 ID，例如 stone / grass / stairs">
+        <div id="blockGrid" class="block-grid" role="listbox" aria-label="全部方块"></div>
+        <select id="blockList" hidden></select>
+        <div class="block-actions">
+          <button id="blockUseBtn" type="button" class="use-block">装备到地表笔刷</button>
+          <span id="blockCount" class="block-count"></span>
+        </div>
+        <canvas id="blockPreview" width="260" height="150"></canvas>
+        <p class="hint">单击方块选中并预览，双击可直接装备到地表；方块会加入当前地图的 surface_palette。</p>
+      </section>
+
+      <section id="blockStateSection" hidden>
+        <h2>方块属性 <span id="blockStateName" class="badge">默认</span></h2>
+        <div id="blockStateProperties" class="block-state-properties"></div>
+        <p class="hint">属性会写入 blockstate 字符串；未修改时使用方块默认状态。保存后 Java 生成器按完整状态放置。</p>
+      </section>
+    </div>
+
+    <div class="tool-page" data-page="objects" hidden>
+      <section>
+        <h2>结构 / 装饰物</h2>
+        <div class="anchor-add">
+          <select id="anchorTemplate"></select>
+          <button id="anchorAddBtn" type="button">添加</button>
+        </div>
+        <button id="placeModeBtn" type="button" class="place-mode">进入放置模式</button>
+        <div class="anchor-list-actions">
+          <button id="anchorSelectAllBtn" type="button">全选结构</button>
+          <button id="anchorClearSelectionBtn" type="button">取消选择</button>
+        </div>
+        <p class="hint">进入结构 tab 后地形笔刷暂停：拖动鼠标框选结构，Ctrl/Shift 追加选择；点击锚点行可编辑坐标或移动。</p>
+        <div id="anchorList" class="anchor-list"></div>
+      </section>
+
+      <section id="anchorEditor" hidden>
+        <h2>选中结构</h2>
+        <p id="anchorEditorName" class="hint"></p>
+        <div class="spawn-row">
+          <label>X <input id="anchorX" type="number" step="1"></label>
+          <label>Y <input id="anchorY" type="number" step="1"></label>
+          <label>Z <input id="anchorZ" type="number" step="1"></label>
+        </div>
+        <div class="anchor-transform-row">
+          <label>旋转
+            <select id="anchorRotation">
+              <option value="none">无</option>
+              <option value="clockwise_90">顺时针 90°</option>
+              <option value="clockwise_180">180°</option>
+              <option value="counterclockwise_90">逆时针 90°</option>
+            </select>
+          </label>
+          <label>镜像
+            <select id="anchorMirror">
+              <option value="none">无</option>
+              <option value="left_right">左右</option>
+              <option value="front_back">前后</option>
+            </select>
+          </label>
+          <label>完整性 <input id="anchorIntegrity" type="number" min="0" max="1" step="0.05" value="1"></label>
+          <label>缩放 <input id="anchorScale" type="number" min="0.25" max="4" step="0.05" value="1"></label>
+        </div>
+        <div class="anchor-editor-actions">
+          <button id="anchorApplyPosBtn" type="button">应用坐标</button>
+          <button id="anchorApplyTransformBtn" type="button">应用变换</button>
+          <button id="anchorMoveBtn" type="button">移动模式</button>
+        </div>
+        <button id="anchorDeleteSelectedBtn" type="button" class="danger-button">删除选中结构</button>
+        <p class="hint">坐标/变换字段修改主结构；多选时请用“移动模式”整体移动。3D 视图可直接拖动锚点/结构框移动 X/Z，拖绿色圆环旋转 90°，拖蓝色竖杆调整 Y，拖橙色方块缩放（0.25–4）；Esc 取消。旋转、镜像和缩放会进入撤销历史。</p>
+      </section>
+
+      <section id="decorationSection">
+        <h2>装饰物 / 树林</h2>
+        <div class="anchor-add">
+          <select id="decorationTemplate"></select>
+          <button id="decorationPlaceBtn" type="button">放置</button>
+        </div>
+        <button id="forestModeBtn" type="button" class="place-mode">森林笔刷</button>
+        <label class="range-row">
+          <span class="range-head">森林密度 <b id="forestDensityValue">0.35</b></span>
+          <input id="forestDensity" type="range" min="0.05" max="1" step="0.05" value="0.35">
+        </label>
+        <label class="check-row"><input id="forestAvoidStructures" type="checkbox" checked> 避让已有结构</label>
+        <label class="check-row"><input id="forestAvoidWater" type="checkbox" checked> 避让水面和低洼</label>
+        <p class="hint">装饰物使用原版树 / 花草 / 岩石结构模板；森林笔刷按当前笔刷半径随机种树，支持撤销。</p>
+      </section>
+    </div>
+
+    <div class="tool-page" data-page="light" hidden>
+      <section>
+        <h2>光照</h2>
+        <label class="range-row">
+          <span class="range-head">太阳方位角 <b id="lightAzimuthValue">322°</b></span>
+          <input id="lightAzimuth" type="range" min="0" max="360" step="1" value="322">
+        </label>
+        <label class="range-row">
+          <span class="range-head">太阳高度角 <b id="lightElevationValue">52°</b></span>
+          <input id="lightElevation" type="range" min="5" max="85" step="1" value="52">
+        </label>
+        <label class="range-row">
+          <span class="range-head">光照强度 <b id="lightIntensityValue">2.0</b></span>
+          <input id="lightIntensity" type="range" min="0.2" max="3.5" step="0.1" value="2.0">
+        </label>
+        <button id="lightResetBtn" type="button">重置光照</button>
+        <label class="check-row"><input id="shadowToggle" type="checkbox" checked> 启用太阳阴影</label>
+        <p class="hint">仅影响 3D 视图的太阳方向；低高度角会偏暖，高高度角接近正午白光。阴影关闭可提升大地图性能。</p>
+      </section>
+
+      <section>
+        <h2>快捷键</h2>
+        <p class="hint">T / D / V：地形 / 结构 / 光照<br>E / M：方块物品栏 / 地图信息<br>J：森林笔刷<br>方块页：全部方块物品栏<br>方向键：移动 3D 视角 / 2D 视口<br>1 / 2 / 3 切换图层<br>B / R / I：笔刷 / 矩形 / 吸管<br>X 挖空；F 适应地图<br>[ / ] 笔刷大小；G 网格；W 水面<br>2D：滚轮缩放；中键/右键拖动平移<br>3D：左键编辑；右键拖动旋转；中键拖动平移；滚轮缩放<br>Esc 退出结构放置<br>Ctrl+Z / Ctrl+Y 撤销重做<br>Ctrl+S 保存</p>
+      </section>
+    </div>
+
+    <div class="tool-page" data-page="map" hidden>
+      <section id="metaSection">
+        <h2>地图信息</h2>
+        <pre id="meta" class="meta"></pre>
+      </section>
+
+      <section id="spawnSection">
+        <h2>出生点</h2>
+        <div class="spawn-row">
+          <label>X <input id="spawnX" type="number" step="1"></label>
+          <label>Y <input id="spawnY" type="number" step="1"></label>
+          <label>Z <input id="spawnZ" type="number" step="1"></label>
+        </div>
+        <button id="spawnPickBtn" type="button" class="spawn-pick">用当前鼠标位置设为出生点</button>
+      </section>
+
+      <section id="collabSection">
+        <h2>多人协作 <span id="collabStatus" class="badge">离线</span></h2>
+        <div class="template-row">
+          <input id="collabName" type="text" maxlength="40" placeholder="你的名字">
+          <button id="collabConnectBtn" type="button">连接</button>
+        </div>
+        <div id="collabUsers" class="collab-users">暂无其他编辑者</div>
+        <label class="check-row"><input id="collabCursors" type="checkbox" checked> 显示远程光标</label>
+        <p class="hint">同一台服务器打开多个编辑器页面即可协作；编辑会实时同步，远程光标显示在 2D 视图中。</p>
+      </section>
+
+      <section id="terrainGlobalsSection">
+        <h2>地形全局</h2>
+        <div class="spawn-row">
+          <label>海平面 Y <input id="seaLevel" type="number" min="0" max="1023" step="1"></label>
+          <label>泥土层 <input id="dirtDepth" type="number" min="0" max="32" step="1"></label>
+        </div>
+        <button id="applyTerrainGlobalsBtn" type="button">应用地形全局参数</button>
+        <p class="hint">海平面控制水体生成高度；泥土层控制地表下方泥土厚度，其余为石头。</p>
+      </section>
+
+      <section id="mapLifecycleSection">
+        <h2>地图项目</h2>
+        <div class="template-row">
+          <input id="newMapWidth" type="number" min="1" max="32768" step="1" value="64" placeholder="宽">
+          <input id="newMapDepth" type="number" min="1" max="32768" step="1" value="64" placeholder="高">
+          <button id="newMapBtn" type="button">新建</button>
+          <button id="resizeMapBtn" type="button">调整尺寸</button>
+        </div>
+        <div class="selection-actions">
+          <button id="backupNowBtn" type="button">创建备份</button>
+          <button id="reloadMapBtn" type="button">重新载入</button>
+        </div>
+        <label class="check-row"><input id="autoSaveToggle" type="checkbox"> 自动保存（60 秒）</label>
+        <div class="template-row">
+          <select id="backupList"></select>
+          <button id="restoreBackupBtn" type="button">恢复备份</button>
+        </div>
+        <p class="hint">新建/恢复/保存前会自动备份到本地 backups 目录；备份只保留最近 20 份。</p>
+        <div class="template-row">
+          <input id="regenerateWorldPath" type="text" value="fabric/runs/world" placeholder="世界目录">
+        </div>
+        <div class="selection-actions">
+          <button id="regenerateDimensionBtn" type="button">安全重新生成维度</button>
+          <button id="cancelRegenerateDimensionBtn" type="button">取消待处理</button>
+        </div>
+        <p id="regenerateStatus" class="hint">检查中...</p>
+        <p class="hint">世界目录默认 fabric/runs/world。顺序：保存地图 → 同步到 resources → 重新构建/启动游戏。按钮只写待处理标记，不会删除正在使用的区域文件；旧维度会在下次启动时移动到世界目录下的 backups/。</p>
+      </section>
+
+      <section>
+        <h2>输出</h2>
+        <pre id="log" class="log"></pre>
+      </section>
+    </div>
+  </aside>
+</main>
+
+<footer class="statusbar">
+  <span id="statusPoint">点: --</span>
+  <span class="status-sep">|</span>
+  <span id="statusBrush">笔刷: --</span>
+  <span class="status-sep">|</span>
+  <span id="statusSelection">选择: 无</span>
+  <span class="status-spacer"></span>
+  <span id="statusTime">时间: --:--</span>
+  <span class="status-sep">|</span>
+  <span id="statusMap">地图: --</span>
+  <span id="zoomLabel" class="badge">1.00×</span>
+</footer>
+
+<div id="loginOverlay" class="login-overlay" hidden>
+  <form id="loginForm" class="login-card" autocomplete="on">
+    <div class="login-brand">幻想乡 World Editor</div>
+    <h1>进入协作房间</h1>
+    <p id="loginRoom" class="hint"></p>
+    <label class="login-field">角色
+      <select id="loginRole"></select>
+    </label>
+    <label class="login-field">房间密码
+      <input id="loginPassword" type="password" autocomplete="current-password" placeholder="输入房间密码">
+    </label>
+    <button id="loginSubmit" type="submit">进入房间</button>
+    <p id="loginError" class="login-error"></p>
+    <p class="hint">密码由服务器环境变量配置。只读角色可以查看地图，但不能保存或编辑。</p>
+  </form>
+</div>
+
+<script type="module" src="/app.js"></script>
+</body>
+</html>

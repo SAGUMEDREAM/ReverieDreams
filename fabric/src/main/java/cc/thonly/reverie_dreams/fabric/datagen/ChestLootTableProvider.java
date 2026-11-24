@@ -7,6 +7,7 @@ import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.world.gen.feature.DreamTrialRoom;
+import cc.thonly.reverie_dreams.world.dream.DreamChestLoot;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
@@ -16,6 +17,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
@@ -53,6 +55,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
     public static final ResourceKey<LootTable> MOON_INSTITUTE_OFFICE = getKey("moon_institute_office");
     public static final ResourceKey<LootTable> MOON_INSTITUTE_INCARCERATION = getKey("moon_institute_incarceration");
     public static final ResourceKey<LootTable> MOON_INSTITUTE_OUTER = getKey("moon_institute_outer");
+    public static final ResourceKey<LootTable> ABANDONED_SPACESHIP_CHEST = getKey("abandoned_spaceship_chest");
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
@@ -60,6 +63,21 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
     }
 
     private void generateLoot(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output, HolderLookup.Provider registries) {
+        DreamChestLoot.generate(output, registries);
+        MagicForestHomeLoot.generateLoot(output);
+        HouseOfEternityLoot.generate(output, registries);
+        CastleSanctuaryLoot.generate(output, registries);
+        IceAndCuriosLoot.generate(output, registries);
+        MoriyaShrineLoot.generateLoot(output, registries);
+        cc.thonly.reverie_dreams.world.gensokyo.adventure.ScarletChestLoot.generate(output,registries);
+        output.accept(HakureiShrineLoot.PILGRIM_SUPPLIES, LootTable.lootTable()
+                .withPool(supplies(RDCuisineItems.WARM_RICE_BALL, 1, 3))
+                .withPool(supplies(RDBeverageItems.GREEN_TEA, 1, 2))
+                .withPool(supplies(Items.TORCH, 2, 5)));
+        output.accept(HakureiShrineLoot.WARDING_SUPPLIES, LootTable.lootTable()
+                .withPool(supplies(RDItems.EXORCISM_PAPER, 2, 4))
+                .withPool(supplies(Items.PAPER, 2, 5))
+                .withPool(supplies(RDItems.FAIRY_DUST, 1, 2)));
         output.accept(DREAM_CHEST,
                 LootTable.lootTable()
                          .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(3, 7))
@@ -205,8 +223,9 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                          )
         );
 
+        output.accept(getKey("moon_signal_maintenance"), MoonSignalLoot.maintenance());
         output.accept(MOON_BUILDING_CHEST_A,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(5, 8))
                                            .add(LootItem.lootTableItem(Items.BREAD).setWeight(15))
                                            .add(LootItem.lootTableItem(Items.PAPER).setWeight(10))
@@ -241,7 +260,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
         );
 
         output.accept(MOON_BUILDING_CHEST_B,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(5, 8))
                                            .add(LootItem.lootTableItem(Items.COMPASS).setWeight(10))
                                            .add(LootItem.lootTableItem(Items.MAP).setWeight(10))
@@ -262,10 +281,31 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                          )
         );
 
-        output.accept(MOON_BUILDING_CHEST_C, LootTable.lootTable());
+        output.accept(MOON_BUILDING_CHEST_C,
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
+                         .withPool(LootPool.lootPool()
+                                           .setRolls(UniformGenerator.between(3, 6))
+                                           .add(LootItem.lootTableItem(Items.PAPER).setWeight(12).apply(SetItemCountFunction.setCount(UniformGenerator.between(4, 12))))
+                                           .add(LootItem.lootTableItem(Items.BOOK).setWeight(10))
+                                           .add(LootItem.lootTableItem(RDItems.POWER).setWeight(12).apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 10))))
+                                           .add(LootItem.lootTableItem(RDItems.POINT).setWeight(12).apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 10))))
+                                           .add(LootItem.lootTableItem(RDItems.SILVER_INGOT).setWeight(8))
+                                           .add(LootItem.lootTableItem(RDItems.SILVER_COIN).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 6))))
+                                           .add(LootItem.lootTableItem(Items.COMPASS).setWeight(5))
+                         )
+                         .withPool(LootPool.lootPool()
+                                           .setRolls(UniformGenerator.between(1, 2))
+                                           .add(LootItem.lootTableItem(RDItems.SILVER_PICKAXE).setWeight(6)
+                                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(10, 25))))
+                                           .add(LootItem.lootTableItem(RDItems.SILVER_SWORD).setWeight(6)
+                                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(registries, UniformGenerator.between(10, 25))))
+                                           .add(LootItem.lootTableItem(Items.ENCHANTED_BOOK).setWeight(4)
+                                                        .apply(EnchantRandomlyFunction.randomApplicableEnchantment(registries)))
+                         )
+        );
         output.accept(
                 MOON_BUILDING_CHEST_LEFT_A,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool()
                                            .setRolls(UniformGenerator.between(2, 3))
                                            .add(LootItem.lootTableItem(Items.IRON_INGOT)
@@ -299,11 +339,25 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                          )
         );
         output.accept(MOON_BUILDING_CHEST_LEFT_B,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
+                         .withPool(LootPool.lootPool()
+                                           .setRolls(UniformGenerator.between(2, 4))
+                                           .add(LootItem.lootTableItem(Items.BREAD).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 5))))
+                                           .add(LootItem.lootTableItem(Items.GOLDEN_CARROT).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 5))))
+                                           .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 6))))
+                                           .add(LootItem.lootTableItem(RDItems.COPPER_COIN).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 8))))
+                                           .add(LootItem.lootTableItem(RDItems.SILVER_COIN).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+                         )
+                         .withPool(LootPool.lootPool()
+                                           .setRolls(UniformGenerator.between(1, 2))
+                                           .add(LootItem.lootTableItem(Items.LANTERN).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+                                           .add(LootItem.lootTableItem(Items.ENDER_PEARL).setWeight(5))
+                                           .add(LootItem.lootTableItem(Items.FIREWORK_ROCKET).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 5))))
+                         )
         );
 
         output.accept(MOON_EMPTY_BUILDING_A,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool()
                                            .setRolls(UniformGenerator.between(2, 4))
                                            .add(LootItem.lootTableItem(Items.BREAD))
@@ -332,7 +386,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                          )
         );
         output.accept(MOON_EMPTY_BUILDING_B,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool()
                                            .setRolls(UniformGenerator.between(2, 4))
                                            .add(LootItem.lootTableItem(Items.BREAD))
@@ -369,7 +423,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
         );
 
         output.accept(MOON_EMPTY_BUILDING_C,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool()
                                            .setRolls(UniformGenerator.between(3, 5))
                                            .add(LootItem.lootTableItem(Items.IRON_INGOT))
@@ -405,7 +459,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                          )
         );
         output.accept(MOON_INSTITUTE_OFFICE,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool()
                                            .setRolls(UniformGenerator.between(2, 4))
                                            .add(LootItem.lootTableItem(Items.PAPER))
@@ -428,7 +482,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                          )
         );
         output.accept(MOON_INSTITUTE_INCARCERATION,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool()
                                            .setRolls(UniformGenerator.between(1, 3))
                                            .add(LootItem.lootTableItem(Items.IRON_SWORD))
@@ -449,7 +503,7 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                          )
         );
         output.accept(MOON_INSTITUTE_OUTER,
-                LootTable.lootTable()
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
                          .withPool(LootPool.lootPool()
                                            .setRolls(UniformGenerator.between(2, 4))
                                            .add(LootItem.lootTableItem(Items.IRON_INGOT))
@@ -468,6 +522,32 @@ public class ChestLootTableProvider extends SimpleFabricLootTableSubProvider {
                                            .add(LootItem.lootTableItem(Items.LANTERN))
                          )
         );
+        var spaceshipGunPool = LootPool.lootPool()
+                                       .setRolls(ConstantValue.exactly(1))
+                                       .add(EmptyLootItem.emptyItem().setWeight(54));
+        for (var weapon : RDItems.LUNAR_WEAPONS) {
+            spaceshipGunPool.add(LootItem.lootTableItem(weapon.asItem()).setWeight(1));
+        }
+        output.accept(ABANDONED_SPACESHIP_CHEST,
+                LootTable.lootTable().withPool(MoonSignalLoot.salvage())
+                         .withPool(LootPool.lootPool()
+                                           .setRolls(UniformGenerator.between(3, 5))
+                                           .add(LootItem.lootTableItem(Items.BREAD).setWeight(12).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))))
+                                           .add(LootItem.lootTableItem(Items.PAPER).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 8))))
+                                           .add(LootItem.lootTableItem(Items.IRON_INGOT).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4))))
+                                           .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(10).apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 6))))
+                                           .add(LootItem.lootTableItem(Items.GOLD_INGOT).setWeight(6).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 3))))
+                                           .add(LootItem.lootTableItem(Items.QUARTZ).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 5))))
+                                           .add(LootItem.lootTableItem(RDItems.COPPER_COIN).setWeight(8).apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 8))))
+                                           .add(LootItem.lootTableItem(RDItems.SILVER_COIN).setWeight(5).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 4))))
+                                           .add(LootItem.lootTableItem(Items.DIAMOND).setWeight(2)))
+                         .withPool(spaceshipGunPool)
+        );
+    }
+
+    static LootPool.Builder supplies(net.minecraft.world.level.ItemLike item, int min, int max) {
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max))));
     }
 
     public static ResourceKey<LootTable> getKey(String name) {

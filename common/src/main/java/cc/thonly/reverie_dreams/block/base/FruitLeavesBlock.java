@@ -1,7 +1,6 @@
 package cc.thonly.reverie_dreams.block.base;
 
 import cc.thonly.reverie_dreams.block.BlockTypeGroup;
-import cc.thonly.reverie_dreams.registry.delegate.BlockDelegate;
 import cc.thonly.reverie_dreams.registry.delegate.ItemDelegate;
 import com.mojang.serialization.MapCodec;
 import lombok.Getter;
@@ -43,7 +42,7 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
     public static final int MAX_AGE = 3;
     public static final IntegerProperty AGE_PROPERTY = IntegerProperty.create("fruit_age", 0, MAX_AGE);
     private ItemDelegate output;
-    private BlockDelegate emptyLeavesBlock;
+    private Block emptyLeavesBlock;
 
     public FruitLeavesBlock(Properties settings) {
         super(0.01f, settings.noOcclusion());
@@ -57,10 +56,10 @@ public class FruitLeavesBlock extends LeavesBlock implements BonemealableBlock {
         BlockTypeGroup.FRUIT_LEAVES.add(this);
     }
 
-    public FruitLeavesBlock(ItemDelegate output, BlockDelegate emptyLeavesBlock, Properties settings) {
+    public FruitLeavesBlock(ItemDelegate output, Block emptyLeavesBlock, Properties settings) {
         this(settings);
-        this.emptyLeavesBlock = emptyLeavesBlock;
         this.output = output;
+        this.emptyLeavesBlock = emptyLeavesBlock;
     }
 
     @Override

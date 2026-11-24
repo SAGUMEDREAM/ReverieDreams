@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 public class RDEntityTypeTags {
     public static final TagKey<EntityType<?>> NPC_ROLE = of("role");
     public static final TagKey<EntityType<?>> YOKAI = of("yokai");
+    public static final TagKey<EntityType<?>> HUMAN = of("human");
     public static final TagKey<EntityType<?>> YOUSEI = of("yousei");
 
     private static TagKey<EntityType<?>> of(String id) {

@@ -1,6 +1,7 @@
 package cc.thonly.reverie_dreams.fabric.datagen;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.data.danmaku.trajectory.PlayerTrajectoryType;
 import cc.thonly.reverie_dreams.fabric.datagen.generator.AbstractRecipeTypeProvider;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
@@ -8,6 +9,7 @@ import cc.thonly.reverie_dreams.recipe.RecipeManager;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.content.RoleCards;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTemplates;
 import cc.thonly.reverie_dreams.registry.content.effect.RDPotions;
 import cc.thonly.reverie_dreams.registry.content.item.RDIngredientItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
@@ -15,6 +17,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
@@ -31,6 +34,22 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
     public void configured(HolderLookup.Provider provider) {
         this.configuredRecipe();
         this.configuredRoleCardRecipe();
+        this.trajectoryTemplate(PlayerTrajectoryType.STAR_FORK, Items.GUNPOWDER, Items.GLOWSTONE_DUST);
+        this.trajectoryTemplate(PlayerTrajectoryType.PLUNGE_SHOT, Items.PHANTOM_MEMBRANE, Items.QUARTZ);
+        this.trajectoryTemplate(PlayerTrajectoryType.GROUND_SKIMMER, Items.RABBIT_FOOT, Items.SLIME_BALL);
+        this.trajectoryTemplate(PlayerTrajectoryType.PROXIMITY_SEED, Items.TRIPWIRE_HOOK, Items.REDSTONE);
+        // Acquisition before the corresponding STG challenges exist.
+        this.trajectoryTemplate(PlayerTrajectoryType.LANE_SWEEP, Items.COPPER_BLOCK, Items.REPEATER);
+        this.trajectoryTemplate(PlayerTrajectoryType.SHORT_GUIDANCE, Items.SPYGLASS, Items.BREEZE_ROD);
+        this.trajectoryTemplate(PlayerTrajectoryType.INTERCEPT_SHOT, Items.AMETHYST_SHARD, Items.PRISMARINE_SHARD);
+    }
+
+    private void trajectoryTemplate(PlayerTrajectoryType type, Item material, Item catalyst) {
+        this.factory.register(ReverieDreams.id("danmaku_trajectory/" + type.id().getPath()), new GensokyoAltarRecipe(
+                this.ofItem(Items.PAPER),
+                List.of(this.ofEmpty(), this.ofItem(material), this.ofEmpty(), this.ofItem(RDItems.POWER, 2),
+                        this.ofItem(RDItems.POWER, 2), this.ofEmpty(), this.ofItem(catalyst), this.ofEmpty()),
+                IngredientStack.of(DanmakuTemplates.createItemStackTemplate(type.id()))));
     }
 
     private void configuredRecipe() {
@@ -47,11 +66,11 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
         );
         this.factory.register(RDItems.HORAI_DAMA_NO_EDA,
                 new GensokyoAltarRecipe(
-                        this.ofItem(Items.DIAMOND_BLOCK),
+                        this.ofItem(Items.DIAMOND_BLOCK, 2),
                         List.of(
-                                this.ofItem(RDItems.RED_ORB, 10), this.ofItem(RDItems.BLUE_ORB, 10), this.ofItem(RDItems.YELLOW_ORB, 10),
+                                this.ofItem(RDItems.RED_ORB, 20), this.ofItem(RDItems.BLUE_ORB, 20), this.ofItem(RDItems.YELLOW_ORB, 20),
                                 this.ofEmpty(), this.ofItem(RDItems.GREEN_ORB, 10),
-                                this.ofItem(Items.STICK), this.ofEmpty(), this.ofItem(RDItems.PURPLE_ORB, 10)
+                                this.ofItem(Items.BLAZE_ROD), this.ofEmpty(), this.ofItem(RDItems.PURPLE_ORB, 20)
                         ),
                         this.ofItem(RDItems.HORAI_DAMA_NO_EDA)
                 )
@@ -87,7 +106,7 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                 this.ofItem(Items.CLOCK),
                 List.of(
                         this.ofItem(Items.PURPLE_DYE, 4), this.ofItem(Items.REDSTONE_BLOCK, 2), this.ofItem(Items.PURPLE_DYE, 4),
-                        this.ofItem(Items.GOLD_INGOT, 5), this.ofItem(Items.GOLD_INGOT, 5),
+                        this.ofItem(Items.GOLD_INGOT, 5), this.ofItem(Items.ECHO_SHARD, 2),
                         this.ofItem(Items.PURPLE_DYE, 4), this.ofItem(Items.REDSTONE_BLOCK, 2), this.ofItem(Items.PURPLE_DYE, 4)
                 ),
                 this.ofItem(RDItems.TIME_STOP_CLOCK)
@@ -142,21 +161,21 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                 List.of(
                         this.ofItem(Items.HAY_BLOCK, 2), this.ofItem(Items.LEAD), this.ofItem(Items.SADDLE),
                         this.ofItem(Items.HAY_BLOCK, 2), this.ofItem(Items.STICK, 3),
-                        this.ofItem(Items.HAY_BLOCK, 2), this.ofItem(Items.SLIME_BALL), this.ofEmpty()
+                        this.ofItem(Items.HAY_BLOCK, 2), this.ofItem(Items.SLIME_BALL), this.ofItem(Items.ENDER_PEARL, 2)
                 ),
                 this.ofItem(RDItems.MAGIC_BROOM)
         ));
         this.factory.register(RDItems.KNIFE, new GensokyoAltarRecipe(
-                this.ofItem(RDBlocks.SILVER_BLOCK, 2),
+                this.ofItem(RDBlocks.SILVER_BLOCK, 3),
                 List.of(
-                        this.ofItem(RDItems.SILVER_SWORD), this.ofEmpty(), this.ofItem(RDItems.SILVER_INGOT, 3),
-                        this.ofItem(RDItems.SILVER_SWORD), this.ofEmpty(),
-                        this.ofItem(Items.STICK, 3), this.ofEmpty(), this.ofEmpty()
+                        this.ofItem(RDItems.SILVER_SWORD), this.ofEmpty(), this.ofItem(RDItems.SILVER_INGOT, 6),
+                        this.ofItem(RDItems.SILVER_SWORD), this.ofItem(Items.DIAMOND, 4),
+                        this.ofItem(Items.STICK, 6), this.ofEmpty(), this.ofEmpty()
                 ),
                 this.ofItem(RDItems.KNIFE)
         ));
         this.factory.register(RDItems.ROKANKEN, new GensokyoAltarRecipe(
-                this.ofItem(Items.IRON_SWORD),
+                this.ofItem(Items.DIAMOND_SWORD),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 7), this.ofItem(Items.SOUL_SAND, 8), this.ofItem(RDItems.SILVER_INGOT, 12),
                         this.ofItem(Items.SOUL_SAND, 6), this.ofEmpty(),
@@ -165,7 +184,7 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                 this.ofItem(RDItems.ROKANKEN)
         ));
         this.factory.register(RDItems.HAKUROKEN, new GensokyoAltarRecipe(
-                this.ofItem(Items.IRON_SWORD),
+                this.ofItem(Items.DIAMOND_SWORD),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 8), this.ofItem(Items.SOUL_SAND, 9), this.ofItem(RDItems.SILVER_INGOT, 12),
                         this.ofItem(Items.SOUL_SAND, 7), this.ofEmpty(),
@@ -194,7 +213,7 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
         this.factory.register(RDItems.LEVATIN, new GensokyoAltarRecipe(
                 this.ofItem(Items.NETHERITE_HOE),
                 List.of(
-                        this.ofEmpty(), this.ofItem(Items.GOLD_INGOT, 5), this.ofItem(Items.NETHERITE_INGOT, 1),
+                        this.ofItem(Items.NETHERITE_INGOT, 2), this.ofItem(Items.GOLD_INGOT, 5), this.ofItem(Items.NETHERITE_INGOT, 1),
                         this.ofItem(Items.REDSTONE, 3), this.ofItem(Items.IRON_INGOT, 5),
                         this.ofItem(Items.BLAZE_ROD, 4), this.ofItem(Items.SOUL_SAND, 4), this.ofItem(Items.COAL, 11)
                 ),
@@ -210,7 +229,7 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                 this.ofItem(RDItems.IBUKIHO)
         ));
         this.factory.register(RDItems.SWORD_OF_HISOU, new GensokyoAltarRecipe(
-                this.ofItem(Items.COPPER_SWORD),
+                this.ofItem(Items.DIAMOND_SWORD),
                 List.of(
                         this.ofItem(Items.GOLD_INGOT, 7), this.ofItem(Items.DIAMOND, 5), this.ofItem(Items.COPPER_INGOT, 2),
                         this.ofItem(Items.REDSTONE, 6), this.ofItem(Items.REDSTONE, 6),
@@ -258,7 +277,7 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                 this.ofItem(Items.NETHERITE_HOE),
                 List.of(
                         this.ofItem(Items.SOUL_SAND, 32), this.ofItem(Items.SOUL_SAND, 16), this.ofItem(Items.SOUL_SAND, 8),
-                        this.ofItem(Items.NETHERITE_INGOT, 1), this.ofItem(Items.DIAMOND, 5),
+                        this.ofItem(Items.NETHERITE_INGOT, 2), this.ofItem(Items.DIAMOND, 5),
                         this.ofItem(Items.ROTTEN_FLESH, 8), this.ofItem(Items.BONE, 7)
                 ),
                 this.ofItem(RDItems.DEATH_SCYTHE)
@@ -273,14 +292,14 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                 ),
                 this.ofItem(kanjuKusuri)
         ));
-        this.factory.register(RDItems.CURSED_DECOY_DOLl, new GensokyoAltarRecipe(
+        this.factory.register(RDItems.CURSED_DECOY_DOLL, new GensokyoAltarRecipe(
                         this.ofItem(Items.ARMOR_STAND),
                         List.of(
-                                this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6),
-                                this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6),
-                                this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6), this.ofItem(Items.SOUL_SAND, 6)
+                                this.ofItem(Items.SOUL_SAND, 16), this.ofItem(Items.RED_WOOL), this.ofItem(Items.STRING, 2),
+                                this.ofItem(Items.PAPER, 4), this.ofItem(Items.GUNPOWDER, 2),
+                                this.ofItem(Items.GLOWSTONE_DUST, 2), this.ofItem(Items.GOLD_INGOT), this.ofItem(Items.INK_SAC)
                         ),
-                        this.ofItem(RDItems.CURSED_DECOY_DOLl)
+                        this.ofItem(RDItems.CURSED_DECOY_DOLL)
                 )
         );
         this.factory.register(RDItems.VAISRAVANAS_PAGODA, new GensokyoAltarRecipe(
@@ -326,16 +345,45 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
                         this.ofItem(Items.PAPER, 6), this.ofItem(Items.PAPER, 8),
                         this.ofItem(Items.PAPER, 6), this.ofItem(Items.PAPER, 8), this.ofItem(Items.REDSTONE, 7)
                 ),
-                this.ofItem(RDItems.EXORCISM_PAPER, 4)
+                this.ofItem(RDItems.EXORCISM_PAPER, 16)
         ));
         this.factory.register(RDItems.YUKA_FLOWER_UMBRELLA, new GensokyoAltarRecipe(
                 this.ofItem(Items.IRON_SWORD),
                 List.of(
                         this.ofItem(Items.SUNFLOWER, 16), this.ofItem(Items.NETHERITE_INGOT), this.ofItem(Items.WHITE_WOOL, 8),
                         this.ofItem(Items.ROSE_BUSH, 16), this.ofItem(RDIngredientItems.UDUMBARA, 4),
-                        this.ofItem(Items.FLINT, 1), this.ofItem(Items.BAMBOO, 2), this.ofItem(RDItems.POWER, 36)
+                        this.ofItem(RDItems.POINT, 24), this.ofItem(Items.BAMBOO, 2), this.ofItem(RDItems.POWER, 36)
                 ),
                 this.ofItem(RDItems.YUKA_FLOWER_UMBRELLA)
+        ));
+        // 鬼族：鬼金棒（金棒的上位，可用鬼角修复）
+        this.factory.register(RDItems.ONI_IRON_BAR, new GensokyoAltarRecipe(
+                this.ofItem(RDItems.IRON_BAR),
+                List.of(
+                        this.ofItem(RDItems.ONI_HORN, 4), this.ofItem(RDItems.POWER, 32), this.ofItem(RDItems.SILVER_INGOT, 16),
+                        this.ofItem(Items.GOLD_BLOCK, 4), this.ofItem(Items.IRON_BLOCK, 8),
+                        this.ofItem(Items.BLAZE_POWDER, 16), this.ofItem(Items.MAGMA_CREAM, 8), this.ofItem(Items.NETHERITE_INGOT)
+                ),
+                this.ofItem(RDItems.ONI_IRON_BAR)
+        ));
+        // 鬼族：鬼面（头盔，佩戴后散发鬼之威压）
+        this.factory.register(RDItems.ONI_MASK, new GensokyoAltarRecipe(
+                this.ofItem(Items.IRON_HELMET),
+                List.of(
+                        this.ofItem(RDItems.ONI_HORN, 2), this.ofItem(RDItems.POWER, 16), this.ofItem(Items.IRON_INGOT, 8),
+                        this.ofItem(Items.LEATHER, 4), this.ofItem(Items.RED_DYE, 8),
+                        this.ofItem(Items.GOLD_INGOT, 4), this.ofItem(Items.COAL, 8), this.ofItem(Items.BONE, 4)
+                ),
+                this.ofItem(RDItems.ONI_MASK)
+        ));
+        this.factory.register(RDItems.SUNFLOWER, new GensokyoAltarRecipe(
+                this.ofItem(Items.GOLDEN_HOE),
+                List.of(
+                        this.ofItem(Items.SUNFLOWER, 32), this.ofItem(Items.ROSE_BUSH, 16), this.ofItem(Items.PEONY, 16),
+                        this.ofItem(RDItems.FAIRY_DUST, 16), this.ofItem(Items.BONE_MEAL, 16), this.ofItem(Items.HONEYCOMB, 8),
+                        this.ofItem(RDItems.POINT, 24), this.ofItem(RDItems.POWER, 32)
+                ),
+                this.ofItem(RDItems.SUNFLOWER)
         ));
         this.factory.register(RDItems.SATORI_EYE, new GensokyoAltarRecipe(
                 this.ofItem(Items.ENDER_EYE),
@@ -358,9 +406,10 @@ public class GensokyoAltarRecipeProvider extends AbstractRecipeTypeProvider {
         this.factory.register(RDItems.CROWN_OF_THE_UNDERWORLD, new GensokyoAltarRecipe(
                 this.ofItem(Items.GOLDEN_HELMET),
                 List.of(
-                        this.ofItem(Items.CHERRY_LEAVES, 11), this.ofItem(Items.CHERRY_LEAVES, 11), this.ofItem(Items.CHERRY_LEAVES, 11),
-                        this.ofItem(RDItems.POWER, 20), this.ofItem(RDItems.POWER, 20),
-                        this.ofItem(RDItems.POWER, 20), this.ofItem(Items.WITHER_SKELETON_SKULL, 3), this.ofItem(RDItems.POWER, 20)
+                        this.ofItem(RDItems.GHOST_VEIL, 16), this.ofItem(Items.CHERRY_LEAVES, 11),
+                        this.ofItem(Items.CHERRY_LEAVES, 11), this.ofItem(RDItems.POWER, 20),
+                        this.ofItem(Items.NETHERITE_INGOT, 1), this.ofItem(RDItems.POWER, 20),
+                        this.ofItem(Items.WITHER_SKELETON_SKULL, 3), this.ofItem(RDItems.POWER, 20)
                 ),
                 this.ofItem(RDItems.CROWN_OF_THE_UNDERWORLD)
         ));

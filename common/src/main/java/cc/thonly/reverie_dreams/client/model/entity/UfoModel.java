@@ -7,6 +7,7 @@ import net.minecraft.resources.Identifier;
 
 public class UfoModel extends DefaultedEntityGeoModel<UFO> {
     public static final Identifier NORMAL = ReverieDreams.id("ufo");
+
     public UfoModel() {
         super(NORMAL);
     }

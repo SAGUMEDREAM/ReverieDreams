@@ -1,0 +1,141 @@
+{
+  "parent": "reverie_dreams:block/jizo_statue",
+  "display": {
+    "firstperson_lefthand": {
+      "rotation": [
+        0.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        0.4571,
+        0.4571,
+        0.4571
+      ],
+      "translation": [
+        0.0,
+        0.4571,
+        0.0
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4571,
+        0.4571,
+        0.4571
+      ],
+      "translation": [
+        0.0,
+        0.4571,
+        0.0
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.5714,
+        0.5714,
+        0.5714
+      ],
+      "translation": [
+        0.0,
+        0.5714,
+        0.0
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.2857,
+        0.2857,
+        0.2857
+      ],
+      "translation": [
+        0.0,
+        3.2856,
+        0.0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        30.0,
+        225.0,
+        0.0
+      ],
+      "scale": [
+        0.8186,
+        0.8186,
+        0.8186
+      ],
+      "translation": [
+        0.0,
+        1.266,
+        0.9649
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0.0,
+        180.0,
+        0.0
+      ],
+      "scale": [
+        0.4286,
+        0.4286,
+        0.4286
+      ],
+      "translation": [
+        0.0,
+        3.4288,
+        0.0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4286,
+        0.4286,
+        0.4286
+      ],
+      "translation": [
+        0.0,
+        2.8682,
+        0.6759
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75.0,
+        45.0,
+        0.0
+      ],
+      "scale": [
+        0.4286,
+        0.4286,
+        0.4286
+      ],
+      "translation": [
+        0.0,
+        2.8682,
+        0.6759
+      ]
+    }
+  }
+}

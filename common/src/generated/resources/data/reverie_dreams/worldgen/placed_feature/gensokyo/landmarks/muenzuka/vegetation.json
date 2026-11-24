@@ -1,0 +1,11 @@
+{
+  "feature": "reverie_dreams:gensokyo/landmarks/muenzuka/vegetation",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

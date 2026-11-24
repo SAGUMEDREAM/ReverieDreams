@@ -1,5 +1,8 @@
 {
   "values": [
+    "reverie_dreams:youkai_cat",
+    "reverie_dreams:youkai_tanuki",
+    "reverie_dreams:youkai_fox",
     "reverie_dreams:maid_yousei",
     "reverie_dreams:sunflower_yousei",
     "reverie_dreams:yousei",
@@ -8,7 +11,10 @@
     "reverie_dreams:ghost",
     "reverie_dreams:mushroom_monster",
     "reverie_dreams:maid_yousei",
+    "reverie_dreams:goblin",
     "reverie_dreams:oni",
+    "reverie_dreams:white_wolf_tengu",
+    "reverie_dreams:crow_tengu",
     {
       "id": "#reverie_dreams:yousei",
       "required": false

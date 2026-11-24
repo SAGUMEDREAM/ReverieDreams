@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.registry.content.block.entity;
 
 import cc.thonly.reverie_dreams.block.entity.*;
+import cc.thonly.reverie_dreams.registry.content.FumoTypes;
+import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.mixin.accessor.BlockEntityTypeAccessor;
 import cc.thonly.reverie_dreams.registry.MCBuiltInRegistries;
 import cc.thonly.reverie_dreams.registry.content.block.RDKitchenBlocks;
@@ -18,14 +20,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopStorageBlock;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseHomeBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseLivingBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseSet2Blocks;
 
 @SuppressWarnings("unchecked")
 public class RDBlockEntityTypes {
     @SuppressWarnings("rawtypes")
     public static final List<Holder<BlockEntityType>> ENTITIES = new ArrayList<>();
+    public static final RegistrySupplier<BlockEntityType<RestaurantBlockEntity>> RESTAURANT = registerBlockEntity("restaurant", RestaurantBlockEntity::new, RDBlocks.MYSTIA_BELL, RDBlocks.MENU_BOOK);
+    public static final RegistrySupplier<BlockEntityType<BoardGameBlockEntity>> BOARD_GAME = registerBlockEntity("board_game", BoardGameBlockEntity::new,
+            RDBlocks.XIANGQI_BOARD, RDBlocks.CHESS_BOARD, RDBlocks.GO_BOARD, RDBlocks.CHABUDAI);
+    public static final RegistrySupplier<BlockEntityType<FumoBlockEntity>> FUMO = registerBlockEntity("fumo", FumoBlockEntity::new,
+            Stream.concat(FumoTypes.getView().stream().map(FumoType::blockAsDeferred), Stream.of(RDBlocks.MARISA_HAT_BLOCK))
+                    .toArray(BlockDelegate[]::new));
     public static final RegistrySupplier<BlockEntityType<DanmakuCraftingTableBlockEntity>> DANMAKU_CRAFTING_TABLE = registerBlockEntity("danmaku_crafting_table", DanmakuCraftingTableBlockEntity::new, RDBlocks.DANMAKU_CRAFTING_TABLE);
     public static final RegistrySupplier<BlockEntityType<StrengthenTableBlockEntity>> STRENGTH_TABLE = registerBlockEntity("strength_table", StrengthenTableBlockEntity::new, RDBlocks.STRENGTH_TABLE);
     public static final RegistrySupplier<BlockEntityType<GensokyoAltarBlockEntity>> GENSOKYO_ALTAR = registerBlockEntity("gensokyo_altar", GensokyoAltarBlockEntity::new, RDBlocks.GENSOKYO_ALTAR);
+    public static final RegistrySupplier<BlockEntityType<RecordPlayerBlockEntity>> RECORD_PLAYER = registerBlockEntity("record_player", RecordPlayerBlockEntity::new, RDBlocks.RECORD_PLAYER);
     public static final RegistrySupplier<BlockEntityType<MusicBlockEntity>> MUSIC_BLOCK = registerBlockEntity("music_block", MusicBlockEntity::new, RDBlocks.MUSIC_BLOCK);
     public static final RegistrySupplier<BlockEntityType<CustomChestBlockEntity>> CUSTOM_CHEST = registerBlockEntity("custom_chest_block", CustomChestBlockEntity::new, RDBlocks.SILVER_CHEST_BLOCK.chestBlock(), RDBlocks.CASH_BOX_BLOCK, RDBlocks.WOODEN_BOX.chestBlock());
     public static final RegistrySupplier<BlockEntityType<KitchenwareBlockEntity>> KITCHENWARE_BLOCK = registerBlockEntity("kitchen_block",
@@ -78,6 +92,15 @@ public class RDBlockEntityTypes {
             SpeakerBlockEntity::new,
             RDBlocks.SPEAKER
     );
+
+    public static final RegistrySupplier<BlockEntityType<LivingStorageBlockEntity>> LIVING_STORAGE = registerBlockEntity("living_storage", (pos,state) -> state.getBlock() instanceof WorkshopStorageBlock ? new WorkshopStorageBlockEntity(pos,state) : new LivingStorageBlockEntity(pos,state),
+            Stream.concat(Stream.of(RDJapaneseLivingBlocks.OSHIIRE,
+                            RDJapaneseLivingBlocks.TANSU,
+                            RDJapaneseHomeBlocks.BUTSUDAN),
+                    RDJapaneseSet2Blocks.storageBlocks().stream()).toArray(BlockDelegate[]::new));
+
+    public static final RegistrySupplier<BlockEntityType<WorkshopStationBlockEntity>> WORKSHOP_STATION = registerBlockEntity("workshop_station",WorkshopStationBlockEntity::new,
+            RDJapaneseSet2Blocks.stationBlocks().toArray(BlockDelegate[]::new));
 
     public static void initialize() {
     }

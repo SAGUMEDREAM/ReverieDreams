@@ -2,7 +2,6 @@ package cc.thonly.reverie_dreams.gui.entity;
 
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
-import cc.thonly.reverie_dreams.entity.npc.NPCSimpleRedirectEntity;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.server.CustomClickActionRegistry;
@@ -21,7 +20,6 @@ import net.minecraft.server.dialog.body.PlainMessage;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +87,8 @@ public class NPCSkinGui {
         String npcRoleTypeId = nrtOptional.get();
         String targetId = tiOptional.get();
 
-        if (SessionManager.getSession(player.getUUID()) == null) {
+        UUID session = SessionManager.getSession(player.getUUID());
+        if (session == null || !session.toString().equals(sessionId)) {
             return;
         }
 
@@ -100,7 +99,9 @@ public class NPCSkinGui {
 
         ServerLevel level = player.level();
         Entity entity = level.getEntity(UUID.fromString(targetId));
-        if (!(entity instanceof NPCSimpleEntity npc)) {
+        if (!(entity instanceof NPCSimpleEntity npc)
+                || !npc.isOwnedBy(player)
+                || npc.distanceToSqr(player) > 64.0 * 64.0) {
             return;
         }
         NPCRoleType roleType = BuiltInRegistryProviders.NPC_ROLE_TYPE.getValue(npcRoleTypeIdentifier);
@@ -344,10 +345,6 @@ public class NPCSkinGui {
             return null;
         }
 
-        EntityType<NPCSimpleRedirectEntity> entityType =
-                (EntityType<NPCSimpleRedirectEntity>) (Object)
-                        roleType.get().value();
-
         CompoundTag element =
                 createTag(
                         roleType,
@@ -358,7 +355,7 @@ public class NPCSkinGui {
         return new ActionButton(
                 new CommonButtonData(
                         Component.translatable(
-                                entityType.getDescriptionId()
+                                roleType.translateKey()
                         ),
                         180
                 ),

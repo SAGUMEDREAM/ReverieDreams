@@ -17,6 +17,16 @@ public class SafeClientAccessImpl implements SafeClientAccess {
     }
 
     @Override
+    public boolean isShiftDown() {
+        ClientInstanceAccess clientInstance = this.getClientInstance();
+        Minecraft mc = (Minecraft) clientInstance.get();
+        if (mc == null) {
+            return false;
+        }
+        return mc.hasShiftDown();
+    }
+
+    @Override
     public ClientInstanceAccess getClientInstance() {
         return new ClientInstanceAccess() {
             @Override

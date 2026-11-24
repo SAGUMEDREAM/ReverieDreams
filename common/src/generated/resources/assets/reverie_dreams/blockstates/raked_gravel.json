@@ -1,0 +1,292 @@
+{
+  "variants": {
+    "east=false,north=false,shape=east_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_0"
+    },
+    "east=false,north=false,shape=east_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_2"
+    },
+    "east=false,north=false,shape=east_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_0"
+    },
+    "east=false,north=false,shape=east_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_2"
+    },
+    "east=false,north=false,shape=north_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_0"
+    },
+    "east=false,north=false,shape=north_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_0"
+    },
+    "east=false,north=false,shape=north_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_0"
+    },
+    "east=false,north=false,shape=north_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_0"
+    },
+    "east=false,north=false,shape=north_south,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_0"
+    },
+    "east=false,north=false,shape=north_south,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_0"
+    },
+    "east=false,north=false,shape=north_south,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_2"
+    },
+    "east=false,north=false,shape=north_south,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_2"
+    },
+    "east=false,north=false,shape=north_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_0"
+    },
+    "east=false,north=false,shape=north_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_2"
+    },
+    "east=false,north=false,shape=north_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_0"
+    },
+    "east=false,north=false,shape=north_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_2"
+    },
+    "east=false,north=false,shape=south_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_0"
+    },
+    "east=false,north=false,shape=south_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_0"
+    },
+    "east=false,north=false,shape=south_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_1"
+    },
+    "east=false,north=false,shape=south_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_1"
+    },
+    "east=false,north=false,shape=south_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_0"
+    },
+    "east=false,north=false,shape=south_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_2"
+    },
+    "east=false,north=false,shape=south_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_1"
+    },
+    "east=false,north=false,shape=south_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_3"
+    },
+    "east=false,north=true,shape=east_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_0"
+    },
+    "east=false,north=true,shape=east_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_2"
+    },
+    "east=false,north=true,shape=east_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_0"
+    },
+    "east=false,north=true,shape=east_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_2"
+    },
+    "east=false,north=true,shape=north_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_1"
+    },
+    "east=false,north=true,shape=north_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_1"
+    },
+    "east=false,north=true,shape=north_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_1"
+    },
+    "east=false,north=true,shape=north_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_1"
+    },
+    "east=false,north=true,shape=north_south,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_1"
+    },
+    "east=false,north=true,shape=north_south,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_1"
+    },
+    "east=false,north=true,shape=north_south,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_3"
+    },
+    "east=false,north=true,shape=north_south,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_3"
+    },
+    "east=false,north=true,shape=north_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_1"
+    },
+    "east=false,north=true,shape=north_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_3"
+    },
+    "east=false,north=true,shape=north_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_1"
+    },
+    "east=false,north=true,shape=north_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_3"
+    },
+    "east=false,north=true,shape=south_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_0"
+    },
+    "east=false,north=true,shape=south_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_0"
+    },
+    "east=false,north=true,shape=south_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_1"
+    },
+    "east=false,north=true,shape=south_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_1"
+    },
+    "east=false,north=true,shape=south_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_0"
+    },
+    "east=false,north=true,shape=south_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_2"
+    },
+    "east=false,north=true,shape=south_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_1"
+    },
+    "east=false,north=true,shape=south_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_3"
+    },
+    "east=true,north=false,shape=east_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_1"
+    },
+    "east=true,north=false,shape=east_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_3"
+    },
+    "east=true,north=false,shape=east_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_1"
+    },
+    "east=true,north=false,shape=east_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_3"
+    },
+    "east=true,north=false,shape=north_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_2"
+    },
+    "east=true,north=false,shape=north_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_2"
+    },
+    "east=true,north=false,shape=north_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_2"
+    },
+    "east=true,north=false,shape=north_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_2"
+    },
+    "east=true,north=false,shape=north_south,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_0"
+    },
+    "east=true,north=false,shape=north_south,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_0"
+    },
+    "east=true,north=false,shape=north_south,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_2"
+    },
+    "east=true,north=false,shape=north_south,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_2"
+    },
+    "east=true,north=false,shape=north_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_0"
+    },
+    "east=true,north=false,shape=north_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_2"
+    },
+    "east=true,north=false,shape=north_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_0"
+    },
+    "east=true,north=false,shape=north_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_2"
+    },
+    "east=true,north=false,shape=south_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_2"
+    },
+    "east=true,north=false,shape=south_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_2"
+    },
+    "east=true,north=false,shape=south_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_3"
+    },
+    "east=true,north=false,shape=south_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_3"
+    },
+    "east=true,north=false,shape=south_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_0"
+    },
+    "east=true,north=false,shape=south_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_2"
+    },
+    "east=true,north=false,shape=south_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_1"
+    },
+    "east=true,north=false,shape=south_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_3"
+    },
+    "east=true,north=true,shape=east_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_1"
+    },
+    "east=true,north=true,shape=east_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_3"
+    },
+    "east=true,north=true,shape=east_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_1"
+    },
+    "east=true,north=true,shape=east_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_east_west_3"
+    },
+    "east=true,north=true,shape=north_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_3"
+    },
+    "east=true,north=true,shape=north_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_3"
+    },
+    "east=true,north=true,shape=north_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_3"
+    },
+    "east=true,north=true,shape=north_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_east_3"
+    },
+    "east=true,north=true,shape=north_south,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_1"
+    },
+    "east=true,north=true,shape=north_south,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_1"
+    },
+    "east=true,north=true,shape=north_south,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_3"
+    },
+    "east=true,north=true,shape=north_south,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_south_3"
+    },
+    "east=true,north=true,shape=north_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_1"
+    },
+    "east=true,north=true,shape=north_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_3"
+    },
+    "east=true,north=true,shape=north_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_1"
+    },
+    "east=true,north=true,shape=north_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_north_west_3"
+    },
+    "east=true,north=true,shape=south_east,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_2"
+    },
+    "east=true,north=true,shape=south_east,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_2"
+    },
+    "east=true,north=true,shape=south_east,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_3"
+    },
+    "east=true,north=true,shape=south_east,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_east_3"
+    },
+    "east=true,north=true,shape=south_west,south=false,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_0"
+    },
+    "east=true,north=true,shape=south_west,south=false,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_2"
+    },
+    "east=true,north=true,shape=south_west,south=true,west=false": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_1"
+    },
+    "east=true,north=true,shape=south_west,south=true,west=true": {
+      "model": "reverie_dreams:block/raked_gravel_south_west_3"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": "reverie_dreams:dream_crystal_fragment",
+    "S": "minecraft:stick",
+    "T": "minecraft:string"
+  },
+  "pattern": [
+    " S ",
+    "TDT",
+    " S "
+  ],
+  "result": {
+    "id": "reverie_dreams:dream_spool"
+  }
+}

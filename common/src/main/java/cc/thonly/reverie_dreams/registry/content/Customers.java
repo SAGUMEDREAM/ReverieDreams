@@ -49,7 +49,7 @@ public class Customers {
                 } else {
                     log.error("Failed to parse crafting_conflict {}: {}", entry.getKey(), result.error().map(Object::toString).orElse("Unknown error"));
                 }
-            } catch (IOException e) {
+            } catch (IOException | RuntimeException e) {
                 log.error("Failed to load food_property {}: {}", entry.getKey(), e.getMessage(), e);
             }
         }

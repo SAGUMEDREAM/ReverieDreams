@@ -1,0 +1,23 @@
+{
+  "models": [
+    "assets/reverie_dreams/models/item/danmaku_core.json",
+    "assets/reverie_dreams/models/item/danmaku_recipe_creator.json",
+    "assets/reverie_dreams/models/item/spell_card_template.json",
+    "assets/reverie_dreams/models/item/speed_feather.json",
+    "assets/reverie_dreams/models/block/danmaku_crafting_table.json",
+    "assets/reverie_dreams/models/block/strength_table.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/block/danmaku_crafting_table_front.png",
+    "assets/reverie_dreams/textures/block/danmaku_crafting_table_side.png",
+    "assets/reverie_dreams/textures/block/danmaku_crafting_table_top.png",
+    "assets/reverie_dreams/textures/block/strength_table_bottom.png",
+    "assets/reverie_dreams/textures/block/strength_table_front.png",
+    "assets/reverie_dreams/textures/block/strength_table_side.png",
+    "assets/reverie_dreams/textures/block/strength_table_top.png",
+    "assets/reverie_dreams/textures/item/danmaku_core.png",
+    "assets/reverie_dreams/textures/item/danmaku_recipe_creator.png",
+    "assets/reverie_dreams/textures/item/speed_feather.png",
+    "assets/reverie_dreams/textures/item/spell_card_template.png"
+  ]
+}

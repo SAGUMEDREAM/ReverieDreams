@@ -25,7 +25,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
@@ -78,23 +77,20 @@ public abstract class AbstractEquipmentAssetProvider implements DataProvider {
                 Path generatePath = DataGeneratorUtil.getAssets(path, namespaceRef, "equipment", null);
 
                 DataResult<JsonElement> result = EquipmentClientInfo.CODEC.encodeStart(JsonOps.INSTANCE, model);
-                Optional<JsonElement> optional = result.result();
-
-                if (optional.isPresent()) {
-                    JsonElement element = optional.get();
-                    Path output = generatePath.resolve(pathRef + ".json");
-                    String jsonString = this.gson.toJson(element);
-                    byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                    try {
-                        Files.createDirectories(output.getParent());
-                        writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
-                    } catch (IOException e) {
-                        log.error("Can't generate equipment asset {}", identifier, e);
-                    }
+                JsonElement element = result.getOrThrow();
+                Path output = generatePath.resolve(pathRef + ".json");
+                String jsonString = this.gson.toJson(element);
+                byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
+                try {
+                    Files.createDirectories(output.getParent());
+                    writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
+                } catch (IOException e) {
+                    throw new IllegalStateException("Failed to generate equipment asset " + identifier, e);
                 }
+
             });
         } catch (Exception err) {
-            log.error("Fail to generate equipment provider");
+            throw new IllegalStateException("Failed to generate equipment provider", err);
         }
     }
 

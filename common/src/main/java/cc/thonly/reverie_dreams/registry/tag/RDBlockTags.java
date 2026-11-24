@@ -17,6 +17,7 @@ public class RDBlockTags {
     public static final TagKey<Block> FRYING_PAN = of("frying_pan");
     public static final TagKey<Block> GRILL = of("grill");
     public static final TagKey<Block> STEAMER = of("steamer");
+    public static final TagKey<Block> SHEARS_WOOL = of("shears_wool");
 
     private static TagKey<Block> of(String id) {
         return TagKey.create(Registries.BLOCK, ReverieDreams.id(id));

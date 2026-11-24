@@ -71,19 +71,16 @@ public abstract class AbstractCustomRegistryTagProvider<E, T> implements DataPro
                 RegistryTagSet.Result<E> entries = tagAppender.entries;
                 RegistryTagSet builder = entries.builder();
                 DataResult<JsonElement> result = RegistryTagSet.CODEC.encodeStart(JsonOps.INSTANCE, builder);
-                Optional<JsonElement> optional = result.result();
+                JsonElement element = result.getOrThrow();
                 Path path = DataGeneratorUtil.getData(outputDir, location.getNamespace(), "tags/" + this.registryProvider.key().identifier().getPath(), null);
-                if (optional.isPresent()) {
-                    JsonElement element = optional.get();
-                    Path filePath = path.resolve(location.getPath() + ".json");
-                    String jsonString = DataProviderHelper.gson.toJson(element);
-                    byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                    Files.createDirectories(filePath.getParent());
+                Path filePath = path.resolve(location.getPath() + ".json");
+                String jsonString = DataProviderHelper.gson.toJson(element);
+                byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
+                Files.createDirectories(filePath.getParent());
 
-                    writer.writeIfNeeded(filePath, bytes, HashCode.fromBytes(bytes));
-                }
+                writer.writeIfNeeded(filePath, bytes, HashCode.fromBytes(bytes));
             } catch (Exception e) {
-                log.error("Error: ", e);
+                throw new IllegalStateException("Failed to generate custom registry tag " + entry.getKey(), e);
             }
         }
     }

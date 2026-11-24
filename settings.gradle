@@ -50,3 +50,12 @@ include('neoforge')
 include('fabric')
 include('polymer')
 include('paper')
+include('world-editor-web')
+include('document')
+include('pak-core')
+project(':pak-core').projectDir = file('pak/core')
+// Author tooling is kept outside the public source set and may be absent in a clone.
+if (file('pak/cli/build.gradle').isFile()) {
+    include('pak-cli')
+    project(':pak-cli').projectDir = file('pak/cli')
+}

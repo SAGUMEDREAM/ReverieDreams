@@ -1,0 +1,60 @@
+{
+  "type": "reverie_dreams:gensokyo_deadwood",
+  "config": {
+    "accents": [],
+    "kind": "splintered_trunk",
+    "litter": [
+      {
+        "Name": "minecraft:leaf_litter",
+        "Properties": {
+          "facing": "north",
+          "segment_amount": "1"
+        }
+      }
+    ],
+    "logs": [
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:oak_log",
+        "Properties": {
+          "axis": "y"
+        }
+      },
+      {
+        "Name": "minecraft:birch_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    ],
+    "splinters": [
+      {
+        "Name": "reverie_dreams:splintered_oak_log",
+        "Properties": {
+          "facing": "north",
+          "variant": "0"
+        }
+      },
+      {
+        "Name": "reverie_dreams:splintered_oak_log",
+        "Properties": {
+          "facing": "north",
+          "variant": "0"
+        }
+      },
+      {
+        "Name": "reverie_dreams:splintered_birch_log",
+        "Properties": {
+          "facing": "north",
+          "variant": "0"
+        }
+      }
+    ],
+    "theme": "forest"
+  }
+}

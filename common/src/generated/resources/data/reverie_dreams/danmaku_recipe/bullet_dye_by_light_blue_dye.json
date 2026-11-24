@@ -16,7 +16,7 @@
     "count": 35
   },
   "material": {
-    "id": "reverie_dreams:danmaku_recipe_creator",
+    "id": "reverie_dreams:danmaku_shape_blueprint",
     "count": 1,
     "components": {
       "reverie_dreams:shape": {

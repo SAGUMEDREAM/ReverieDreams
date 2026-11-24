@@ -22,6 +22,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import cc.thonly.reverie_dreams.server.dialog.RedstoneConfigDialog;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.phys.BlockHitResult;
+
 public class RailControllerBlock extends BaseRailBlock {
     public static final MapCodec<RailControllerBlock> CODEC = simpleCodec(RailControllerBlock::new);
     public static final EnumProperty<RailShape> RAIL_SHAPE = BlockStateProperties.RAIL_SHAPE_STRAIGHT;
@@ -65,6 +72,8 @@ public class RailControllerBlock extends BaseRailBlock {
             boolean hasSignal = level.hasNeighborSignal(pos);
             if (hasSignal != state.getValue(OCCUPIED)) {
                 level.setBlock(pos, state.setValue(OCCUPIED, hasSignal), 3);
+                if (hasSignal)
+                    releaseMinecarts(level, pos);
             }
         }
     }
@@ -73,8 +82,10 @@ public class RailControllerBlock extends BaseRailBlock {
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity,
                                 InsideBlockEffectApplier applier, boolean bl) {
         super.entityInside(state, level, pos, entity, applier, bl);
-        if (!(entity instanceof AbstractMinecart cart)) return;
-        if (!(entity instanceof LockedCart lockedCart)) return;
+        if (!(entity instanceof AbstractMinecart cart))
+            return;
+        if (!(entity instanceof LockedCart lockedCart))
+            return;
 
         if (!level.isClientSide()) {
             boolean nearCenter = isCartNearCenter(cart, pos);
@@ -82,6 +93,7 @@ public class RailControllerBlock extends BaseRailBlock {
             if (!state.getValue(OCCUPIED) && nearCenter) {
                 if (!lockedCart.reverie_dreams$isCartLocked()) {
                     lockedCart.reverie_dreams$lockCart();
+                    cart.setPos(pos.getX() + 0.5, cart.getY(), pos.getZ() + 0.5);
                 }
                 cart.setDeltaMovement(0, cart.getDeltaMovement().y, 0);
 //                cart.hasImpulse = true;
@@ -123,6 +135,12 @@ public class RailControllerBlock extends BaseRailBlock {
                 .anyMatch(cart -> isCartNearCenter(cart, pos));
     }
 
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState state = super.getStateForPlacement(context);
+        return state == null ? null : state.setValue(OCCUPIED, context.getLevel().hasNeighborSignal(context.getClickedPos()));
+    }
+
     private boolean isCartNearCenter(AbstractMinecart cart, BlockPos pos) {
         double dx = cart.getX() - (pos.getX() + 0.5);
         double dz = cart.getZ() - (pos.getZ() + 0.5);
@@ -147,4 +165,13 @@ public class RailControllerBlock extends BaseRailBlock {
     public @NotNull Property<RailShape> getShapeProperty() {
         return RAIL_SHAPE;
     }
+
+    @Override
+    public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos,
+                                            Player player, BlockHitResult hit) {
+        if (player instanceof ServerPlayer serverPlayer)
+            RedstoneConfigDialog.open(serverPlayer, blockPos);
+        return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+    }
+
 }

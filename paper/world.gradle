@@ -1,0 +1,96 @@
+// Opt-in integration: apply from: 'world.gradle' in paper/build.gradle.
+// This keeps the standalone STARTUP bootstrap outside the POSTWORLD main JAR.
+sourceSets {
+    worldBootstrap {
+        java.setSrcDirs(['src/worldBootstrap/java'])
+        resources.setSrcDirs(['src/worldBootstrap/resources'])
+    }
+    worldTest {
+        java.setSrcDirs(['src/worldTest/java'])
+        compileClasspath += sourceSets.worldBootstrap.output
+        runtimeClasspath += sourceSets.worldBootstrap.output
+    }
+}
+
+dependencies {
+    compileOnly(sourceSets.worldBootstrap.output)
+    worldBootstrapCompileOnly "io.papermc.paper:paper-api:${paper_api_version}"
+    worldTestImplementation "io.papermc.paper:paper-api:${paper_api_version}"
+    worldTestImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    worldTestRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+}
+
+tasks.named('processWorldBootstrapResources') {
+    filesMatching('plugin.yml') { expand(version: project.version) }
+}
+
+def worldJar = tasks.register('worldBootstrapJar', Jar) {
+    group = 'build'
+    description = 'Independent STARTUP Gensokyo probe; no Mod/CE/NMS dependency'
+    archiveBaseName = 'reverie-dreams-world-bootstrap'
+    archiveClassifier = ''
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(sourceSets.worldBootstrap.output)
+    from(rootProject.file('LICENSE'))
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+def worldDatapack = tasks.register('zipWorldDatapack', Zip) {
+    group = 'build'
+    description = 'Gensokyo1536-height dimension metadata and void native delegate'
+    archiveBaseName = 'reverie-dreams-world-height'
+    archiveClassifier = ''
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from('src/worldBootstrap/datapack')
+    from(rootProject.file('LICENSE'))
+    from(rootProject.file('authorized/gensokyo-map-dimensions.md')) {
+        into('META-INF/authorized')
+    }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+def worldData = tasks.register('zipWorldMapData', Zip) {
+    group = 'build'
+    description = 'Original unscaled map gzip/data files and attribution'
+    archiveBaseName = 'reverie-dreams-world-map-data'
+    archiveClassifier = ''
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(rootProject.file('common/src/main/resources/data/reverie_dreams/gensokyo')) { into('map') }
+    from(rootProject.file('LICENSE'))
+    from(rootProject.file('authorized/gensokyo-map-dimensions.md')) {
+        into('META-INF/authorized')
+    }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+def worldChecks = tasks.register('worldTest', Test) {
+    group = 'verification'
+    description = 'Bounded-memory source decoding, integrity and original terrain arithmetic checks'
+    dependsOn(tasks.named('worldTestClasses'))
+    testClassesDirs = sourceSets.worldTest.output.classesDirs
+    classpath = sourceSets.worldTest.runtimeClasspath
+    useJUnitPlatform()
+    maxHeapSize = '128m'
+}
+
+tasks.named('assemble') { dependsOn(worldJar, worldDatapack, worldData) }
+tasks.named('check') { dependsOn(worldChecks) }
+
+tasks.register('prepareWorldMapCache', JavaExec) {
+    group = 'world'
+    description = 'Explicit bounded-memory source-map cache/terrain-fixture preparation; never starts a server'
+    dependsOn(tasks.named('worldBootstrapClasses'))
+    classpath = sourceSets.worldBootstrap.output + configurations.worldBootstrapCompileClasspath
+    mainClass = 'cc.thonly.reverie_dreams.paper.world.GensokyoMapTool'
+    maxHeapSize = '128m'
+    jvmArgs '-XX:ActiveProcessorCount=2'
+    doFirst {
+        def sourcePath = providers.gradleProperty('worldSourceDir').orElse(rootProject.file('common/src/main/resources/data/reverie_dreams/gensokyo').absolutePath).get()
+        def cachePath = providers.gradleProperty('worldCacheDir').orElse(layout.buildDirectory.dir('world-draft/source-map-cache-v2').get().asFile.absolutePath).get()
+        args = [sourcePath, cachePath]
+        if (providers.gradleProperty('worldFixtureDir').isPresent()) args += [providers.gradleProperty('worldFixtureDir').get()]
+    }
+}

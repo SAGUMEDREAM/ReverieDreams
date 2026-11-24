@@ -34,7 +34,10 @@ public class RDVillagerProfessions {
     ));
     public static final RegistrySupplier<VillagerProfession> PRIEST = registerProfession(PRIEST_KEY, RDPointOfInterestTypes.PRIEST_KEY, SoundEvents.EXPERIENCE_ORB_PICKUP, Int2ObjectMap.ofEntries(
             Int2ObjectMap.entry(1, RDTradeSets.PRIEST_LEVEL_1),
-            Int2ObjectMap.entry(2, RDTradeSets.PRIEST_LEVEL_2)
+            Int2ObjectMap.entry(2, RDTradeSets.PRIEST_LEVEL_2),
+            Int2ObjectMap.entry(3, RDTradeSets.PRIEST_LEVEL_3),
+            Int2ObjectMap.entry(4, RDTradeSets.PRIEST_LEVEL_4),
+            Int2ObjectMap.entry(5, RDTradeSets.PRIEST_LEVEL_5)
     ));
     public static final RegistrySupplier<VillagerProfession> MONEY_SHOP_CLERK = registerProfession(MONEY_SHOP_CLERK_KEY, RDPointOfInterestTypes.MONEY_SHOP_CLERK_KEY, SoundEvents.VILLAGER_WORK_LIBRARIAN, Int2ObjectMap.ofEntries(
             Int2ObjectMap.entry(1, RDTradeSets.MONEY_SHOP_CLERK_LEVEL_1),

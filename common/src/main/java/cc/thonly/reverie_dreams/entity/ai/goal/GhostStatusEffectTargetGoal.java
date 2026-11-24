@@ -32,7 +32,8 @@ public class GhostStatusEffectTargetGoal<T extends LivingEntity> extends StatusE
     }
 
     public static boolean hasSilverArmor(LivingEntity targetEntity) {
-        if (!targetEntity.isAlive()) return false;
+        if (!targetEntity.isAlive())
+            return false;
         final var tag = RDItemTags.SILVER_ARMOR;
         ItemStack head = targetEntity.getItemBySlot(EquipmentSlot.HEAD);
         ItemStack chest = targetEntity.getItemBySlot(EquipmentSlot.CHEST);

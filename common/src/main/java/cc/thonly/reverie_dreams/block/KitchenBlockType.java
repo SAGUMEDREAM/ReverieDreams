@@ -26,7 +26,7 @@ public class KitchenBlockType {
     }
 
     public static List<Block> getMatchBlocks(RegistryAccess registryAccess,
-                                                   KitchenRecipeType.TypeInstance recipeType) {
+                                             KitchenRecipeType.TypeInstance recipeType) {
         Registry<Block> registry = registryAccess.lookupOrThrow(Registries.BLOCK);
         List<Block> result = new ArrayList<>();
 

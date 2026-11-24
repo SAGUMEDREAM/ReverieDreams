@@ -1,27 +1,19 @@
 package cc.thonly.reverie_dreams.mixin.item;
 
-import cc.thonly.reverie_dreams.CommonEventHandlers;
+import cc.thonly.reverie_dreams.event.CommonEventHandlers;
 import cc.thonly.reverie_dreams.api.entity.PlayerEntityDataModifier;
 import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
-import cc.thonly.reverie_dreams.data.BeverageProperty;
-import cc.thonly.reverie_dreams.data.FoodProperty;
-import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
-import cc.thonly.reverie_dreams.registry.content.FoodProperties;
 import cc.thonly.reverie_dreams.registry.content.RDEnchantments;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
-import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
-import cc.thonly.reverie_dreams.util.entity.EntityHelper;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.common.base.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,7 +28,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.flag.FeatureElement;
-import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -49,14 +40,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Collection;
-import java.util.List;
 
 @Mixin(Item.class)
 public abstract class ItemMixin implements FeatureElement, ItemLike {
@@ -118,7 +105,6 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
                 playerEntityDataModifier.reverie_dreams$setNonSleepingTime(0);
             }
         }
-        ItemUtils.updateItemStackTag(itemStack);
     }
 
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
@@ -136,7 +122,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
 
         BlockPos blockPos = context.getClickedPos();
         BlockState blockState = level.getBlockState(blockPos);
-        if (blockState.is(RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog())) {
+        if (blockState.is(RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().asBlock())) {
             if (level.isClientSide()) {
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 cir.cancel();

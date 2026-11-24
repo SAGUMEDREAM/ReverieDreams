@@ -1,0 +1,121 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_stump"
+      },
+      "when": {
+        "facing": "north",
+        "form": "stump"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_split"
+      },
+      "when": {
+        "facing": "north",
+        "form": "split"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_fallen"
+      },
+      "when": {
+        "facing": "north",
+        "form": "fallen"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_stump",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "form": "stump"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_split",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "form": "split"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_fallen",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "form": "fallen"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_stump",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "form": "stump"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_split",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "form": "split"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_fallen",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "form": "fallen"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_stump",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "form": "stump"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_split",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "form": "split"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/bamboo_forest/debris_fallen",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "form": "fallen"
+      }
+    }
+  ]
+}

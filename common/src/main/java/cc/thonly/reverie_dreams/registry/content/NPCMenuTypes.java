@@ -9,6 +9,7 @@ import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.gui.entity.NPCSkinGui;
 import cc.thonly.reverie_dreams.gui.entity.NPCStateGui;
 import cc.thonly.reverie_dreams.gui.entity.NPCWorkGui;
+import cc.thonly.reverie_dreams.server.dialog.customer.CustomerPreferenceDialog;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
@@ -24,10 +25,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.gamerules.GameRules;
-import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import cc.thonly.reverie_dreams.gui.entity.NPCAgentGui;
 
 @SuppressWarnings({"resource", "unused"})
 public class NPCMenuTypes {
@@ -109,10 +110,10 @@ public class NPCMenuTypes {
                         var workingPos = simple.getWorkingPos();
 
                         return new GuiElementBuilder()
-                                .setItem(npc.getNpcState().getItemDisplay().value())
-                                .setItemName(Component.translatable("gui.npc.state.button", npc.getNpcState().translationKey()))
+                                .setItem(npc.getNPCState().getItemDisplay().value())
+                                .setItemName(Component.translatable("gui.npc.state.button", npc.getNPCState().translationKey()))
                                 .setLore(List.of(
-                                        simple.getNpcState() == NPCStates.WORKING
+                                        simple.getNPCState() == NPCStates.WORKING
                                                 ? Component.translatable("gui.npc.mode.work.originpos")
                                                 .append(" : (" + workingPos.getX() + " "
                                                         + workingPos.getY() + " "
@@ -147,6 +148,16 @@ public class NPCMenuTypes {
                     })
                     .predicate(ofSimple())
     );
+
+    public static final NPCMenuType AGENT_TASKS = registerMenuType("agent_tasks", new NPCMenuType()
+            .factory((player, npc, currentGui) -> new GuiElementBuilder(Items.WRITABLE_BOOK)
+                    .setName(Component.translatable("gui.reverie_dreams.agent.menu"))
+                    .setCallback((slot, click, input, gui) -> {
+                        if (npc instanceof NPCSimpleEntity simple && simple.isOwnedBy(player) && simple.isAlive()
+                                && player.isAlive() && player.level() == simple.level() && simple.distanceToSqr(player) <= 1024)
+                            new NPCAgentGui(player, simple).open();
+                    }))
+            .predicate((player, npc) -> npc instanceof NPCSimpleEntity && npc.isOwnedBy(player)));
 
     public static final NPCMenuType XP = registerMenuType("xp",
             new NPCMenuType()
@@ -194,6 +205,28 @@ public class NPCMenuTypes {
                                 });
                     })
                     .predicate(ofSimple())
+    );
+
+    public static final NPCMenuType CUSTOMER_PREFERENCES = registerMenuType(
+            "customer_preferences",
+            new NPCMenuType()
+                    .factory((player, npc, currentGui) -> {
+                        NPCSimpleEntity simple = (NPCSimpleEntity) npc;
+                        return new GuiElementBuilder()
+                                .setItem(Items.BOOK)
+                                .setItemName(Component.translatable("gui.npc.customer.preferences"))
+                                .setLore(List.of(Component.translatable("gui.npc.customer.preferences.desc")))
+                                .setComponent(RDDataComponentTypes.SHOW_ONLY.value(), Unit.INSTANCE)
+                                .setCallback((index, type, action, basedGui) -> {
+                                    SoundEventPlayUtils.playUISound(player, SoundEvents.UI_BUTTON_CLICK.value(), 1.0f, 1.0f);
+                                    if (currentGui != null) {
+                                        currentGui.close();
+                                    }
+                                    CustomerPreferenceDialog.open(player, simple);
+                                });
+                    })
+                    .predicate((player, npc) -> npc instanceof NPCSimpleEntity simple
+                            && simple.getCustomerContainer().isCustomerMode())
     );
 
 //    public static final NPCMenuType FAVORABILITY = registerMenuType(
@@ -252,9 +285,6 @@ public class NPCMenuTypes {
                         return gameRules.get(RDBuiltInGameRules.FREE_CHOICE_OF_ROLE.value());
                     })
     );
-    @Nullable
-    public static NPCMenuType MODIFY_MODEL;
-
     public static List<Component> createBaseInfo(ServerPlayer player, BaseNPCLikeEntity entity) {
         List<Component> components = new ArrayList<>();
         if (!(entity instanceof NPCSimpleEntity npc)) {

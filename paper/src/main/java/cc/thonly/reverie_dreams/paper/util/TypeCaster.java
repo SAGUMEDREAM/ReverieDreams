@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.World;
 
 public class TypeCaster {
     public static BukkitServerPlayer getCraftEnginePlayer(Player player) {
@@ -28,7 +29,7 @@ public class TypeCaster {
         return BukkitAdaptor.adapt(itemStack);
     }
 
-    public static BukkitWorld getCraftEngineWorld(org.bukkit.World world) {
+    public static BukkitWorld getCraftEngineWorld(World world) {
         return BukkitAdaptor.adapt(world);
     }
 }

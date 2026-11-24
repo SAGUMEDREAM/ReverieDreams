@@ -19,7 +19,11 @@ public enum EmitAim implements StringRepresentable {
     TARGET,
     FIXED,
     SOURCE_FACING,
-    OUTWARD;
+    OUTWARD,
+    /**
+     * 玩家按视线发射；其他来源优先使用本次齐射的目标位置。
+     */
+    TARGET_OR_SOURCE_FACING;
 
     public static final Codec<EmitAim> CODEC = StringRepresentable.fromEnum(EmitAim::values);
 

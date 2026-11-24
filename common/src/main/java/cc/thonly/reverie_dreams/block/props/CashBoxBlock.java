@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.block.entity.CustomChestBlockEntity;
 import cc.thonly.reverie_dreams.gui.container.CustomChestBlockGui;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.server.player.FaithComponent;
-import cc.thonly.reverie_dreams.server.player.PlayerComponent;
+import cc.thonly.reverie_dreams.api.player.PlayerComponent;
 import cc.thonly.reverie_dreams.gui.slot.PredicateSlot;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import com.mojang.serialization.MapCodec;

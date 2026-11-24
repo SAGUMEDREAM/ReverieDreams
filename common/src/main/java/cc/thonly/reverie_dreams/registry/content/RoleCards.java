@@ -2,9 +2,9 @@ package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
-import cc.thonly.reverie_dreams.entity.npc.NPCSimpleRedirectEntity;
 import cc.thonly.reverie_dreams.item.base.RoleCard;
 import cc.thonly.reverie_dreams.item.template.RoleCardItem;
+import cc.thonly.reverie_dreams.server.dialog.role.RoleCardDialog;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +15,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -229,8 +228,10 @@ public class RoleCards {
 
     }
 
-    @SuppressWarnings("unchecked")
     public static void handleRoleCardDialog(ServerPlayer player, ServerboundCustomClickActionPacket packet) {
+        if (player == null) {
+            return;
+        }
         Optional<Tag> payload = packet.payload();
         if (payload.isEmpty()) {
             return;
@@ -253,20 +254,24 @@ public class RoleCards {
         if (usingData == null) {
             return;
         }
+        if (usingData.getPlayer() != player) {
+            return;
+        }
+        if (player.level() != usingData.getWorld()
+                || player.blockPosition().distSqr(usingData.getBlockPos()) > 64) {
+            RoleCardItem.USING_DATA_MAP.remove(sessionId);
+            return;
+        }
+        if (entityId.equals("close")) {
+            RoleCardItem.USING_DATA_MAP.remove(sessionId);
+            return;
+        }
+        if (entityId.equals("menu")) {
+            RoleCardDialog.navigate(player, sessionId, usingData, compound);
+            return;
+        }
         if (entityId.equals("random")) {
-            RoleCard roleCard = usingData.getRoleCard();
-            Optional<NPCRoleType> roleWrapper = roleCard.random();
-            if (roleWrapper.isPresent()) {
-                ServerPlayer serverPlayer = usingData.getPlayer();
-                ServerLevel world = usingData.getWorld();
-                ItemStack itemStack = usingData.getItemStack();
-                NPCRoleType role = roleWrapper.get();
-                itemStack.consume(1, serverPlayer);
-                EntityType<NPCSimpleRedirectEntity> entityType = (EntityType<NPCSimpleRedirectEntity>) (Object) role.get().value();
-                entityType.spawn(world, usingData.getBlockPos(), EntitySpawnReason.SPAWN_ITEM_USE);
-
-                world.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.BUCKET_FILL, serverPlayer.getSoundSource(), 2.0f, 1.0f);
-            }
+            usingData.getRoleCard().random().ifPresent(role -> spawnRole(usingData, role));
             RoleCardItem.USING_DATA_MAP.remove(sessionId);
             return;
         }
@@ -278,14 +283,21 @@ public class RoleCards {
         if (role == null) {
             return;
         }
+        spawnRole(usingData, role);
+        RoleCardItem.USING_DATA_MAP.remove(sessionId);
+    }
+
+    private static void spawnRole(RoleCardItem.UsingData usingData, NPCRoleType role) {
+        var spawnType = role.getEntityType();
+        if (spawnType == null) {
+            return;
+        }
         ServerPlayer serverPlayer = usingData.getPlayer();
         ServerLevel world = usingData.getWorld();
         ItemStack itemStack = usingData.getItemStack();
         itemStack.consume(1, serverPlayer);
-        EntityType<NPCSimpleRedirectEntity> entityType = (EntityType<NPCSimpleRedirectEntity>) (Object) role.get().value();
-        entityType.spawn(world, usingData.getBlockPos(), EntitySpawnReason.SPAWN_ITEM_USE);
+        spawnType.value().spawn(world, usingData.getBlockPos(), EntitySpawnReason.SPAWN_ITEM_USE);
 
         world.playSound(null, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), SoundEvents.BUCKET_FILL, serverPlayer.getSoundSource(), 2.0f, 1.0f);
-        RoleCardItem.USING_DATA_MAP.remove(sessionId);
     }
 }

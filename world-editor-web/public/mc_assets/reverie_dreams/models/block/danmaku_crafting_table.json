@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "minecraft:block/oak_planks",
+    "east": "reverie_dreams:block/danmaku_crafting_table_side",
+    "north": "reverie_dreams:block/danmaku_crafting_table_front",
+    "particle": "reverie_dreams:block/danmaku_crafting_table_front",
+    "south": "reverie_dreams:block/danmaku_crafting_table_side",
+    "up": "reverie_dreams:block/danmaku_crafting_table_top",
+    "west": "reverie_dreams:block/danmaku_crafting_table_front"
+  }
+}

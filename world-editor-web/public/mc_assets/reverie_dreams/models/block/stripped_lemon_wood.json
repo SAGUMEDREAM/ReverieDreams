@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "reverie_dreams:block/stripped_lemon_log",
+    "side": "reverie_dreams:block/stripped_lemon_log"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "reverie_dreams:block/set2/herb_drying_tray"
+    },
+    "facing=east": {
+      "model": "reverie_dreams:block/set2/herb_drying_tray",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/set2/herb_drying_tray",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/set2/herb_drying_tray",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,27 @@
+plugins {
+    id 'base'
+}
+
+description = 'ReverieDreams documentation (VitePress web UI)'
+
+tasks.register('docsDev', Exec) {
+    group = 'documentation'
+    description = 'Start VitePress development documentation server'
+    workingDir = projectDir
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'npm', 'run', 'docs:dev'
+    } else {
+        commandLine 'npm', 'run', 'docs:dev'
+    }
+}
+
+tasks.register('docsBuild', Exec) {
+    group = 'documentation'
+    description = 'Build VitePress documentation'
+    workingDir = projectDir
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine 'cmd', '/c', 'npm', 'run', 'docs:build'
+    } else {
+        commandLine 'npm', 'run', 'docs:build'
+    }
+}

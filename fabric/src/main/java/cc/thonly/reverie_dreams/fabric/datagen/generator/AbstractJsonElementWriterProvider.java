@@ -25,7 +25,7 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
     public final FabricPackOutput output;
     public final CompletableFuture<HolderLookup.Provider> future;
 
-    public AbstractJsonElementWriterProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+        public AbstractJsonElementWriterProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> future) {
         this.output = output;
         this.future = future;
     }
@@ -51,7 +51,7 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
                 Files.createDirectories(exportPath.getParent());
                 cachedOutput.writeIfNeeded(exportPath, bytes, HashCode.fromBytes(bytes));
             } catch (Exception err) {
-                log.error("Failed to export JSON file: {}", exportPath, err);
+                throw new IllegalStateException("Failed to export JSON file " + exportPath, err);
             }
         }
     }
@@ -64,14 +64,14 @@ public abstract class AbstractJsonElementWriterProvider implements DataProvider 
     }
 
     protected JsonElement strToJson(String jsonStr) {
-        if (jsonStr == null || jsonStr.isEmpty()) {
-            return new JsonObject(); // 空对象
+        if (jsonStr == null || jsonStr.isBlank()) {
+            throw new IllegalArgumentException("Missing JSON template in " + getName());
         }
 
         try {
             return JsonParser.parseString(jsonStr);
         } catch (Exception e) {
-            return new JsonObject();
+            throw new IllegalArgumentException("Invalid JSON template in " + getName(), e);
         }
     }
 

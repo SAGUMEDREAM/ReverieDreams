@@ -1,0 +1,11 @@
+{
+  "feature": "reverie_dreams:gensokyo/landmarks/muenzuka/grave_mound",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

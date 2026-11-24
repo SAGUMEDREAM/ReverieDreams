@@ -22,6 +22,8 @@ public class RDEntityHolderItems {
                  .stacksTo(1).overrideDescription("Entity Holder")), new Item.Properties()
     );
     public static final ItemDelegate MAGIC_BROOM_DISPLAY = register("holder/magic_broom_display", factory(), new Item.Properties());
+    public static final ItemDelegate GAP_PORTAL_DISPLAY = register("holder/gap_portal_display", factory(), new Item.Properties());
+    public static final ItemDelegate CURSED_DECOY_DISPLAY = register("holder/cursed_decoy_display", factory(), new Item.Properties());
 
     public static void initialize() {
 

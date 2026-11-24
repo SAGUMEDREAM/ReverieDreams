@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": "minecraft:red_dye",
+    "S": "minecraft:stone"
+  },
+  "pattern": [
+    " S ",
+    "SSS",
+    "SRS"
+  ],
+  "result": {
+    "id": "reverie_dreams:jizo_statue"
+  }
+}

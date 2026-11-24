@@ -1,0 +1,28 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/large_bamboo/none"
+      },
+      "when": {
+        "leaves": "none"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/large_bamboo/small"
+      },
+      "when": {
+        "leaves": "small"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/large_bamboo/large"
+      },
+      "when": {
+        "leaves": "large"
+      }
+    }
+  ]
+}

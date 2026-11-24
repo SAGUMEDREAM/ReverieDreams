@@ -23,9 +23,9 @@ public class BiomePredicateTool {
 
     public static BiomePredicate vanilla() {
         return biomeHolder -> biomeHolder.unwrapKey()
-                                         .map(key -> key.identifier().getNamespace().equals("minecraft")
-                                                 && BuiltInRegistryKeys.isBuiltinBiome(key))
-                                         .orElse(false);
+                .map(key -> key.identifier().getNamespace().equals("minecraft")
+                        && BuiltInRegistryKeys.isBuiltinBiome(key))
+                .orElse(false);
     }
 
     // ===== include =====
@@ -42,8 +42,8 @@ public class BiomePredicateTool {
 
     public static BiomePredicate includeByKey(Collection<ResourceKey<Biome>> keys) {
         return biomeHolder -> biomeHolder.unwrapKey()
-                                         .map(keys::contains)
-                                         .orElse(false);
+                .map(keys::contains)
+                .orElse(false);
     }
 
     // ===== exclude =====
@@ -55,8 +55,8 @@ public class BiomePredicateTool {
 
     public static BiomePredicate excludeByKey(Collection<ResourceKey<Biome>> keys) {
         return biomeHolder -> biomeHolder.unwrapKey()
-                                         .map(key -> !keys.contains(key))
-                                         .orElse(true);
+                .map(key -> !keys.contains(key))
+                .orElse(true);
     }
 
     // ===== tag =====
@@ -110,10 +110,10 @@ public class BiomePredicateTool {
             }
 
             return levelStem.generator()
-                            .getBiomeSource()
-                            .possibleBiomes()
-                            .stream()
-                            .anyMatch(holder -> holder.value() == biomeHolder.value());
+                    .getBiomeSource()
+                    .possibleBiomes()
+                    .stream()
+                    .anyMatch(holder -> holder.value() == biomeHolder.value());
         };
     }
 

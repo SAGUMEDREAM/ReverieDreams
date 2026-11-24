@@ -1,0 +1,25 @@
+{
+  "type": "reverie_dreams:gensokyo_tree",
+  "config": {
+    "crown_radius": 2,
+    "crown_style": "jungle_young",
+    "leaves": {
+      "Name": "minecraft:jungle_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "minecraft:jungle_log",
+      "Properties": {
+        "axis": "y"
+      }
+    },
+    "max_height": 12,
+    "min_height": 8,
+    "shape": "jungle",
+    "trunk_width": 1
+  }
+}

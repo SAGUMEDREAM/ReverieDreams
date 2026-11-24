@@ -1,0 +1,3954 @@
+{
+  "assets/reverie_dreams/blockstates/ema_rack.json": {
+    "variants": {
+      "facing=north,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single"
+      },
+      "facing=north,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single"
+      },
+      "facing=north,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single"
+      },
+      "facing=north,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left"
+      },
+      "facing=north,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right"
+      },
+      "facing=north,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right"
+      },
+      "facing=north,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left"
+      },
+      "facing=north,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_middle"
+      },
+      "facing=north,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right"
+      },
+      "facing=north,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single"
+      },
+      "facing=north,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single"
+      },
+      "facing=north,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single"
+      },
+      "facing=north,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left"
+      },
+      "facing=north,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right"
+      },
+      "facing=north,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right"
+      },
+      "facing=north,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left"
+      },
+      "facing=north,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_middle"
+      },
+      "facing=north,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right"
+      },
+      "facing=east,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_middle",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_middle",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 90
+      },
+      "facing=south,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_middle",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_middle",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 180
+      },
+      "facing=west,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_single",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_left",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_middle",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_lower_right",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_single",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_left",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_middle",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ema_rack_upper_right",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/ema_rack.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/ema_rack"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/ema_rack.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          },
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "reverie_dreams:ema_rack",
+            "properties": {
+              "half": "lower"
+            }
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:ema_rack"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/ofuda_rack.json": {
+    "variants": {
+      "facing=north,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single"
+      },
+      "facing=north,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single"
+      },
+      "facing=north,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single"
+      },
+      "facing=north,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left"
+      },
+      "facing=north,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right"
+      },
+      "facing=north,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right"
+      },
+      "facing=north,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left"
+      },
+      "facing=north,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle"
+      },
+      "facing=north,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right"
+      },
+      "facing=north,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single"
+      },
+      "facing=north,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single"
+      },
+      "facing=north,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single"
+      },
+      "facing=north,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left"
+      },
+      "facing=north,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right"
+      },
+      "facing=north,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right"
+      },
+      "facing=north,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left"
+      },
+      "facing=north,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle"
+      },
+      "facing=north,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right"
+      },
+      "facing=east,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle",
+        "y": 90
+      },
+      "facing=east,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle",
+        "y": 90
+      },
+      "facing=east,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 90
+      },
+      "facing=south,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle",
+        "y": 180
+      },
+      "facing=south,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle",
+        "y": 180
+      },
+      "facing=south,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 180
+      },
+      "facing=west,half=lower,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle",
+        "y": 270
+      },
+      "facing=west,half=lower,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=1,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=1,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=1,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=2,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=2,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=2,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=3,rack_index=0": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=3,rack_index=1": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle",
+        "y": 270
+      },
+      "facing=west,half=upper,rack_width=3,rack_index=2": {
+        "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/ofuda_rack.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/ofuda_rack"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/ofuda_rack.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          },
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "reverie_dreams:ofuda_rack",
+            "properties": {
+              "half": "lower"
+            }
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:ofuda_rack"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/omamori_cabinet.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/omamori_cabinet_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/omamori_cabinet.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/omamori_cabinet"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/omamori_cabinet.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:omamori_cabinet"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/komainu_a.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/komainu_a"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/komainu_a",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/komainu_a",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/komainu_a",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/komainu_a.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/komainu_a"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/komainu_a.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:komainu_a"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/komainu_un.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/komainu_un"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/komainu_un",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/komainu_un",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/komainu_un",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/komainu_un.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/komainu_un"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/komainu_un.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:komainu_un"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/fumizukue.json": {
+    "variants": {
+      "facing=north,open=false,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none"
+      },
+      "facing=north,open=false,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone"
+      },
+      "facing=north,open=false,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books"
+      },
+      "facing=north,open=true,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none_open"
+      },
+      "facing=north,open=true,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone_open"
+      },
+      "facing=north,open=true,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books_open"
+      },
+      "facing=east,open=false,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none",
+        "y": 90
+      },
+      "facing=east,open=false,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone",
+        "y": 90
+      },
+      "facing=east,open=false,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books",
+        "y": 90
+      },
+      "facing=east,open=true,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none_open",
+        "y": 90
+      },
+      "facing=east,open=true,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone_open",
+        "y": 90
+      },
+      "facing=east,open=true,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books_open",
+        "y": 90
+      },
+      "facing=south,open=false,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none",
+        "y": 180
+      },
+      "facing=south,open=false,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone",
+        "y": 180
+      },
+      "facing=south,open=false,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books",
+        "y": 180
+      },
+      "facing=south,open=true,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none_open",
+        "y": 180
+      },
+      "facing=south,open=true,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone_open",
+        "y": 180
+      },
+      "facing=south,open=true,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books_open",
+        "y": 180
+      },
+      "facing=west,open=false,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none",
+        "y": 270
+      },
+      "facing=west,open=false,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone",
+        "y": 270
+      },
+      "facing=west,open=false,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books",
+        "y": 270
+      },
+      "facing=west,open=true,accessory=none": {
+        "model": "reverie_dreams:block/set2/fumizukue_none_open",
+        "y": 270
+      },
+      "facing=west,open=true,accessory=inkstone": {
+        "model": "reverie_dreams:block/set2/fumizukue_inkstone_open",
+        "y": 270
+      },
+      "facing=west,open=true,accessory=books": {
+        "model": "reverie_dreams:block/set2/fumizukue_books_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/fumizukue.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/fumizukue"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/fumizukue.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:fumizukue"
+          }
+        ]
+      },
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "reverie_dreams:fumizukue",
+            "properties": {
+              "accessory": "inkstone"
+            }
+          },
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:suzuri"
+          }
+        ]
+      },
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:block_state_property",
+            "block": "reverie_dreams:fumizukue",
+            "properties": {
+              "accessory": "books"
+            }
+          },
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:book_stack"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/suzuri.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/suzuri"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/suzuri",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/suzuri",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/suzuri",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/suzuri.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/suzuri"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/suzuri.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:suzuri"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/scroll_rack.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/scroll_rack"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/scroll_rack_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/scroll_rack",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/scroll_rack_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/scroll_rack",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/scroll_rack_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/scroll_rack",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/scroll_rack_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/scroll_rack.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/scroll_rack"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/scroll_rack.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:scroll_rack"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/book_stack.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/book_stack"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/book_stack",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/book_stack",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/book_stack",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/book_stack.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/book_stack"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/book_stack.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:book_stack"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/book_box.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/book_box"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/book_box_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/book_box",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/book_box_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/book_box",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/book_box_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/book_box",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/book_box_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/book_box.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/book_box"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/book_box.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:book_box"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/medicine_cabinet.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_cabinet_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/medicine_cabinet.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/medicine_cabinet"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/medicine_cabinet.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:medicine_cabinet"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/yagen.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/yagen"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/yagen",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/yagen",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/yagen",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/yagen.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/yagen"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/yagen.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:yagen"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/stone_mill.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/stone_mill"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/stone_mill",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/stone_mill",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/stone_mill",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/stone_mill.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/stone_mill"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/stone_mill.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:stone_mill"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/herb_drying_tray.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/herb_drying_tray"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/herb_drying_tray",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/herb_drying_tray",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/herb_drying_tray",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/herb_drying_tray.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/herb_drying_tray"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/herb_drying_tray.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:herb_drying_tray"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/medicine_jar_rack.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/medicine_jar_rack_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/medicine_jar_rack.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/medicine_jar_rack"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/medicine_jar_rack.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:medicine_jar_rack"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/vermilion_railing.json": {
+    "multipart": [
+      {
+        "apply": {
+          "model": "reverie_dreams:block/set2/vermilion_railing_post"
+        }
+      },
+      {
+        "when": {
+          "north": "true"
+        },
+        "apply": {
+          "model": "reverie_dreams:block/set2/vermilion_railing_side"
+        }
+      },
+      {
+        "when": {
+          "east": "true"
+        },
+        "apply": {
+          "model": "reverie_dreams:block/set2/vermilion_railing_side",
+          "y": 90
+        }
+      },
+      {
+        "when": {
+          "south": "true"
+        },
+        "apply": {
+          "model": "reverie_dreams:block/set2/vermilion_railing_side",
+          "y": 180
+        }
+      },
+      {
+        "when": {
+          "west": "true"
+        },
+        "apply": {
+          "model": "reverie_dreams:block/set2/vermilion_railing_side",
+          "y": 270
+        }
+      }
+    ]
+  },
+  "assets/reverie_dreams/items/vermilion_railing.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/vermilion_railing"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/vermilion_railing.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:vermilion_railing"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/taiko_bridge_approach.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_approach"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_approach",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_approach",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_approach",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/taiko_bridge_approach.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/taiko_bridge_approach"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/taiko_bridge_approach.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:taiko_bridge_approach"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/taiko_bridge_rise.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_rise"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_rise",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_rise",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_rise",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/taiko_bridge_rise.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/taiko_bridge_rise"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/taiko_bridge_rise.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:taiko_bridge_rise"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/taiko_bridge_crown.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_crown"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_crown",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_crown",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/taiko_bridge_crown",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/taiko_bridge_crown.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/taiko_bridge_crown"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/taiko_bridge_crown.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:taiko_bridge_crown"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/flower_vase.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/flower_vase"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/flower_vase",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/flower_vase",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/flower_vase",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/flower_vase.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/flower_vase"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/flower_vase.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:flower_vase"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/sakura_byobu.json": {
+    "variants": {
+      "facing=north": {
+        "model": "reverie_dreams:block/set2/sakura_byobu"
+      },
+      "facing=east": {
+        "model": "reverie_dreams:block/set2/sakura_byobu",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "reverie_dreams:block/set2/sakura_byobu",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "reverie_dreams:block/set2/sakura_byobu",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/sakura_byobu.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/sakura_byobu"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/sakura_byobu.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:sakura_byobu"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/connected_counter.json": {
+    "variants": {
+      "facing=north,open=false,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0"
+      },
+      "facing=north,open=false,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_1"
+      },
+      "facing=north,open=false,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_2"
+      },
+      "facing=north,open=false,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_3"
+      },
+      "facing=north,open=false,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_4"
+      },
+      "facing=north,open=false,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_5"
+      },
+      "facing=north,open=false,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_6"
+      },
+      "facing=north,open=false,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_7"
+      },
+      "facing=north,open=false,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_8"
+      },
+      "facing=north,open=false,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_9"
+      },
+      "facing=north,open=false,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_10"
+      },
+      "facing=north,open=false,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_11"
+      },
+      "facing=north,open=false,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_12"
+      },
+      "facing=north,open=false,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_13"
+      },
+      "facing=north,open=false,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_14"
+      },
+      "facing=north,open=false,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15"
+      },
+      "facing=north,open=true,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0_open"
+      },
+      "facing=north,open=true,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_1_open"
+      },
+      "facing=north,open=true,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_2_open"
+      },
+      "facing=north,open=true,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_3_open"
+      },
+      "facing=north,open=true,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_4_open"
+      },
+      "facing=north,open=true,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_5_open"
+      },
+      "facing=north,open=true,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_6_open"
+      },
+      "facing=north,open=true,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_7_open"
+      },
+      "facing=north,open=true,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_8_open"
+      },
+      "facing=north,open=true,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_9_open"
+      },
+      "facing=north,open=true,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_10_open"
+      },
+      "facing=north,open=true,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_11_open"
+      },
+      "facing=north,open=true,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_12_open"
+      },
+      "facing=north,open=true,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_13_open"
+      },
+      "facing=north,open=true,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_14_open"
+      },
+      "facing=north,open=true,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15_open"
+      },
+      "facing=east,open=false,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_8",
+        "y": 90
+      },
+      "facing=east,open=false,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_1",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_9",
+        "y": 90
+      },
+      "facing=east,open=false,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_2",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_10",
+        "y": 90
+      },
+      "facing=east,open=false,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_3",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_11",
+        "y": 90
+      },
+      "facing=east,open=false,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_4",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_12",
+        "y": 90
+      },
+      "facing=east,open=false,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_5",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_13",
+        "y": 90
+      },
+      "facing=east,open=false,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_6",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_14",
+        "y": 90
+      },
+      "facing=east,open=false,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_7",
+        "y": 90
+      },
+      "facing=east,open=false,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_8_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_1_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_9_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_2_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_10_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_3_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_11_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_4_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_12_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_5_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_13_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_6_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_14_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_7_open",
+        "y": 90
+      },
+      "facing=east,open=true,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15_open",
+        "y": 90
+      },
+      "facing=south,open=false,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_4",
+        "y": 180
+      },
+      "facing=south,open=false,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_8",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_12",
+        "y": 180
+      },
+      "facing=south,open=false,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_1",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_5",
+        "y": 180
+      },
+      "facing=south,open=false,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_9",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_13",
+        "y": 180
+      },
+      "facing=south,open=false,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_2",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_6",
+        "y": 180
+      },
+      "facing=south,open=false,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_10",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_14",
+        "y": 180
+      },
+      "facing=south,open=false,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_3",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_7",
+        "y": 180
+      },
+      "facing=south,open=false,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_11",
+        "y": 180
+      },
+      "facing=south,open=false,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_4_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_8_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_12_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_1_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_5_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_9_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_13_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_2_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_6_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_10_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_14_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_3_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_7_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_11_open",
+        "y": 180
+      },
+      "facing=south,open=true,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15_open",
+        "y": 180
+      },
+      "facing=west,open=false,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_2",
+        "y": 270
+      },
+      "facing=west,open=false,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_4",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_6",
+        "y": 270
+      },
+      "facing=west,open=false,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_8",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_10",
+        "y": 270
+      },
+      "facing=west,open=false,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_12",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_14",
+        "y": 270
+      },
+      "facing=west,open=false,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_1",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_3",
+        "y": 270
+      },
+      "facing=west,open=false,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_5",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_7",
+        "y": 270
+      },
+      "facing=west,open=false,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_9",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_11",
+        "y": 270
+      },
+      "facing=west,open=false,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_13",
+        "y": 270
+      },
+      "facing=west,open=false,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_0_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_2_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_4_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_6_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_8_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_10_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_12_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/connected_counter_14_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_1_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_3_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_5_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_7_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_9_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_11_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_13_open",
+        "y": 270
+      },
+      "facing=west,open=true,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/connected_counter_15_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/connected_counter.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/connected_counter"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/connected_counter.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:connected_counter"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/merchandise_shelf.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/merchandise_shelf_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/merchandise_shelf.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/merchandise_shelf"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/merchandise_shelf.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:merchandise_shelf"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/sake_cask_rack.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/sake_cask_rack_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/sake_cask_rack.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/sake_cask_rack"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/sake_cask_rack.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:sake_cask_rack"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/ingredient_basket.json": {
+    "variants": {
+      "facing=north,open=false": {
+        "model": "reverie_dreams:block/set2/ingredient_basket"
+      },
+      "facing=north,open=true": {
+        "model": "reverie_dreams:block/set2/ingredient_basket_open"
+      },
+      "facing=east,open=false": {
+        "model": "reverie_dreams:block/set2/ingredient_basket",
+        "y": 90
+      },
+      "facing=east,open=true": {
+        "model": "reverie_dreams:block/set2/ingredient_basket_open",
+        "y": 90
+      },
+      "facing=south,open=false": {
+        "model": "reverie_dreams:block/set2/ingredient_basket",
+        "y": 180
+      },
+      "facing=south,open=true": {
+        "model": "reverie_dreams:block/set2/ingredient_basket_open",
+        "y": 180
+      },
+      "facing=west,open=false": {
+        "model": "reverie_dreams:block/set2/ingredient_basket",
+        "y": 270
+      },
+      "facing=west,open=true": {
+        "model": "reverie_dreams:block/set2/ingredient_basket_open",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/ingredient_basket.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/ingredient_basket"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/ingredient_basket.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:ingredient_basket"
+          }
+        ]
+      }
+    ]
+  },
+  "assets/reverie_dreams/blockstates/shop_bench.json": {
+    "variants": {
+      "facing=north,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_0"
+      },
+      "facing=north,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_1"
+      },
+      "facing=north,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_2"
+      },
+      "facing=north,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_3"
+      },
+      "facing=north,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_4"
+      },
+      "facing=north,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_5"
+      },
+      "facing=north,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_6"
+      },
+      "facing=north,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_7"
+      },
+      "facing=north,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_8"
+      },
+      "facing=north,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_9"
+      },
+      "facing=north,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_10"
+      },
+      "facing=north,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_11"
+      },
+      "facing=north,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_12"
+      },
+      "facing=north,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_13"
+      },
+      "facing=north,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_14"
+      },
+      "facing=north,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_15"
+      },
+      "facing=east,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_0",
+        "y": 90
+      },
+      "facing=east,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_8",
+        "y": 90
+      },
+      "facing=east,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_1",
+        "y": 90
+      },
+      "facing=east,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_9",
+        "y": 90
+      },
+      "facing=east,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_2",
+        "y": 90
+      },
+      "facing=east,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_10",
+        "y": 90
+      },
+      "facing=east,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_3",
+        "y": 90
+      },
+      "facing=east,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_11",
+        "y": 90
+      },
+      "facing=east,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_4",
+        "y": 90
+      },
+      "facing=east,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_12",
+        "y": 90
+      },
+      "facing=east,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_5",
+        "y": 90
+      },
+      "facing=east,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_13",
+        "y": 90
+      },
+      "facing=east,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_6",
+        "y": 90
+      },
+      "facing=east,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_14",
+        "y": 90
+      },
+      "facing=east,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_7",
+        "y": 90
+      },
+      "facing=east,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_15",
+        "y": 90
+      },
+      "facing=south,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_0",
+        "y": 180
+      },
+      "facing=south,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_4",
+        "y": 180
+      },
+      "facing=south,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_8",
+        "y": 180
+      },
+      "facing=south,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_12",
+        "y": 180
+      },
+      "facing=south,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_1",
+        "y": 180
+      },
+      "facing=south,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_5",
+        "y": 180
+      },
+      "facing=south,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_9",
+        "y": 180
+      },
+      "facing=south,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_13",
+        "y": 180
+      },
+      "facing=south,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_2",
+        "y": 180
+      },
+      "facing=south,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_6",
+        "y": 180
+      },
+      "facing=south,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_10",
+        "y": 180
+      },
+      "facing=south,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_14",
+        "y": 180
+      },
+      "facing=south,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_3",
+        "y": 180
+      },
+      "facing=south,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_7",
+        "y": 180
+      },
+      "facing=south,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_11",
+        "y": 180
+      },
+      "facing=south,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_15",
+        "y": 180
+      },
+      "facing=west,north=false,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_0",
+        "y": 270
+      },
+      "facing=west,north=true,east=false,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_2",
+        "y": 270
+      },
+      "facing=west,north=false,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_4",
+        "y": 270
+      },
+      "facing=west,north=true,east=true,south=false,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_6",
+        "y": 270
+      },
+      "facing=west,north=false,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_8",
+        "y": 270
+      },
+      "facing=west,north=true,east=false,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_10",
+        "y": 270
+      },
+      "facing=west,north=false,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_12",
+        "y": 270
+      },
+      "facing=west,north=true,east=true,south=true,west=false": {
+        "model": "reverie_dreams:block/set2/shop_bench_14",
+        "y": 270
+      },
+      "facing=west,north=false,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_1",
+        "y": 270
+      },
+      "facing=west,north=true,east=false,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_3",
+        "y": 270
+      },
+      "facing=west,north=false,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_5",
+        "y": 270
+      },
+      "facing=west,north=true,east=true,south=false,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_7",
+        "y": 270
+      },
+      "facing=west,north=false,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_9",
+        "y": 270
+      },
+      "facing=west,north=true,east=false,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_11",
+        "y": 270
+      },
+      "facing=west,north=false,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_13",
+        "y": 270
+      },
+      "facing=west,north=true,east=true,south=true,west=true": {
+        "model": "reverie_dreams:block/set2/shop_bench_15",
+        "y": 270
+      }
+    }
+  },
+  "assets/reverie_dreams/items/shop_bench.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/decoration/shop_bench"
+    }
+  },
+  "data/reverie_dreams/loot_table/blocks/shop_bench.json": {
+    "type": "minecraft:block",
+    "pools": [
+      {
+        "rolls": 1,
+        "bonus_rolls": 0,
+        "conditions": [
+          {
+            "condition": "minecraft:survives_explosion"
+          }
+        ],
+        "entries": [
+          {
+            "type": "minecraft:item",
+            "name": "reverie_dreams:shop_bench"
+          }
+        ]
+      }
+    ]
+  },
+  "data/reverie_dreams/recipe/ema_rack.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "SPS",
+      "S S"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "S": "minecraft:stick"
+    },
+    "result": {
+      "id": "reverie_dreams:ema_rack",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/ema_rack.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:ema_rack"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:ema_rack"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/ofuda_rack.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      " S ",
+      "PPP"
+    ],
+    "key": {
+      "P": "minecraft:paper",
+      "S": "minecraft:stick"
+    },
+    "result": {
+      "id": "reverie_dreams:ofuda_rack",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/ofuda_rack.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:paper"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:ofuda_rack"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:ofuda_rack"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/omamori_cabinet.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "WCW",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "W": "minecraft:white_wool",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:omamori_cabinet",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/omamori_cabinet.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:omamori_cabinet"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:omamori_cabinet"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/komainu_a.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " SS",
+      "SCS",
+      "SSS"
+    ],
+    "key": {
+      "S": "minecraft:stone",
+      "C": "minecraft:clay_ball"
+    },
+    "result": {
+      "id": "reverie_dreams:komainu_a",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/komainu_a.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stone"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:komainu_a"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:komainu_a"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/komainu_un.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "S S",
+      "SCS",
+      "SSS"
+    ],
+    "key": {
+      "S": "minecraft:stone",
+      "C": "minecraft:clay_ball"
+    },
+    "result": {
+      "id": "reverie_dreams:komainu_un",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/komainu_un.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stone"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:komainu_un"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:komainu_un"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/fumizukue.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "SCS",
+      "S S"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "S": "minecraft:stick",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:fumizukue",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/fumizukue.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:fumizukue"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:fumizukue"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/suzuri.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "I S",
+      "SSS"
+    ],
+    "key": {
+      "I": "minecraft:ink_sac",
+      "S": "minecraft:smooth_stone_slab"
+    },
+    "result": {
+      "id": "reverie_dreams:suzuri",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/suzuri.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:ink_sac"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:suzuri"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:suzuri"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/scroll_rack.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "BCB",
+      "PSP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "B": "minecraft:paper",
+      "C": "minecraft:chest",
+      "S": "minecraft:string"
+    },
+    "result": {
+      "id": "reverie_dreams:scroll_rack",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/scroll_rack.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:scroll_rack"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:scroll_rack"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/book_stack.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "BB",
+      "BB"
+    ],
+    "key": {
+      "B": "minecraft:book"
+    },
+    "result": {
+      "id": "reverie_dreams:book_stack",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/book_stack.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:book"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:book_stack"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:book_stack"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/book_box.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "BCB",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "B": "minecraft:book",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:book_box",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/book_box.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:book_box"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:book_box"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/medicine_cabinet.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "ICI",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "I": "minecraft:glass_bottle",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:medicine_cabinet",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/medicine_cabinet.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:medicine_cabinet"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:medicine_cabinet"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/yagen.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " I ",
+      "III",
+      "PPP"
+    ],
+    "key": {
+      "I": "minecraft:iron_ingot",
+      "P": "#minecraft:planks"
+    },
+    "result": {
+      "id": "reverie_dreams:yagen",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/yagen.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:iron_ingot"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:yagen"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:yagen"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/stone_mill.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "SSS",
+      "S S",
+      "PPP"
+    ],
+    "key": {
+      "S": "minecraft:stone",
+      "P": "#minecraft:planks"
+    },
+    "result": {
+      "id": "reverie_dreams:stone_mill",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/stone_mill.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stone"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:stone_mill"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:stone_mill"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/herb_drying_tray.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "BSB",
+      "BBB"
+    ],
+    "key": {
+      "B": "minecraft:bamboo",
+      "S": "minecraft:string"
+    },
+    "result": {
+      "id": "reverie_dreams:herb_drying_tray",
+      "count": 2
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/herb_drying_tray.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:bamboo"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:herb_drying_tray"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:herb_drying_tray"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/medicine_jar_rack.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "FCF",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "F": "minecraft:flower_pot",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:medicine_jar_rack",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/medicine_jar_rack.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:medicine_jar_rack"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:medicine_jar_rack"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/vermilion_railing.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "SRS",
+      "SRS"
+    ],
+    "key": {
+      "S": "minecraft:stick",
+      "R": "minecraft:red_dye"
+    },
+    "result": {
+      "id": "reverie_dreams:vermilion_railing",
+      "count": 4
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/vermilion_railing.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stick"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:vermilion_railing"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:vermilion_railing"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/taiko_bridge_approach.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "  R",
+      " PP",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "R": "minecraft:red_dye"
+    },
+    "result": {
+      "id": "reverie_dreams:taiko_bridge_approach",
+      "count": 4
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/taiko_bridge_approach.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:taiko_bridge_approach"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:taiko_bridge_approach"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/taiko_bridge_rise.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " PR",
+      "PPP",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "R": "minecraft:red_dye"
+    },
+    "result": {
+      "id": "reverie_dreams:taiko_bridge_rise",
+      "count": 4
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/taiko_bridge_rise.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:taiko_bridge_rise"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:taiko_bridge_rise"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/taiko_bridge_crown.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PRP",
+      "S S"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "S": "minecraft:stick",
+      "R": "minecraft:red_dye"
+    },
+    "result": {
+      "id": "reverie_dreams:taiko_bridge_crown",
+      "count": 4
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/taiko_bridge_crown.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:taiko_bridge_crown"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:taiko_bridge_crown"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/flower_vase.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      " C ",
+      "CFC",
+      " C "
+    ],
+    "key": {
+      "C": "minecraft:clay_ball",
+      "F": "minecraft:pink_petals"
+    },
+    "result": {
+      "id": "reverie_dreams:flower_vase",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/flower_vase.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:clay_ball"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:flower_vase"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:flower_vase"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/sakura_byobu.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "SSS",
+      "PFP",
+      "SSS"
+    ],
+    "key": {
+      "S": "minecraft:stick",
+      "P": "minecraft:paper",
+      "F": "minecraft:pink_dye"
+    },
+    "result": {
+      "id": "reverie_dreams:sakura_byobu",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/sakura_byobu.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:stick"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:sakura_byobu"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:sakura_byobu"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/connected_counter.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "PCP",
+      "S S"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "C": "minecraft:chest",
+      "S": "minecraft:stick"
+    },
+    "result": {
+      "id": "reverie_dreams:connected_counter",
+      "count": 2
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/connected_counter.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:connected_counter"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:connected_counter"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/merchandise_shelf.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "SCS",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "S": "minecraft:stick",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:merchandise_shelf",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/merchandise_shelf.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:merchandise_shelf"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:merchandise_shelf"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/sake_cask_rack.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "BCB",
+      "PPP"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "B": "minecraft:barrel",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:sake_cask_rack",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/sake_cask_rack.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:sake_cask_rack"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:sake_cask_rack"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/ingredient_basket.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "BSB",
+      "BCB",
+      "BBB"
+    ],
+    "key": {
+      "B": "minecraft:bamboo",
+      "S": "minecraft:string",
+      "C": "minecraft:chest"
+    },
+    "result": {
+      "id": "reverie_dreams:ingredient_basket",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/ingredient_basket.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:bamboo"
+              ]
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:ingredient_basket"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:ingredient_basket"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/shop_bench.json": {
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "pattern": [
+      "PPP",
+      "S S"
+    ],
+    "key": {
+      "P": "#minecraft:planks",
+      "S": "minecraft:stick"
+    },
+    "result": {
+      "id": "reverie_dreams:shop_bench",
+      "count": 2
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/shop_bench.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_material": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": "#minecraft:planks"
+            }
+          ]
+        }
+      },
+      "has_the_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:shop_bench"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_material",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:shop_bench"
+      ]
+    }
+  }
+}

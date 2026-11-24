@@ -1,0 +1,761 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "minecraft": "26.1.2",
+    "paperBuild": 74,
+    "craftEngine": "26.8.2",
+    "java": 25
+  },
+  "items": {
+    "reverie_dreams:silver_sword": {
+      "id": "reverie_dreams:silver_sword",
+      "material": "silver",
+      "kind": "sword",
+      "durability": 240,
+      "miningTier": null,
+      "miningSpeed": null,
+      "materialAttackBonus": 1.5,
+      "attackDamageModifier": 4.5,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "silverMarker": true,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/fire_aspect",
+        "minecraft:enchantable/melee_weapon",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/sweeping",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "minecraft:swords",
+        "reverie_dreams:silver_item"
+      ],
+      "craftEngineBreakPower": 0
+    },
+    "reverie_dreams:silver_axe": {
+      "id": "reverie_dreams:silver_axe",
+      "material": "silver",
+      "kind": "axe",
+      "durability": 240,
+      "miningTier": "iron",
+      "miningSpeed": 6,
+      "materialAttackBonus": 1.5,
+      "attackDamageModifier": 7.5,
+      "attackSpeedModifier": -2.799999952316284,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "silverMarker": true,
+      "nativeTags": [
+        "minecraft:axes",
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "reverie_dreams:silver_item"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:silver_pickaxe": {
+      "id": "reverie_dreams:silver_pickaxe",
+      "material": "silver",
+      "kind": "pickaxe",
+      "durability": 240,
+      "miningTier": "iron",
+      "miningSpeed": 6,
+      "materialAttackBonus": 1.5,
+      "attackDamageModifier": 2.5,
+      "attackSpeedModifier": -2.799999952316284,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "silverMarker": true,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:cluster_max_harvestables",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:pickaxes",
+        "reverie_dreams:silver_item"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:silver_shovel": {
+      "id": "reverie_dreams:silver_shovel",
+      "material": "silver",
+      "kind": "shovel",
+      "durability": 240,
+      "miningTier": "iron",
+      "miningSpeed": 6,
+      "materialAttackBonus": 1.5,
+      "attackDamageModifier": 3,
+      "attackSpeedModifier": -3,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "silverMarker": true,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:shovels",
+        "reverie_dreams:silver_item"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:silver_hoe": {
+      "id": "reverie_dreams:silver_hoe",
+      "material": "silver",
+      "kind": "hoe",
+      "durability": 240,
+      "miningTier": "iron",
+      "miningSpeed": 6,
+      "materialAttackBonus": 1.5,
+      "attackDamageModifier": -0.5,
+      "attackSpeedModifier": -1,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "silverMarker": true,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:hoes",
+        "reverie_dreams:silver_item"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:silver_spear": {
+      "id": "reverie_dreams:silver_spear",
+      "material": "silver",
+      "kind": "spear",
+      "durability": 240,
+      "miningTier": null,
+      "miningSpeed": null,
+      "materialAttackBonus": 1.5,
+      "attackDamageModifier": 1.5,
+      "attackSpeedModifier": -2.9473683834075928,
+      "enchantability": 18,
+      "repairTag": "reverie_dreams:silver_tool_materials",
+      "silverMarker": true,
+      "nativeTags": [
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/fire_aspect",
+        "minecraft:enchantable/lunge",
+        "minecraft:enchantable/melee_weapon",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "minecraft:spears",
+        "reverie_dreams:silver_item"
+      ],
+      "craftEngineBreakPower": 0
+    },
+    "reverie_dreams:magic_ice_sword": {
+      "id": "reverie_dreams:magic_ice_sword",
+      "material": "magic_ice",
+      "kind": "sword",
+      "durability": 380,
+      "miningTier": null,
+      "miningSpeed": null,
+      "materialAttackBonus": 2.5,
+      "attackDamageModifier": 5.5,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/fire_aspect",
+        "minecraft:enchantable/melee_weapon",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/sweeping",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "minecraft:swords",
+        "reverie_dreams:magic_ice_weapon"
+      ],
+      "craftEngineBreakPower": 0
+    },
+    "reverie_dreams:magic_ice_axe": {
+      "id": "reverie_dreams:magic_ice_axe",
+      "material": "magic_ice",
+      "kind": "axe",
+      "durability": 380,
+      "miningTier": "iron",
+      "miningSpeed": 6.5,
+      "materialAttackBonus": 2.5,
+      "attackDamageModifier": 8.5,
+      "attackSpeedModifier": -2.799999952316284,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:axes",
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "reverie_dreams:magic_ice_weapon"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:magic_ice_pickaxe": {
+      "id": "reverie_dreams:magic_ice_pickaxe",
+      "material": "magic_ice",
+      "kind": "pickaxe",
+      "durability": 380,
+      "miningTier": "iron",
+      "miningSpeed": 6.5,
+      "materialAttackBonus": 2.5,
+      "attackDamageModifier": 3.5,
+      "attackSpeedModifier": -2.799999952316284,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:cluster_max_harvestables",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:pickaxes",
+        "reverie_dreams:magic_ice_weapon"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:magic_ice_shovel": {
+      "id": "reverie_dreams:magic_ice_shovel",
+      "material": "magic_ice",
+      "kind": "shovel",
+      "durability": 380,
+      "miningTier": "iron",
+      "miningSpeed": 6.5,
+      "materialAttackBonus": 2.5,
+      "attackDamageModifier": 4,
+      "attackSpeedModifier": -3,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:shovels",
+        "reverie_dreams:magic_ice_weapon"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:magic_ice_hoe": {
+      "id": "reverie_dreams:magic_ice_hoe",
+      "material": "magic_ice",
+      "kind": "hoe",
+      "durability": 380,
+      "miningTier": "iron",
+      "miningSpeed": 6.5,
+      "materialAttackBonus": 2.5,
+      "attackDamageModifier": 0.5,
+      "attackSpeedModifier": -1,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:hoes",
+        "reverie_dreams:magic_ice_weapon"
+      ],
+      "craftEngineBreakPower": 3
+    },
+    "reverie_dreams:magic_ice_spear": {
+      "id": "reverie_dreams:magic_ice_spear",
+      "material": "magic_ice",
+      "kind": "spear",
+      "durability": 380,
+      "miningTier": null,
+      "miningSpeed": null,
+      "materialAttackBonus": 2.5,
+      "attackDamageModifier": 2.5,
+      "attackSpeedModifier": -2.9473683834075928,
+      "enchantability": 12,
+      "repairTag": "reverie_dreams:magic_ice_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/fire_aspect",
+        "minecraft:enchantable/lunge",
+        "minecraft:enchantable/melee_weapon",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "minecraft:spears"
+      ],
+      "craftEngineBreakPower": 0
+    },
+    "reverie_dreams:dream_sword": {
+      "id": "reverie_dreams:dream_sword",
+      "material": "dream",
+      "kind": "sword",
+      "durability": 1400,
+      "miningTier": null,
+      "miningSpeed": null,
+      "materialAttackBonus": 4,
+      "attackDamageModifier": 7,
+      "attackSpeedModifier": -2.4000000953674316,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/fire_aspect",
+        "minecraft:enchantable/melee_weapon",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/sweeping",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "minecraft:swords"
+      ],
+      "craftEngineBreakPower": 0
+    },
+    "reverie_dreams:dream_axe": {
+      "id": "reverie_dreams:dream_axe",
+      "material": "dream",
+      "kind": "axe",
+      "durability": 1400,
+      "miningTier": "netherite",
+      "miningSpeed": 8.5,
+      "materialAttackBonus": 4,
+      "attackDamageModifier": 10,
+      "attackSpeedModifier": -2.799999952316284,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:axes",
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon"
+      ],
+      "craftEngineBreakPower": 5
+    },
+    "reverie_dreams:dream_pickaxe": {
+      "id": "reverie_dreams:dream_pickaxe",
+      "material": "dream",
+      "kind": "pickaxe",
+      "durability": 1400,
+      "miningTier": "netherite",
+      "miningSpeed": 8.5,
+      "materialAttackBonus": 4,
+      "attackDamageModifier": 5,
+      "attackSpeedModifier": -2.799999952316284,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:cluster_max_harvestables",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:pickaxes"
+      ],
+      "craftEngineBreakPower": 5
+    },
+    "reverie_dreams:dream_shovel": {
+      "id": "reverie_dreams:dream_shovel",
+      "material": "dream",
+      "kind": "shovel",
+      "durability": 1400,
+      "miningTier": "netherite",
+      "miningSpeed": 8.5,
+      "materialAttackBonus": 4,
+      "attackDamageModifier": 5.5,
+      "attackSpeedModifier": -3,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:shovels"
+      ],
+      "craftEngineBreakPower": 5
+    },
+    "reverie_dreams:dream_hoe": {
+      "id": "reverie_dreams:dream_hoe",
+      "material": "dream",
+      "kind": "hoe",
+      "durability": 1400,
+      "miningTier": "netherite",
+      "miningSpeed": 8.5,
+      "materialAttackBonus": 4,
+      "attackDamageModifier": 2,
+      "attackSpeedModifier": -1,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:breaks_decorated_pots",
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/mining",
+        "minecraft:enchantable/mining_loot",
+        "minecraft:enchantable/vanishing",
+        "minecraft:hoes"
+      ],
+      "craftEngineBreakPower": 5
+    },
+    "reverie_dreams:dream_spear": {
+      "id": "reverie_dreams:dream_spear",
+      "material": "dream",
+      "kind": "spear",
+      "durability": 1400,
+      "miningTier": null,
+      "miningSpeed": null,
+      "materialAttackBonus": 4,
+      "attackDamageModifier": 4,
+      "attackSpeedModifier": -2.9473683834075928,
+      "enchantability": 16,
+      "repairTag": "reverie_dreams:dream_tool_materials",
+      "silverMarker": false,
+      "nativeTags": [
+        "minecraft:enchantable/durability",
+        "minecraft:enchantable/fire_aspect",
+        "minecraft:enchantable/lunge",
+        "minecraft:enchantable/melee_weapon",
+        "minecraft:enchantable/sharp_weapon",
+        "minecraft:enchantable/vanishing",
+        "minecraft:enchantable/weapon",
+        "minecraft:spears"
+      ],
+      "craftEngineBreakPower": 0
+    }
+  },
+  "customRepair": {
+    "reverie_dreams:silver_ingot": [
+      "reverie_dreams:silver_sword",
+      "reverie_dreams:silver_axe",
+      "reverie_dreams:silver_pickaxe",
+      "reverie_dreams:silver_shovel",
+      "reverie_dreams:silver_hoe",
+      "reverie_dreams:silver_spear"
+    ],
+    "reverie_dreams:ice_scales": [
+      "reverie_dreams:magic_ice_sword",
+      "reverie_dreams:magic_ice_axe",
+      "reverie_dreams:magic_ice_pickaxe",
+      "reverie_dreams:magic_ice_shovel",
+      "reverie_dreams:magic_ice_hoe",
+      "reverie_dreams:magic_ice_spear"
+    ],
+    "reverie_dreams:dream_crystal_fragment": [
+      "reverie_dreams:dream_sword",
+      "reverie_dreams:dream_axe",
+      "reverie_dreams:dream_pickaxe",
+      "reverie_dreams:dream_shovel",
+      "reverie_dreams:dream_hoe",
+      "reverie_dreams:dream_spear"
+    ]
+  },
+  "sourceFiles": [
+    "common/src/main/java/cc/thonly/reverie_dreams/registry/content/item/RDItems.java",
+    "common/src/main/java/cc/thonly/reverie_dreams/item/material/{Silver,MagicIce,Dream}Material.java",
+    "fabric/src/main/java/cc/thonly/reverie_dreams/fabric/datagen/tag/ItemTagProvider.java"
+  ],
+  "implementation": {
+    "native": "18 ordinary items; matching iron base classes + exact current tool/weapon/attribute/kinetic components; no custom behavior placeholder",
+    "java": "quarter-durability material repair count correction only; silver extra undead damage is existing EquipmentModule SilverDamageBridge",
+    "spearInheritedComponents": [
+      "minecraft:damage_type",
+      "minecraft:piercing_weapon",
+      "minecraft:attack_range",
+      "minecraft:minimum_attack_charge",
+      "minecraft:swing_animation",
+      "minecraft:use_effects"
+    ]
+  },
+  "specialWeaponBacklog": {
+    "reverie_dreams:weapon_of_the_moon": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/WeaponOfTheMoon.java",
+      "toolMaterialDeclaration": null,
+      "hooks": [
+        "public int getRounds(ItemStack stack) {",
+        "public void setRounds(ItemStack stack, int rounds) {",
+        "public ItemUseAnimation getUseAnimation(ItemStack stack) {",
+        "public int getUseDuration(ItemStack stack, LivingEntity entity) {",
+        "public boolean isBarVisible(ItemStack stack) {",
+        "public int getBarWidth(ItemStack stack) {",
+        "public int getBarColor(ItemStack stack) {",
+        "public void tryShoot(LivingEntity owner, ServerLevel world, @Nullable InteractionHand hand) {",
+        "public void tryShoot(LivingEntity owner, ServerLevel world, @Nullable InteractionHand hand, float d) {",
+        "public InteractionResult use(Level level, Player player, InteractionHand hand) {",
+        "public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity interactionTarget, InteractionHand usedHand) {"
+      ]
+    },
+    "reverie_dreams:magazine": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/MagazineItem.java",
+      "toolMaterialDeclaration": null,
+      "hooks": [
+        "public static final int CAPACITY = 30;",
+        "public static int getRounds(ItemStack stack) {",
+        "public static void setRounds(ItemStack stack, int rounds) {"
+      ]
+    },
+    "reverie_dreams:hakurei_cane": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/HakureiCane.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial HAKUREI_CANE = new ToolMaterial(RDBlockTags.EMPTY, 250, 4.0f, 3.5f, 5, ItemTags.IRON_TOOL_MATERIALS);",
+      "hooks": [
+        "public HakureiCane(float attackDamage, float attackSpeed, Properties settings) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {"
+      ]
+    },
+    "reverie_dreams:bagua_furnace": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/BaguaFurnace.java",
+      "toolMaterialDeclaration": null,
+      "hooks": [
+        "public static final int NORMAL_COOLDOWN_TICKS = 20;",
+        "public static final int DEPLOY_COOLDOWN_TICKS = 20 * 40;",
+        "public static final int DEPLOY_DURABILITY_COST = 15;",
+        "public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {",
+        "public InteractionResult useOn(UseOnContext context) {",
+        "public int getUseDuration(ItemStack stack, LivingEntity user) {",
+        "public ItemUseAnimation getUseAnimation(ItemStack stack) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {"
+      ]
+    },
+    "reverie_dreams:wind_blessing_cane": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/WindBlessingCane.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial WIND_BLESSING_CANE = new ToolMaterial(",
+      "hooks": [
+        "public WindBlessingCane(float attackDamage, float attackSpeed, Properties settings) {",
+        "public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {",
+        "public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {",
+        "public int getUseDuration(ItemStack stack, LivingEntity user) {",
+        "public ItemUseAnimation getUseAnimation(ItemStack stack) {",
+        "public void onUseTick(Level world, LivingEntity user, ItemStack stack, int remainingUseDuration) {"
+      ]
+    },
+    "reverie_dreams:magic_broom": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/MagicBroom.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial MAGIC_BROOM = new ToolMaterial(RDBlockTags.EMPTY, 600, 6.0f, 2.0f, 10, RDItemTags.POWER_BLOCK);",
+      "hooks": [
+        "public MagicBroom(float attackDamage, float attackSpeed, Properties settings) {",
+        "public float getAttackDamageBonus(Entity target, float baseAttackDamage, DamageSource damageSource) {",
+        "public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {",
+        "public InteractionResult useOn(UseOnContext context) {"
+      ]
+    },
+    "reverie_dreams:gungnir": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Gungnir.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial GUNGNIR = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 5.8f, 11, ItemTags.NETHERITE_TOOL_MATERIALS);",
+      "hooks": [
+        "public ItemUseAnimation getUseAnimation(ItemStack stack) {",
+        "public int getUseDuration(ItemStack stack, LivingEntity user) {",
+        "public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {",
+        "public Projectile asProjectile(Level world, Position pos, ItemStack stack, Direction direction) {"
+      ]
+    },
+    "reverie_dreams:levatin": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Levatin.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial LEVATIN = new ToolMaterial(RDBlockTags.EMPTY, 1200, 7.5f, 4.0f, 12, ItemTags.NETHERITE_TOOL_MATERIALS);",
+      "hooks": [
+        "public Levatin(float attackDamage, float attackSpeed, Properties settings) {",
+        "public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {"
+      ]
+    },
+    "reverie_dreams:rokanken": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Rokanken.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial ROKANKEN = new ToolMaterial(RDBlockTags.EMPTY, 900, 7.0f, 4.5f, 12, RDItemTags.SILVER_BLOCK);",
+      "hooks": [
+        "public Rokanken(float attackDamage, float attackSpeed, Properties settings) {",
+        "public void postHurtEnemy(ItemStack itemStack, LivingEntity mob, LivingEntity attacker) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {"
+      ]
+    },
+    "reverie_dreams:hakuroken": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Hakuroken.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial HAKUROKEN = new ToolMaterial(RDBlockTags.EMPTY, 900, 7.0f, 4.5f, 12, RDItemTags.SILVER_BLOCK);",
+      "hooks": [
+        "public Hakuroken(float attackDamage, float attackSpeed, Properties settings) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {"
+      ]
+    },
+    "reverie_dreams:papilio_pattern_fan": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/PapilioPatternFan.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial PAPILIO_PATTERN_FAN = new ToolMaterial(RDBlockTags.EMPTY, 370, 8.0f, 5f, 10, ItemTags.WOOL);",
+      "hooks": [
+        "public PapilioPatternFan(float attackDamage, float attackSpeed, Properties settings) {",
+        "public InteractionResult use(Level level, Player player, InteractionHand hand) {"
+      ]
+    },
+    "reverie_dreams:horai-dama_no_eda": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/HoraiDamaNoEdaItem.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial HORAI_DAMA_NO_EDA = new ToolMaterial(RDBlockTags.EMPTY, 300, 4.5f, 3.5f, 5, RDItemTags.ORB_BLOCK);",
+      "hooks": [
+        "public HoraiDamaNoEdaItem(float attackDamage, float attackSpeed, Properties settings) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {"
+      ]
+    },
+    "reverie_dreams:yuka_flower_umbrella": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/YukaFlowerUmbrella.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial INSTANCE = new ToolMaterial(RDBlockTags.EMPTY, 800, 7.0f, 5.5f, 10, RDItemTags.SILVER_TOOL_MATERIALS);",
+      "hooks": [
+        "public YukaFlowerUmbrella(float attackDamage, float attackSpeed, Properties settings) {",
+        "public InteractionResult use(Level level, Player player, InteractionHand hand) {",
+        "public int getUseDuration(ItemStack stack, LivingEntity user) {",
+        "public ItemUseAnimation getUseAnimation(ItemStack stack) {"
+      ]
+    },
+    "reverie_dreams:maple_leaf_fan": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/MapleLeafFan.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial MAPLE_LEAF_FAN = new ToolMaterial(RDBlockTags.EMPTY, 250, 4.0f, 2.5f, 5, ItemTags.GOLD_TOOL_MATERIALS);",
+      "hooks": [
+        "public static float POWER = 1.5f;",
+        "public MapleLeafFan(float attackDamage, float attackSpeed, Properties settings) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {",
+        "public Projectile createEntity(Level world, Position pos, ItemStack stack, Direction direction) {"
+      ]
+    },
+    "reverie_dreams:ibukiho": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/Ibukiho.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial IBUKIHO = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 5.5f, 10, ItemTags.WART_BLOCKS);",
+      "hooks": [
+        "public Ibukiho(float attackDamage, float attackSpeed, Properties settings) {",
+        "public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity user) {"
+      ]
+    },
+    "reverie_dreams:sword_of_hisou": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/SwordOfHisou.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial HISOU = new ToolMaterial(RDBlockTags.EMPTY, 1200, 7.5f, 4.0f, 12, RDItemTags.PEACH);",
+      "hooks": [
+        "public SwordOfHisou(float attackDamage, float attackSpeed, Properties settings) {",
+        "public void hurtEnemy("
+      ]
+    },
+    "reverie_dreams:manpozuchi": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/ManpozuchiItem.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial MATERIAL = new ToolMaterial(BlockTags.INCORRECT_FOR_WOODEN_TOOL, 59, 2.0F, 0.0F, 15, ItemTags.GOLD_TOOL_MATERIALS);",
+      "hooks": [
+        "public static final float MINING_SPEED_MULTIPLIER = 1.5f;",
+        "public static final float KNOCKBACK_RANGE = 3.5f;",
+        "public ManpozuchiItem(float attackDamage, float attackSpeed, Properties settings) {",
+        "public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity user) {",
+        "public InteractionResult interactLivingEntity(ItemStack stack, Player user, LivingEntity entity, InteractionHand hand) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {",
+        "public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {",
+        "public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {",
+        "public float getAttackDamageBonus(Entity target, float baseAttackDamage, DamageSource damageSource) {",
+        "public static boolean shouldDealAdditionalDamage(LivingEntity attacker) {"
+      ]
+    },
+    "reverie_dreams:nue_trident": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/NueTrident.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial NUE_TRIDENT = new ToolMaterial(RDBlockTags.MIN_TOOL, 450, 4.5f, 5.5f, 1, ItemTags.NETHERITE_TOOL_MATERIALS);",
+      "hooks": [
+        "public NueTrident(float attackDamage, float attackSpeed, Properties settings) {",
+        "public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {",
+        "public float getAttackDamageBonus(Entity target, float damage, DamageSource source) {",
+        "public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos, LivingEntity user) {",
+        "public ItemUseAnimation getUseAnimation(ItemStack stack) {",
+        "public int getUseDuration(ItemStack stack, LivingEntity user) {",
+        "public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {",
+        "public Projectile asProjectile(Level world, Position pos, ItemStack stack, Direction direction) {"
+      ]
+    },
+    "reverie_dreams:trumpet_gun": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/TrumpetGun.java",
+      "toolMaterialDeclaration": null,
+      "hooks": [
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {"
+      ]
+    },
+    "reverie_dreams:treasure_hunting_rod": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/TreasureHuntingRod.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 300, 4.0f, 4.5f, 5, ItemTags.DIAMOND_TOOL_MATERIALS);",
+      "hooks": [
+        "public static final int SCAN_RADIUS = 8;",
+        "public static final int SCAN_UP = 4;",
+        "public static final int COOLDOWN_TICKS = 35;",
+        "public static final int MAX_MARKERS = 20;",
+        "public static final int MAX_VEIN_MARKERS = 12;",
+        "public TreasureHuntingRod(float attackDamage, float attackSpeed, Properties settings) {",
+        "public InteractionResult use(Level world, Player user, InteractionHand hand) {",
+        "public static boolean isOre(BlockState blockState) {"
+      ]
+    },
+    "reverie_dreams:death_scythe": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/DeathScytheItem.java",
+      "toolMaterialDeclaration": "public static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 1200, 7.5f, 4.5f, 12, ItemTags.NETHERITE_TOOL_MATERIALS);",
+      "hooks": [
+        "public DeathScytheItem(float attackDamage, float attackSpeed, Properties settings) {",
+        "public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {"
+      ]
+    },
+    "reverie_dreams:iron_bar": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/IronBarItem.java",
+      "toolMaterialDeclaration": null,
+      "hooks": [
+        "public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {"
+      ]
+    },
+    "reverie_dreams:oni_iron_bar": {
+      "status": "requires_explicit_runtime_migration_not_defined_in_tools_yml",
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/item/weapon/IronBarItem.java",
+      "toolMaterialDeclaration": null,
+      "hooks": [
+        "public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {"
+      ]
+    }
+  }
+}

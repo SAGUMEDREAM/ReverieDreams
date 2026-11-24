@@ -16,6 +16,8 @@
     - 2.4 [Fumo Plushies](#24-fumo-plushies)
     - 2.5 [Role Partners](#25-role-partners)
     - 2.6 [Mystia's Izakaya (Touhou Cooking)](#26-mystias-izakaya-touhou-cooking)
+    - 2.7 [Gensokyo, Dreams and the Moon](#27-gensokyo-dreams-and-the-moon)
+    - 2.8 [Workshop and Herb Drying](#28-workshop-and-herb-drying)
 3. [Story — Exploration Records](#3-story--exploration-records)
     - 3.1 [Outer Shrine](#31-outer-shrine)
     - 3.2 [Mini Bar](#32-mini-bar)
@@ -27,6 +29,8 @@
     - 3.8 [Nether Hot Spring](#38-nether-hot-spring)
 4. [Other](#4-other)
     - 4.1 [Compatibility](#41-compatibility)
+    - 4.2 [Troubleshooting](#42-troubleshooting)
+5. [Sources and Permissions](#5-sources-and-permissions)
 
 ---
 
@@ -34,13 +38,13 @@
 
 Welcome to **Reverie Dreams**! This guide will help you get started with the mod.
 
-> **Current Document Version:** `2026.5.4`
+> The gameplay sections follow the in-game guide. Chapter 3 preserves the earlier exploration records.
 
 This mod is a magic and adventure mod inspired by various excellent Touhou doujin mods and games, adding a wealth of Touhou Project content to modern Minecraft.
 
 ### Quick Links
 
-- 🔧 [Open Recipe Manager](/touhou%20recipe)
+- Hold the in-game guide and use it to open the contents. Use your installed recipe browser to look up recipes.
 - 💬 [QQ Dev/Feedback Group](https://qm.qq.com/q/CkrwCz2m5i)
 - 💬 [Discord Community](https://discord.gg/8nzjpm8wex)
 
@@ -50,217 +54,403 @@ This mod is a magic and adventure mod inspired by various excellent Touhou douji
 
 ### 2.1 Getting Started
 
-To begin playing, you first need to craft the **Gensokyo Altar**, which is the starting point for all crafting in this mod.
+#### Getting the guide
 
-**Core Crafting Materials:**
+Put a book in the center of a crafting table and surround it with 8 Power. Hold the guide and use it to open the contents.
 
-| Material | Description |
-|----------|-------------|
-| 🔮 **Power** | Basic crafting material, obtained by defeating monsters or fairies |
-| 🔵 **Point** | Basic crafting material, obtained by defeating monsters or fairies |
+#### Choose one thing to try
 
-**Step 1: Craft the Gensokyo Altar**
+Pack food, tools and light. Save any Power, Point, danmaku cores, fairy materials and gems you find.
+Build the altar for role cards and special items. To run a restaurant, start with one dish and one drink. To explore Gensokyo, bring a Boundary Ofuda and plan your way back.
 
-Through the altar, you can craft the following key items:
-- 🌿 **Horai-dama no Eda**
-- ⚔️ **Gungnir**
-- 🎋 **Hakurei Cane**
+#### Reading a recipe
 
-> 📖 For more recipe information, consult Polydex or REI.
+Check the workstation, counts and slots. Templates and role cards may need specific data. Power and Point are items you can keep in your inventory.
+
+- [Build the altar](#22-gensokyo-altar-setup)
+- [Befriend a companion](#25-role-partners)
+- [Cook and open a restaurant](#26-mystias-izakaya-touhou-cooking)
+- [Plan an exploration route](#27-gensokyo-dreams-and-the-moon)
+- [Troubleshoot a problem](#42-troubleshooting)
 
 ---
 
 ### 2.2 Gensokyo Altar Setup
 
-The Gensokyo Altar is the **most important crafting workbench** in this mod. Most items require it for crafting.
+#### Prepare
 
-#### Structure Requirements
+1 Gensokyo Altar, 16 Stripped Jomon Sugi Logs and 8 Blessed Spiritual Logs. Craft the altar with an emerald block directly above an enchanting table.
 
-The altar supports a crafting recipe structure consisting of **nine items**. To make the altar functional, the following structure must be built:
+#### Build eight pillars
 
-```
-# # # # O # # # #
-# O # # # # # O #
-# # # # # # # # #
-# # # # # # # # #
-O # # # A # # # O
-# # # # # # # # #
-# # # # # # # # #
-# O # # # # # O #
-# # # # O # # # #
-```
+From the altar, place pillars 4 blocks away in each cardinal direction, and at diagonal offsets of 3 blocks along both axes.
+Each pillar starts at the altar's Y level: stripped logs at Y and Y+1, a blessed log at Y+2. Keep the altar in the center.
 
-**Structure Setup Notes:**
+#### Blessing
 
-- 🪵 **Pillar Material:** Use **Stripped Spiritual Log**. This type of tree can usually be found in the **Savanna** biome.
-- 📜 **Top Layer Blessing:** Use **Paper** and **right-click** on the top layer logs to bless them.
-- ✂️ **Cancel Blessing:** Use shears and **right-click** to remove the blessing.
-- 🖐️ **Complete Crafting:** After confirming the recipe is correct, **empty hand + Shift + right-click** the altar to complete the synthesis.
+Use paper on a stripped log to bless it; shears remove the blessing. Other wood or unstripped logs cannot substitute.
 
-> 📖 [View Gensokyo Altar Recipe]
-> 📖 [View Gensokyo Altar Recipe List]
+#### Check coordinates
+
+East is +X; south is +Z. The eight X/Z offsets are:
+(0,-4), (-3,-3), (3,-3), (-4,0), (4,0), (-3,3), (3,3), (0,4).
+No particular floor material is required.
+
+#### Altar: Crafting & Troubleshooting
+
+##### Operate
+
+1. Right-click the altar with an empty hand to open its nine slots.
+2. Put the core in the center and other ingredients in the eight outer slots, with the required quantities.
+3. Close the menu, then sneak-right-click with an empty hand to craft.
+4. Reopen it to collect the result from the center.
+
+##### Read the layout
+
+Outer slots run left to right, top to bottom, skipping the center. They are not numbered clockwise. Required empty slots matter too.
+
+##### If crafting fails
+
+Missing structure: check the eight positions, starting height and blessed top layer.
+Missing recipe: check the core, slot order, quantities, empty slots and template or card data.
+Excess core items are returned; check the ground if your inventory is full.
+
+Hover over the status icon in the lower right. A structure issue shows the first problem's relative coordinates and required block. For recipe issues, check the core, outer slots and counts.
 
 ---
 
 ### 2.3 Danmaku Guide
 
-**Danmaku** refers to the bullet-hell mechanics commonly seen in STG games, where a dense mass of projectiles creates complex attack patterns. In this mod, "danmaku" follows the same concept.
+#### Prepare
 
-#### Danmaku Crafting
+A Danmaku Creator template, Danmaku Crafting Table, and the dye, cores, Power and Point specified by the recipe.
 
-Players need to use the **Danmaku Crafting Table** to craft danmaku.
+#### Craft your first danmaku
 
-**Material Layout:**
+1. Right-click with the creator template to open the editor.
+2. Draw and save a supported outline from the target recipe.
+3. Place the template containing shape data and the ingredients in the table's matching slots.
+4. Click the result to collect it, then hold it and right-click to fire.
 
-| Material | Amount |
-|----------|:------:|
-| 🎨 Any Dye | ×4 |
-| ⚙️ Danmaku Core | ×4 |
-| 🔮 Power | ×35 |
-| 🔵 Point | ×35 |
-| 📝 Danmaku Recipe Creator | ×1 |
+#### Check the result
 
-#### Danmaku Shape Configuration
+Ordinary danmaku uses durability and has a firing cooldown. If no result appears, check the outline, saved data, color and ingredient quantities. An arbitrary drawing does not register a new projectile type.
+The creator template defines the crafting shape; a spell-card template configures trajectories. See the following pages for upgrades and firearms.
 
-The **Danmaku Recipe Creator** is a key tool for configuring danmaku shapes, and is an indispensable part of crafting danmaku. Players can **right-click the template** to construct danmaku patterns in a dot-matrix format.
+#### Danmaku: Upgrades & Spell Cards
 
-#### Danmaku Enhancement
+##### Upgrade
 
-All danmaku can be upgraded at the **Strength Table**. The currently defined upgrade materials and their effects are as follows:
+Put supported danmaku in the Strength Table's main slot and a material in the second slot. Check and collect the preview.
+Speed Feather: projectile speed +0.25, up to 2.5.
+Slime block: firing count +1; this upgrade path reaches at most 2.
+Iron sword: damage +0.25; the result must stay below 5.5.
+Spell-card template: replaces the trajectory template and its settings.
 
-| Upgrade Material | Effect |
-|-----------------|--------|
-| 🗡️ Iron Sword | Increases danmaku damage |
-| 🟩 Slime Block | Increases projectiles per shot |
-| 🪶 Speed Feather | Increases danmaku fire rate |
-| 📜 Spell Card Template | Sets danmaku trajectory |
+##### No result?
 
-> 📖 [View Danmaku Crafting Table Recipe]
-> 📖 [View Danmaku Crafting Table Recipe List]
-> 📖 [View Danmaku Recipe Creator Recipe]
-> 📖 [View Strength Table Recipe]
-> 📖 [View Strength Table Recipe List]
+The item may be unsupported, the material incorrect, or the numerical limit reached. Speed Feathers change projectile travel speed; firing cooldown stays the same.
+
+##### Spell cards and clearing bullets
+
+Right-click a spell card to release its recorded danmaku. A Bomb clears nearby hostile danmaku into Point and is consumed. Crafting templates, trajectory templates and usable spell cards serve different purposes.
+
+#### Weapons: Ammo, Reloading & Aiming
+
+##### Lunar firearms
+
+Carry a matching magazine. Right-click to shoot; Types I and IV support holding for automatic fire, while II, III and V fire per press.
+Sneak and tap use to reload. Hold for at least 6 ticks (normally 0.3 seconds) to aim, then left-click to fire. Hold left-click for automatic fire with Types I and IV. Release use to stop aiming. Reloading prevents shooting. Crafted magazines are empty. To fill one, combine a matching magazine, 1 Power Block and 5 gunpowder in any order on a crafting table.
+Aiming applies Slowness to movement and view and reduces spread. Keep inventory room for returned ammunition.
+
+##### Trumpet Gun
+
+Carry Power items. Right-click for a burst of up to three shots, consuming one Power per shot actually fired. One or two Power are enough for a shorter burst.
+
+##### Tengu Shield
+
+Hold use to raise it; blocking starts after about 0.25 seconds. Face the attack and watch for attacks from behind or damage that bypasses shields.
+
+##### Troubleshoot
+
+Check magazine type, rounds and reload cooldown. Read each weapon's tooltip for its own use action.
 
 ---
 
 ### 2.4 Fumo Plushies
 
-**Fumo (ふもふも)** refers to the Touhou Project plushies produced by the Japanese company Gift, based on character designs by the doujin circle ANGELTYPE.
+#### Fumo dolls
 
-**Key Features:**
-- 🧸 Sitting pose
-- 😶 Signature blank expression (ᗜˬᗜ)
-- 🌸 Soft plush texture
-- 🎨 Licensed, exquisitely crafted Q-shaped design
+Fumo are decorative collectibles, not a prerequisite for other systems. Trade with a Fumo merchant; using a Fumo Sales License on a villager changes its profession.
+Placed dolls support 16 orientations and play their corresponding sound when right-clicked.
 
-#### How to Obtain
+#### Find complete information
 
-- Most Fumo plushies can be obtained in **survival mode through relatively expensive trades**.
-- Players can only obtain Fumo by trading with **Fumo Merchants**.
-- A Fumo Merchant's trade inventory **changes daily**.
+Use current recipes for quantities, workstations and variants. Check drops and trades for ingredient sources. The Wiki contains full catalogs and an altar 3D preview; this book is for quick operational checks while playing.
 
-#### Fumo Merchant
+#### Compatibility and help
 
-Using a **Fumo License** on a villager (right-click) will transform them into a Fumo Merchant.
-
-#### Fumo Features
-
-- Once placed, a Fumo will **automatically face the player's current position**, supporting **16 directional orientations**.
-- Right-clicking a placed Fumo block produces the corresponding **Fumo sound**.
-
-> 📖 [View Fumo License Recipe]
+Recipe browsing, information displays and server resource packs have different purposes. Select components for your loader and server deployment. The following pages explain lookup tools and troubleshooting.
+Server datapacks and settings can change gameplay; check local rules when they differ from this guide.
 
 ---
 
 ### 2.5 Role Partners
 
-**Role Partners** are companion entities in this mod, functioning similarly to the maid units in the Touhou Little Maid mod.
+#### Summon and befriend
 
-#### Core Functions
+Use a valid role card on a block. Click a character's text in the Dialog, then confirm summoning. Group cards offer their own group.
+Feed an unowned companion a befriending food, such as cake. Each attempt has a 40% chance and consumes food even on failure. Datapacks can change eligible foods.
 
-| Function | Description |
-|----------|-------------|
-| 🎒 Inventory | Has an independent item storage space |
-| ⚔️ Combat | Can assist the owner in battle |
-| 🛠️ Work | Can execute certain work commands |
-| 💬 Interaction | Supports dialogue and various interactions |
+#### Manage
 
-#### Taming Method
+Sneak-right-click with an empty hand to manage an NPC you have permission to access. Review inventory, equipment, state and work mode. Normal empty-hand interaction opens conversation.
+Bring the companion to the site, then switch from another state to Work. Its current position becomes the workplace. Select a work mode afterward; changing modes alone does not reset that position.
 
-Each Role Partner needs an owner. Players can tame them and establish a master-servant relationship by **feeding them cake**.
+#### Store and release
 
-#### Summoning Method
+Use a blank Soul Card on your companion to store it, then use the filled card on a block to release it.
+Death drops depend on the retention setting. To revive a dropped character archive, put it in the altar center with 2 diamonds in each outer slot and craft. Its owner can then use the enabled archive on a block. Blank cards contain no saved character.
 
-In survival mode, players can craft various **Touhou Project Role Cards** at the **Gensokyo Altar** to summon the corresponding Role Partner.
+#### Check first
 
-#### Revival Method
+Ownership, state, workplace, paths, supplies and cargo space.
 
-When a Role Partner dies, it drops a **Role Archive**. Players can place this item in the **Gensokyo Altar** and surround it with **two rings of diamonds** in the recipe to resurrect the corresponding character.
+If the model has supported actions, open the action wheel from the companion menu and select a group and action.
 
-#### Controls
+#### Companions: Farming & Gathering
 
-| Action | Effect |
-|--------|--------|
-| 🖱️ Right-click | Trigger daily dialogue |
-| Shift + Left-click (empty hand) | Stop attacking target |
-| Shift + Right-click | Open inventory |
+##### Common preparation
 
-> 📖 [View Role Card Recipe]
-> 📖 [View Role Archive Recipe]
+Provide reachable targets around the workplace, tools, consumables and cargo space. Default horizontal and vertical ranges are both 8 blocks; servers can change them.
+
+##### Mode supplies
+
+Farming: mature crops and matching seeds. Harvested crops are replanted as the same crop, never an arbitrary seed.
+Breeding: the animal's breeding food. Reserves and local population limits depend on settings.
+Shearing: usable shears and sheep with wool.
+Bee products: full nests or hives, shears or bottles, depending on the selected product. Safe smoke is required by default.
+Fishing: a rod, suitable water and a reachable place to stand.
+
+##### If work pauses
+
+Check supplies, tool durability, cargo and paths, then crop maturity, breeding readiness or hive fullness. Repeatedly switching modes cannot satisfy missing requirements.
+
+#### Companions: Combat, Smelting & Music
+
+##### Combat
+
+Provide weapons, armor and ammunition, then a workplace or patrol area. Faction, ownership and server settings also affect valid targets.
+
+##### Smelting
+
+Provide reachable furnaces, ingredients, fuel and receiving containers. Check the recipe and output slot. Missing fuel, blocked output or full containers can pause work.
+
+##### Music
+
+The server must prepare local NBS songs and a playlist before selecting music mode. Volume, range and looping follow configuration.
+
+##### Other modes
+
+See the storage topic for chest sorting and the restaurant staff topic for cooking and serving. Eligible idle companions visit restaurants on their own. Crank jobs require the corresponding optional mod.
+
+##### Cargo
+
+Cargo is separate from hands and equipment. There are 18 cargo slots by default; automatic unloading is attempted at 14 occupied slots. Nearby containers must still be reachable, have room and allow those items.
+
+#### Companions: Item-Frame Sorting
+
+##### Prepare
+
+Place containers within the work area with clear paths. Attach an item frame containing a sample, then enable chest sorting.
+
+##### Rotate to select a rule
+
+The eight rotations form four pairs, starting from the initial position:
+0–1: Same item ID as the sample.
+2–3: Same category, using server-approved tags.
+4–5: Input container; take items out for sorting.
+6–7: Overflow; accept items other destinations cannot hold.
+Two rotations advance to the next mode.
+
+##### Troubleshoot
+
+All frames on one container should use the same mode; mixed modes conflict. Check capacity, paths and permitted tags. Unframed containers follow their existing contents and empty-container settings.
+Different item components are not forcibly merged. Configured food and tool reserves are retained; equipped items are not ordinary cargo.
 
 ---
 
 ### 2.6 Mystia's Izakaya (Touhou Cooking)
 
-*Mystia's Izakaya* is a Touhou Project fan game, and this mod introduces it as an independent gameplay system.
+#### Cook your first dish
 
-#### System Overview
+1. Check its recipe and required kitchenware type.
+2. Place a cooking pot, cutting board, frying pan, grill or steamer. Right-click to open it.
+3. Fill the five ingredient slots and click the desired candidate dish to start cooking.
+4. Wait for completion, then reopen to collect it.
 
-This system adds:
-- 🥬 Ingredients from the original game
-- 🍳 Prepared dishes
-- 🍶 Alcoholic beverages
-- 📖 Cooking recipes
-- Adjustments to some vanilla Minecraft drops
+#### Mind your ingredients
 
-#### Ingredient Sources
+Starting consumes one item from every nonempty ingredient slot, including extras. No additional coal is required to start these kitchen blocks.
+Extra ingredients may add food properties or cause conflicting results. Inspect the actual dish before serving; identical names do not guarantee identical properties.
 
-| Source | Description |
-|--------|-------------|
-| 🌾 Crops | Most ingredients have corresponding crop sources |
-| 📦 Chests | Some seeds can be obtained from opening chests |
-| 🎣 Fishing/Foraging | Seafood must be obtained by fishing or foraging |
+#### Continue
 
-Each food item has different **Tags**, and different Tags grant different effects to the food.
+Establish ingredient and drink supplies before setting up a restaurant. A Fast Recipe Book can save a dish and be used on matching kitchenware, but still requires real ingredients. See the crop and brewing pages below.
 
-#### Kitchen Tool System
+#### Ingredients: Planting & Harvesting
 
-The cooking system has **five typeInstance** of kitchen tools, each with an **upgraded version**:
+##### Plant
 
-| Tool | Purpose |
-|------|---------|
-| 🥘 Cooking Pot | Basic cooking |
-| 🔪 Cutting Board | Ingredient processing |
-| 🍳 Frying Pan | Pan-frying |
-| 🥩 Grill | Grilling |
-| 🥟 Steamer | Steaming |
+Obtain the matching seed and plant it on farmland with sufficient light. The mod's crops normally require light level 9 or higher for natural growth and support bone meal.
+Seeds have different grass-drop and chest-loot sources. Meat, seafood and seasonings may instead come from drops or trades.
 
-> ⚠️ **Dark Cuisine:** When recipe inputs are inappropriate or conflicting tags occur, **Dark Cuisine** may be produced.
+##### Harvest
 
-> 💡 Some recipes support equivalent substitutions using items from other mods compatible with this mod. All cooking recipes can be looked up via the mod's recipe manager or the Mystia's Izakaya wiki.
+Empty-hand right-click a mature mod crop to drop its harvest and restore a seedling of the same crop. Immature crops cannot be harvested this way. Breaking follows its loot table.
+Vanilla and other mods' crops follow their own rules.
 
-> 📖 [View Kitchen Tool Recipes and Cooking Recipe List]
+##### Paddy fields and companions
 
-#### Alcohol System
+Paddy fields stay moist and resist trampling, but still need the appropriate seeds. Supply farming companions with matching seeds, cargo space and reachable fields.
 
-Most alcoholic beverages can be obtained by trading with the **Bartender**.
+##### Troubleshoot
 
-**Beverage Features:**
-- 🍶 Drinking provides various effects and buffs
-- 🔄 The available beverage selection may change daily
-- ✅ **Permanent Beverages:** Green Tea, Fruity High Ball, Fruity Sour, and Qi always appear in the sales list
+Check soil, light and loaded chunks if growth stops. Look up the particular seed's acquisition method.
 
-**Bartender Job Conversion:** Players can right-click on a villager while holding a **Barrel** to convert them into a Bartender.
+#### Drinks: Brewing & Bottling
+
+##### Prepare
+
+A Brewing Barrel, recipe ingredients and glass bottles. Recipes include teas, juices and alcoholic drinks.
+
+##### Operate
+
+1. Right-click to open the barrel and fill its nine slots according to the recipe.
+2. Close it, then sneak-right-click with an empty hand to start.
+3. Wait for completion, then use glass bottles on the barrel.
+4. Each batch fills 9 bottles, consuming one empty bottle per serving. Collect the entire batch before starting another.
+
+##### Check progress
+
+The chunk must keep ticking. If brewing will not start, check the recipe, extra ingredients, active progress and uncollected output.
+Starting consumes one item from every nonempty input slot. Avoid unrelated ingredients. Recipe times use ticks; normally 20 ticks equal one second. Inspect the actual bottled drink's properties.
+A Menu Book permits orders; it does not create drink stock.
+
+#### 6. Running a Restaurant
+
+##### Open your first restaurant
+
+1. Place a Mystia Bell, a Menu Book and reachable seats. Prepare real dishes and drinks.
+2. Use the Menu Book to list at least one valid dish and one valid drink.
+3. Sneak-use the bell to bind the nearby book in settings. If the shop cannot open, read the status shown there.
+4. Use the bell normally to open. Keep befriended companions in their normal state within the shop area.
+
+##### Range and guests
+
+The bell covers 8 blocks horizontally by default. While closed, adjust that to 2–16. Its vertical range is 8 blocks. Keep the book and seats inside.
+Eligible idle companions visit on their own. Their daily allowance is 2–4 meals, with a delay between visits. The menu lists choices. Stock the actual food and drinks separately.
+
+#### Restaurant: Customers & Orders
+
+##### Serve your first order manually
+
+After the guest sits down, use an empty hand to ask for the order. Use the matching dish and drink on the guest separately. Each delivery uses one item. The order settles once both are delivered and the guest leaves after eating.
+
+##### Read the order
+
+If either part names a specific item, serve the order yourself. Staff handle orders only when both parts are preference-based and nothing has been delivered. Preferences use the menu, the items' actual traits and the guest's tastes. Characters without a profile use the general rules.
+
+##### If no one orders
+
+Check the bell, menu binding, both menu categories, normal-state companions in range, and a path to the seats. The meal interval and daily cap can also apply.
+Closing stops new visits. Existing orders can still be completed.
+
+#### Restaurant: Cooks and Servers
+
+##### Try a manual order first
+
+Staff handle orders where both parts are preference-based and nothing has been delivered. Serve manually first to check your menu, shop range and seats.
+
+##### Set up the kitchen
+
+Put suitable cookware, empty plates and reachable storage inside the bell's area. Stock ingredients and bottled drinks. Leave room to stand next to stations and walk between them.
+
+##### Assign the team
+
+Bring two companions to the shop. Switch them into their working state there to set their work points, then choose Cooking and Serving. The cook plates the dish. The server fetches the dish and drink for a seated guest.
+If staff stop, check the work points, paths, cookware, empty plates and stock.
+
+---
+
+### 2.7 Gensokyo, Dreams and the Moon
+
+#### Before leaving
+
+Bring food, lighting, equipment and a way back. Remember the exit; Slow Falling does not grant unlimited flight.
+
+#### Gensokyo
+
+Use a Boundary Ofuda on a block to open a gap. Enter it to travel to Gensokyo. The gap lasts 3 minutes and consumes the ofuda. Using one in Gensokyo attempts to return to your recorded origin.
+
+#### Dream World
+
+Sneak-use a Dream Pillow on an Overworld bed to install it. Sleep there normally; waking takes you to the Dream World. Sleeping and waking in the Dream World returns you to the Overworld spawn.
+
+#### The Moon
+
+Ascend above the End's travel threshold to reach the Moon. Ascending above the Moon's or Dream World's corresponding threshold returns you to the End. Prepare for both directions.
+
+#### Loading
+
+Gensokyo has its own map and generator. Initial map preparation and new chunks can take time; let loading finish.
+
+#### Gensokyo: Compass and Landmarks
+
+##### Choose a destination
+
+Enter Gensokyo with a Boundary Ofuda. Use the Gensokyo Compass there and choose a landmark to see its coordinates and distance. Keep the compass in hand after closing the list for navigation.
+
+##### First trip
+
+Try Hakurei Shrine first. Plan the next leg toward Eientei in the Bamboo Forest, Moriya Shrine on Youkai Mountain, or the Scarlet Devil Mansion. These landmarks keep their relative positions on the fixed terrain.
+
+##### Finding your way back
+
+Remember your entry point or carry a spare Boundary Ofuda. Bring food and light. The compass distance is horizontal, so watch the roads, slopes and elevation near your destination.
+
+#### Moon: Supplies & Signal Towers
+
+##### Secure supplies
+
+The Moon has highlands, maria, ice craters, caves and ores. Prepare food, lighting and a return route to the End before ranging farther.
+
+##### Repair a natural signal tower
+
+Right-click the lodestone console in its maintenance room. Follow the prompts to install a power unit, a signal coil and two calibration crystals, in order. Obtain parts from relevant lunar loot or crafting recipes.
+Repair progress is saved in the world; a tower does not repeatedly grant its completion reward.
+
+##### Scan and navigate
+
+After repair, scan nearby signals. Wait, then reopen the console for research facility, supply ruin and anomaly facility coordinates.
+Hold a compass in your main hand and select a destination. Only one compass is bound, and navigation works on the Moon.
+
+##### No console?
+
+An ordinary lodestone or player-built tower is not a natural signal tower. If no targets are found within scan range, try another tower.
+
+---
+
+### 2.8 Workshop and Herb Drying
+
+#### Stone Mill and Yagen
+
+Use an empty hand on an empty station to view recipes. Use a matching ingredient on the station to put in one item. Use an empty hand repeatedly to grind, then use it again to collect the output. Sneak-use with empty hands to retrieve the input early.
+
+#### Herb Drying Tray
+
+Use an ingredient on the tray to insert one unit, up to four at a time. The tray dries in open daylight without rain. Finished herbs replace the inputs in their positions.
+Use an empty hand to view recipes and hover the status icon for each position's progress and pause reason. Sneak-use to take the last occupied position, even before drying finishes.
 
 ---
 
@@ -635,48 +825,55 @@ I didn't stay any longer.
 
 ### 4.1 Compatibility
 
-This page lists compatibility information and recommended mod pairings related to this mod.
+#### Recipes and information
 
-#### ✅ Recommended Mods
+Use JEI, REI or RRV recipe and usage lookup when installed. Polydex offers lookup when enabled by the server. Jade displays block and entity information; it is not a recipe database.
+Use components matching your Minecraft version and loader, with their required configuration.
 
-The following mods are recommended to significantly enhance the gameplay experience or feature completeness:
+#### Server resource packs
 
-| Mod | Description |
-|-----|-------------|
-| [Polydex](https://modrinth.com/mod/polydex) | Provides basic server-side recipe lookup |
-| [Polymer - Quality of Life](https://modrinth.com/mod/polymer-qol) | Improves overall gameplay experience |
-| [Roughly Enough Items (REI)](https://modrinth.com/mod/rei) | Provides recipe and item list lookup |
-| [Polydex2REI](https://modrinth.com/mod/polydex2rei) | Provides compatibility support between Polydex and REI |
+The optional Fabric Polymer extension provides resource-pack visuals to vanilla clients. This is a separate deployment mode. Normal mod installations still need the client setup required by the server.
 
-#### 🔗 Compatibility & Interaction (Fabric)
+#### Optional integrations
 
-The following mods have compatible content or interaction effects with this mod:
+Companion cranks and YSM appearances require their respective integrations and settings. Integration-specific entries are absent without them.
 
-**Crank-turning functionality (Role Partners):**
+#### Recipe missing?
 
-- [Create Fly](https://modrinth.com/mod/create-fly)
-- [PolyFactory](https://modrinth.com/mod/polyfactory)
+Check whether the lookup tool supports that custom workstation and whether ingredients require specific data. Some items come from drops, trades or interactions instead of crafting.
 
-**Cooking system compatible ingredients/recipe support:**
+### 4.2 Troubleshooting
 
-- [Borukva Food](https://modrinth.com/mod/borukva-food)
-- [Borukva Food Exotic](https://modrinth.com/mod/borukva-food-exotic)
-- [Borukva Fish](https://modrinth.com/mod/borukva-fish)
-- [Farmer's Delight Refabricated](https://modrinth.com/mod/farmers-delight-refabricated)
-- [More Delight (for Farmer's Delight)](https://modrinth.com/mod/more-delight)
-- [Ocean's Delight (Polymer Port)](https://modrinth.com/mod/oceans-delight-polymer-port)
-- [Spanish Delight Refabricated](https://modrinth.com/mod/spanish-delight-refabricated)
-- [Fishing 101](https://modrinth.com/mod/fishing-101)
-- [Gone Fishing!](https://modrinth.com/mod/gone-fishing)
+#### No crafting result
 
-#### ⚠️ Conflict Warning
+Check workstation → slots → quantities → template or card variant. Then check the altar's three layers, the danmaku outline, or whether you clicked a candidate dish.
 
-The following mods' Polymer patches conflict with this mod and are **not recommended for simultaneous use**:
+#### Companion stands still
 
-- [Cardboard](https://modrinth.com/mod/cardboard)
-- [Silkard](https://modrinth.com/mod/silkard)
-- [Arclight](https://github.com/IzzelAliz/Arclight)
+Check permission → Work state and workplace → mode → tools and supplies → cargo space → target readiness and paths. Read its status before changing modes.
+
+#### Customer does not order
+
+Check that the bell is open, the book is bound, both menu categories are valid, normal-state companions are in range and seats are reachable. Meal intervals and the daily cap also affect visits.
+
+#### Barrel has no drink
+
+Check brewing was started → chunk keeps ticking → brewing finished → use a glass bottle. Collect all nine servings before starting the next batch.
+
+Still stuck? Record the item, action and message, then compare against the server's current recipes and rules.
 
 ---
 
-> **📌 Tip:** Links in this document labeled "View..." can be clicked in-game via recipe lookup mods such as Polydex / JEI / REI to view detailed information. This guide is continuously updated. Enjoy your journey in the game!
+## 5. Sources and Permissions
+
+### Fumo models
+
+Nebulaf created some of the Fumo models used in this mod and granted permission for their use here. Permission was requested by private message on March 23, 2025 and confirmed on June 1, 2025.
+
+### Gensokyo terrain
+
+The fixed terrain of this dimension is based on 大猫凌霜's scale Gensokyo map project and derived from height and composite maps. The original author granted permission to use the terrain data.
+Thank you to Nebulaf and 大猫凌霜 for their work and permission.
+
+- [大猫凌霜 · Bilibili](https://space.bilibili.com/7039204/)
+- [大猫凌霜's original Gensokyo map showcase](https://www.bilibili.com/video/BV1adYF66Ehj/)

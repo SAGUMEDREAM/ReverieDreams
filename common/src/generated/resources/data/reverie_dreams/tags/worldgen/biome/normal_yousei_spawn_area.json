@@ -1,0 +1,14 @@
+{
+  "values": [
+    {
+      "id": "#c:is_plains",
+      "required": false
+    },
+    {
+      "id": "#c:is_forest",
+      "required": false
+    },
+    "#reverie_dreams:normal_yousei_primary_habitat",
+    "reverie_dreams:dream"
+  ]
+}

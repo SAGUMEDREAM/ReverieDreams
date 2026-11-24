@@ -74,7 +74,8 @@ public class StatusEffectTargetGoal<T extends LivingEntity> extends TargetGoal {
                             this.targetClass,
                             this.getSearchBox(this.getFollowDistance()),
                             entity -> {
-                                if (entity.getClass() == this.mob.getClass()) return false;
+                                if (entity.getClass() == this.mob.getClass())
+                                    return false;
                                 return requiredEffect == null || entity.hasEffect(requiredEffect);
                             }
                     ),

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BSB",
+    "BBB"
+  ],
+  "key": {
+    "B": "minecraft:bamboo",
+    "S": "minecraft:string"
+  },
+  "result": {
+    "id": "reverie_dreams:herb_drying_tray",
+    "count": 2
+  }
+}

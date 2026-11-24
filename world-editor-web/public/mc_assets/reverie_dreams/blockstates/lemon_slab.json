@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "reverie_dreams:block/lemon_slab"
+    },
+    "type=double": {
+      "model": "reverie_dreams:block/lemon_planks"
+    },
+    "type=top": {
+      "model": "reverie_dreams:block/lemon_slab_top"
+    }
+  }
+}

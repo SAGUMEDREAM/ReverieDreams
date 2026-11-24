@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "M": "reverie_dreams:moon_stone",
+    "Q": "minecraft:quartz",
+    "R": "minecraft:redstone",
+    "S": "reverie_dreams:silver_ingot"
+  },
+  "pattern": [
+    "IRQ",
+    "IMS",
+    " S "
+  ],
+  "result": {
+    "id": "reverie_dreams:lunar_type_4_smg"
+  }
+}

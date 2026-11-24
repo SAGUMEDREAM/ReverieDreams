@@ -1,0 +1,2740 @@
+# CE26.8.2. Kitchen models use entity displays with native collision height.
+# Reserved petrified bottom slab is transparent; carpet backing remains visible.
+# Horizontal collision width is approximate; see migration/full-kitchen.md.
+items:
+  reverie_dreams:cooking_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.cooking_pot>
+    model: reverie_dreams:block/cooking_pot
+    behavior:
+      type: block_item
+      block: reverie_dreams:cooking_pot
+  reverie_dreams:cutting_board:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.cutting_board>
+    model: reverie_dreams:block/cutting_board
+    behavior:
+      type: block_item
+      block: reverie_dreams:cutting_board
+  reverie_dreams:frying_pan:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.frying_pan>
+    model: reverie_dreams:block/frying_pan
+    behavior:
+      type: block_item
+      block: reverie_dreams:frying_pan
+  reverie_dreams:grill:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.grill>
+    model: reverie_dreams:block/grill
+    behavior:
+      type: block_item
+      block: reverie_dreams:grill
+  reverie_dreams:steamer:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.steamer>
+    model: reverie_dreams:block/steamer
+    behavior:
+      type: block_item
+      block: reverie_dreams:steamer
+  reverie_dreams:mystia_cooking_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.mystia_cooking_pot>
+    model: reverie_dreams:block/mystia_cooking_pot
+    behavior:
+      type: block_item
+      block: reverie_dreams:mystia_cooking_pot
+  reverie_dreams:mystia_cutting_board:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.mystia_cutting_board>
+    model: reverie_dreams:block/mystia_cutting_board
+    behavior:
+      type: block_item
+      block: reverie_dreams:mystia_cutting_board
+  reverie_dreams:mystia_frying_pan:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.mystia_frying_pan>
+    model: reverie_dreams:block/mystia_frying_pan
+    behavior:
+      type: block_item
+      block: reverie_dreams:mystia_frying_pan
+  reverie_dreams:mystia_grill:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.mystia_grill>
+    model: reverie_dreams:block/mystia_grill
+    behavior:
+      type: block_item
+      block: reverie_dreams:mystia_grill
+  reverie_dreams:mystia_steamer:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.mystia_steamer>
+    model: reverie_dreams:block/mystia_steamer
+    behavior:
+      type: block_item
+      block: reverie_dreams:mystia_steamer
+  reverie_dreams:super_cooking_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.super_cooking_pot>
+    model: reverie_dreams:block/super_cooking_pot
+    behavior:
+      type: block_item
+      block: reverie_dreams:super_cooking_pot
+  reverie_dreams:super_cutting_board:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.super_cutting_board>
+    model: reverie_dreams:block/super_cutting_board
+    behavior:
+      type: block_item
+      block: reverie_dreams:super_cutting_board
+  reverie_dreams:super_frying_pan:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.super_frying_pan>
+    model: reverie_dreams:block/super_frying_pan
+    behavior:
+      type: block_item
+      block: reverie_dreams:super_frying_pan
+  reverie_dreams:super_grill:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.super_grill>
+    model: reverie_dreams:block/super_grill
+    behavior:
+      type: block_item
+      block: reverie_dreams:super_grill
+  reverie_dreams:super_steamer:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.super_steamer>
+    model: reverie_dreams:block/super_steamer
+    behavior:
+      type: block_item
+      block: reverie_dreams:super_steamer
+  reverie_dreams:extreme_cooking_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.extreme_cooking_pot>
+    model: reverie_dreams:block/extreme_cooking_pot
+    behavior:
+      type: block_item
+      block: reverie_dreams:extreme_cooking_pot
+  reverie_dreams:extreme_cutting_board:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.extreme_cutting_board>
+    model: reverie_dreams:block/extreme_cutting_board
+    behavior:
+      type: block_item
+      block: reverie_dreams:extreme_cutting_board
+  reverie_dreams:extreme_frying_pan:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.extreme_frying_pan>
+    model: reverie_dreams:block/extreme_frying_pan
+    behavior:
+      type: block_item
+      block: reverie_dreams:extreme_frying_pan
+  reverie_dreams:extreme_grill:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.extreme_grill>
+    model: reverie_dreams:block/extreme_grill
+    behavior:
+      type: block_item
+      block: reverie_dreams:extreme_grill
+  reverie_dreams:extreme_steamer:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.extreme_steamer>
+    model: reverie_dreams:block/extreme_steamer
+    behavior:
+      type: block_item
+      block: reverie_dreams:extreme_steamer
+  reverie_dreams:nuke_cooking_pot:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.nuke_cooking_pot>
+    model: reverie_dreams:block/nuke_cooking_pot
+    behavior:
+      type: block_item
+      block: reverie_dreams:nuke_cooking_pot
+  reverie_dreams:nuke_cutting_board:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.nuke_cutting_board>
+    model: reverie_dreams:block/nuke_cutting_board
+    behavior:
+      type: block_item
+      block: reverie_dreams:nuke_cutting_board
+  reverie_dreams:nuke_frying_pan:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.nuke_frying_pan>
+    model: reverie_dreams:block/nuke_frying_pan
+    behavior:
+      type: block_item
+      block: reverie_dreams:nuke_frying_pan
+  reverie_dreams:nuke_grill:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.nuke_grill>
+    model: reverie_dreams:block/nuke_grill
+    behavior:
+      type: block_item
+      block: reverie_dreams:nuke_grill
+  reverie_dreams:nuke_steamer:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.nuke_steamer>
+    model: reverie_dreams:block/nuke_steamer
+    behavior:
+      type: block_item
+      block: reverie_dreams:nuke_steamer
+blocks:
+  reverie_dreams:cooking_pot:
+    settings:
+      item: reverie_dreams:cooking_pot
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cooking_pot
+      speed: 1.0
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:cooking_pot
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:cutting_board:
+    settings:
+      item: reverie_dreams:cutting_board
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cutting_board
+      speed: 1.0
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:cutting_board
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:frying_pan:
+    settings:
+      item: reverie_dreams:frying_pan
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:frying_pan
+      speed: 1.0
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:frying_pan
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:grill:
+    settings:
+      item: reverie_dreams:grill
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:grill
+      speed: 1.0
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:grill
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:steamer:
+    settings:
+      item: reverie_dreams:steamer
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:steamer
+      speed: 1.0
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:steamer
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:mystia_cooking_pot:
+    settings:
+      item: reverie_dreams:mystia_cooking_pot
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cooking_pot
+      speed: 0.75
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:mystia_cooking_pot
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:mystia_cutting_board:
+    settings:
+      item: reverie_dreams:mystia_cutting_board
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cutting_board
+      speed: 0.75
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:mystia_cutting_board
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:mystia_frying_pan:
+    settings:
+      item: reverie_dreams:mystia_frying_pan
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:frying_pan
+      speed: 0.75
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:mystia_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:mystia_frying_pan
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:mystia_grill:
+    settings:
+      item: reverie_dreams:mystia_grill
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:grill
+      speed: 0.75
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:mystia_grill
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:mystia_steamer:
+    settings:
+      item: reverie_dreams:mystia_steamer
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:steamer
+      speed: 0.75
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:mystia_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:mystia_steamer
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:super_cooking_pot:
+    settings:
+      item: reverie_dreams:super_cooking_pot
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cooking_pot
+      speed: 1.05
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:super_cooking_pot
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:super_cutting_board:
+    settings:
+      item: reverie_dreams:super_cutting_board
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cutting_board
+      speed: 1.05
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:super_cutting_board
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:super_frying_pan:
+    settings:
+      item: reverie_dreams:super_frying_pan
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:frying_pan
+      speed: 1.05
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:super_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:super_frying_pan
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:super_grill:
+    settings:
+      item: reverie_dreams:super_grill
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:grill
+      speed: 1.05
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:super_grill
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:super_steamer:
+    settings:
+      item: reverie_dreams:super_steamer
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:steamer
+      speed: 1.05
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:super_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:super_steamer
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:extreme_cooking_pot:
+    settings:
+      item: reverie_dreams:extreme_cooking_pot
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cooking_pot
+      speed: 1.1
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:extreme_cooking_pot
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:extreme_cutting_board:
+    settings:
+      item: reverie_dreams:extreme_cutting_board
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cutting_board
+      speed: 1.1
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:extreme_cutting_board
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:extreme_frying_pan:
+    settings:
+      item: reverie_dreams:extreme_frying_pan
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:frying_pan
+      speed: 1.1
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:extreme_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:extreme_frying_pan
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:extreme_grill:
+    settings:
+      item: reverie_dreams:extreme_grill
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:grill
+      speed: 1.1
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:extreme_grill
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:extreme_steamer:
+    settings:
+      item: reverie_dreams:extreme_steamer
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:steamer
+      speed: 1.1
+      failure-probability: 0.0
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:extreme_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:extreme_steamer
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:nuke_cooking_pot:
+    settings:
+      item: reverie_dreams:nuke_cooking_pot
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cooking_pot
+      speed: 1.5
+      failure-probability: 0.4
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_cooking_pot
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:nuke_cooking_pot
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:nuke_cutting_board:
+    settings:
+      item: reverie_dreams:nuke_cutting_board
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:cutting_board
+      speed: 1.5
+      failure-probability: 0.4
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_cutting_board
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:nuke_cutting_board
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:nuke_frying_pan:
+    settings:
+      item: reverie_dreams:nuke_frying_pan
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:frying_pan
+      speed: 1.5
+      failure-probability: 0.4
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+        east:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+        south:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+        west:
+          state: minecraft:white_carpet
+          entity_renderer:
+            item: reverie_dreams:nuke_frying_pan
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:nuke_frying_pan
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:nuke_grill:
+    settings:
+      item: reverie_dreams:nuke_grill
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.metal.break
+        fall: minecraft:block.metal.fall
+        hit: minecraft:block.metal.hit
+        place: minecraft:block.metal.place
+        step: minecraft:block.metal.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:grill
+      speed: 1.5
+      failure-probability: 0.4
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_grill
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:nuke_grill
+        conditions:
+        - type: survives_explosion
+  reverie_dreams:nuke_steamer:
+    settings:
+      item: reverie_dreams:nuke_steamer
+      hardness: 2.0
+      resistance: 3.0
+      can_occlude: false
+      is_suffocating: false
+      is_redstone_conductor: false
+      push_reaction: block
+      sounds:
+        break: minecraft:block.stone.break
+        fall: minecraft:block.stone.fall
+        hit: minecraft:block.stone.hit
+        place: minecraft:block.stone.place
+        step: minecraft:block.stone.step
+    behavior:
+      type: reverie_dreams:kitchen
+      recipe-type: reverie_dreams:steamer
+      speed: 1.5
+      failure-probability: 0.4
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.0
+            - 0.0
+            - 1.0
+          transparent: true
+        east:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - 0.707106781
+          transparent: true
+        south:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -1.0
+            - 0.0
+            - 0.0
+          transparent: true
+        west:
+          state: minecraft:petrified_oak_slab[type=bottom,waterlogged=false]
+          entity_renderer:
+            item: reverie_dreams:nuke_steamer
+            display_transform: NONE
+            scale: 1.0
+            rotation:
+            - 0.0
+            - -0.707106781
+            - 0.0
+            - -0.707106781
+          transparent: true
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        entries:
+        - type: item
+          item: reverie_dreams:nuke_steamer
+        conditions:
+        - type: survives_explosion
+recipes:
+  reverie_dreams:cooking_pot:
+    type: shaped
+    pattern:
+    - ' Y '
+    - X X
+    - XXX
+    ingredients:
+      X: minecraft:iron_ingot
+      Y: minecraft:iron_nugget
+    result:
+      id: reverie_dreams:cooking_pot
+      count: 1
+  reverie_dreams:cutting_board:
+    type: shaped
+    pattern:
+    - ' Y '
+    - XXX
+    ingredients:
+      X: minecraft:oak_slab
+      Y: minecraft:iron_sword
+    result:
+      id: reverie_dreams:cutting_board
+      count: 1
+  reverie_dreams:frying_pan:
+    type: shaped
+    pattern:
+    - ' XX'
+    - ' XX'
+    - 'Y  '
+    ingredients:
+      X: minecraft:iron_ingot
+      Y: minecraft:iron_nugget
+    result:
+      id: reverie_dreams:frying_pan
+      count: 1
+  reverie_dreams:grill:
+    type: shaped
+    pattern:
+    - YYY
+    - X X
+    - XXX
+    ingredients:
+      X: minecraft:iron_ingot
+      Y: minecraft:iron_nugget
+    result:
+      id: reverie_dreams:grill
+      count: 1
+  reverie_dreams:steamer:
+    type: shaped
+    pattern:
+    - YYY
+    - X X
+    - XXX
+    ingredients:
+      X: minecraft:iron_ingot
+      Y: minecraft:oak_slab
+    result:
+      id: reverie_dreams:steamer
+      count: 1
+  reverie_dreams:mystia_cooking_pot:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cooking_pot
+      Y: minecraft:feather
+    result:
+      id: reverie_dreams:mystia_cooking_pot
+      count: 1
+  reverie_dreams:mystia_cutting_board:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cutting_board
+      Y: minecraft:feather
+    result:
+      id: reverie_dreams:mystia_cutting_board
+      count: 1
+  reverie_dreams:mystia_frying_pan:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:frying_pan
+      Y: minecraft:feather
+    result:
+      id: reverie_dreams:mystia_frying_pan
+      count: 1
+  reverie_dreams:mystia_grill:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:grill
+      Y: minecraft:feather
+    result:
+      id: reverie_dreams:mystia_grill
+      count: 1
+  reverie_dreams:mystia_steamer:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:steamer
+      Y: minecraft:feather
+    result:
+      id: reverie_dreams:mystia_steamer
+      count: 1
+  reverie_dreams:super_cooking_pot:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cooking_pot
+      Y: minecraft:gold_ingot
+    result:
+      id: reverie_dreams:super_cooking_pot
+      count: 1
+  reverie_dreams:super_cutting_board:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cutting_board
+      Y: minecraft:gold_ingot
+    result:
+      id: reverie_dreams:super_cutting_board
+      count: 1
+  reverie_dreams:super_frying_pan:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:frying_pan
+      Y: minecraft:gold_ingot
+    result:
+      id: reverie_dreams:super_frying_pan
+      count: 1
+  reverie_dreams:super_grill:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:grill
+      Y: minecraft:gold_ingot
+    result:
+      id: reverie_dreams:super_grill
+      count: 1
+  reverie_dreams:super_steamer:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:steamer
+      Y: minecraft:gold_ingot
+    result:
+      id: reverie_dreams:super_steamer
+      count: 1
+  reverie_dreams:extreme_cooking_pot:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cooking_pot
+      Y: minecraft:diamond
+    result:
+      id: reverie_dreams:extreme_cooking_pot
+      count: 1
+  reverie_dreams:extreme_cutting_board:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cutting_board
+      Y: minecraft:diamond
+    result:
+      id: reverie_dreams:extreme_cutting_board
+      count: 1
+  reverie_dreams:extreme_frying_pan:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:frying_pan
+      Y: minecraft:diamond
+    result:
+      id: reverie_dreams:extreme_frying_pan
+      count: 1
+  reverie_dreams:extreme_grill:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:grill
+      Y: minecraft:diamond
+    result:
+      id: reverie_dreams:extreme_grill
+      count: 1
+  reverie_dreams:extreme_steamer:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:steamer
+      Y: minecraft:diamond
+    result:
+      id: reverie_dreams:extreme_steamer
+      count: 1
+  reverie_dreams:nuke_cooking_pot:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cooking_pot
+      Y: minecraft:nether_bricks
+    result:
+      id: reverie_dreams:nuke_cooking_pot
+      count: 1
+  reverie_dreams:nuke_cutting_board:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:cutting_board
+      Y: minecraft:nether_bricks
+    result:
+      id: reverie_dreams:nuke_cutting_board
+      count: 1
+  reverie_dreams:nuke_frying_pan:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:frying_pan
+      Y: minecraft:nether_bricks
+    result:
+      id: reverie_dreams:nuke_frying_pan
+      count: 1
+  reverie_dreams:nuke_grill:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:grill
+      Y: minecraft:nether_bricks
+    result:
+      id: reverie_dreams:nuke_grill
+      count: 1
+  reverie_dreams:nuke_steamer:
+    type: shaped
+    pattern:
+    - YYY
+    - YXY
+    - YYY
+    ingredients:
+      X: reverie_dreams:steamer
+      Y: minecraft:nether_bricks
+    result:
+      id: reverie_dreams:nuke_steamer
+      count: 1

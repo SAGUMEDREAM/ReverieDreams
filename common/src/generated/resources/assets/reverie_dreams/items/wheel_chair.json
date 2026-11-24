@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "reverie_dreams:block/wheel_chair"
+    "model": "reverie_dreams:item/decoration/wheel_chair"
   }
 }

@@ -19,7 +19,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -48,7 +47,7 @@ public class DataProviderHelper {
                 );
             }
         } catch (Exception e) {
-            log.error("Error: ", e);
+            throw new IllegalStateException("Failed to generate recipe data", e);
         }
     }
 
@@ -87,25 +86,22 @@ public class DataProviderHelper {
                                                    String dirname
     ) {
         Path outputDir = Paths.get(DataGeneratorUtil.OUTPUT_DIR);
-        try {
-            for (var entry : registries.entrySet()) {
-                Identifier key = entry.getKey();
+        for (var entry : registries.entrySet()) {
+            Identifier key = entry.getKey();
+            Path path = DataGeneratorUtil.getData(outputDir, key.getNamespace(), dirname, null);
+            Path filePath = path.resolve(key.getPath() + ".json");
+            try {
                 T value = entry.getValue();
                 DataResult<JsonElement> result = codec.encodeStart(JsonOps.INSTANCE, value);
-                Optional<JsonElement> optional = result.result();
-                Path path = DataGeneratorUtil.getData(outputDir, key.getNamespace(), dirname, null);
-                if (optional.isPresent()) {
-                    JsonElement element = optional.get();
-                    Path filePath = path.resolve(key.getPath() + ".json");
-                    String jsonString = gson.toJson(element);
-                    byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                    Files.createDirectories(filePath.getParent());
+                JsonElement element = result.getOrThrow();
+                String jsonString = gson.toJson(element);
+                byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
+                Files.createDirectories(filePath.getParent());
 
-                    writer.writeIfNeeded(filePath, bytes, HashCode.fromBytes(bytes));
-                }
+                writer.writeIfNeeded(filePath, bytes, HashCode.fromBytes(bytes));
+            } catch (Exception e) {
+                throw new IllegalStateException("Failed to generate " + key + " at " + filePath, e);
             }
-        } catch (Exception e) {
-            log.error("Error: ", e);
         }
     }
 }

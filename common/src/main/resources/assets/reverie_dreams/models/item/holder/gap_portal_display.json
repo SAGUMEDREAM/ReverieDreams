@@ -1,0 +1,27 @@
+{
+  "format_version": "1.21.6",
+  "credit": "Polymer gap portal display",
+  "texture_size": [32, 64],
+  "textures": {
+    "0": "reverie_dreams:item/holder/gap_portal_display",
+    "particle": "reverie_dreams:item/holder/gap_portal_display"
+  },
+  "elements": [
+    {
+      "name": "gap_portal",
+      "from": [0, -8, 7.5],
+      "to": [16, 24, 8.5],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#0"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#0"}
+      }
+    }
+  ],
+  "display": {
+    "fixed": {
+      "rotation": [0, 0, 0],
+      "translation": [0, 0, 0],
+      "scale": [1, 1, 1]
+    }
+  }
+}

@@ -24,7 +24,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -69,11 +68,11 @@ public abstract class AbstractCraftingConflictProvider implements DataProvider {
                 Identifier key = entry.getKey();
                 CraftingConflict craftingConflict = entry.getValue();
                 DataResult<JsonElement> result = CraftingConflict.CODEC.encodeStart(JsonOps.INSTANCE, craftingConflict);
-                Optional<JsonElement> optional = result.result();
+                JsonElement encoded = result.getOrThrow();
                 Path gPath = DataGeneratorUtil.getData(path, ReverieDreams.MOD_ID, "crafting_conflict", null);
 
-                if (optional.isPresent()) {
-                    JsonElement element = optional.get();
+                {
+                    JsonElement element = encoded;
                     Path output = gPath.resolve(key.getPath() + ".json");
                     String jsonString = this.gson.toJson(element);
                     byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
@@ -83,7 +82,7 @@ public abstract class AbstractCraftingConflictProvider implements DataProvider {
                 }
             }
         } catch (Exception err) {
-            log.error("Error: ", err);
+            throw new IllegalStateException("Failed to generate AbstractCraftingConflictProvider", err);
         }
     }
 }

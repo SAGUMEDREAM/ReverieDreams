@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "reverie_dreams:block/kawara_tiles_slab"
+    },
+    "type=double": {
+      "model": "reverie_dreams:block/kawara_tiles"
+    },
+    "type=top": {
+      "model": "reverie_dreams:block/kawara_tiles_slab_top"
+    }
+  }
+}

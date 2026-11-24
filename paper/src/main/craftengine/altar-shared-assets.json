@@ -1,0 +1,14 @@
+{
+  "models": [
+    "assets/reverie_dreams/models/item/fast_book_item.json"
+  ],
+  "source_models": [
+    "assets/reverie_dreams/models/block/gensokyo_altar.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/item/fast_book_item.png",
+    "assets/reverie_dreams/textures/block/gensokyo_altar_top.png",
+    "assets/reverie_dreams/textures/block/gensokyo_altar_side.png",
+    "assets/reverie_dreams/textures/block/gensokyo_altar_bottom.png"
+  ]
+}

@@ -29,17 +29,17 @@
     ]
   },
   "max_cost": {
-    "base": 1,
+    "base": 15,
     "per_level_above_first": 15
   },
   "max_level": 5,
   "min_cost": {
-    "base": 1,
+    "base": 5,
     "per_level_above_first": 10
   },
   "slots": [
     "armor"
   ],
   "supported_items": "#minecraft:enchantable/armor",
-  "weight": 10
+  "weight": 3
 }

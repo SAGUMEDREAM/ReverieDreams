@@ -2,11 +2,13 @@ package cc.thonly.reverie_dreams.entity.ai.goal.attack;
 
 import cc.thonly.reverie_dreams.api.entity.type.DanmakuShooter;
 import cc.thonly.reverie_dreams.component.DanmakuProperties;
+import cc.thonly.reverie_dreams.data.danmaku.DanmakuVolleyBudget;
+import cc.thonly.reverie_dreams.entity.ai.TargetReachability;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
 import cc.thonly.reverie_dreams.item.danmaku.AbstractDanmakuItem;
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.level.ServerLevel;
@@ -21,21 +23,24 @@ import net.minecraft.world.level.Level;
 
 import java.util.EnumSet;
 
+import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
+import cc.thonly.reverie_dreams.entity.variant.GensokyoFairyEntity;
+
 @Setter
 @Getter
 public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
     private final T actor;
     private final double speed;
+    private final TargetReachability reachability;
     private int attackInterval;
     private final float squaredRange;
 
-    private final int minDelayTicks = 10;
-    private final int maxDelayTicks = 10 * 2;
     private int updateCountdownTicks = -1;
 
     public NPCDanmakuItemGoal(T actor, double speed, int attackInterval, float range) {
         this.actor = actor;
         this.speed = speed;
+        this.reachability = new TargetReachability(this.actor);
         this.attackInterval = attackInterval;
         this.squaredRange = range * range;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
@@ -43,18 +48,19 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
 
     @Override
     public boolean canUse() {
-        if ((this.actor).getTarget() == null) {
+        LivingEntity target = this.actor.getTarget();
+        if (target == null || !EntityTargetUtil.canAttack(target, this.actor)) {
             return false;
         }
-        if (this.actor.getTarget() == this.actor.getOwner()) {
+        if (target == this.actor.getOwner()) {
             return false;
         }
-        if (this.actor.getTarget() instanceof TamableAnimal tameableEntity) {
+        if (target instanceof TamableAnimal tameableEntity) {
             if (tameableEntity.getOwner() == this.actor.getOwner()) {
                 return false;
             }
         }
-        return this.isHoldingDanmaku();
+        return this.isHoldingDanmaku() && this.reachability.canEngage(target);
     }
 
     private boolean isHoldingDanmaku() {
@@ -63,7 +69,12 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return (this.canUse() || !this.actor.getNavigation().isDone()) && this.isHoldingDanmaku();
+        LivingEntity target = this.actor.getTarget();
+        return target != null
+                && target.isAlive()
+                && this.isHoldingDanmaku()
+                && this.reachability.canEngage(target)
+                && (this.canUse() || !this.actor.getNavigation().isDone());
     }
 
     @Override
@@ -90,12 +101,14 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
         this.actor.setXRot(pitchYaw[0]);
         this.actor.setYRot(pitchYaw[1]);
 
-        if (!this.canUse()) return;
+        if (!this.canUse())
+            return;
 
+        boolean hasLineOfSight = this.actor.getSensing().hasLineOfSight(target);
         double distanceSq = this.actor.distanceToSqr(target);
-        if (distanceSq > 64.0) {
-            if (this.actor.getNavigation().isDone()) {
-                this.actor.getNavigation().moveTo(target, 1.5);
+        if (distanceSq > squaredRange || !hasLineOfSight) {
+            if (this.actor.getNavigation().isDone() && this.reachability.test(target)) {
+                this.actor.getNavigation().moveTo(target, speed);
             }
         } else {
             this.actor.getNavigation().stop();
@@ -103,7 +116,7 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
 
         if (--this.updateCountdownTicks <= 0) {
             Level world = this.actor.level();
-            if (world instanceof ServerLevel serverWorld) {
+            if (world instanceof ServerLevel serverWorld && hasLineOfSight && distanceSq <= squaredRange) {
                 ItemStack itemStack = this.actor.getMainHandItem();
                 DanmakuProperties properties = itemStack.get(RDDataComponentTypes.DANMAKU_PROPERTIES.value());
                 if (properties == null) {
@@ -113,14 +126,17 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
                 if (!(item instanceof AbstractDanmakuItem danmakuItem)) {
                     return;
                 }
-                for (int i = 0; i < properties.count(); i++) {
-                    danmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
+                DanmakuVolleyBudget.begin(DanmakuVolleyBudget.MAX_BULLETS_PER_USE);
+                GensokyoFairyEntity.beginRangedAttack(this.actor);
+                try {
+                    for (int i = 0; i < properties.count(); i++) {
+                        danmakuItem.shoot(serverWorld, this.actor, InteractionHand.MAIN_HAND);
+                    }
+                } finally {
+                    DanmakuVolleyBudget.end();
                 }
                 if (!properties.infinite()) {
                     itemStack.hurtAndBreak(1, this.actor, InteractionHand.MAIN_HAND);
-                    if (itemStack.isDamageableItem() && itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
-                        itemStack.shrink(1);
-                    }
                 }
 
                 this.actor.swing(InteractionHand.MAIN_HAND);
@@ -131,7 +147,7 @@ public class NPCDanmakuItemGoal<T extends BaseNPCLikeEntity> extends Goal {
     }
 
     private void resetCooldown() {
-        this.updateCountdownTicks = minDelayTicks + this.actor.getRandom().nextInt(maxDelayTicks - minDelayTicks + 1);
+        this.updateCountdownTicks = Math.max(1, attackInterval);
     }
 
 }

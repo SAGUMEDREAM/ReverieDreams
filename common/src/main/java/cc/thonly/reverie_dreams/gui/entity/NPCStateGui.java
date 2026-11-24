@@ -11,7 +11,10 @@ import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
+import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
@@ -31,8 +34,18 @@ public class NPCStateGui extends SimpleGui implements GuiCommon {
 
     @Override
     public void init() {
-        this.setTitle(Component.translatable("gui.npc.state.button", this.npc.getNpcState().translationKey()));
-        NPCState workMode = this.npc.getNpcState();
+        this.setTitle(Component.empty()
+                .append(Component.translatable("space.-8"))
+                .append(Component.literal("\ue005")
+                        .withStyle(Style.EMPTY
+                                .withColor(ChatFormatting.WHITE)
+                                .withFont(new FontDescription.Resource(
+                                        ReverieDreams.id("reverie_dreams")
+                                ))))
+                .append(Component.translatable("space.-168"))
+                .append(Component.translatable("gui.npc.state.button", this.npc.getNPCState().translationKey())
+                        .withStyle(ChatFormatting.WHITE)));
+        NPCState workMode = this.npc.getNPCState();
         Iterator<NPCState> iterator = BuiltInRegistryProviders.NPC_STATE.iterator();
         for (int i = 0; i < this.size; i++) {
             if (!iterator.hasNext()) {
@@ -46,7 +59,17 @@ public class NPCStateGui extends SimpleGui implements GuiCommon {
                 builder.glow();
             }
             builder.setCallback((index, clickType, input, slotGuiInterface) -> {
-                this.npc.setNpcState(next);
+                if (!this.npc.isAlive() || !this.npc.isOwnedBy(player) || !player.isAlive() || player.level() != this.npc.level()
+                        || this.npc.distanceToSqr(player) > 1024)
+                    return;
+                this.npc.cancelChatRequests();
+                if (this.npc.getSkillTask().active()) {
+                    if (!this.npc.isOwnedBy(player) || !player.isAlive() || player.level() != this.npc.level()
+                            || this.npc.distanceToSqr(player) > 1024)
+                        return;
+                    this.npc.getSkillTask().cancel(this.npc, "Task replaced by manual state control.");
+                }
+                this.npc.setNPCState(next);
                 if (NotaUtils.isPlaying(this.npc)) {
                     NotaUtils.stop(this.npc);
                 }
@@ -60,7 +83,7 @@ public class NPCStateGui extends SimpleGui implements GuiCommon {
     @Override
     public void onPlayerClose(boolean success) {
         super.onPlayerClose(success);
-        DelayedTask.create(ReverieDreams.getServer(), 2, ()->{
+        DelayedTask.create(ReverieDreams.getServer(), 2, () -> {
             NPCGui npcGui = new NPCGui(this.player, this.npc);
             npcGui.open();
         });

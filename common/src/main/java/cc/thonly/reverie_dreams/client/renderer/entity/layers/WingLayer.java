@@ -9,8 +9,9 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 
-public class WingLayer<S extends LivingEntityRenderState, M extends EntityModel<S>> extends RenderLayer<S,M> {
+public class WingLayer<S extends LivingEntityRenderState, M extends EntityModel<S>> extends RenderLayer<S, M> {
     final ItemModelResolver itemModelResolver;
+
     public WingLayer(RenderLayerParent<S, M> renderer, EntityRendererProvider.Context context) {
         super(renderer);
         this.itemModelResolver = context.getItemModelResolver();

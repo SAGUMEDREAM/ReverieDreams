@@ -1,11 +1,13 @@
 package cc.thonly.reverie_dreams.server.dialog;
 
-import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
+import net.minecraft.core.HolderSet;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.dialog.ActionButton;
 import net.minecraft.server.dialog.CommonButtonData;
 import net.minecraft.server.dialog.MultiActionDialog;
+import net.minecraft.server.dialog.DialogListDialog;
 import net.minecraft.server.dialog.action.Action;
 
 import java.util.Optional;
@@ -57,6 +59,11 @@ public class DialogBuilder {
         return this;
     }
 
+    public DialogBuilder columns(int columns) {
+        this.columns = Math.max(1, columns);
+        return this;
+    }
+
     public DialogBuilder exitAction(Component label, int width, Optional<Action> action) {
         this.exitAction = Optional.ofNullable(new ActionButton(new CommonButtonData(label, width), action));
         return this;
@@ -81,6 +88,19 @@ public class DialogBuilder {
 
     public DialogEntry buildOrThrow() {
         return this.build().get();
+    }
+
+    public DialogEntry buildTextOnlyOrThrow() {
+        if (!this.actions.build().isEmpty() || this.exitAction.isPresent()) {
+            throw new IllegalStateException("A text-only dialog cannot contain action buttons");
+        }
+        if (this.key == null) {
+            this.key = Identifier.withDefaultNamespace("default_dialog_id_" + ++NEXT_ID);
+        }
+        // MultiActionDialog requires a non-empty actions list on the wire.
+        // An empty native dialog list supports clickable body text without adding buttons.
+        return new DialogEntry(this.key, new DialogListDialog(
+                this.common.build(), HolderSet.direct(), Optional.empty(), 1, 180));
     }
 
 }

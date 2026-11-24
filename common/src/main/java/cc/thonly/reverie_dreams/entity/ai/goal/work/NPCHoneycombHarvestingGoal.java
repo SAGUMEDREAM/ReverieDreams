@@ -1,423 +1,123 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.block.BeehiveBlockProxy;
-import cc.thonly.reverie_dreams.data.npc.NPCWorkMode;
-import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
+import cc.thonly.reverie_dreams.entity.ai.work.*;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.inventory.NPCWorkInventory;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import lombok.extern.slf4j.Slf4j;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BeehiveBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
 
-@Slf4j
-public class NPCHoneycombHarvestingGoal extends Goal {
-    public static final Map<ServerLevel, Map<Long, BaseNPCLikeEntity>> EXCLUSIONS = new HashMap<>(8);
+import cc.thonly.reverie_dreams.entity.npc.work.NPCProduction;
+import com.mojang.logging.LogUtils;
 
-    private final BaseNPCLikeEntity roleEntity;
+public class NPCHoneycombHarvestingGoal extends ScheduledWorkGoal {
+    private BlockPos pos;
+    private BeehiveBlockEntity expected;
 
-    @Nullable
-    private BlockPos currentTarget = null;
-
-    private final NPCWorkMode workMode;
-    private final boolean useAction;
-    private final boolean exclusive;
-
-    public NPCHoneycombHarvestingGoal(BaseNPCLikeEntity roleEntity) {
-        this.roleEntity = roleEntity;
-        this.workMode = NPCWorkModes.HONEYCOMB_HARVESTING;
-        this.useAction = true;
-        this.exclusive = true;
-
-        this.setFlags(EnumSet.of(
-                Flag.MOVE,
-                Flag.LOOK,
-                Flag.TARGET
-        ));
+    public NPCHoneycombHarvestingGoal(BaseNPCLikeEntity npc) {
+        super(npc, NPCWorkModes.HONEYCOMB_HARVESTING);
     }
 
-    private List<BlockPos> findBlockPosList() {
-        List<BlockPos> list = new LinkedList<>();
+    @Override
+    protected int searchInterval() {
+        return 20;
+    }
 
-        Level world = this.roleEntity.level();
-        BlockPos center = this.roleEntity.getWorkingPos();
+    public static boolean ready(ServerLevel level, BlockPos pos) {
+        return level.hasChunkAt(pos) && level.getBlockState(pos).getBlock() instanceof BeehiveBlock
+                && level.getBlockState(pos).getValue(BeehiveBlock.HONEY_LEVEL) >= BeehiveBlock.MAX_HONEY_LEVELS;
+    }
 
-        int r = 8;
-
-        BoundingBox box = new BoundingBox(
-                center.getX() - r,
-                center.getY() - r,
-                center.getZ() - r,
-                center.getX() + r,
-                center.getY() + r,
-                center.getZ() + r
-        );
-
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-
-        for (int x = box.minX(); x <= box.maxX(); x++) {
-            for (int y = box.minY(); y <= box.maxY(); y++) {
-                for (int z = box.minZ(); z <= box.maxZ(); z++) {
-                    pos.set(x, y, z);
-
-                    BlockState blockState = world.getBlockState(pos);
-
-                    if (blockState.getBlock() instanceof BeehiveBlock
-                            && blockState.getValue(BeehiveBlock.HONEY_LEVEL)
-                            >= BeehiveBlock.MAX_HONEY_LEVELS) {
-
-                        list.add(pos.immutable());
-                    }
-                }
-            }
+    @Override
+    protected boolean findTask(ServerLevel level) {
+        var hives = WorkWorld.blockEntities(level, site).stream().filter(b -> b instanceof BeehiveBlockEntity)
+                .map(b -> (BeehiveBlockEntity) b).filter(b -> ready(level, b.getBlockPos()) && work().available(b.getBlockPos(), level.getGameTime()))
+                .sorted(Comparator.comparingDouble(b -> b.getBlockPos().distToCenterSqr(npc.position()))).toList();
+        expected = hives.stream().filter(b -> !ReverieDreams.config().npcHoneyRequireSmoke || CampfireBlock.isSmokeyPos(level, b.getBlockPos())).findFirst().orElse(null);
+        if (expected == null) {
+            work().status(hives.isEmpty() ? "waiting_for_honey" : "need_smoke");
+            return false;
         }
-
-        list.sort(Comparator.comparingDouble(
-                blockPos -> blockPos.distSqr(center)
-        ));
-
-        return list;
-    }
-
-    @Override
-    public boolean canUse() {
-        return EntityTargetUtil.isThisWorkMode(
-                this.roleEntity,
-                this.workMode
-        );
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        return EntityTargetUtil.isThisWorkMode(
-                this.roleEntity,
-                this.workMode
-        );
-    }
-
-    @Override
-    public boolean requiresUpdateEveryTick() {
+        pos = expected.getBlockPos().immutable();
         return true;
     }
 
-    @Nullable
-    private BlockPos findNextTarget() {
-        List<BlockPos> blockPoses = findBlockPosList();
+    private Predicate<ItemStack> wanted() {
+        String choice = ReverieDreams.config().npcHoneyProduct;
+        boolean shears = choice.equals("honeycomb") || choice.equals("auto") && (npc.getMainHandItem().is(Items.SHEARS)
+                || npc.getOffhandItem().is(Items.SHEARS) || NPCWorkInventory.find(npc.getInventory(), s -> s.is(Items.SHEARS)) >= 0);
+        return stack -> acceptsTool(choice, shears, stack);
+    }
 
-        ServerLevel serverLevel = getServerLevel(this.roleEntity);
-
-        Map<Long, BaseNPCLikeEntity> map = EXCLUSIONS.computeIfAbsent(
-                serverLevel,
-                x -> new HashMap<>()
-        );
-
-        for (BlockPos blockPos : blockPoses) {
-            BlockState blockState = serverLevel.getBlockState(blockPos);
-
-            if (!(blockState.getBlock() instanceof BeehiveBlock)
-                    || blockState.getValue(BeehiveBlock.HONEY_LEVEL) < BeehiveBlock.MAX_HONEY_LEVELS) {
-                continue;
-            }
-
-            if (this.exclusive && map.containsKey(blockPos.asLong())) {
-                BaseNPCLikeEntity owner = map.get(blockPos.asLong());
-
-                if (owner != this.roleEntity) {
-                    continue;
-                }
-
-                return blockPos;
-            }
-
-            map.put(
-                    blockPos.asLong(),
-                    this.roleEntity
-            );
-
-            return blockPos;
-        }
-
-        return null;
+    public static boolean acceptsTool(String choice, boolean shearsAvailable, ItemStack stack) {
+        if (choice.equals("honey"))
+            return stack.is(Items.GLASS_BOTTLE);
+        if (choice.equals("honeycomb") || shearsAvailable)
+            return stack.is(Items.SHEARS);
+        // With no local tool, automatic supply may use either tool from input storage.
+        return stack.is(Items.SHEARS) || stack.is(Items.GLASS_BOTTLE);
     }
 
     @Override
-    public void tick() {
-        ServerLevel serverLevel = getServerLevel(this.roleEntity);
+    protected boolean validTask(ServerLevel level) {
+        return pos != null && site.contains(pos) && ready(level, pos) && level.getBlockEntity(pos) == expected && !expected.isRemoved();
+    }
 
-        if (!EntityTargetUtil.isThisWorkMode(
-                this.roleEntity,
-                this.workMode
-        )) {
-            this.releaseCurrentTarget(serverLevel);
+    @Override
+    protected List<?> resources() {
+        return pos == null ? List.of() : List.of(pos);
+    }
+
+    @Override
+    protected void clearTask() {
+        pos = null;
+        expected = null;
+    }
+
+    @Override
+    protected void runTask(ServerLevel level) {
+        if (!reach(pos, 2.5))
+            return;
+        if (ReverieDreams.config().npcHoneyRequireSmoke && !CampfireBlock.isSmokeyPos(level, pos)) {
+            finish("need_smoke", 40);
             return;
         }
-
-        BlockPos nextTarget = this.findNextTarget();
-        if (nextTarget != null
-                && this.currentTarget != null
-                && !this.currentTarget.equals(nextTarget)) {
-
-            this.releaseCurrentTarget(serverLevel);
-        }
-
-        this.currentTarget = nextTarget;
-        if (this.currentTarget == null) {
-            return;
-        }
-
-        BlockPos target = this.currentTarget;
-        if (!this.isReached(target)) {
-            this.roleEntity.getNavigation().moveTo(
-                    target.getX() + 0.5D,
-                    target.getY() + 0.5D,
-                    target.getZ() + 0.5D,
-                    1.0D
-            );
-
-            return;
-        }
-
-        BlockState blockState = serverLevel.getBlockState(target);
-        Block block = blockState.getBlock();
-
-        if (!this.useAction
-                || !(block instanceof BeehiveBlock)
-                || blockState.getValue(BeehiveBlock.HONEY_LEVEL)
-                < BeehiveBlock.MAX_HONEY_LEVELS) {
-            return;
-        }
-
-        InteractionHand hand = findOrTakeHarvestTool();
+        var predicate = wanted();
+        var hand = work().tools().ensure(npc.getInventory(), predicate);
         if (hand == null) {
+            work().demand(predicate, ReverieDreams.config().npcHoneyProduct.equals("honeycomb") ? 1 : 16, "need_harvest_tool");
+            finish("need_harvest_tool", 20);
             return;
         }
-
-        this.roleEntity.getLookControl().setLookAt(
-                target.getX() + 0.5D,
-                target.getY() + 0.5D,
-                target.getZ() + 0.5D
-        );
-
+        if (!validTask(level) || !predicate.test(npc.getItemInHand(hand))) {
+            finish("waiting_for_honey", 10);
+            return;
+        }
+        var before = level.getBlockState(pos);
         try {
-            BeehiveBlockProxy proxy = (BeehiveBlockProxy) block;
-            proxy.reverie_dreams$onInteractUse(
-                    this.roleEntity,
-                    serverLevel,
-                    blockState,
-                    target
-            );
-
-            this.roleEntity.swing(hand);
-
-        } catch (Exception e) {
-            log.error(
-                    "Failed to harvest beehive at {}",
-                    target,
-                    e
-            );
+            NPCProduction.capture(npc, "harvest_honey",
+                    () -> ((BeehiveBlockProxy) before.getBlock()).reverie_dreams$onInteractUse(npc, level, before, pos, hand));
+            var after = level.getBlockState(pos);
+            if (after.hasProperty(BeehiveBlock.HONEY_LEVEL) && after.getValue(BeehiveBlock.HONEY_LEVEL) < before.getValue(BeehiveBlock.HONEY_LEVEL)) {
+                npc.swing(hand);
+                work().action();
+                finish("ready", 20);
+            } else
+                finish("work_write_refused", 100);
+        } catch (RuntimeException failure) {
+            LogUtils.getLogger().error("NPC {} failed honey harvesting at {}", npc.getUUID(), pos, failure);
+            finish("work_action_failed", 100);
         }
-
-        float headYaw = this.roleEntity.getYHeadRot();
-
-        this.roleEntity.yBodyRot = approachAngle(
-                this.roleEntity.yBodyRot,
-                headYaw,
-                10.0F
-        );
-    }
-
-    /**
-     * 查找 NPC 当前可用的采集工具。
-     * <p>
-     * 优先级：
-     * 主手剪刀
-     * 主手玻璃瓶
-     * 副手剪刀
-     * 副手玻璃瓶
-     * 背包中的剪刀
-     * 背包中的玻璃瓶
-     */
-    @Nullable
-    private InteractionHand findOrTakeHarvestTool() {
-        ItemStack mainHand = this.roleEntity.getMainHandItem();
-        ItemStack offHand = this.roleEntity.getOffhandItem();
-
-        // 主手已经有可用工具
-        if (isHarvestTool(mainHand)) {
-            return InteractionHand.MAIN_HAND;
-        }
-
-        // 副手已经有可用工具
-        if (isHarvestTool(offHand)) {
-            return InteractionHand.OFF_HAND;
-        }
-
-        /*
-         * 当前双手没有工具，从背包取。
-         *
-         * 优先剪刀，其次玻璃瓶。
-         */
-        int shearsSlot = findInventoryItem(Items.SHEARS);
-
-        if (shearsSlot >= 0) {
-            return moveInventoryItemToMainHand(shearsSlot);
-        }
-
-        int bottleSlot = findInventoryItem(Items.GLASS_BOTTLE);
-
-        if (bottleSlot >= 0) {
-            return moveInventoryItemToMainHand(bottleSlot);
-        }
-
-        return null;
-    }
-
-    private boolean isHarvestTool(ItemStack stack) {
-        return stack.is(Items.SHEARS)
-                || stack.is(Items.GLASS_BOTTLE);
-    }
-
-    /**
-     * 在 NPC 背包中寻找指定物品。
-     */
-    private int findInventoryItem(net.minecraft.world.item.Item item) {
-        var inventory = this.roleEntity.getInventory();
-
-        for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
-            ItemStack stack = inventory.getItem(slot);
-
-            if (!stack.isEmpty() && stack.is(item)) {
-                return slot;
-            }
-        }
-
-        return -1;
-    }
-
-    /**
-     * 把背包中的物品移动到主手。
-     * <p>
-     * 如果主手为空，直接交换。
-     * 如果主手有其它物品，则将主手物品放回原背包槽位，
-     * 再将目标物品拿到主手。
-     */
-    @Nullable
-    private InteractionHand moveInventoryItemToMainHand(int slot) {
-        var inventory = this.roleEntity.getInventory();
-
-        ItemStack inventoryStack =
-                inventory.getItem(slot);
-
-        if (inventoryStack.isEmpty()) {
-            return null;
-        }
-
-        ItemStack mainHand =
-                this.roleEntity.getMainHandItem();
-
-        /*
-         * 主手为空，直接拿出来。
-         */
-        if (mainHand.isEmpty()) {
-            ItemStack taken = inventoryStack.copy();
-
-            inventory.setItem(
-                    slot,
-                    ItemStack.EMPTY
-            );
-
-            this.roleEntity.setItemInHand(
-                    InteractionHand.MAIN_HAND,
-                    taken
-            );
-
-            inventory.setChanged();
-
-            return InteractionHand.MAIN_HAND;
-        }
-
-        /*
-         * 主手有东西：
-         * 与背包槽位交换。
-         */
-        ItemStack oldMainHand = mainHand.copy();
-        ItemStack taken = inventoryStack.copy();
-
-        inventory.setItem(
-                slot,
-                oldMainHand
-        );
-
-        this.roleEntity.setItemInHand(
-                InteractionHand.MAIN_HAND,
-                taken
-        );
-
-        inventory.setChanged();
-
-        return InteractionHand.MAIN_HAND;
-    }
-
-    private void releaseCurrentTarget(ServerLevel serverLevel) {
-        if (this.currentTarget == null) {
-            return;
-        }
-
-        Map<Long, BaseNPCLikeEntity> map = EXCLUSIONS.get(serverLevel);
-
-        if (map != null) {
-            BaseNPCLikeEntity owner =
-                    map.get(this.currentTarget.asLong());
-
-            if (owner == this.roleEntity) {
-                map.remove(this.currentTarget.asLong());
-            }
-
-            if (map.isEmpty()) {
-                EXCLUSIONS.remove(serverLevel);
-            }
-        }
-
-        this.currentTarget = null;
-    }
-
-    private static float approachAngle(
-            float current,
-            float target,
-            float maxChange
-    ) {
-        float delta = Mth.wrapDegrees(
-                target - current
-        );
-
-        if (delta > maxChange) {
-            delta = maxChange;
-        }
-
-        if (delta < -maxChange) {
-            delta = -maxChange;
-        }
-
-        return current + delta;
-    }
-
-    private boolean isReached(BlockPos pos) {
-        return pos.distToCenterSqr(
-                this.roleEntity.position()
-        ) <= 9.0D;
     }
 }

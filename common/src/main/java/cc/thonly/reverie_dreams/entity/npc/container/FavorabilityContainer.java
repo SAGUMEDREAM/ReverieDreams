@@ -100,9 +100,9 @@ public class FavorabilityContainer {
                 "Favorability",
                 FavorabilityEntry.CODEC.listOf(),
                 this.data.entrySet()
-                         .stream()
-                         .map(entry -> new FavorabilityEntry(entry.getKey(), this.normalizedValue(entry.getValue())))
-                         .toList()
+                        .stream()
+                        .map(entry -> new FavorabilityEntry(entry.getKey(), this.normalizedValue(entry.getValue())))
+                        .toList()
         );
     }
 

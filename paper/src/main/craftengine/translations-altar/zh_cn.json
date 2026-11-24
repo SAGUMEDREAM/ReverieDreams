@@ -1,0 +1,9 @@
+{
+  "block.reverie_dreams.gensokyo_altar": "幻想乡祭坛",
+  "item.reverie_dreams.fast_book_item": "快速食谱",
+  "message.reverie_dreams.altar.unavailable": "祭坛暂时不可用",
+  "message.reverie_dreams.altar.missing_structure": "八根三层柱的结构不完整",
+  "message.reverie_dreams.altar.unloaded_structure": "请先加载祭坛周围的区块",
+  "message.reverie_dreams.altar.missing_recipe": "祭坛材料的位置或数量不符合配方",
+  "message.reverie_dreams.altar.unsupported_output": "该配方产物尚未移植，材料已保留"
+}

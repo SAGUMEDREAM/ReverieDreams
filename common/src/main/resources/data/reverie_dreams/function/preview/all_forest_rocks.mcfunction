@@ -1,0 +1,22 @@
+# Seven biome themes north-to-south, three scales west-to-east. 24-block spacing; keep the player position clear.
+place feature reverie_dreams:gensokyo/rocks/forest/low_outcrop ~-24 ~ ~-60
+place feature reverie_dreams:gensokyo/rocks/forest/rock_cluster ~ ~ ~-60
+place feature reverie_dreams:gensokyo/rocks/forest/landmark_boulder ~24 ~ ~-60
+place feature reverie_dreams:gensokyo/rocks/birch_forest/low_outcrop ~-24 ~ ~-36
+place feature reverie_dreams:gensokyo/rocks/birch_forest/rock_cluster ~ ~ ~-36
+place feature reverie_dreams:gensokyo/rocks/birch_forest/landmark_boulder ~24 ~ ~-36
+place feature reverie_dreams:gensokyo/rocks/taiga/low_outcrop ~-24 ~ ~-12
+place feature reverie_dreams:gensokyo/rocks/taiga/rock_cluster ~ ~ ~-12
+place feature reverie_dreams:gensokyo/rocks/taiga/landmark_boulder ~24 ~ ~-12
+place feature reverie_dreams:gensokyo/rocks/cherry_grove/low_outcrop ~-24 ~ ~12
+place feature reverie_dreams:gensokyo/rocks/cherry_grove/rock_cluster ~ ~ ~12
+place feature reverie_dreams:gensokyo/rocks/cherry_grove/landmark_boulder ~24 ~ ~12
+place feature reverie_dreams:gensokyo/rocks/dark_forest/low_outcrop ~-24 ~ ~36
+place feature reverie_dreams:gensokyo/rocks/dark_forest/rock_cluster ~ ~ ~36
+place feature reverie_dreams:gensokyo/rocks/dark_forest/landmark_boulder ~24 ~ ~36
+place feature reverie_dreams:gensokyo/rocks/magic_forest/low_outcrop ~-24 ~ ~60
+place feature reverie_dreams:gensokyo/rocks/magic_forest/rock_cluster ~ ~ ~60
+place feature reverie_dreams:gensokyo/rocks/magic_forest/landmark_boulder ~24 ~ ~60
+place feature reverie_dreams:gensokyo/rocks/maple_forest/low_outcrop ~-24 ~ ~84
+place feature reverie_dreams:gensokyo/rocks/maple_forest/rock_cluster ~ ~ ~84
+place feature reverie_dreams:gensokyo/rocks/maple_forest/landmark_boulder ~24 ~ ~84

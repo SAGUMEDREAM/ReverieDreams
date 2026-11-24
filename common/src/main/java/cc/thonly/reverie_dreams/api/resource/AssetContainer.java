@@ -11,22 +11,22 @@ import java.util.List;
 import java.util.Set;
 
 public interface AssetContainer extends AutoCloseable {
-   @Nullable
-   IoSupplier<InputStream> getAsset(String namespace, String path);
+    @Nullable
+    IoSupplier<InputStream> getAsset(String namespace, String path);
 
-   @NotNull
-   List<IoSupplier<InputStream>> getAllAssets(String namespace, String path);
+    @NotNull
+    List<IoSupplier<InputStream>> getAllAssets(String namespace, String path);
 
-   @NotNull
-   Set<String> getNamespaces();
+    @NotNull
+    Set<String> getNamespaces();
 
-   boolean containsAsset(String namespace, String path);
+    boolean containsAsset(String namespace, String path);
 
-   @NotNull
-   default Set<Tuple<Identifier, IoSupplier<InputStream>>> locateLanguageFiles() {
-      return this.locateFiles("lang");
-   }
+    @NotNull
+    default Set<Tuple<Identifier, IoSupplier<InputStream>>> locateLanguageFiles() {
+        return this.locateFiles("lang");
+    }
 
-   @NotNull
-   Set<Tuple<Identifier, IoSupplier<InputStream>>> locateFiles(String prefix);
+    @NotNull
+    Set<Tuple<Identifier, IoSupplier<InputStream>>> locateFiles(String prefix);
 }

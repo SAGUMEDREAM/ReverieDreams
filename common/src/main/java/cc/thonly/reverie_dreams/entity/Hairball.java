@@ -1,11 +1,14 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.entity.variant.HairballAnimationState;
 import cc.thonly.reverie_dreams.util.entity.IAnimationHelper;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
 import com.geckolib.constant.dataticket.DataTicket;
 import com.geckolib.util.GeckoLibUtil;
 import lombok.Getter;
@@ -13,10 +16,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -30,13 +36,13 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 
-import java.util.List;
-
 @Getter
 public class Hairball extends PathfinderMob implements GeoEntity {
     public static final EntityDataAccessor<Boolean> BLACK_COLOR = SynchedEntityData.defineId(Hairball.class, EntityDataSerializers.BOOLEAN);
     public static final DataTicket<Boolean> BLACK_COLOR_TICKET = DataTicket.create("black_color", Boolean.class);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    public static final byte ATTACK_ANIMATION_EVENT = 4;
+    private final HairballAnimationState animationState = new HairballAnimationState();
 
     public Hairball(EntityType<? extends PathfinderMob> entityType, Level world) {
         super(entityType, world);
@@ -64,17 +70,21 @@ public class Hairball extends PathfinderMob implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("movement", 0, state -> {
-
-            if (state.isMoving()) {
-                return state.setAndContinue(
-                        IAnimationHelper.presets().loop("walk")
-                );
+        HairballAnimationState.Clip[] previous = {null};
+        int[] revision = {-1};
+        controllers.add(new AnimationController<Hairball>("movement", 1, state -> {
+            if (this.isDeadOrDying()) return PlayState.STOP;
+            var next = this.animationState.clip();
+            if (next != previous[0] || (!next.looping() && revision[0] != this.animationState.revision())) {
+                state.controller().reset();
             }
-
-            return state.setAndContinue(
-                    IAnimationHelper.presets().loop("idle")
-            );
+            previous[0] = next;
+            revision[0] = this.animationState.revision();
+            state.controller().setAnimationSpeed(next == HairballAnimationState.Clip.WALK
+                    ? HairballAnimationState.walkSpeed(this.getDeltaMovement().horizontalDistance()) : 1);
+            var animation = RawAnimation.begin();
+            return state.setAndContinue(next.looping() ? animation.thenLoop(next.animation())
+                    : animation.thenPlayAndHold(next.animation()));
         }));
     }
 
@@ -86,13 +96,32 @@ public class Hairball extends PathfinderMob implements GeoEntity {
     @Override
     public void tick() {
         super.tick();
+        this.animationState.update(this.tickCount, this.onGround(), this.isInWater() || this.isInLava(),
+                this.getDeltaMovement().y, this.getDeltaMovement().horizontalDistanceSqr(),
+                this.hurtTime, this.isDeadOrDying());
+    }
+
+    @Override
+    public boolean doHurtTarget(ServerLevel level, Entity target) {
+        this.animationState.beginAttack(this.tickCount);
+        level.broadcastEntityEvent(this, ATTACK_ANIMATION_EVENT);
+        return super.doHurtTarget(level, target);
+    }
+
+    @Override
+    public void handleEntityEvent(byte event) {
+        if (event == ATTACK_ANIMATION_EVENT) {
+            this.animationState.beginAttack(this.tickCount);
+            return;
+        }
+        super.handleEntityEvent(event);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 15)
+                .add(Attributes.MAX_HEALTH, 12)
                 .add(Attributes.MOVEMENT_SPEED, 0.2)
-                .add(Attributes.ATTACK_DAMAGE, 3.5)
+                .add(Attributes.ATTACK_DAMAGE, 2.5)
                 .add(Attributes.FOLLOW_RANGE, 15);
     }
 
@@ -103,15 +132,17 @@ public class Hairball extends PathfinderMob implements GeoEntity {
             BlockPos pos,
             RandomSource random
     ) {
-        int max = 5;
-        int radius = 32;
-
-        List<Hairball> nearby = level.getEntitiesOfClass(
+        if (!Mob.checkMobSpawnRules(type, level, reason, pos, random)) {
+            return false;
+        }
+        if (reason != EntitySpawnReason.NATURAL && reason != EntitySpawnReason.CHUNK_GENERATION) {
+            return true;
+        }
+        return level.getEntitiesOfClass(
                 Hairball.class,
-                new AABB(pos).inflate(radius)
-        );
-
-        return nearby.size() < max;
+                new AABB(pos).inflate(8),
+                Hairball::isAlive
+        ).size() < 2;
     }
 
     public boolean isBlackColor() {

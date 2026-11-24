@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_bars_side",
+  "textures": {
+    "bars": "reverie_dreams:block/ranma",
+    "edge": "reverie_dreams:block/ranma"
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "sourceCategoryTagAdditions": {
+    "minecraft:logs": [
+      "reverie_dreams:spiritual_log",
+      "reverie_dreams:spiritual_wood",
+      "reverie_dreams:stripped_spiritual_log",
+      "reverie_dreams:stripped_spiritual_wood",
+      "reverie_dreams:lemon_log",
+      "reverie_dreams:lemon_wood",
+      "reverie_dreams:stripped_lemon_log",
+      "reverie_dreams:stripped_lemon_wood",
+      "reverie_dreams:ginkgo_log",
+      "reverie_dreams:ginkgo_wood",
+      "reverie_dreams:stripped_ginkgo_log",
+      "reverie_dreams:stripped_ginkgo_wood",
+      "reverie_dreams:peach_log",
+      "reverie_dreams:peach_wood",
+      "reverie_dreams:stripped_peach_log",
+      "reverie_dreams:stripped_peach_wood",
+      "reverie_dreams:iroha_maple_log",
+      "reverie_dreams:iroha_maple_wood",
+      "reverie_dreams:stripped_iroha_maple_log",
+      "reverie_dreams:stripped_iroha_maple_wood",
+      "reverie_dreams:itaya_maple_log",
+      "reverie_dreams:itaya_maple_wood",
+      "reverie_dreams:stripped_itaya_maple_log",
+      "reverie_dreams:stripped_itaya_maple_wood",
+      "reverie_dreams:hauchiwa_maple_log",
+      "reverie_dreams:hauchiwa_maple_wood",
+      "reverie_dreams:stripped_hauchiwa_maple_log",
+      "reverie_dreams:stripped_hauchiwa_maple_wood"
+    ],
+    "minecraft:planks": [
+      "reverie_dreams:spiritual_planks",
+      "reverie_dreams:lemon_planks",
+      "reverie_dreams:ginkgo_planks",
+      "reverie_dreams:peach_planks",
+      "reverie_dreams:iroha_maple_planks",
+      "reverie_dreams:itaya_maple_planks",
+      "reverie_dreams:hauchiwa_maple_planks"
+    ],
+    "minecraft:wool": [],
+    "minecraft:saplings": [
+      "reverie_dreams:spiritual_sapling",
+      "reverie_dreams:lemon_sapling",
+      "reverie_dreams:ginkgo_sapling",
+      "reverie_dreams:peach_sapling",
+      "reverie_dreams:iroha_maple_sapling",
+      "reverie_dreams:itaya_maple_sapling",
+      "reverie_dreams:hauchiwa_maple_sapling"
+    ],
+    "minecraft:coals": [],
+    "c:ores": [
+      "reverie_dreams:raw_silver",
+      "#c:ores/coal",
+      "#c:ores/copper",
+      "#c:ores/diamond",
+      "#c:ores/emerald",
+      "#c:ores/gold",
+      "#c:ores/iron",
+      "#c:ores/lapis",
+      "#c:ores/netherite_scrap",
+      "#c:ores/redstone",
+      "#c:ores/quartz"
+    ],
+    "c:ingots": [
+      "#c:ingots/copper",
+      "#c:ingots/iron",
+      "#c:ingots/gold",
+      "#c:ingots/netherite"
+    ],
+    "c:nuggets": [
+      "#c:nuggets/copper",
+      "#c:nuggets/iron",
+      "#c:nuggets/gold"
+    ],
+    "c:gems": [
+      "#c:gems/amethyst",
+      "#c:gems/diamond",
+      "#c:gems/emerald",
+      "#c:gems/lapis",
+      "#c:gems/prismarine",
+      "#c:gems/quartz"
+    ],
+    "c:ores/coal": [
+      "#minecraft:coal_ores"
+    ],
+    "c:ores/copper": [
+      "#minecraft:copper_ores"
+    ],
+    "c:ores/diamond": [
+      "#minecraft:diamond_ores"
+    ],
+    "c:ores/emerald": [
+      "#minecraft:emerald_ores"
+    ],
+    "c:ores/gold": [
+      "#minecraft:gold_ores"
+    ],
+    "c:ores/iron": [
+      "#minecraft:iron_ores"
+    ],
+    "c:ores/lapis": [
+      "#minecraft:lapis_ores"
+    ],
+    "c:ores/netherite_scrap": [
+      "minecraft:ancient_debris"
+    ],
+    "c:ores/redstone": [
+      "#minecraft:redstone_ores"
+    ],
+    "c:ores/quartz": [
+      "minecraft:nether_quartz_ore"
+    ],
+    "c:ingots/copper": [
+      "minecraft:copper_ingot"
+    ],
+    "c:ingots/iron": [
+      "minecraft:iron_ingot"
+    ],
+    "c:ingots/gold": [
+      "minecraft:gold_ingot"
+    ],
+    "c:ingots/netherite": [
+      "minecraft:netherite_ingot"
+    ],
+    "c:nuggets/copper": [
+      "minecraft:copper_nugget"
+    ],
+    "c:nuggets/iron": [
+      "minecraft:iron_nugget"
+    ],
+    "c:nuggets/gold": [
+      "minecraft:gold_nugget"
+    ],
+    "c:gems/amethyst": [
+      "minecraft:amethyst_shard"
+    ],
+    "c:gems/diamond": [
+      "minecraft:diamond"
+    ],
+    "c:gems/emerald": [
+      "minecraft:emerald"
+    ],
+    "c:gems/lapis": [
+      "minecraft:lapis_lazuli"
+    ],
+    "c:gems/prismarine": [
+      "minecraft:prismarine_crystals"
+    ],
+    "c:gems/quartz": [
+      "minecraft:quartz"
+    ]
+  },
+  "defaultSettings": {
+    "claimEmpty": true,
+    "reserveFood": 16,
+    "reserveTools": 1,
+    "categoryTags": [
+      "minecraft:logs",
+      "minecraft:planks",
+      "minecraft:wool",
+      "minecraft:saplings",
+      "minecraft:coals",
+      "c:ores",
+      "c:ingots",
+      "c:nuggets",
+      "c:gems"
+    ]
+  },
+  "sourceSupport": [
+    "vanilla_chest",
+    "vanilla_trapped_chest",
+    "vanilla_barrel",
+    "reverie_dreams:silver_chest",
+    "reverie_dreams:wooden_box",
+    "reverie_dreams:cash_box"
+  ],
+  "excluded": [
+    "cupboard",
+    "untouched_loot",
+    "locked",
+    "blocked_chest",
+    "unloaded_half",
+    "worksite_crossing_double_chest",
+    "hopper_as_classification_store",
+    "shulker_box_as_classification_store",
+    "furnace_as_classification_store"
+  ],
+  "conventionTagsSource": {
+    "fabricApi": "0.149.0+26.1.2",
+    "module": "fabric-convention-tags-v2:4.6.0+e47fb87c4c",
+    "url": "https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-convention-tags-v2/4.6.0%2Be47fb87c4c/fabric-convention-tags-v2-4.6.0%2Be47fb87c4c.jar",
+    "sha256": "cd25f08a24d931d96559dcb1af586da08a15eeab950232d57c4951bf3dda7a80",
+    "license": "Apache-2.0; FabricMC convention tag membership data",
+    "scope": "only the source-default c:ores/ingots/nuggets/gems closure; minecraft refs evaluated from current registry and original Mod generated additions"
+  },
+  "sourceHashes": {
+    "inventory/storage/StorageWorld.java": {
+      "sha256": "92f18b22d0d72d058e22c4d1d3c9739d10217621acd9ecb2f338ada672947035"
+    },
+    "inventory/storage/StorageRule.java": {
+      "sha256": "1bda1ca363d2c8eed50e2cdaab1bd525b06f436457ee73f6549b70a402b77df0"
+    },
+    "inventory/storage/StoragePlanner.java": {
+      "sha256": "ee71a338871b6b545634c5d6470b9454a612325356133eafcf545a3d47df2c00"
+    },
+    "inventory/storage/StorageExecution.java": {
+      "sha256": "74716fef1cffc0c0756e7ef247aac2e0cfa39e4826b0e24fa109ac5b8b688e93"
+    },
+    "inventory/storage/StorageTransfer.java": {
+      "sha256": "85dddf269fa9c138ac325091ac0303ffc3a985c8a6f3b2bd62b033a183d6d350"
+    },
+    "inventory/storage/StorageSettings.java": {
+      "sha256": "b6dc8aad0886269540d29ec3bdd7ed7b975bbf12f404e53f7efaa1a57fdf1ebe"
+    },
+    "inventory/storage/StorageClaims.java": {
+      "sha256": "494c1b2a5b8b6bed00fa50c87b761a1d7e12365cf93778eaa8ee867fa62b59a7"
+    },
+    "entity/ai/work/FurnaceTransfer.java": {
+      "sha256": "8358cd3a8511755bff825882b9a7d5c95427644144697cabf63dae8bcff5c356"
+    },
+    "entity/ai/goal/work/NPCSmeltGoal.java": {
+      "sha256": "eb04eece2766cdbecc268a9b657826acd688c771c0620bb92b1fe2780394fd4b"
+    },
+    "entity/ai/goal/work/NPCChestClassificationGoal.java": {
+      "sha256": "f8d5ad27798431ce08e25b4dca4c7e535462bb2c6445c9b5f3f1682d1d3d9bb4"
+    },
+    "block/props/CashBoxBlock.java": {
+      "sha256": "4b6c356f8e4866eaefd1ffc28acab2a78c789b31290be0633b687603b2f0386a"
+    },
+    "block/entity/CustomChestBlockEntity.java": {
+      "sha256": "91a50b850294804d1a06184da7bacb7878b1a98a058e3058cbfce1dd7150f9c5"
+    },
+    "ReverieDreamsConfiguration.java": {
+      "sha256": "2d008b9441946e34e50e869d79f13407cd4040165943bf3b9f8c5b40d2d00059"
+    }
+  },
+  "implementation": {
+    "nativeFurnaces": [
+      "furnace",
+      "blast_furnace",
+      "smoker"
+    ],
+    "outputPriority": [
+      2,
+      1
+    ],
+    "fuelRefillThreshold": 8,
+    "npcCargoSlots": [
+      0,
+      17
+    ],
+    "nativeContainerDefaultMaxStack": 99,
+    "itemSpecificMaxStack": true,
+    "classificationSearchTicks": 20,
+    "finishedSearchTicks": 40,
+    "afterTransferTicks": 10,
+    "claimTicks": 200,
+    "rejectTicks": 200,
+    "reachFurnace": 2.5,
+    "reachStorage": 3,
+    "settingsPersistence": "npc/work_settings.storage",
+    "transactionEvent": "cc.thonly.reverie_dreams.paper.npc.NPCInventoryTransferEvent",
+    "automaticProductionLogistics": false
+  }
+}

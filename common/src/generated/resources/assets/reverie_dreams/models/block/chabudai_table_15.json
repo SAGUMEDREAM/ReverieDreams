@@ -1,0 +1,147 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#trim",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ]
+        },
+        "east": {
+          "texture": "#trim",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.75
+          ]
+        },
+        "north": {
+          "texture": "#trim",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.75
+          ]
+        },
+        "south": {
+          "texture": "#trim",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.75
+          ]
+        },
+        "up": {
+          "texture": "#trim",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ]
+        },
+        "west": {
+          "texture": "#trim",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.75
+          ]
+        }
+      },
+      "from": [
+        0.0,
+        6.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        7.75,
+        16.0
+      ]
+    },
+    {
+      "faces": {
+        "down": {
+          "texture": "#top",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ]
+        },
+        "east": {
+          "texture": "#top",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            0.15000000000000036
+          ]
+        },
+        "north": {
+          "texture": "#top",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            0.15000000000000036
+          ]
+        },
+        "south": {
+          "texture": "#top",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            0.15000000000000036
+          ]
+        },
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            16.0
+          ]
+        },
+        "west": {
+          "texture": "#top",
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            0.15000000000000036
+          ]
+        }
+      },
+      "from": [
+        0.0,
+        7.75,
+        0.0
+      ],
+      "to": [
+        16.0,
+        7.9,
+        16.0
+      ]
+    }
+  ],
+  "textures": {
+    "particle": "reverie_dreams:block/chabudai_top_15",
+    "side": "reverie_dreams:block/chabudai_side",
+    "top": "reverie_dreams:block/chabudai_top_15",
+    "trim": "minecraft:block/dark_oak_planks"
+  }
+}

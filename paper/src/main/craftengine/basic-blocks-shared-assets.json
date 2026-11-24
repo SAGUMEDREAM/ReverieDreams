@@ -1,0 +1,16 @@
+{
+  "models": [
+    "assets/reverie_dreams/models/block/black_salt_block.json",
+    "assets/reverie_dreams/models/block/point_block.json",
+    "assets/reverie_dreams/models/block/power_block.json",
+    "assets/reverie_dreams/models/block/dream_world_red_line_block.json",
+    "assets/reverie_dreams/models/block/dream_world_blue_line_block.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/block/black_salt_block.png",
+    "assets/reverie_dreams/textures/block/dream_world_blue_line_block.png",
+    "assets/reverie_dreams/textures/block/dream_world_red_line_block.png",
+    "assets/reverie_dreams/textures/block/point_block.png",
+    "assets/reverie_dreams/textures/block/power_block.png"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "reverie_dreams:block/set2/yagen"
+    },
+    "facing=east": {
+      "model": "reverie_dreams:block/set2/yagen",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/set2/yagen",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/set2/yagen",
+      "y": 270
+    }
+  }
+}

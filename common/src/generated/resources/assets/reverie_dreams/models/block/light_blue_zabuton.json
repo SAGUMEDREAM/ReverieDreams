@@ -1,0 +1,7 @@
+{
+  "parent": "reverie_dreams:block/zabuton_colored",
+  "textures": {
+    "side": "minecraft:block/light_blue_concrete",
+    "top": "minecraft:block/light_blue_wool"
+  }
+}

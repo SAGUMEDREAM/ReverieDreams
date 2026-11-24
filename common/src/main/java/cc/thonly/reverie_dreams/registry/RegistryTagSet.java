@@ -15,9 +15,11 @@ import java.util.List;
 @Slf4j
 public class RegistryTagSet {
     public static final Codec<RegistryTagSet> CODEC = Codec.lazyInitialized(() -> RecordCodecBuilder.create(instance -> instance.group(
-            Codec.STRING.listOf().optionalFieldOf("values", new ArrayList<>()).forGetter(RegistryTagSet::contents)
+            Codec.STRING.listOf().optionalFieldOf("values", new ArrayList<>()).forGetter(RegistryTagSet::contents),
+            Codec.BOOL.optionalFieldOf("replace", false).forGetter(RegistryTagSet::replace)
     ).apply(instance, RegistryTagSet::new)));
     private final List<String> values = new ArrayList<>();
+    private boolean replace;
 
     public RegistryTagSet() {
     }
@@ -25,6 +27,15 @@ public class RegistryTagSet {
     public RegistryTagSet(List<String> values) {
         this();
         this.values.addAll(values);
+    }
+
+    public RegistryTagSet(List<String> values, boolean replace) {
+        this(values);
+        this.replace = replace;
+    }
+
+    public boolean replace() {
+        return replace;
     }
 
     public List<String> contents() {

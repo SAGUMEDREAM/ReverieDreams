@@ -31,6 +31,9 @@ public class DialogPlayer {
     private final String uuid;
     private LinkedList<LinkedList<String>> source = new LinkedList<>();
     private ListIterator<LinkedList<String>> iterator = null;
+    @Nullable
+    private DialogVideoData videoData;
+    private ListIterator<DialogVideoData.Frame> frameIterator = null;
     private int state = 0;
     @Setter
     private boolean paused = true;
@@ -54,7 +57,11 @@ public class DialogPlayer {
     }
 
     public synchronized void start() {
-        this.iterator = this.source.listIterator();
+        if (this.videoData != null) {
+            this.frameIterator = this.videoData.frames().listIterator();
+        } else {
+            this.iterator = this.source.listIterator();
+        }
         if (this.soundEvent != null) {
             this.player.level().playSound(null, this.player.getOnPos(), this.soundEvent, SoundSource.PLAYERS, 1.0f, 1.0f);
 //            System.out.println(111);
@@ -67,6 +74,16 @@ public class DialogPlayer {
     public synchronized void parse(String fileId) {
         DialogFiles.Entry file = DialogFiles.getFile(fileId);
         if (file == null) {
+            return;
+        }
+        try {
+            DialogVideoData video = file.video();
+            if (video != null) {
+                this.videoData = video;
+                return;
+            }
+        } catch (Exception err) {
+            log.error("Can't parse dialog video {}", fileId, err);
             return;
         }
         LinkedList<LinkedList<String>> data = new LinkedList<>();
@@ -96,6 +113,7 @@ public class DialogPlayer {
     }
 
     public synchronized void next(int frame) {
+        ListIterator<?> iterator = this.activeIterator();
         if (iterator == null)
             return;
         int moved = 0;
@@ -105,16 +123,22 @@ public class DialogPlayer {
         }
     }
 
+    @Nullable
+    private ListIterator<?> activeIterator() {
+        return this.frameIterator != null ? this.frameIterator : this.iterator;
+    }
+
     public synchronized void previous() {
         previous(20);
     }
 
     public synchronized void previous(int frame) {
-        if (this.iterator == null)
+        ListIterator<?> iterator = this.activeIterator();
+        if (iterator == null)
             return;
         int moved = 0;
-        while (moved < frame && this.iterator.hasPrevious()) {
-            this.iterator.previous();
+        while (moved < frame && iterator.hasPrevious()) {
+            iterator.previous();
             moved++;
         }
     }
@@ -124,7 +148,7 @@ public class DialogPlayer {
             DialogPlayerManager.PLAYER_INSTANCES.remove(this.uuid);
             return;
         }
-        if (this.iterator == null) {
+        if (this.activeIterator() == null) {
             return;
         }
         if (this.paused) {
@@ -156,20 +180,31 @@ public class DialogPlayer {
                 )
         );
 
-        if (this.iterator.hasNext()) {
+        Component body;
+        int bodyWidth;
+        if (this.frameIterator != null) {
+            if (!this.frameIterator.hasNext()) {
+                DialogPlayerManager.PLAYER_INSTANCES.remove(this.uuid);
+                return;
+            }
+            DialogVideoData.Frame frame = this.frameIterator.next();
+            body = this.videoData.render(frame);
+            bodyWidth = this.videoData.bodyWidth();
+        } else {
+            if (!this.iterator.hasNext()) {
+                DialogPlayerManager.PLAYER_INSTANCES.remove(this.uuid);
+                return;
+            }
             LinkedList<String> next = this.iterator.next();
             MutableComponent mutableText = Component.empty();
             for (String line : next) {
                 mutableText.append(Component.literal(line + "\n"));
             }
-            result.common().body().add(
-                    new PlainMessage(mutableText, 512)
-            );
-            this.player.openDialog(Holder.direct(result));
-        } else {
-            DialogPlayerManager.PLAYER_INSTANCES.remove(this.uuid);
-//            System.out.println("removed");
+            body = mutableText;
+            bodyWidth = 512;
         }
+        result.common().body().add(new PlainMessage(body, bodyWidth));
+        this.player.openDialog(Holder.direct(result));
     }
 
     public void remove() {

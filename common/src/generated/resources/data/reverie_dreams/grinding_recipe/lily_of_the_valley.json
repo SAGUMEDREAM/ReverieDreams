@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:lily_of_the_valley",
+  "output": {
+    "id": "minecraft:white_dye",
+    "count": 2
+  },
+  "work": 8
+}

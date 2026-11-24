@@ -1,0 +1,1002 @@
+{
+  "schema": 1,
+  "barrel_recipes": [
+    {
+      "id": "reverie_dreams:beverage-affgado",
+      "materials": [
+        {
+          "id": "minecraft:ice",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        },
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/affgado",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-beer",
+      "materials": [
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/beer",
+        "count": 1
+      },
+      "cost_time": 840
+    },
+    {
+      "id": "reverie_dreams:beverage-big_popsicle",
+      "materials": [
+        {
+          "id": "minecraft:ice",
+          "count": 1
+        },
+        {
+          "id": "minecraft:honey_bottle",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/big_popsicle",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-blessing_wind",
+      "materials": [
+        {
+          "id": "minecraft:oak_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/blessing_wind",
+        "count": 1
+      },
+      "cost_time": 1120
+    },
+    {
+      "id": "reverie_dreams:beverage-coffee",
+      "materials": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/coffee",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-daiginjo",
+      "materials": [
+        {
+          "id": "minecraft:apple",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/daiginjo",
+        "count": 1
+      },
+      "cost_time": 1300
+    },
+    {
+      "id": "reverie_dreams:beverage-daughter_of_the_sea",
+      "materials": [
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        },
+        {
+          "id": "minecraft:sea_pickle",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/daughter_of_the_sea",
+        "count": 1
+      },
+      "cost_time": 840
+    },
+    {
+      "id": "reverie_dreams:beverage-dawn",
+      "materials": [
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:soy_beans_seeds",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/dawn",
+        "count": 1
+      },
+      "cost_time": 1320
+    },
+    {
+      "id": "reverie_dreams:beverage-demon_slayer",
+      "materials": [
+        {
+          "id": "minecraft:bread",
+          "count": 1
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 1
+        },
+        {
+          "id": "minecraft:magma_cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/demon_slayer",
+        "count": 1
+      },
+      "cost_time": 1320
+    },
+    {
+      "id": "reverie_dreams:beverage-demonic_coffee",
+      "materials": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/cream",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/demonic_coffee",
+        "count": 1
+      },
+      "cost_time": 1140
+    },
+    {
+      "id": "reverie_dreams:beverage-drunk_actor",
+      "materials": [
+        {
+          "id": "minecraft:cherry_leaves",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/drunk_actor",
+        "count": 1
+      },
+      "cost_time": 1020
+    },
+    {
+      "id": "reverie_dreams:beverage-fairy_rain",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/flowers",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/fairy_rain",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-fire_rat_fur",
+      "materials": [
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 1
+        },
+        {
+          "id": "minecraft:magma_cream",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/chili",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/fire_rat_fur",
+        "count": 1
+      },
+      "cost_time": 1140
+    },
+    {
+      "id": "reverie_dreams:beverage-fourteenth_night",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        },
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/fourteenth_night",
+        "count": 1
+      },
+      "cost_time": 1300
+    },
+    {
+      "id": "reverie_dreams:beverage-fruity_high_ball",
+      "materials": [
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/fruity_high_ball",
+        "count": 1
+      },
+      "cost_time": 1380
+    },
+    {
+      "id": "reverie_dreams:beverage-fruity_sour",
+      "materials": [
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_salt",
+          "count": 1
+        },
+        {
+          "id": "minecraft:sweet_berries",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/fruity_sour",
+        "count": 1
+      },
+      "cost_time": 1380
+    },
+    {
+      "id": "reverie_dreams:beverage-godfather",
+      "materials": [
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/godfather",
+        "count": 1
+      },
+      "cost_time": 1320
+    },
+    {
+      "id": "reverie_dreams:beverage-gods_wheat",
+      "materials": [
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/gods_wheat",
+        "count": 1
+      },
+      "cost_time": 1120
+    },
+    {
+      "id": "reverie_dreams:beverage-green_tea",
+      "materials": [
+        {
+          "id": "minecraft:oak_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:oak_leaves",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/green_tea",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-gyokuro_tea",
+      "materials": [
+        {
+          "id": "minecraft:dark_oak_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:dark_oak_leaves",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/gyokuro_tea",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-heaven_and_earth_are_useless",
+      "materials": [
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:bone",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/heaven_and_earth_are_useless",
+        "count": 1
+      },
+      "cost_time": 780
+    },
+    {
+      "id": "reverie_dreams:beverage-iceberg_maple_frozen_lemon",
+      "materials": [
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/iceberg_maple_frozen_lemon",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-komeiji_ice_cream",
+      "materials": [
+        {
+          "id": "minecraft:snow",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/flowers",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ficus_microcarpa",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/komeiji_ice_cream",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-mango_pomelo_sago",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/butter",
+          "count": 1
+        },
+        {
+          "id": "minecraft:oak_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/mango_pomelo_sago",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-milk",
+      "materials": [
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        },
+        {
+          "id": "minecraft:milk_bucket",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/milk",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-mojito_burst_ball",
+      "materials": [
+        {
+          "id": "minecraft:kelp",
+          "count": 1
+        },
+        {
+          "id": "minecraft:bone_meal",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_salt",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/mojito_burst_ball",
+        "count": 1
+      },
+      "cost_time": 840
+    },
+    {
+      "id": "reverie_dreams:beverage-moon_rocket",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/moonflower",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/moon_rocket",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-negroni",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/ginkgo",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/negroni",
+        "count": 1
+      },
+      "cost_time": 1300
+    },
+    {
+      "id": "reverie_dreams:beverage-ordinary_fitness_tea",
+      "materials": [
+        {
+          "id": "minecraft:dark_oak_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:dark_oak_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/ordinary_fitness_tea",
+        "count": 1
+      },
+      "cost_time": 940
+    },
+    {
+      "id": "reverie_dreams:beverage-otter_festival",
+      "materials": [
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/otter_festival",
+        "count": 1
+      },
+      "cost_time": 1120
+    },
+    {
+      "id": "reverie_dreams:beverage-paleo_creamy_smoothie",
+      "materials": [
+        {
+          "id": "minecraft:milk_bucket",
+          "count": 1
+        },
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        },
+        {
+          "id": "minecraft:ice",
+          "count": 1
+        },
+        {
+          "id": "minecraft:snowball",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/paleo_creamy_smoothie",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-plum_wine",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/plum",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/plum",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/plum_wine",
+        "count": 1
+      },
+      "cost_time": 1120
+    },
+    {
+      "id": "reverie_dreams:beverage-qi",
+      "materials": [
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_salt",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/black_salt",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/qi",
+        "count": 1
+      },
+      "cost_time": 1560
+    },
+    {
+      "id": "reverie_dreams:beverage-qi_health",
+      "materials": [
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        },
+        {
+          "id": "minecraft:birch_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:birch_leaves",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/qi_health",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-qilin",
+      "materials": [
+        {
+          "id": "minecraft:nether_wart",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/qilin",
+        "count": 1
+      },
+      "cost_time": 580
+    },
+    {
+      "id": "reverie_dreams:beverage-red_grapefruit_juice",
+      "materials": [
+        {
+          "id": "minecraft:sweet_berries",
+          "count": 1
+        },
+        {
+          "id": "minecraft:sweet_berries",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/red_grapefruit_juice",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-red_mist",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/grape",
+          "count": 1
+        },
+        {
+          "id": "minecraft:rose_bush",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/red_mist",
+        "count": 1
+      },
+      "cost_time": 760
+    },
+    {
+      "id": "reverie_dreams:beverage-satellite_iced_coffee",
+      "materials": [
+        {
+          "id": "minecraft:cocoa_beans",
+          "count": 1
+        },
+        {
+          "id": "minecraft:ice",
+          "count": 1
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/satellite_iced_coffee",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-scarlet_devil",
+      "materials": [
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/tomato",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/scarlet_devil",
+        "count": 1
+      },
+      "cost_time": 840
+    },
+    {
+      "id": "reverie_dreams:beverage-scarlet_devil_mansion_black_tea",
+      "materials": [
+        {
+          "id": "minecraft:cherry_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:acacia_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:dark_oak_leaves",
+          "count": 1
+        },
+        {
+          "id": "minecraft:poppy",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/scarlet_devil_mansion_black_tea",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-soda",
+      "materials": [
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        },
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/soda",
+        "count": 1
+      },
+      "cost_time": 60
+    },
+    {
+      "id": "reverie_dreams:beverage-space_beer",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/lemon",
+          "count": 1
+        },
+        {
+          "id": "minecraft:gunpowder",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/space_beer",
+        "count": 1
+      },
+      "cost_time": 940
+    },
+    {
+      "id": "reverie_dreams:beverage-sparrow_sake",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "minecraft:bamboo",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/dew",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/sparrow_sake",
+        "count": 1
+      },
+      "cost_time": 1120
+    },
+    {
+      "id": "reverie_dreams:beverage-sun_moon_star",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:ingredient/sticky_rice",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/sun_moon_star",
+        "count": 1
+      },
+      "cost_time": 940
+    },
+    {
+      "id": "reverie_dreams:beverage-tengu_dance",
+      "materials": [
+        {
+          "id": "minecraft:rabbit_foot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:red_mushroom",
+          "count": 1
+        },
+        {
+          "id": "minecraft:quartz",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/tengu_dance",
+        "count": 1
+      },
+      "cost_time": 1320
+    },
+    {
+      "id": "reverie_dreams:beverage-winter_brew",
+      "materials": [
+        {
+          "id": "reverie_dreams:ingredient/flowers",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        },
+        {
+          "id": "minecraft:wheat_seeds",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:beverage/winter_brew",
+        "count": 1
+      },
+      "cost_time": 1020
+    }
+  ],
+  "ice_outputs": [
+    "minecraft:ice",
+    "minecraft:snowball",
+    "reverie_dreams:magic_ice"
+  ]
+}

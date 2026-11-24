@@ -1,0 +1,373 @@
+{
+  "assets/reverie_dreams/items/dried_herbs.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/dried_herbs"
+    }
+  },
+  "assets/reverie_dreams/items/herbal_powder.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/herbal_powder"
+    }
+  },
+  "assets/reverie_dreams/items/ema.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/ema"
+    }
+  },
+  "assets/reverie_dreams/items/ofuda.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/ofuda"
+    }
+  },
+  "assets/reverie_dreams/items/omamori.json": {
+    "model": {
+      "type": "minecraft:model",
+      "model": "reverie_dreams:item/omamori"
+    }
+  },
+  "data/reverie_dreams/recipe/ema.json": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      "#minecraft:wooden_slabs",
+      "minecraft:paper",
+      "minecraft:string"
+    ],
+    "result": {
+      "id": "reverie_dreams:ema",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/ema.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_paper": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:paper"
+              ]
+            }
+          ]
+        }
+      },
+      "has_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:ema"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_paper",
+        "has_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:ema"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/ofuda.json": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      "minecraft:paper",
+      "minecraft:red_dye",
+      "minecraft:feather"
+    ],
+    "result": {
+      "id": "reverie_dreams:ofuda",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/ofuda.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_paper": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:paper"
+              ]
+            }
+          ]
+        }
+      },
+      "has_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:ofuda"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_paper",
+        "has_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:ofuda"
+      ]
+    }
+  },
+  "data/reverie_dreams/recipe/omamori.json": {
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      "minecraft:paper",
+      "minecraft:string",
+      "#minecraft:wool"
+    ],
+    "result": {
+      "id": "reverie_dreams:omamori",
+      "count": 1
+    }
+  },
+  "data/reverie_dreams/advancement/recipes/decorations/omamori.json": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_paper": {
+        "trigger": "minecraft:inventory_changed",
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:paper"
+              ]
+            }
+          ]
+        }
+      },
+      "has_recipe": {
+        "trigger": "minecraft:recipe_unlocked",
+        "conditions": {
+          "recipe": "reverie_dreams:omamori"
+        }
+      }
+    },
+    "requirements": [
+      [
+        "has_paper",
+        "has_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "reverie_dreams:omamori"
+      ]
+    }
+  },
+  "data/reverie_dreams/milling_recipe/soybean.json": {
+    "ingredient": "reverie_dreams:ingredient/soybean",
+    "output": {
+      "id": "reverie_dreams:ingredient/soy_milk",
+      "count": 1
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/milling_recipe/wheat.json": {
+    "ingredient": "minecraft:wheat",
+    "output": {
+      "id": "reverie_dreams:ingredient/flour",
+      "count": 1
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/poppy.json": {
+    "ingredient": "minecraft:poppy",
+    "output": {
+      "id": "minecraft:red_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/dandelion.json": {
+    "ingredient": "minecraft:dandelion",
+    "output": {
+      "id": "minecraft:yellow_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/blue_orchid.json": {
+    "ingredient": "minecraft:blue_orchid",
+    "output": {
+      "id": "minecraft:light_blue_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/allium.json": {
+    "ingredient": "minecraft:allium",
+    "output": {
+      "id": "minecraft:magenta_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/azure_bluet.json": {
+    "ingredient": "minecraft:azure_bluet",
+    "output": {
+      "id": "minecraft:light_gray_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/red_tulip.json": {
+    "ingredient": "minecraft:red_tulip",
+    "output": {
+      "id": "minecraft:red_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/orange_tulip.json": {
+    "ingredient": "minecraft:orange_tulip",
+    "output": {
+      "id": "minecraft:orange_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/white_tulip.json": {
+    "ingredient": "minecraft:white_tulip",
+    "output": {
+      "id": "minecraft:light_gray_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/pink_tulip.json": {
+    "ingredient": "minecraft:pink_tulip",
+    "output": {
+      "id": "minecraft:pink_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/oxeye_daisy.json": {
+    "ingredient": "minecraft:oxeye_daisy",
+    "output": {
+      "id": "minecraft:light_gray_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/cornflower.json": {
+    "ingredient": "minecraft:cornflower",
+    "output": {
+      "id": "minecraft:blue_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/lily_of_the_valley.json": {
+    "ingredient": "minecraft:lily_of_the_valley",
+    "output": {
+      "id": "minecraft:white_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/wither_rose.json": {
+    "ingredient": "minecraft:wither_rose",
+    "output": {
+      "id": "minecraft:black_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/torchflower.json": {
+    "ingredient": "minecraft:torchflower",
+    "output": {
+      "id": "minecraft:orange_dye",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/sunflower.json": {
+    "ingredient": "minecraft:sunflower",
+    "output": {
+      "id": "minecraft:yellow_dye",
+      "count": 3
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/lilac.json": {
+    "ingredient": "minecraft:lilac",
+    "output": {
+      "id": "minecraft:magenta_dye",
+      "count": 3
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/rose_bush.json": {
+    "ingredient": "minecraft:rose_bush",
+    "output": {
+      "id": "minecraft:red_dye",
+      "count": 3
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/peony.json": {
+    "ingredient": "minecraft:peony",
+    "output": {
+      "id": "minecraft:pink_dye",
+      "count": 3
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/blaze_rod.json": {
+    "ingredient": "minecraft:blaze_rod",
+    "output": {
+      "id": "minecraft:blaze_powder",
+      "count": 3
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/bone.json": {
+    "ingredient": "minecraft:bone",
+    "output": {
+      "id": "minecraft:bone_meal",
+      "count": 4
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/grinding_recipe/dried_herbs.json": {
+    "ingredient": "reverie_dreams:dried_herbs",
+    "output": {
+      "id": "reverie_dreams:herbal_powder",
+      "count": 2
+    },
+    "work": 8
+  },
+  "data/reverie_dreams/herb_drying_recipe/herbs.json": {
+    "ingredient": "#reverie_dreams:workshop_fresh_herbs",
+    "output": {
+      "id": "reverie_dreams:dried_herbs",
+      "count": 1
+    },
+    "work": 1200
+  },
+  "data/reverie_dreams/tags/item/workshop_fresh_herbs.json": {
+    "replace": false,
+    "values": [
+      "minecraft:fern",
+      "minecraft:dandelion",
+      "minecraft:blue_orchid"
+    ]
+  }
+}

@@ -21,7 +21,7 @@ public class GomokuBlockEntity extends BlockEntity {
 
     /**
      * grid[x][y]
-     *
+     * <p>
      * 0 = EMPTY
      * 1 = BLACK
      * 2 = WHITE

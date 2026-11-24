@@ -1,0 +1,618 @@
+[
+  {
+    "profile": "FOREST_OAK",
+    "seed": 20261103,
+    "min_height": 12,
+    "max_height": 20,
+    "sha256": "e84f672538d98faceb3667d719502283891dbdbfc05b330e3e5455960744bde9"
+  },
+  {
+    "profile": "FOREST_OAK",
+    "seed": 20365832,
+    "min_height": 12,
+    "max_height": 20,
+    "sha256": "055ec91b4eb8d0b2c75377dcbe203bded80cfd98a20465b75ebd436ae6a21854"
+  },
+  {
+    "profile": "FOREST_OAK",
+    "seed": 20470561,
+    "min_height": 12,
+    "max_height": 20,
+    "sha256": "7ffe9d06938da3314f414b520e400d5fbaab1ec2d81dcd9f32a0cbcb45ce07a0"
+  },
+  {
+    "profile": "FOREST_OAK",
+    "seed": 20575290,
+    "min_height": 12,
+    "max_height": 20,
+    "sha256": "78a4022628c97d24d177538d61597d9d1a7ebbaedace3a784c25caf2ca70dd4b"
+  },
+  {
+    "profile": "FOREST_OAK",
+    "seed": 20784748,
+    "min_height": 12,
+    "max_height": 20,
+    "sha256": "ea51022273c109d52df4cc70c57b340fe024329454eb04d9b4ac691d1db78065"
+  },
+  {
+    "profile": "FOREST_BIRCH",
+    "seed": 20261103,
+    "min_height": 14,
+    "max_height": 20,
+    "sha256": "e84f672538d98faceb3667d719502283891dbdbfc05b330e3e5455960744bde9"
+  },
+  {
+    "profile": "FOREST_BIRCH",
+    "seed": 20365832,
+    "min_height": 14,
+    "max_height": 20,
+    "sha256": "42e256c73e6458234169283db0595fa4c6af13264e570940e5c3f06d8e8566e4"
+  },
+  {
+    "profile": "FOREST_BIRCH",
+    "seed": 20470561,
+    "min_height": 14,
+    "max_height": 20,
+    "sha256": "11f5316998e6273e6749baed910d61b5a71ab27a4b7267cd1afd7ade81bf7de6"
+  },
+  {
+    "profile": "FOREST_BIRCH",
+    "seed": 22565141,
+    "min_height": 14,
+    "max_height": 20,
+    "sha256": "8507d8df598bddfb0a7733b86f73c343ccfd144db88fa705527fff0449874009"
+  },
+  {
+    "profile": "TALL_BIRCH",
+    "seed": 20261103,
+    "min_height": 20,
+    "max_height": 24,
+    "sha256": "7fa970ed0f933e3535548f4625f5c4206deca1a652c834f81a179967e37e2a92"
+  },
+  {
+    "profile": "TALL_BIRCH",
+    "seed": 20365832,
+    "min_height": 20,
+    "max_height": 24,
+    "sha256": "e692eba91c5532a8c706713e41b4d5c415401cba39ce3ef3b2eedd1dd601634e"
+  },
+  {
+    "profile": "TALL_BIRCH",
+    "seed": 20470561,
+    "min_height": 20,
+    "max_height": 24,
+    "sha256": "df411dad1e238f0f8f4c95e61dac8281384de37c9c6be95c4c0792188c70a030"
+  },
+  {
+    "profile": "TALL_BIRCH",
+    "seed": 22565141,
+    "min_height": 20,
+    "max_height": 24,
+    "sha256": "b1e8afd4bcf46e90cf846971ab286190ab66931212bde4fa664f14b98faf0964"
+  },
+  {
+    "profile": "YOUNG_BIRCH",
+    "seed": 20261103,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "321da2a5f355c00f8b1b7394174182b6f798b0332bb5616b7bda7b3ca6f378db"
+  },
+  {
+    "profile": "YOUNG_BIRCH",
+    "seed": 20365832,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "b06ac1ab551ad496aa15d1b87493a660575513c4d156beccf6de6c49d024c3f3"
+  },
+  {
+    "profile": "YOUNG_BIRCH",
+    "seed": 20470561,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "23296701e1ce6c41d45a9434feccf6df7bacf72c91ff0cac88c37eb1617fe698"
+  },
+  {
+    "profile": "YOUNG_BIRCH",
+    "seed": 22565141,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "22cdb60678fddc101aedf5c78a1fc1d9d5f43d0daaba826ea767168f54f2a988"
+  },
+  {
+    "profile": "SPRUCE",
+    "seed": 20261103,
+    "min_height": 18,
+    "max_height": 30,
+    "sha256": "6abe8248d18e5a7efcea0afd9e4058102aa18e6403fb69aede600db296c38cd7"
+  },
+  {
+    "profile": "SPRUCE",
+    "seed": 20365832,
+    "min_height": 18,
+    "max_height": 30,
+    "sha256": "2696225a5ba85474d938c6cb61a253448e724d342080be7f83ed1610e6111f2d"
+  },
+  {
+    "profile": "SPRUCE",
+    "seed": 20470561,
+    "min_height": 18,
+    "max_height": 30,
+    "sha256": "eb36617a59a1d8b8c4935c9af163387665045b10f57449bf1925d847db73dfd5"
+  },
+  {
+    "profile": "YOUNG_SPRUCE",
+    "seed": 20261103,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "949e4a45b00e245bb1c4eea5767db6f1d587fcc6ad2e8cae541896652266a9b8"
+  },
+  {
+    "profile": "YOUNG_SPRUCE",
+    "seed": 20365832,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "3486f06cc032a970b09e1a40f2f3e34ce056882669f4f6ff573799ac7aba97f6"
+  },
+  {
+    "profile": "YOUNG_SPRUCE",
+    "seed": 20470561,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "6726aed17d3d9b3d2d3f95c15f82940f89042575459d0dd45c36b40e3bb02eaf"
+  },
+  {
+    "profile": "CHERRY",
+    "seed": 20261103,
+    "min_height": 10,
+    "max_height": 18,
+    "sha256": "f897d537547f26521e439d7b3902e7711d516aad255534cf83d70d8d42dc5089"
+  },
+  {
+    "profile": "CHERRY",
+    "seed": 20365832,
+    "min_height": 10,
+    "max_height": 18,
+    "sha256": "1eb89ee5590c294993d3182ddd419de3ccd7dae9e52a5038d6112851818cc3a5"
+  },
+  {
+    "profile": "CHERRY",
+    "seed": 20470561,
+    "min_height": 10,
+    "max_height": 18,
+    "sha256": "c9b5a78516c7d049bc3f57757991f18b2e8ad91defbc8655d4cc3b64315a6560"
+  },
+  {
+    "profile": "CHERRY",
+    "seed": 20575290,
+    "min_height": 10,
+    "max_height": 18,
+    "sha256": "f8fe74867a5c9a10aa14f1aa05d8111bd6bb98a0cda740aeb6e02067c9212ee4"
+  },
+  {
+    "profile": "CHERRY",
+    "seed": 20784748,
+    "min_height": 10,
+    "max_height": 18,
+    "sha256": "c6ccdb7faad77f974d5c5cd8476dfb846c2ed8172bfaa3b1c3e7f47f9077d426"
+  },
+  {
+    "profile": "YOUNG_CHERRY",
+    "seed": 20261103,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "f384073ef6ce78e5cf8d0bec5f8506d096d9892f9f3914a969039562f24bbe57"
+  },
+  {
+    "profile": "YOUNG_CHERRY",
+    "seed": 20365832,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "b99b389dfc8f9d28a2341ec0e6b0a798318768eeacd0b02e62d4d1fd85d9fcc9"
+  },
+  {
+    "profile": "YOUNG_CHERRY",
+    "seed": 20470561,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "4e3588984977e6de5a22fbba29377c15acab01e53a5a03b688ec1061e32d3623"
+  },
+  {
+    "profile": "YOUNG_CHERRY",
+    "seed": 20575290,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "4fe64fc9f41db904af5558d2ca5a9e511524970b3a34421e773a4841b122a6a1"
+  },
+  {
+    "profile": "YOUNG_CHERRY",
+    "seed": 20784748,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "5b8b7db7c89493ebfdae003edc05bb54cb4fb0dc9ca03f6e1b60a74bc11bf8ce"
+  },
+  {
+    "profile": "DARK_OAK",
+    "seed": 20261103,
+    "min_height": 16,
+    "max_height": 26,
+    "sha256": "734078f6b34d680b933c85c672dfed6895f46c5c0da7e02f2c4eecd21a199f51"
+  },
+  {
+    "profile": "DARK_OAK",
+    "seed": 20365832,
+    "min_height": 16,
+    "max_height": 26,
+    "sha256": "580dde442d8731f997d0019cdd8f88f47b38724446106240b6146709fa1273b2"
+  },
+  {
+    "profile": "DARK_OAK",
+    "seed": 20470561,
+    "min_height": 16,
+    "max_height": 26,
+    "sha256": "d37233f4c9cc9675a13a95f784eef30a2ea353e309762163690ce06a82b08f8b"
+  },
+  {
+    "profile": "DARK_OAK",
+    "seed": 20575290,
+    "min_height": 16,
+    "max_height": 26,
+    "sha256": "8a1daeb2c8a49c57fab68f65a8bccd6409f2baf05aef417097a43bfbcfa3f07f"
+  },
+  {
+    "profile": "DARK_OAK",
+    "seed": 20784748,
+    "min_height": 16,
+    "max_height": 26,
+    "sha256": "7e11fdd03bc11c3e92066676a31b349b75b814937a9c6cfad4237664cdb24214"
+  },
+  {
+    "profile": "MAGIC_OAK",
+    "seed": 20261103,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "3c80fb491865295425925af74bc8919d8051e703e16010596f79714f6701770a"
+  },
+  {
+    "profile": "MAGIC_OAK",
+    "seed": 20365832,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "d7a81bb420c8a003f592d873865fd399ba666d56e5a73a88f748bd01aab2dbea"
+  },
+  {
+    "profile": "MAGIC_OAK",
+    "seed": 20470561,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "0fb87923814697948cbf3baaf035a0b97067daaff32e5f039e771d97b88ab0c1"
+  },
+  {
+    "profile": "MAGIC_OAK",
+    "seed": 20575290,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "4367f4a587a69eb0fab056acde93c1b7a78ad3bdd8cba8e26c8932a52bb3a7e4"
+  },
+  {
+    "profile": "MAGIC_OAK",
+    "seed": 20784748,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "12bda8c1b7d4bb7145ebbba15389ed3e80d701e8c8bdee809d8ef263ec56232a"
+  },
+  {
+    "profile": "MAGIC_DARK_OAK",
+    "seed": 20261103,
+    "min_height": 22,
+    "max_height": 32,
+    "sha256": "11ae81d7f8e2e19943e4e0423fdde41cb4a611c08d21e5561f3c82c0f952f5ff"
+  },
+  {
+    "profile": "MAGIC_DARK_OAK",
+    "seed": 20365832,
+    "min_height": 22,
+    "max_height": 32,
+    "sha256": "ef5568a808545e965c33aec1e7cb533427ea1d9156bc2449ca8d95aea0ac8ac4"
+  },
+  {
+    "profile": "MAGIC_DARK_OAK",
+    "seed": 20470561,
+    "min_height": 22,
+    "max_height": 32,
+    "sha256": "5db156829fa305076aa4ff64353d094c68801a8ca5241b1002091c8214d3e3a4"
+  },
+  {
+    "profile": "MAGIC_DARK_OAK",
+    "seed": 20575290,
+    "min_height": 22,
+    "max_height": 32,
+    "sha256": "f23126a9ab33aaeece4409299edca7422da283eda28ab09ee25434b7e08f42b1"
+  },
+  {
+    "profile": "MAGIC_DARK_OAK",
+    "seed": 20784748,
+    "min_height": 22,
+    "max_height": 32,
+    "sha256": "31a4d097d41f79b2f3353a2991b6cc43ddcaa735ec0280aa954f479f544f2472"
+  },
+  {
+    "profile": "UNDERSTORY_OAK",
+    "seed": 20261103,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "364eb3de48e231dd8ee085d1fc197750aed79e329a2c218c42b5e659161682fe"
+  },
+  {
+    "profile": "UNDERSTORY_OAK",
+    "seed": 20365832,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "c3cd12c5482d2cdcff389d98ec4d40278c6a9ab053dfb5c3bc1eceff29387ea5"
+  },
+  {
+    "profile": "UNDERSTORY_OAK",
+    "seed": 20470561,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "159e5175f46a1df94a1c13348aae961df3cd5165678e509f2692a16b1b7373e0"
+  },
+  {
+    "profile": "UNDERSTORY_OAK",
+    "seed": 20575290,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "dae4cf2f78119fa4a2046f32c560ce0343fc841e465f02d29334f314a03ae924"
+  },
+  {
+    "profile": "UNDERSTORY_OAK",
+    "seed": 20784748,
+    "min_height": 8,
+    "max_height": 14,
+    "sha256": "a0ec71558ceec56c6f8c2a18ec1dcb2a1f59b008bc35b2397834a0c746ba364d"
+  },
+  {
+    "profile": "IROHA_MAPLE",
+    "seed": 20261103,
+    "min_height": 12,
+    "max_height": 18,
+    "sha256": "f897d537547f26521e439d7b3902e7711d516aad255534cf83d70d8d42dc5089"
+  },
+  {
+    "profile": "IROHA_MAPLE",
+    "seed": 20365832,
+    "min_height": 12,
+    "max_height": 18,
+    "sha256": "6722d463c560d08731b4bd8a7cfdfc6c65710d2e7b0993a18a61a8cddd84fa3b"
+  },
+  {
+    "profile": "IROHA_MAPLE",
+    "seed": 20470561,
+    "min_height": 12,
+    "max_height": 18,
+    "sha256": "c9b5a78516c7d049bc3f57757991f18b2e8ad91defbc8655d4cc3b64315a6560"
+  },
+  {
+    "profile": "IROHA_MAPLE",
+    "seed": 20575290,
+    "min_height": 12,
+    "max_height": 18,
+    "sha256": "e3fbe24e0cea4151f2788b9c2eb0e603e4f14e9b46b25dac54909d1b405fa4b4"
+  },
+  {
+    "profile": "IROHA_MAPLE",
+    "seed": 20784748,
+    "min_height": 12,
+    "max_height": 18,
+    "sha256": "cb4540e652d38a7910b49dfc4c810711497a44386a8148bb340ab8e468f69609"
+  },
+  {
+    "profile": "YOUNG_IROHA_MAPLE",
+    "seed": 20261103,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "867e7bd05027ddc7f9e782a769216e53d2bdfc20d821ee9f33a5727c65538ed3"
+  },
+  {
+    "profile": "YOUNG_IROHA_MAPLE",
+    "seed": 20365832,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "bf68a8d5cdf34d9306ba1212168fe58b4af601271be8a7746df3505aea5b7a98"
+  },
+  {
+    "profile": "YOUNG_IROHA_MAPLE",
+    "seed": 20470561,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "4e3588984977e6de5a22fbba29377c15acab01e53a5a03b688ec1061e32d3623"
+  },
+  {
+    "profile": "YOUNG_IROHA_MAPLE",
+    "seed": 20575290,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "2da64fa25993aada1e036a55c455eec4c864823bf762b6efc3d4219f56a56857"
+  },
+  {
+    "profile": "YOUNG_IROHA_MAPLE",
+    "seed": 20784748,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "c16117e8aeae51a28c604392efe9b9600b11926b4758b773f48ed0a4d4ec6e86"
+  },
+  {
+    "profile": "ITAYA_MAPLE",
+    "seed": 20261103,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "cb7fd871e129de6fa8b73718e929a754e5357820fe06eacd617c42010158f754"
+  },
+  {
+    "profile": "ITAYA_MAPLE",
+    "seed": 20365832,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "5efc0bc423d891ffa9134510d0118a2ba5fdcbc44a4bce5a12dbe6a4d1bb9599"
+  },
+  {
+    "profile": "ITAYA_MAPLE",
+    "seed": 20470561,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "57c6e674f2ba602ccea0172a9e6199b3824ecd5b576bf77d7aebf6797270f637"
+  },
+  {
+    "profile": "ITAYA_MAPLE",
+    "seed": 20575290,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "266b222965c3215b7ab754fe0939479c3e6e7e7fafb122a6b62d63f6c1526449"
+  },
+  {
+    "profile": "ITAYA_MAPLE",
+    "seed": 20784748,
+    "min_height": 18,
+    "max_height": 26,
+    "sha256": "09ab7b4e093e68a38741a7683d1d797a4ba1ec1b128aaba5a87cae7323d46a25"
+  },
+  {
+    "profile": "YOUNG_ITAYA_MAPLE",
+    "seed": 20261103,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "321da2a5f355c00f8b1b7394174182b6f798b0332bb5616b7bda7b3ca6f378db"
+  },
+  {
+    "profile": "YOUNG_ITAYA_MAPLE",
+    "seed": 20365832,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "513115d4f440fd44d8048bf5e0d20269220de4c003e78e2b3b007e95e31a5b4c"
+  },
+  {
+    "profile": "YOUNG_ITAYA_MAPLE",
+    "seed": 20470561,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "b575c91ed35a766ec0f2e3309be23c0738fe80a68503faaa1f4df29d1e44188d"
+  },
+  {
+    "profile": "YOUNG_ITAYA_MAPLE",
+    "seed": 20575290,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "4b7d745452ede0441725a88cc2fe7ce9918d1c15ecacb25a3e9c0573852aaf42"
+  },
+  {
+    "profile": "YOUNG_ITAYA_MAPLE",
+    "seed": 20784748,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "f1064a40a71f4803438f69617f61514a4e3740b32d9da749aa3272ef4aa36a8d"
+  },
+  {
+    "profile": "OLD_ITAYA_MAPLE",
+    "seed": 20261103,
+    "min_height": 26,
+    "max_height": 32,
+    "sha256": "0816e44336194c2424c99990f2694a9882f4847c98210be40b0015bb35a1d112"
+  },
+  {
+    "profile": "OLD_ITAYA_MAPLE",
+    "seed": 20365832,
+    "min_height": 26,
+    "max_height": 32,
+    "sha256": "bb7a1026ca5089869fdb0db8a5871466ac1f0cdf4ee2814ef7f44e881040cfca"
+  },
+  {
+    "profile": "OLD_ITAYA_MAPLE",
+    "seed": 20470561,
+    "min_height": 26,
+    "max_height": 32,
+    "sha256": "16f2e986a00bc0a3900928821c1fba8b3df2b617948872b5abd2abc06db05506"
+  },
+  {
+    "profile": "OLD_ITAYA_MAPLE",
+    "seed": 20575290,
+    "min_height": 26,
+    "max_height": 32,
+    "sha256": "f23126a9ab33aaeece4409299edca7422da283eda28ab09ee25434b7e08f42b1"
+  },
+  {
+    "profile": "OLD_ITAYA_MAPLE",
+    "seed": 20784748,
+    "min_height": 26,
+    "max_height": 32,
+    "sha256": "cca01a221861e0889086996384b0124889f3c6e3ef31fa81fd12bd2ac2d4e84d"
+  },
+  {
+    "profile": "HAUCHIWA_MAPLE",
+    "seed": 20261103,
+    "min_height": 14,
+    "max_height": 22,
+    "sha256": "dea4f9b36f604cf36c9adb9bdd0c46a25f3090fe823472cb1247356232789ba5"
+  },
+  {
+    "profile": "HAUCHIWA_MAPLE",
+    "seed": 20365832,
+    "min_height": 14,
+    "max_height": 22,
+    "sha256": "16e1ad888d23612a519b07404f6466fc3d14ff458bb0b8ba3c29540c19f1dfb2"
+  },
+  {
+    "profile": "HAUCHIWA_MAPLE",
+    "seed": 20470561,
+    "min_height": 14,
+    "max_height": 22,
+    "sha256": "a12b46d563b2db53d02e6c86efb6a4f4348cc2c95baef7c9f3f8e1b98d70ac67"
+  },
+  {
+    "profile": "HAUCHIWA_MAPLE",
+    "seed": 20575290,
+    "min_height": 14,
+    "max_height": 22,
+    "sha256": "52ca8ed8115b6af35745bff18d95a60b032b0e7a8f47a842b1ab9b658b98b83e"
+  },
+  {
+    "profile": "HAUCHIWA_MAPLE",
+    "seed": 20784748,
+    "min_height": 14,
+    "max_height": 22,
+    "sha256": "f5f59962fea0e9b212a79d1cb49f9ac44a8df19ee2c10b5d8d25c5273b8afc91"
+  },
+  {
+    "profile": "YOUNG_HAUCHIWA_MAPLE",
+    "seed": 20261103,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "f384073ef6ce78e5cf8d0bec5f8506d096d9892f9f3914a969039562f24bbe57"
+  },
+  {
+    "profile": "YOUNG_HAUCHIWA_MAPLE",
+    "seed": 20365832,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "b99b389dfc8f9d28a2341ec0e6b0a798318768eeacd0b02e62d4d1fd85d9fcc9"
+  },
+  {
+    "profile": "YOUNG_HAUCHIWA_MAPLE",
+    "seed": 20470561,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "4e3588984977e6de5a22fbba29377c15acab01e53a5a03b688ec1061e32d3623"
+  },
+  {
+    "profile": "YOUNG_HAUCHIWA_MAPLE",
+    "seed": 20575290,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "4fe64fc9f41db904af5558d2ca5a9e511524970b3a34421e773a4841b122a6a1"
+  },
+  {
+    "profile": "YOUNG_HAUCHIWA_MAPLE",
+    "seed": 20784748,
+    "min_height": 8,
+    "max_height": 12,
+    "sha256": "5b8b7db7c89493ebfdae003edc05bb54cb4fb0dc9ca03f6e1b60a74bc11bf8ce"
+  }
+]

@@ -5,6 +5,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ToolMaterial;
 
 public interface DreamMaterial {
-    ToolMaterial INSTANCE = new ToolMaterial(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 220, 5.5f, 3.5f, 14, RDItemTags.DREAM_TOOL_MATERIALS);
+    ToolMaterial INSTANCE = new ToolMaterial(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 1400, 8.5f, 4.0f, 16, RDItemTags.DREAM_TOOL_MATERIALS);
 
 }

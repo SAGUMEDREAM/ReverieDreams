@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "reverie_dreams:block/lemon_planks",
+    "side": "reverie_dreams:block/lemon_planks",
+    "top": "reverie_dreams:block/lemon_planks"
+  }
+}

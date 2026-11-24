@@ -17,12 +17,13 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 
 public class SwordOfHisou extends SwordItem {
-    public static final ToolMaterial HISOU = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.0f, 4.5f, 10, RDItemTags.PEACH);
-    private static final float LIGHTNING_CHANCE = 0.15F;
+    public static final ToolMaterial HISOU = new ToolMaterial(RDBlockTags.EMPTY, 1200, 7.5f, 4.0f, 12, RDItemTags.PEACH);
+    private static final float LIGHTNING_CHANCE = 0.08F;
 
     public SwordOfHisou(float attackDamage, float attackSpeed, Properties settings) {
         super(HISOU, attackDamage, attackSpeed, settings);
     }
+
     @Override
     public void hurtEnemy(
             ItemStack stack,
@@ -52,7 +53,7 @@ public class SwordOfHisou extends SwordItem {
                 );
             }
 
-            if (serverLevel.isRaining() && serverLevel.getRandom().nextFloat() < 0.3F) {
+            if (serverLevel.isRaining() && serverLevel.getRandom().nextFloat() < 0.15F) {
                 if (serverLevel.isThundering()) {
                     target.setRemainingFireTicks(2 * 20);
                     serverLevel.playSound(

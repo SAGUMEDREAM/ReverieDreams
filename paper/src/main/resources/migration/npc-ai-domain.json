@@ -1,0 +1,728 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "minecraft": "26.1.2",
+    "paperBuild": 74,
+    "craftEngine": "26.8.2",
+    "java": 25
+  },
+  "sourceDefaults": {
+    "workRadius": 8,
+    "workVerticalRange": 8,
+    "workScanBudget": 128,
+    "workSearchIntervalTicks": 5,
+    "workFullScanPauseTicks": 20,
+    "workClaimsTicks": 200,
+    "workRejectTicks": 200,
+    "navigationRetryTicks": 10,
+    "navigationFailureThreshold": 3,
+    "navigationProgressTimeoutTicks": 100,
+    "farmReach": 2,
+    "meleeSpeed": 1.5,
+    "meleeIntervalTicks": 20,
+    "meleePathRetryMin": 4,
+    "meleePathRetryMax": 10,
+    "followRange": 32,
+    "guardSearchTicks": 20,
+    "guardPatrol": true,
+    "guardTargetPriority": "owner_threat",
+    "breedSearchTicks": 20,
+    "breedMaxAnimals": 32,
+    "breedFoodReserve": 2,
+    "animalReach": 1.8,
+    "animalFinalDistanceSquared": 4,
+    "loveTicks": 600,
+    "shearSearchTicks": 20,
+    "honeySearchTicks": 20,
+    "honeyRequireSmoke": true,
+    "honeyProduct": "auto",
+    "honeyReach": 2.5,
+    "productionCollectPriority": 5,
+    "productionCollectReach": 1.5,
+    "productionCollectSearchTicks": 20
+  },
+  "sourceStates": [
+    "reverie_dreams:follow",
+    "reverie_dreams:normal",
+    "reverie_dreams:no_walk",
+    "reverie_dreams:sneaking",
+    "reverie_dreams:seated",
+    "reverie_dreams:working"
+  ],
+  "sourceWorkModes": [
+    "reverie_dreams:combat",
+    "reverie_dreams:farm",
+    "reverie_dreams:breed",
+    "reverie_dreams:sheep_shearing",
+    "reverie_dreams:smelt",
+    "reverie_dreams:chest_classification",
+    "reverie_dreams:playing_music",
+    "reverie_dreams:honeycomb_harvesting",
+    "reverie_dreams:fishing",
+    "reverie_dreams:customer"
+  ],
+  "implementedModes": [
+    "reverie_dreams:combat",
+    "reverie_dreams:farm",
+    "reverie_dreams:breed",
+    "reverie_dreams:sheep_shearing",
+    "reverie_dreams:smelt",
+    "reverie_dreams:chest_classification",
+    "reverie_dreams:honeycomb_harvesting"
+  ],
+  "implemented": [
+    "persistent working state and work site/mode; separate existing24-slot snapshot preserved",
+    "same-source incremental work-area ordering and loaded-chunk-only search",
+    "farm harvest reserves one matching seed from generated loot or cargo then hands, commits age0 first and only then delivers cargo0..17+overflow",
+    "empty plots require selected seed in main/off-hand22/23, successful commit consumes1",
+    "EntityChangeBlockEvent cancellation plus source-state/inventory compare prevents unpaid harvest or stale inventory overwrite",
+    "nearby-owner work inventory menu; original Follow left-click retained, right-click opens work menu",
+    "owner target/owner attacker/retaliation event bridges with canonical carrier IDs, friendly owner/pet/team and EnderDragon filters",
+    "bounded32range native ordinary melee and 7-point collider line of sight;20tick interval; original extra1durability after native success",
+    "guard named-monster exclusion, reachable candidate and owner-threat priority; return to center and bounded patrol",
+    "source owner sneaking empty-hands control hit cancels damage and clears combat",
+    "work JSON/action diagnostic counter preserved in entityPDC and copied into death archive",
+    "NPC four human armor slots native slot-aware durability, helmet source tag separate pass, pre-armor float formula and DAMAGE_RESISTANT/UNBREAKABLE/equippable checks",
+    "ordinary melee extra1durability now uses native HAND slot and supports unowned source NPCs too",
+    "persisted real cargo/mainhand WorkToolLease swaps with conservative restore, archive metadata and load recovery",
+    "BREED adult unnamed same-species pair, cross-chunk region reservations,32limit including expected offspring,2food reserve,600love and actual use remainder",
+    "source white_radish CE ID extends pig/rabbit breeding food, no invented player breeder UUID",
+    "SHEEP_SHEARING real native Paper sheep shear,1actual shears durability only after sheared state",
+    "HONEYCOMB_HARVESTING exact smoke predicate, honey0 commit first, actual bottle/shears and native hive block entity preserved",
+    "default26.1 harvest/beehive3honeycomb explicit public-API loot adapter",
+    "production actual Item pickup Goal to real cargo0..17 with capacity/claim/expected stack and inventory checks",
+    "owner work UI enables five genuine modes; honey product and smoke settings persisted per NPC as explicit target configuration adaptation",
+    "SMELT real loaded furnace/blast furnace/smoker inventories: collect output2/nonfuel remainder1, fuel top-up threshold8, then valid matching input; native Paper recipe matcher/burn/progress/results",
+    "CE configured fuel_time adapter prevents PAPER custom wood from being mis-collected as nonfuel; actual FurnaceBurnEvent remains CE native processing",
+    "CHEST_CLASSIFICATION source frame modes ITEM/CATEGORY/INPUT/OVERFLOW/AUTO/CONFLICT, priority merge/explicit/nonempty/empty/overflow, food16/tool1 source reserves",
+    "live vanilla chest/barrel/double chest and CE silver_chest/wooden_box/CashBoxController automation inventory; cupboard intentionally excluded",
+    "INPUT source shipment moves into actual cargo first, reserves destination, bypasses ordinary export reserves for exactly the routed shipment amount",
+    "NPCInventoryTransferEvent cancellation and both-inventory/state/identity rechecks before actual changed-slot writes; exact-component merge, capacity-aware staging and conditional rollback",
+    "inventory identity comparison uses verified target CraftInventory.equals native container equality; double chest compares ordered native half inventories, CE compares actual block entity/controller identity",
+    "native ContainerProxy.setChanged on actual ongoing furnace, explicit CE blockEntityChanged and CashBoxController.markAutomationChanged after commits; no BlockState.update snapshot write",
+    "source convention category graph mirrored from exact Fabric API0.149.0+26.1.2 convention-tags-v2 4.6.0+e47fb87c4c official Maven artifact, with dynamic minecraft tag refs and generated custom additions"
+  ],
+  "pending": [
+    "3 remaining source work modes explicitly rejected: playing_music,fishing,customer",
+    "NPCWorkLogisticsGoal automatic storage supply/unload demand loop remains independent; current SMELT consumes real cargo supplies and classification routes explicit INPUT storage, no fake automatic supply",
+    "bow/crossbow/spear/danmaku AI and role-specific combat skills",
+    "native Wolf carrier geometry/eye-height/locomotion versus original humanoid",
+    "passive nearby item auto-equipping, inventory/plate eating, hunger, healing, sleep, idle wander/look, temptation, favorability/chat/personality/skill-task progress",
+    "source universal-anger/retaliation group alerts, fire/creeper avoidance",
+    "PaperShearable.shear creates new unenchanted shears for loot context; true held-tool datapack shearing predicates differ",
+    "Bukkit LootContext lacks BLOCK_STATE/TOOL/BLOCK_ENTITY for harvest/beehive; default3adapter does not execute arbitrary datapack harvest loot",
+    "unsmoked hive releaseEntities uses BEE_RELEASED+force, source uses EMERGENCY; blocked entrance release differs",
+    "source global breed/smoke/product configuration UI not fully ported; breed limits use source defaults32/2, honey settings are explicit per-NPC target adaptation",
+    "source beehive native block-entity object identity check not public; expected block data+inventory/event transaction used, same-data hive replacement by a plugin remains a boundary"
+  ],
+  "sourceAudit": {
+    "NPCBowAttackGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/attack/NPCBowAttackGoal.java",
+      "sha256": "08b74621076e555b00ee3a4c333c11641b736d9b66d635a94c71856d44404893",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCBowAttackGoal(T actor, double speed, int attackInterval, float range) {",
+        "public boolean canUse() {",
+        "protected boolean isHoldingBow() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCCrossbowAttackGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/attack/NPCCrossbowAttackGoal.java",
+      "sha256": "93acfa44152c3ed791e74cb554e676ae28d2ecc84e23a25cb6160582c206dcb7",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public static final UniformInt COOLDOWN_RANGE = TimeUtil.rangeOfSeconds(1, 2);",
+        "public NPCCrossbowAttackGoal(BaseNPCLikeEntity maid, double speed, float range) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void stop() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCDanmakuItemGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/attack/NPCDanmakuItemGoal.java",
+      "sha256": "0abdd441b239076fc558cfcaac3b4bae289161e4b7e7b2b7b4173f1fea9684c9",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCDanmakuItemGoal(T actor, double speed, int attackInterval, float range) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public void stop() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCMeleeAttackGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/attack/NPCMeleeAttackGoal.java",
+      "sha256": "80c0fbd06a520a5d6945cc039551b1e84cb3804a9f2b6752add75c5fea800fdf",
+      "status": "implemented_native_attack_source_cadence",
+      "hooks": [
+        "public NPCMeleeAttackGoal(PathfinderMob mob, double speedModifier, boolean followingTargetEvenIfNotSeen) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public void tick() {",
+        "protected void checkAndPerformAttack(LivingEntity target) {",
+        "protected void resetAttackCooldown() {",
+        "protected boolean isTimeToAttack() {",
+        "protected boolean canPerformAttack(LivingEntity target) {",
+        "protected boolean hasLineOfSight(LivingEntity target) {",
+        "protected int getTicksUntilNextAttack() {",
+        "public NPCMeleeAttackGoal setAttackInterval(int attackInterval) {",
+        "public int getAttackInterval() {",
+        "public NPCMeleeAttackGoal setAttackWindup(int attackWindup) {",
+        "public int getAttackWindup() {"
+      ]
+    },
+    "NPCSpearUseGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/attack/NPCSpearUseGoal.java",
+      "sha256": "92326b4c23f6424683be317cd291723938cc95f655dc5925dd94e30825b8a775",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCSpearUseGoal(T mob, double speedModifierWhenCharging, double speedModifierWhenRepositioning, float approachDistanceSq, float targetInRangeRadiusSq) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public void tick() {",
+        "public boolean notEngagedYet() {",
+        "public void startEngagement(int i) {",
+        "public boolean tickAndCheckEngagement() {",
+        "public boolean tickAndCheckFleeing() {"
+      ]
+    },
+    "NPCWeaponOfTheMoonGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/attack/NPCWeaponOfTheMoonGoal.java",
+      "sha256": "064e5d4f2bf62743a89db30e8c6839fdd86c62542e79298a13fcf94aa57083fb",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCWeaponOfTheMoonGoal(T actor, int attackInterval, float range) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public void stop() {",
+        "public void tick() {"
+      ]
+    },
+    "AvoidCreeperExplosionEntityGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/AvoidCreeperExplosionEntityGoal.java",
+      "sha256": "12c43f84056646a538c223001ca0b34f61e38e84bf87801448b15b0d45e07a61",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public AvoidCreeperExplosionEntityGoal(PathfinderMob pathfinderMob, float f, double d, double e) {",
+        "public AvoidCreeperExplosionEntityGoal(",
+        "public AvoidCreeperExplosionEntityGoal(PathfinderMob pathfinderMob, float f, double d, double e, Predicate<? super LivingEntity> predicate) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public void tick() {"
+      ]
+    },
+    "AvoidFireDamageEntityGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/AvoidFireDamageEntityGoal.java",
+      "sha256": "0e8d375ea32e61549188e1c3915ff1682058b78722fb9a5d55215f8b13364bea",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public AvoidFireDamageEntityGoal(PathfinderMob pathfinderMob, float f, double d, double e) {",
+        "public AvoidFireDamageEntityGoal(",
+        "public AvoidFireDamageEntityGoal(PathfinderMob pathfinderMob, float f, double d, double e, Predicate<? super LivingEntity> predicate) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCAttackWithOwnerGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCAttackWithOwnerGoal.java",
+      "sha256": "2e5961498583eec45537c90a9f9d1288a765af8ed5aafd02bf2e00c761baf6b2",
+      "status": "implemented_damage_event_owner_attack",
+      "hooks": [
+        "public NPCAttackWithOwnerGoal(TamableAnimal tameable) {",
+        "public boolean canUse() {",
+        "public void start() {"
+      ]
+    },
+    "NPCAutoPickItemGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCAutoPickItemGoal.java",
+      "sha256": "6ee08ad197c8c4319c9e0fd3a33784d550ba78f937e070e338c4308310dcb93f",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCAutoPickItemGoal(NPCSimpleEntity role) {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public boolean canContinueToUse() {",
+        "public void tick() {",
+        "public boolean canUse() {"
+      ]
+    },
+    "NPCChatMoveGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCChatMoveGoal.java",
+      "sha256": "2af5ad7b5bea07f59ad408f073bb20f67f4f9bc1701cc13dc03a23a9bcc9d5eb",
+      "status": "pending_chat_ui_cohort",
+      "hooks": [
+        "public NPCChatMoveGoal(NPCSimpleEntity npc) {",
+        "public boolean canUse() {",
+        "public void tick() {",
+        "public void stop() {"
+      ]
+    },
+    "NPCEatPlateGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCEatPlateGoal.java",
+      "sha256": "0a6a0f9a3187ba6192ef952cb9346474b1e64c34a02b8329e4553c5eb2a46bf0",
+      "status": "pending_survival_plate_cohort",
+      "hooks": [
+        "public NPCEatPlateGoal(BaseNPCLikeEntity maid, final double speed, final int range, final int maxYDifference) {",
+        "public double acceptedDistance() {",
+        "public boolean shouldRecalculatePath() {",
+        "protected boolean isValidTarget(LevelReader world, BlockPos pos) {",
+        "public void tick() {",
+        "protected void eatBerries() {",
+        "public boolean canUse() {",
+        "public void start() {"
+      ]
+    },
+    "NPCFollowOwnerGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCFollowOwnerGoal.java",
+      "sha256": "e4f8d05698f21b2421ae3717c2e5af5aaabb7142cfe8dd062f35ce03c553190e",
+      "status": "existing_foundation_follow",
+      "hooks": [
+        "public NPCFollowOwnerGoal(TamableAnimal tameable, double speed, float minDistance, float maxDistance) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCHurtByTargetGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCHurtByTargetGoal.java",
+      "sha256": "6c7f2f8236570902f50325a77430d377a8f0cb1af13e9744fff31fc01c178c4a",
+      "status": "implemented_retaliation_friendly_filter_no_group_alert",
+      "hooks": [
+        "public NPCHurtByTargetGoal(BaseNPCLikeEntity mob, Class<?>... ignoreDamageFromTheseTypes) {",
+        "public boolean canUse() {",
+        "public NPCHurtByTargetGoal setAlertOthers(Class<?>... exceptTheseTypes) {",
+        "public void start() {",
+        "protected void alertOthers() {",
+        "protected void alertOther(Mob other, LivingEntity hurtByMob) {"
+      ]
+    },
+    "NPCInventoryEatGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCInventoryEatGoal.java",
+      "sha256": "508c2bd3901085523e29ad8f9f0595a4875285e8d2cb2e79b978e90aa312cb97",
+      "status": "pending_survival_cohort",
+      "hooks": [
+        "public NPCInventoryEatGoal(BaseNPCLikeEntity maid) {",
+        "public boolean canUse() {",
+        "public void start() {",
+        "public void tick() {",
+        "public void stop() {",
+        "public void eat() {"
+      ]
+    },
+    "NPCLookAroundGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCLookAroundGoal.java",
+      "sha256": "df1a2f62150c8897592b5f6d6ba8154fee76e7c4ecd97d9442da653e4b28328a",
+      "status": "pending_idle_movement_cohort",
+      "hooks": [
+        "public NPCLookAroundGoal(Mob mob) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCLookAtEntityGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCLookAtEntityGoal.java",
+      "sha256": "be0a3bd0060cadb3d01d24e7ae3e224c91262728d02c4dc84aab87589506e2d8",
+      "status": "pending_idle_movement_cohort",
+      "hooks": [
+        "public NPCLookAtEntityGoal(Mob mob, Class<? extends LivingEntity> targetType, float range) {",
+        "public NPCLookAtEntityGoal(Mob mob, Class<? extends LivingEntity> targetType, float range, float chance) {",
+        "public NPCLookAtEntityGoal(Mob mob, Class<? extends LivingEntity> targetType, float range, float chance, boolean lookForward) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCOpenDoorGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCOpenDoorGoal.java",
+      "sha256": "16ea793354ddd7c08d793521c260d4febaa4000ccf5595b273d9564aa6f5b6a3",
+      "status": "partial_pathfinder_can_open_doors_source_close_rules_pending",
+      "hooks": [
+        "public NPCOpenDoorGoal(BaseNPCLikeEntity npc) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void tick() {",
+        "public void stop() {"
+      ]
+    },
+    "NPCOpenSilverChestGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCOpenSilverChestGoal.java",
+      "sha256": "a3ba2bad6df1fccacc9b3d5e4b0bf036a2d5f06610115365e861105779da166e",
+      "status": "pending_storage_cohort",
+      "hooks": [
+        "public NPCOpenSilverChestGoal(BaseNPCLikeEntity npc) {",
+        "public boolean canUse() {",
+        "public void tick() {",
+        "public boolean canContinueToUse() {",
+        "public void stop() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public record OperationalTarget(int index,"
+      ]
+    },
+    "NPCTemptGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCTemptGoal.java",
+      "sha256": "652772b150a19c3142e782c1f42e44fa93be2d6fecbcbf72456e1ff2b32b10c4",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCTemptGoal(BaseNPCLikeEntity mob, double speed, Predicate<ItemStack> foodPredicate, boolean canBeScared) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "protected boolean canBeScared() {",
+        "public void start() {",
+        "public void stop() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCTrackOwnerAttackerGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCTrackOwnerAttackerGoal.java",
+      "sha256": "38f3535343298448a41886c2e0d201eb35f062425ef5bdfd9139808ece27c2f7",
+      "status": "implemented_damage_event_owner_defense",
+      "hooks": [
+        "public NPCTrackOwnerAttackerGoal(TamableAnimal tameable) {",
+        "public boolean canUse() {",
+        "public void start() {"
+      ]
+    },
+    "NPCWanderAroundFarGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/NPCWanderAroundFarGoal.java",
+      "sha256": "bdf075034342f46a3b3cd2060b974c9bd8283f70c894c47ca02a40d178afaf88",
+      "status": "pending_idle_movement_cohort",
+      "hooks": [
+        "public NPCWanderAroundFarGoal(BaseNPCLikeEntity pathAwareEntity, double d) {",
+        "public NPCWanderAroundFarGoal(BaseNPCLikeEntity mob, double speed, float probability) {",
+        "public void start() {",
+        "protected Vec3 getPosition() {",
+        "public boolean canUse() {"
+      ]
+    },
+    "SleepAtNightGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/SleepAtNightGoal.java",
+      "sha256": "4bf0938894490a4c064703e162a52ae004ef3753c3ea0148b48326e8f4b29df5",
+      "status": "pending_sleep_pose_cohort",
+      "hooks": [
+        "public SleepAtNightGoal(BaseNPCLikeEntity entity, double speed) {",
+        "public boolean canUse() {",
+        "public void start() {",
+        "public void tick() {",
+        "public boolean canContinueToUse() {",
+        "public void stop() {"
+      ]
+    },
+    "NPCInventoryUtil": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/util/NPCInventoryUtil.java",
+      "sha256": "bf993274bac5e7521c51b38c2a6dd58ffc1c96c4ac772b6c338efe3a7c496f1b",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": []
+    },
+    "NPCBreedGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCBreedGoal.java",
+      "sha256": "4b26dcff49d42660fea65ac6b357e206306f4a59fbaf1b2c93964d65021b9dd6",
+      "status": "implemented_cohort2_public_api_boundaries_documented",
+      "hooks": [
+        "public NPCBreedGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.BREED); }"
+      ]
+    },
+    "NPCChestClassificationGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCChestClassificationGoal.java",
+      "sha256": "f8d5ad27798431ce08e25b4dca4c7e535462bb2c6445c9b5f3f1682d1d3d9bb4",
+      "status": "implemented_cohort3_real_inventory_native_furnace",
+      "hooks": [
+        "public NPCChestClassificationGoal(BaseNPCLikeEntity npc) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void stop() {",
+        "public void tick() {",
+        "public String inspect(BlockPos site) {"
+      ]
+    },
+    "NPCCleanMonsterGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCCleanMonsterGoal.java",
+      "sha256": "3c06d41c67e573593ca01d5f0fd3855413d6ce20cc86b4cd2bce40469d870ee1",
+      "status": "implemented_bounded_public_api_guard",
+      "hooks": [
+        "public NPCCleanMonsterGoal(BaseNPCLikeEntity npc) {"
+      ]
+    },
+    "NPCCloseToCropGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCCloseToCropGoal.java",
+      "sha256": "b11881a56ecc8bc2275940233e40dd85d5ef2b5780b2b8f10ca74dbcc2e05a5c",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCCloseToCropGoal(BaseNPCLikeEntity maid, double speed) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public void start() {",
+        "public void stop() {",
+        "public void tick() {",
+        "protected boolean isTargetPos(BlockPos pos) {"
+      ]
+    },
+    "NPCCustomerGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCCustomerGoal.java",
+      "sha256": "e2fffc3158831c37cdb74779d51c76e95277509dd29231297b5d94aa097a42e9",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCCustomerGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.CUSTOMER); }"
+      ]
+    },
+    "NPCFarmGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCFarmGoal.java",
+      "sha256": "e4c86f5e638df3a4fe730467333ae5caf8836fa1818ab79b024b23f46ee8aee9",
+      "status": "implemented_source_farm_cohort",
+      "hooks": [
+        "public NPCFarmGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.FARM); }",
+        "public boolean harvest(BlockPos pos) {",
+        "public boolean planting(BlockPos pos) {",
+        "public static boolean isMature(CustomMatureBlock crop, BlockState state) {",
+        "public static boolean isCrop(BlockPos pos, ServerLevel level) {",
+        "public static boolean isFarmLandTop(BlockPos pos, ServerLevel level) {",
+        "public static boolean isMaidHasSeeds(BaseNPCLikeEntity npc) { return selectedSeed(npc) != null; }",
+        "public static BlockPos getNearTargetBlock(BaseNPCLikeEntity npc, BlockPos origin, boolean random) {"
+      ]
+    },
+    "NPCFindBlockGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCFindBlockGoal.java",
+      "sha256": "5facde3162168e261be746c205d086281b6709c640b6db2d769ac48a6288654f",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCFindBlockGoal(BaseNPCLikeEntity npc, NPCWorkMode mode, Block block, boolean useAction, boolean exclusive) {"
+      ]
+    },
+    "NPCFindWaterGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCFindWaterGoal.java",
+      "sha256": "88a81b2f6049a449f3f53574e05aed9e1ecba8fad790a74c6973f949d1ed35ee",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public static final Map<ServerLevel, Map<Long, BaseNPCLikeEntity>> EXCLUSIONS = new HashMap<>(8);",
+        "public NPCFindWaterGoal(BaseNPCLikeEntity roleEntity) {",
+        "public boolean canUse() {",
+        "public boolean canContinueToUse() {",
+        "public boolean requiresUpdateEveryTick() {",
+        "public void tick() {"
+      ]
+    },
+    "NPCFishingGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCFishingGoal.java",
+      "sha256": "14a75ad9f8d8b92033e844bd6d5981286f2edfa432da47cb569730141306f0a7",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCFishingGoal(NPCSimpleEntity npc) { super(npc, NPCWorkModes.FISHING); }",
+        "public static boolean isWater(ServerLevel level, BlockPos pos) {"
+      ]
+    },
+    "NPCGuardPatrolGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCGuardPatrolGoal.java",
+      "sha256": "009ee1ab80ec362952bee3b27498dffe9e42ed30a2e577bb18b5d02be04bec35",
+      "status": "implemented_public_api_patrol",
+      "hooks": [
+        "public NPCGuardPatrolGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.COMBAT); }"
+      ]
+    },
+    "NPCHoneycombHarvestingGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCHoneycombHarvestingGoal.java",
+      "sha256": "5ade38d3adce13f2a3870c4031925c638d9de14424ef61385a46de82feddf5d3",
+      "status": "implemented_cohort2_public_api_boundaries_documented",
+      "hooks": [
+        "public NPCHoneycombHarvestingGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.HONEYCOMB_HARVESTING); }",
+        "public static boolean ready(ServerLevel level, BlockPos pos) {",
+        "public static boolean acceptsTool(String choice, boolean shearsAvailable, ItemStack stack) {"
+      ]
+    },
+    "NPCMoveToCropGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCMoveToCropGoal.java",
+      "sha256": "091df809ac95ca79b28f433d481e4131ee6fec1d900e39bd0b3cf9bf7965fa3b",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": []
+    },
+    "NPCMusicGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCMusicGoal.java",
+      "sha256": "7e8788d8c26c5407709717eac83ca491e22543f55f04ff35289316afacfe4eca",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCMusicGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.PLAYING_MUSIC); }"
+      ]
+    },
+    "NPCSheepShearGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCSheepShearGoal.java",
+      "sha256": "8dd59bedfb1480e5607ea4146950b615852e5b659177833b43cdc57c4344cd33",
+      "status": "implemented_cohort2_public_api_boundaries_documented",
+      "hooks": [
+        "public NPCSheepShearGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.SHEEP_SHEARING); }"
+      ]
+    },
+    "NPCSmeltGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCSmeltGoal.java",
+      "sha256": "eb04eece2766cdbecc268a9b657826acd688c771c0620bb92b1fe2780394fd4b",
+      "status": "implemented_cohort3_real_inventory_native_furnace",
+      "hooks": [
+        "public NPCSmeltGoal(BaseNPCLikeEntity npc) { super(npc, NPCWorkModes.SMELT); }",
+        "public static boolean matches(ServerLevel level, AbstractFurnaceBlockEntity furnace, ItemStack stack) {"
+      ]
+    },
+    "NPCWorkCollectGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCWorkCollectGoal.java",
+      "sha256": "275ae1b5290ccfb3ca93b6108972da7ea4b4262e414e90a04a2434dfb53fabf5",
+      "status": "implemented_cohort2_public_api_boundaries_documented",
+      "hooks": [
+        "public NPCWorkCollectGoal(BaseNPCLikeEntity npc) { this.npc = npc; navigation = new WorkNavigation(npc); setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK)); }"
+      ]
+    },
+    "NPCWorkLogisticsGoal": {
+      "source": "common/src/main/java/cc/thonly/reverie_dreams/entity/ai/goal/work/NPCWorkLogisticsGoal.java",
+      "sha256": "aebd2e6056987091f03890a989bc350c9f3977a1adc158a5fa30169eca043a61",
+      "status": "pending_explicit_runtime_migration",
+      "hooks": [
+        "public NPCWorkLogisticsGoal(BaseNPCLikeEntity npc) { this.npc = npc; navigation = new WorkNavigation(npc); setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK)); }",
+        "public static boolean production(NPCWorkMode mode) {"
+      ]
+    }
+  },
+  "verifiedAttackChain": {
+    "paper": "CraftLivingEntity.attack(nonPlayer)->LivingEntity.doHurtTarget",
+    "wolf": "Wolf has no doHurtTarget override; inherits Mob",
+    "mob": "Mob.doHurtTarget->ItemStack.hurtEnemy; no postHurtEnemy",
+    "itemStack": "hurtEnemy invokes Item.hurtEnemy and weapon statistic only; durability is in separate postHurtEnemy",
+    "originalNPC": "BaseNPCLikeEntity.doHurtTarget calls super then hurtAndBreak(1) on successful hit; retained with ItemStack.damage(1,carrier)"
+  },
+  "persistence": {
+    "settings": "npc/work_settings JSON mode/world/x/y/z/radius/height",
+    "actions": "npc/work_actions LONG diagnostic action counter; not source SkillTask progress",
+    "mode": "existing npc/mode now accepts reverie_dreams:working",
+    "archive": "same settings/actions copied through additive archive hook; no free revival"
+  },
+  "integration": {
+    "lifecycle": "NPCModule creates NPCAiService and NPCWorkMenu; existing enable/disable root entry remains",
+    "accessor": "NPCModule.ai()",
+    "fixtureApis": [
+      "work(UUID,owner,NPCWorkMode,NPCWorkSite)",
+      "workHere(UUID,owner,NPCWorkMode)",
+      "inspectWork(UUID)",
+      "farmOnce(UUID,owner,Block)",
+      "attackOnce(UUID,LivingEntity)"
+    ],
+    "requiresOnlineOwner": false
+  },
+  "validation": {
+    "independentJavac": true,
+    "serverRuntime": "pending root fixture build; earlier farming/tools pack initial4008 restart4129 passed before this NPC cohort"
+  },
+  "cohort2SourceSupport": {
+    "entity/ai/work/AnimalFeeding.java": {
+      "sha256": "02dc514e9d61329e4c469b7ee5f65805f8fa893a7cf032580811826e4a600b35"
+    },
+    "inventory/WorkToolLease.java": {
+      "sha256": "d0aacc1ce51e789b38a38af4eacb46a4ffef77aa41bd2cf5b7c5ffa9d5018b6f"
+    },
+    "inventory/NPCWorkInventory.java": {
+      "sha256": "8f683674885268d124373da6d09a742aa780f3fb6f160ef9e884d542f5a11ec4"
+    },
+    "mixin/entity/AnimalEntityMixin.java": {
+      "sha256": "e86b5220cb01e86cada16bdb2eca9ab83d6d4e54e8fa261db409440c3e4404d1"
+    },
+    "mixin/block/BeehiveBlockMixin.java": {
+      "sha256": "f0020be05faebfe96b2250970324b812e4cf5dbed8a6ef2f47e202c3066de58a"
+    },
+    "entity/npc/BaseNPCLikeEntity.java": {
+      "sha256": "0588f62da9deef44c910030562a58870a09bcadbf89fae534536c842f9729552"
+    },
+    "entity/npc/NPCSimpleEntity.java": {
+      "sha256": "43ad1ae281e925fab74c688f2043f4f00fe1a7b4ccada3eb5e71dc22b9a73cc5"
+    }
+  },
+  "nativeArmorAudit": {
+    "carrierHurtArmor": "Wolf.hurtArmor only BODY; no native human armor wear duplication",
+    "damage": "(float)event.base then +=INVULNERABILITY_REDUCTION +=BLOCKING +=FREEZING; helmet first if damages_helmet, armor adds HARD_HAT if !bypasses_armor",
+    "wear": "amount<=0 =>0; otherwise floor(max(1f,amount/4f)), independently per eligible slot",
+    "api": "LivingEntity.damageItemStack(EquipmentSlot,int); read actual native equipment back to 24slot PDC and avatar",
+    "itemPredicate": "equippable.damageOnHurt && MAX_DAMAGE && DAMAGE && !UNBREAKABLE && !DAMAGE_RESISTANT.contains(sourceType)"
+  },
+  "nativeHusbandryAudit": {
+    "love": "CraftAnimals.setLoveModeTicks => Animal.setInLoveTime; source Mixin sets inLove600 and does not assign loveCause",
+    "shear": "PaperShearable.shear(Sound.Source.PLAYER) delegates native shear using a new SHEARS",
+    "smoke": "CraftBeehive.isSedated => CampfireBlock.isSmokeyPos",
+    "unsmokedRelease": "CraftBeehive.releaseEntities => BEE_RELEASED,force=true; source EMERGENCY differs at obstructed entrance",
+    "honeycomb": {
+      "source": "target jar data/minecraft/loot_table/harvest/beehive.json",
+      "defaultCount": 3,
+      "context": "minecraft:block_interact",
+      "customDatapackSupport": false
+    },
+    "fishingBlocker": "native FishingHook.tick removes hook with no Player owner; CraftFishHook.retrieve requires Player owner and actual fishing rod. Source NPCFishingHook is custom Projectile state machine, not implemented by fake Player or fixed timer."
+  },
+  "cohort3SourceSupport": {
+    "inventory/storage/StorageWorld.java": {
+      "sha256": "92f18b22d0d72d058e22c4d1d3c9739d10217621acd9ecb2f338ada672947035"
+    },
+    "inventory/storage/StorageRule.java": {
+      "sha256": "1bda1ca363d2c8eed50e2cdaab1bd525b06f436457ee73f6549b70a402b77df0"
+    },
+    "inventory/storage/StoragePlanner.java": {
+      "sha256": "ee71a338871b6b545634c5d6470b9454a612325356133eafcf545a3d47df2c00"
+    },
+    "inventory/storage/StorageExecution.java": {
+      "sha256": "74716fef1cffc0c0756e7ef247aac2e0cfa39e4826b0e24fa109ac5b8b688e93"
+    },
+    "inventory/storage/StorageTransfer.java": {
+      "sha256": "85dddf269fa9c138ac325091ac0303ffc3a985c8a6f3b2bd62b033a183d6d350"
+    },
+    "inventory/storage/StorageSettings.java": {
+      "sha256": "b6dc8aad0886269540d29ec3bdd7ed7b975bbf12f404e53f7efaa1a57fdf1ebe"
+    },
+    "inventory/storage/StorageClaims.java": {
+      "sha256": "494c1b2a5b8b6bed00fa50c87b761a1d7e12365cf93778eaa8ee867fa62b59a7"
+    },
+    "entity/ai/work/FurnaceTransfer.java": {
+      "sha256": "8358cd3a8511755bff825882b9a7d5c95427644144697cabf63dae8bcff5c356"
+    },
+    "entity/ai/goal/work/NPCSmeltGoal.java": {
+      "sha256": "eb04eece2766cdbecc268a9b657826acd688c771c0620bb92b1fe2780394fd4b"
+    },
+    "entity/ai/goal/work/NPCChestClassificationGoal.java": {
+      "sha256": "f8d5ad27798431ce08e25b4dca4c7e535462bb2c6445c9b5f3f1682d1d3d9bb4"
+    },
+    "block/props/CashBoxBlock.java": {
+      "sha256": "4b6c356f8e4866eaefd1ffc28acab2a78c789b31290be0633b687603b2f0386a"
+    },
+    "block/entity/CustomChestBlockEntity.java": {
+      "sha256": "91a50b850294804d1a06184da7bacb7878b1a98a058e3058cbfce1dd7150f9c5"
+    },
+    "ReverieDreamsConfiguration.java": {
+      "sha256": "2d008b9441946e34e50e869d79f13407cd4040165943bf3b9f8c5b40d2d00059"
+    }
+  },
+  "nativeStorageAudit": {
+    "furnaceMatcher": "CraftInventoryFurnace.canSmelt uses actual furnace recipeType and RecipeManager.getRecipeFor; no hand-coded input/result list",
+    "furnaceFuel": "vanilla FuelValues via isFuel; CE custom definitions fuelTime>0; actual target serverTick dispatches FurnaceBurnEvent for nonempty fuel even at default burn0, CE listener sets configured burn duration",
+    "furnaceDirty": "AbstractFurnaceBlockEntity.setItem only marks changed for slot0 changed components; call precise CE CraftInventoryProxy.getInventory + ContainerProxy.setChanged after commit, never tile snapshot update",
+    "identity": "target CraftInventory.equals delegates underlying Container.equals; compare chest native half inventories; CE entity/controller objects are actual loaded identities",
+    "sourceGlobalSettingsAdaptation": "default source values preserved; optional owner API stores per-NPC sorting settings in work_settings, not a recreation of the original global config UI",
+    "automation": "Cash box source uses unrestricted CustomChestBlockEntity; player coin restriction does not apply to NPC automation; cupboard is not supported by original StorageWorld",
+    "claims": "sourceStorageClaims lease200; target unified NPC claims by world/position, renew every active native goal tick",
+    "sortingTiming": "initial entityId mod20 stagger; normal search20, sorting_finished40, after transfer10, rejected destination200; source navigation retry10/fail3/progress100, all double chest parts used"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "SCS",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "S": "minecraft:stick",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "reverie_dreams:merchandise_shelf",
+    "count": 1
+  }
+}

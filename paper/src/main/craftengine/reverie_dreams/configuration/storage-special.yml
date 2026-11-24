@@ -1,0 +1,170 @@
+# CraftEngine26.8.2: cash-box native automation and per-position36-identity cupboard; no shared state in behaviors.
+items:
+  reverie_dreams:cash_box:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.cash_box>
+    model: reverie_dreams:block/cash_box
+    behavior:
+      type: block_item
+      block: reverie_dreams:cash_box
+  reverie_dreams:cupboard:
+    material: paper
+    data:
+      item_name: <!i><lang:block.reverie_dreams.cupboard>
+    model: reverie_dreams:block/cupboard
+    behavior:
+      type: block_item
+      block: reverie_dreams:cupboard
+blocks:
+  reverie_dreams:cash_box:
+    settings:
+      item: reverie_dreams:cash_box
+      hardness: 2
+      resistance: 3
+      can_occlude: false
+      is_suffocating: true
+      is_redstone_conductor: true
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+      tags:
+      - minecraft:mineable/axe
+    behavior:
+      type: reverie_dreams:storage_special
+      cash-box: true
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cash_box
+        east:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cash_box
+            y: 90
+        south:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cash_box
+            y: 180
+        west:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cash_box
+            y: 270
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:cash_box
+  reverie_dreams:cupboard:
+    settings:
+      item: reverie_dreams:cupboard
+      hardness: 2
+      resistance: 3
+      can_occlude: false
+      is_suffocating: true
+      is_redstone_conductor: true
+      push_reaction: block
+      sounds:
+        break: minecraft:block.wood.break
+        fall: minecraft:block.wood.fall
+        hit: minecraft:block.wood.hit
+        place: minecraft:block.wood.place
+        step: minecraft:block.wood.step
+      tags:
+      - minecraft:mineable/axe
+    behavior:
+      type: reverie_dreams:storage_special
+      cash-box: false
+    states:
+      properties:
+        facing:
+          type: horizontal_direction
+          default: north
+      appearances:
+        north:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cupboard
+        east:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cupboard
+            y: 90
+        south:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cupboard
+            y: 180
+        west:
+          auto_state: solid
+          model:
+            path: reverie_dreams:block/cupboard
+            y: 270
+      variants:
+        facing=north:
+          appearance: north
+        facing=east:
+          appearance: east
+        facing=south:
+          appearance: south
+        facing=west:
+          appearance: west
+    loot:
+      pools:
+      - rolls: 1
+        conditions:
+        - type: survives_explosion
+        entries:
+        - type: item
+          item: reverie_dreams:cupboard
+recipes:
+  reverie_dreams:cash_box:
+    type: shaped
+    pattern:
+    - YYY
+    - X#X
+    - YYY
+    ingredients:
+      '#': minecraft:chest
+      X: reverie_dreams:spiritual_planks
+      Y: reverie_dreams:spiritual_slab
+    result:
+      id: reverie_dreams:cash_box
+      count: 1
+  reverie_dreams:cupboard:
+    type: shaped
+    pattern:
+    - '###'
+    - '#C#'
+    - '#G#'
+    ingredients:
+      '#': '#minecraft:wooden_slabs'
+      C: minecraft:chest
+      G: minecraft:glass
+    result:
+      id: reverie_dreams:cupboard
+      count: 1

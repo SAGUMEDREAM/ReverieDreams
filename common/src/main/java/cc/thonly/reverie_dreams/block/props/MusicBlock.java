@@ -2,6 +2,7 @@ package cc.thonly.reverie_dreams.block.props;
 
 import cc.thonly.reverie_dreams.block.entity.MusicBlockEntity;
 import cc.thonly.reverie_dreams.registry.content.block.entity.RDBlockEntityTypes;
+import cc.thonly.reverie_dreams.server.dialog.music.MusicSelectionDialog;
 import cc.thonly.reverie_dreams.server.nota.player.SongPlayer;
 import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import com.mojang.serialization.MapCodec;
@@ -31,7 +32,7 @@ public class MusicBlock extends BaseEntityBlock {
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public MusicBlock(Properties settings) {
-        super( settings);
+        super(settings);
         this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, false));
     }
 
@@ -48,8 +49,14 @@ public class MusicBlock extends BaseEntityBlock {
             if (blockEntity == null) {
                 return InteractionResult.FAIL;
             }
-            int index = -1;
-            index = player.isShiftKeyDown() ? blockEntity.next() : blockEntity.prev();
+
+            // 潜行右键打开 NBS 选择界面；普通右键仍然快速切换上一首
+            if (player.isShiftKeyDown()) {
+                MusicSelectionDialog.openForBlock(serverPlayer, pos, 0);
+                return InteractionResult.SUCCESS_SERVER;
+            }
+
+            int index = blockEntity.prev();
             if (blockEntity.getFilenames().isEmpty()) {
                 serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_files"), false);
                 return InteractionResult.PASS;
@@ -57,8 +64,8 @@ public class MusicBlock extends BaseEntityBlock {
             if (index == -1) {
                 serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.no_music_selected"), false);
                 return InteractionResult.PASS;
-            } else if (world.hasNeighborSignal(pos)){
-                NotaUtils.playAt(world, pos, blockEntity.getSelect());
+            } else if (world.hasNeighborSignal(pos)) {
+                blockEntity.startPlayback();
             }
             serverPlayer.sendSystemMessage(Component.translatable("item.reverie_dreams.music.switch_music", blockEntity.getSelect()), false);
             return InteractionResult.SUCCESS_SERVER;
@@ -72,7 +79,7 @@ public class MusicBlock extends BaseEntityBlock {
         if (blockEntity instanceof MusicBlockEntity musicBlockEntity) {
             SongPlayer selfPlayer = musicBlockEntity.getSelfPlayer();
             if (selfPlayer != null) {
-                selfPlayer.setPlaying(false);
+                selfPlayer.destroy();
                 Map<Long, SongPlayer> blockPos2SongPlayer = NotaUtils.blockMusicPlayCache.get(world);
                 if (blockPos2SongPlayer != null) {
                     blockPos2SongPlayer.remove(pos.asLong());
@@ -95,7 +102,7 @@ public class MusicBlock extends BaseEntityBlock {
             if (hasPower) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof MusicBlockEntity musicBlockEntity) {
-                    NotaUtils.playAt(world, pos, musicBlockEntity.getSelect());
+                    musicBlockEntity.startPlayback();
                 }
             }
         }

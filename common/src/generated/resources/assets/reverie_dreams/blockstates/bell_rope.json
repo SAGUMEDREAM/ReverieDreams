@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,end=true": {
+      "model": "reverie_dreams:block/bell_rope"
+    },
+    "facing=north,end=false": {
+      "model": "reverie_dreams:block/bell_rope_middle"
+    },
+    "facing=east,end=true": {
+      "model": "reverie_dreams:block/bell_rope",
+      "y": 90
+    },
+    "facing=east,end=false": {
+      "model": "reverie_dreams:block/bell_rope_middle",
+      "y": 90
+    },
+    "facing=south,end=true": {
+      "model": "reverie_dreams:block/bell_rope",
+      "y": 180
+    },
+    "facing=south,end=false": {
+      "model": "reverie_dreams:block/bell_rope_middle",
+      "y": 180
+    },
+    "facing=west,end=true": {
+      "model": "reverie_dreams:block/bell_rope",
+      "y": 270
+    },
+    "facing=west,end=false": {
+      "model": "reverie_dreams:block/bell_rope_middle",
+      "y": 270
+    }
+  }
+}

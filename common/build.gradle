@@ -13,15 +13,21 @@ neoForge {
 }
 
 dependencies {
+    // Pure Java MPEG decoder; output uses Minecraft/OpenAL, never JavaSound devices.
+    implementation('javazoom:jlayer:1.0.1')
+    api(project(':pak-core'))
     compileOnly("org.spongepowered:mixin:${mixin_version}")
+    compileOnly("io.github.llamalad7:mixinextras-common:0.5.5")
 }
 
 apply from: rootProject.file('repositories.gradle')
 dependencies {
     implementation("dev.architectury:architectury:${architectury_api_version}")
+    implementation("com.github.luben:zstd-jni:${zstd_jni_version}")
     implementation("gg.moonflower:molang-compiler:3.1.1.19")
     implementation("com.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}")
     compileOnly("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}") { transitive = false }
+    compileOnly("com.github.glitchfiend:TerraBlender-common:${minecraft_version}-${terrablender_version}")
 
     api("cc.thonly:sgui-common:${sgui_forgelike_version}")
 //    api("cc.thonly:keine-common:${keine_version}")
@@ -36,6 +42,20 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3")
     compileOnly("me.shedaniel:RoughlyEnoughItems-api:${rei_version}")
     compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin:${rei_version}")
+}
+
+// Distant Horizons is an optional compile-time dependency; the compat package is skipped when the jar is absent.
+def distantHorizonsJar = rootProject.file('fabric/libs/DistantHorizons-3.3.3-26.1.2-fabric-neoforge.jar')
+dependencies {
+    if (distantHorizonsJar.exists()) {
+        compileOnly files(distantHorizonsJar)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (!distantHorizonsJar.exists()) {
+        exclude 'cc/thonly/reverie_dreams/compat/distanthorizons/**'
+    }
 }
 
 
@@ -55,6 +75,10 @@ configurations {
 }
 
 sourceSets {
+    test {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.compileClasspath
+    }
     generated {
         resources {
             srcDir 'src/generated/resources'
@@ -66,4 +90,22 @@ artifacts {
     commonJava sourceSets.main.java.sourceDirectories.singleFile
     commonResources sourceSets.main.resources.sourceDirectories.singleFile
     commonGeneratedResources sourceSets.generated.resources.sourceDirectories.singleFile
+}
+
+dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter:5.11.4')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher:1.11.4')
+}
+
+// Cross-format assertions need BIL source models only on the test classpath.
+// Keep these resources out of common/main and the native loader JARs.
+tasks.named('processTestResources') {
+    from(project(':polymer').file('src/main/resources/model')) {
+        into 'model'
+    }
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    jvmArgs('--enable-native-access=ALL-UNNAMED')
 }

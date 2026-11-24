@@ -5,7 +5,7 @@ import cc.thonly.reverie_dreams.proxy.ByModsPlatformProxy;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.SessionManager;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import dev.architectury.networking.NetworkManager;
 import lombok.extern.slf4j.Slf4j;
@@ -40,8 +40,10 @@ public class TenguCameraItem extends Item {
             if (player.isShiftKeyDown()) {
                 int fov = stack.getOrDefault(RDDataComponentTypes.FOV.value(), 75);
                 int newFov = fov + 1;
-                if (newFov < 30) newFov = 30;
-                if (newFov > 110) newFov = 110;
+                if (newFov < 30)
+                    newFov = 30;
+                if (newFov > 110)
+                    newFov = 110;
 
                 stack.set(RDDataComponentTypes.FOV.value(), newFov);
 

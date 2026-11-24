@@ -3,13 +3,18 @@ import groovy.json.JsonSlurper
 
 plugins {
     alias libs.plugins.fabricLoom
-    alias libs.plugins.curseForgeGradle
     alias libs.plugins.modrinthMinotaur
     id 'mod-packing-info'
 }
 
+// 与根工程共用 gradle.properties 中的 version，避免 Polymer 的模组元数据与 jar 文件名不一致。
+version = rootProject.version
+
 apply from: rootProject.file('repositories.gradle')
 dependencies {
+    compileOnly('javazoom:jlayer:1.0.1') // Common client sources; vanilla clients cannot stream HTTP audio.
+    testImplementation('org.junit.jupiter:junit-jupiter:5.11.4')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher:1.11.4')
     minecraft "net.minecraft:minecraft:${minecraft_version}"
 //    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 //    implementation("cc.thonly:keine-common:${keine_version}")
@@ -36,7 +41,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     implementation ("com.geckolib:geckolib-fabric-${minecraft_version}:${geckolib_version}")
-    implementation include("de.tomalbrc:blockbench-import-library:${bil_version}")
+    implementation include("maven.modrinth:ti3tgKQn:${bil_fabric_version_id}")
     implementation include("eu.pb4:booklet:${booklet_version}")
     implementation include("eu.pb4:map-canvas-api:${mapcanvas_version}")
     implementation include("eu.pb4:placeholder-api:${placeholder_api_version}")
@@ -51,6 +56,11 @@ dependencies {
 tasks.processResources {
     from(project(":common").file("src/main/resources")) {
         include "${mod_id}.accesswidener"
+    }
+
+    inputs.property("version", project.version)
+    filesMatching("fabric.mod.json") {
+        expand(version: project.version)
     }
 }
 
@@ -159,6 +169,12 @@ tasks.withType(JavaCompile).configureEach {
     it.options.release = 25
     options.compilerArgs << "-Xlint:-deprecation"
     options.compilerArgs += ["-Xlint:none"]
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    classpath += files(sourceSets.main.compileClasspath.files)
+    jvmArgs('--enable-native-access=ALL-UNNAMED')
 }
 
 java {

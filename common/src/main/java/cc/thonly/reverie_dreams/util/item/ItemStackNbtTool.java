@@ -14,8 +14,11 @@ import java.util.logging.Logger;
 
 public interface ItemStackNbtTool {
     Logger LOGGER = Logger.getLogger(ItemStackNbtTool.class.getName());
+
     Tag toNbt(HolderLookup.Provider registryAccess, CompoundTag prefix);
+
     Tag toNbt(HolderLookup.Provider registryAccess);
+
     static Optional<ItemStack> fromNbt(RegistryAccess registryAccess, CompoundTag compoundTag) {
         RegistryOps<Tag> ops = registryAccess.createSerializationContext(NbtOps.INSTANCE);
         return ItemStack.CODEC.parse(ops, compoundTag).resultOrPartial((error) -> {

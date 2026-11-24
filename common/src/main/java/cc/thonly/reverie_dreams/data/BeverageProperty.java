@@ -1,13 +1,15 @@
 package cc.thonly.reverie_dreams.data;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.callback.BeveragePropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.*;
 import cc.thonly.reverie_dreams.registry.content.effect.RDStatusEffects;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -41,7 +43,7 @@ public class BeverageProperty implements SerializableProvider<BeverageProperty>,
 
     private Identifier id;
     private final Supplier<MobEffectInstance> effectInstanceFactory;
-    private RegistryProvider<BeverageProperty> owner;
+    private RegistryProviderLookup<BeverageProperty> owner;
 
     public BeverageProperty() {
         this(() -> new MobEffectInstance(new MobEffectInstance(RDStatusEffects.EMPTY.builtInHolder(), 1)));
@@ -60,7 +62,7 @@ public class BeverageProperty implements SerializableProvider<BeverageProperty>,
         user.addEffect(effectInstance);
         List<MobEffectInstance> effectInstances = new ArrayList<>();
         List<MobEffectInstance> negativeEffectInstances = new ArrayList<>();
-        BeveragePropertyItemUseCallback.EVENT.invoker().onUse(world, user, itemStack, this, effectInstances, negativeEffectInstances);
+        ItemEvent.BEVERAGE_PROPERTY_USE.invoker().onUse(world, user, itemStack, this, effectInstances, negativeEffectInstances);
         effectInstances.forEach(user::addEffect);
         if (!user.hasEffect(RDStatusEffects.ANTI_ALCOHOL.builtInHolder())) {
             negativeEffectInstances.forEach(user::addEffect);
@@ -103,10 +105,15 @@ public class BeverageProperty implements SerializableProvider<BeverageProperty>,
         return COMPONENT_CODEC;
     }
 
-    public record Data(Identifier id, List<Item> items) {
+    public record Data(Identifier id, List<Item> items, boolean replace) {
+        public Data(Identifier id, List<Item> items) {
+            this(id, items, false);
+        }
+
         public static final Codec<Data> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Identifier.CODEC.fieldOf("registry_key").forGetter(Data::id),
-                ITEMS_CODEC.fieldOf("properties").forGetter(Data::items)
+                ITEMS_CODEC.fieldOf("properties").forGetter(Data::items),
+                Codec.BOOL.optionalFieldOf("replace", false).forGetter(Data::replace)
         ).apply(instance, Data::new));
     }
 }

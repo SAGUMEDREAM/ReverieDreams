@@ -4,13 +4,13 @@ import cc.thonly.reverie_dreams.api.entity.entry.RoleGoalEntry;
 import cc.thonly.reverie_dreams.api.player.PlayerComponentContextRegistry;
 import cc.thonly.reverie_dreams.api.recipe.RecipeCompatContext;
 import cc.thonly.reverie_dreams.api.registry.RawIdTypeRegistry;
-import cc.thonly.reverie_dreams.api.registry.RegistryImplContext;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderContext;
 import cc.thonly.reverie_dreams.api.registry.callback.BeveragePropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.api.registry.callback.FoodPropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.data.FoodProperty;
 import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.util.PlatformContext;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -34,6 +34,11 @@ public interface ReverieDreamsPlugin {
 
     }
 
+    // 客户端初始化（仅物理客户端调用）
+    default void onClientSetup() {
+
+    }
+
     // 注册伙伴 AI Goal（向自定义目标注册表中添加行为）
     default void registerRoleGoals(RawIdTypeRegistry<RoleGoalEntry> registry) {
 
@@ -50,7 +55,7 @@ public interface ReverieDreamsPlugin {
     }
 
     // 注册注册表重载监听（当数据包或资源重载时触发）
-    default void registerRecipeLoadCallback(RegistryProvider<?> registry) {
+    default void registerRecipeLoadCallback(RegistryProviderLookup<?> registry) {
 
     }
 
@@ -80,7 +85,7 @@ public interface ReverieDreamsPlugin {
     }
 
     // 注册完成后调用（向注册表追加或调整内容）
-    default void registerPost(RegistryImplContext context) {
+    default void registerPost(RegistryProviderContext context) {
 
     }
 

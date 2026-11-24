@@ -16,6 +16,7 @@ public class BookPageBuilder {
     CommonDialogDataBuilder common = new CommonDialogDataBuilder();
     ActionButtonBuilder actions = new ActionButtonBuilder();
     Identifier prev = null;
+    boolean rootEntry = true;
 
     protected BookPageBuilder(RegistryAccess registryAccess) {
         this.registryAccess = registryAccess;
@@ -29,6 +30,16 @@ public class BookPageBuilder {
     public BookPageBuilder prev(Identifier prev) {
         this.prev = prev;
         return this;
+    }
+
+    /** Subpages remain addressable by ID without crowding the guide's main contents. */
+    public BookPageBuilder rootEntry(boolean rootEntry) {
+        this.rootEntry = rootEntry;
+        return this;
+    }
+
+    public boolean isRootEntry() {
+        return this.rootEntry;
     }
 
     public BookPageBuilder common(Consumer<CommonDialogDataBuilder> function) {

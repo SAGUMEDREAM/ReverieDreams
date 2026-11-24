@@ -6,7 +6,9 @@ public class RDCreativeTabs {
     public static void initialize() {
         BaseCreativeTab.bootstrap();
         ItemBlockCreativeTab.bootstrap();
+        DecorationCreativeTab.bootstrap();
         DanmakuCreativeTab.bootstrap();
+        SpellcardCreativeTab.bootstrap();
         TemplateCreativeTab.bootstrap();
         FumoCreativeTab.bootstrap();
         RoleCardCreativeTab.bootstrap();

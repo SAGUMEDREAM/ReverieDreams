@@ -1,6 +1,6 @@
 ### Section: PageInfo
 title=角色伙伴
-icon=reverie_dreams:reimu_spawn_egg
+icon=reverie_dreams:redirecting/reimu_spawn_egg
 category=reverie_dreams:basics
 ### EndSection: PageInfo
 

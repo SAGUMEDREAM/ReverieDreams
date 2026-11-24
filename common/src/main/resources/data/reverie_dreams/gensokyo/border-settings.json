@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "min_width": 256,
+  "max_width": 1024,
+  "width_divisor": 16,
+  "context_depth": 32,
+  "surface_blend_fraction": 0.22,
+  "water_reach_fraction": 0.24,
+  "mountain_offset": 220,
+  "broad_relief": 135,
+  "ridge_relief": 160
+}

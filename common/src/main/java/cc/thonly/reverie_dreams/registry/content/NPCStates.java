@@ -27,13 +27,13 @@ public class NPCStates {
     public static final NPCState SNAKING = register(ReverieDreams.id("sneaking"), new NPCState("sneaking")
             .withIcon(Items.OAK_FENCE)
             .withStarted((npc, state) -> {
-                if (!npc.getNpcState().equals(NPCStates.SNAKING)) {
+                if (!npc.getNPCState().equals(NPCStates.SNAKING)) {
                     return;
                 }
                 npc.setShiftKeyDown(true);
             })
             .withStop((npc, state) -> {
-                if (!npc.getNpcState().equals(NPCStates.SNAKING)) {
+                if (!npc.getNPCState().equals(NPCStates.SNAKING)) {
                     return;
                 }
                 npc.setShiftKeyDown(false);
@@ -45,7 +45,7 @@ public class NPCStates {
     public static final NPCState WORKING = register(ReverieDreams.id("working"), new NPCState("working")
             .withIcon(Items.IRON_PICKAXE)
             .withStop((npc, state) -> {
-                if (npc.isPassenger() && npc.getNpcState().equals(NPCStates.WORKING)) {
+                if (npc.isPassenger() && npc.getNPCState().equals(NPCStates.WORKING)) {
                     npc.stopRiding();
                 }
             }));

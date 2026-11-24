@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.polymer.mixin;
 
-import cc.thonly.reverie_dreams.polymer.entity.bil.OverlayEntityHolder;
+import cc.thonly.reverie_dreams.polymer.entity.holder.OverlayEntityHolder;
 import de.tomalbrc.bil.core.extra.ElementUpdateListener;
 import de.tomalbrc.bil.core.holder.base.AbstractAnimationHolder;
 import de.tomalbrc.bil.core.holder.entity.EntityHolder;

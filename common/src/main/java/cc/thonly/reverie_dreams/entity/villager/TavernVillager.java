@@ -64,7 +64,7 @@ public class TavernVillager extends AbstractSeller {
             Item item = pair.getA().asItem();
             int amount = pair.getB();
 
-            ItemStack sellItem = new ItemStack(item, 6);
+            ItemStack sellItem = new ItemStack(item, 1);
             IngredientStack wrapper = IngredientStack.of(sellItem);
 
             ItemCost first = new ItemCost(RDItems.COPPER_COIN, amount);
@@ -92,10 +92,10 @@ public class TavernVillager extends AbstractSeller {
         List<Item> selectedDrinks = allDrinks.subList(0, Math.min(count, allDrinks.size()));
 
         for (Item item : selectedDrinks) {
-            ItemStack sellItem = new ItemStack(item, 6);
+            ItemStack sellItem = new ItemStack(item, 1);
             IngredientStack wrapper = IngredientStack.of(sellItem);
 
-            int amount = BeverageProperties.getPriceCalculationTable().getOrDefault(item, 8) + random.nextInt(2);
+            int amount = Math.max(1, BeverageProperties.getPriceCalculationTable().getOrDefault(item, 8) + random.nextInt(2));
             ItemCost first = new ItemCost(RDItems.COPPER_COIN, amount);
             ItemCost second = new ItemCost(Items.GLASS_BOTTLE, 1);
 

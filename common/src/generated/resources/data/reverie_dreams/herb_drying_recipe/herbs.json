@@ -1,0 +1,8 @@
+{
+  "ingredient": "#reverie_dreams:workshop_fresh_herbs",
+  "output": {
+    "id": "reverie_dreams:dried_herbs",
+    "count": 1
+  },
+  "work": 1200
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "minecraft:copper_ingot",
+    "D": "reverie_dreams:dream_crystal_fragment",
+    "G": "minecraft:glass_pane"
+  },
+  "pattern": [
+    " C ",
+    "CGC",
+    " D "
+  ],
+  "result": {
+    "id": "reverie_dreams:dream_mirror"
+  }
+}

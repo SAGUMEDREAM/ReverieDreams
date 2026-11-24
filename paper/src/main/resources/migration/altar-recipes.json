@@ -1,0 +1,2745 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "id": "reverie_dreams:bad_apple",
+      "core": {
+        "id": "minecraft:golden_apple",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:black_dye",
+          "count": 2
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 11
+        },
+        {
+          "id": "minecraft:black_dye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 6
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 6
+        },
+        {
+          "id": "minecraft:black_dye",
+          "count": 2
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 8
+        },
+        {
+          "id": "minecraft:black_dye",
+          "count": 2
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:bad_apple",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:bagua_furnace",
+      "core": {
+        "id": "minecraft:compass",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:redstone_block",
+          "count": 8
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 12
+        },
+        {
+          "id": "minecraft:coal_block",
+          "count": 1
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 4
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 16
+        },
+        {
+          "id": "minecraft:coal_block",
+          "count": 1
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 12
+        },
+        {
+          "id": "minecraft:redstone_block",
+          "count": 8
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:bagua_furnace",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:chireiden",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:rose_bush",
+          "count": 40
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:netherrack",
+          "count": 45
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.chireiden_role_card"
+          },
+          "minecraft:dyed_color": 41777,
+          "reverie_dreams:role_card_id": "reverie_dreams:chireiden"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:crossing_chisel",
+      "core": {
+        "id": "minecraft:golden_hoe",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:ender_pearl",
+          "count": 2
+        },
+        {
+          "id": "minecraft:gold_block",
+          "count": 1
+        },
+        {
+          "id": "minecraft:ender_pearl",
+          "count": 4
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 4
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 4
+        },
+        {
+          "id": "minecraft:ender_pearl",
+          "count": 8
+        },
+        {
+          "id": "minecraft:gold_block",
+          "count": 1
+        },
+        {
+          "id": "minecraft:ender_pearl",
+          "count": 16
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:crossing_chisel",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:crown_of_the_underworld",
+      "core": {
+        "id": "minecraft:golden_helmet",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:ghost_veil",
+          "count": 16
+        },
+        {
+          "id": "minecraft:cherry_leaves",
+          "count": 11
+        },
+        {
+          "id": "minecraft:cherry_leaves",
+          "count": 11
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        },
+        {
+          "id": "minecraft:wither_skeleton_skull",
+          "count": 3
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:crown_of_the_underworld",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:cursed_decoy_doll",
+      "core": {
+        "id": "minecraft:armor_stand",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:soul_sand",
+          "count": 16
+        },
+        {
+          "id": "minecraft:red_wool",
+          "count": 1
+        },
+        {
+          "id": "minecraft:string",
+          "count": 2
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 4
+        },
+        {
+          "id": "minecraft:gunpowder",
+          "count": 2
+        },
+        {
+          "id": "minecraft:glowstone_dust",
+          "count": 2
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:ink_sac",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:cursed_decoy_doll",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:death_scythe",
+      "core": {
+        "id": "minecraft:netherite_hoe",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:soul_sand",
+          "count": 32
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 16
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 8
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 2
+        },
+        {
+          "id": "minecraft:diamond",
+          "count": 5
+        },
+        {
+          "id": "minecraft:rotten_flesh",
+          "count": 8
+        },
+        {
+          "id": "minecraft:bone",
+          "count": 7
+        },
+        {
+          "id": "minecraft:air"
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:death_scythe",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:earphone",
+      "core": {
+        "id": "minecraft:iron_helmet",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:amethyst_shard",
+          "count": 5
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 6
+        },
+        {
+          "id": "minecraft:amethyst_shard",
+          "count": 5
+        },
+        {
+          "id": "minecraft:sculk_sensor",
+          "count": 9
+        },
+        {
+          "id": "minecraft:sculk_sensor",
+          "count": 9
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 18
+        },
+        {
+          "id": "minecraft:air"
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:earphone",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:eiyashou",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:bamboo",
+          "count": 50
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:end_stone",
+          "count": 24
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.eiyashou_role_card"
+          },
+          "minecraft:dyed_color": 6160593,
+          "reverie_dreams:role_card_id": "reverie_dreams:eiyashou"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:exorcism_paper",
+      "core": {
+        "id": "minecraft:paper",
+        "count": 6
+      },
+      "slots": [
+        {
+          "id": "minecraft:bone",
+          "count": 12
+        },
+        {
+          "id": "minecraft:rotten_flesh",
+          "count": 12
+        },
+        {
+          "id": "minecraft:red_dye",
+          "count": 3
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 6
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 8
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 6
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 8
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 7
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:exorcism_paper",
+        "count": 16
+      }
+    },
+    {
+      "id": "reverie_dreams:fuujinroku",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:leaf_litter",
+          "count": 40
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:stone",
+          "count": 40
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.fuujinroku_role_card"
+          },
+          "minecraft:dyed_color": 6934784,
+          "reverie_dreams:role_card_id": "reverie_dreams:fuujinroku"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:gap_ball",
+      "core": {
+        "id": "minecraft:compass",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:purple_dye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:ender_pearl",
+          "count": 6
+        },
+        {
+          "id": "minecraft:redstone_block",
+          "count": 1
+        },
+        {
+          "id": "minecraft:magenta_dye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 6
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 7
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 8
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:gap_ball",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:gungnir",
+      "core": {
+        "id": "minecraft:diamond_axe",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:diamond",
+          "count": 2
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:redstone_block",
+          "count": 2
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 9
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:breeze_rod",
+          "count": 5
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 6
+        },
+        {
+          "id": "minecraft:air"
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:gungnir",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:hakurei_cane",
+      "core": {
+        "id": "minecraft:wooden_sword",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 6
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 6
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 6
+        },
+        {
+          "id": "minecraft:stick",
+          "count": 1
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 3
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:hakurei_cane",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:hakuroken",
+      "core": {
+        "id": "minecraft:diamond_sword",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:soul_sand",
+          "count": 8
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 9
+        },
+        {
+          "id": "reverie_dreams:silver_ingot",
+          "count": 12
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 7
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:stripped_cherry_log",
+          "count": 4
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "reverie_dreams:speed_feather",
+          "count": 4
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:hakuroken",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:hifuu",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:book",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:ender_eye",
+          "count": 20
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.hifuu_role_card"
+          },
+          "minecraft:dyed_color": 8931582,
+          "reverie_dreams:role_card_id": "reverie_dreams:hifuu"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:horai-dama_no_eda",
+      "core": {
+        "id": "minecraft:diamond_block",
+        "count": 2
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:red_orb",
+          "count": 20
+        },
+        {
+          "id": "reverie_dreams:blue_orb",
+          "count": 20
+        },
+        {
+          "id": "reverie_dreams:yellow_orb",
+          "count": 20
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "reverie_dreams:green_orb",
+          "count": 10
+        },
+        {
+          "id": "minecraft:blaze_rod",
+          "count": 1
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "reverie_dreams:purple_orb",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:horai-dama_no_eda",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:ibukiho",
+      "core": {
+        "id": "minecraft:honey_bottle",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 8
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:sugar",
+          "count": 1
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 8
+        },
+        {
+          "id": "minecraft:ghast_tear",
+          "count": 8
+        },
+        {
+          "id": "minecraft:diamond",
+          "count": 4
+        },
+        {
+          "id": "minecraft:blaze_rod",
+          "count": 8
+        },
+        {
+          "id": "minecraft:fermented_spider_eye",
+          "count": 8
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:ibukiho",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:juuouen",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:leather",
+          "count": 26
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:porkchop",
+          "count": 20
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.juuouen_role_card"
+          },
+          "minecraft:dyed_color": 7252587,
+          "reverie_dreams:role_card_id": "reverie_dreams:juuouen"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:kaeizuka",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:dandelion",
+          "count": 30
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:allium",
+          "count": 30
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.kaeizuka_role_card"
+          },
+          "minecraft:dyed_color": 53595,
+          "reverie_dreams:role_card_id": "reverie_dreams:kaeizuka"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:kanjuden",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:end_stone",
+          "count": 32
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:netherrack",
+          "count": 32
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.kanjuden_role_card"
+          },
+          "minecraft:dyed_color": 14024704,
+          "reverie_dreams:role_card_id": "reverie_dreams:kanjuden"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:kikeijuu",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:dirt",
+          "count": 44
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 30
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.kikeijuu_role_card"
+          },
+          "minecraft:dyed_color": 12386304,
+          "reverie_dreams:role_card_id": "reverie_dreams:kikeijuu"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:kinjoukyou",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:stone",
+          "count": 31
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 38
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.kinjoukyou_role_card"
+          },
+          "minecraft:dyed_color": 12969971,
+          "reverie_dreams:role_card_id": "reverie_dreams:kinjoukyou"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:kishinjou",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:blaze_rod",
+          "count": 26
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:nether_bricks",
+          "count": 30
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.kishinjou_role_card"
+          },
+          "minecraft:dyed_color": 16761692,
+          "reverie_dreams:role_card_id": "reverie_dreams:kishinjou"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:knife",
+      "core": {
+        "id": "reverie_dreams:silver_block",
+        "count": 3
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:silver_sword",
+          "count": 1
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "reverie_dreams:silver_ingot",
+          "count": 6
+        },
+        {
+          "id": "reverie_dreams:silver_sword",
+          "count": 1
+        },
+        {
+          "id": "minecraft:diamond",
+          "count": 4
+        },
+        {
+          "id": "minecraft:stick",
+          "count": 6
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:air"
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:knife",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:koishi_hat",
+      "core": {
+        "id": "minecraft:iron_helmet",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:black_dye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:black_dye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:yellow_dye",
+          "count": 3
+        },
+        {
+          "id": "minecraft:black_dye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:yellow_dye",
+          "count": 3
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:koishi_hat",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:koumakyou",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 12
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:netherrack",
+          "count": 12
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.koumakyou_role_card"
+          },
+          "minecraft:dyed_color": 16716820,
+          "reverie_dreams:role_card_id": "reverie_dreams:koumakyou"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:kouryuudou",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 31
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:diamond",
+          "count": 23
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.kouryuudou_role_card"
+          },
+          "minecraft:dyed_color": 15853109,
+          "reverie_dreams:role_card_id": "reverie_dreams:kouryuudou"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:levatin",
+      "core": {
+        "id": "minecraft:netherite_hoe",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 2
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 3
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:blaze_rod",
+          "count": 4
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 4
+        },
+        {
+          "id": "minecraft:coal",
+          "count": 11
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:levatin",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:low_gravity_boot",
+      "core": {
+        "id": "minecraft:iron_boots",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:feather",
+          "count": 3
+        },
+        {
+          "id": "minecraft:feather",
+          "count": 3
+        },
+        {
+          "id": "minecraft:feather",
+          "count": 3
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 20
+        },
+        {
+          "id": "minecraft:feather",
+          "count": 3
+        },
+        {
+          "id": "minecraft:feather",
+          "count": 3
+        },
+        {
+          "id": "minecraft:feather",
+          "count": 3
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:low_gravity_boot",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:magic_broom",
+      "core": {
+        "id": "minecraft:redstone_block",
+        "count": 3
+      },
+      "slots": [
+        {
+          "id": "minecraft:hay_block",
+          "count": 2
+        },
+        {
+          "id": "minecraft:lead",
+          "count": 1
+        },
+        {
+          "id": "minecraft:saddle",
+          "count": 1
+        },
+        {
+          "id": "minecraft:hay_block",
+          "count": 2
+        },
+        {
+          "id": "minecraft:stick",
+          "count": 3
+        },
+        {
+          "id": "minecraft:hay_block",
+          "count": 2
+        },
+        {
+          "id": "minecraft:slime_ball",
+          "count": 1
+        },
+        {
+          "id": "minecraft:ender_pearl",
+          "count": 2
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:magic_broom",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:manpozuchi",
+      "core": {
+        "id": "minecraft:mace",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 2
+        },
+        {
+          "id": "minecraft:end_rod",
+          "count": 1
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 2
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 8
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 7
+        },
+        {
+          "id": "minecraft:iron_nugget",
+          "count": 18
+        },
+        {
+          "id": "minecraft:diamond",
+          "count": 4
+        },
+        {
+          "id": "minecraft:gold_nugget",
+          "count": 18
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:manpozuchi",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:maple_leaf_fan",
+      "core": {
+        "id": "minecraft:oak_leaves",
+        "count": 48
+      },
+      "slots": [
+        {
+          "id": "minecraft:wind_charge",
+          "count": 16
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 9
+        },
+        {
+          "id": "minecraft:wind_charge",
+          "count": 16
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 9
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 9
+        },
+        {
+          "id": "minecraft:breeze_rod",
+          "count": 2
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 9
+        },
+        {
+          "id": "minecraft:wind_charge",
+          "count": 16
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:maple_leaf_fan",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:nue_trident",
+      "core": {
+        "id": "minecraft:trident",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:compass",
+          "count": 1
+        },
+        {
+          "id": "minecraft:heart_of_the_sea",
+          "count": 1
+        },
+        {
+          "id": "minecraft:cod",
+          "count": 3
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:oak_log",
+          "count": 8
+        },
+        {
+          "id": "minecraft:air"
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:nue_trident",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:oni_iron_bar",
+      "core": {
+        "id": "reverie_dreams:iron_bar",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:oni_horn",
+          "count": 4
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 32
+        },
+        {
+          "id": "reverie_dreams:silver_ingot",
+          "count": 16
+        },
+        {
+          "id": "minecraft:gold_block",
+          "count": 4
+        },
+        {
+          "id": "minecraft:iron_block",
+          "count": 8
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 16
+        },
+        {
+          "id": "minecraft:magma_cream",
+          "count": 8
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:oni_iron_bar",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:oni_mask",
+      "core": {
+        "id": "minecraft:iron_helmet",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:oni_horn",
+          "count": 2
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 16
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 8
+        },
+        {
+          "id": "minecraft:leather",
+          "count": 4
+        },
+        {
+          "id": "minecraft:red_dye",
+          "count": 8
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 4
+        },
+        {
+          "id": "minecraft:coal",
+          "count": 8
+        },
+        {
+          "id": "minecraft:bone",
+          "count": 4
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:oni_mask",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:papilio_pattern_fan",
+      "core": {
+        "id": "minecraft:iron_ingot",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:blue_wool",
+          "count": 3
+        },
+        {
+          "id": "minecraft:purple_wool",
+          "count": 3
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 9
+        },
+        {
+          "id": "minecraft:pink_wool",
+          "count": 3
+        },
+        {
+          "id": "minecraft:stripped_cherry_log",
+          "count": 5
+        },
+        {
+          "id": "minecraft:cherry_sapling",
+          "count": 1
+        },
+        {
+          "id": "minecraft:air"
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:papilio_pattern_fan",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:protagonist_group",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:redstone_block",
+          "count": 2
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:obsidian",
+          "count": 5
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.protagonist_group_role_card"
+          },
+          "minecraft:dyed_color": 16727357,
+          "reverie_dreams:role_card_id": "reverie_dreams:protagonist_group"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:rokanken",
+      "core": {
+        "id": "minecraft:diamond_sword",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:soul_sand",
+          "count": 7
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 8
+        },
+        {
+          "id": "reverie_dreams:silver_ingot",
+          "count": 12
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 6
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:stripped_cherry_log",
+          "count": 4
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:air"
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:rokanken",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:sangetsusei",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:end_stone",
+          "count": 28
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:glowstone",
+          "count": 26
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.sangetsusei_role_card"
+          },
+          "minecraft:dyed_color": 16770140,
+          "reverie_dreams:role_card_id": "reverie_dreams:sangetsusei"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:satori_eye",
+      "core": {
+        "id": "minecraft:ender_eye",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:spider_eye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:ender_pearl",
+          "count": 2
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 3
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 4
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 12
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 12
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:satori_eye",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:seirensen",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 28
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:birch_boat",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.seirensen_role_card"
+          },
+          "minecraft:dyed_color": 1506915,
+          "reverie_dreams:role_card_id": "reverie_dreams:seirensen"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:shinreibyou",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:soul_sand",
+          "count": 38
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:rotten_flesh",
+          "count": 18
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.shinreibyou_role_card"
+          },
+          "minecraft:dyed_color": 16775603,
+          "reverie_dreams:role_card_id": "reverie_dreams:shinreibyou"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:sunflower",
+      "core": {
+        "id": "minecraft:golden_hoe",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:sunflower",
+          "count": 32
+        },
+        {
+          "id": "minecraft:rose_bush",
+          "count": 16
+        },
+        {
+          "id": "minecraft:peony",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:fairy_dust",
+          "count": 16
+        },
+        {
+          "id": "minecraft:bone_meal",
+          "count": 16
+        },
+        {
+          "id": "minecraft:honeycomb",
+          "count": 8
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 24
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 32
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:sunflower",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:sword_of_hisou",
+      "core": {
+        "id": "minecraft:diamond_sword",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 7
+        },
+        {
+          "id": "minecraft:diamond",
+          "count": 5
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 2
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 6
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 6
+        },
+        {
+          "id": "minecraft:blaze_rod",
+          "count": 4
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 7
+        },
+        {
+          "id": "minecraft:apple",
+          "count": 6
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:sword_of_hisou",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:tasogare_furontia",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:glass_bottle",
+          "count": 20
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "reverie_dreams:ingredient/peach",
+          "count": 15
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.tasogare_furontia_role_card"
+          },
+          "minecraft:dyed_color": 16683336,
+          "reverie_dreams:role_card_id": "reverie_dreams:tasogare_furontia"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:tengu_camera",
+      "core": {
+        "id": "minecraft:iron_block",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:glowstone_dust",
+          "count": 8
+        },
+        {
+          "id": "minecraft:stone_button",
+          "count": 2
+        },
+        {
+          "id": "minecraft:glowstone_dust",
+          "count": 8
+        },
+        {
+          "id": "reverie_dreams:silver_ingot",
+          "count": 6
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 6
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 23
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 6
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 13
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:tengu_camera",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:tengu_shield",
+      "core": {
+        "id": "minecraft:shield",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:feather",
+          "count": 3
+        },
+        {
+          "id": "minecraft:feather",
+          "count": 5
+        },
+        {
+          "id": "minecraft:feather",
+          "count": 2
+        },
+        {
+          "id": "reverie_dreams:silver_ingot",
+          "count": 7
+        },
+        {
+          "id": "reverie_dreams:silver_ingot",
+          "count": 7
+        },
+        {
+          "id": "minecraft:diamond",
+          "count": 3
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 6
+        },
+        {
+          "id": "minecraft:bone",
+          "count": 3
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:tengu_shield",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:tenkuushou",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:grass_block",
+          "count": 29
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:leaf_litter",
+          "count": 43
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.tenkuushou_role_card"
+          },
+          "minecraft:dyed_color": 6750023,
+          "reverie_dreams:role_card_id": "reverie_dreams:tenkuushou"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:time_stop_clock",
+      "core": {
+        "id": "minecraft:clock",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:purple_dye",
+          "count": 4
+        },
+        {
+          "id": "minecraft:redstone_block",
+          "count": 2
+        },
+        {
+          "id": "minecraft:purple_dye",
+          "count": 4
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:echo_shard",
+          "count": 2
+        },
+        {
+          "id": "minecraft:purple_dye",
+          "count": 4
+        },
+        {
+          "id": "minecraft:redstone_block",
+          "count": 2
+        },
+        {
+          "id": "minecraft:purple_dye",
+          "count": 4
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:time_stop_clock",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:treasure_hunting_rod",
+      "core": {
+        "id": "minecraft:diamond_pickaxe",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 6
+        },
+        {
+          "id": "minecraft:rabbit_foot",
+          "count": 9
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 10
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:redstone",
+          "count": 8
+        },
+        {
+          "id": "minecraft:stone_button",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:treasure_hunting_rod",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:trumpet_gun",
+      "core": {
+        "id": "minecraft:crossbow",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:power_block",
+          "count": 5
+        },
+        {
+          "id": "minecraft:fermented_spider_eye",
+          "count": 2
+        },
+        {
+          "id": "minecraft:rabbit_foot",
+          "count": 5
+        },
+        {
+          "id": "reverie_dreams:power_block",
+          "count": 4
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 5
+        },
+        {
+          "id": "minecraft:honeycomb",
+          "count": 1
+        },
+        {
+          "id": "minecraft:iron_nugget",
+          "count": 3
+        },
+        {
+          "id": "minecraft:blaze_rod",
+          "count": 3
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:trumpet_gun",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:vaisravanas_pagoda",
+      "core": {
+        "id": "reverie_dreams:power_block",
+        "count": 10
+      },
+      "slots": [
+        {
+          "id": "minecraft:stone",
+          "count": 15
+        },
+        {
+          "id": "minecraft:gold_ingot",
+          "count": 20
+        },
+        {
+          "id": "minecraft:stone",
+          "count": 15
+        },
+        {
+          "id": "minecraft:copper_ingot",
+          "count": 10
+        },
+        {
+          "id": "minecraft:blaze_powder",
+          "count": 8
+        },
+        {
+          "id": "minecraft:stone",
+          "count": 15
+        },
+        {
+          "id": "minecraft:iron_ingot",
+          "count": 20
+        },
+        {
+          "id": "minecraft:stone",
+          "count": 15
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:vaisravanas_pagoda",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:wind_blessing_cane",
+      "core": {
+        "id": "minecraft:wooden_sword",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 5
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 7
+        },
+        {
+          "id": "minecraft:wind_charge",
+          "count": 12
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 5
+        },
+        {
+          "id": "minecraft:stick",
+          "count": 1
+        },
+        {
+          "id": "minecraft:air"
+        },
+        {
+          "id": "minecraft:paper",
+          "count": 2
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:wind_blessing_cane",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:yin-yang_orb",
+      "core": {
+        "id": "minecraft:diamond",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:black_wool",
+          "count": 1
+        },
+        {
+          "id": "minecraft:golden_apple",
+          "count": 1
+        },
+        {
+          "id": "minecraft:white_wool",
+          "count": 1
+        },
+        {
+          "id": "minecraft:black_wool",
+          "count": 1
+        },
+        {
+          "id": "minecraft:white_wool",
+          "count": 1
+        },
+        {
+          "id": "minecraft:black_wool",
+          "count": 1
+        },
+        {
+          "id": "minecraft:golden_apple",
+          "count": 1
+        },
+        {
+          "id": "minecraft:white_wool",
+          "count": 1
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:yin-yang_orb",
+        "count": 1
+      }
+    },
+    {
+      "id": "reverie_dreams:youyoumu",
+      "core": {
+        "id": "reverie_dreams:role_card",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "reverie_dreams:point",
+          "count": 14
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 15
+        },
+        {
+          "id": "minecraft:cherry_leaves",
+          "count": 26
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 18
+        },
+        {
+          "id": "minecraft:iron_sword",
+          "count": 1
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 19
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 20
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:role_card",
+        "count": 1,
+        "components": {
+          "minecraft:item_name": {
+            "translate": "reverie_dreams.youyoumu_role_card"
+          },
+          "minecraft:dyed_color": 16717035,
+          "reverie_dreams:role_card_id": "reverie_dreams:youyoumu"
+        }
+      }
+    },
+    {
+      "id": "reverie_dreams:yuka_flower_umbrella",
+      "core": {
+        "id": "minecraft:iron_sword",
+        "count": 1
+      },
+      "slots": [
+        {
+          "id": "minecraft:sunflower",
+          "count": 16
+        },
+        {
+          "id": "minecraft:netherite_ingot",
+          "count": 1
+        },
+        {
+          "id": "minecraft:white_wool",
+          "count": 8
+        },
+        {
+          "id": "minecraft:rose_bush",
+          "count": 16
+        },
+        {
+          "id": "reverie_dreams:ingredient/udumbara",
+          "count": 4
+        },
+        {
+          "id": "reverie_dreams:point",
+          "count": 24
+        },
+        {
+          "id": "minecraft:bamboo",
+          "count": 2
+        },
+        {
+          "id": "reverie_dreams:power",
+          "count": 36
+        }
+      ],
+      "output": {
+        "id": "reverie_dreams:yuka_flower_umbrella",
+        "count": 1
+      }
+    }
+  ],
+  "dynamic_recipes": [
+    {
+      "id": "reverie_dreams:role_archive",
+      "outerItem": "minecraft:diamond",
+      "outerCountEach": 2,
+      "core": "reverie_dreams:role_archive",
+      "rule": "clone core metadata and set source role_can_respawn=true; requires NPC respawn service integration; currently fail closed"
+    },
+    {
+      "id": "reverie_dreams:copy_spell_card_template",
+      "outerItem": "minecraft:diamond",
+      "outerCountEach": 2,
+      "core": "reverie_dreams:spell_card_template",
+      "rule": "consume entire source core stack, output a metadata-preserving clone with count2"
+    }
+  ],
+  "availability": {
+    "notYetDefinedInputs": [
+      "reverie_dreams:iron_bar",
+      "reverie_dreams:power_block",
+      "reverie_dreams:silver_sword",
+      "reverie_dreams:speed_feather"
+    ],
+    "notYetDefinedOutputs": [
+      "reverie_dreams:bad_apple",
+      "reverie_dreams:bagua_furnace",
+      "reverie_dreams:crossing_chisel",
+      "reverie_dreams:crown_of_the_underworld",
+      "reverie_dreams:cursed_decoy_doll",
+      "reverie_dreams:death_scythe",
+      "reverie_dreams:earphone",
+      "reverie_dreams:exorcism_paper",
+      "reverie_dreams:gap_ball",
+      "reverie_dreams:gungnir",
+      "reverie_dreams:hakurei_cane",
+      "reverie_dreams:hakuroken",
+      "reverie_dreams:horai-dama_no_eda",
+      "reverie_dreams:ibukiho",
+      "reverie_dreams:knife",
+      "reverie_dreams:koishi_hat",
+      "reverie_dreams:levatin",
+      "reverie_dreams:low_gravity_boot",
+      "reverie_dreams:magic_broom",
+      "reverie_dreams:manpozuchi",
+      "reverie_dreams:maple_leaf_fan",
+      "reverie_dreams:nue_trident",
+      "reverie_dreams:oni_iron_bar",
+      "reverie_dreams:oni_mask",
+      "reverie_dreams:papilio_pattern_fan",
+      "reverie_dreams:rokanken",
+      "reverie_dreams:satori_eye",
+      "reverie_dreams:sunflower",
+      "reverie_dreams:sword_of_hisou",
+      "reverie_dreams:tengu_camera",
+      "reverie_dreams:tengu_shield",
+      "reverie_dreams:time_stop_clock",
+      "reverie_dreams:treasure_hunting_rod",
+      "reverie_dreams:trumpet_gun",
+      "reverie_dreams:vaisravanas_pagoda",
+      "reverie_dreams:wind_blessing_cane",
+      "reverie_dreams:yin-yang_orb",
+      "reverie_dreams:yuka_flower_umbrella"
+    ],
+    "supportedRoleCardGroups": 19
+  }
+}

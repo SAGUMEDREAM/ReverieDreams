@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_peach_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "reverie_dreams:peach_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "reverie_dreams:peach_pressure_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_peach_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "reverie_dreams:peach_pressure_plate"
+    ]
+  }
+}

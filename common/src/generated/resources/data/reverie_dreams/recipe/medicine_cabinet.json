@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "ICI",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "I": "minecraft:glass_bottle",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "reverie_dreams:medicine_cabinet",
+    "count": 1
+  }
+}

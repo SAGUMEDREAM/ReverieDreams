@@ -26,9 +26,13 @@ public abstract class MappedRegistryMixin<T> implements SimpleRegistryFrozenModi
     @Shadow
     private @Nullable Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
 
-    @Shadow @Final public Map<Identifier, Holder.Reference<T>> byLocation;
+    @Shadow
+    @Final
+    public Map<Identifier, Holder.Reference<T>> byLocation;
 
-    @Shadow @Final public Map<T, Holder.Reference<T>> byValue;
+    @Shadow
+    @Final
+    public Map<T, Holder.Reference<T>> byValue;
 
     @Override
     public void reverie_dreams$setFrozen(boolean value) {

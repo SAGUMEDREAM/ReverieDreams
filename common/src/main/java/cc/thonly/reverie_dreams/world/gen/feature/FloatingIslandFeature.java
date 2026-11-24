@@ -60,9 +60,11 @@ public class FloatingIslandFeature extends Feature<NoneFeatureConfiguration> {
             int x = random.nextInt(rx * 2 + 1) - rx;
             int z = random.nextInt(rz * 2 + 1) - rz;
             BlockPos pos = topCenter.offset(x, 0, z);
-            if (!world.getBlockState(pos).is(Blocks.GRASS_BLOCK)) continue;
+            if (!world.getBlockState(pos).is(Blocks.GRASS_BLOCK))
+                continue;
             BlockPos above = pos.above();
-            if (!world.isEmptyBlock(above)) continue;
+            if (!world.isEmptyBlock(above))
+                continue;
 
             int roll = random.nextInt(4);
             switch (roll) {
@@ -70,7 +72,7 @@ public class FloatingIslandFeature extends Feature<NoneFeatureConfiguration> {
                 }
                 case 1 -> {
                     world.setBlock(above,
-                            random.nextBoolean() ? RDWoodBlocks.UDUMBARA_FLOWER.defaultBlockState() : Blocks.POPPY.defaultBlockState(), 3);
+                            random.nextInt(20) == 0 ? RDWoodBlocks.UDUMBARA_FLOWER.defaultBlockState() : Blocks.POPPY.defaultBlockState(), 3);
                 }
                 case 2 -> {
                     if (saplingCount < 2) {
@@ -96,7 +98,6 @@ public class FloatingIslandFeature extends Feature<NoneFeatureConfiguration> {
     }
 
 
-
     /**
      * 以 topCenter 为顶面中心（y=0），向“下方”生成半椭球。
      * 顶面整片为草；往下 2 层为泥土；更下为石头。
@@ -107,13 +108,15 @@ public class FloatingIslandFeature extends Feature<NoneFeatureConfiguration> {
             for (int z = -rz; z <= rz; z++) {
                 // 先判断 (x,z) 是否落在椭圆投影内： (x/rx)^2 + (z/rz)^2 <= 1
                 double proj = (x * x) / (double) (rx * rx) + (z * z) / (double) (rz * rz);
-                if (proj > 1.0) continue;
+                if (proj > 1.0)
+                    continue;
 
                 // 该 (x,z) 方向上半椭球的最大“深度”（向下的 y 范围）
                 // 椭球方程：x^2/rx^2 + y^2/ry^2 + z^2/rz^2 <= 1
                 // 给定 x,z，得到 |y| <= ry * sqrt(1 - proj)
                 int maxDepth = (int) Math.floor(ry * Math.sqrt(1.0 - proj));
-                if (maxDepth <= 0) continue;
+                if (maxDepth <= 0)
+                    continue;
 
                 // 从顶面 y=0 向下铺到 y = -maxDepth
                 for (int dy = 0; dy >= -maxDepth; dy--) {

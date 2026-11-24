@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:terracotta",
+    "minecraft:terracotta",
+    "minecraft:terracotta",
+    "minecraft:terracotta",
+    "minecraft:iron_ingot",
+    "minecraft:charcoal"
+  ],
+  "result": {
+    "id": "reverie_dreams:hibachi"
+  }
+}

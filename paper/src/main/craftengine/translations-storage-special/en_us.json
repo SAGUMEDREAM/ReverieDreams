@@ -1,0 +1,8 @@
+{
+  "block.reverie_dreams.cash_box": "Offering Box",
+  "block.reverie_dreams.cupboard": "Cupboard",
+  "item.action.click.cashbox.fails.coin": "§fMissing coin item",
+  "item.action.click.cashbox.fails.full": "§cYour Faith value has already exceeded %s",
+  "item.action.click.cashbox.fails.used": "§cYou have already been blessed today",
+  "item.action.click.cashbox.success": "§fYou received the shrine's blessing, Faith +%s"
+}

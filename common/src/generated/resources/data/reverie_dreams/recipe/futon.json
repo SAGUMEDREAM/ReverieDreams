@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "WWW",
+    "BBB",
+    "SSS"
+  ],
+  "key": {
+    "W": "minecraft:white_wool",
+    "B": "minecraft:blue_wool",
+    "S": "minecraft:string"
+  },
+  "result": {
+    "id": "reverie_dreams:futon",
+    "count": 1
+  }
+}

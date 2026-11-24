@@ -7,11 +7,12 @@ import cc.thonly.reverie_dreams.server.dialog.DialogBuilder;
 import cc.thonly.reverie_dreams.server.dialog.DialogEntry;
 import cc.thonly.reverie_dreams.server.page.BookPage;
 import cc.thonly.reverie_dreams.server.page.BookPageBuilder;
-import cc.thonly.reverie_dreams.util.LazyFunction;
-import cc.thonly.reverie_dreams.util.LazySupplier;
+import cc.thonly.reverie_dreams.util.lazy.LazyFunction;
+import cc.thonly.reverie_dreams.util.lazy.LazySupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -28,26 +29,16 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Slf4j
 @SuppressWarnings("ALL")
 public class BookPageManagerImpl implements BookPageManager {
     private static final BookPageManagerImpl INSTANCE = new BookPageManagerImpl();
-    private static final List<Consumer<BookPageManager>> INITIALIZERS = new ArrayList<>();
     private final Map<Identifier, Function<RegistryAccess, BookPageBuilder>> registry = new Object2ObjectLinkedOpenHashMap<>(16);
     private final Map<Identifier, ItemStackTemplate> pageItems = new Object2ObjectOpenHashMap<>();
 
     protected BookPageManagerImpl() {
-    }
-
-    public static void addInitializer(Consumer<BookPageManager> initializer) {
-        if (INITIALIZERS.contains(initializer)) {
-            log.error("Duplicate initializer {}", initializer);
-            return;
-        }
-        INITIALIZERS.add(initializer);
     }
 
     @Override
@@ -83,17 +74,15 @@ public class BookPageManagerImpl implements BookPageManager {
 
     @Override
     public void openRoot(String namespace, ServerPlayer player) {
-        RegistryAccess registryAccess = player.registryAccess();
-        List<Identifier> keys = new ArrayList<>();
-        this.registry.forEach((id, func) -> {
-            if (Objects.equals(id.getNamespace(), namespace)) {
-                keys.add(id);
-            }
-        });
+        this.createRootDialog(namespace, player.registryAccess()).open(player);
+    }
+
+    public DialogEntry createRootDialog(String namespace, RegistryAccess registryAccess) {
+        List<Identifier> keys = this.getRootPages(namespace, registryAccess);
         LazySupplier<DialogBuilder> dialogBuilderLazy = DialogBuilder.builder(builder -> {
             builder.common(common -> {
                 common.title(Component.translatable(getRootId(namespace)));
-                common.addTextBody(Component.translatable(this.getRootDescription(namespace)));
+                common.addTextBody(Component.translatable(this.getRootDescription(namespace)), 320);
                 for (Identifier key : keys) {
                     ItemStackTemplate template = this.pageItems.get(key);
                     if (template == null) {
@@ -105,8 +94,9 @@ public class BookPageManagerImpl implements BookPageManager {
                             Optional.of(
                                     new PlainMessage(Component.empty()
                                                               .append(Component.translatable(titleLangKey(key)))
-                                                              .withStyle(Style.EMPTY.withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.PAGE_GOTO_KEY, Optional.of(tag)))),
-                                            128)),
+                                                              .withStyle(Style.EMPTY.withColor(ChatFormatting.YELLOW).withUnderlined(true)
+                                                                      .withClickEvent(new ClickEvent.Custom(CustomClickActionRegistry.PAGE_GOTO_KEY, Optional.of(tag)))),
+                                            220)),
                             false,
                             false,
                             16,
@@ -120,8 +110,17 @@ public class BookPageManagerImpl implements BookPageManager {
             });
         });
         DialogBuilder dialogBuilder = dialogBuilderLazy.get();
-        DialogEntry dialogEntry = dialogBuilder.buildOrThrow();
-        dialogEntry.open(player);
+        return dialogBuilder.buildOrThrow();
+    }
+
+    List<Identifier> getRootPages(String namespace, RegistryAccess registryAccess) {
+        List<Identifier> keys = new ArrayList<>();
+        this.registry.forEach((id, factory) -> {
+            if (Objects.equals(id.getNamespace(), namespace) && factory.apply(registryAccess).isRootEntry()) {
+                keys.add(id);
+            }
+        });
+        return keys;
     }
 
     public static MutableComponent titleKey(Identifier registryKey) {
@@ -163,8 +162,7 @@ public class BookPageManagerImpl implements BookPageManager {
     public void reload() {
         this.pageItems.clear();
         this.registry.clear();
-        INITIALIZERS.forEach(consumer -> consumer.accept(this));
-        this.registry.forEach((id, func) -> {
+        BookPageManager.initializers().forEach(consumer -> consumer.accept(this));        this.registry.forEach((id, func) -> {
             if (func instanceof LazyFunction<RegistryAccess, BookPageBuilder> lazyFunc) {
                 lazyFunc.unbound();
             }
@@ -250,8 +248,7 @@ public class BookPageManagerImpl implements BookPageManager {
             getInstance().openRoot(namespace, player);
             return;
         }
-        BookPage page = getInstance().getPage(key, player.registryAccess());
-        page.open(player);
+        getInstance().openIfExists(key, player);
     }
 
     public static BookPageManagerImpl getInstance() {

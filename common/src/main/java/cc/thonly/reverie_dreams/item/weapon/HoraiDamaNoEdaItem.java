@@ -7,7 +7,7 @@ import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
 import cc.thonly.reverie_dreams.server.DelayedTask;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -35,20 +35,39 @@ public class HoraiDamaNoEdaItem extends SwordItem {
             float pitch = user.getXRot();
             float yaw = user.getYRot();
             DelayedTask.repeat(world.getServer(), 3, 5, () -> {
-                DanmakuEntity center = DanmakuTrajectory.spawnByItemStack(serverWorld, user, user.getX(), user.getY(), user.getZ(), DanmakuTypes.random(DanmakuTypes.FIREBALL).create(), pitch, yaw, 0.0f, 0.8f);
-                DanmakuEntity left = DanmakuTrajectory.spawnByItemStack(serverWorld, user, user.getX(), user.getY(), user.getZ(), DanmakuTypes.random(DanmakuTypes.FIREBALL).create(), pitch, yaw - 10, 0.0f, 0.8f);
-                DanmakuEntity right = DanmakuTrajectory.spawnByItemStack(serverWorld, user, user.getX(), user.getY(), user.getZ(), DanmakuTypes.random(DanmakuTypes.FIREBALL).create(), pitch, yaw + 10, 0.0f, 0.8f);
+                DanmakuEntity center = spawnFireball(serverWorld, player, pitch, yaw);
+                spawnFireball(serverWorld, player, pitch, yaw - 10);
+                spawnFireball(serverWorld, player, pitch, yaw + 10);
 
-                world.playSound(null, center.getOnPos(), RDSoundEvents.FIRE.value(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                if (center != null) {
+                    world.playSound(null, center.getOnPos(), RDSoundEvents.FIRE.value(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                }
             });
 
             ItemCooldowns itemCooldownManager = player.getCooldowns();
-            itemCooldownManager.addCooldown(stack, 20 * 6);
+            itemCooldownManager.addCooldown(stack, 20 * 5);
             if (!player.hasInfiniteMaterials()) {
                 stack.hurtWithoutBreaking(1, player);
             }
             return InteractionResult.SUCCESS_SERVER;
         }
         return super.use(world, user, hand);
+    }
+
+    private static DanmakuEntity spawnFireball(ServerLevel world, ServerPlayer player, float pitch, float yaw) {
+        DanmakuEntity fireball = DanmakuTrajectory.spawnByItemStack(
+                world, player, player.getX(), player.getEyeY(), player.getZ(),
+                DanmakuTypes.random(DanmakuTypes.FIREBALL).create(),
+                pitch, yaw, 0.0F, 0.8F
+        );
+        if (fireball != null) {
+            fireball.setDanmakuProperties(fireball.getDanmakuProperties()
+                    .withDamage(3.0F)
+                    .withSpeed(1.5F)
+                    .withScale(1.15F));
+            fireball.setHitCallback((self, target, damage) ->
+                    target.setRemainingFireTicks(Math.max(target.getRemainingFireTicks(), 60)));
+        }
+        return fireball;
     }
 }

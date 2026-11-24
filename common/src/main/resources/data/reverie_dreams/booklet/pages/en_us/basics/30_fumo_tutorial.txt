@@ -9,6 +9,9 @@ Their defining features include a seated pose, the iconic blank expression (ᗜ�
 
 In this mod, most Fumo can be obtained in Survival mode through relatively expensive trades.
 Once placed, a Fumo will automatically face the player's current position and can be oriented in 16 directions. Right-clicking a Fumo will also trigger its unique sound.
+Hold Shift and right-click a placed Fumo to face it in the horizontal direction you are looking, snapped to the nearest 22.5-degree step. This also works while holding an item. Clicking again without turning leaves its direction unchanged.
+Right-click with a cake to feed a Fumo. Each cake adds 0.1 to its size multiplier, up to 2.0. Cakes are not consumed at the limit. Growth is saved and retained when you break and place it again.
+Open "Fumo audio and rhythm" in the mod settings, select an input or output device, and enable rhythm to make nearby Fumo squash and rebound to local audio. This is off by default; rhythm never changes collision sizes. Windows supports output loopback; other systems can use input devices.
 
 Fumo can only be obtained by trading with a Fumo Merchant. In general, the merchant’s available trades will change daily.
 

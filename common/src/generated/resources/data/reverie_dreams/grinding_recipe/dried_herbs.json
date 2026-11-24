@@ -1,0 +1,8 @@
+{
+  "ingredient": "reverie_dreams:dried_herbs",
+  "output": {
+    "id": "reverie_dreams:herbal_powder",
+    "count": 2
+  },
+  "work": 8
+}

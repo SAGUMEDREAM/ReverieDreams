@@ -1,0 +1,274 @@
+{
+  "variants": {
+    "facing=north,half=lower,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single"
+    },
+    "facing=north,half=lower,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single"
+    },
+    "facing=north,half=lower,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single"
+    },
+    "facing=north,half=lower,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left"
+    },
+    "facing=north,half=lower,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right"
+    },
+    "facing=north,half=lower,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right"
+    },
+    "facing=north,half=lower,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left"
+    },
+    "facing=north,half=lower,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle"
+    },
+    "facing=north,half=lower,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right"
+    },
+    "facing=north,half=upper,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single"
+    },
+    "facing=north,half=upper,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single"
+    },
+    "facing=north,half=upper,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single"
+    },
+    "facing=north,half=upper,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left"
+    },
+    "facing=north,half=upper,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right"
+    },
+    "facing=north,half=upper,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right"
+    },
+    "facing=north,half=upper,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left"
+    },
+    "facing=north,half=upper,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle"
+    },
+    "facing=north,half=upper,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right"
+    },
+    "facing=east,half=lower,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle",
+      "y": 90
+    },
+    "facing=east,half=lower,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle",
+      "y": 90
+    },
+    "facing=east,half=upper,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 90
+    },
+    "facing=south,half=lower,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle",
+      "y": 180
+    },
+    "facing=south,half=lower,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle",
+      "y": 180
+    },
+    "facing=south,half=upper,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 180
+    },
+    "facing=west,half=lower,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_single",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_left",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_middle",
+      "y": 270
+    },
+    "facing=west,half=lower,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_lower_right",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=1,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=1,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=1,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_single",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=2,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=2,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=2,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=3,rack_index=0": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_left",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=3,rack_index=1": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_middle",
+      "y": 270
+    },
+    "facing=west,half=upper,rack_width=3,rack_index=2": {
+      "model": "reverie_dreams:block/set2/ofuda_rack_upper_right",
+      "y": 270
+    }
+  }
+}

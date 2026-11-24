@@ -1,0 +1,24 @@
+{
+  "type": "reverie_dreams:gensokyo_landmark_tree",
+  "config": {
+    "crown_radius": 3,
+    "leaves": {
+      "Name": "minecraft:oak_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "minecraft:oak_log",
+      "Properties": {
+        "axis": "y"
+      }
+    },
+    "max_height": 16,
+    "min_height": 10,
+    "shape": "oak",
+    "trunk_width": 1
+  }
+}

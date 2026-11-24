@@ -15,6 +15,7 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -41,10 +42,19 @@ public record RoleFollowerArchive(Component name, float maxHealth, CompoundTag n
         AttributeMap attributes = npcLikeEntity.getAttributes();
         AttributeInstance attributeInstance = attributes.getInstance(Attributes.MAX_HEALTH);
         if (attributeInstance != null) {
-            attributeInstance.setBaseValue(this.maxHealth > 20 ? this.maxHealth - 2 : this.maxHealth);
+            attributeInstance.setBaseValue(this.maxHealth);
         }
         npcLikeEntity.setHealth(npcLikeEntity.getMaxHealth());
         world.addFreshEntity(npcLikeEntity);
         return npcLikeEntity;
+    }
+
+    /**
+     * 档案记录的是原主人 UUID；旧档案没有该字段时允许使用，避免旧存档失效。
+     */
+    public boolean isOwnedBy(Player player) {
+        String owner = this.nbt.getStringOr("NPCOwner",
+                this.nbt.getStringOr("NpcOwner", this.nbt.getStringOr("Owner", "")));
+        return owner.isEmpty() || owner.equals(player.getStringUUID());
     }
 }

@@ -1,0 +1,44 @@
+{
+  "core": {
+    "id": "minecraft:iron_helmet",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "reverie_dreams:oni_horn",
+      "count": 2
+    },
+    {
+      "id": "reverie_dreams:power",
+      "count": 16
+    },
+    {
+      "id": "minecraft:iron_ingot",
+      "count": 8
+    },
+    {
+      "id": "minecraft:leather",
+      "count": 4
+    },
+    {
+      "id": "minecraft:red_dye",
+      "count": 8
+    },
+    {
+      "id": "minecraft:gold_ingot",
+      "count": 4
+    },
+    {
+      "id": "minecraft:coal",
+      "count": 8
+    },
+    {
+      "id": "minecraft:bone",
+      "count": 4
+    }
+  ],
+  "output": {
+    "id": "reverie_dreams:oni_mask",
+    "count": 1
+  }
+}

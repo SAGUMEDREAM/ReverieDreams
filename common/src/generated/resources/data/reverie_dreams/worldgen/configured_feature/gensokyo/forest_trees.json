@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "reverie_dreams:gensokyo/forest_oak",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.15,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/understory_oak",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.23529412,
+        "feature": {
+          "feature": "reverie_dreams:gensokyo/forest_birch",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

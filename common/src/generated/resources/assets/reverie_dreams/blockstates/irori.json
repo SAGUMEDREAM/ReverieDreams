@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "reverie_dreams:block/irori"
+    },
+    "lit=true": {
+      "model": "reverie_dreams:block/irori_lit"
+    }
+  }
+}

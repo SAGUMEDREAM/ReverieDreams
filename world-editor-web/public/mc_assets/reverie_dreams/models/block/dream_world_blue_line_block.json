@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "reverie_dreams:block/dream_world_blue_line_block"
+  }
+}

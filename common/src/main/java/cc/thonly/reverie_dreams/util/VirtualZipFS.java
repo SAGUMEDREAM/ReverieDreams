@@ -25,12 +25,16 @@ public class VirtualZipFS implements Closeable {
         this.load();
     }
 
-    /** 从 Path 打开 ZIP */
+    /**
+     * 从 Path 打开 ZIP
+     */
     public static VirtualZipFS open(Path path) throws IOException {
         return new VirtualZipFS(new ZipFile(path.toFile()));
     }
 
-    /** 获取某个文件的字节内容 */
+    /**
+     * 获取某个文件的字节内容
+     */
     public byte[] getBytes(String path) {
         path = normalize(path);
         FileEntry entry = files.get(path);
@@ -41,20 +45,27 @@ public class VirtualZipFS implements Closeable {
         return entry.data();
     }
 
-    /** 获取某个文件的 UTF-8 字符串内容 */
+    /**
+     * 获取某个文件的 UTF-8 字符串内容
+     */
     public String getString(String path) {
         return new String(getBytes(path), StandardCharsets.UTF_8);
     }
 
-    /** 获取完整的 FileEntry */
+    /**
+     * 获取完整的 FileEntry
+     */
     public FileEntry get(String path) {
         return files.get(normalize(path));
     }
 
-    /** 列出指定目录下的所有文件路径（递归） */
+    /**
+     * 列出指定目录下的所有文件路径（递归）
+     */
     public List<String> list(String path) {
         path = normalize(path);
-        if (!path.endsWith("/")) path += "/";
+        if (!path.endsWith("/"))
+            path += "/";
         List<String> result = new ArrayList<>();
         for (String name : this.files.keySet()) {
             if (name.startsWith(path)) {
@@ -64,17 +75,22 @@ public class VirtualZipFS implements Closeable {
         return result;
     }
 
-    /** 检查文件是否存在 */
+    /**
+     * 检查文件是否存在
+     */
     public boolean exists(String path) {
         return files.containsKey(normalize(path));
     }
 
-    /** 加载 ZIP 文件中所有内容 */
+    /**
+     * 加载 ZIP 文件中所有内容
+     */
     private void load() {
         Enumeration<? extends ZipEntry> entries = this.zip.entries();
         while (entries.hasMoreElements()) {
             ZipEntry entry = entries.nextElement();
-            if (entry.isDirectory()) continue;
+            if (entry.isDirectory())
+                continue;
 
             String fullName = normalize(entry.getName());
             String filename = extractFileName(fullName);
@@ -90,20 +106,26 @@ public class VirtualZipFS implements Closeable {
         log.info("Loaded virtual zip with {} files", this.files.size());
     }
 
-    /** 提取文件名（不含路径） */
+    /**
+     * 提取文件名（不含路径）
+     */
     private static String extractFileName(String fullPath) {
         int slash = fullPath.lastIndexOf('/');
         return (slash >= 0 ? fullPath.substring(slash + 1) : fullPath);
     }
 
-    /** 提取扩展名（不含点） */
+    /**
+     * 提取扩展名（不含点）
+     */
     private static String extractExtension(String fullPath) {
         String name = extractFileName(fullPath);
         int dot = name.lastIndexOf('.');
         return (dot >= 0 ? name.substring(dot + 1).toLowerCase(Locale.ROOT) : "");
     }
 
-    /** 统一路径分隔符为 '/' */
+    /**
+     * 统一路径分隔符为 '/'
+     */
     private static String normalize(String path) {
         return path.replace('\\', '/');
     }
@@ -114,6 +136,9 @@ public class VirtualZipFS implements Closeable {
         this.files.clear();
     }
 
-    /** 内部文件结构记录 */
-    public record FileEntry(String filename, String extension, byte[] data) {}
+    /**
+     * 内部文件结构记录
+     */
+    public record FileEntry(String filename, String extension, byte[] data) {
+    }
 }

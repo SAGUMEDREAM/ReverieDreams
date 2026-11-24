@@ -1,0 +1,243 @@
+{
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "reverie_dreams:block/large_bamboo/culm",
+    "1": "reverie_dreams:block/large_bamboo/pith",
+    "2": "reverie_dreams:block/bamboo_forest/leaves",
+    "particle": "reverie_dreams:block/bamboo_forest/leaves"
+  },
+  "elements": [
+    {
+      "name": "side_branch",
+      "from": [
+        7,
+        5,
+        4
+      ],
+      "to": [
+        8,
+        6,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            15.5,
+            0,
+            16,
+            0.5
+          ],
+          "texture": "#1"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            7,
+            12
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            15.5,
+            0,
+            16,
+            0.5
+          ],
+          "texture": "#1"
+        },
+        "west": {
+          "uv": [
+            10,
+            0,
+            11,
+            12
+          ],
+          "rotation": 90,
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            1,
+            12
+          ],
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            1,
+            12
+          ],
+          "texture": "#0"
+        }
+      }
+    },
+    {
+      "name": "arching_spray_-45",
+      "from": [
+        -8,
+        0,
+        8
+      ],
+      "to": [
+        24,
+        24,
+        8
+      ],
+      "rotation": {
+        "angle": -45,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ],
+          "texture": "#2"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ],
+          "texture": "#2"
+        }
+      }
+    },
+    {
+      "name": "arching_spray_0",
+      "from": [
+        -8,
+        0,
+        8
+      ],
+      "to": [
+        24,
+        24,
+        8
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ],
+          "texture": "#2"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ],
+          "texture": "#2"
+        }
+      }
+    },
+    {
+      "name": "arching_spray_45",
+      "from": [
+        -8,
+        0,
+        8
+      ],
+      "to": [
+        24,
+        24,
+        8
+      ],
+      "rotation": {
+        "angle": 45,
+        "axis": "y",
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ],
+          "texture": "#2"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            12
+          ],
+          "texture": "#2"
+        }
+      }
+    },
+    {
+      "name": "horizontal_spray",
+      "from": [
+        -4,
+        12,
+        -4
+      ],
+      "to": [
+        20,
+        12,
+        20
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            2,
+            0,
+            14,
+            12
+          ],
+          "texture": "#2"
+        },
+        "down": {
+          "uv": [
+            2,
+            0,
+            14,
+            12
+          ],
+          "texture": "#2"
+        }
+      }
+    }
+  ],
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false
+}

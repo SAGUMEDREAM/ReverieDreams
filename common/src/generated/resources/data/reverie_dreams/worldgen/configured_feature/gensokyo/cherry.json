@@ -1,0 +1,24 @@
+{
+  "config": {
+    "log": {
+      "Properties": {
+        "axis": "y"
+      },
+      "Name": "minecraft:cherry_log"
+    },
+    "leaves": {
+      "Properties": {
+        "waterlogged": "false",
+        "persistent": "false",
+        "distance": "7"
+      },
+      "Name": "minecraft:cherry_leaves"
+    },
+    "shape": "cherry",
+    "min_height": 10,
+    "max_height": 18,
+    "trunk_width": 1,
+    "crown_radius": 4
+  },
+  "type": "reverie_dreams:gensokyo_tree"
+}

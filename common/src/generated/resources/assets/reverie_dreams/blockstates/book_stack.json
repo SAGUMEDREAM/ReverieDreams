@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "reverie_dreams:block/set2/book_stack"
+    },
+    "facing=east": {
+      "model": "reverie_dreams:block/set2/book_stack",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "reverie_dreams:block/set2/book_stack",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "reverie_dreams:block/set2/book_stack",
+      "y": 270
+    }
+  }
+}

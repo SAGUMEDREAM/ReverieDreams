@@ -2,8 +2,11 @@ package cc.thonly.reverie_dreams.data.npc;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryTranslatable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
 import cc.thonly.reverie_dreams.registry.*;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -31,7 +34,7 @@ public class NPCState implements SerializableProvider<NPCState>, RegistryEntryOw
 
     private final String type;
     private Holder<Item> itemDisplay = Items.DIAMOND.builtInRegistryHolder();
-    private RegistryProvider<NPCState> owner;
+    private RegistryProviderLookup<NPCState> owner;
     private BiConsumer<BaseNPCLikeEntity, NPCState> onStarted = (npc, state) -> {
 
     };
@@ -47,7 +50,7 @@ public class NPCState implements SerializableProvider<NPCState>, RegistryEntryOw
         this.type = type;
     }
 
-    public NPCState withStarted(BiConsumer<BaseNPCLikeEntity, NPCState>function) {
+    public NPCState withStarted(BiConsumer<BaseNPCLikeEntity, NPCState> function) {
         this.onStarted = function;
         return this;
     }
@@ -89,7 +92,7 @@ public class NPCState implements SerializableProvider<NPCState>, RegistryEntryOw
     }
 
     @Override
-    public RegistryProvider<NPCState> getOwner() {
+    public RegistryProviderLookup<NPCState> getOwner() {
         return BuiltInRegistryProviders.NPC_STATE;
     }
 

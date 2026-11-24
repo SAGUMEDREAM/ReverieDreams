@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.registry;
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.data.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuShape;
+import cc.thonly.reverie_dreams.data.gensokyo.*;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuTrajectory;
 import cc.thonly.reverie_dreams.data.danmaku.DanmakuType;
 import cc.thonly.reverie_dreams.data.danmaku.spellcard.SpellCardFrameConfig;
@@ -26,6 +27,8 @@ import cc.thonly.reverie_dreams.data.npc.NPCSimpleRoleType;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class BuiltInRegistryProviderKeys {
+    public static final ResourceKey<Registry<GensokyoStructureMetadata>> GENSOKYO_STRUCTURE_METADATA = create("gensokyo_structure_metadata");
+    public static final ResourceKey<Registry<GensokyoAdventure>> GENSOKYO_ADVENTURE = create("gensokyo_adventure");
     public static final ResourceKey<Registry<DanmakuType>> DANMAKU_TYPE = create("danmaku_type");
     public static final ResourceKey<Registry<DanmakuShape>> DANMAKU_SHAPE = create("danmaku_shape");
     public static final ResourceKey<Registry<DanmakuTrajectory>> DANMAKU_TRAJECTORY = create("danmaku_trajectory");
@@ -51,6 +54,7 @@ public class BuiltInRegistryProviderKeys {
     public static final ResourceKey<Registry<BeverageProperty>> BEVERAGE_PROPERTY = create("beverage_property");
     public static final ResourceKey<Registry<CraftingConflict>> CRAFTING_CONFLICT = create("crafting_conflict");
     public static final ResourceKey<Registry<Customer>> CUSTOMER = create("customer");
+    public static final ResourceKey<Registry<GensokyoLandmark>> GENSOKYO_LANDMARK = create("gensokyo_landmark");
     public static final ResourceKey<Registry<SkinType>> SKIN_TYPE_MERGED = create("skin_type");
     public static final ResourceKey<Registry<RoleType>> ROLE_TYPE_MERGED = create("role_type");
 

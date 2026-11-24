@@ -87,7 +87,8 @@ public class GensokyoAltarBlockEntityRenderer implements BlockEntityRenderer<Gen
 
         for (int i = 0; i < offsets.length; i++) {
             ItemStackRenderState renderState = state.itemStates[i];
-            if (renderState == null) continue;
+            if (renderState == null)
+                continue;
 
             int[] offset = offsets[i];
 

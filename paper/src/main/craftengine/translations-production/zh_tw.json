@@ -1,0 +1,9 @@
+{
+  "block.reverie_dreams.ice_making_machine": "製冰機",
+  "block.reverie_dreams.brewing_barrel": "釀酒桶",
+  "block.reverie_dreams.magic_ice": "魔法冰",
+  "message.reverie_dreams.production.progress": "製作中：%s 秒",
+  "message.reverie_dreams.production.bottles": "還有 %s 份成品，請使用玻璃瓶裝取",
+  "message.reverie_dreams.production.instructions": "依序放入材料，潛行右鍵開始釀造",
+  "message.reverie_dreams.production.drain_first": "請等待加工完成並取完所有成品後再拆除"
+}

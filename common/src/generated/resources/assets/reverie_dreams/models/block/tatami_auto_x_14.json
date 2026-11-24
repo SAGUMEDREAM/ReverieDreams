@@ -1,0 +1,376 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "down": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            1
+          ]
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            1
+          ]
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            1
+          ]
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            0,
+            0,
+            16,
+            1
+          ]
+        }
+      },
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        1,
+        16
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "rotation": 90,
+          "texture": "#grass",
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ]
+        }
+      },
+      "from": [
+        1,
+        1,
+        1
+      ],
+      "to": [
+        15,
+        1,
+        15
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#frame",
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ]
+        }
+      },
+      "from": [
+        1,
+        1,
+        0
+      ],
+      "to": [
+        15,
+        1,
+        1
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "rotation": 90,
+          "texture": "#grass",
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ]
+        }
+      },
+      "from": [
+        15,
+        1,
+        1
+      ],
+      "to": [
+        16,
+        1,
+        15
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "rotation": 90,
+          "texture": "#grass",
+          "uv": [
+            15,
+            1,
+            16,
+            15
+          ]
+        }
+      },
+      "from": [
+        1,
+        1,
+        15
+      ],
+      "to": [
+        15,
+        1,
+        16
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "rotation": 90,
+          "texture": "#grass",
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ]
+        }
+      },
+      "from": [
+        0,
+        1,
+        1
+      ],
+      "to": [
+        1,
+        1,
+        15
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#frame",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      },
+      "from": [
+        0,
+        1,
+        0
+      ],
+      "to": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#frame",
+          "uv": [
+            15,
+            0,
+            16,
+            1
+          ]
+        }
+      },
+      "from": [
+        15,
+        1,
+        0
+      ],
+      "to": [
+        16,
+        1,
+        1
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "rotation": 90,
+          "texture": "#grass",
+          "uv": [
+            15,
+            0,
+            16,
+            1
+          ]
+        }
+      },
+      "from": [
+        15,
+        1,
+        15
+      ],
+      "to": [
+        16,
+        1,
+        16
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "rotation": 90,
+          "texture": "#grass",
+          "uv": [
+            15,
+            15,
+            16,
+            16
+          ]
+        }
+      },
+      "from": [
+        0,
+        1,
+        15
+      ],
+      "to": [
+        1,
+        1,
+        16
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#seam",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      },
+      "from": [
+        0,
+        1.001,
+        0
+      ],
+      "to": [
+        16,
+        1.001,
+        0.125
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#seam",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      },
+      "from": [
+        0,
+        1.001,
+        15.875
+      ],
+      "to": [
+        16,
+        1.001,
+        16
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#seam",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      },
+      "from": [
+        0,
+        1.001,
+        0.125
+      ],
+      "to": [
+        0.125,
+        1.001,
+        15.875
+      ]
+    },
+    {
+      "faces": {
+        "up": {
+          "texture": "#seam",
+          "uv": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      },
+      "from": [
+        15.875,
+        1.001,
+        0.125
+      ],
+      "to": [
+        16,
+        1.001,
+        15.875
+      ]
+    }
+  ],
+  "textures": {
+    "frame": "reverie_dreams:block/tatami_top_0",
+    "grass": "reverie_dreams:block/tatami_top_15",
+    "particle": "reverie_dreams:block/tatami_top_15",
+    "side": "reverie_dreams:block/tatami_side",
+    "seam": "reverie_dreams:block/tatami_seam"
+  }
+}

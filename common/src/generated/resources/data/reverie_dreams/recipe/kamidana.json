@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": "#minecraft:planks",
+    "S": "minecraft:stick",
+    "W": "minecraft:paper"
+  },
+  "pattern": [
+    "PPP",
+    "PWP",
+    " S "
+  ],
+  "result": {
+    "id": "reverie_dreams:kamidana"
+  }
+}

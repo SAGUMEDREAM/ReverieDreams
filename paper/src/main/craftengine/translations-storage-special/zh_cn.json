@@ -1,0 +1,8 @@
+{
+  "block.reverie_dreams.cash_box": "塞钱箱",
+  "block.reverie_dreams.cupboard": "橱柜",
+  "item.action.click.cashbox.fails.coin": "§f缺少钱币物品",
+  "item.action.click.cashbox.fails.full": "§c你的信仰值已超过了%s哦",
+  "item.action.click.cashbox.fails.used": "§c你今天已经被祝福过了哦",
+  "item.action.click.cashbox.success": "§f你受到了神社的祝福，信仰值+%s"
+}

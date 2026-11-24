@@ -11,6 +11,8 @@ import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+
 public class UniversalLivingAngerGoal<T extends LivingEntity>
         extends Goal {
     private static final int BOX_VERTICAL_EXPANSION = 10;
@@ -25,17 +27,17 @@ public class UniversalLivingAngerGoal<T extends LivingEntity>
 
     @Override
     public boolean canUse() {
-        return net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal.getServerLevel(this.mob).getGameRules().get(GameRules.UNIVERSAL_ANGER) && this.canStartUniversalAnger();
+        return ResetUniversalAngerTargetGoal.getServerLevel(this.mob).getGameRules().get(GameRules.UNIVERSAL_ANGER) && this.canStartUniversalAnger();
     }
 
     private boolean canStartUniversalAnger() {
-        return this.mob.getLastHurtByMob() != null && this.mob.getLastHurtByMob().getType() == EntityType.PLAYER && ((LivingEntity)this.mob).getLastHurtByMobTimestamp() > this.lastAttackedTime;
+        return this.mob.getLastHurtByMob() != null && this.mob.getLastHurtByMob().getType() == EntityType.PLAYER && ((LivingEntity) this.mob).getLastHurtByMobTimestamp() > this.lastAttackedTime;
     }
 
     @Override
     public void start() {
         this.lastAttackedTime = this.mob.getLastHurtByMobTimestamp();
-        ((NeutralMob)this.mob).forgetCurrentTargetAndRefreshUniversalAnger();
+        ((NeutralMob) this.mob).forgetCurrentTargetAndRefreshUniversalAnger();
         if (this.triggerOthers) {
             this.getOthersInRange().stream().filter(entity -> entity != this.mob).map(entity -> (NeutralMob) entity).forEach(NeutralMob::forgetCurrentTargetAndRefreshUniversalAnger);
         }

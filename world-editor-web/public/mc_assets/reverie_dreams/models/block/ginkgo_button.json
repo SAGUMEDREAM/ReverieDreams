@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "reverie_dreams:block/ginkgo_planks"
+  }
+}

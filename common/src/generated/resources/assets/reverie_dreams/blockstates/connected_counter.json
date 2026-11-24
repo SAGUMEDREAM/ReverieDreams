@@ -1,0 +1,484 @@
+{
+  "variants": {
+    "facing=north,open=false,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0"
+    },
+    "facing=north,open=false,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_1"
+    },
+    "facing=north,open=false,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_2"
+    },
+    "facing=north,open=false,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_3"
+    },
+    "facing=north,open=false,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_4"
+    },
+    "facing=north,open=false,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_5"
+    },
+    "facing=north,open=false,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_6"
+    },
+    "facing=north,open=false,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_7"
+    },
+    "facing=north,open=false,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_8"
+    },
+    "facing=north,open=false,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_9"
+    },
+    "facing=north,open=false,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_10"
+    },
+    "facing=north,open=false,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_11"
+    },
+    "facing=north,open=false,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_12"
+    },
+    "facing=north,open=false,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_13"
+    },
+    "facing=north,open=false,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_14"
+    },
+    "facing=north,open=false,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15"
+    },
+    "facing=north,open=true,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0_open"
+    },
+    "facing=north,open=true,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_1_open"
+    },
+    "facing=north,open=true,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_2_open"
+    },
+    "facing=north,open=true,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_3_open"
+    },
+    "facing=north,open=true,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_4_open"
+    },
+    "facing=north,open=true,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_5_open"
+    },
+    "facing=north,open=true,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_6_open"
+    },
+    "facing=north,open=true,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_7_open"
+    },
+    "facing=north,open=true,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_8_open"
+    },
+    "facing=north,open=true,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_9_open"
+    },
+    "facing=north,open=true,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_10_open"
+    },
+    "facing=north,open=true,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_11_open"
+    },
+    "facing=north,open=true,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_12_open"
+    },
+    "facing=north,open=true,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_13_open"
+    },
+    "facing=north,open=true,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_14_open"
+    },
+    "facing=north,open=true,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15_open"
+    },
+    "facing=east,open=false,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_8",
+      "y": 90
+    },
+    "facing=east,open=false,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_1",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_9",
+      "y": 90
+    },
+    "facing=east,open=false,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_2",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_10",
+      "y": 90
+    },
+    "facing=east,open=false,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_3",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_11",
+      "y": 90
+    },
+    "facing=east,open=false,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_4",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_12",
+      "y": 90
+    },
+    "facing=east,open=false,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_5",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_13",
+      "y": 90
+    },
+    "facing=east,open=false,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_6",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_14",
+      "y": 90
+    },
+    "facing=east,open=false,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_7",
+      "y": 90
+    },
+    "facing=east,open=false,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_8_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_1_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_9_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_2_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_10_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_3_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_11_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_4_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_12_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_5_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_13_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_6_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_14_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_7_open",
+      "y": 90
+    },
+    "facing=east,open=true,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15_open",
+      "y": 90
+    },
+    "facing=south,open=false,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_4",
+      "y": 180
+    },
+    "facing=south,open=false,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_8",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_12",
+      "y": 180
+    },
+    "facing=south,open=false,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_1",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_5",
+      "y": 180
+    },
+    "facing=south,open=false,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_9",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_13",
+      "y": 180
+    },
+    "facing=south,open=false,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_2",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_6",
+      "y": 180
+    },
+    "facing=south,open=false,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_10",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_14",
+      "y": 180
+    },
+    "facing=south,open=false,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_3",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_7",
+      "y": 180
+    },
+    "facing=south,open=false,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_11",
+      "y": 180
+    },
+    "facing=south,open=false,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_4_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_8_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_12_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_1_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_5_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_9_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_13_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_2_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_6_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_10_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_14_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_3_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_7_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_11_open",
+      "y": 180
+    },
+    "facing=south,open=true,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15_open",
+      "y": 180
+    },
+    "facing=west,open=false,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_2",
+      "y": 270
+    },
+    "facing=west,open=false,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_4",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_6",
+      "y": 270
+    },
+    "facing=west,open=false,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_8",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_10",
+      "y": 270
+    },
+    "facing=west,open=false,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_12",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_14",
+      "y": 270
+    },
+    "facing=west,open=false,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_1",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_3",
+      "y": 270
+    },
+    "facing=west,open=false,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_5",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_7",
+      "y": 270
+    },
+    "facing=west,open=false,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_9",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_11",
+      "y": 270
+    },
+    "facing=west,open=false,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_13",
+      "y": 270
+    },
+    "facing=west,open=false,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_0_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=false,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_2_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_4_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=true,south=false,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_6_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_8_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=false,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_10_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_12_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=true,south=true,west=false": {
+      "model": "reverie_dreams:block/set2/connected_counter_14_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_1_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=false,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_3_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_5_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=true,south=false,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_7_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_9_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=false,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_11_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=false,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_13_open",
+      "y": 270
+    },
+    "facing=west,open=true,north=true,east=true,south=true,west=true": {
+      "model": "reverie_dreams:block/set2/connected_counter_15_open",
+      "y": 270
+    }
+  }
+}

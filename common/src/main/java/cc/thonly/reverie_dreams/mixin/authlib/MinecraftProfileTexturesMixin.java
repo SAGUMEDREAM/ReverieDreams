@@ -14,7 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = MinecraftProfileTextures.class, remap = false)
 public class MinecraftProfileTexturesMixin {
     @Mutable
-    @Shadow @Final private SignatureState signatureState;
+    @Shadow
+    @Final
+    private SignatureState signatureState;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void modifySigneState(MinecraftProfileTexture skin, MinecraftProfileTexture cape, MinecraftProfileTexture elytra, SignatureState signatureState, CallbackInfo ci) {

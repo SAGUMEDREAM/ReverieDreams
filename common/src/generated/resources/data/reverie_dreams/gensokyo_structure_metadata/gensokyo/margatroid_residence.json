@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "content_version": 1,
+  "actors_version": 1,
+  "content_sha256": "906c61c12a183b7a094f386a995a24e098db01ef4bf24e3a2b4ba3f1958251b4",
+  "source_sha256": "22c5387d61df78d1267b1e9fbe651526522669711f479560bf024b677305f309",
+  "size": [
+    60,
+    31,
+    65
+  ],
+  "function_points": [
+    {
+      "id": "doll_fabric",
+      "pos": [
+        36,
+        2,
+        28
+      ]
+    },
+    {
+      "id": "doll_joints",
+      "pos": [
+        42,
+        2,
+        16
+      ]
+    },
+    {
+      "id": "doll_paint",
+      "pos": [
+        48,
+        3,
+        26
+      ]
+    },
+    {
+      "id": "thread_spools",
+      "pos": [
+        48,
+        3,
+        21
+      ]
+    },
+    {
+      "id": "patterns",
+      "pos": [
+        40,
+        3,
+        42
+      ]
+    }
+  ],
+  "template_sha256": "cc8adab5cefac13654ae15fc4036425b2cd22c240973f9cdf621b6fa39273581"
+}

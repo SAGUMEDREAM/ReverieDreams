@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
+import cc.thonly.reverie_dreams.inventory.storage.StorageTransfer;
 
 @Getter
 public class NPCInventoryImpl extends SimpleContainer {
@@ -111,39 +112,18 @@ public class NPCInventoryImpl extends SimpleContainer {
 
     @Override
     public boolean canAddItem(ItemStack stack) {
-        return super.canAddItem(stack);
+        return StorageTransfer.capacity(this, stack, NPCWorkInventory.CARGO_SIZE) > 0;
+    }
+
+    @Override
+    public ItemStack addItem(ItemStack stack) {
+        var remainder = stack.copy();
+        NPCWorkInventory.insert(this, remainder);
+        return remainder;
     }
 
     public int insertStack(ItemStack stack) {
-        if (stack.isEmpty())
-            return 0;
-        int remaining = stack.getCount();
-        int inserted = 0;
-        NonNullList<ItemStack> items = this.getItems();
-        for (int i = 0; i < items.size(); i++) {
-            if (this.isArmorSlot(i)) {
-                continue;
-            }
-            ItemStack slot = items.get(i);
-            if (slot.isEmpty()) {
-                int toInsert = Math.min(remaining, stack.getMaxStackSize());
-                items.set(i, stack.copy());
-                items.get(i).setCount(toInsert);
-                inserted += toInsert;
-                remaining -= toInsert;
-            } else if (ItemStack.isSameItemSameComponents(slot, stack) && slot.getCount() < slot.getMaxStackSize()) {
-                int space = slot.getMaxStackSize() - slot.getCount();
-                int toInsert = Math.min(remaining, space);
-                slot.grow(toInsert);
-                inserted += toInsert;
-                remaining -= toInsert;
-            }
-            if (remaining <= 0)
-                break;
-        }
-
-        stack.shrink(inserted);
-        return inserted;
+        return NPCWorkInventory.insert(this, stack);
     }
 
     @NotNull

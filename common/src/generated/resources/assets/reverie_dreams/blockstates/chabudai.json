@@ -1,0 +1,219 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_0"
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_1"
+      },
+      "when": {
+        "east": "false",
+        "north": "true",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_2"
+      },
+      "when": {
+        "east": "true",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_3"
+      },
+      "when": {
+        "east": "true",
+        "north": "true",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_4"
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_5"
+      },
+      "when": {
+        "east": "false",
+        "north": "true",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_6"
+      },
+      "when": {
+        "east": "true",
+        "north": "false",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_7"
+      },
+      "when": {
+        "east": "true",
+        "north": "true",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_8"
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_9"
+      },
+      "when": {
+        "east": "false",
+        "north": "true",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_10"
+      },
+      "when": {
+        "east": "true",
+        "north": "false",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_11"
+      },
+      "when": {
+        "east": "true",
+        "north": "true",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_12"
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_13"
+      },
+      "when": {
+        "east": "false",
+        "north": "true",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_14"
+      },
+      "when": {
+        "east": "true",
+        "north": "false",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/chabudai_table_15"
+      },
+      "when": {
+        "east": "true",
+        "north": "true",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tea_set_on_table"
+      },
+      "when": {
+        "facing": "north",
+        "has_tea_set": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tea_set_on_table",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "has_tea_set": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tea_set_on_table",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "has_tea_set": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tea_set_on_table",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "has_tea_set": "true"
+      }
+    }
+  ]
+}

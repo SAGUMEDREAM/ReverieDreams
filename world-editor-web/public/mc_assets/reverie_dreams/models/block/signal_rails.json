@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/rail_flat",
+  "textures": {
+    "rail": "reverie_dreams:block/signal_rails"
+  }
+}

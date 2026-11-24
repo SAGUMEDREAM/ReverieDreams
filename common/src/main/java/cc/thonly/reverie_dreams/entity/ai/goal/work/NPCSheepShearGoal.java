@@ -1,111 +1,83 @@
 package cc.thonly.reverie_dreams.entity.ai.goal.work;
 
-import cc.thonly.reverie_dreams.data.npc.NPCState;
+import cc.thonly.reverie_dreams.entity.ai.work.ScheduledWorkGoal;
 import cc.thonly.reverie_dreams.entity.npc.BaseNPCLikeEntity;
-import cc.thonly.reverie_dreams.registry.content.NPCStates;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
-import lombok.Getter;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.target.TargetGoal;
-import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.sheep.Sheep;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.AABB;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumSet;
+import java.util.Comparator;
 import java.util.List;
 
-@Getter
-public class NPCSheepShearGoal extends TargetGoal {
-    private final BaseNPCLikeEntity maid;
-    private final TargetingConditions targetPredicate = TargetingConditions.forCombat().range(16).selector((e, w) -> {
-        return !e.hasCustomName();
-    });
-    @Nullable
-    private Runnable task;
-    private Sheep targetEntity;
-    @Nullable
-    private ItemStack itemStack;
+import cc.thonly.reverie_dreams.entity.npc.work.NPCProduction;
 
-    public NPCSheepShearGoal(BaseNPCLikeEntity maid) {
-        super(maid, false);
-        this.maid = maid;
-        this.setFlags(EnumSet.of(Flag.TARGET));
+public class NPCSheepShearGoal extends ScheduledWorkGoal {
+    private Sheep sheep;
+
+    public NPCSheepShearGoal(BaseNPCLikeEntity npc) {
+        super(npc, NPCWorkModes.SHEEP_SHEARING);
     }
 
     @Override
-    public boolean canUse() {
-        if (!this.maid.isTame() || this.maid.isOrderedToSit()) {
-            return false;
-        }
-        ItemStack stack = this.maid.getItemInHand(InteractionHand.MAIN_HAND);
-        if (stack == null) {
-            return false;
-        }
-        if (stack.isEmpty()) {
-            return false;
-        }
-        NPCState state = this.maid.getNpcState();
-        LivingEntity owner = this.maid.getOwner();
-        if (owner == null || state != NPCStates.WORKING || this.maid.getWorkMode() != NPCWorkModes.SHEEP_SHEARING || !(stack.getItem() instanceof ShearsItem)) {
-            return false;
-        }
-        BlockPos workPos = this.maid.getWorkingPos();
-        ServerLevel serverWorld = getServerLevel(this.maid);
+    protected int searchInterval() {
+        return 20;
+    }
 
-        List<Sheep> targets = this.mob.level().getEntitiesOfClass(Sheep.class, new AABB(workPos).inflate(16, 8, 16), (e) -> {
-            boolean alive = e.isAlive();
-            if (e.readyForShearing()) {
-                return alive;
-            }
-            return false;
-        });
-        this.targetEntity = serverWorld.getNearestEntity(targets, this.targetPredicate, this.maid, this.maid.getX(), this.maid.getEyeY(), this.maid.getZ());
-        return this.targetEntity != null;
+    private static boolean tool(ItemStack stack) {
+        return !stack.isEmpty() && stack.getItem() instanceof ShearsItem;
     }
 
     @Override
-    public void start() {
-        this.task = () -> {
-            if (this.itemStack == null) {
-                return;
-            }
-            if (this.itemStack.isEmpty()) {
-                return;
-            }
-            if (!(this.itemStack.getItem() instanceof ShearsItem)) {
-                return;
-            }
-            ServerLevel world = getServerLevel(this.targetEntity);
-            this.maid.swing(InteractionHand.MAIN_HAND);
-            this.targetEntity.shear(world, SoundSource.PLAYERS, itemStack);
-            this.targetEntity.gameEvent(GameEvent.SHEAR, this.targetEntity);
-            this.itemStack.hurtAndBreak(1, this.targetEntity, InteractionHand.MAIN_HAND);
-        };
+    protected boolean findTask(ServerLevel level) {
+        sheep = level.getEntitiesOfClass(Sheep.class, site.box(), s -> s.isAlive() && s.readyForShearing() && !s.hasCustomName()
+                        && site.contains(s.blockPosition()) && work().available(s.getUUID(), level.getGameTime()))
+                .stream().min(Comparator.comparingDouble(npc::distanceToSqr)).orElse(null);
+        if (sheep == null) {
+            work().status("waiting_for_sheep");
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public void tick() {
-        this.itemStack = this.maid.getItemInHand(InteractionHand.MAIN_HAND);
-        if (this.task == null) {
+    protected boolean validTask(ServerLevel level) {
+        return sheep != null && sheep.level() == level && sheep.isAlive() && sheep.readyForShearing() && site.contains(sheep.blockPosition());
+    }
+
+    @Override
+    protected List<?> resources() {
+        return sheep == null ? List.of() : List.of(sheep.getUUID());
+    }
+
+    @Override
+    protected void clearTask() {
+        sheep = null;
+    }
+
+    @Override
+    protected void runTask(ServerLevel level) {
+        if (!reach(sheep, 1.8))
+            return;
+        var hand = work().tools().ensure(npc.getInventory(), NPCSheepShearGoal::tool);
+        if (hand == null) {
+            work().demand(NPCSheepShearGoal::tool, 1, "need_shears_in_hand");
+            finish("need_shears_in_hand", 20);
             return;
         }
-        if (this.targetEntity != null && this.targetEntity.isAlive()) {
-            this.maid.getNavigation().moveTo(this.targetEntity, 1.0D);
-
-            if (this.maid.distanceToSqr(this.targetEntity) <= 2.0D) {
-                this.task.run();
-                this.task = null;
-                this.stop();
-            }
+        var stack = npc.getItemInHand(hand);
+        if (!validTask(level) || !tool(stack) || npc.distanceToSqr(sheep) > 4)
+            return;
+        NPCProduction.capture(npc, "shear_sheep", () -> sheep.shear(level, SoundSource.PLAYERS, stack));
+        if (!sheep.readyForShearing()) {
+            stack.hurtAndBreak(1, npc, hand.asEquipmentSlot());
+            sheep.gameEvent(GameEvent.SHEAR, npc);
+            npc.swing(hand);
+            work().action();
         }
+        finish("ready", 10);
     }
-
 }

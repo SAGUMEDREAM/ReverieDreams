@@ -32,6 +32,8 @@ public class RDBuiltinTemplatePools {
     public static final ResourceKey<StructureTemplatePool> QUARANTINE_POOL = getOrCreateRegistryKey("quarantine_pool");
     public static final ResourceKey<StructureTemplatePool> SIGNAL_TOWER = getOrCreateRegistryKey("signal_tower");
 
+    public static final ResourceKey<StructureTemplatePool> ABANDONED_SMALL_SPACESHIP = getOrCreateRegistryKey("abandoned_small_spaceship");
+
     public static void init() {
 
     }
@@ -98,6 +100,10 @@ public class RDBuiltinTemplatePools {
         context.register(SIGNAL_TOWER, new StructureTemplatePool(
                 emptyPool,
                 List.of(Pair.of(StructurePoolElement.single(RDBuiltinStructures.SIGNAL_TOWER.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID
+        ));
+        context.register(ABANDONED_SMALL_SPACESHIP, new StructureTemplatePool(
+                emptyPool,
+                List.of(Pair.of(StructurePoolElement.single(RDBuiltinStructures.ABANDONED_SMALL_SPACESHIP.identifier().toString()), 1)), StructureTemplatePool.Projection.RIGID
         ));
     }
 

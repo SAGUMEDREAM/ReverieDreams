@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_leaf_litter_2",
+  "textures": {
+    "texture": "reverie_dreams:block/hauchiwa_maple_leaf_litter"
+  }
+}

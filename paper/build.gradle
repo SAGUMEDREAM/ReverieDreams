@@ -1,25 +1,191 @@
 //file:noinspection VulnerableLibrariesLocal
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+import java.security.MessageDigest
+
 plugins {
     id 'java-library'
     id 'xyz.jpenilla.run-paper' version '3.0.2'
+    id 'com.gradleup.shadow' version '9.3.2'
 }
 
 apply from: rootProject.file('repositories.gradle')
+apply from: 'bettermodel.gradle'
+apply from: 'embedded-libraries.gradle'
 
 repositories {
     mavenCentral()
+    exclusiveContent {
+        forRepositories(
+                maven {
+                    url = 'https://repo.momirealms.net/releases/'
+                    content { excludeModule('net.momirealms', 'sparrow-ui') }
+                },
+                maven {
+                    url = 'https://repo.momirealms.net/snapshots/'
+                    content { includeModule('net.momirealms', 'sparrow-ui') }
+                }
+        )
+        filter { includeGroup('net.momirealms') }
+    }
+}
+
+// Keep the pack source outside run/, and reuse only the assets needed by this batch.
+def packName = 'reverie_dreams'
+def sharedAssetManifests = fileTree('src/main/craftengine') {
+    include('shared-assets.json', '*-shared-assets.json')
+}
+def sharedAssets = sharedAssetManifests.files.sort().collect { new JsonSlurper().parse(it) }
+def sharedAssetPaths = sharedAssets.collectMany { it.models ?: [] }.unique()
+def sharedSourceModelPaths = sharedAssets.collectMany { it.source_models ?: [] }.unique()
+def sharedTexturePaths = sharedAssets.collectMany { it.textures ?: [] }.unique()
+def sharedTextureMetaPaths = sharedTexturePaths.collect { "${it}.mcmeta" }.findAll {
+    rootProject.file("common/src/main/resources/${it}").isFile()
+}
+def sharedSoundPaths = sharedAssets.collectMany { it.sounds ?: [] }.unique()
+def translationFragments = fileTree('src/main/craftengine') {
+    include('translations-*/*.json')
+}
+
+def preparePack = tasks.register('prepareCraftEnginePack', Sync) {
+    group = 'build'
+    description = 'Assemble the CraftEngine pack from versioned config and selected Mod assets'
+    into(layout.buildDirectory.dir("craftengine/${packName}"))
+    duplicatesStrategy = DuplicatesStrategy.FAIL
+    inputs.files(sharedAssetManifests, translationFragments)
+    from("src/main/craftengine/${packName}")
+    from(rootProject.file('common/src/generated/resources')) {
+        include(sharedAssetPaths)
+        into('resourcepack')
+    }
+    from(rootProject.file('common/src/main/resources')) {
+        include(sharedTexturePaths + sharedTextureMetaPaths + sharedSoundPaths)
+        into('resourcepack')
+    }
+    if (!sharedSourceModelPaths.isEmpty()) {
+        from(rootProject.file('common/src/main/resources')) {
+            include(sharedSourceModelPaths)
+            into('resourcepack')
+        }
+    }
+    from(rootProject.files('LICENSE', 'CREDIT'))
+    from(rootProject.files('LICENSE', 'CREDIT')) { into('resourcepack') }
+    doFirst {
+        sharedAssetPaths.each { path ->
+            if (!rootProject.file("common/src/generated/resources/${path}").isFile()) {
+                throw new GradleException("Missing CraftEngine model: ${path}")
+            }
+        }
+        sharedTexturePaths.each { path ->
+            if (!rootProject.file("common/src/main/resources/${path}").isFile()) {
+                throw new GradleException("Missing CraftEngine texture: ${path}")
+            }
+        }
+        sharedSoundPaths.each { path ->
+            if (!rootProject.file("common/src/main/resources/${path}").isFile()) {
+                throw new GradleException("Missing CraftEngine sound: ${path}")
+            }
+        }
+        sharedSourceModelPaths.each { path ->
+            if (!rootProject.file("common/src/main/resources/${path}").isFile()) {
+                throw new GradleException("Missing CraftEngine source model: ${path}")
+            }
+        }
+    }
+    doLast {
+        ['en_us', 'zh_cn', 'zh_tw', 'ja_jp'].each { locale ->
+            def target = new File(destinationDir, "resourcepack/assets/reverie_dreams/lang/${locale}.json")
+            def values = target.exists() ? new JsonSlurper().parse(target) : [:]
+            translationFragments.files.findAll { it.name == "${locale}.json" }.sort().each { fragment ->
+                new JsonSlurper().parse(fragment).each { key, value ->
+                    if (values.containsKey(key) && values[key] != value) {
+                        throw new GradleException("Conflicting translation ${locale}:${key}")
+                    }
+                    values[key] = value
+                }
+            }
+            target.parentFile.mkdirs()
+            target.setText(JsonOutput.prettyPrint(JsonOutput.toJson(values)) + '\n', 'UTF-8')
+        }
+    }
+}
+
+tasks.named('test', Test) {
+    dependsOn(preparePack)
+    inputs.dir(layout.buildDirectory.dir("craftengine/${packName}"))
+    systemProperty 'craftengine.packDirectory', layout.buildDirectory.dir("craftengine/${packName}").get().asFile.absolutePath
+    systemProperty 'mod.recipeDirectory', rootProject.file('common/src/generated/resources/data/reverie_dreams/recipe').absolutePath
+    inputs.files(rootProject.file('common/src/generated/resources/data/reverie_dreams/recipe').listFiles())
+}
+
+def packZip = tasks.register('zipCraftEnginePack', Zip) {
+    group = 'build'
+    description = 'Package the content folder for plugins/CraftEngine/resources/'
+    dependsOn(preparePack)
+    archiveBaseName = 'reverie-dreams-craftengine'
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    from(preparePack) { into(packName) }
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+tasks.named('assemble') {
+    dependsOn(packZip)
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:${paper_api_version}"
-    compileOnly "net.momirealms:craft-engine-core:${craft_engine_version}"
-    compileOnly "net.momirealms:craft-engine-bukkit:${craft_engine_version}"
-    compileOnly("net.momirealms:craft-engine-adventure:${craft_engine_version}")
-    compileOnly("net.momirealms:sparrow-nbt:${sparrow_nbt_version}")
-    compileOnly("net.momirealms:sparrow-nbt-adventure:${sparrow_nbt_version}")
-    compileOnly("net.momirealms:sparrow-nbt-codec:${sparrow_nbt_version}")
-    compileOnly("net.momirealms:sparrow-util:${sparrow_util_version}")
-    compileOnly("net.momirealms:sparrow-reflection:${sparrow_reflection_version}")
+    // Controllers expose shaded NBT in this exact distribution; published Maven
+    // API jars use different descriptors and cannot override its persistence ABI.
+    compileOnly files(providers.gradleProperty('craft_engine_runtime_jar').orElse("run/plugins/craft-engine-paper-plugin-${craft_engine_version}.jar"))
+    compileOnly files('run/plugins/CraftEngine/libs/net/momirealms/craft-engine-bukkit-proxy/20260830_2307/craft-engine-bukkit-proxy-20260830_2307.jar')
+    testImplementation "io.papermc.paper:paper-api:${paper_api_version}"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+}
+
+def ceRuntime = file(providers.gradleProperty('craft_engine_runtime_jar').orElse("run/plugins/craft-engine-paper-plugin-${craft_engine_version}.jar").get())
+def ceRuntimeLock = new Properties()
+file('gradle.properties').withInputStream { ceRuntimeLock.load(it) }
+def ceProxy = file('run/plugins/CraftEngine/libs/net/momirealms/craft-engine-bukkit-proxy/20260830_2307/craft-engine-bukkit-proxy-20260830_2307.jar')
+tasks.withType(JavaCompile).matching { it.name in ['compileJava', 'compileIntegrationTestJava', 'compileTestJava'] }.configureEach {
+    inputs.files(ceRuntime, ceProxy, file('gradle.properties'))
+    doFirst {
+        if (!ceRuntime.isFile()) throw new GradleException("Missing pinned CraftEngine runtime: ${ceRuntime}")
+        def digest = MessageDigest.getInstance('SHA-256').digest(ceRuntime.bytes).encodeHex().toString()
+        if (digest != ceRuntimeLock.getProperty('craft_engine_runtime_sha256')) {
+            throw new GradleException('CraftEngine runtime checksum differs; review the API and update the lock before compiling')
+        }
+        if (!ceProxy.isFile() || MessageDigest.getInstance('SHA-256').digest(ceProxy.bytes).encodeHex().toString() != ceRuntimeLock.getProperty('craft_engine_proxy_sha256')) {
+            throw new GradleException('CraftEngine runtime proxy is missing or differs from the lock')
+        }
+    }
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+}
+
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom(implementation)
+    integrationTestCompileOnly.extendsFrom(compileOnly)
+}
+
+tasks.register('smokeProbeJar', Jar) {
+    group = 'verification'
+    description = 'Build the isolated server API probe; never deploy this to a production server'
+    archiveClassifier = 'smoke-probe'
+    from(sourceSets.integrationTest.output)
+}
+
+tasks.named('check') {
+    dependsOn('smokeProbeJar')
 }
 
 java {
@@ -45,3 +211,5 @@ tasks {
         }
     }
 }
+
+apply from: 'world.gradle'

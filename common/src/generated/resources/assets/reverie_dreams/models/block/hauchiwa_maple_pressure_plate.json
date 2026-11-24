@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_up",
+  "textures": {
+    "texture": "reverie_dreams:block/hauchiwa_maple_planks"
+  }
+}

@@ -27,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class CustomChestBlock extends HorizontalDirectionalBlock implements EntityBlock {
     public static final MapCodec<CustomChestBlock> CODEC = simpleCodec(CustomChestBlock::new);
+
     public CustomChestBlock(Properties settings) {
         super(settings);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));

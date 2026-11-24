@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "BCB",
+    "PPP"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "B": "minecraft:barrel",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "reverie_dreams:sake_cask_rack",
+    "count": 1
+  }
+}

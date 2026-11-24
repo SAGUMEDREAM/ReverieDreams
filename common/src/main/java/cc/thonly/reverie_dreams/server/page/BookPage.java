@@ -34,9 +34,14 @@ public final class BookPage {
     }
 
     public void open(ServerPlayer player) {
-        DialogEntry dialogEntry = DialogBuilder.builder(builder -> {
+        this.createDialog().open(player);
+    }
+
+    public DialogEntry createDialog() {
+        return DialogBuilder.builder(builder -> {
             builder.replaceCommonBuilder(this.common);
-            builder.replaceActionsBuilder(this.actions);
+            // 复制而不是复用：返回按钮不能累积到原始页面 builder 里。
+            builder.replaceActionsBuilder(this.actions.copy());
             builder.common(common -> {
                 common.title(Component.translatable(this.titleLangKey()));
                 common.setCanCloseWithEscape(true);
@@ -48,17 +53,16 @@ public final class BookPage {
                     CompoundTag compoundTag = new CompoundTag();
                     compoundTag.putString("id", this.key.toString());
                     Action action = actionBuilder.customAll(CustomClickActionRegistry.PAGE_BACK_KEY, compoundTag);
-                    actions.addButton(Component.literal("Back"), 180, Optional.of(action));
+                    actions.addButton(Component.translatable("gui.reverie_dreams.back"), 180, Optional.of(action));
                 } else {
                     CompoundTag compoundTag = new CompoundTag();
                     compoundTag.putString("id", this.prev.toString());
                     Action action = actionBuilder.customAll(CustomClickActionRegistry.PAGE_GOTO_KEY, compoundTag);
-                    actions.addButton(Component.literal("Back"), 180, Optional.of(action));
+                    actions.addButton(Component.translatable("gui.reverie_dreams.back"), 180, Optional.of(action));
                 }
             });
             builder.key(this.key);
         }).get().buildOrThrow();
-        dialogEntry.open(player);
     }
 
     public Identifier key() {

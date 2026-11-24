@@ -1,0 +1,8 @@
+{
+  "ingredient": "minecraft:orange_tulip",
+  "output": {
+    "id": "minecraft:orange_dye",
+    "count": 2
+  },
+  "work": 8
+}

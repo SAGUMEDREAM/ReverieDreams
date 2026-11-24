@@ -1,13 +1,18 @@
 package cc.thonly.reverie_dreams.entity.npc.container;
 
+import cc.thonly.reverie_dreams.server.dialog.NPCSpeech;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
+import cc.thonly.reverie_dreams.restaurant.*;
+import cc.thonly.reverie_dreams.block.entity.PlateBlockEntity;
+import cc.thonly.reverie_dreams.entity.ai.work.CustomerQueue;
+import cc.thonly.reverie_dreams.block.entity.RestaurantBlockEntity;
 import cc.thonly.reverie_dreams.data.*;
 import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.data.npc.RoleType;
 import cc.thonly.reverie_dreams.entity.npc.NPCInteractResult;
 import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
-import cc.thonly.reverie_dreams.inventory.NPCInventoryImpl;
+import cc.thonly.reverie_dreams.inventory.CustomerMealDisplay;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.registry.content.BeverageProperties;
 import cc.thonly.reverie_dreams.registry.content.FoodProperties;
@@ -16,9 +21,6 @@ import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.item.RDBeverageItems;
 import cc.thonly.reverie_dreams.registry.content.item.RDCuisineItems;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
-import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import cc.thonly.reverie_dreams.util.math.ModMth;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import lombok.Getter;
@@ -53,6 +55,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import cc.thonly.reverie_dreams.entity.SeatEntity;
+
+import java.util.UUID;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+
 @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "resource", "OptionalUsedAsFieldOrParameterType", "RedundantIfStatement", "UnnecessaryLocalVariable"})
 @Getter
 public class NPCCustomerContainer {
@@ -70,8 +79,128 @@ public class NPCCustomerContainer {
     IngredientStack submitFood = IngredientStack.empty();
     IngredientStack submitBeverage = IngredientStack.empty();
 
-    int timeout = ReverieDreams.config().maxCustomerTickTime;
+    private final CustomerMealDisplay mealDisplay = new CustomerMealDisplay();
+    private final NPCMealSchedule meals = new NPCMealSchedule();
+    private static final long ARRIVAL_TIMEOUT = 20L * 45;
+    int timeout = Math.max(1, ReverieDreams.config().maxCustomerTickTime);
     int cooldownTickTime = -1;
+    private RestaurantTicket restaurantOrder;
+    private BlockPos visitingBell;
+    private UUID visitingBellId;
+    private long visitUntil;
+    private BlockPos preparedFoodPlate;
+    private Identifier preparedFoodId;
+
+    public boolean isManualCustomer() {
+        return npc.getNPCState() == NPCStates.WORKING && npc.getWorkMode() == NPCWorkModes.CUSTOMER;
+    }
+
+    public boolean hasVisit() {
+        return visitingBell != null || hasOpenOrder() || isEatingCooldown();
+    }
+
+    public void allowVisitNow(ServerLevel level) {
+        meals.allowVisitNow(level, npc.getUUID());
+    }
+
+    private boolean freeToVisit() {
+        return npc.isAlive() && npc.isTame() && npc.getTarget() == null && !npc.isLeashed()
+                && npc.canTakeRestaurantBreak()
+                && (npc.getNPCState() == NPCStates.NORMAL || isManualCustomer());
+    }
+
+    private void tryStartVisit(ServerLevel level) {
+        if (npc.isPassenger() || !freeToVisit() || (isManualCustomer() && !NPCWorkModes.canAssign(NPCWorkModes.CUSTOMER))
+                || !meals.ready(level, npc.getUUID()))
+            return;
+        BlockPos anchor = isManualCustomer() ? npc.getWorkingPos() : npc.blockPosition();
+        var shop = RestaurantService.find(npc, anchor, candidate -> candidate.bell().open() && candidate.bell().ready()
+                && !menuChoices(candidate, false).isEmpty() && !menuChoices(candidate, true).isEmpty()).orElse(null);
+        if (shop == null) {
+            if (isManualCustomer())
+                npc.getWorkController().status("restaurant_closed");
+            meals.retryLater(level, npc.getUUID());
+            return;
+        }
+        visitingBell = shop.bell().getBlockPos().immutable();
+        visitingBellId = shop.bell().id();
+        visitUntil = level.getGameTime() + ARRIVAL_TIMEOUT;
+        if (npc.isSleeping())
+            npc.stopSleeping();
+    }
+
+    public boolean hasOpenOrder() {
+        return restaurantOrder != null;
+    }
+
+    public boolean isSeatedFor(RestaurantBlockEntity bell) {
+        return this.isCustomerMode() && this.restaurantOrder != null
+                && this.restaurantOrder.bellId().equals(bell.id())
+                && this.npc.getVehicle() instanceof SeatEntity seat && bell.area().contains(seat.blockPosition());
+    }
+
+    public Optional<RestaurantService.Shop> findRestaurant() {
+        if (!(npc.level() instanceof ServerLevel level))
+            return Optional.empty();
+        var pos = restaurantOrder == null ? visitingBell : restaurantOrder.bellPos();
+        var id = restaurantOrder == null ? visitingBellId : restaurantOrder.bellId();
+        if (pos != null && level.hasChunkAt(pos) && level.getBlockEntity(pos) instanceof RestaurantBlockEntity bell
+                && bell.id().equals(id) && bell.isBell() && bell.linked() != null
+                && (restaurantOrder != null ? availability() == RestaurantTicket.Availability.READY
+                : bell.open() && bell.ready())) {
+            return Optional.of(new RestaurantService.Shop(bell, bell.linked()));
+        }
+        return Optional.empty();
+    }
+
+    private RestaurantTicket.Availability availability() {
+        if (restaurantOrder == null || !(npc.level() instanceof ServerLevel level))
+            return RestaurantTicket.Availability.REMOVED;
+        return restaurantOrder.availability(level::hasChunkAt, pos -> level.getBlockEntity(pos) instanceof RestaurantBlockEntity be
+                ? new RestaurantTicket.Facility(be.id(), be.linkedId(), be.isBell()) : null);
+    }
+
+    private boolean returnUnsettledItems() {
+        if (!(npc.level() instanceof ServerLevel level))
+            return false;
+        if (!submitFood.isEmpty() && refund(level, submitFood))
+            submitFood = IngredientStack.empty();
+        if (!submitBeverage.isEmpty() && refund(level, submitBeverage))
+            submitBeverage = IngredientStack.empty();
+        return submitFood.isEmpty() && submitBeverage.isEmpty();
+    }
+
+    private boolean refund(ServerLevel level, IngredientStack ingredient) {
+        var drop = new ItemEntity(level, npc.getX(), npc.getY() + .5, npc.getZ(), ingredient.build().copy());
+        drop.setPickUpDelay(20);
+        return level.addFreshEntity(drop);
+    }
+
+    private void cancelOrder() {
+        if (!returnUnsettledItems()) {
+            npc.getWorkController().status("restaurant_refund_wait");
+            return;
+        }
+        resetOrder();
+        cooldownTickTime = -1;
+    }
+
+    private void endVisit(ServerLevel level, boolean retry) {
+        boolean wasVisiting = hasVisit();
+        if (isEatingCooldown())
+            clearHands();
+        if (hasOpenOrder() || !isSubmitEmpty())
+            cancelOrder();
+        cooldownTickTime = -1;
+        visitingBell = null;
+        visitingBellId = null;
+        visitUntil = 0;
+        if (wasVisiting && npc.getVehicle() instanceof SeatEntity)
+            npc.stopRiding();
+        CustomerQueue.of(level).leave(npc.getUUID());
+        if (retry)
+            meals.retryLater(level, npc.getUUID());
+    }
 
     boolean fixedFood = false;
     List<FoodProperty> likes = new ArrayList<>();
@@ -87,6 +216,7 @@ public class NPCCustomerContainer {
     Optional<String> evaluationFeedback = Optional.empty();
 
     int priceOutput = 0;
+    int orderBudget = 0;
 
     public NPCCustomerContainer(NPCSimpleEntity npc, RandomSource randomSource) {
         this.npc = npc;
@@ -114,115 +244,130 @@ public class NPCCustomerContainer {
         return price;
     }
 
-    private void spawnCoinsToPlayer(Player player, int price) {
-        if (price <= 0) {
-            return;
+    private int rollBudget(CustomerBudget budget) {
+        int min = Math.max(0, budget.min());
+        int max = Math.max(min, budget.max());
+        long span = (long) max - min + 1L;
+        if (span <= 0L) {
+            return min;
         }
-
-        if (!(this.npc.level() instanceof ServerLevel serverLevel)) {
-            return;
-        }
-
-        List<ItemStack> itemStacks = ItemUtils.calculateCoins(price);
-
-        for (ItemStack itemStack : itemStacks) {
-            if (itemStack.isEmpty()) {
-                continue;
-            }
-
-            // NPC 位置
-            double x = this.npc.getX();
-            double y = this.npc.getEyeY();
-            double z = this.npc.getZ();
-
-            ItemEntity entity = new ItemEntity(
-                    serverLevel,
-                    x,
-                    y,
-                    z,
-                    itemStack
-            );
-
-            // NPC -> 玩家
-            double dx = player.getX() - x;
-            double dy = (player.getY() + player.getBbHeight() * 0.5) - y;
-            double dz = player.getZ() - z;
-
-            double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-
-            if (distance > 0.001) {
-                dx /= distance;
-                dy /= distance;
-                dz /= distance;
-            }
-
-            // 非常轻的抛出速度
-            double velocity = 0.23;
-            entity.setPickUpDelay(40);
-            entity.setDeltaMovement(
-                    dx * velocity,
-                    dy * velocity + 0.04,
-                    dz * velocity
-            );
-
-            serverLevel.addFreshEntity(entity);
-        }
+        return min + this.randomSource.nextInt((int) Math.min(Integer.MAX_VALUE, span));
     }
 
-    public void triggerSuccess(Player player) {
-        int price = this.priceOutput;
-        this.spawnCoinsToPlayer(player, price);
-        SoundEventPlayUtils.playSound(player, SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
-        FavorabilityContainer favorabilityContainer = this.npc.getFavorabilityContainer();
-        favorabilityContainer.add(player.getUUID(), (double) this.score / (this.randomSource.nextBoolean() ? 2 : 4));
-        if (ReverieDreams.config().debugMode) {
-            player.sendSystemMessage(
-                    Component.literal("§c调试信息：成功 分数：%s".formatted(this.score))
-            );
-        }
+    public boolean isSubmitEmpty() {
+        return this.submitFood.isEmpty() && this.submitBeverage.isEmpty();
     }
 
-    public void triggerTooExpensive(Player player) {
-        int price = this.priceOutput;
-        this.spawnCoinsToPlayer(player, price);
-        SoundEventPlayUtils.playSound(player, SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 1.0f);
-        FavorabilityContainer favorabilityContainer = this.npc.getFavorabilityContainer();
-        favorabilityContainer.add(player.getUUID(), -((double) this.score / (this.randomSource.nextBoolean() ? 2 : 4)));
-        if (ReverieDreams.config().debugMode) {
-            player.sendSystemMessage(
-                    Component.literal("失败/昂贵 分数：%s/%s".formatted(this.score, this.priceOutput))
-            );
-        }
+    /**
+     * Chefs and waiters only handle untouched preference orders; fixed dishes and drinks stay manual.
+     */
+    public boolean isAutomationEligible() {
+        return this.isCustomerMode()
+                && !this.isEatingCooldown()
+                && this.npc.getVehicle() instanceof SeatEntity
+                && this.restaurantOrder != null
+                && this.availability() == RestaurantTicket.Availability.READY
+                && !this.fixedFood
+                && !this.fixedBeverage
+                && this.isSubmitEmpty();
     }
 
-    public void triggerAngry(Player player) {
-        int price = (int) (this.priceOutput / 3);
-        this.spawnCoinsToPlayer(player, price);
-        SoundEventPlayUtils.playSound(player, SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 1.0f, 0.65f);
-        FavorabilityContainer favorabilityContainer = this.npc.getFavorabilityContainer();
-        favorabilityContainer.add(player.getUUID(), -((double) this.score / (this.randomSource.nextBoolean() ? 3 : 6)));
-        if (ReverieDreams.config().debugMode) {
-            player.sendSystemMessage(
-                    Component.literal("失败 分数：%s".formatted(this.score))
-            );
+    public boolean hasPreparedFood() {
+        return this.preparedFoodPlate != null && this.preparedFoodId != null;
+    }
+
+    public boolean awaitingAutomationFood() {
+        return this.isAutomationEligible() && !this.hasPreparedFood();
+    }
+
+    public Optional<BlockPos> preparedFoodPlate() {
+        return Optional.ofNullable(this.preparedFoodPlate);
+    }
+
+    public Optional<Identifier> preparedFoodId() {
+        return Optional.ofNullable(this.preparedFoodId);
+    }
+
+    public boolean attachPreparedFood(BlockPos plate, Identifier item) {
+        if (!this.isAutomationEligible() || this.hasPreparedFood()) {
+            return false;
         }
+        this.preparedFoodPlate = plate.immutable();
+        this.preparedFoodId = item;
+        return true;
+    }
+
+    public void clearPreparedFood() {
+        if (this.preparedFoodPlate != null && npc.level() instanceof ServerLevel level
+                && level.hasChunkAt(this.preparedFoodPlate)
+                && level.getBlockEntity(this.preparedFoodPlate) instanceof PlateBlockEntity plate) {
+            plate.releaseDish(npc.getUUID());
+        }
+        this.preparedFoodPlate = null;
+        this.preparedFoodId = null;
+    }
+
+    public int foodPreference(ItemStack food) {
+        int score = 0;
+        for (FoodProperty property : FoodProperties.get(food)) {
+            if (this.likes.contains(property))
+                score++;
+            if (this.dislikes.contains(property))
+                score -= 2;
+        }
+        return score;
+    }
+
+    /**
+     * Waiter hands over a cooked dish and a beverage taken from restaurant storage.
+     */
+    public boolean acceptDelivery(SettlementParty party, UUID beneficiary, ItemStack food, ItemStack beverage) {
+        if (!this.isAutomationEligible() || !this.isSubmitEmpty() || this.restaurantOrder == null) {
+            return false;
+        }
+        if (food.isEmpty() || beverage.isEmpty() || !this.isFood(food) || !this.isBeverage(beverage)) {
+            return false;
+        }
+        Identifier foodId = BuiltInRegistries.ITEM.getKey(food.getItem());
+        Identifier beverageId = BuiltInRegistries.ITEM.getKey(beverage.getItem());
+        if (!this.restaurantOrder.allows(foodId, false) || !this.restaurantOrder.allows(beverageId, true)) {
+            return false;
+        }
+        this.submitFood = IngredientStack.of(food.copyWithCount(1));
+        this.submitBeverage = IngredientStack.of(beverage.copyWithCount(1));
+        if (this.processSubmitOrder(party, beneficiary)) {
+            return true;
+        }
+        this.submitFood = IngredientStack.empty();
+        this.submitBeverage = IngredientStack.empty();
+        return false;
     }
 
     public void tick() {
-        if (!this.isCustomerMode()) {
-            this.npc.setLockSlot(false);
+        if (!(npc.level() instanceof ServerLevel level))
+            return;
+        if (!hasOpenOrder() && !isEatingCooldown() && npc.getWorkMode() == NPCWorkModes.CUSTOMER
+                && !NPCWorkModes.canAssign(NPCWorkModes.CUSTOMER)) {
+            if (hasVisit() || !isSubmitEmpty())
+                endVisit(level, false);
+            if (isManualCustomer())
+                npc.setNPCState(NPCStates.NORMAL);
+            npc.setWorkMode(NPCWorkModes.COMBAT);
+        }
+        if (!hasVisit()) {
+            if (!isSubmitEmpty())
+                cancelOrder();
+            if (isSubmitEmpty() && npc.tickCount % 20 == 0)
+                tryStartVisit(level);
             return;
         }
-
-        if (this.cooldownTickTime == -1) {
-            this.clearHands();
-            this.nextOrder();
-            this.cooldownTickTime = -2;
+        if (!freeToVisit()) {
+            endVisit(level, true);
             return;
         }
-
         if (this.cooldownTickTime >= 0) {
-            this.cooldownTickTime--;
+            if (this.cooldownTickTime > 0)
+                this.cooldownTickTime--;
 
             if (this.cooldownTickTime > 0
                     && this.cooldownTickTime % 20 == 0) {
@@ -247,72 +392,68 @@ public class NPCCustomerContainer {
             }
 
             if (this.cooldownTickTime <= 0) {
-                this.clearHands();
-                this.nextOrder();
-                this.cooldownTickTime = -2;
+                endVisit(level, false);
             }
 
             return;
         }
 
-        this.timeout--;
 
+        if (restaurantOrder == null) {
+            if (level.getGameTime() >= visitUntil || findRestaurant().isEmpty()) {
+                endVisit(level, true);
+            } else if (npc.getVehicle() instanceof SeatEntity) {
+                nextOrder();
+            }
+            return;
+        }
+        var state = availability();
+        if (state == RestaurantTicket.Availability.UNLOADED) {
+            if (--this.timeout <= 0)
+                endVisit(level, true);
+            npc.getWorkController().status("restaurant_unloaded");
+            return;
+        }
+        if (state == RestaurantTicket.Availability.REMOVED) {
+            endVisit(level, true);
+            npc.getWorkController().status("restaurant_removed");
+            return;
+        }
+        if (!(this.npc.getVehicle() instanceof SeatEntity)) {
+            endVisit(level, true);
+            return;
+        }
+        this.timeout--;
         if (this.timeout <= 0) {
-            this.clearHands();
-            this.nextOrder();
-            this.timeout = ReverieDreams.config().maxCustomerTickTime;
-            this.cooldownTickTime = -2;
+            endVisit(level, true);
         }
     }
 
     private ParticleOptions getParticle(boolean isMainHand) {
-        ItemStack item = isMainHand ? this.npc.getMainHandItem() : this.npc.getOffhandItem();
+        InteractionHand hand = isMainHand ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+        ItemStack item = this.mealDisplay.meal(hand);
+        if (item.isEmpty())
+            item = isMainHand ? this.npc.getMainHandItem() : this.npc.getOffhandItem();
         return item.isEmpty()
                 ? ParticleTypes.ITEM_SNOWBALL
                 : new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
     }
 
     public boolean isCustomerMode() {
-        if (!this.npc.getNpcState().equals(NPCStates.WORKING)) {
-            return false;
-        }
-        if (!this.npc.getWorkMode().equals(NPCWorkModes.CUSTOMER)) {
-            return false;
-        }
-        return true;
+        return freeToVisit() && (hasVisit() || isManualCustomer() && NPCWorkModes.canAssign(NPCWorkModes.CUSTOMER));
     }
 
     public void insertStackToHand(
             InteractionHand hand,
             ItemStack stack
     ) {
-        if (!(this.npc.level() instanceof ServerLevel serverLevel)) {
+        if (!(this.npc.level() instanceof ServerLevel))
             return;
-        }
-
-        NPCInventoryImpl inventory = this.npc.getInventory();
-        boolean remained = false;
-        if (!stack.isEmpty()) {
-            ItemStack oldStack = inventory.getHand(hand);
-            if (!oldStack.isEmpty()) {
-                ItemStack remaining = oldStack.copy();
-                inventory.insertStack(remaining);
-
-                if (!remaining.isEmpty()) {
-                    this.npc.spawnAtLocation(serverLevel, remaining);
-                }
-            }
+        if (stack.isEmpty()) {
+            this.mealDisplay.clear(this.npc.getInventory());
         } else {
-            ItemStack oldStack = inventory.getHand(hand);
-            if (oldStack.getCount() > 1) {
-                oldStack.shrink(1);
-                remained = true;
-            }
+            this.mealDisplay.show(this.npc.getInventory(), hand, stack);
         }
-        if (remained) {
-            return;
-        }
-        inventory.setHand(hand, stack);
     }
 
     public NPCInteractResult triggerInteraction(
@@ -333,10 +474,18 @@ public class NPCCustomerContainer {
         }
 
         if (this.isEatingCooldown()) {
-            player.sendSystemMessage(Component.translatable(COOLDOWN_KEY));
+            this.tell(player, Component.translatable(COOLDOWN_KEY));
             return NPCInteractResult.PASS;
         }
 
+        if (!canSubmitOrder()) {
+            this.tell(player, Component.translatable("restaurant.reverie_dreams.no_order"));
+            return NPCInteractResult.PASS;
+        }
+        if ((!submitFood.isEmpty() || !submitBeverage.isEmpty()) && availability() == RestaurantTicket.Availability.REMOVED) {
+            cancelOrder();
+            return NPCInteractResult.PASS;
+        }
         if (stack.isEmpty()) {
             SoundEventPlayUtils.playUISound(player, 1.0f, 1.0f);
             this.tellOrder(player);
@@ -349,6 +498,11 @@ public class NPCCustomerContainer {
             return NPCInteractResult.SUCCESS;
         }
 
+        if ((this.isFood(stack) && this.submitFood.isEmpty() && !restaurantOrder.allows(BuiltInRegistries.ITEM.getKey(stack.getItem()), false))
+                || (this.isBeverage(stack) && this.submitBeverage.isEmpty() && !restaurantOrder.allows(BuiltInRegistries.ITEM.getKey(stack.getItem()), true))) {
+            this.tell(player, Component.translatable("restaurant.reverie_dreams.off_menu"));
+            return NPCInteractResult.PASS;
+        }
         boolean submitItem = false;
 
         if (this.isFood(stack) && this.submitFood.isEmpty()) {
@@ -382,11 +536,43 @@ public class NPCCustomerContainer {
         return NPCInteractResult.PASS;
     }
 
-    public void processSubmitOrder(ServerPlayer player) {
-        if (!this.isSubmitFullStack()) {
-            return;
+    /**
+     * Counter consumes real stock; the existing order scorer is the only settlement path.
+     */
+    public boolean acceptFromCounter(ServerPlayer player, Container stock, RestaurantBlockEntity bell) {
+        if (!canSubmitOrder() || !bell.canEdit(player) || restaurantOrder == null || !restaurantOrder.bellId().equals(bell.id()))
+            return false;
+        boolean accepted = false;
+        for (boolean beverage : new boolean[]{false, true}) {
+            if (!(beverage ? submitBeverage : submitFood).isEmpty())
+                continue;
+            for (int slot = 0; slot < stock.getContainerSize(); slot++) {
+                var candidate = stock.getItem(slot);
+                if (candidate.isEmpty() || !(beverage ? isBeverage(candidate) : isFood(candidate)) || !restaurantOrder.allows(BuiltInRegistries.ITEM.getKey(candidate.getItem()), beverage))
+                    continue;
+                var taken = stock.removeItem(slot, 1);
+                if (taken.isEmpty())
+                    continue;
+                if (beverage)
+                    submitBeverage = IngredientStack.of(taken);
+                else
+                    submitFood = IngredientStack.of(taken);
+                accepted = true;
+                break;
+            }
         }
+        if (isSubmitFullStack())
+            processSubmitOrder(player);
+        return accepted;
+    }
 
+    public void processSubmitOrder(ServerPlayer player) {
+        this.processSubmitOrder(SettlementParty.of(player), player.getUUID());
+    }
+
+    public boolean processSubmitOrder(SettlementParty party, UUID beneficiary) {
+        if (!this.isSubmitFullStack() || !canSubmitOrder())
+            return false;
         this.score = DEFAULT_SCORE;
 
         if (this.fixedFood) {
@@ -397,18 +583,7 @@ public class NPCCustomerContainer {
             }
         }
 
-        Collection<FoodProperty> foodProperties =
-                FoodProperties.get(this.submitFood);
-
-        for (FoodProperty foodProperty : foodProperties) {
-            if (this.likes.contains(foodProperty)) {
-                this.score += 1;
-            }
-
-            if (this.dislikes.contains(foodProperty)) {
-                this.score -= 2;
-            }
-        }
+        this.score += this.foodPreference(this.submitFood.build());
 
         if (this.fixedBeverage) {
             if (this.submitBeverage.is(this.fixedRequiredBeverage)) {
@@ -437,8 +612,7 @@ public class NPCCustomerContainer {
         }
         int budget = this.calculateOrderPrice();
 
-        CustomerBudget budgetInstance = this.getCustomer().budget();
-        int max = budgetInstance.max();
+        int max = this.orderBudget > 0 ? this.orderBudget : this.rollBudget(this.getCustomer().budget());
 
         int overBudget = Math.max(0, budget - max);
         boolean tooExpensive = overBudget > 0;
@@ -449,7 +623,8 @@ public class NPCCustomerContainer {
                 Math.min(this.score, MAX_SCORE)
         );
 
-        this.priceOutput = Math.min(budget, max);
+        // 超出预算时只支付一小部分，避免用低价食材换满额预算。
+        this.priceOutput = tooExpensive ? Math.max(0, max / 3) : Math.min(budget, max);
 
         IngredientStack food = this.submitFood.copy();
         IngredientStack beverage = this.submitBeverage.copy();
@@ -459,27 +634,27 @@ public class NPCCustomerContainer {
         };
         action.run();
 
-        if (this.score >= 0) {
-            this.triggerSuccess(player);
-        } else {
-            if (tooExpensive) {
-                this.triggerTooExpensive(player);
-            } else {
-                this.triggerAngry(player);
-            }
+        Settlement.Outcome outcome = this.score >= 0 ? Settlement.Outcome.SUCCESS
+                : tooExpensive ? Settlement.Outcome.TOO_EXPENSIVE : Settlement.Outcome.ANGRY;
+        int coins = outcome == Settlement.Outcome.ANGRY ? this.priceOutput / 3 : this.priceOutput;
+        if (beneficiary != null) {
+            double delta = switch (outcome) {
+                case SUCCESS -> (double) this.score / (this.randomSource.nextBoolean() ? 2 : 4);
+                case TOO_EXPENSIVE -> (double) this.score / (this.randomSource.nextBoolean() ? 2 : 4);
+                case ANGRY -> (double) this.score / (this.randomSource.nextBoolean() ? 3 : 6);
+            };
+            this.npc.getFavorabilityContainer().add(beneficiary, delta);
         }
-        player.giveExperiencePoints(this.randomSource.nextInt(2, 16));
-        SimpleTriggerFactory.create(SimpleTriggerKeys.WAITER).trigger(player);
 
-        CustomerEvaluation evaluation = this.getCustomer().evaluation();
-        this.evaluationFeedback = evaluation.getEvaluationFeedback(this.score, overBudget);
-        if (this.evaluationFeedback.isPresent()) {
-            String msg = this.evaluationFeedback.get();
-            this.tell(player, Component.translatable(msg));
-        } else {
-            CustomerEvaluation randomEvaluation = CustomerEvaluation.getRandomEvaluation(this.randomSource);
-            this.evaluationFeedback = randomEvaluation.getEvaluationFeedback(this.score, overBudget);
-            this.evaluationFeedback.ifPresent(msg -> this.tell(player, Component.translatable(msg)));
+        this.evaluationFeedback = this.getCustomer().evaluation().getEvaluationFeedback(this.score, overBudget);
+        if (this.evaluationFeedback.isEmpty()) {
+            this.evaluationFeedback = CustomerEvaluation.getRandomEvaluation(this.randomSource)
+                    .getEvaluationFeedback(this.score, overBudget);
+        }
+        party.settle(this.npc, new Settlement(Optional.ofNullable(beneficiary), outcome, coins,
+                this.randomSource.nextInt(2, 16), this.evaluationFeedback));
+        if (party.getBaseEntity() instanceof ServerPlayer listener) {
+            this.evaluationFeedback.ifPresent(msg -> this.tell(listener, Component.translatable(msg)));
         }
 
         this.priceOutput = 0;
@@ -499,22 +674,30 @@ public class NPCCustomerContainer {
         // 修改：resetOrder 不再修改 timeout
         this.resetOrder();
 
-        this.cooldownTickTime = ReverieDreams.config().maxCustomerCooldownTickTime;
+        meals.finishMeal((ServerLevel) npc.level(), npc.getUUID());
+        this.cooldownTickTime = Math.max(0, ReverieDreams.config().maxCustomerCooldownTickTime);
+        return true;
     }
 
     public void tell(Player player, Component component) {
-        MutableComponent body = Component.empty()
-                .append(this.npc.getName())
-                .append(": ")
-                .append(component);
-
-        player.sendSystemMessage(body);
+        if (player instanceof ServerPlayer listener) {
+            NPCSpeech.sayTo(this.npc, listener, component);
+        }
     }
 
     public void tellOrder(Player player) {
-        for (Component line : this.components) {
-            this.tell(player, line);
+        if (!(player instanceof ServerPlayer listener) || this.components.isEmpty()) {
+            return;
         }
+        MutableComponent order = Component.empty();
+        for (Component line : this.components) {
+            if (!order.getSiblings().isEmpty()) {
+                order.append("\n");
+            }
+            order.append(line);
+        }
+        NPCSpeech.sayWithTranscript(this.npc, listener, order,
+                Component.empty().append(this.npc.getName()).append(": ").append(order));
     }
 
     public Customer getCustomer() {
@@ -525,7 +708,7 @@ public class NPCCustomerContainer {
     private boolean canSubmitOrder() {
         return this.isCustomerMode()
                 && !this.isEatingCooldown()
-                && this.npc.isPassenger();
+                && this.npc.getVehicle() instanceof SeatEntity && restaurantOrder != null && availability() == RestaurantTicket.Availability.READY;
     }
 
     private boolean isEatingCooldown() {
@@ -540,6 +723,24 @@ public class NPCCustomerContainer {
         return itemStack.is(RDItemTags.BEVERAGE);
     }
 
+    /**
+     * Waiter hint: the drink satisfies this order's preferred beverage property.
+     */
+    public boolean prefersBeverage(ItemStack itemStack) {
+        if (this.fixedBeverage || !this.isBeverage(itemStack)) {
+            return false;
+        }
+        if (this.beverageProperty.equals(BeverageProperties.UNDEFINED)) {
+            return true;
+        }
+        for (BeverageProperty property : BeverageProperties.get(itemStack)) {
+            if (property.is(this.beverageProperty)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isSubmitFullStack() {
         return !this.submitFood.isEmpty()
                 && !this.submitBeverage.isEmpty();
@@ -550,144 +751,89 @@ public class NPCCustomerContainer {
     }
 
     public void nextOrder() {
-        // 修改：新订单开始前统一清理上一单手持物品
-        this.clearHands();
-        this.resetOrder();
-
+        if (!(npc.level() instanceof ServerLevel level) || !hasVisit() || hasOpenOrder()
+                || !isCustomerMode() || !(npc.getVehicle() instanceof SeatEntity seat))
+            return;
+        var shop = findRestaurant().filter(r -> r.bell().open()).orElse(null);
+        if (shop == null) {
+            npc.getWorkController().status("restaurant_closed");
+            endVisit(level, true);
+            return;
+        }
+        if (!shop.bell().area().contains(seat.blockPosition())) {
+            endVisit(level, true);
+            return;
+        }
         Customer customer = this.getCustomer();
-
-        List<FoodProperty> likes = customer.likes();
-        List<FoodProperty> dislikes = customer.dislikes();
-        List<BeverageProperty> beverages = customer.beverages();
-
-        if (likes.isEmpty()) {
-            this.fixedFood = true;
-
-            List<Holder<Item>> list = ModMth.toList(
-                    BuiltInRegistries.ITEM.getTagOrEmpty(RDItemTags.CUISINE)
-            );
-
-            if (!list.isEmpty()) {
-                this.fixedRequiredFood =
-                        ModMth.getRandomElement(
-                                this.randomSource,
-                                list
-                        ).value();
-            } else {
-                this.fixedRequiredFood =
-                        RDCuisineItems.SEAFOOD_MISO_SOUP.asItem();
-            }
-
-            this.components.add(
-                    Component.translatable(
-                            REQUEST_FOOD_KEY,
-                            this.getItemName(this.fixedRequiredFood)
-                    )
-            );
-        } else {
-            this.fixedFood = false;
-            this.likes = new ArrayList<>(likes);
-            this.dislikes = new ArrayList<>(dislikes);
-
-            List<Component> orders = customer.orders();
-
-            if (!orders.isEmpty()) {
-                Component element =
-                        ModMth.getRandomElement(
-                                this.randomSource,
-                                orders
-                        );
-
-                this.components.add(element);
-            } else {
-                MutableComponent componentList =
-                        Component.empty();
-
-                for (int i = 0; i < likes.size(); i++) {
-                    if (!(i == 0 || i == likes.size() - 1)) {
-                        componentList.append(
-                                Component.literal("/")
-                        );
-                    }
-
-                    componentList.append(
-                            Component.translatable(
-                                    likes.get(i).translateKey()
-                            )
-                    );
-                }
-
-                MutableComponent component =
-                        Component.translatable(
-                                REQUEST_FOOD_KEY,
-                                componentList
-                        );
-
-                this.components.add(component);
-            }
+        boolean generic = customer.isGeneric();
+        var foods = menuChoices(shop, false);
+        var drinks = menuChoices(shop, true);
+        if (foods.isEmpty() || drinks.isEmpty()) {
+            npc.getWorkController().status("restaurant_no_preference");
+            endVisit(level, true);
+            return;
         }
-
-        if (beverages.isEmpty()) {
-            this.fixedBeverage = true;
-
-            List<Holder<Item>> list = ModMth.toList(
-                    BuiltInRegistries.ITEM.getTagOrEmpty(RDItemTags.BEVERAGE)
-            );
-
-            if (!list.isEmpty()) {
-                this.fixedRequiredBeverage =
-                        ModMth.getRandomElement(
-                                this.randomSource,
-                                list
-                        ).value();
-            } else {
-                this.fixedRequiredBeverage =
-                        RDBeverageItems.GREEN_TEA.asItem();
-            }
-
-            this.components.add(
-                    Component.translatable(
-                            REQUEST_BEVERAGE_KEY,
-                            this.getItemName(this.fixedRequiredBeverage)
-                    )
-            );
-        } else {
-            this.fixedBeverage = false;
-
-            this.beverageProperty =
-                    ModMth.getRandomElement(
-                            this.randomSource,
-                            beverages
-                    );
-
-            this.components.add(
-                    Component.translatable(
-                            REQUEST_BEVERAGE_KEY,
-                            Component.translatable(
-                                    this.beverageProperty.translateKey()
-                            )
-                    )
-            );
+        timeout = Math.max(1, ReverieDreams.config().maxCustomerTickTime);
+        if (!returnUnsettledItems()) {
+            npc.getWorkController().status("restaurant_refund_wait");
+            return;
         }
+        clearHands();
+        resetOrder();
+        restaurantOrder = RestaurantTicket.of(shop);
+        orderBudget = rollBudget(customer.budget());
+        likes = new ArrayList<>(customer.likes());
+        dislikes = new ArrayList<>(customer.dislikes());
+        fixedFood = generic || likes.isEmpty();
+        if (fixedFood) {
+            fixedRequiredFood = ModMth.getRandomElement(randomSource, foods);
+            components.add(Component.translatable(REQUEST_FOOD_KEY, getItemName(fixedRequiredFood)));
+        } else if (!customer.orders().isEmpty())
+            components.add(ModMth.getRandomElement(randomSource, customer.orders()));
+        else {
+            var supported = likes.stream().filter(p -> foods.stream().anyMatch(item -> FoodProperties.get(item.getDefaultInstance()).contains(p))).toList();
+            MutableComponent names = Component.empty();
+            for (int i = 0; i < supported.size(); i++) {
+                if (i > 0)
+                    names.append("/");
+                names.append(Component.translatable(supported.get(i).translateKey()));
+            }
+            components.add(Component.translatable(REQUEST_FOOD_KEY, names));
+        }
+        fixedBeverage = generic || customer.beverages().isEmpty();
+        if (fixedBeverage) {
+            fixedRequiredBeverage = ModMth.getRandomElement(randomSource, drinks);
+            components.add(Component.translatable(REQUEST_BEVERAGE_KEY, getItemName(fixedRequiredBeverage)));
+        } else {
+            var supported = customer.beverages().stream().filter(p -> drinks.stream().anyMatch(item -> BeverageProperties.get(item.getDefaultInstance()).stream().anyMatch(p::is))).toList();
+            beverageProperty = ModMth.getRandomElement(randomSource, supported);
+            components.add(Component.translatable(REQUEST_BEVERAGE_KEY, Component.translatable(beverageProperty.translateKey())));
+        }
+        cooldownTickTime = -2;
+    }
+
+    private List<Item> menuChoices(RestaurantService.Shop shop, boolean drinks) {
+        Customer profile = getCustomer();
+        return drinks
+                ? CustomerOrderChoice.candidates(shop.items(true), profile.isGeneric(), !profile.beverages().isEmpty(),
+                item -> BeverageProperties.get(item.getDefaultInstance()).stream()
+                        .anyMatch(property -> profile.beverages().stream().anyMatch(property::is)))
+                : CustomerOrderChoice.candidates(shop.items(false), profile.isGeneric(), !profile.likes().isEmpty(),
+                item -> FoodProperties.get(item.getDefaultInstance()).stream().anyMatch(profile.likes()::contains));
     }
 
     public void clearHands() {
-        this.insertStackToHand(
-                InteractionHand.MAIN_HAND,
-                ItemStack.EMPTY
-        );
-
-        this.insertStackToHand(
-                InteractionHand.OFF_HAND,
-                ItemStack.EMPTY
-        );
-
-        this.npc.setLockSlot(false);
+        if (this.npc.level() instanceof ServerLevel) {
+            this.mealDisplay.clear(this.npc.getInventory());
+            this.npc.setLockSlot(false);
+        }
     }
 
     public void resetOrder() {
+        this.restaurantOrder = null;
         this.submitFood = IngredientStack.empty();
         this.submitBeverage = IngredientStack.empty();
+        this.clearPreparedFood();
 
         this.fixedFood = false;
         this.fixedRequiredFood = Items.AIR;
@@ -730,6 +876,11 @@ public class NPCCustomerContainer {
         this.cooldownTickTime = view.getIntOr(
                 "Customer.CooldownTickTime",
                 -1
+        );
+
+        this.orderBudget = view.getIntOr(
+                "Customer.OrderBudget",
+                0
         );
 
         this.fixedFood = view.getBooleanOr(
@@ -775,12 +926,45 @@ public class NPCCustomerContainer {
         this.components = new ArrayList<>();
 
         // 修改：读档后恢复当前订单的显示文本
+        this.timeout = Math.max(1, this.timeout);
+        if (this.cooldownTickTime < -2)
+            this.cooldownTickTime = -1;
+        this.restaurantOrder = RestaurantTicket.load(view);
+        this.visitingBell = view.getLong("Restaurant.VisitPos").map(BlockPos::of).orElse(null);
+        this.visitingBellId = RestaurantBlockEntity.uuid(view.getStringOr("Restaurant.VisitId", ""), null);
+        this.visitUntil = view.getLongOr("Restaurant.VisitUntil", 0);
+        this.meals.load(view);
+        this.mealDisplay.load(view);
+        this.preparedFoodPlate = view.getLong("Customer.PreparedPlate").map(BlockPos::of).orElse(null);
+        String preparedFood = view.getStringOr("Customer.PreparedFood", "");
+        this.preparedFoodId = preparedFood.isEmpty() ? null : Identifier.tryParse(preparedFood);
+        if (this.preparedFoodPlate == null || this.preparedFoodId == null) {
+            this.preparedFoodPlate = null;
+            this.preparedFoodId = null;
+        }
+        if (view.getIntOr("Customer.MealDisplayVersion", 0) == 0 && this.cooldownTickTime >= 0) {
+            this.mealDisplay.recoverLegacy(this.npc.getInventory(),
+                    this.isFood(this.npc.getMainHandItem()), this.isBeverage(this.npc.getOffhandItem()));
+        }
         this.rebuildOrderComponents();
     }
 
     public void addAdditionalSaveData(
             ValueOutput view
     ) {
+        this.mealDisplay.save(view);
+        this.meals.save(view);
+        if (this.preparedFoodPlate != null && this.preparedFoodId != null) {
+            view.putLong("Customer.PreparedPlate", this.preparedFoodPlate.asLong());
+            view.putString("Customer.PreparedFood", this.preparedFoodId.toString());
+        }
+        if (this.restaurantOrder != null)
+            this.restaurantOrder.save(view);
+        if (visitingBell != null && visitingBellId != null) {
+            view.putLong("Restaurant.VisitPos", visitingBell.asLong());
+            view.putString("Restaurant.VisitId", visitingBellId.toString());
+            view.putLong("Restaurant.VisitUntil", visitUntil);
+        }
         view.store(
                 "Customer.SubmitFood",
                 IngredientStack.CODEC,
@@ -801,6 +985,11 @@ public class NPCCustomerContainer {
         view.putInt(
                 "Customer.CooldownTickTime",
                 this.cooldownTickTime
+        );
+
+        view.putInt(
+                "Customer.OrderBudget",
+                this.orderBudget
         );
 
         view.putBoolean(

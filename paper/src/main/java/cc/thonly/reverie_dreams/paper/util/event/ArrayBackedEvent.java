@@ -100,6 +100,8 @@ class ArrayBackedEvent<T> extends Event<T> {
     @Override
     public synchronized void unbound() {
         synchronized (this.lock) {
+            this.phases.clear();
+            this.sortedPhases.clear();
             this.handlers = (T[]) Array.newInstance(this.type, 0);
             this.update();
         }

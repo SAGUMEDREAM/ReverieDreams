@@ -1,0 +1,49 @@
+{
+  "core": {
+    "id": "minecraft:glass_bottle",
+    "count": 1
+  },
+  "slots": [
+    {
+      "id": "minecraft:soul_sand",
+      "count": 20
+    },
+    {
+      "id": "minecraft:sand",
+      "count": 20
+    },
+    {
+      "id": "minecraft:nether_wart",
+      "count": 5
+    },
+    {
+      "id": "minecraft:blaze_powder",
+      "count": 8
+    },
+    {
+      "id": "minecraft:golden_apple",
+      "count": 1
+    },
+    {
+      "id": "minecraft:golden_carrot",
+      "count": 2
+    },
+    {
+      "id": "reverie_dreams:silver_ingot",
+      "count": 4
+    },
+    {
+      "id": "minecraft:ender_pearl",
+      "count": 1
+    }
+  ],
+  "output": {
+    "id": "minecraft:potion",
+    "count": 1,
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "reverie_dreams:kanju_kusuri"
+      }
+    }
+  }
+}

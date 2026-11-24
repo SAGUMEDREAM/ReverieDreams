@@ -1,0 +1,11 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "reverie_dreams:item/danmaku/laser",
+		"particle": "reverie_dreams:item/danmaku/laser"
+	},
+	"elements": [
+	]
+}

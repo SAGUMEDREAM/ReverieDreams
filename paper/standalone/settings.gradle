@@ -1,0 +1,19 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+// Use the same repository/asset root and the existing Paper build script,
+// without evaluating common, Fabric, NeoForge, Polymer or their build plugins.
+rootProject.name = 'ReverieDreamsPaperBuild'
+rootProject.projectDir = settingsDir.toPath().resolve('../..').normalize().toFile()
+rootProject.buildFileName = 'paper/standalone/build.gradle'
+include('paper')
+project(':paper').projectDir = settingsDir.toPath().resolve('..').normalize().toFile()
+// The invocation directory must remain an included project when the repository
+// root is outside settingsDir; otherwise Gradle falls back to empty settings.
+include('paper-build-entry')
+project(':paper-build-entry').projectDir = settingsDir
+project(':paper-build-entry').buildFileName = 'entry.gradle'

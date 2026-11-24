@@ -1,0 +1,14 @@
+{
+  "source_models": [
+    "assets/reverie_dreams/models/block/silver_chest.json",
+    "assets/reverie_dreams/models/block/wooden_box.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/block/silver_block.png",
+    "assets/reverie_dreams/textures/block/silver_chest.png",
+    "assets/reverie_dreams/textures/block/silver_chest_side.png",
+    "assets/reverie_dreams/textures/block/vanilla/oak_planks.png",
+    "assets/reverie_dreams/textures/block/vanilla/stripped_oak_log.png",
+    "assets/reverie_dreams/textures/block/wooden_box.png"
+  ]
+}

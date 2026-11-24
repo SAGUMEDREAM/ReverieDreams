@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BB",
+    "BB"
+  ],
+  "key": {
+    "B": "minecraft:book"
+  },
+  "result": {
+    "id": "reverie_dreams:book_stack",
+    "count": 1
+  }
+}

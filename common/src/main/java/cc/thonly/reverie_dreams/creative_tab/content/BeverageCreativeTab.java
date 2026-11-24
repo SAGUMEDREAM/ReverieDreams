@@ -17,10 +17,10 @@ public class BeverageCreativeTab implements ItemGroupContentHelper {
                 .icon(() -> new ItemStack(RDBeverageItems.GREEN_TEA.asItem()))
                 .title(Component.translatable("item_group.drink_item_group"))
                 .displayItems((parameters, output) -> {
-                    output.accept(Items.BARREL);
                     for (var item : RDBeverageItems.BEVERAGE_ITEMS) {
                         output.accept(item);
                     }
+                    output.accept(Items.BARREL);
                 })
         );
 

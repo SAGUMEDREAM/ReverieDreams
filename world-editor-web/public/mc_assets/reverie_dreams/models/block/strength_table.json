@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "reverie_dreams:block/strength_table_bottom",
+    "east": "reverie_dreams:block/strength_table_side",
+    "north": "reverie_dreams:block/strength_table_front",
+    "particle": "reverie_dreams:block/strength_table_front",
+    "south": "reverie_dreams:block/strength_table_front",
+    "up": "reverie_dreams:block/strength_table_top",
+    "west": "reverie_dreams:block/strength_table_side"
+  }
+}

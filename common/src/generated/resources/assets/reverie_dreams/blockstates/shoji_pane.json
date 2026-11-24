@@ -1,0 +1,72 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/shoji_pane_panel_x"
+      },
+      "when": {
+        "north": "true",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/shoji_pane_half"
+      },
+      "when": {
+        "north": "true",
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/shoji_pane_half",
+        "y": 180
+      },
+      "when": {
+        "north": "false",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/shoji_pane_panel_z"
+      },
+      "when": {
+        "east": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/shoji_pane_half",
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/shoji_pane_half",
+        "y": 270
+      },
+      "when": {
+        "east": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/shoji_pane_panel_z"
+      },
+      "when": {
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    }
+  ]
+}

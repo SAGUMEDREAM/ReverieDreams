@@ -27,16 +27,16 @@ import net.minecraft.world.level.biome.Biome;
  * Utility class for accessing the worldgen data that vanilla uses to generate its vanilla datapack.
  */
 public final class BuiltInRegistryKeys {
-	private static final HolderLookup.Provider vanillaRegistries = VanillaRegistries.createLookup();
+    private static final HolderLookup.Provider vanillaRegistries = VanillaRegistries.createLookup();
 
-	private BuiltInRegistryKeys() {
-	}
+    private BuiltInRegistryKeys() {
+    }
 
-	public static boolean isBuiltinBiome(ResourceKey<Biome> key) {
-		return biomeRegistryWrapper().get(key).isPresent();
-	}
+    public static boolean isBuiltinBiome(ResourceKey<Biome> key) {
+        return biomeRegistryWrapper().get(key).isPresent();
+    }
 
-	public static HolderGetter<Biome> biomeRegistryWrapper() {
-		return vanillaRegistries.lookupOrThrow(Registries.BIOME);
-	}
+    public static HolderGetter<Biome> biomeRegistryWrapper() {
+        return vanillaRegistries.lookupOrThrow(Registries.BIOME);
+    }
 }

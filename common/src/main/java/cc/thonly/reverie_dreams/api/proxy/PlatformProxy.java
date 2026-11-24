@@ -24,7 +24,50 @@ public interface PlatformProxy<T> {
             type = FORGE;
         }
 
-        return new PlatformProxyImpl<>(type);
+        return FactoryHolder.get().create(type);
+    }
+
+    static void setFactory(ProxyFactory factory) {
+        FactoryHolder.factory = factory;
+    }
+
+    @FunctionalInterface
+    interface ProxyFactory {
+        <T> PlatformProxy<T> create(String... platforms);
+    }
+
+    final class FactoryHolder {
+        private static volatile ProxyFactory factory;
+
+        private static ProxyFactory get() {
+            ProxyFactory current = factory;
+            if (current == null) {
+                synchronized (FactoryHolder.class) {
+                    current = factory;
+                    if (current == null) {
+                        current = new DefaultProxyFactory();
+                        factory = current;
+                    }
+                }
+            }
+            return current;
+        }
+
+        // Loaded lazily by name: this holder can run during Minecraft bootstrap,
+        // before mod initializers have registered the loader-side factory.
+        private static final class DefaultProxyFactory implements ProxyFactory {
+            @Override
+            @SuppressWarnings("unchecked")
+            public <T> PlatformProxy<T> create(String... platforms) {
+                try {
+                    return (PlatformProxy<T>) Class.forName("cc.thonly.reverie_dreams.proxy.PlatformProxyImpl")
+                            .getMethod("create", String[].class)
+                            .invoke(null, (Object) platforms);
+                } catch (ReflectiveOperationException e) {
+                    throw new IllegalStateException("Platform proxy implementation is not available", e);
+                }
+            }
+        }
     }
 
     default PlatformProxy<T> with(String platform, String clazzName) {

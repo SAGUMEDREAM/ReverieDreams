@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": "minecraft:paper",
+    "T": "minecraft:torch"
+  },
+  "pattern": [
+    "PPP",
+    "PTP",
+    "PPP"
+  ],
+  "result": {
+    "id": "reverie_dreams:andon"
+  }
+}

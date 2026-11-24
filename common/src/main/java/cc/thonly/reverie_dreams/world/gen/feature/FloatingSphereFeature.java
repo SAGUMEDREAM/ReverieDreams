@@ -1,6 +1,8 @@
 package cc.thonly.reverie_dreams.world.gen.feature;
 
-import cc.thonly.reverie_dreams.server.DelayedTask;
+import cc.thonly.reverie_dreams.world.dimension.RDBuiltinLevels;
+import cc.thonly.reverie_dreams.world.dream.DreamArchipelagoLayout;
+import cc.thonly.reverie_dreams.world.dream.DreamFloatingRockShape;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,35 +25,33 @@ public class FloatingSphereFeature extends Feature<FloatingSphereFeatureConfig> 
         BlockPos origin = context.origin();
         RandomSource random = context.random();
         FloatingSphereFeatureConfig config = context.config();
+        boolean protectDreamScenes = world.getLevel().dimension().equals(RDBuiltinLevels.DREAM_WORLD);
 
-        BlockPos center = origin.above(random.nextInt(config.maxY() - config.minY() + 1) + config.minY());
-
-        int radius = Math.min(config.minRadius() + random.nextInt(config.maxRadius() - config.minRadius() + 1), 6);
+        int minRadius = Math.max(1, Math.min(config.minRadius(), 5));
+        int maxRadius = Math.max(minRadius, Math.min(config.maxRadius(), 5));
+        int radius = minRadius + random.nextInt(maxRadius - minRadius + 1);
+        var shape = DreamFloatingRockShape.create(random.nextLong(), radius);
+        int minY = Math.max(config.minY() + shape.radiusY(), world.getMinY() + shape.radiusY());
+        int maxY = Math.min(config.maxY() - shape.radiusY(), world.getMaxY() - 1 - shape.radiusY());
+        if (minY > maxY)
+            return false;
+        // Keep the entire rock inside its generating chunk. Configuration Y is absolute,
+        // rather than added to an already randomized placed-feature height a second time.
+        int chunkX = Math.floorDiv(origin.getX(), 16), chunkZ = Math.floorDiv(origin.getZ(), 16);
+        BlockPos center = new BlockPos(chunkX * 16 + shape.radiusX() + random.nextInt(16 - 2 * shape.radiusX()),
+                minY + random.nextInt(maxY - minY + 1),
+                chunkZ * 16 + shape.radiusZ() + random.nextInt(16 - 2 * shape.radiusZ()));
         Block block = BuiltInRegistries.BLOCK.getValue(config.blockId());
-
-        for (int dx = -radius; dx <= radius; dx++) {
-            for (int dy = -radius; dy <= radius; dy++) {
-                for (int dz = -radius; dz <= radius; dz++) {
-                    if (dx * dx + dy * dy + dz * dz <= radius * radius) {
-                        BlockPos pos = center.offset(dx, dy, dz);
-                        if (!world.hasChunkAt(pos)) {
-                            DelayedTask.whenTick(world.getServer(), () -> world.hasChunkAt(pos),2, ()-> {
-                                if (world.getBlockState(pos).isAir()) {
-                                    world.setBlock(pos, block.defaultBlockState(), Block.UPDATE_KNOWN_SHAPE);
-                                }
-                            }, ()->{
-
-                            });
-                            continue;
-                        }
-                        if (world.getBlockState(pos).isAir()) {
-                            world.setBlock(pos, block.defaultBlockState(), Block.UPDATE_KNOWN_SHAPE);
-                        }
-                    }
-                }
-            }
+        if (block == null)
+            return false;
+        for (BlockPos offset : shape.blocks()) {
+            BlockPos pos = center.offset(offset);
+            if ((protectDreamScenes && DreamArchipelagoLayout.isReserved(world.getSeed(), pos))
+                    || !world.getBlockState(pos).isAir())
+                return false;
         }
-
+        for (BlockPos offset : shape.blocks())
+            world.setBlock(center.offset(offset), block.defaultBlockState(), Block.UPDATE_KNOWN_SHAPE);
         return true;
     }
 }

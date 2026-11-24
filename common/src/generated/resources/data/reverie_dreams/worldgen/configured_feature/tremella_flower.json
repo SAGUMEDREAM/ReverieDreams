@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:simple_block",
+  "type": "reverie_dreams:tremella",
   "config": {
     "to_place": {
       "type": "minecraft:simple_state_provider",

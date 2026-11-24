@@ -1,0 +1,8 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "reverie_dreams:block/fumo/sunnymilkitem",
+    "missing": "reverie_dreams:block/fumo/missing",
+    "particle": "reverie_dreams:block/fumo/missing"
+  }
+}

@@ -112,7 +112,7 @@ public abstract class AbstractSoundProvider implements DataProvider {
                 writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
             }
         } catch (Exception err) {
-            log.error("Can't export sounds.json: ", err);
+            throw new IllegalStateException("Failed to export sounds.json", err);
         }
     }
 

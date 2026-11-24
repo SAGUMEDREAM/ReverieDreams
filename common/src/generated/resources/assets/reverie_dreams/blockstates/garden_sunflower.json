@@ -1,0 +1,132 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_0",
+          "weight": 6,
+          "y": 270
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_1",
+          "weight": 2,
+          "y": 270
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_2",
+          "weight": 2,
+          "y": 270
+        }
+      ],
+      "when": {
+        "facing": "north",
+        "half": "upper"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/garden_sunflower_lower",
+        "y": 270
+      },
+      "when": {
+        "facing": "north",
+        "half": "lower"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_0",
+          "weight": 6
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_1",
+          "weight": 2
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_2",
+          "weight": 2
+        }
+      ],
+      "when": {
+        "facing": "east",
+        "half": "upper"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/garden_sunflower_lower"
+      },
+      "when": {
+        "facing": "east",
+        "half": "lower"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_0",
+          "weight": 6,
+          "y": 90
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_1",
+          "weight": 2,
+          "y": 90
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_2",
+          "weight": 2,
+          "y": 90
+        }
+      ],
+      "when": {
+        "facing": "south",
+        "half": "upper"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/garden_sunflower_lower",
+        "y": 90
+      },
+      "when": {
+        "facing": "south",
+        "half": "lower"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_0",
+          "weight": 6,
+          "y": 180
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_1",
+          "weight": 2,
+          "y": 180
+        },
+        {
+          "model": "reverie_dreams:block/landmarks/garden_sunflower_upper_2",
+          "weight": 2,
+          "y": 180
+        }
+      ],
+      "when": {
+        "facing": "west",
+        "half": "upper"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/landmarks/garden_sunflower_lower",
+        "y": 180
+      },
+      "when": {
+        "facing": "west",
+        "half": "lower"
+      }
+    }
+  ]
+}

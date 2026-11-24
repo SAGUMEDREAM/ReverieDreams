@@ -1,0 +1,428 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_0"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_1"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "true",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_2"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_3"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "true",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_4"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "false",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_5"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "true",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_6"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "false",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_7"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "true",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_8"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_9"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "true",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_10"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "false",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_11"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "true",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_12"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "false",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_13"
+      },
+      "when": {
+        "axis": "x",
+        "east": "false",
+        "north": "true",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_14"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "false",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_x_15"
+      },
+      "when": {
+        "axis": "x",
+        "east": "true",
+        "north": "true",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_0"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_1"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "true",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_2"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_3"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "true",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_4"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "false",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_5"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "true",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_6"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "false",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_7"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "true",
+        "south": "true",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_8"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_9"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "true",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_10"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "false",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_11"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "true",
+        "south": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_12"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "false",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_13"
+      },
+      "when": {
+        "axis": "z",
+        "east": "false",
+        "north": "true",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_14"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "false",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_z_15"
+      },
+      "when": {
+        "axis": "z",
+        "east": "true",
+        "north": "true",
+        "south": "true",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_inner_north_east"
+      },
+      "when": {
+        "east": "true",
+        "north": "true",
+        "north_east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_inner_south_east"
+      },
+      "when": {
+        "east": "true",
+        "south": "true",
+        "south_east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_inner_south_west"
+      },
+      "when": {
+        "south": "true",
+        "south_west": "false",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/tatami_auto_inner_north_west"
+      },
+      "when": {
+        "north": "true",
+        "north_west": "false",
+        "west": "true"
+      }
+    }
+  ]
+}

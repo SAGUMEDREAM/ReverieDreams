@@ -24,6 +24,9 @@ public class DefaultEventBusImpl {
     }
 
     public void start() {
+        if (this.tickEvent != null) {
+            return;
+        }
         this.tickEvent = this.scheduler.runTaskTimer(this.plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 ItemInventoryTickManager.INSTANCE.invokePlayer(player);
@@ -32,7 +35,10 @@ public class DefaultEventBusImpl {
     }
 
     public void stop() {
+        if (this.tickEvent != null) {
+            this.tickEvent.cancel();
+            this.tickEvent = null;
+        }
         Event.BUS.forEach(Event::unbound);
-        this.tickEvent.cancel();
     }
 }

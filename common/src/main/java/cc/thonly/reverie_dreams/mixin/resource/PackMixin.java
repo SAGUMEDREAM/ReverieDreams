@@ -20,6 +20,6 @@ public abstract class PackMixin {
             at = {@At("RETURN")}
     )
     private void onCreateResourcePack(CallbackInfoReturnable<PackResources> cir) {
-        PackSourceTracker.setSource((PackResources)cir.getReturnValue(), this.location().source());
+        PackSourceTracker.setSource((PackResources) cir.getReturnValue(), this.location().source());
     }
 }

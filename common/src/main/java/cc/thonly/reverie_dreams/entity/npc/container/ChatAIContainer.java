@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity.npc.container;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.openai.AIMessage;
+import cc.thonly.reverie_dreams.ai.AIMessage;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.Getter;
@@ -17,6 +17,11 @@ import java.util.*;
 @Getter
 @Setter
 public class ChatAIContainer {
+    public static final int MAX_PLAYERS = 32;
+    public static final int MAX_MESSAGES = 80;
+    public static final int MAX_MESSAGE_CHARS = 8192;
+    public static final int MAX_HISTORY_CHARS = 16384;
+    public static final int MAX_TOTAL_CHARS = 131072;
     public static final Identifier KEY = ReverieDreams.id("chat_ai");
     public static final Codec<ChatAIContainer> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
@@ -30,17 +35,20 @@ public class ChatAIContainer {
     private Map<UUID, List<AIMessage>> histories;
 
     public ChatAIContainer(ChatAIContainer old) {
-        this.histories = new HashMap<>();
-        old.histories.forEach((k, v) -> this.histories.put(k, new ArrayList<>(v)));
+        this(old.histories);
     }
 
     public ChatAIContainer(Map<UUID, List<AIMessage>> histories) {
-        this.histories = new HashMap<>();
-        histories.forEach((k, v) -> this.histories.put(k, new ArrayList<>(v)));
+        this.histories = new LinkedHashMap<>(32, 0.75f, true);
+        histories.forEach((k, v) -> {
+            this.histories.put(k, AIMessage.copy(v));
+            this.trim(k, MAX_MESSAGES);
+        });
+        this.enforceBounds();
     }
 
     public ChatAIContainer() {
-        this.histories = new HashMap<>();
+        this.histories = new LinkedHashMap<>(32, 0.75f, true);
     }
 
     public void addMessage(UUID player, AIMessage message) {
@@ -49,7 +57,9 @@ public class ChatAIContainer {
     }
 
     public List<AIMessage> getOrCreateHistory(UUID player) {
-        return this.histories.computeIfAbsent(player, k -> new ArrayList<>());
+        var history = this.histories.computeIfAbsent(player, k -> new ArrayList<>());
+        this.enforceBounds();
+        return history;
     }
 
     public List<AIMessage> getHistory(UUID player) {
@@ -65,13 +75,31 @@ public class ChatAIContainer {
         if (list == null) {
             return;
         }
-        int limit = Math.max(maxSize, 2);
-        while (list.size() > limit) {
+        int limit = Math.clamp(maxSize, 2, MAX_MESSAGES);
+        list.removeIf(message -> message == null || message.getContent() == null || message.getRole() == null
+                || !Set.of(AIMessage.SYSTEM, AIMessage.USER, AIMessage.ASSISTANT).contains(message.getRole()));
+        for (var message : list)
+            if (message.getContent().length() > MAX_MESSAGE_CHARS) {
+                message.setContent(message.getContent().substring(0, MAX_MESSAGE_CHARS));
+            }
+        while (list.size() > limit || chars(list) > MAX_HISTORY_CHARS) {
             if (list.size() > 1 && AIMessage.SYSTEM.equals(list.getFirst().getRole())) {
                 list.remove(1);
             } else {
                 list.removeFirst();
             }
+        }
+        this.enforceBounds();
+    }
+
+    private static int chars(List<AIMessage> messages) {
+        return messages.stream().mapToInt(m -> m.getContent().length()).sum();
+    }
+
+    private void enforceBounds() {
+        while (this.histories.size() > MAX_PLAYERS
+                || this.histories.values().stream().mapToInt(ChatAIContainer::chars).sum() > MAX_TOTAL_CHARS) {
+            this.histories.remove(this.histories.keySet().iterator().next());
         }
     }
 
@@ -86,12 +114,15 @@ public class ChatAIContainer {
     //    @Override
     public void readAdditionalSaveData(ValueInput view) {
         view.read("ChatAIData", ChatAIContainer.CODEC).ifPresent(instance -> {
-            this.histories = instance.getHistories();
+            this.histories = new ChatAIContainer(instance).histories;
         });
     }
 
     //    @Override
     public void addAdditionalSaveData(ValueOutput view) {
+        for (var player : List.copyOf(this.histories.keySet()))
+            this.trim(player, MAX_MESSAGES);
+        this.enforceBounds();
         view.store("ChatAIData", ChatAIContainer.CODEC, this);
     }
 

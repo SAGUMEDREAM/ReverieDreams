@@ -14,6 +14,8 @@ public interface SafeClientAccess {
 
     Player getClientPlayer();
 
+    boolean isShiftDown();
+
     ClientInstanceAccess getClientInstance();
 
     static SafeClientAccess safeClientAccess() {
@@ -28,6 +30,11 @@ public interface SafeClientAccess {
 
     @Slf4j
     class DefaultImpl implements SafeClientAccess {
+
+        @Override
+        public boolean isShiftDown() {
+            return false;
+        }
 
         @Override
         public boolean isClientSide() {

@@ -87,6 +87,13 @@ public class Customer {
         return this.roleType;
     }
 
+    /**
+     * Missing role configuration, independent of rare flag or empty preference lists.
+     */
+    public boolean isGeneric() {
+        return this == UNDEFINED;
+    }
+
     public boolean rare() {
         return this.rare;
     }

@@ -14,6 +14,7 @@ import java.net.URI;
 
 public class UrlTHGuideBookItem extends Item {
     public static final URI GUIDE_URI = URI.create("https://reverie-dreams-docs.thonly.cc/");
+
     public UrlTHGuideBookItem(Properties properties) {
         super(properties);
     }

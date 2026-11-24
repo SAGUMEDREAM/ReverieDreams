@@ -26,7 +26,7 @@ public class NPCServerDataProvider implements StreamServerDataProvider<EntityAcc
         }
         NPCFoodDataContainer foodData = npc.getFoodData();
         NPCCustomerContainer customerContainer = npc.getCustomerContainer();
-        NPCState npcState = npc.getNpcState();
+        NPCState npcState = npc.getNPCState();
         NPCWorkMode workMode = npc.getWorkMode();
         LivingEntity owner = npc.getOwner();
         Component displayName = Component.empty();
@@ -36,7 +36,7 @@ public class NPCServerDataProvider implements StreamServerDataProvider<EntityAcc
         return new NPCServerData(
                 foodData.getNutrition(),
                 foodData.getSaturation(),
-                List.copyOf(customerContainer.getComponents()),
+                customerContainer.hasOpenOrder() ? List.copyOf(customerContainer.getComponents()) : List.of(),
                 npcState,
                 workMode,
                 displayName,

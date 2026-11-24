@@ -38,6 +38,15 @@ public class ActionButtonBuilder {
         return this;
     }
 
+    /**
+     * 复制现有按钮，避免 BookPage 每次打开时把返回/翻页按钮写回原 builder。
+     */
+    public ActionButtonBuilder copy() {
+        ActionButtonBuilder copy = new ActionButtonBuilder();
+        copy.actions.addAll(this.actions);
+        return copy;
+    }
+
     public List<ActionButton> build() {
         return new ArrayList<>(this.actions);
     }

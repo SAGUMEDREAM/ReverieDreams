@@ -1,5 +1,7 @@
 package cc.thonly.reverie_dreams.item.other;
 
+import cc.thonly.reverie_dreams.ReverieDreams;
+
 import cc.thonly.reverie_dreams.api.registry.BookPageManager;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import net.minecraft.network.chat.Component;
@@ -40,10 +42,10 @@ public class GuidebookItem extends Item {
         } else if (pageId != null) {
             boolean exists = bookPageManager.openIfExists(pageId, player);
             if (!exists) {
-                player.sendSystemMessage(Component.literal("§cThe component reverie_dreams:guidebook_page_id was not recognized in the ItemStack."));
+                player.sendSystemMessage(Component.literal("§cThe component " + ReverieDreams.MOD_ID + ":guidebook_page_id was not recognized in the ItemStack."));
             }
         } else {
-            player.sendSystemMessage(Component.literal("§cThe component reverie_dreams:guidebook_namespace or reverie_dreams:guidebook_page_id was not recognized in the ItemStack."));
+            player.sendSystemMessage(Component.literal("§cThe component " + ReverieDreams.MOD_ID + ":guidebook_namespace or " + ReverieDreams.MOD_ID + ":guidebook_page_id was not recognized in the ItemStack."));
         }
     }
 

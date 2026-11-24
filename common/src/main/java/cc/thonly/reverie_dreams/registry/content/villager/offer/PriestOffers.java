@@ -79,13 +79,13 @@ public class PriestOffers {
             builder.add(key, new VillagerTrade(
                     new TradeCost(RDItems.POWER, ConstantValue.exactly(38)),
                     Optional.of(new TradeCost(RDItems.COPPER_COIN, ConstantValue.exactly(24))),
-                    new ItemStackTemplate(RDItems.EXORCISM_PAPER.asItem()),
+                    new ItemStackTemplate(RDItems.EXORCISM_PAPER.asItem(), 16),
                     4,
                     5,
                     0.2f,
                     Optional.empty(),
                     List.of(
-                            SetItemCountFunction.setCount(ConstantValue.exactly(6)).build()
+                            SetItemCountFunction.setCount(ConstantValue.exactly(16)).build()
                     )
             ));
         }
@@ -131,6 +131,101 @@ public class PriestOffers {
                     0.13f,
                     Optional.empty(),
                     List.of() // 无额外处理
+            ));
+        }
+
+        // Level 3: fairy dust offerings for exorcism paper
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_3,
+                    TEMPLATE,
+                    3,
+                    RDItems.EXORCISM_PAPER
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.FAIRY_DUST, ConstantValue.exactly(16)),
+                    Optional.of(new TradeCost(RDItems.COPPER_COIN, ConstantValue.exactly(8))),
+                    new ItemStackTemplate(RDItems.EXORCISM_PAPER.asItem(), 16),
+                    4,
+                    10,
+                    0.15f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(16)).build()
+                    )
+            ));
+        }
+
+        // Level 4: upgraded silver smite sword
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_4,
+                    TEMPLATE,
+                    4,
+                    RDItems.SILVER_SWORD
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.POINT, ConstantValue.exactly(48)),
+                    Optional.of(new TradeCost(RDItems.COPPER_COIN, ConstantValue.exactly(48))),
+                    new ItemStackTemplate(RDItems.SILVER_SWORD.asItem()),
+                    3,
+                    20,
+                    0.1f,
+                    Optional.empty(),
+                    List.of(
+                            new SetEnchantmentsFunction.Builder()
+                                    .withEnchantment(enchantments.getOrThrow(Enchantments.SMITE), ConstantValue.exactly(5))
+                                    .withEnchantment(enchantments.getOrThrow(Enchantments.UNBREAKING), ConstantValue.exactly(3))
+                                    .build()
+                    )
+            ));
+        }
+
+        // Level 5: bulk fairy dust offering for blessed paper
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_5,
+                    TEMPLATE,
+                    5,
+                    RDItems.EXORCISM_PAPER
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.FAIRY_DUST, ConstantValue.exactly(32)),
+                    Optional.of(new TradeCost(RDItems.GOLD_COIN, ConstantValue.exactly(1))),
+                    new ItemStackTemplate(RDItems.EXORCISM_PAPER.asItem(), 16),
+                    3,
+                    30,
+                    0.1f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(32)).build()
+                    )
+            ));
+        }
+
+        // Level 4: the priest buys youkai relics — oni horns
+        {
+            ResourceKey<VillagerTrade> key = builder.keyInstance(
+                    RDVillagerTradeTags.PRIEST_LEVEL_4,
+                    TEMPLATE,
+                    4,
+                    RDItems.ONI_HORN
+            );
+
+            builder.add(key, new VillagerTrade(
+                    new TradeCost(RDItems.ONI_HORN, ConstantValue.exactly(2)),
+                    Optional.empty(),
+                    new ItemStackTemplate(RDItems.SILVER_COIN.asItem()),
+                    6,
+                    15,
+                    0.2f,
+                    Optional.empty(),
+                    List.of(
+                            SetItemCountFunction.setCount(ConstantValue.exactly(8)).build()
+                    )
             ));
         }
     }

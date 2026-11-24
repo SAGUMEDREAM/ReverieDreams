@@ -1,0 +1,38 @@
+gradle.projectsEvaluated {
+    if (!rootProject.file('document/scripts/runtime/WikiExportProbe.java').isFile()) return
+    def fabric = rootProject.project(':fabric')
+    def taskRoot = rootProject.file('document/.runtime')
+    def runRoot = new File(taskRoot, 'server').canonicalFile
+    if (!runRoot.toPath().startsWith(rootProject.file('document').canonicalFile.toPath())) throw new GradleException('Invalid wiki runtime directory')
+    fabric.loom.runs.named('server').configure { runDir('../document/.runtime/server') }
+    def compileExport = fabric.tasks.register('compileWikiExport', JavaCompile) {
+        dependsOn fabric.tasks.named('classes')
+        source rootProject.file('document/scripts/runtime/WikiExportProbe.java')
+        classpath = fabric.sourceSets.main.compileClasspath + fabric.sourceSets.main.output
+        destinationDirectory.set(new File(taskRoot, 'classes'))
+        options.release = 25
+        options.encoding = 'UTF-8'
+    }
+    def jarExport = fabric.tasks.register('jarWikiExport', Jar) {
+        dependsOn compileExport
+        from new File(taskRoot, 'classes')
+        from(rootProject.file('document/scripts/runtime')) { include 'fabric.mod.json' }
+        archiveFileName.set('wiki-export.jar')
+        destinationDirectory.set(taskRoot)
+    }
+    fabric.tasks.named('runServer').configure {
+        dependsOn jarExport
+        workingDir runRoot
+        args '--nogui', '--port', '25629', '--universe', runRoot.absolutePath, '--world', 'wiki-export'
+        jvmArgs '-Dreverie.wiki.workspace=' + rootProject.projectDir.absolutePath,
+                '-Dreverie.wiki.output=' + rootProject.file('document/data/runtime.json').absolutePath
+        doFirst {
+            runRoot.mkdirs()
+            new File(runRoot, 'config').mkdirs()
+            new File(runRoot, 'eula.txt').text = 'eula=true\n'
+            new File(runRoot, 'server.properties').text = 'server-ip=127.0.0.1\nserver-port=25629\nonline-mode=false\nlevel-name=wiki-export\nlevel-type=minecraft:flat\ngenerate-structures=false\nview-distance=2\nsimulation-distance=2\nmax-players=1\nspawn-protection=0\n'
+            jvmArgs '-Dfabric.addMods=' + jarExport.get().archiveFile.get().asFile.absolutePath
+            println 'WIKI_ISOLATED_RUNTIME ' + runRoot.absolutePath
+        }
+    }
+}

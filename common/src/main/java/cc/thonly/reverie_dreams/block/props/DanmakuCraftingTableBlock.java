@@ -37,7 +37,7 @@ public class DanmakuCraftingTableBlock extends BaseEntityBlock {
     @Override
     public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if(blockEntity instanceof DanmakuCraftingTableBlockEntity DTBE) {
+        if (blockEntity instanceof DanmakuCraftingTableBlockEntity DTBE) {
             SimpleContainer inventory = DTBE.getInventory();
             for (int i = 0; i < inventory.getContainerSize(); i++) {
                 ItemStack stack = inventory.getItem(i);

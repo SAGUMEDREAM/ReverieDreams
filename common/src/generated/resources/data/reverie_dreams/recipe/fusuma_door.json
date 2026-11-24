@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "reverie_dreams:iroha_maple_planks",
+    "P": "minecraft:paper"
+  },
+  "pattern": [
+    "##",
+    "PP",
+    "##"
+  ],
+  "result": {
+    "id": "reverie_dreams:fusuma_door"
+  }
+}

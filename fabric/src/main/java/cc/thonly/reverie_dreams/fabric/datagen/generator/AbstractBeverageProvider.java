@@ -92,20 +92,17 @@ public abstract class AbstractBeverageProvider implements DataProvider {
                 Path generatePath = DataGeneratorUtil.getData(path, ReverieDreams.MOD_ID, "beverage_property", null);
 
                 DataResult<JsonElement> result = BeverageProperty.Data.CODEC.encodeStart(JsonOps.INSTANCE, data);
-                Optional<JsonElement> optional = result.result();
+                JsonElement element = result.getOrThrow();
+                Path output = generatePath.resolve(identifier.getPath() + ".json");
+                String jsonString = this.gson.toJson(element);
+                byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
+                Files.createDirectories(output.getParent());
 
-                if (optional.isPresent()) {
-                    JsonElement element = optional.get();
-                    Path output = generatePath.resolve(identifier.getPath() + ".json");
-                    String jsonString = this.gson.toJson(element);
-                    byte[] bytes = jsonString.getBytes(StandardCharsets.UTF_8);
-                    Files.createDirectories(output.getParent());
+                writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
 
-                    writer.writeIfNeeded(output, bytes, HashCode.fromBytes(bytes));
-                }
             }
         } catch (Exception err) {
-            log.error("Error: ", err);
+            throw new IllegalStateException("Failed to generate AbstractBeverageProvider", err);
         }
     }
 

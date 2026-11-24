@@ -1,0 +1,24 @@
+{
+  "config": {
+    "log": {
+      "Properties": {
+        "axis": "y"
+      },
+      "Name": "minecraft:dark_oak_log"
+    },
+    "leaves": {
+      "Properties": {
+        "waterlogged": "false",
+        "persistent": "false",
+        "distance": "7"
+      },
+      "Name": "minecraft:dark_oak_leaves"
+    },
+    "shape": "dark_oak",
+    "min_height": 22,
+    "max_height": 32,
+    "trunk_width": 2,
+    "crown_radius": 6
+  },
+  "type": "reverie_dreams:gensokyo_tree"
+}

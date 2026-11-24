@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "reverie_dreams:block/ginkgo_planks"
+  }
+}

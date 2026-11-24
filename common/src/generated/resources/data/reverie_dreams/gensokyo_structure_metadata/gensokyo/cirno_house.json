@@ -1,0 +1,599 @@
+{
+  "version": 1,
+  "content_version": 2,
+  "actors_version": 1,
+  "content_sha256": "ba468b12cb5c1f39c2894257ca937b6707d10aa154fd5f9e11981688a362fede",
+  "source_sha256": "eb7d556f2ffd4d904e78cd7f1a7100201a1b994b3e4df0d0ebaa64eb8f11ab73",
+  "size": [
+    29,
+    17,
+    35
+  ],
+  "function_points": [
+    {
+      "id": "fairy_pranks_0",
+      "pos": [
+        2,
+        2,
+        18
+      ]
+    },
+    {
+      "id": "fairy_pranks_1",
+      "pos": [
+        2,
+        2,
+        19
+      ]
+    },
+    {
+      "id": "fairy_pranks_2",
+      "pos": [
+        2,
+        3,
+        18
+      ]
+    },
+    {
+      "id": "fairy_pranks_3",
+      "pos": [
+        2,
+        3,
+        19
+      ]
+    },
+    {
+      "id": "ice_study_4",
+      "pos": [
+        8,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "ice_study_5",
+      "pos": [
+        9,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "ice_study_6",
+      "pos": [
+        9,
+        7,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_7",
+      "pos": [
+        9,
+        8,
+        29
+      ]
+    },
+    {
+      "id": "strongest_treasure_8",
+      "pos": [
+        9,
+        9,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_9",
+      "pos": [
+        10,
+        7,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_10",
+      "pos": [
+        10,
+        8,
+        29
+      ]
+    },
+    {
+      "id": "strongest_treasure_11",
+      "pos": [
+        10,
+        9,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_12",
+      "pos": [
+        11,
+        7,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_13",
+      "pos": [
+        11,
+        8,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_14",
+      "pos": [
+        11,
+        9,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_15",
+      "pos": [
+        15,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "ice_study_16",
+      "pos": [
+        16,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "ice_study_17",
+      "pos": [
+        17,
+        7,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_18",
+      "pos": [
+        17,
+        8,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_19",
+      "pos": [
+        17,
+        9,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_20",
+      "pos": [
+        18,
+        7,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_21",
+      "pos": [
+        18,
+        8,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_22",
+      "pos": [
+        18,
+        9,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_23",
+      "pos": [
+        19,
+        7,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_24",
+      "pos": [
+        19,
+        8,
+        29
+      ]
+    },
+    {
+      "id": "ice_study_25",
+      "pos": [
+        19,
+        9,
+        29
+      ]
+    },
+    {
+      "id": "lake_supplies_26",
+      "pos": [
+        21,
+        1,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_27",
+      "pos": [
+        22,
+        1,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_28",
+      "pos": [
+        21,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_29",
+      "pos": [
+        22,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "frozen_larder_30",
+      "pos": [
+        21,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "frozen_larder_31",
+      "pos": [
+        22,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_32",
+      "pos": [
+        23,
+        1,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_33",
+      "pos": [
+        24,
+        1,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_34",
+      "pos": [
+        23,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_35",
+      "pos": [
+        24,
+        2,
+        15
+      ]
+    },
+    {
+      "id": "frozen_larder_36",
+      "pos": [
+        23,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "frozen_larder_37",
+      "pos": [
+        24,
+        3,
+        15
+      ]
+    },
+    {
+      "id": "frozen_larder_38",
+      "pos": [
+        23,
+        4,
+        15
+      ]
+    },
+    {
+      "id": "frozen_larder_39",
+      "pos": [
+        24,
+        4,
+        15
+      ]
+    },
+    {
+      "id": "lake_supplies_40",
+      "pos": [
+        26,
+        1,
+        16
+      ]
+    },
+    {
+      "id": "lake_supplies_41",
+      "pos": [
+        26,
+        1,
+        17
+      ]
+    },
+    {
+      "id": "frozen_larder_42",
+      "pos": [
+        26,
+        1,
+        18
+      ]
+    },
+    {
+      "id": "frozen_larder_43",
+      "pos": [
+        26,
+        1,
+        19
+      ]
+    },
+    {
+      "id": "frozen_larder_44",
+      "pos": [
+        26,
+        1,
+        21
+      ]
+    },
+    {
+      "id": "frozen_larder_45",
+      "pos": [
+        26,
+        1,
+        22
+      ]
+    },
+    {
+      "id": "frozen_larder_46",
+      "pos": [
+        26,
+        1,
+        23
+      ]
+    },
+    {
+      "id": "frozen_larder_47",
+      "pos": [
+        26,
+        1,
+        24
+      ]
+    },
+    {
+      "id": "frozen_larder_48",
+      "pos": [
+        26,
+        2,
+        16
+      ]
+    },
+    {
+      "id": "frozen_larder_49",
+      "pos": [
+        26,
+        2,
+        17
+      ]
+    },
+    {
+      "id": "frozen_larder_50",
+      "pos": [
+        26,
+        2,
+        18
+      ]
+    },
+    {
+      "id": "frozen_larder_51",
+      "pos": [
+        26,
+        2,
+        19
+      ]
+    },
+    {
+      "id": "frozen_larder_52",
+      "pos": [
+        26,
+        2,
+        21
+      ]
+    },
+    {
+      "id": "frozen_larder_53",
+      "pos": [
+        26,
+        2,
+        22
+      ]
+    },
+    {
+      "id": "frozen_larder_54",
+      "pos": [
+        26,
+        2,
+        23
+      ]
+    },
+    {
+      "id": "frozen_larder_55",
+      "pos": [
+        26,
+        2,
+        24
+      ]
+    },
+    {
+      "id": "frozen_larder_56",
+      "pos": [
+        26,
+        3,
+        16
+      ]
+    },
+    {
+      "id": "frozen_larder_57",
+      "pos": [
+        26,
+        3,
+        17
+      ]
+    },
+    {
+      "id": "frozen_larder_58",
+      "pos": [
+        26,
+        3,
+        18
+      ]
+    },
+    {
+      "id": "frozen_larder_59",
+      "pos": [
+        26,
+        3,
+        19
+      ]
+    },
+    {
+      "id": "frozen_larder_60",
+      "pos": [
+        26,
+        3,
+        21
+      ]
+    },
+    {
+      "id": "frozen_larder_61",
+      "pos": [
+        26,
+        3,
+        22
+      ]
+    },
+    {
+      "id": "frozen_larder_62",
+      "pos": [
+        26,
+        3,
+        23
+      ]
+    },
+    {
+      "id": "frozen_larder_63",
+      "pos": [
+        26,
+        3,
+        24
+      ]
+    },
+    {
+      "id": "frozen_larder_64",
+      "pos": [
+        26,
+        4,
+        16
+      ]
+    },
+    {
+      "id": "frozen_larder_65",
+      "pos": [
+        26,
+        4,
+        17
+      ]
+    },
+    {
+      "id": "frozen_larder_66",
+      "pos": [
+        26,
+        4,
+        18
+      ]
+    },
+    {
+      "id": "frozen_larder_67",
+      "pos": [
+        26,
+        4,
+        19
+      ]
+    },
+    {
+      "id": "frozen_larder_68",
+      "pos": [
+        26,
+        4,
+        21
+      ]
+    },
+    {
+      "id": "frozen_larder_69",
+      "pos": [
+        26,
+        4,
+        22
+      ]
+    },
+    {
+      "id": "frozen_larder_70",
+      "pos": [
+        26,
+        4,
+        23
+      ]
+    },
+    {
+      "id": "frozen_larder_71",
+      "pos": [
+        26,
+        4,
+        24
+      ]
+    },
+    {
+      "id": "entrance",
+      "pos": [
+        14,
+        1,
+        6
+      ]
+    }
+  ],
+  "template_sha256": "ba468b12cb5c1f39c2894257ca937b6707d10aa154fd5f9e11981688a362fede"
+}

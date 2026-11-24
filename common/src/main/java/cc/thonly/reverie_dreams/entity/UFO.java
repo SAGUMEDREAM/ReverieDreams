@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.entity;
 
 import cc.thonly.reverie_dreams.registry.content.entity.RDEntityTypes;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.entity.IAnimationHelper;
 import com.geckolib.animatable.GeoEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;

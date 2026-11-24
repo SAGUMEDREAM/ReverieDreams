@@ -1,6 +1,6 @@
 package cc.thonly.reverie_dreams.fabric.impl;
 
-import cc.thonly.reverie_dreams.api.loot.ILootTableModificationContextExtension;
+import cc.thonly.reverie_dreams.api.loot.LootTableModificationContextExtension;
 import dev.architectury.event.events.common.LootEvent;
 import net.fabricmc.fabric.api.loot.v3.FabricLootTableBuilder;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -16,11 +16,11 @@ import java.util.function.Consumer;
  * 但 Fabric API 的 {@link FabricLootTableBuilder#modifyPools(Consumer)} 可以真正修改已经存在的池。
  * 这里通过反射拿到 Architectury Fabric 实现里保存的 {@link LootTable.Builder}，再转交给 Fabric 的扩展接口。
  */
-public class FabricTableModifier implements ILootTableModificationContextExtension.TableModifier {
+public class FabricTableModifier implements LootTableModificationContextExtension.TableModifier {
     private static Field tableBuilderField;
 
     @Override
-    public void modifyPool(ILootTableModificationContextExtension extension, Consumer<LootPool.Builder> modifier) {
+    public void modifyPool(LootTableModificationContextExtension extension, Consumer<LootPool.Builder> modifier) {
         LootEvent.LootTableModificationContext context = extension.getAccessor().get();
         try {
             LootTable.Builder builder = (LootTable.Builder) tableBuilderField(context.getClass()).get(context);

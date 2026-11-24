@@ -3,6 +3,7 @@ package cc.thonly.reverie_dreams.registry.content.villager.offer;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import cc.thonly.reverie_dreams.registry.content.villager.RDVillagerTrades;
 import cc.thonly.reverie_dreams.registry.tag.RDVillagerTradeTags;
+import cc.thonly.reverie_dreams.util.item.CoinValues;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.trading.TradeCost;
@@ -14,10 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class MoneyShopClerkOffers {
-    private static final float PRICE_MULTIPLIER = 0.13f;
+    private static final float PRICE_MULTIPLIER = 0.0f;
     public static final String TEMPLATE = RDVillagerTrades.MONEY_SHOP_CLERK_TEMPLATE;
-    public static final int COPPER_PER_SILVER = 5;
-    public static final int SILVER_PER_GOLD = 10;
+    public static final int COPPER_PER_SILVER = CoinValues.EXCHANGE_RATIO;
+    public static final int SILVER_PER_GOLD = CoinValues.EXCHANGE_RATIO;
 
     public static int toCopper(int gold, int silver, int copper) {
         return gold * SILVER_PER_GOLD * COPPER_PER_SILVER + silver * COPPER_PER_SILVER + copper;

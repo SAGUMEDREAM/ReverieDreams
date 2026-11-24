@@ -67,12 +67,12 @@ public class BasePageGui extends SimpleGui {
     public void init() {
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub007")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub007")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
         );
         for (int row = 0; row < GRID.length; row++) {
             for (int col = 0; col < GRID[row].length; col++) {
@@ -146,17 +146,18 @@ public class BasePageGui extends SimpleGui {
     @Override
     public void onTick() {
         super.onTick();
-        if (!this.updated) return;
+        if (!this.updated)
+            return;
         this.updated = false;
 
         this.setTitle(
                 Component.empty()
-                         .append(Component.translatable("space.-8"))
-                         .append(Component.literal("\ub007")
-                                          .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
-                                                                .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
-                         .append(Component.translatable("space.-168"))
-                         .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
+                        .append(Component.translatable("space.-8"))
+                        .append(Component.literal("\ub007")
+                                .withStyle(Style.EMPTY.withColor(ChatFormatting.WHITE)
+                                        .withFont(new FontDescription.Resource(ReverieDreams.id("reverie_dreams")))))
+                        .append(Component.translatable("space.-168"))
+                        .append(Component.empty().append(Component.translatable(this.recipeGuiInfo.getId().toLanguageKey())).append(Component.nullToEmpty(" (" + (this.page + 1) + "/" + (getMaxPage() + 1) + ")")))
         );
         int start = this.page * PER_PAGE_SIZE;
 

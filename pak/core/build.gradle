@@ -1,0 +1,41 @@
+plugins { id 'java-library' }
+
+java { toolchain.languageVersion = JavaLanguageVersion.of(25) }
+repositories { mavenCentral() }
+dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter:5.11.4')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher:1.11.4')
+}
+
+sourceSets {
+    clientRuntime {
+        java.srcDirs = sourceSets.main.java.srcDirs
+        java.exclude '**/PakCodec.java', '**/PakHeader.java', '**/KeyDerivation.java', '**/KeyProvider.java', '**/KeyRegistry.java'
+    }
+}
+tasks.named('test', Test) {
+    dependsOn tasks.named('clientRuntimeClasses')
+    systemProperty 'pak.test.client.runtime.classes', sourceSets.clientRuntime.output.classesDirs.asPath
+    useJUnitPlatform()
+    exclude '**/NativeEmptyKeyTest.class'
+    def nativeResources = providers.systemProperty('pak.test.native.resources')
+    if (nativeResources.present) {
+        systemProperty 'pak.test.native.resources', nativeResources.get()
+        jvmArgs '--enable-native-access=ALL-UNNAMED', '-Xcheck:jni'
+    }
+}
+
+// A separate JVM proves the production profile ships no synthetic fallback keys.
+tasks.register('testNativeEmpty', Test) {
+    dependsOn tasks.named('testClasses')
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    include '**/NativeEmptyKeyTest.class'
+    useJUnitPlatform()
+    jvmArgs '--enable-native-access=ALL-UNNAMED', '-Xcheck:jni'
+    def nativeResources = providers.systemProperty('pak.test.native.empty.resources')
+    if (nativeResources.present) systemProperty 'pak.test.native.empty.resources', nativeResources.get()
+    doFirst {
+        if (!systemProperties['pak.test.native.empty.resources']) throw new GradleException('Supply the empty-key native resource tree')
+    }
+}

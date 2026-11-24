@@ -2,7 +2,7 @@ package cc.thonly.reverie_dreams.server;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.entity.type.ChatAIEntity;
-import cc.thonly.reverie_dreams.openai.AIMessage;
+import cc.thonly.reverie_dreams.ai.AIMessage;
 import cc.thonly.reverie_dreams.server.dialog.ActionBuilder;
 import cc.thonly.reverie_dreams.server.dialog.DialogBuilder;
 import cc.thonly.reverie_dreams.server.dialog.DialogEntry;
@@ -26,6 +26,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import cc.thonly.reverie_dreams.ai.AIChatPolicy;
+import cc.thonly.reverie_dreams.ai.AIRequestContext;
+import cc.thonly.reverie_dreams.ai.ProviderRegistry;
 
 @SuppressWarnings("unchecked")
 public class ChatAIManager {
@@ -34,10 +37,25 @@ public class ChatAIManager {
     /** Modified clients must not be able to talk to NPCs from across the world. */
     private static final double MAX_CHAT_DISTANCE = 32.0;
 
+    public static boolean canChat(ServerPlayer player) {
+        var config = ReverieDreams.config();
+        return player != null && player.isAlive() && !player.hasDisconnected()
+                && AIChatPolicy.enabled(config.enableAIReplacesGeneralChat,
+                Boolean.TRUE.equals(PlayerSettings.get(player).get(PlayerSettings.DISABLE_CHAT_AI)),
+                config.apiUrl, config.apiKey, ProviderRegistry.get(config.chatType) != null);
+    }
+
+    public static AIRequestContext.Settings requestSettings() {
+        var config = ReverieDreams.config();
+        return new AIRequestContext.Settings(config.apiUrl, config.apiKey, config.model,
+                config.aiProxyUrl, Double.isFinite(config.temperature) ? Math.clamp(config.temperature, 0, 2) : 0.7,
+                config.maxTokens <= 0 ? 512 : Math.clamp(config.maxTokens, 1, 8192));
+    }
+
     @SuppressWarnings("rawtypes")
     public static void handleChat(ServerPlayer player, ServerboundCustomClickActionPacket packet) {
         MinecraftServer server = ReverieDreams.getServer();
-        if (server == null || player == null || player.hasDisconnected()) {
+        if (server == null || !canChat(player)) {
             return;
         }
         Optional<Tag> payload = packet.payload();
@@ -68,7 +86,7 @@ public class ChatAIManager {
                 }
             }
         }
-        if (!(target instanceof ChatAIEntity chatAIEntity) || target.isRemoved()) {
+        if (!(target instanceof ChatAIEntity chatAIEntity) || target.isRemoved() || !target.isAlive()) {
             return;
         }
         if (target.level() != player.level() || target.distanceToSqr(player) > MAX_CHAT_DISTANCE * MAX_CHAT_DISTANCE) {

@@ -5,10 +5,12 @@ import cc.thonly.reverie_dreams.block.bundle.CropBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.DecorativeBlockBundle;
 import cc.thonly.reverie_dreams.block.bundle.WoodBundle;
 import cc.thonly.reverie_dreams.block.cooking.AbstractKitchenwareBlock;
+import cc.thonly.reverie_dreams.block.decor.ChabudaiBlock;
 import cc.thonly.reverie_dreams.data.FumoType;
 import cc.thonly.reverie_dreams.registry.content.FumoTypes;
 import cc.thonly.reverie_dreams.registry.content.block.RDBlocks;
 import cc.thonly.reverie_dreams.registry.content.block.RDWoodBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDWoolBlocks;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
@@ -19,6 +21,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SlabBlock;
@@ -37,6 +40,20 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.stream.Stream;
+import cc.thonly.reverie_dreams.block.decor.living.FutonBlock;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopDeskBlock;
+import cc.thonly.reverie_dreams.block.decor.workshop.WorkshopRackBlock;
+import cc.thonly.reverie_dreams.registry.content.block.RDDeadwoodBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseLivingBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseSet2Blocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseHomeBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDJapaneseShrineBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDLandmarkBlocks;
+import cc.thonly.reverie_dreams.registry.content.block.RDMagicForestBlocks;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class BlockLootTableProvider extends FabricBlockLootSubProvider {
     protected static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
@@ -78,10 +95,69 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
     @Override
     public void generate() {
+        for (RDWoolBlocks.Family wool : RDWoolBlocks.FAMILIES) {
+            Block slab = wool.slab().asBlock();
+            add(slab, createSlabItemTable(slab));
+            dropSelf(wool.stairs().asBlock());
+        }
+        cc.thonly.reverie_dreams.registry.content.block.RDGensokyoSaplings.SAPLINGS.values()
+                .forEach(sapling -> dropSelf(sapling.asBlock()));
+        LargeBambooData.loot(this::add);
+        BambooForestData.loot(this::add);
+        for (var entry : RDJapaneseSet2Blocks.ALL) {
+            Block block = entry.asBlock();
+            if (block instanceof WorkshopDeskBlock) {
+                var table = createSingleItemTable(block);
+                for (var accessory : new WorkshopDeskBlock.Accessory[]{
+                        WorkshopDeskBlock.Accessory.INKSTONE,
+                        WorkshopDeskBlock.Accessory.BOOKS}) {
+                    var item = RDJapaneseSet2Blocks.get(accessory.kind());
+                    table.withPool(applyExplosionCondition(item, LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                            .add(LootItem.lootTableItem(item)).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
+                                            WorkshopDeskBlock.ACCESSORY, accessory)))));
+                }
+                add(block, table);
+            } else if (block instanceof WorkshopRackBlock) {
+                add(block, createSinglePropConditionTable(block, WorkshopRackBlock.HALF, DoubleBlockHalf.LOWER));
+            } else dropSelf(block);
+        }
+
+        for (var entry : RDJapaneseLivingBlocks.ALL) {
+            Block block = entry.asBlock();
+            if (block instanceof FutonBlock)
+                add(block, createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
+            else dropSelf(block);
+        }
+        for (var entry : RDJapaneseShrineBlocks.ALL) {
+            dropSelf(entry.asBlock());
+        }
+        add(RDJapaneseHomeBlocks.SHOJI_DOOR.asBlock(), this.createDoorTable(RDJapaneseHomeBlocks.SHOJI_DOOR.asBlock()));
+        for (var entry : List.of(RDJapaneseHomeBlocks.KOTATSU, RDJapaneseHomeBlocks.HIBACHI,
+                RDJapaneseHomeBlocks.KAMIDANA, RDJapaneseHomeBlocks.BUTSUDAN)) {
+            dropSelf(entry.asBlock());
+        }
+        for (var entry : RDDeadwoodBlocks.SPLINTERED_LOGS.values())
+            dropSelf(entry.asBlock());
+        dropSelf(RDBlocks.BLUE_MUSHROOM.asBlock());
+        for (var entry : RDLandmarkBlocks.ALL) {
+            if (entry == RDLandmarkBlocks.PURPLE_CHERRY_LEAVES)
+                add(entry.asBlock(),createLeavesDrops(entry.asBlock(),RDLandmarkBlocks.PURPLE_CHERRY_SAPLING.asBlock(),NORMAL_LEAVES_SAPLING_CHANCES));
+            else if (entry == RDLandmarkBlocks.GARDEN_SUNFLOWER)
+                add(entry.asBlock(),createSinglePropConditionTable(entry.asBlock(),DoublePlantBlock.HALF,DoubleBlockHalf.LOWER));
+            else if (entry == RDLandmarkBlocks.PURPLE_CHERRY_PETALS)
+                add(entry.asBlock(),createSegmentedBlockDrops(entry.asBlock()));
+            else dropSelf(entry.asBlock());
+        }
+        dropSelf(RDBlocks.PURPLE_MUSHROOM.asBlock());
+        add(RDBlocks.BLUE_MUSHROOM_BLOCK.asBlock(), createMushroomBlockDrop(RDBlocks.BLUE_MUSHROOM_BLOCK.asBlock(), RDBlocks.BLUE_MUSHROOM));
+        add(RDBlocks.PURPLE_MUSHROOM_BLOCK.asBlock(), createMushroomBlockDrop(RDBlocks.PURPLE_MUSHROOM_BLOCK.asBlock(), RDBlocks.PURPLE_MUSHROOM));
+        dropWhenSilkTouch(RDBlocks.MAGIC_MUSHROOM_STEM.asBlock());
         dropSelf(RDBlocks.DANMAKU_CRAFTING_TABLE.asBlock());
         dropSelf(RDBlocks.STRENGTH_TABLE.asBlock());
         dropSelf(RDBlocks.GENSOKYO_ALTAR.asBlock());
         dropSelf(RDBlocks.MUSIC_BLOCK.asBlock());
+        dropSelf(RDBlocks.RECORD_PLAYER.asBlock());
 
         dropSelf(RDBlocks.MAGIC_ICE_BLOCK.asBlock());
         dropSelf(RDBlocks.MARISA_HAT_BLOCK.asBlock());
@@ -91,6 +167,63 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
 
         dropSelf(RDBlocks.POINT_BLOCK.asBlock());
         dropSelf(RDBlocks.POWER_BLOCK.asBlock());
+        dropSelf(RDBlocks.RED_ORB_BLOCK.asBlock());
+        dropSelf(RDBlocks.YELLOW_ORB_BLOCK.asBlock());
+        dropSelf(RDBlocks.BLUE_ORB_BLOCK.asBlock());
+        dropSelf(RDBlocks.GREEN_ORB_BLOCK.asBlock());
+        dropSelf(RDBlocks.PURPLE_ORB_BLOCK.asBlock());
+        dropSelf(RDBlocks.DREAM_RED_BLOCK.asBlock());
+        dropSelf(RDBlocks.FOOTSTEP_MOSS.asBlock());
+        dropSelf(RDBlocks.DREAM_BLUE_BLOCK.asBlock());
+        dropSelf(RDBlocks.WOODEN_BOX.chestBlock().asBlock());
+        dropSelf(RDBlocks.CUPBOARD.asBlock());
+        dropSelf(RDBlocks.TATAMI.asBlock());
+        dropSelf(RDBlocks.TATAMI_BLOCK.asBlock());
+        dropSelf(RDBlocks.TATAMI_CORNER.asBlock());
+        dropSelf(RDBlocks.SHOJI_PANE.asBlock());
+        dropSelf(RDBlocks.RANMA.asBlock());
+        dropSelf(RDBlocks.SUDARE.asBlock());
+        dropSelf(RDBlocks.ANDON.asBlock());
+        dropSelf(RDBlocks.CHOCHIN.asBlock());
+        dropSelf(RDBlocks.ZABUTON.asBlock());
+        RDBlocks.ZABUTONS.values().forEach(block -> dropSelf(block.asBlock()));
+        add(RDBlocks.CHABUDAI.asBlock(), createSingleItemTable(RDBlocks.CHABUDAI.asBlock())
+                .withPool(applyExplosionCondition(RDBlocks.TEA_SET, LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1)).add(LootItem.lootTableItem(RDBlocks.TEA_SET))
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(RDBlocks.CHABUDAI.asBlock())
+                                .setProperties(StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(ChabudaiBlock.HAS_TEA_SET, true))))));
+        dropSelf(RDBlocks.TEA_SET.asBlock());
+        dropSelf(RDBlocks.XIANGQI_BOARD.asBlock());
+        dropSelf(RDBlocks.CHESS_BOARD.asBlock());
+        dropSelf(RDBlocks.GO_BOARD.asBlock());
+        dropSelf(RDBlocks.BYOBU.asBlock());
+        dropSelf(RDBlocks.KAKEJIKU.asBlock());
+        dropSelf(RDBlocks.NOREN_INDIGO.asBlock());
+        dropSelf(RDBlocks.NOREN_WHITE.asBlock());
+        dropSelf(RDBlocks.NOREN_RED.asBlock());
+        dropSelf(RDBlocks.NOREN_BLACK.asBlock());
+        dropSelf(RDBlocks.NOREN_BROWN.asBlock());
+        dropSelf(RDBlocks.NOREN_GREEN.asBlock());
+
+        // Japanese exterior batch 1.
+        dropSelf(RDBlocks.ENGAWA.asBlock());
+        dropSelf(RDBlocks.YOTSUME_GAKI.asBlock());
+        dropSelf(RDBlocks.BAMBOO_FENCE.asBlock());
+        dropSelf(RDBlocks.MUSHIKO_MADO.asBlock());
+        dropSelf(RDBlocks.SHIKKUI_BLOCK.asBlock());
+        dropSelf(RDBlocks.SHIKKUI_SLAB.asBlock());
+        dropSelf(RDBlocks.SHIKKUI_STAIRS.asBlock());
+        dropSelf(RDBlocks.SHIKKUI_WALL.asBlock());
+        dropSelf(RDBlocks.KAWARA_TILES.asBlock());
+        dropSelf(RDBlocks.KAWARA_TILES_SLAB.asBlock());
+        dropSelf(RDBlocks.KAWARA_TILES_STAIRS.asBlock());
+        dropSelf(RDBlocks.STONE_LANTERN.asBlock());
+        dropSelf(RDBlocks.TSUKUBAI.asBlock());
+        dropSelf(RDBlocks.STEPPING_STONE.asBlock());
+        dropSelf(RDBlocks.RAKED_GRAVEL.asBlock());
+
+        add(RDBlocks.FUSUMA_DOOR.asBlock(), this.createDoorTable(RDBlocks.FUSUMA_DOOR.asBlock()));
         add(RDBlocks.SILVER_ORE.asBlock(), (Block block) -> this.createOreDrop(block, RDItems.RAW_SILVER.asItem()));
         add(RDBlocks.MOON_IRON_ORE.asBlock(), (Block block) -> this.createOreDrop(block, Items.RAW_IRON.asItem()));
         add(RDBlocks.MOON_GOLD_ORE.asBlock(), (Block block) -> this.createOreDrop(block, Items.RAW_GOLD.asItem()));
@@ -192,9 +325,24 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
         this.woodBundleLootFunction.apply(RDWoodBlocks.PEACH_BUNDLE);
         dropOther(RDWoodBlocks.PEACH_FRUIT_LEAVES.asBlock(), RDWoodBlocks.PEACH_BUNDLE.sapling());
 
+        dropOther(RDWoodBlocks.PLUM_FRUIT_LEAVES.asBlock(), RDWoodBlocks.PLUM_SAPLING);
+        dropSelf(RDWoodBlocks.PLUM_SAPLING.asBlock());
+        dropOther(RDWoodBlocks.PINE_FRUIT_LEAVES.asBlock(), RDWoodBlocks.PINE_SAPLING);
+        dropSelf(RDWoodBlocks.PINE_SAPLING.asBlock());
+        dropOther(RDWoodBlocks.CHESTNUT_FRUIT_LEAVES.asBlock(), RDWoodBlocks.CHESTNUT_SAPLING);
+        dropSelf(RDWoodBlocks.CHESTNUT_SAPLING.asBlock());
+
+        this.woodBundleLootFunction.apply(RDWoodBlocks.IROHA_MAPLE_BUNDLE);
+        this.woodBundleLootFunction.apply(RDWoodBlocks.ITAYA_MAPLE_BUNDLE);
+        this.woodBundleLootFunction.apply(RDWoodBlocks.HAUCHIWA_MAPLE_BUNDLE);
+
         dropSelf(RDBlocks.BLACK_SALT_BLOCK.asBlock());
+        dropOther(RDBlocks.PADDY_FIELD.asBlock(), Blocks.DIRT);
         dropSelf(RDWoodBlocks.UDUMBARA_FLOWER.asBlock());
         dropSelf(RDWoodBlocks.TREMELLA.asBlock());
+        for (var block : RDMagicForestBlocks.ALL) {
+            dropSelf(block.asBlock());
+        }
 
         dropSelf(RDBlocks.RAIL_CONTROLLER_BLOCK.asBlock());
         dropSelf(RDBlocks.SIGNAL_RAIL_BLOCK.asBlock());
@@ -202,6 +350,8 @@ public class BlockLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(RDBlocks.REMOTE_CLIENT.asBlock());
         dropSelf(RDBlocks.REMOTE_SERVER.asBlock());
         dropSelf(RDBlocks.SPEAKER.asBlock());
+        dropSelf(RDBlocks.MYSTIA_BELL.asBlock());
+        dropSelf(RDBlocks.MENU_BOOK.asBlock());
     }
 
     void generateCropLoot(CropBlockBundle.Entry entry) {

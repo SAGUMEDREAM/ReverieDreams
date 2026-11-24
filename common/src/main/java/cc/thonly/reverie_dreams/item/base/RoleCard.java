@@ -5,12 +5,12 @@ import cc.thonly.reverie_dreams.data.npc.NPCRoleType;
 import cc.thonly.reverie_dreams.item.IngredientStack;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.BuiltinObject;
-import cc.thonly.reverie_dreams.registry.SerializableProvider;
-import cc.thonly.reverie_dreams.registry.RegistryEntryOwnerBindable;
+import cc.thonly.reverie_dreams.api.registry.SerializableProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryEntryOwnerBindable;
 import cc.thonly.reverie_dreams.registry.BuiltInRegistryProviders;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.registry.impl.RegistryProvider;
+import cc.thonly.reverie_dreams.api.registry.RegistryProviderLookup;
 import cc.thonly.reverie_dreams.util.UnitCodec;
 import cc.thonly.reverie_dreams.util.item.ItemStackTemplateHelper;
 import com.mojang.serialization.Codec;
@@ -35,7 +35,7 @@ public class RoleCard implements SerializableProvider<RoleCard>, RegistryEntryOw
     public static final Long DEFAULT_COLOR = 16777215L;
     @Setter
     @Getter
-    private RegistryProvider<RoleCard> owner;
+    private RegistryProviderLookup<RoleCard> owner;
     @Setter
     @Getter
     private Identifier id;
@@ -93,7 +93,8 @@ public class RoleCard implements SerializableProvider<RoleCard>, RegistryEntryOw
     }
 
     public Optional<NPCRoleType> random() {
-        if (this.entries.isEmpty()) return Optional.empty();
+        if (this.entries.isEmpty())
+            return Optional.empty();
         int index = ThreadLocalRandom.current().nextInt(this.entries.size());
         return Optional.ofNullable(this.entries.get(index));
     }
@@ -178,7 +179,8 @@ public class RoleCard implements SerializableProvider<RoleCard>, RegistryEntryOw
             }
             PrimitiveIterator.OfInt iterator = Arrays.stream(EMPTY_INDEXES).iterator();
             for (IngredientStack itemStackWrapper : this.itemWrappers) {
-                if (!iterator.hasNext()) continue;
+                if (!iterator.hasNext())
+                    continue;
                 Integer next = iterator.next();
                 wrappers.set(next, itemStackWrapper);
             }

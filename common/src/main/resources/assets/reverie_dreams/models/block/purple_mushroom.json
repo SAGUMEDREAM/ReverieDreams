@@ -1,0 +1,448 @@
+{
+  "format_version": "1.21.11",
+  "credit": "Made with Blockbench",
+  "parent": "minecraft:block/block",
+  "texture_size": [
+    32,
+    32
+  ],
+  "textures": {
+    "atlas": "reverie_dreams:block/purple_mushroom_atlas",
+    "particle": "reverie_dreams:block/purple_mushroom_cap"
+  },
+  "elements": [
+    {
+      "name": "stem",
+      "from": [
+        7,
+        0,
+        7
+      ],
+      "to": [
+        9,
+        4,
+        9
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11.5,
+            11,
+            12.5,
+            13
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            11,
+            12.5,
+            13
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            11.5,
+            11,
+            12.5,
+            13
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            11.5,
+            11,
+            12.5,
+            13
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            11.5,
+            11.5,
+            12.5,
+            12.5
+          ],
+          "texture": "#atlas"
+        },
+        "down": {
+          "uv": [
+            11.5,
+            11.5,
+            12.5,
+            12.5
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "name": "bell_center",
+      "from": [
+        4,
+        4,
+        5
+      ],
+      "to": [
+        12,
+        6,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10,
+            3.5,
+            14,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            10,
+            3.5,
+            14,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            2,
+            2.5,
+            6,
+            5.5
+          ],
+          "texture": "#atlas"
+        },
+        "down": {
+          "uv": [
+            2,
+            10.5,
+            6,
+            13.5
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "name": "bell_front",
+      "from": [
+        5,
+        4,
+        4
+      ],
+      "to": [
+        11,
+        6,
+        5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            3.5,
+            12,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            11.5,
+            3.5,
+            12,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            2.5,
+            3.5,
+            5.5,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "down": {
+          "uv": [
+            2.5,
+            11.5,
+            5.5,
+            12
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "name": "bell_back",
+      "from": [
+        5,
+        4,
+        11
+      ],
+      "to": [
+        11,
+        6,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            3.5,
+            12,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            11.5,
+            3.5,
+            12,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            2.5,
+            3.5,
+            5.5,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "down": {
+          "uv": [
+            2.5,
+            11.5,
+            5.5,
+            12
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "name": "bell_shoulder",
+      "from": [
+        5,
+        6,
+        5
+      ],
+      "to": [
+        11,
+        8,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            10.5,
+            3.5,
+            13.5,
+            4.5
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            2.5,
+            2.5,
+            5.5,
+            5.5
+          ],
+          "texture": "#atlas"
+        },
+        "down": {
+          "uv": [
+            2.5,
+            10.5,
+            5.5,
+            13.5
+          ],
+          "texture": "#atlas"
+        }
+      }
+    },
+    {
+      "name": "bell_peak",
+      "from": [
+        6,
+        8,
+        6
+      ],
+      "to": [
+        10,
+        9,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            3.5,
+            13,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "east": {
+          "uv": [
+            11,
+            3.5,
+            13,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "south": {
+          "uv": [
+            11,
+            3.5,
+            13,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "west": {
+          "uv": [
+            11,
+            3.5,
+            13,
+            4
+          ],
+          "texture": "#atlas"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            5,
+            5
+          ],
+          "texture": "#atlas"
+        },
+        "down": {
+          "uv": [
+            3,
+            11,
+            5,
+            13
+          ],
+          "texture": "#atlas"
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        25,
+        225,
+        0
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        1.4,
+        1.4,
+        1.4
+      ]
+    }
+  }
+}

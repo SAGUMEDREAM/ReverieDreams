@@ -80,6 +80,97 @@
       ],
       "height": 256,
       "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/restaurant_menu_book.png",
+      "chars": [
+        "\ue000"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/restaurant_bell.png",
+      "chars": [
+        "\ue001"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/workshop_stone_mill.png",
+      "chars": [
+        "\ue002"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/workshop_yagen.png",
+      "chars": [
+        "\ue003"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/npc_work.png",
+      "chars": [
+        "\ue004"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/npc_state.png",
+      "chars": [
+        "\ue005"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/npc_agent.png",
+      "chars": [
+        "\ue006"
+      ],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/gensokyo_altar_recipe.png",
+      "chars": ["\ue007"],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/kitchen_block_recipe.png",
+      "chars": ["\ue008"],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/strength_table_recipe.png",
+      "chars": ["\ue009"],
+      "height": 256,
+      "ascent": 13
+    },
+    {
+      "type": "bitmap",
+      "file": "reverie_dreams:gui/workshop_herb_drying_tray.png",
+      "chars": ["\ue00a"],
+      "height": 256,
+      "ascent": 13
     }
   ]
 }

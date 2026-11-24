@@ -18,6 +18,11 @@ import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import cc.thonly.reverie_dreams.entity.ai.goal.util.EntityTargetUtil;
+import cc.thonly.reverie_dreams.entity.ai.goal.work.NPCWorkLogisticsGoal;
+import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
+import cc.thonly.reverie_dreams.restaurant.RestaurantService;
+
 @SuppressWarnings("resource")
 public class NPCOpenSilverChestGoal extends Goal {
     private final BaseNPCLikeEntity npc;
@@ -65,6 +70,13 @@ public class NPCOpenSilverChestGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if (this.npc.getWorkController().working() && NPCWorkLogisticsGoal.production(this.npc.getWorkMode()))
+            return false;
+        if (this.usesSilverChests())
+            return false;
+        if (EntityTargetUtil.isThisWorkMode(this.npc,
+                NPCWorkModes.CHEST_CLASSIFICATION))
+            return false;
         if (!this.npc.isTame()) {
             return false;
         }
@@ -128,7 +140,7 @@ public class NPCOpenSilverChestGoal extends Goal {
 
                 int inserted = inventory.insertStack(itemStack);
                 if (inserted > 0) {
-                    itemStack.shrink(inserted);
+                    // insertStack 内部已经执行 shrink；这里再 shrink 会删除物品。
                     customChestBlockEntity.setChanged();
                     this.npc.makeSound(SoundEvents.CHEST_OPEN);
                     this.npc.swing(InteractionHand.MAIN_HAND);
@@ -154,7 +166,31 @@ public class NPCOpenSilverChestGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
+        if (this.npc.getWorkController().working() && NPCWorkLogisticsGoal.production(this.npc.getWorkMode()))
+            return false;
+        if (this.usesSilverChests())
+            return false;
+        if (EntityTargetUtil.isThisWorkMode(this.npc,
+                NPCWorkModes.CHEST_CLASSIFICATION))
+            return false;
         return this.operationalTarget != null;
+    }
+
+    /**
+     * Chefs and waiters retrieve specific silver chest items themselves.
+     */
+    private boolean usesSilverChests() {
+        return RestaurantService.isVisiting(this.npc)
+                || EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.COOKING)
+                || EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.SERVING)
+                || EntityTargetUtil.isThisWorkMode(this.npc, NPCWorkModes.CUSTOMER);
+    }
+
+    @Override
+    public void stop() {
+        this.operationalTarget = null;
+        this.tick = 0;
+        this.npc.getNavigation().stop();
     }
 
     @Override

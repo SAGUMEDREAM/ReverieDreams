@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "reverie_dreams:iroha_maple_planks",
+    "P": "minecraft:paper"
+  },
+  "pattern": [
+    "##",
+    "PP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "reverie_dreams:ranma"
+  }
+}

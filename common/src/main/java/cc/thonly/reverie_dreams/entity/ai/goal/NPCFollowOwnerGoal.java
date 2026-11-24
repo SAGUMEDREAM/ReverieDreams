@@ -65,28 +65,29 @@ public class NPCFollowOwnerGoal extends Goal {
             return false;
         }
         if (this.tameable instanceof BaseNPCLikeEntity impl) {
-            NPCState state = impl.getNpcState();
+            NPCState state = impl.getNPCState();
             if (state == NPCStates.NO_WALK || state == NPCStates.SEATED || state == NPCStates.WORKING) {
                 return false;
             }
-            if (state == NPCStates.FOLLOW) {
-                return true;
+            if (state != NPCStates.FOLLOW) {
+                return false;
             }
         }
         this.owner = livingEntity;
-        return false;
+        return true;
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (this.navigation.isDone()) {
+        if (this.tameable instanceof BaseNPCLikeEntity impl && impl.getNPCState() != NPCStates.FOLLOW) {
             return false;
         }
         if (this.tameable.unableToMoveToOwner()) {
             return false;
         }
         if (this.owner != null) {
-            return !(this.tameable.distanceToSqr(this.owner) <= (double) (this.maxDistance * this.maxDistance));
+            // 跟随目标是最小距离，而不是最大距离：否则会在 16 格外提前停下。
+            return this.tameable.distanceToSqr(this.owner) > (double) (this.minDistance * this.minDistance);
         }
         return false;
     }

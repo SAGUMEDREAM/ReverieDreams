@@ -25,13 +25,13 @@ public abstract class SongPlayer {
 	protected Playlist playlist;
 	protected int currentSongIndex = 0;
 
-	public boolean playing = false;
+	public volatile boolean playing = false;
 	protected boolean fading = false;
 	protected short tick = -1;
 	protected Map<UUID, Boolean> playerList = new ConcurrentHashMap<>();
 
 	protected boolean autoDestroy = false;
-	protected boolean destroyed = false;
+	protected volatile boolean destroyed = false;
 
 	protected byte volume = 100;
 	float songDelay = 50.0F; //milliseconds per tick
@@ -43,7 +43,8 @@ public abstract class SongPlayer {
 	protected boolean enable10Octave = false;
 	protected final MinecraftServer server;
 
-	Timer timer = new Timer();
+	private final Timer timer = new Timer("NotaSongPlayer", true);
+	private TimerTask task;
 
 	public SongPlayer(Song song) {
 		this(new Playlist(song));
@@ -88,8 +89,11 @@ public abstract class SongPlayer {
 	}
 
 	private synchronized void onTaskRun(TimerTask task) {
-		if(this.server != api.getServer() && (this.destroyed || NotaAPI.getAPI().isDisabling())) {
+		// 服务器停止/对象已销毁/API 正在关闭：取消任务、定时器并摘掉玩家引用
+		if (this.destroyed || NotaAPI.getAPI().isDisabling() || this.server != api.getServer()) {
 			task.cancel();
+			this.destroy();
+			return;
 		}
 		if (this.server.tickRateManager().isFrozen() || this.server.isPaused()) {
 			return;
@@ -121,16 +125,11 @@ public abstract class SongPlayer {
 						task.cancel();
 						return;
 					}
-					else {
-						this.restartTask((long)this.songDelay);
-						task.cancel();
-					}
+					// 不循环时整首歌已经结束，必须取消 TimerTask 和 Timer，
+					// 否则定时器线程会一直存活并强引用 SongPlayer/Level/Song。
+					this.destroy();
+					return;
 				}
-				playing = false;
-				if(this.autoDestroy) {
-					task.cancel();
-				}
-				return;
 			}
 			SongEvents.TICK.invoker().onSongTick(this);
 			for(UUID uuid : playerList.keySet()) {
@@ -149,12 +148,20 @@ public abstract class SongPlayer {
 	 * Starts this SongPlayer
 	 */
 	private synchronized void restartTask(long delay) {
-		this.timer.schedule(new TimerTask() {
+		if (this.task != null) {
+			this.task.cancel();
+		}
+		this.task = new TimerTask() {
 			@Override
 			public synchronized void run() {
 				onTaskRun(this);
 			}
-		}, 0L, delay);
+		};
+		try {
+			this.timer.schedule(this.task, 0L, delay);
+		} catch (IllegalStateException ignored) {
+			// destroy() 之后 timer 已取消
+		}
 	}
 
 	/**
@@ -205,7 +212,10 @@ public abstract class SongPlayer {
 	 *
 	 * @param playerUuid entity's uuid
 	 */
-	public void addPlayer(UUID playerUuid) {
+	public synchronized void addPlayer(UUID playerUuid) {
+		if (this.destroyed) {
+			return;
+		}
 		if(!this.playerList.containsKey(playerUuid)) {
 			this.playerList.put(playerUuid, false);
 			ArrayList<SongPlayer> songs = NotaAPI.getSongPlayersByPlayer(playerUuid);
@@ -248,10 +258,23 @@ public abstract class SongPlayer {
 	/**
 	 * SongPlayer will destroy itself
 	 */
-	public void destroy() {
+	public synchronized void destroy() {
+		if (this.destroyed) {
+			return;
+		}
 		this.destroyed = true;
 		this.playing = false;
 		this.setTick((short) -1);
+		if (this.task != null) {
+			this.task.cancel();
+			this.task = null;
+		}
+		this.timer.cancel();
+		// 同时从每个玩家的 playingSongs 里摘掉自己，避免 NotaAPI 长期持有旧 SongPlayer。
+		for (UUID uuid : new ArrayList<>(this.playerList.keySet())) {
+			this.removePlayer(uuid);
+		}
+		this.playerList.clear();
 	}
 
 	/**
@@ -304,7 +327,7 @@ public abstract class SongPlayer {
 	 *
 	 * @param playerUuid of entity to remove
 	 */
-	public void removePlayer(UUID playerUuid) {
+	public synchronized void removePlayer(UUID playerUuid) {
 		playerList.remove(playerUuid);
 		if(NotaAPI.getSongPlayersByPlayer(playerUuid) == null) {
 			return;

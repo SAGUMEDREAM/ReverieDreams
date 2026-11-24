@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "reverie_dreams:block/spiritual_slab"
+    },
+    "type=double": {
+      "model": "reverie_dreams:block/spiritual_planks"
+    },
+    "type=top": {
+      "model": "reverie_dreams:block/spiritual_slab_top"
+    }
+  }
+}

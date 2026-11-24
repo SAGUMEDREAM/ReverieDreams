@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "reverie_dreams_board_client_test",
+  "version": "1.0.0",
+  "name": "Reverie Dreams Game Tests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": [
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementPilotGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementHaulingGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementRoadGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementScaleGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementTradeGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementStockTradeGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementNPCExchangeGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementLandmarkGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementRoadCapacityGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.SettlementTaskGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.EntityAdditionsGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.PlayerTrajectoryGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.NPCUiGameTest"
+    ],
+    "fabric-client-gametest": [
+      "cc.thonly.reverie_dreams.fabric.gametest.BoardClientGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.NPCUiClientGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.WorkstationUiClientGameTest",
+      "cc.thonly.reverie_dreams.fabric.gametest.HerbDryingTrayUiClientGameTest"
+    ]
+  },
+  "depends": {
+    "reverie_dreams": "*",
+    "fabric-gametest-api-v1": "*"
+  },
+  "suggests": {
+    "fabric-client-gametest-api-v1": "*"
+  }
+}

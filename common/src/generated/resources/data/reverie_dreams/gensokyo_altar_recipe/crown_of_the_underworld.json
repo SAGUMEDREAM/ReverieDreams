@@ -5,8 +5,8 @@
   },
   "slots": [
     {
-      "id": "minecraft:cherry_leaves",
-      "count": 11
+      "id": "reverie_dreams:ghost_veil",
+      "count": 16
     },
     {
       "id": "minecraft:cherry_leaves",
@@ -21,8 +21,8 @@
       "count": 20
     },
     {
-      "id": "reverie_dreams:power",
-      "count": 20
+      "id": "minecraft:netherite_ingot",
+      "count": 1
     },
     {
       "id": "reverie_dreams:power",

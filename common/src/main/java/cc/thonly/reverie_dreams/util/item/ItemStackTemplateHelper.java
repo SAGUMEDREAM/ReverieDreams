@@ -91,12 +91,10 @@ public class ItemStackTemplateHelper {
     public static <T> T get(ItemStackTemplate template, DataComponentType<T> type) {
         DataComponentPatch components = template.components();
         for (Map.Entry<DataComponentType<?>, Optional<?>> entry : components.entrySet()) {
-            DataComponentType key = entry.getKey();
-            Optional optional = entry.getValue();
-            if (Objects.equals(key, type) || optional.isEmpty()) {
+            if (!Objects.equals(entry.getKey(), type)) {
                 continue;
             }
-            return (T) optional.get();
+            return (T) entry.getValue().orElse(null);
         }
         return null;
     }

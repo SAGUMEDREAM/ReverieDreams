@@ -20,18 +20,20 @@ public class WaterproofArmor extends ArmorItem {
     @Override
     public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot slot) {
         super.inventoryTick(itemStack, serverLevel, entity, slot);
-        if (slot == EquipmentSlot.HEAD && entity instanceof LivingEntity livingEntity) {
+        if (entity instanceof LivingEntity livingEntity && hasFullSet(livingEntity)) {
             if (!livingEntity.hasEffect(MobEffects.WATER_BREATHING)) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 1, 0, false, false, false));
             }
         }
     }
 
-    public static boolean hasEquipment(LivingEntity livingEntity) {
-        return livingEntity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof WaterproofArmor ||
-                livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof WaterproofArmor ||
-                livingEntity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof WaterproofArmor ||
-                livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof WaterproofArmor ||
-                livingEntity.getItemBySlot(EquipmentSlot.BODY).getItem() instanceof WaterproofArmor;
+    /**
+     * 防水效果需要整套装备，单件只提供普通护甲值。
+     */
+    public static boolean hasFullSet(LivingEntity livingEntity) {
+        return livingEntity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof WaterproofArmor
+                && livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof WaterproofArmor
+                && livingEntity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof WaterproofArmor
+                && livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof WaterproofArmor;
     }
 }

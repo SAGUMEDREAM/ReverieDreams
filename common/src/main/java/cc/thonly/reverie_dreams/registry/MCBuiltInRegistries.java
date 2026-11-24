@@ -2,7 +2,9 @@ package cc.thonly.reverie_dreams.registry;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
 import cc.thonly.reverie_dreams.api.proxy.PlatformProxy;
+import cc.thonly.reverie_dreams.api.registry.RegistryBuilderFactory;
 import com.google.common.base.Suppliers;
+import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrarManager;
 import net.minecraft.advancements.CriterionTrigger;
@@ -19,8 +21,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.levelgen.feature.Feature;
 
@@ -51,6 +55,8 @@ public class MCBuiltInRegistries {
     public static final DeferredRegister<GameRule<?>> GAME_RULE = get(Registries.GAME_RULE);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = get(Registries.CREATIVE_MODE_TAB);
     public static final DeferredRegister<Feature<?>> FEATURE = get(Registries.FEATURE);
+    public static final DeferredRegister<MapCodec<? extends ChunkGenerator>> CHUNK_GENERATOR = get(Registries.CHUNK_GENERATOR);
+    public static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCE = get(Registries.BIOME_SOURCE);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZER = get(Registries.RECIPE_SERIALIZER);
 
     public static void register() {

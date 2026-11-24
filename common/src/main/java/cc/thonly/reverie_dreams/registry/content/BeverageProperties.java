@@ -1,7 +1,7 @@
 package cc.thonly.reverie_dreams.registry.content;
 
 import cc.thonly.reverie_dreams.ReverieDreams;
-import cc.thonly.reverie_dreams.api.item.callback.BeveragePropertyItemUseCallback;
+import cc.thonly.reverie_dreams.api.item.callback.ItemEvent;
 import cc.thonly.reverie_dreams.api.registry.callback.BeveragePropertiesLoaderCallback;
 import cc.thonly.reverie_dreams.data.BeverageProperty;
 import cc.thonly.reverie_dreams.item.IngredientStack;
@@ -20,7 +20,6 @@ import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.extern.slf4j.Slf4j;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -68,12 +67,12 @@ public class BeverageProperties {
     public static final BeverageProperty MODERN = registerForBuiltIn("modern", () -> new BeverageProperty());
 
     public static void registerDefaultItemUsingProperty() {
-        BeveragePropertyItemUseCallback.EVENT.register((world, user, itemStack, property, effectInstances, negativeEffectInstances) -> {
+        ItemEvent.BEVERAGE_PROPERTY_USE.register((world, user, itemStack, property, effectInstances, negativeEffectInstances) -> {
             if (world.isClientSide()) {
                 return;
             }
             RandomSource random = user.getRandom();
-            if (itemStack.is(RDBeverageItems.MILK)) {
+            if (itemStack.is(RDBeverageItems.MILK.asItem())) {
                 effectInstances.add(new MobEffectInstance(RDStatusEffects.ANTI_ALCOHOL, 60 * 20 + 20 * 15, 0, false, true));
             }
 
@@ -129,57 +128,59 @@ public class BeverageProperties {
         });
     }
 
+    /**
+     * 同 {@link FoodProperties#get(ItemStack)}：纯查询，不回写 ItemStack 组件。
+     */
     public static List<BeverageProperty> get(IngredientStack stack) {
-        List<BeverageProperty> existing = stack.getOrDefault(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), new ArrayList<>());
+        List<BeverageProperty> existing = stack.getOrDefault(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), List.of());
         if (!existing.isEmpty()) {
             return existing;
         }
 
-        Set<BeverageProperty> cached = ITEM_CACHE.get(stack.getItem());
-        if (cached == null || cached.isEmpty()) {
-            return List.of();
-        }
-
-        List<BeverageProperty> result = new ArrayList<>(cached);
-        stack.set(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), result);
-
-        return result;
+        return getCached(stack.getItem());
     }
 
     public static List<BeverageProperty> get(ItemStack stack) {
-        List<BeverageProperty> existing = stack.getOrDefault(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), new ArrayList<>());
+        List<BeverageProperty> existing = stack.getOrDefault(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), List.of());
         if (!existing.isEmpty()) {
             return existing;
         }
 
-        Set<BeverageProperty> cached = ITEM_CACHE.get(stack.getItem());
-        if (cached == null || cached.isEmpty()) {
-            return List.of();
-        }
-
-        List<BeverageProperty> result = new ArrayList<>(cached);
-        stack.set(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), result);
-
-        return result;
+        return getCached(stack.getItem());
     }
 
     public static Collection<BeverageProperty> get(ItemStackTemplate template) {
-        Holder<Item> item = template.item();
-        List<BeverageProperty> existing = template.getOrDefault(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), new ArrayList<>());
+        List<BeverageProperty> existing = ItemStackTemplateHelper.getOrDefault(template, RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), List.of());
         if (!existing.isEmpty()) {
             return existing;
         }
 
-        Set<BeverageProperty> cached = ITEM_CACHE.get(item.value());
+        return getCached(template.item().value());
+    }
+
+    public static List<BeverageProperty> getDefault(Item item) {
+        Set<BeverageProperty> cached = ITEM_CACHE.get(item);
         if (cached == null || cached.isEmpty()) {
             return List.of();
         }
+        return List.copyOf(cached);
+    }
 
-        List<BeverageProperty> result = new ArrayList<>(cached);
-        ItemStackTemplateHelper.modify(template, (source, modifier) -> {
-            modifier.set(RDDataComponentTypes.BEVERAGE_PROPERTIES.value(), result);
-        });
-        return result;
+    private static List<BeverageProperty> getCached(Item item) {
+        return getDefault(item);
+    }
+
+    /**
+     * 同 {@link FoodProperties#normalize(ItemStack)}，清理旧版本写入的冗余饮料属性组件。
+     */
+    public static void normalize(ItemStack stack) {
+        List<BeverageProperty> explicit = stack.get(RDDataComponentTypes.BEVERAGE_PROPERTIES.value());
+        if (explicit == null) {
+            return;
+        }
+        if (explicit.isEmpty() || explicit.equals(getDefault(stack.getItem()))) {
+            stack.remove(RDDataComponentTypes.BEVERAGE_PROPERTIES.value());
+        }
     }
 
     public static Map<Item, Integer> getPriceCalculationTable() {
@@ -204,33 +205,33 @@ public class BeverageProperties {
         unbound();
         List<BeverageProperty.Data> drinkPropertyData = new ArrayList<>();
 
-        Map<Identifier, Resource> resources = manager.listResources("beverage_property", id ->
+        Map<Identifier, List<Resource>> resources = manager.listResourceStacks("beverage_property", id ->
                 id.getPath().endsWith(".json")
         );
 
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+        for (Map.Entry<Identifier, List<Resource>> entry : resources.entrySet()) {
             Identifier resourceId = entry.getKey();
-            Identifier key = Identifier.fromNamespaceAndPath(resourceId.getNamespace(), resourceId.getPath().replace("beverage_property/", "").replace(".json", ""));
-            Resource resource = entry.getValue();
-            BeverageProperty property = BuiltInRegistryProviders.BEVERAGE_PROPERTY.getValue(key);
+            List<BeverageProperty.Data> resourceData = new ArrayList<>();
+            for (Resource resource : entry.getValue()) {
+                try (InputStream stream = resource.open()) {
+                    JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+                    Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
 
-            if (property == null) {
-                ReverieDreams.LOGGER.warn("Unknown DrinkProperty id: {}", resourceId);
-                continue;
+                    DataResult<BeverageProperty.Data> result = BeverageProperty.Data.CODEC.parse(input);
+
+                    result.error().ifPresent(error -> log.warn("Failed to parse {} from {}: {}", resourceId, resource.sourcePackId(), error));
+                    result.result().ifPresent(data -> {
+                        if (data.replace()) {
+                            resourceData.removeIf(previous -> previous.id().equals(data.id()));
+                        }
+                        resourceData.add(data);
+                    });
+
+                } catch (IOException | RuntimeException e) {
+                    log.error("Failed to load beverage_property {} from {}: {}", resourceId, resource.sourcePackId(), e.getMessage(), e);
+                }
             }
-
-            try (InputStream stream = resource.open()) {
-                JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-
-                DataResult<BeverageProperty.Data> result = BeverageProperty.Data.CODEC.parse(input);
-
-                result.resultOrPartial(error -> log.warn("Failed to parse tags for {}: {}", resourceId, error))
-                        .ifPresent(drinkPropertyData::add);
-
-            } catch (IOException e) {
-                log.error("Failed to load beverage_property {}: {}", resourceId, e.getMessage(), e);
-            }
+            drinkPropertyData.addAll(resourceData);
         }
         Map<BeverageProperty, Set<Item>> drinkPropertySetMap = new Object2ObjectLinkedOpenHashMap<>();
         for (BeverageProperty.Data drinkPropertyDatum : drinkPropertyData) {

@@ -1,0 +1,17 @@
+{
+  "models": [
+    "assets/reverie_dreams/models/item/upgraded_health.json",
+    "assets/reverie_dreams/models/item/bomb.json",
+    "assets/reverie_dreams/models/item/cheque.json",
+    "assets/reverie_dreams/models/item/treasure_hunting_rod.json"
+  ],
+  "textures": [
+    "assets/reverie_dreams/textures/item/upgraded_health.png",
+    "assets/reverie_dreams/textures/item/bomb.png",
+    "assets/reverie_dreams/textures/item/cheque.png",
+    "assets/reverie_dreams/textures/item/treasure_hunting_rod.png"
+  ],
+  "sounds": [
+    "assets/reverie_dreams/sounds/up.ogg"
+  ]
+}

@@ -51,7 +51,7 @@ public class MinecraftServerMixin {
 
     @Inject(
             method = {"saveAllChunks"},
-            at = {@At("HEAD")}
+            at = {@At("RETURN")}
     )
     public void endSaveChunks(boolean suppressLogs, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
         ServerEvents.SAVING_AFTER.invoker().handle((MinecraftServer) (Object) this, flush, force);

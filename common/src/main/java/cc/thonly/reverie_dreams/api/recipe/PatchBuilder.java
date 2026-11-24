@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.mojang.serialization.JsonOps;
+
 @Slf4j
 @SuppressWarnings("unchecked")
 @Accessors(chain = true)
@@ -72,14 +74,14 @@ public class PatchBuilder<Recipe extends BaseRecipe> {
     }
 
     public PatchBuilder<Recipe> add(CompatItemTuple compatItemTuple) {
-        try {
-            Map<Identifier, Recipe> registryView = this.baseRecipeType.getRegistryView();
-            for (Map.Entry<Identifier, Recipe> view : registryView.entrySet()) {
+        Map<Identifier, Recipe> registryView = this.baseRecipeType.getRegistryView();
+        for (Map.Entry<Identifier, Recipe> view : registryView.entrySet()) {
+            try {
                 Recipe recipe = view.getValue();
 
                 Object object = this.cloneWithLombokBuilder(recipe);
                 if (!(object instanceof BaseRecipe baseRecipe)) {
-                    continue;
+                    throw new IllegalStateException("Recipe builder returned no recipe");
                 }
 
                 Class<? extends BaseRecipe> brClass = baseRecipe.getClass();
@@ -93,7 +95,7 @@ public class PatchBuilder<Recipe extends BaseRecipe> {
                         if (wrapper.getItem().equals(compatItemTuple.compatItem())) {
                             continue;
                         }
-                        field.set(object, new IngredientStack(new ItemStack(compatItemTuple.targetItem(), wrapper.getCount())));
+                        field.set(object, new IngredientStack(new ItemStack(compatItemTuple.compatItem(), wrapper.getCount())));
                         changed = true;
                     }
                     if (fieldValue instanceof List<?> list) {
@@ -138,24 +140,20 @@ public class PatchBuilder<Recipe extends BaseRecipe> {
                     } else {
                         newIdentifier = Identifier.parse(oldId.getNamespace() + ":" + oldId.getPath() + "_" + itemId.toString().replaceAll(":", "_"));
                     }
+                    this.baseRecipeType.getCodec().encodeStart(JsonOps.INSTANCE, (Recipe) baseRecipe).getOrThrow();
                     this.registries.put(newIdentifier, baseRecipe);
                 }
+            } catch (Exception e) {
+                log.error("Skipping invalid compatibility patch for recipe {} (replacement={})", view.getKey(), compatItemTuple.compatItem(), e);
             }
-        } catch (Exception e) {
-            log.error("Can't add recipe patches: ", e);
         }
         return this;
     }
 
-    private <T> T cloneWithLombokBuilder(T object) {
-        try {
-            Method toBuilder = object.getClass().getMethod("toBuilder");
-            Object builder = toBuilder.invoke(object);
-            Method build = builder.getClass().getMethod("build");
-            return (T) build.invoke(builder);
-        } catch (Exception e) {
-            log.error("Can't clone with builder", e);
-            return null;
-        }
+    private <T> T cloneWithLombokBuilder(T object) throws ReflectiveOperationException {
+        Method toBuilder = object.getClass().getMethod("toBuilder");
+        Object builder = toBuilder.invoke(object);
+        Method build = builder.getClass().getMethod("build");
+        return (T) build.invoke(builder);
     }
 }

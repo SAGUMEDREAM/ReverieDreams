@@ -21,6 +21,9 @@
     "client": [
       "cc.thonly.reverie_dreams.fabric.ReverieDreamsFabricClient"
     ],
+    "terrablender": [
+      "cc.thonly.reverie_dreams.fabric.ReverieDreamsFabric"
+    ],
     "fabric-datagen": [
       "cc.thonly.reverie_dreams.fabric.ReverieDreamsDataGenerator"
     ],
@@ -38,9 +41,6 @@
     ],
     "jade": [
       "cc.thonly.reverie_dreams.fabric.compat.jade.JadePlugin"
-    ],
-    "appleskin": [
-      "cc.thonly.reverie_dreams.fabric.compat.AppleSkinEventHandler"
     ]
   },
   "mixins": [

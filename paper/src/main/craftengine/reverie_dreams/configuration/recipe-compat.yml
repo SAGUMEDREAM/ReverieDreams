@@ -1,0 +1,124 @@
+# Four bricks already craft into one vanilla bricks block. Preserve both source
+# recipes and provide the same four-brick material cost through a stonecutter.
+recipes:
+  reverie_dreams:compat/kawara_tiles_from_bricks:
+    type: stonecutting
+    ingredients: minecraft:bricks
+    result:
+      id: reverie_dreams:kawara_tiles
+      count: 4
+  reverie_dreams:compat/yotsume_gaki_from_oak_fence:
+    type: shapeless
+    ingredients:
+      - minecraft:oak_fence
+    result:
+      id: reverie_dreams:yotsume_gaki
+      count: 1
+  # Six curtain colors share the exact source wool-and-string pattern with the
+  # same-color cushion (white also with the base cushion), so only one
+  # registration per wool color can win crafting. Preserve every source recipe
+  # and expose each shadowed result at the same material cost via the
+  # stonecutter, which supports several deterministic outputs for one input.
+  reverie_dreams:compat/noren_white_from_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:zabuton
+    result:
+      id: reverie_dreams:noren_white
+      count: 1
+  reverie_dreams:compat/zabuton_from_noren_white:
+    type: stonecutting
+    ingredients: reverie_dreams:noren_white
+    result:
+      id: reverie_dreams:zabuton
+      count: 1
+  reverie_dreams:compat/zabuton_from_white_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:white_zabuton
+    result:
+      id: reverie_dreams:zabuton
+      count: 1
+  reverie_dreams:compat/white_zabuton_from_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:zabuton
+    result:
+      id: reverie_dreams:white_zabuton
+      count: 1
+  reverie_dreams:compat/noren_white_from_white_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:white_zabuton
+    result:
+      id: reverie_dreams:noren_white
+      count: 1
+  reverie_dreams:compat/white_zabuton_from_noren_white:
+    type: stonecutting
+    ingredients: reverie_dreams:noren_white
+    result:
+      id: reverie_dreams:white_zabuton
+      count: 1
+  reverie_dreams:compat/noren_red_from_red_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:red_zabuton
+    result:
+      id: reverie_dreams:noren_red
+      count: 1
+  reverie_dreams:compat/red_zabuton_from_noren_red:
+    type: stonecutting
+    ingredients: reverie_dreams:noren_red
+    result:
+      id: reverie_dreams:red_zabuton
+      count: 1
+  reverie_dreams:compat/noren_black_from_black_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:black_zabuton
+    result:
+      id: reverie_dreams:noren_black
+      count: 1
+  reverie_dreams:compat/black_zabuton_from_noren_black:
+    type: stonecutting
+    ingredients: reverie_dreams:noren_black
+    result:
+      id: reverie_dreams:black_zabuton
+      count: 1
+  reverie_dreams:compat/noren_brown_from_brown_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:brown_zabuton
+    result:
+      id: reverie_dreams:noren_brown
+      count: 1
+  reverie_dreams:compat/brown_zabuton_from_noren_brown:
+    type: stonecutting
+    ingredients: reverie_dreams:noren_brown
+    result:
+      id: reverie_dreams:brown_zabuton
+      count: 1
+  reverie_dreams:compat/noren_green_from_green_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:green_zabuton
+    result:
+      id: reverie_dreams:noren_green
+      count: 1
+  reverie_dreams:compat/green_zabuton_from_noren_green:
+    type: stonecutting
+    ingredients: reverie_dreams:noren_green
+    result:
+      id: reverie_dreams:green_zabuton
+      count: 1
+  reverie_dreams:compat/noren_indigo_from_blue_zabuton:
+    type: stonecutting
+    ingredients: reverie_dreams:blue_zabuton
+    result:
+      id: reverie_dreams:noren_indigo
+      count: 1
+  reverie_dreams:compat/blue_zabuton_from_noren_indigo:
+    type: stonecutting
+    ingredients: reverie_dreams:noren_indigo
+    result:
+      id: reverie_dreams:blue_zabuton
+      count: 1
+  reverie_dreams:compat/stepping_stone_from_pressure_plate:
+    type: shapeless
+    ingredients:
+      - minecraft:stone_pressure_plate
+    result:
+      id: reverie_dreams:stepping_stone
+      count: 4

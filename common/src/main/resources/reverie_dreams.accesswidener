@@ -1,4 +1,5 @@
 classTweaker v1 official
+accessible field net/minecraft/world/entity/projectile/throwableitemprojectile/ThrowableItemProjectile DATA_ITEM_STACK Lnet/minecraft/network/syncher/EntityDataAccessor;
 accessible class net/minecraft/commands/synchronization/SuggestionProviders$RegisteredSuggestion
 accessible class net/minecraft/core/component/DataComponentPatch$PatchKey
 accessible class net/minecraft/core/component/DataComponentInitializers$Initializer
@@ -58,3 +59,5 @@ accessible method net/minecraft/world/level/levelgen/NoiseRouterData postProcess
 accessible method net/minecraft/world/level/levelgen/NoiseRouterData slide (Lnet/minecraft/world/level/levelgen/DensityFunction;IIIIDIID)Lnet/minecraft/world/level/levelgen/DensityFunction;
 accessible method net/minecraft/world/entity/projectile/ThrowableProjectile handleFirstTickBubbleColumn ()V
 mutable field net/minecraft/world/item/component/DyedItemColor rgb I
+accessible class net/minecraft/world/level/chunk/storage/RegionFileVersion$StreamWrapper
+accessible method net/minecraft/world/level/chunk/storage/RegionFileVersion <init> (ILjava/lang/String;Lnet/minecraft/world/level/chunk/storage/RegionFileVersion$StreamWrapper;Lnet/minecraft/world/level/chunk/storage/RegionFileVersion$StreamWrapper;)V

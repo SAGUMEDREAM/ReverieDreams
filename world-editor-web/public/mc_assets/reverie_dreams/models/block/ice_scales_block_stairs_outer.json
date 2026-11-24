@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "reverie_dreams:block/ice_scales_block",
+    "side": "reverie_dreams:block/ice_scales_block",
+    "top": "reverie_dreams:block/ice_scales_block"
+  }
+}

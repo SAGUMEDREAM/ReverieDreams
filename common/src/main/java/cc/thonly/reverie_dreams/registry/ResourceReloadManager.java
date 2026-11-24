@@ -38,6 +38,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+import cc.thonly.reverie_dreams.ai.npc.NPCItemNames;
+import cc.thonly.reverie_dreams.ai.npc.NPCPersonas;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Slf4j
@@ -51,6 +53,8 @@ public class ResourceReloadManager {
 
         return CompletableFuture.completedFuture(manager).thenCompose(barrier::wait).thenAccept((rm) -> {
             RecipeManager.onReload(rm);
+            NPCPersonas.reload(rm);
+            NPCItemNames.reload(rm);
             for (var entry : BuiltInRegistryProviders.ROOT.entrySet()) {
                 RegistryProvider<?> registry = entry.getValue();
 
@@ -79,9 +83,9 @@ public class ResourceReloadManager {
         String registryPath = registryKey.identifier().getPath();
         String resourcePath = "tags/%s".formatted(registryPath);
 
-        Map<Identifier, Resource> resources = manager.listResources(resourcePath, id -> id.getPath().endsWith(".json"));
+        Map<Identifier, List<Resource>> resources = manager.listResourceStacks(resourcePath, id -> id.getPath().endsWith(".json"));
 
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+        for (Map.Entry<Identifier, List<Resource>> entry : resources.entrySet()) {
             Identifier resourceId = entry.getKey();
 
             String prefix = resourcePath + "/";
@@ -94,23 +98,32 @@ public class ResourceReloadManager {
             String tagPath = resourceFilePath.substring(prefix.length()).replaceFirst("\\.json$", "");
             Identifier tagId = Identifier.fromNamespaceAndPath(resourceId.getNamespace(), tagPath);
             TagKey<T> tagKey = TagKey.create(registryProvider.key(), tagId);
-            Resource resource = entry.getValue();
-            try (InputStream stream = resource.open(); InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
-                JsonElement json = JsonParser.parseReader(reader);
-                DataResult<RegistryTagSet> dataResult = RegistryTagSet.CODEC.parse(JsonOps.INSTANCE, json);
-                Optional<RegistryTagSet> optional = dataResult.resultOrPartial(error -> {
-                    log.error("Failed to parse tag {}: {}", tagId, error);
-                });
-                if (optional.isEmpty()) {
-                    continue;
-                }
-                RegistryTagSet registryTagSet = optional.get();
-                RegistryTagSet.Result<T> parsed = registryTagSet.result(registryProvider);
-                temp.put(tagKey, parsed);
+            List<TagKey<T>> keys = new ArrayList<>();
+            List<ResourceKey<T>> ids = new ArrayList<>();
+            for (Resource resource : entry.getValue()) {
+                try (InputStream stream = resource.open(); InputStreamReader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
+                    JsonElement json = JsonParser.parseReader(reader);
+                    DataResult<RegistryTagSet> dataResult = RegistryTagSet.CODEC.parse(JsonOps.INSTANCE, json);
+                    Optional<RegistryTagSet> optional = dataResult.resultOrPartial(error -> {
+                        log.error("Failed to parse tag {}: {}", tagId, error);
+                    });
+                    if (optional.isEmpty()) {
+                        continue;
+                    }
+                    RegistryTagSet registryTagSet = optional.get();
+                    RegistryTagSet.Result<T> parsed = registryTagSet.result(registryProvider);
+                    if (registryTagSet.replace()) {
+                        keys.clear();
+                        ids.clear();
+                    }
+                    keys.addAll(parsed.keys());
+                    ids.addAll(parsed.ids());
 
-            } catch (IOException e) {
-                log.error("Failed to load tag {}: {}", tagId, e.getMessage(), e);
+                } catch (IOException | RuntimeException e) {
+                    log.error("Failed to load tag {} from {}: {}", tagId, resource.sourcePackId(), e.getMessage(), e);
+                }
             }
+            temp.put(tagKey, new RegistryTagSet.Result<>(keys, ids));
         }
         Map<TagKey<T>, List<Holder<T>>> result = new Object2ObjectLinkedOpenHashMap<>();
         for (TagKey<T> tagKey : temp.keySet()) {

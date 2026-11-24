@@ -1,0 +1,121 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_0"
+      },
+      "when": {
+        "facing": "north",
+        "variant": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_0",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "variant": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_0",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "variant": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_0",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "variant": "0"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_1"
+      },
+      "when": {
+        "facing": "north",
+        "variant": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_1",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "variant": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_1",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "variant": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_1",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "variant": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_2"
+      },
+      "when": {
+        "facing": "north",
+        "variant": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_2",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "variant": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_2",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "variant": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "reverie_dreams:block/deadwood/splintered_oak_log_2",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "variant": "2"
+      }
+    }
+  ]
+}

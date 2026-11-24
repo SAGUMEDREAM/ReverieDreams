@@ -9,7 +9,6 @@ import cc.thonly.reverie_dreams.recipe.BaseRecipeType;
 import cc.thonly.reverie_dreams.recipe.entry.GensokyoAltarRecipe;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.item.RDItems;
-import cc.thonly.reverie_dreams.util.item.ItemUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
@@ -33,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
+import cc.thonly.reverie_dreams.recipe.RecipeResourceLoader;
 
 @Slf4j
 public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe> {
@@ -48,27 +48,8 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
     @Override
     public void reload(ResourceManager manager) {
-        Map<Identifier, Resource> resources = manager.listResources((this.getTypeId() + "_recipe"), id -> {
-            return id.getPath().endsWith(".json");
-        });
-        for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
-            Identifier id = entry.getKey();
-            Identifier registryKey = Identifier.fromNamespaceAndPath(id.getNamespace(), id.getPath().replaceFirst("^gensokyo_altar_recipe/", "").replaceAll("\\.json$", ""));
-            Resource resource = entry.getValue();
-            try (InputStream stream = resource.open()) {
-                JsonElement json = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
-                Dynamic<JsonElement> input = new Dynamic<>(JsonOps.INSTANCE, json);
-
-                DataResult<GensokyoAltarRecipe> result = this.getCodec().parse(input);
-
-                result.resultOrPartial(error -> log.error("Failed to load gensokyo altar recipe {}, {}", id, error))
-                      .ifPresent(recipe -> {
-                          this.add(registryKey, recipe);
-                      });
-            } catch (IOException e) {
-                log.error("Failed to load gensokyo altar recipe {}, {}, {}", id, e.getMessage(), e);
-            }
-        }
+        RecipeResourceLoader.load(manager, this.getTypeId() + "_recipe",
+                id -> true, this.getCodec(), this::add);
         this.registerDynamicRecipe();
     }
 
@@ -106,7 +87,8 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
 
         Predicate<Integer> isAllMatch = (amount) -> {
             return IntStream.range(0, 8).allMatch(i ->
-                    ItemComparatorView.of(wrappers.get(i)).test(ItemComparatorView.of(new ItemStack(Items.DIAMOND, amount)))
+                    ItemComparatorView.of(new ItemStack(Items.DIAMOND, amount))
+                            .greaterThan(ItemComparatorView.of(wrappers.get(i)))
             );
         };
 
@@ -136,9 +118,43 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
     }
 
 
+    private static boolean matchesSlot(IngredientStack required, IngredientStack input) {
+        if (required.isEmpty()) {
+            return input.isEmpty();
+        }
+        return ItemComparatorView.of(required).greaterThan(ItemComparatorView.of(input));
+    }
+
+    public SlotIssue findSingleSlotFix(List<IngredientStack> inputs) {
+        if (inputs.size() != 9 || inputs.stream().allMatch(IngredientStack::isEmpty)) return null;
+        SlotIssue suggestion = null;
+        for (GensokyoAltarRecipe recipe : stream().toList()) {
+            int mismatch = -1;
+            int matchedMaterials = 0;
+            for (int slot = 0; slot < 9; slot++) {
+                IngredientStack required = slot == 8 ? recipe.getCore() : recipe.getSlots().get(slot);
+                if (matchesSlot(required, inputs.get(slot))) {
+                    if (!required.isEmpty()) matchedMaterials++;
+                    continue;
+                }
+                if (mismatch >= 0) {
+                    mismatch = -2;
+                    break;
+                }
+                mismatch = slot;
+            }
+            if (mismatch < 0 || matchedMaterials == 0) continue;
+            if (suggestion != null) return null;
+            suggestion = new SlotIssue(mismatch, mismatch == 8 ? recipe.getCore() : recipe.getSlots().get(mismatch));
+        }
+        return suggestion;
+    }
+
+    public record SlotIssue(int index, IngredientStack required) { }
+
     @Override
     public List<GensokyoAltarRecipe> getMatches(List<IngredientStack> wrappers) {
-        if (wrappers.size() < 8)
+        if (wrappers.size() < 9)
             return List.of();
         List<GensokyoAltarRecipe> matches = this.getModifierRecipe(wrappers);
 
@@ -155,15 +171,15 @@ public class GensokyoAltarRecipeType extends BaseRecipeType<GensokyoAltarRecipe>
                 IngredientStack slot7 = slots.get(7);
                 IngredientStack slot8 = recipe.getCore();
                 if (
-                        ItemComparatorView.of(wrappers.get(0)).test(ItemComparatorView.of(slot0)) &&
-                                ItemComparatorView.of(wrappers.get(1)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot1).map(ItemUtils::updateItemStackTag)) &&
-                                ItemComparatorView.of(wrappers.get(2)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot2).map(ItemUtils::updateItemStackTag)) &&
-                                ItemComparatorView.of(wrappers.get(3)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot3).map(ItemUtils::updateItemStackTag)) &&
-                                ItemComparatorView.of(wrappers.get(4)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot4).map(ItemUtils::updateItemStackTag)) &&
-                                ItemComparatorView.of(wrappers.get(5)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot5).map(ItemUtils::updateItemStackTag)) &&
-                                ItemComparatorView.of(wrappers.get(6)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot6).map(ItemUtils::updateItemStackTag)) &&
-                                ItemComparatorView.of(wrappers.get(7)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot7).map(ItemUtils::updateItemStackTag)) &&
-                                ItemComparatorView.of(wrappers.get(8)).map(ItemUtils::updateItemStackTag).test(ItemComparatorView.of(slot8).map(ItemUtils::updateItemStackTag))
+                        matchesSlot(slot0, wrappers.get(0)) &&
+                                matchesSlot(slot1, wrappers.get(1)) &&
+                                matchesSlot(slot2, wrappers.get(2)) &&
+                                matchesSlot(slot3, wrappers.get(3)) &&
+                                matchesSlot(slot4, wrappers.get(4)) &&
+                                matchesSlot(slot5, wrappers.get(5)) &&
+                                matchesSlot(slot6, wrappers.get(6)) &&
+                                matchesSlot(slot7, wrappers.get(7)) &&
+                                matchesSlot(slot8, wrappers.get(8))
                 ) {
                     matches.add(recipe);
                 }

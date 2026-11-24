@@ -18,12 +18,12 @@ public interface SilverArmorMaterial {
     ArmorMaterial INSTANCE = new ArmorMaterial(
             BASE_DURABILITY,
             Map.of(
-                    ArmorType.HELMET, 3,
+                    ArmorType.HELMET, 2,
                     ArmorType.CHESTPLATE, 6,
                     ArmorType.LEGGINGS, 5,
                     ArmorType.BOOTS, 2
             ),
-            5,
+            18,
             SoundEvents.ARMOR_EQUIP_IRON,
             0.0F,
             0.0F,

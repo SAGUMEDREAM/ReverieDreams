@@ -28,7 +28,7 @@ public class RDBuiltInGameRules {
             GameRuleTypeVisitor::visitBoolean,
             Codec.BOOL,
             value -> value ? 1 : 0,
-            true,
+            false,
             FeatureFlagSet.of())
     );
 

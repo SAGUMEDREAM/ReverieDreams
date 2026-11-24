@@ -7,7 +7,8 @@ import cc.thonly.reverie_dreams.entity.npc.NPCSimpleEntity;
 import cc.thonly.reverie_dreams.registry.content.NPCWorkModes;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.server.dialog.music.MusicSelectionDialog;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.nbs.NotaUtils;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerFactory;
 import cc.thonly.reverie_dreams.util.advancements.SimpleTriggerKeys;
@@ -40,6 +41,15 @@ public class MusicalInstrumentItem extends Item {
     }
 
     public InteractionResult useByEntity(Level world, LivingEntity user, InteractionHand hand) {
+        // 玩家潜行右键打开 NBS 选择界面；普通右键仍然直接播放
+        if (!world.isClientSide()
+                && user instanceof ServerPlayer serverPlayer
+                && user.isShiftKeyDown()) {
+            MusicSelectionDialog.openForInstrument(serverPlayer, hand, 0);
+            user.swing(hand);
+            return InteractionResult.SUCCESS_SERVER;
+        }
+
         ItemStack itemByMainSlot = user.getItemInHand(InteractionHand.MAIN_HAND);
         ItemStack itemByOffSlot = user.getItemInHand(InteractionHand.OFF_HAND);
         if (itemByOffSlot.getItem() == DanmakuTypes.NOTE.getItemHolder().asItem()) {
@@ -72,7 +82,7 @@ public class MusicalInstrumentItem extends Item {
                         (ServerLevel) world,
                         user,
                         user.getX(),
-                        user.getY(),
+                        user.getEyeY(),
                         user.getZ(),
                         randomStack,
                         pitch + pitchOffset,
@@ -130,22 +140,22 @@ public class MusicalInstrumentItem extends Item {
         return InteractionResult.SUCCESS_SERVER;
     }
 
-    private void playForMaidEntity(Level world, ServerPlayer player, String playingMusic) {
-        AABB box = player.getBoundingBox().inflate(NotaUtils.MAX_DISTANCE);
+    public void playForMaidEntity(Level world, ServerPlayer player, String playingMusic) {
+        AABB box = player.getBoundingBox().inflate(ReverieDreams.config().npcMusicRange);
         List<NPCSimpleEntity> entities = world.getEntitiesOfClass(
                 NPCSimpleEntity.class,
                 box,
-                e -> e.isAlive() && e.isOwnedBy(player) && e.getWorkMode() == NPCWorkModes.PLAYING_MUSIC
+                e -> e.isAlive() && e.isOwnedBy(player) && e.getWorkController().working(NPCWorkModes.PLAYING_MUSIC)
         );
         for (NPCSimpleEntity e : entities) {
+            e.getWorkController().selectMusic(playingMusic);
+            e.getWorkController().resume(playingMusic, -1);
             ItemStack mainHandStack = e.getMainHandItem();
             ItemStack offHandStack = e.getOffhandItem();
             if (mainHandStack.getItem() instanceof MusicalInstrumentItem) {
                 mainHandStack.set(RDDataComponentTypes.PLAYING_MUSIC.value(), playingMusic);
-                this.useByEntity(world, e, InteractionHand.MAIN_HAND);
             } else if (offHandStack.getItem() instanceof MusicalInstrumentItem) {
                 offHandStack.set(RDDataComponentTypes.PLAYING_MUSIC.value(), playingMusic);
-                this.useByEntity(world, e, InteractionHand.OFF_HAND);
             }
         }
     }

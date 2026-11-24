@@ -6,7 +6,11 @@ import net.minecraft.world.item.ToolMaterial;
 
 public class SwordItem extends Item {
     public SwordItem(ToolMaterial material, float attackDamage, float attackSpeed, Properties settings) {
-        super(settings.sword(material, attackDamage, attackSpeed));
+        this(settings.sword(material, attackDamage, attackSpeed));
+    }
+
+    protected SwordItem(Properties swordProperties) {
+        super(swordProperties);
     }
 
 }

@@ -25,7 +25,8 @@ public record DanmakuBulletSpec(
         float scale,
         float damage,
         int lifetime,
-        DanmakuMotion motion
+        DanmakuMotion motion,
+        boolean interceptable
 ) {
     public static final int DEFAULT_COLOR = -1;
 
@@ -37,8 +38,14 @@ public record DanmakuBulletSpec(
             Codec.FLOAT.optionalFieldOf("scale", 1f).forGetter(DanmakuBulletSpec::scale),
             Codec.FLOAT.optionalFieldOf("damage", 0f).forGetter(DanmakuBulletSpec::damage),
             Codec.INT.optionalFieldOf("lifetime", 0).forGetter(DanmakuBulletSpec::lifetime),
-            DanmakuMotion.CODEC.optionalFieldOf("motion", DanmakuMotion.STRAIGHT).forGetter(DanmakuBulletSpec::motion)
+            DanmakuMotion.CODEC.optionalFieldOf("motion", DanmakuMotion.STRAIGHT).forGetter(DanmakuBulletSpec::motion),
+            Codec.BOOL.optionalFieldOf("interceptable", false).forGetter(DanmakuBulletSpec::interceptable)
     ).apply(instance, DanmakuBulletSpec::new));
+
+    public DanmakuBulletSpec(Identifier type, int color, boolean randomColor, float speed, float scale,
+                             float damage, int lifetime, DanmakuMotion motion) {
+        this(type, color, randomColor, speed, scale, damage, lifetime, motion, false);
+    }
 
     public static DanmakuBulletSpec of(Identifier type) {
         return new DanmakuBulletSpec(type, DEFAULT_COLOR, false, 0f, 1f, 0f, 0, DanmakuMotion.STRAIGHT);
@@ -53,18 +60,22 @@ public record DanmakuBulletSpec(
     }
 
     public DanmakuBulletSpec withColor(int color) {
-        return new DanmakuBulletSpec(this.type, color, this.randomColor, this.speed, this.scale, this.damage, this.lifetime, this.motion);
+        return new DanmakuBulletSpec(this.type, color, this.randomColor, this.speed, this.scale, this.damage, this.lifetime, this.motion, this.interceptable);
     }
 
     public DanmakuBulletSpec withRandomColor() {
-        return new DanmakuBulletSpec(this.type, this.color, true, this.speed, this.scale, this.damage, this.lifetime, this.motion);
+        return new DanmakuBulletSpec(this.type, this.color, true, this.speed, this.scale, this.damage, this.lifetime, this.motion, this.interceptable);
     }
 
     public DanmakuBulletSpec withMotion(DanmakuMotion motion) {
-        return new DanmakuBulletSpec(this.type, this.color, this.randomColor, this.speed, this.scale, this.damage, this.lifetime, motion);
+        return new DanmakuBulletSpec(this.type, this.color, this.randomColor, this.speed, this.scale, this.damage, this.lifetime, motion, this.interceptable);
     }
 
     public DanmakuBulletSpec withLifetime(int lifetime) {
-        return new DanmakuBulletSpec(this.type, this.color, this.randomColor, this.speed, this.scale, this.damage, lifetime, this.motion);
+        return new DanmakuBulletSpec(this.type, this.color, this.randomColor, this.speed, this.scale, this.damage, lifetime, this.motion, this.interceptable);
+    }
+
+    public DanmakuBulletSpec withInterceptable(boolean interceptable) {
+        return new DanmakuBulletSpec(this.type, this.color, this.randomColor, this.speed, this.scale, this.damage, this.lifetime, this.motion, interceptable);
     }
 }

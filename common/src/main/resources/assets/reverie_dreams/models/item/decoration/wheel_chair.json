@@ -1,0 +1,141 @@
+{
+  "parent": "reverie_dreams:block/wheel_chair",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        -45,
+        0
+      ],
+      "translation": [
+        -0.9204,
+        0.5771,
+        2.8653
+      ],
+      "scale": [
+        0.7329,
+        0.7329,
+        0.7329
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "translation": [
+        0.5376,
+        0.4281,
+        0.5376
+      ],
+      "scale": [
+        0.4281,
+        0.4281,
+        0.4281
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        -135,
+        0
+      ],
+      "translation": [
+        -0.5376,
+        0.4281,
+        -0.5376
+      ],
+      "scale": [
+        0.4281,
+        0.4281,
+        0.4281
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0.5041,
+        2.5228,
+        0.8618
+      ],
+      "scale": [
+        0.4014,
+        0.4014,
+        0.4014
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "translation": [
+        0.5041,
+        2.5228,
+        0.8618
+      ],
+      "scale": [
+        0.4014,
+        0.4014,
+        0.4014
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        3.1408,
+        0.1407
+      ],
+      "scale": [
+        0.2676,
+        0.2676,
+        0.2676
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0.5352,
+        0.2815
+      ],
+      "scale": [
+        0.5352,
+        0.5352,
+        0.5352
+      ]
+    },
+    "on_shelf": {
+      "rotation": [
+        0,
+        180,
+        0
+      ],
+      "translation": [
+        0,
+        3.2112,
+        -0.2111
+      ],
+      "scale": [
+        0.4014,
+        0.4014,
+        0.4014
+      ]
+    }
+  }
+}

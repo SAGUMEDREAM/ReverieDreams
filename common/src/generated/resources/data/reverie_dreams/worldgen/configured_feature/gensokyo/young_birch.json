@@ -1,0 +1,24 @@
+{
+  "type": "reverie_dreams:gensokyo_tree",
+  "config": {
+    "crown_radius": 2,
+    "leaves": {
+      "Name": "minecraft:birch_leaves",
+      "Properties": {
+        "distance": "7",
+        "persistent": "false",
+        "waterlogged": "false"
+      }
+    },
+    "log": {
+      "Name": "minecraft:birch_log",
+      "Properties": {
+        "axis": "y"
+      }
+    },
+    "max_height": 12,
+    "min_height": 8,
+    "shape": "birch",
+    "trunk_width": 1
+  }
+}

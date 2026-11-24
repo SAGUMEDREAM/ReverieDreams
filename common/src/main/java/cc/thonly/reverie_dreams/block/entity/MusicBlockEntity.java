@@ -22,6 +22,10 @@ public class MusicBlockEntity extends BlockEntity {
     @Setter
     private String select = null;
     public boolean isFirst = true;
+    /**
+     * 防止 playAt 的 2 tick 延迟任务还没落地时，每个 tick 都重复提交一次播放请求。
+     */
+    private int playCooldown = 0;
 
     public MusicBlockEntity(BlockPos pos, BlockState state) {
         super(RDBlockEntityTypes.MUSIC_BLOCK.value(), pos, state);
@@ -30,32 +34,56 @@ public class MusicBlockEntity extends BlockEntity {
     @Nullable
     public SongPlayer getSelfPlayer() {
         Map<Long, SongPlayer> blockPos2SongPlayer = NotaUtils.blockMusicPlayCache.get(this.level);
-        if (blockPos2SongPlayer == null) return null;
+        if (blockPos2SongPlayer == null)
+            return null;
         return blockPos2SongPlayer.get(this.worldPosition.asLong());
     }
 
     public static synchronized void tick(Level world, BlockPos pos, BlockState state, MusicBlockEntity blockEntity) {
-        if (world.isClientSide()) return;
+        if (world.isClientSide())
+            return;
+
+        if (blockEntity.playCooldown > 0) {
+            blockEntity.playCooldown--;
+        }
 
         boolean hasRedstone = world.hasNeighborSignal(pos);
+        String select = blockEntity.getSelect();
+        boolean hasSelection = select != null && !select.isEmpty();
 
         Map<Long, SongPlayer> blockPos2SongPlayer = NotaUtils.blockMusicPlayCache.computeIfAbsent(world, w -> new HashMap<>());
         SongPlayer songPlayer = blockPos2SongPlayer.get(pos.asLong());
 
-        if (hasRedstone && blockEntity.isFirst && blockEntity.select != null) {
-            blockEntity.isFirst = false;
-            NotaUtils.playAt(world, pos, blockEntity.getSelect());
+        if (hasRedstone && blockEntity.isFirst && hasSelection) {
+            blockEntity.startPlayback();
             return;
         }
 
-        if (hasRedstone && songPlayer == null) {
-            NotaUtils.playAt(world, pos, blockEntity.getSelect());
+        // playAt 有 2 tick 延迟；cooldown 避免在 SongPlayer 真正进入缓存前每秒重复创建。
+        if (hasRedstone && (songPlayer == null || !songPlayer.isPlaying())
+                && hasSelection && blockEntity.playCooldown <= 0) {
+            blockEntity.startPlayback();
             return;
         }
 
-        if (!hasRedstone && songPlayer != null && songPlayer.isPlaying()) {
-            songPlayer.setPlaying(false);
+        if (!hasRedstone && songPlayer != null) {
+            songPlayer.destroy();
             blockPos2SongPlayer.remove(pos.asLong());
+        }
+    }
+
+    /**
+     * 所有“现在开始播放”的入口都走这里，统一设置 isFirst/cooldown，
+     * 避免邻居更新、方块 tick 和 Dialog 同时提交多个 playAt 延迟任务。
+     */
+    public void startPlayback() {
+        if (this.select == null || this.select.isEmpty()) {
+            return;
+        }
+        this.isFirst = false;
+        this.playCooldown = 10;
+        if (this.level != null && !this.level.isClientSide()) {
+            NotaUtils.playAt(this.level, this.worldPosition, this.select);
         }
     }
 
@@ -68,7 +96,7 @@ public class MusicBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
-        this.select = view.getStringOr("Select","");
+        this.select = view.getStringOr("Select", "");
     }
 
     public int play() {
@@ -77,18 +105,18 @@ public class MusicBlockEntity extends BlockEntity {
             return -1;
         }
 
-        if (this.level != null && !this.level.isClientSide()) {
-            NotaUtils.playAt(level, worldPosition, select);
-        }
+        this.startPlayback();
         return filenames.indexOf(select);
     }
 
     public int prev() {
         List<String> filenames = this.getFilenames();
-        if (filenames.isEmpty()) return -1;
+        if (filenames.isEmpty())
+            return -1;
 
         int index = select == null ? 0 : filenames.indexOf(select);
-        if (index == -1) index = 0;
+        if (index == -1)
+            index = 0;
 
         index = (index - 1 + filenames.size()) % filenames.size();
         this.select = filenames.get(index);
@@ -98,7 +126,8 @@ public class MusicBlockEntity extends BlockEntity {
 
     public int next() {
         List<String> filenames = this.getFilenames();
-        if (filenames.isEmpty()) return -1;
+        if (filenames.isEmpty())
+            return -1;
 
         int index = select == null ? -1 : filenames.indexOf(select);
         index = (index + 1) % filenames.size();

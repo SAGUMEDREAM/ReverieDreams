@@ -79,8 +79,7 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
                             serverWorld.sendParticles(serverPlayerEntity, ParticleTypes.PORTAL, true, false, offset[0] + 0.5, pos.getY(), offset[1] + 0.5, 800, 3, 5, 3, 0.5);
                         }
                     }
-                    inventory.clearContent();
-                    inventory.setItem(8, craft.getOutput().getLazyStack().copy());
+                    consumeRecipe(inventory, craft, serverPlayer);
                     world.playSound(null, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS);
                     blockEntity.setChanged();
                     SimpleTriggerFactory.create(SimpleTriggerKeys.GENSOKYO_ALTAR_CRAFTING).trigger(serverPlayer);
@@ -110,58 +109,68 @@ public class GensokyoAltarBlock extends BaseEntityBlock {
         return super.playerWillDestroy(world, pos, state, player);
     }
 
+    private static void consumeRecipe(SimpleContainer inventory, GensokyoAltarRecipe recipe, ServerPlayer player) {
+        for (int i = 0; i < 8; i++) {
+            IngredientStack required = recipe.getSlots().get(i);
+            if (required.isEmpty()) {
+                continue;
+            }
+            ItemStack stack = inventory.getItem(i);
+            stack.shrink(Math.min(required.getCount(), stack.getCount()));
+        }
+
+        IngredientStack requiredCore = recipe.getCore();
+        ItemStack coreStack = inventory.getItem(8);
+        if (!requiredCore.isEmpty() && !coreStack.isEmpty()) {
+            int consumed = Math.min(requiredCore.getCount(), coreStack.getCount());
+            if (coreStack.getCount() > consumed) {
+                ItemStack leftover = coreStack.copy();
+                leftover.setCount(coreStack.getCount() - consumed);
+                if (!player.getInventory().add(leftover)) {
+                    player.drop(leftover, false);
+                }
+            }
+            coreStack.shrink(consumed);
+        }
+
+        // 输出槽与核心槽共用 slot 8：先取出剩余的 core，再放入结果。
+        inventory.setItem(8, recipe.getOutput().getLazyStack().copy());
+    }
+
     protected GensokyoAltarRecipe tryCraft(SimpleContainer inventory, BlockPos pos) {
-        List<GensokyoAltarRecipe> matches = GensokyoAltarRecipeType.getInstance().getMatches(List.of(
-                new IngredientStack(inventory.getItem(0)),
-                new IngredientStack(inventory.getItem(1)),
-                new IngredientStack(inventory.getItem(2)),
-                new IngredientStack(inventory.getItem(3)),
-                new IngredientStack(inventory.getItem(4)),
-                new IngredientStack(inventory.getItem(5)),
-                new IngredientStack(inventory.getItem(6)),
-                new IngredientStack(inventory.getItem(7)),
-                new IngredientStack(inventory.getItem(8))
-        ));
+        List<GensokyoAltarRecipe> matches = GensokyoAltarRecipeType.getInstance().getMatches(readIngredients(inventory));
         if (matches.isEmpty()) {
             return null;
         }
         return matches.getFirst();
     }
 
+    public static List<IngredientStack> readIngredients(SimpleContainer inventory) {
+        return java.util.stream.IntStream.range(0, 9)
+                .mapToObj(slot -> new IngredientStack(inventory.getItem(slot).copy()))
+                .toList();
+    }
+
     public boolean testStructure(Level world, BlockPos center) {
-        Block blockType = RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().asBlock();
-        Block topBlockType = RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asBlock();
+        return this.findStructureIssue(world, center) == null;
+    }
 
-        for (int dy = 0; dy <= 2; dy++) {
-
-            boolean isTopLayer = (dy == 2);
-
-            for (int i = 0; i < OFFSETS.length; i++) {
+    public StructureIssue findStructureIssue(Level world, BlockPos center) {
+        Block base = RDWoodBlocks.SPIRITUAL_BUNDLE.strippedLog().asBlock();
+        Block top = RDWoodBlocks.BLESSED_SPIRITUAL_LOG.asBlock();
+        for (int y = 0; y <= 2; y++) {
+            Block expected = y == 2 ? top : base;
+            for (int i = 0; i < OFFSETS.length - 1; i++) {
                 int[] offset = OFFSETS[i];
-
-                if (i == 8)
-                    continue;
-
-                BlockPos checkPos = center.offset(offset[0], dy, offset[1]);
-                Block blockAtPos = world.getBlockState(checkPos).getBlock();
-
-                if (isTopLayer) {
-                    if (blockAtPos != topBlockType) {
-//                        System.out.println("e1");
-                        return false;
-                    }
-                } else {
-                    if (blockAtPos != blockType) {
-//                        System.out.println("chest=%s at=%s, test=%s".formatted(checkPos, blockAtPos, blockType));
-//                        System.out.println("e2");
-                        return false;
-                    }
+                if (!world.getBlockState(center.offset(offset[0], y, offset[1])).is(expected)) {
+                    return new StructureIssue(offset[0], y, offset[1], expected);
                 }
             }
         }
-
-        return true;
+        return null;
     }
+
+    public record StructureIssue(int x, int y, int z, Block expected) { }
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {

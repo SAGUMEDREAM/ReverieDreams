@@ -5,6 +5,8 @@ import cc.thonly.reverie_dreams.registry.tag.RDBlockTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,23 +16,25 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
+import okio.Source;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DeathScytheItem extends SwordItem {
-    public static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 1561, 8.5f, 5.5f, 10, ItemTags.NETHERITE_TOOL_MATERIALS);
+    public static final ToolMaterial TOOL_MATERIAL = new ToolMaterial(RDBlockTags.EMPTY, 1200, 7.5f, 4.5f, 12, ItemTags.NETHERITE_TOOL_MATERIALS);
     private static final double SWEEP_RADIUS = 2.5;
 
     public DeathScytheItem(float attackDamage, float attackSpeed, Properties settings) {
-        super(TOOL_MATERIAL, attackDamage, attackSpeed, settings.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder().add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Identifier.withDefaultNamespace("base_attack_range"), 5.0f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HAND).build()));
+        super(TOOL_MATERIAL, attackDamage, attackSpeed, settings.component(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.builder().add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(Identifier.withDefaultNamespace("base_attack_range"), 3.0f, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.HAND).build()));
     }
 
     @Override
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level world = target.level();
         if (!world.isClientSide() && world instanceof ServerLevel serverWorld) {
-            if (ThreadLocalRandom.current().nextFloat() < 0.28f) {
-                attacker.setHealth(attacker.getHealth() + 3);
+            if (ThreadLocalRandom.current().nextFloat() < 0.39f) {
+                world.playSound(null, target.getOnPos(), SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, SoundSource.PLAYERS, 1.0f, 1.0f);
+                attacker.setHealth(Math.min(attacker.getMaxHealth(), attacker.getHealth() + 1.5f));
             }
         }
         super.hurtEnemy(stack, target, attacker);

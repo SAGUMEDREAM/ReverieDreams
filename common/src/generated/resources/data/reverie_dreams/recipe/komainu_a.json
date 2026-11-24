@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " SS",
+    "SCS",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:stone",
+    "C": "minecraft:clay_ball"
+  },
+  "result": {
+    "id": "reverie_dreams:komainu_a",
+    "count": 1
+  }
+}

@@ -12,23 +12,23 @@ import org.joml.Vector3f;
 
 import java.util.function.DoubleUnaryOperator;
 
+import net.minecraft.core.Direction;
+
 
 public class Steamer extends AbstractKitchenwareBlock {
     public Steamer(DoubleUnaryOperator bonusOperator, Double failureProbability, Properties settings) {
         super(bonusOperator, failureProbability, new Vector3f(1f), new Vec3(0, 0, 0), settings);
     }
-    public static final VoxelShape SHAPE = Block.box(
-            2, 0, 2,
-            14, 8, 14
-    );
+
+    public static final VoxelShape SHAPE = KitchenwareShapes.outline("steamer", Direction.NORTH);
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return KitchenwareShapes.outline(state, "steamer");
     }
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return !PlatformContext.hasPolymer() ? SHAPE : NONE;
+        return !PlatformContext.hasPolymer() ? getShape(state, level, pos, context) : NONE;
     }
 }

@@ -29,7 +29,7 @@ public enum SixteenDirection implements StringRepresentable {
 
     public static SixteenDirection fromYaw(double yaw) {
         double adjustedYaw = yaw + 180;
-        int index = Math.floorMod((int)Math.round(adjustedYaw / 22.5), 16);
+        int index = Math.floorMod((int) Math.round(adjustedYaw / 22.5), 16);
         return values()[index];
     }
 

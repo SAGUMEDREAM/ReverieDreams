@@ -1,7 +1,9 @@
 package cc.thonly.reverie_dreams.recipe.crafting;
 
 import cc.thonly.reverie_dreams.item.danmaku.DanmakuItem;
+import cc.thonly.reverie_dreams.item.danmaku.SpellcardItem;
 import cc.thonly.reverie_dreams.recipe.RecipeManager;
+import cc.thonly.reverie_dreams.registry.content.danmaku.DanmakuTypes;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -39,7 +41,14 @@ public class DanmakuDyeRecipe extends CustomRecipe {
         for (int i = 0; i < craftingInput.size(); ++i) {
             ItemStack itemStack = craftingInput.getItem(i);
             if (itemStack.isEmpty()) continue;
-            if (itemStack.getItem() instanceof DanmakuItem) {
+            if (itemStack.getItem() instanceof DanmakuItem danmaku) {
+                if (bl || !canDye(danmaku)) {
+                    return false;
+                }
+                bl = true;
+                continue;
+            }
+            if (itemStack.getItem() instanceof SpellcardItem) {
                 if (bl) {
                     return false;
                 }
@@ -62,7 +71,7 @@ public class DanmakuDyeRecipe extends CustomRecipe {
         for (int i = 0; i < craftingInput.size(); ++i) {
             ItemStack itemStack2 = craftingInput.getItem(i);
             if (itemStack2.isEmpty()) continue;
-            if (itemStack2.getItem() instanceof DanmakuItem) {
+            if (itemStack2.getItem() instanceof DanmakuItem || itemStack2.getItem() instanceof SpellcardItem) {
                 if (!itemStack.isEmpty()) {
                     return ItemStack.EMPTY;
                 }
@@ -86,7 +95,11 @@ public class DanmakuDyeRecipe extends CustomRecipe {
         int s;
         int p;
         int o;
-        if (!(stack.getItem() instanceof DanmakuItem)) {
+        if (stack.getItem() instanceof DanmakuItem danmaku) {
+            if (!canDye(danmaku)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (!(stack.getItem() instanceof SpellcardItem)) {
             return ItemStack.EMPTY;
         }
         ItemStack itemStack = stack.copyWithCount(1);
@@ -126,12 +139,18 @@ public class DanmakuDyeRecipe extends CustomRecipe {
         o = (int) ((float) o * f / g);
         p = (int) ((float) p * f / g);
         s = ARGB.color(0, n, o, p);
-        Component hoverName = stack.getHoverName();
-        Style style = hoverName.getStyle().withColor(s);
-        Component colored = hoverName.copy().setStyle(style);
-        itemStack.set(DataComponents.ITEM_NAME, colored);
+        if (stack.getItem() instanceof DanmakuItem) {
+            Component hoverName = stack.getHoverName();
+            Style style = hoverName.getStyle().withColor(s);
+            Component colored = hoverName.copy().setStyle(style);
+            itemStack.set(DataComponents.ITEM_NAME, colored);
+        }
         itemStack.set(DataComponents.DYED_COLOR, new DyedItemColor(s));
         return itemStack;
+    }
+
+    private static boolean canDye(DanmakuItem item) {
+        return item.type() != DanmakuTypes.LASER && item.type() != DanmakuTypes.BIG_LASER;
     }
 
     @Override
