@@ -4,7 +4,7 @@ import cc.thonly.reverie_dreams.api.proxy.TenguCameraItemUse;
 import cc.thonly.reverie_dreams.registry.content.advancements.RDCriteriaTriggers;
 import cc.thonly.reverie_dreams.registry.content.component.RDDataComponentTypes;
 import cc.thonly.reverie_dreams.registry.tag.RDItemTags;
-import cc.thonly.reverie_dreams.sound.RDSoundEvents;
+import cc.thonly.reverie_dreams.registry.content.sound.RDSoundEvents;
 import cc.thonly.reverie_dreams.util.sound.SoundEventPlayUtils;
 import de.tomalbrc.cameraobscura.ModConfig;
 import de.tomalbrc.cameraobscura.command.CameraCommand;
